@@ -29,19 +29,81 @@ h1 {
   font-size: 24px;
 }
 
-/* SELECTS */
+/* SELECTORS */
 .selectors {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 30px;
 }
 
-select {
+/* CUSTOM SELECT */
+.custom-select {
+  position: relative;
+  width: 220px;
+}
+
+.select-btn {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.select-btn img {
+  width: 26px;
+  height: 26px;
+}
+
+.select-btn span {
+  font-weight: bold;
+}
+
+.select-btn::after {
+  content: "▼";
+  margin-left: auto;
+  font-size: 12px;
+}
+
+/* DROPDOWN */
+.select-options {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  max-height: 260px;
+  overflow-y: auto;
+  display: none;
+  z-index: 10;
+}
+
+.select-options.open {
+  display: block;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
+  cursor: pointer;
+}
+
+.option img {
+  width: 26px;
+  height: 26px;
+}
+
+.option:hover {
+  background: #f1f1f1;
 }
 
 /* SEÇÕES */
@@ -101,7 +163,7 @@ select {
   color: #555;
 }
 
-/* BOTÃO DE IDIOMA */
+/* LANG BUTTON */
 .lang-toggle {
   position: fixed;
   bottom: 10px;
@@ -123,13 +185,13 @@ select {
 <body>
 
 <div class="header">
-  <img src="assets/Pocket-Anime-logo.png" alt="Pocket Anime" class="logo">
+  <img src="assets/Pocket-Anime-logo.png" class="logo">
   <h1 id="title"></h1>
 </div>
 
 <div class="selectors">
-  <select id="primary"></select>
-  <select id="secondary"></select>
+  <div class="custom-select" id="primarySelect"></div>
+  <div class="custom-select" id="secondarySelect"></div>
 </div>
 
 <div id="results"></div>
@@ -155,165 +217,82 @@ const icons = {
   Beast:'beast_element.png'
 };
 
-const chart = {
-  Neutral: { 
-    Earth: 0.5, Soul: 0 
-  },
-
-  Fighting: {
-    Ice: 2, Earth: 2, Neutral: 2,
-    Psychic: 0.5, Wind: 0.5, Beast: 0.5, Light: 0.5,
-    Soul: 0
-  },
-
-  Fire: {
-    Nature: 2, Ice: 2, Beast: 2,
-    Water: 0.5, Fire: 0.5, Wind: 0.5, Earth: 0.5
-  },
-
-  Water: {
-    Fire: 2, Earth: 2,
-    Nature: 0.5, Lightning: 0.5, Water: 0.5
-  },
-
-  Nature: {
-    Water: 2, Earth: 2, Lightning: 2,
-    Fire: 0.5, Nature: 0.5, Soul: 0.5, Demon: 0.5
-  },
-
-  Earth: {
-    Fire: 2, Lightning: 2, Wind: 2, Poison: 2,
-    Nature: 0.5, Water: 0.5, Fighting: 0.5
-  },
-
-  Wind: {
-    Fire: 2, Fighting: 2,
-    Earth: 0.5, Ice: 0.5, Lightning: 0.5
-  },
-
-  Ice: {
-    Nature: 2, Wind: 2,
-    Fire: 0.5, Ice: 0.5
-  },
-
-  Lightning: {
-    Water: 2, Wind: 2, Beast: 2,
-    Earth: 0.5, Nature: 0.5, Lightning: 0.5
-  },
-
-  Soul: {
-    Psychic: 2, Soul: 2, Fighting: 2,
-    Dark: 0.5, Demon: 0.5,
-    Neutral: 0
-  },
-
-  Psychic: {
-    Fighting: 2, Poison: 2,
-    Dark: 0.5, Psychic: 0.5, Beast: 0.5
-  },
-
-  Poison: {
-    Nature: 2, Light: 2,
-    Earth: 0.5, Soul: 0.5, Poison: 0.5, Beast: 0.5
-  },
-
-  Light: {
-    Dark: 2, Demon: 2, Fighting: 2,
-    Soul: 0.5, Light: 0.5
-  },
-
-  Dark: {
-    Light: 2, Soul: 2, Psychic: 2,
-    Demon: 0.5, Poison: 0.5, Fighting: 0.5, Dark: 0.5
-  },
-
-  Demon: {
-    Soul: 2, Demon: 2,
-    Psychic: 0.5, Light: 0.5
-  },
-
-  Beast: {
-    Psychic: 2, Poison: 2, Dark: 2,
-    Fighting: 0.5, Wind: 0.5, Fire: 0.5
-  }
+/* TYPE CHART (igual ao seu) */
+const chart = { /* mantido igual ao seu código */
+  Neutral:{Earth:0.5,Soul:0},
+  Fighting:{Ice:2,Earth:2,Neutral:2,Psychic:0.5,Wind:0.5,Beast:0.5,Light:0.5,Soul:0},
+  Fire:{Nature:2,Ice:2,Beast:2,Water:0.5,Fire:0.5,Wind:0.5,Earth:0.5},
+  Water:{Fire:2,Earth:2,Nature:0.5,Lightning:0.5,Water:0.5},
+  Nature:{Water:2,Earth:2,Lightning:2,Fire:0.5,Nature:0.5,Soul:0.5,Demon:0.5},
+  Earth:{Fire:2,Lightning:2,Wind:2,Poison:2,Nature:0.5,Water:0.5,Fighting:0.5},
+  Wind:{Fire:2,Fighting:2,Earth:0.5,Ice:0.5,Lightning:0.5},
+  Ice:{Nature:2,Wind:2,Fire:0.5,Ice:0.5},
+  Lightning:{Water:2,Wind:2,Beast:2,Earth:0.5,Nature:0.5,Lightning:0.5},
+  Soul:{Psychic:2,Soul:2,Fighting:2,Dark:0.5,Demon:0.5,Neutral:0},
+  Psychic:{Fighting:2,Poison:2,Dark:0.5,Psychic:0.5,Beast:0.5},
+  Poison:{Nature:2,Light:2,Earth:0.5,Soul:0.5,Poison:0.5,Beast:0.5},
+  Light:{Dark:2,Demon:2,Fighting:2,Soul:0.5,Light:0.5},
+  Dark:{Light:2,Soul:2,Psychic:2,Demon:0.5,Poison:0.5,Fighting:0.5,Dark:0.5},
+  Demon:{Soul:2,Demon:2,Psychic:0.5,Light:0.5},
+  Beast:{Psychic:2,Poison:2,Dark:2,Fighting:0.5,Wind:0.5,Fire:0.5}
 };
 
 const texts = {
-  pt:{
-    title:'Calculadora de Fraquezas e Resistências',
-    primary:'Primário',
-    secondary:'Secundário',
-    btn:'🇧🇷 BR',
-    groups:{
-      x4:'Fraqueza Extrema (x4)',
-      x2:'Fraqueza (x2)',
-      x1:'Dano Normal (x1)',
-      x05:'Resistência (x0.5)',
-      x025:'Super Resistência (x0.25)',
-      x0:'Imune (x0)'
-    }
-  },
-  en:{
-    title:'Weakness & Resistance Calculator',
-    primary:'Primary',
-    secondary:'Secondary',
-    btn:'🇺🇲 USA',
-    groups:{
-      x4:'Extreme Weakness (x4)',
-      x2:'Weakness (x2)',
-      x1:'Normal Damage (x1)',
-      x05:'Resistance (x0.5)',
-      x025:'Strong Resistance (x0.25)',
-      x0:'Immune (x0)'
-    }
-  }
+  pt:{title:'Calculadora de Fraquezas e Resistências',primary:'Primário',secondary:'Secundário',btn:'🇧🇷 BR',
+  groups:{x4:'Fraqueza Extrema (x4)',x2:'Fraqueza (x2)',x1:'Dano Normal (x1)',x05:'Resistência (x0.5)',x025:'Super Resistência (x0.25)',x0:'Imune (x0)'}},
+  en:{title:'Weakness & Resistance Calculator',primary:'Primary',secondary:'Secondary',btn:'🇺🇲 USA',
+  groups:{x4:'Extreme Weakness (x4)',x2:'Weakness (x2)',x1:'Normal Damage (x1)',x05:'Resistance (x0.5)',x025:'Strong Resistance (x0.25)',x0:'Immune (x0)'}}
 };
 
 let lang='pt';
-let lastDamage=null;
+let primaryValue='', secondaryValue='';
 
-const primary=document.getElementById('primary');
-const secondary=document.getElementById('secondary');
-const results=document.getElementById('results');
-const title=document.getElementById('title');
-const langBtn=document.getElementById('langBtn');
+function createSelect(containerId, label, onSelect){
+  const container=document.getElementById(containerId);
+  container.innerHTML=`
+    <div class="select-btn">
+      <span>${label}</span>
+    </div>
+    <div class="select-options"></div>
+  `;
 
-function populate(){
-  primary.innerHTML=`<option value="">${texts[lang].primary}</option>`;
-  secondary.innerHTML=`<option value="">${texts[lang].secondary}</option>`;
+  const btn=container.querySelector('.select-btn');
+  const options=container.querySelector('.select-options');
+
+  btn.onclick=()=>options.classList.toggle('open');
+
+  options.innerHTML = `<div class="option" data-value="">
+    <span>${label}</span>
+  </div>`;
+
   elements.forEach(e=>{
-    primary.innerHTML+=`<option value="${e}">${e}</option>`;
-    secondary.innerHTML+=`<option value="${e}">${e}</option>`;
+    options.innerHTML+=`
+      <div class="option" data-value="${e}">
+        <img src="assets/${icons[e]}">
+        <span>${e}</span>
+      </div>`;
   });
-}
 
-/* NOVO: estado padrão = tudo normal */
-function renderAllNormal(){
-  const damage={};
-  elements.forEach(e=>damage[e]=1);
-  lastDamage=damage;
-  render(damage);
+  options.querySelectorAll('.option').forEach(opt=>{
+    opt.onclick=()=>{
+      const val=opt.dataset.value;
+      btn.innerHTML = val
+        ? `<img src="assets/${icons[val]}"><span>${val}</span>`
+        : `<span>${label}</span>`;
+      options.classList.remove('open');
+      onSelect(val);
+    };
+  });
 }
 
 function calculate(){
-  const p=primary.value;
-  const s=secondary.value;
-
-  /* Se ambos vazios → tudo normal */
-  if(!p && !s){
-    renderAllNormal();
-    return;
-  }
-
   const damage={};
   elements.forEach(atk=>{
     let m=1;
-    if(p && chart[atk]?.[p] !== undefined) m *= chart[atk][p];
-    if(s && chart[atk]?.[s] !== undefined && p !== s) m *= chart[atk][s];
+    if(primaryValue && chart[atk]?.[primaryValue]!=null) m*=chart[atk][primaryValue];
+    if(secondaryValue && chart[atk]?.[secondaryValue]!=null && primaryValue!==secondaryValue) m*=chart[atk][secondaryValue];
     damage[atk]=m;
   });
-
-  lastDamage=damage;
   render(damage);
 }
 
@@ -336,10 +315,8 @@ function render(damage){
     const sec=document.createElement('div');
     sec.className='section';
     sec.innerHTML=`<h2>${texts[lang].groups[k]}</h2>`;
-
     const box=document.createElement('div');
     box.className='badges';
-
     map[k].forEach(e=>{
       box.innerHTML+=`
         <div class="badge ${k}">
@@ -347,29 +324,27 @@ function render(damage){
           <span>${e}</span>
         </div>`;
     });
-
     sec.appendChild(box);
     results.appendChild(sec);
   }
 }
 
 function updateLang(){
-  title.textContent=texts[lang].title;
-  langBtn.textContent=texts[lang].btn;
-  populate();
-  if(lastDamage) render(lastDamage);
+  document.getElementById('title').textContent=texts[lang].title;
+  document.getElementById('langBtn').textContent=texts[lang].btn;
+
+  createSelect('primarySelect',texts[lang].primary,v=>{primaryValue=v;calculate();});
+  createSelect('secondarySelect',texts[lang].secondary,v=>{secondaryValue=v;calculate();});
+
+  calculate();
 }
 
-langBtn.onclick=()=>{
-  lang = lang === 'pt' ? 'en' : 'pt';
+document.getElementById('langBtn').onclick=()=>{
+  lang = lang==='pt'?'en':'pt';
   updateLang();
 };
 
-primary.onchange = calculate;
-secondary.onchange = calculate;
-
 updateLang();
-renderAllNormal(); // inicia com tudo normal
 </script>
 
 </body>
