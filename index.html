@@ -88,10 +88,7 @@ const elements = [
   chart[ATAQUE][DEFESA] = multiplicador
 */
 const chart = {
-  Neutral: {
-    Earth: 0.5,
-    Soul: 0
-  },
+  Neutral: { Earth: 0.5, Soul: 0 },
 
   Fighting: {
     Ice: 2, Earth: 2, Neutral: 2,
@@ -196,12 +193,21 @@ function calculate() {
   elements.forEach(atk => {
     let mult = 1;
 
-    if (p && chart[atk]?.[p] !== undefined) {
-      mult *= chart[atk][p];
-    }
+    // Se primário e secundário forem iguais, aplica apenas uma vez
+    if (p && s && p === s) {
+      if (chart[atk]?.[p] !== undefined) {
+        mult *= chart[atk][p];
+      }
+    } 
+    // Se forem diferentes, combina normalmente
+    else {
+      if (p && chart[atk]?.[p] !== undefined) {
+        mult *= chart[atk][p];
+      }
 
-    if (s && chart[atk]?.[s] !== undefined) {
-      mult *= chart[atk][s];
+      if (s && chart[atk]?.[s] !== undefined) {
+        mult *= chart[atk][s];
+      }
     }
 
     damage[atk] = mult;
