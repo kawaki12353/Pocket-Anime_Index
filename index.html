@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pocket Anime - Calculadora de Tipos</title>
+<title>Pocket Anime - Type Calculator</title>
 
 <style>
 body {
@@ -89,6 +89,32 @@ select {
 .x05  { background: #388e3c; }
 .x025 { background: #1b5e20; }
 .x0   { background: #6a1b9a; }
+
+/* MADE BY */
+.madeby {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* BOTÃO DE IDIOMA */
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
 </style>
 </head>
 
@@ -96,7 +122,7 @@ select {
 
 <img src="assets/Pocket-Anime-logo.png" alt="Pocket Anime" class="logo">
 
-<h1>Calculadora de Fraquezas e Resistências</h1>
+<h1 id="title"></h1>
 
 <div class="selectors">
   <select id="primary"></select>
@@ -105,33 +131,37 @@ select {
 
 <div id="results"></div>
 
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
+
+<div class="madeby">Made by Kawaki</div>
+
 <script>
 const elements = [
   'Neutral','Fighting','Fire','Water','Nature','Earth','Wind','Ice',
   'Lightning','Soul','Psychic','Poison','Light','Dark','Demon','Beast'
 ];
 
-/* MAPA DE ÍCONES */
 const icons = {
-  Neutral:   'neutral_element.png',
-  Fire:      'fire_element.png',
-  Water:     'water_element.png',
-  Nature:    'nature_element.png',
-  Earth:     'earth_element.png',
-  Wind:      'wind_element.png',
-  Ice:       'ice_element.png',
-  Lightning: 'lightning_element.png',
-  Soul:      'soul_element.png',
-  Psychic:   'psychic_element.png',
-  Demon:     'demon_element.png',
-  Poison:    'poison_element.png',
-  Fighting:  'fighting_element.png',
-  Light:     'light_element.png',
-  Dark:      'dark_element.png',
-  Beast:     'beast_element.png'
+  Neutral:'neutral_element.png', 
+  Fire:'fire_element.png', 
+  Water:'water_element.png',
+  Nature:'nature_element.png', 
+  Earth:'earth_element.png', 
+  Wind:'wind_element.png',
+  Ice:'ice_element.png', 
+  Lightning:'lightning_element.png', 
+  Soul:'soul_element.png',
+  Psychic:'psychic_element.png', 
+  Demon:'demon_element.png', 
+  Poison:'poison_element.png',
+  Fighting:'fighting_element.png', 
+  Light:'light_element.png', 
+  Dark:'dark_element.png',
+  Beast:'beast_element.png'
 };
 
-/* TABELA DE EFETIVIDADE */
 const chart = {
   Neutral: { Earth: 0.5, Soul: 0 },
 
@@ -213,94 +243,113 @@ const chart = {
   }
 };
 
-const primary   = document.getElementById('primary');
-const secondary = document.getElementById('secondary');
-const results   = document.getElementById('results');
+const texts = {
+  pt:{
+    title:'Calculadora de Fraquezas e Resistências',
+    primary:'Primário',
+    secondary:'Secundário',
+    btn:'🇧🇷 BR',
+    groups:{
+      x4:'Fraqueza Extrema (x4)',
+      x2:'Fraqueza (x2)',
+      x1:'Dano Normal (x1)',
+      x05:'Resistência (x0.5)',
+      x025:'Super Resistência (x0.25)',
+      x0:'Imune (x0)'
+    }
+  },
+  en:{
+    title:'Weakness & Resistance Calculator',
+    primary:'Primary',
+    secondary:'Secondary',
+    btn:'🇺🇲 USA',
+    groups:{
+      x4:'Extreme Weakness (x4)',
+      x2:'Weakness (x2)',
+      x1:'Normal Damage (x1)',
+      x05:'Resistance (x0.5)',
+      x025:'Strong Resistance (x0.25)',
+      x0:'Immune (x0)'
+    }
+  }
+};
 
-function populate() {
-  primary.innerHTML   = '<option value="">Primário</option>';
-  secondary.innerHTML = '<option value="">Secundário</option>';
-  elements.forEach(el => {
-    primary.innerHTML   += `<option value="${el}">${el}</option>`;
-    secondary.innerHTML += `<option value="${el}">${el}</option>`;
+let lang='pt';
+
+const primary=document.getElementById('primary');
+const secondary=document.getElementById('secondary');
+const results=document.getElementById('results');
+const title=document.getElementById('title');
+const langBtn=document.getElementById('langBtn');
+
+function populate(){
+  primary.innerHTML=`<option value="">${texts[lang].primary}</option>`;
+  secondary.innerHTML=`<option value="">${texts[lang].secondary}</option>`;
+  elements.forEach(e=>{
+    primary.innerHTML+=`<option value="${e}">${e}</option>`;
+    secondary.innerHTML+=`<option value="${e}">${e}</option>`;
   });
 }
 
-function calculate() {
-  const p = primary.value;
-  const s = secondary.value;
-  if (!p && !s) return;
-
-  const damage = {};
-
-  elements.forEach(atk => {
-    let mult = 1;
-
-    if (p && s && p === s) {
-      if (chart[atk]?.[p] !== undefined) mult *= chart[atk][p];
-    } else {
-      if (p && chart[atk]?.[p] !== undefined) mult *= chart[atk][p];
-      if (s && chart[atk]?.[s] !== undefined) mult *= chart[atk][s];
-    }
-
-    damage[atk] = mult;
+function calculate(){
+  const p=primary.value,s=secondary.value;
+  if(!p&&!s)return;
+  const damage={};
+  elements.forEach(atk=>{
+    let m=1;
+    if(p&&chart[atk]?.[p]!=undefined)m*=chart[atk][p];
+    if(s&&chart[atk]?.[s]!=undefined&&p!==s)m*=chart[atk][s];
+    damage[atk]=m;
   });
-
   render(damage);
 }
 
-function render(damage) {
-  results.innerHTML = '';
-
-  const groups = {
-    'Fraqueza Extrema (x4)': 'x4',
-    'Fraqueza (x2)': 'x2',
-    'Dano Normal (x1)': 'x1',
-    'Resistência (x0.5)': 'x05',
-    'Super Resistência (x0.25)': 'x025',
-    'Imune (x0)': 'x0'
-  };
-
-  const mapped = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
-
-  for (const el in damage) {
-    const v = damage[el];
-    if (v === 0) mapped.x0.push(el);
-    else if (v === 0.25) mapped.x025.push(el);
-    else if (v === 0.5) mapped.x05.push(el);
-    else if (v === 2) mapped.x2.push(el);
-    else if (v === 4) mapped.x4.push(el);
-    else mapped.x1.push(el);
+function render(damage){
+  results.innerHTML='';
+  const map={x4:[],x2:[],x1:[],x05:[],x025:[],x0:[]};
+  for(const e in damage){
+    const v=damage[e];
+    if(v===0)map.x0.push(e);
+    else if(v===0.25)map.x025.push(e);
+    else if(v===0.5)map.x05.push(e);
+    else if(v===2)map.x2.push(e);
+    else if(v===4)map.x4.push(e);
+    else map.x1.push(e);
   }
-
-  for (const title in groups) {
-    const key = groups[title];
-    if (!mapped[key].length) continue;
-
-    const section = document.createElement('div');
-    section.className = 'section';
-    section.innerHTML = `<h2>${title}</h2>`;
-
-    const box = document.createElement('div');
-    box.className = 'badges';
-
-    mapped[key].forEach(el => {
-      box.innerHTML += `
-        <div class="badge ${key}">
-          <img src="assets/${icons[el]}" alt="${el}">
-          <span>${el}</span>
-        </div>
-      `;
+  for(const k in map){
+    if(!map[k].length)continue;
+    const sec=document.createElement('div');
+    sec.className='section';
+    sec.innerHTML=`<h2>${texts[lang].groups[k]}</h2>`;
+    const box=document.createElement('div');
+    box.className='badges';
+    map[k].forEach(e=>{
+      box.innerHTML+=`
+      <div class="badge ${k}">
+        <img src="assets/${icons[e]}">
+        <span>${e}</span>
+      </div>`;
     });
-
-    section.appendChild(box);
-    results.appendChild(section);
+    sec.appendChild(box);
+    results.appendChild(sec);
   }
 }
 
-primary.addEventListener('change', calculate);
-secondary.addEventListener('change', calculate);
-populate();
+function updateLang(){
+  title.textContent=texts[lang].title;
+  langBtn.textContent=texts[lang].btn;
+  populate();
+  calculate();
+}
+
+langBtn.onclick=()=>{
+  lang=lang==='pt'?'en':'pt';
+  updateLang();
+};
+
+primary.onchange=calculate;
+secondary.onchange=calculate;
+updateLang();
 </script>
 
 </body>
