@@ -12,9 +12,20 @@ body {
   padding: 20px;
 }
 
+/* LOGO / TÍTULO EM IMAGEM */
+.logo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 220px;        /* ideal para essa imagem */
+  max-width: 60vw;
+  z-index: 1000;
+}
+
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 80px; /* evita sobreposição com a logo */
 }
 
 .selectors {
@@ -68,6 +79,9 @@ select {
 
 <body>
 
+<!-- TÍTULO EM IMAGEM -->
+<img src="pocket-anime-logo.png" alt="Pocket Anime" class="logo">
+
 <h1>Calculadora de Fraquezas e Resistências</h1>
 
 <div class="selectors">
@@ -83,101 +97,34 @@ const elements = [
   'Lightning','Soul','Psychic','Poison','Light','Dark','Demon','Beast'
 ];
 
-/*
-  REGRA:
-  chart[ATAQUE][DEFESA] = multiplicador
-*/
 const chart = {
   Neutral: { Earth: 0.5, Soul: 0 },
-
-  Fighting: {
-    Ice: 2, Earth: 2, Neutral: 2,
-    Psychic: 0.5, Wind: 0.5, Beast: 0.5, Light: 0.5,
-    Soul: 0
-  },
-
-  Fire: {
-    Nature: 2, Ice: 2, Beast: 2,
-    Water: 0.5, Fire: 0.5, Wind: 0.5, Earth: 0.5
-  },
-
-  Water: {
-    Fire: 2, Earth: 2,
-    Nature: 0.5, Lightning: 0.5, Water: 0.5
-  },
-
-  Nature: {
-    Water: 2, Earth: 2, Lightning: 2,
-    Fire: 0.5, Nature: 0.5, Soul: 0.5, Demon: 0.5
-  },
-
-  Earth: {
-    Fire: 2, Lightning: 2, Wind: 2, Poison: 2,
-    Nature: 0.5, Water: 0.5, Fighting: 0.5
-  },
-
-  Wind: {
-    Fire: 2, Fighting: 2,
-    Earth: 0.5, Ice: 0.5, Lightning: 0.5
-  },
-
-  Ice: {
-    Nature: 2, Wind: 2,
-    Fire: 0.5, Ice: 0.5
-  },
-
-  Lightning: {
-    Water: 2, Wind: 2, Beast: 2,
-    Earth: 0.5, Nature: 0.5, Lightning: 0.5
-  },
-
-  Soul: {
-    Psychic: 2, Soul: 2, Fighting: 2,
-    Dark: 0.5, Demon: 0.5,
-    Neutral: 0
-  },
-
-  Psychic: {
-    Fighting: 2, Poison: 2,
-    Dark: 0.5, Psychic: 0.5, Beast: 0.5
-  },
-
-  Poison: {
-    Nature: 2, Light: 2,
-    Earth: 0.5, Soul: 0.5, Poison: 0.5, Beast: 0.5
-  },
-
-  Light: {
-    Dark: 2, Demon: 2, Fighting: 2,
-    Soul: 0.5, Light: 0.5
-  },
-
-  Dark: {
-    Light: 2, Soul: 2, Psychic: 2,
-    Demon: 0.5, Poison: 0.5, Fighting: 0.5, Dark: 0.5
-  },
-
-  Demon: {
-    Soul: 2, Demon: 2,
-    Psychic: 0.5, Light: 0.5
-  },
-
-  Beast: {
-    Psychic: 2, Poison: 2, Dark: 2,
-    Fighting: 0.5, Wind: 0.5, Fire: 0.5
-  }
+  Fighting: { Ice: 2, Earth: 2, Neutral: 2, Psychic: 0.5, Wind: 0.5, Beast: 0.5, Light: 0.5, Soul: 0 },
+  Fire: { Nature: 2, Ice: 2, Beast: 2, Water: 0.5, Fire: 0.5, Wind: 0.5, Earth: 0.5 },
+  Water: { Fire: 2, Earth: 2, Nature: 0.5, Lightning: 0.5, Water: 0.5 },
+  Nature: { Water: 2, Earth: 2, Lightning: 2, Fire: 0.5, Nature: 0.5, Soul: 0.5, Demon: 0.5 },
+  Earth: { Fire: 2, Lightning: 2, Wind: 2, Poison: 2, Nature: 0.5, Water: 0.5, Fighting: 0.5 },
+  Wind: { Fire: 2, Fighting: 2, Earth: 0.5, Ice: 0.5, Lightning: 0.5 },
+  Ice: { Nature: 2, Wind: 2, Fire: 0.5, Ice: 0.5 },
+  Lightning: { Water: 2, Wind: 2, Beast: 2, Earth: 0.5, Nature: 0.5, Lightning: 0.5 },
+  Soul: { Psychic: 2, Soul: 2, Fighting: 2, Dark: 0.5, Demon: 0.5, Neutral: 0 },
+  Psychic: { Fighting: 2, Poison: 2, Dark: 0.5, Psychic: 0.5, Beast: 0.5 },
+  Poison: { Nature: 2, Light: 2, Earth: 0.5, Soul: 0.5, Poison: 0.5, Beast: 0.5 },
+  Light: { Dark: 2, Demon: 2, Fighting: 2, Soul: 0.5, Light: 0.5 },
+  Dark: { Light: 2, Soul: 2, Psychic: 2, Demon: 0.5, Poison: 0.5, Fighting: 0.5, Dark: 0.5 },
+  Demon: { Soul: 2, Demon: 2, Psychic: 0.5, Light: 0.5 },
+  Beast: { Psychic: 2, Poison: 2, Dark: 2, Fighting: 0.5, Wind: 0.5, Fire: 0.5 }
 };
 
-const primary   = document.getElementById('primary');
+const primary = document.getElementById('primary');
 const secondary = document.getElementById('secondary');
-const results   = document.getElementById('results');
+const results = document.getElementById('results');
 
 function populate() {
-  primary.innerHTML   = '<option value="">Primário</option>';
+  primary.innerHTML = '<option value="">Primário</option>';
   secondary.innerHTML = '<option value="">Secundário</option>';
-
   elements.forEach(el => {
-    primary.innerHTML   += `<option value="${el}">${el}</option>`;
+    primary.innerHTML += `<option value="${el}">${el}</option>`;
     secondary.innerHTML += `<option value="${el}">${el}</option>`;
   });
 }
@@ -185,31 +132,17 @@ function populate() {
 function calculate() {
   const p = primary.value;
   const s = secondary.value;
-
   if (!p && !s) return;
 
   const damage = {};
-
   elements.forEach(atk => {
     let mult = 1;
-
-    // Se primário e secundário forem iguais, aplica apenas uma vez
     if (p && s && p === s) {
-      if (chart[atk]?.[p] !== undefined) {
-        mult *= chart[atk][p];
-      }
-    } 
-    // Se forem diferentes, combina normalmente
-    else {
-      if (p && chart[atk]?.[p] !== undefined) {
-        mult *= chart[atk][p];
-      }
-
-      if (s && chart[atk]?.[s] !== undefined) {
-        mult *= chart[atk][s];
-      }
+      if (chart[atk]?.[p] !== undefined) mult *= chart[atk][p];
+    } else {
+      if (p && chart[atk]?.[p] !== undefined) mult *= chart[atk][p];
+      if (s && chart[atk]?.[s] !== undefined) mult *= chart[atk][s];
     }
-
     damage[atk] = mult;
   });
 
@@ -218,7 +151,6 @@ function calculate() {
 
 function render(damage) {
   results.innerHTML = '';
-
   const groups = {
     'Fraqueza Extrema (x4)': 'x4',
     'Fraqueza (x2)': 'x2',
@@ -228,14 +160,10 @@ function render(damage) {
     'Imune (x0)': 'x0'
   };
 
-  const mapped = {
-    x4: [], x2: [], x1: [],
-    x05: [], x025: [], x0: []
-  };
+  const mapped = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
 
   for (const el in damage) {
     const v = damage[el];
-
     if (v === 0) mapped.x0.push(el);
     else if (v === 0.25) mapped.x025.push(el);
     else if (v === 0.5) mapped.x05.push(el);
@@ -254,7 +182,6 @@ function render(damage) {
 
     const box = document.createElement('div');
     box.className = 'badges';
-
     mapped[key].forEach(el => {
       box.innerHTML += `<div class="badge ${key}">${el}</div>`;
     });
@@ -266,7 +193,6 @@ function render(damage) {
 
 primary.addEventListener('change', calculate);
 secondary.addEventListener('change', calculate);
-
 populate();
 </script>
 
