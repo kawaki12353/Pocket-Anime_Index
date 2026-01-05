@@ -6,42 +6,43 @@
 <title>Pocket Anime - Type Calculator</title>
 
 <style>
+/* ===== BASE ===== */
 body {
+  margin: 0;
+  padding-top: 180px; /* espaço do header fixo */
   font-family: Arial, sans-serif;
-  background: #f2f4f7;
-  padding: 20px;
+  background: #0f1115;
+  color: #fff;
 }
 
-/* HEADER FIXO */
+/* ===== HEADER FIXO ===== */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: #f2f4f7;
-  z-index: 1000;
-  padding: 10px 20px 15px;
+  height: 180px;
+  background: #121417;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* LOGO */
 .logo {
-  width: 220px;
-  max-width: 60vw;
+  max-width: 240px;
+  margin-bottom: 10px;
 }
 
-/* TÍTULO */
 h1 {
+  margin: 0;
+  font-size: 22px;
   text-align: center;
-  margin: 15px 0 0;
-  font-size: 24px;
 }
 
-/* ESPAÇO PARA CONTEÚDO NÃO FICAR SOB HEADER */
-.content {
-  margin-top: 160px;
-}
-
-/* SELECTS */
+/* ===== SELECTS ===== */
 .selectors {
   display: flex;
   gap: 10px;
@@ -54,41 +55,40 @@ select {
   padding: 10px;
   font-size: 16px;
   border-radius: 8px;
+  border: none;
 }
 
-/* SEÇÕES */
+/* ===== SEÇÕES ===== */
 .section {
-  background: #fff;
-  border-radius: 12px;
+  background: #1a1d22;
+  border-radius: 14px;
   padding: 15px;
-  margin-bottom: 20px;
+  margin: 0 15px 20px;
 }
 
 .section h2 {
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-/* GRID */
+/* ===== GRID ===== */
 .badges {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 120px);
-  gap: 10px;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
 }
 
-/* BADGE */
+/* ===== BADGE ===== */
 .badge {
+  background: #111;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 10px;
-  border-radius: 8px;
-  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
   font-weight: bold;
   font-size: 13px;
-  text-align: center;
 }
 
 .badge img {
@@ -96,24 +96,15 @@ select {
   height: 36px;
 }
 
-/* CORES */
-.x4   { background: #b71c1c; }
-.x2   { background: #d32f2f; }
-.x1   { background: #9e9e9e; }
-.x05  { background: #388e3c; }
-.x025 { background: #1b5e20; }
-.x0   { background: #6a1b9a; }
+/* ===== CORES ===== */
+.x4   { background: #8b0000; }
+.x2   { background: #b71c1c; }
+.x1   { background: #2a2a2a; }
+.x05  { background: #1b5e20; }
+.x025 { background: #0d3b16; }
+.x0   { background: #4a148c; }
 
-/* MADE BY */
-.madeby {
-  position: fixed;
-  bottom: 10px;
-  right: 15px;
-  font-size: 13px;
-  color: #555;
-}
-
-/* BOTÃO DE IDIOMA */
+/* ===== BOTÃO IDIOMA ===== */
 .lang-toggle {
   position: fixed;
   bottom: 10px;
@@ -122,38 +113,49 @@ select {
 }
 
 .lang-toggle button {
-  padding: 8px 14px;
-  border-radius: 20px;
+  background: #1a1d22;
+  color: #fff;
   border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 16px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 15px;
+}
+
+/* ===== MADE BY ===== */
+.madeby {
+  position: fixed;
+  bottom: 12px;
+  right: 15px;
+  font-size: 13px;
+  color: #aaa;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER FIXO -->
+<!-- HEADER -->
 <div class="header">
-  <img src="assets/Pocket-Anime-logo.png" alt="Pocket Anime" class="logo">
+  <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Pocket Anime">
   <h1 id="title"></h1>
 </div>
 
-<!-- CONTEÚDO -->
-<div class="content">
-  <div class="selectors">
-    <select id="primary"></select>
-    <select id="secondary"></select>
-  </div>
-
-  <div id="results"></div>
+<!-- SELECTS -->
+<div class="selectors">
+  <select id="primary"></select>
+  <select id="secondary"></select>
 </div>
 
+<!-- RESULTADOS -->
+<div id="results"></div>
+
+<!-- BOTÃO IDIOMA -->
 <div class="lang-toggle">
   <button id="langBtn"></button>
 </div>
 
+<!-- MADE BY -->
 <div class="madeby">Made by Kawaki</div>
 
 <script>
@@ -163,93 +165,41 @@ const elements = [
 ];
 
 const icons = {
-  Neutral:'neutral_element.png', Fire:'fire_element.png', Water:'water_element.png',
-  Nature:'nature_element.png', Earth:'earth_element.png', Wind:'wind_element.png',
-  Ice:'ice_element.png', Lightning:'lightning_element.png', Soul:'soul_element.png',
-  Psychic:'psychic_element.png', Demon:'demon_element.png', Poison:'poison_element.png',
-  Fighting:'fighting_element.png', Light:'light_element.png', Dark:'dark_element.png',
+  Neutral:'neutral_element.png',
+  Fighting:'fighting_element.png',
+  Fire:'fire_element.png',
+  Water:'water_element.png',
+  Nature:'nature_element.png',
+  Earth:'earth_element.png',
+  Wind:'wind_element.png',
+  Ice:'ice_element.png',
+  Lightning:'lightning_element.png',
+  Soul:'soul_element.png',
+  Psychic:'psychic_element.png',
+  Poison:'poison_element.png',
+  Light:'light_element.png',
+  Dark:'dark_element.png',
+  Demon:'demon_element.png',
   Beast:'beast_element.png'
 };
 
 const chart = {
-  Neutral: { Earth: 0.5, Soul: 0 },
-
-  Fighting: {
-    Ice: 2, Earth: 2, Neutral: 2,
-    Psychic: 0.5, Wind: 0.5, Beast: 0.5, Light: 0.5,
-    Soul: 0
-  },
-
-  Fire: {
-    Nature: 2, Ice: 2, Beast: 2,
-    Water: 0.5, Fire: 0.5, Wind: 0.5, Earth: 0.5
-  },
-
-  Water: {
-    Fire: 2, Earth: 2,
-    Nature: 0.5, Lightning: 0.5, Water: 0.5
-  },
-
-  Nature: {
-    Water: 2, Earth: 2, Lightning: 2,
-    Fire: 0.5, Nature: 0.5, Soul: 0.5, Demon: 0.5
-  },
-
-  Earth: {
-    Fire: 2, Lightning: 2, Wind: 2, Poison: 2,
-    Nature: 0.5, Water: 0.5, Fighting: 0.5
-  },
-
-  Wind: {
-    Fire: 2, Fighting: 2,
-    Earth: 0.5, Ice: 0.5, Lightning: 0.5
-  },
-
-  Ice: {
-    Nature: 2, Wind: 2,
-    Fire: 0.5, Ice: 0.5
-  },
-
-  Lightning: {
-    Water: 2, Wind: 2, Beast: 2,
-    Earth: 0.5, Nature: 0.5, Lightning: 0.5
-  },
-
-  Soul: {
-    Psychic: 2, Soul: 2, Fighting: 2,
-    Dark: 0.5, Demon: 0.5,
-    Neutral: 0
-  },
-
-  Psychic: {
-    Fighting: 2, Poison: 2,
-    Dark: 0.5, Psychic: 0.5, Beast: 0.5
-  },
-
-  Poison: {
-    Nature: 2, Light: 2,
-    Earth: 0.5, Soul: 0.5, Poison: 0.5, Beast: 0.5
-  },
-
-  Light: {
-    Dark: 2, Demon: 2, Fighting: 2,
-    Soul: 0.5, Light: 0.5
-  },
-
-  Dark: {
-    Light: 2, Soul: 2, Psychic: 2,
-    Demon: 0.5, Poison: 0.5, Fighting: 0.5, Dark: 0.5
-  },
-
-  Demon: {
-    Soul: 2, Demon: 2,
-    Psychic: 0.5, Light: 0.5
-  },
-
-  Beast: {
-    Psychic: 2, Poison: 2, Dark: 2,
-    Fighting: 0.5, Wind: 0.5, Fire: 0.5
-  }
+  Neutral:{ Earth:0.5, Soul:0 },
+  Fighting:{ Ice:2, Earth:2, Neutral:2, Psychic:0.5, Wind:0.5, Beast:0.5, Light:0.5, Soul:0 },
+  Fire:{ Nature:2, Ice:2, Beast:2, Water:0.5, Fire:0.5, Wind:0.5, Earth:0.5 },
+  Water:{ Fire:2, Earth:2, Nature:0.5, Lightning:0.5, Water:0.5 },
+  Nature:{ Water:2, Earth:2, Lightning:2, Fire:0.5, Nature:0.5, Soul:0.5, Demon:0.5 },
+  Earth:{ Fire:2, Lightning:2, Wind:2, Poison:2, Nature:0.5, Water:0.5, Fighting:0.5 },
+  Wind:{ Fire:2, Fighting:2, Earth:0.5, Ice:0.5, Lightning:0.5 },
+  Ice:{ Nature:2, Wind:2, Fire:0.5, Ice:0.5 },
+  Lightning:{ Water:2, Wind:2, Beast:2, Earth:0.5, Nature:0.5, Lightning:0.5 },
+  Soul:{ Psychic:2, Soul:2, Fighting:2, Dark:0.5, Demon:0.5, Neutral:0 },
+  Psychic:{ Fighting:2, Poison:2, Dark:0.5, Psychic:0.5, Beast:0.5 },
+  Poison:{ Nature:2, Light:2, Earth:0.5, Soul:0.5, Poison:0.5, Beast:0.5 },
+  Light:{ Dark:2, Demon:2, Fighting:2, Soul:0.5, Light:0.5 },
+  Dark:{ Light:2, Soul:2, Psychic:2, Demon:0.5, Poison:0.5, Fighting:0.5, Dark:0.5 },
+  Demon:{ Soul:2, Demon:2, Psychic:0.5, Light:0.5 },
+  Beast:{ Psychic:2, Poison:2, Dark:2, Fighting:0.5, Wind:0.5, Fire:0.5 }
 };
 
 const texts = {
@@ -271,7 +221,7 @@ const texts = {
     title:'Weakness & Resistance Calculator',
     primary:'Primary',
     secondary:'Secondary',
-    btn:'🇺🇲 USA',
+    btn:'🇺🇸 USA',
     groups:{
       x4:'Extreme Weakness (x4)',
       x2:'Weakness (x2)',
@@ -283,83 +233,92 @@ const texts = {
   }
 };
 
-let lang='pt';
-let lastDamage=null;
+let lang = 'pt';
 
-const primary=document.getElementById('primary');
-const secondary=document.getElementById('secondary');
-const results=document.getElementById('results');
-const title=document.getElementById('title');
-const langBtn=document.getElementById('langBtn');
+const primary = document.getElementById('primary');
+const secondary = document.getElementById('secondary');
+const results = document.getElementById('results');
+const title = document.getElementById('title');
+const langBtn = document.getElementById('langBtn');
 
 function populate(){
-  primary.innerHTML=`<option value="">${texts[lang].primary}</option>`;
-  secondary.innerHTML=`<option value="">${texts[lang].secondary}</option>`;
+  primary.innerHTML = `<option value="">${texts[lang].primary}</option>`;
+  secondary.innerHTML = `<option value="">${texts[lang].secondary}</option>`;
   elements.forEach(e=>{
-    primary.innerHTML+=`<option value="${e}">${e}</option>`;
-    secondary.innerHTML+=`<option value="${e}">${e}</option>`;
+    primary.innerHTML += `<option value="${e}">${e}</option>`;
+    secondary.innerHTML += `<option value="${e}">${e}</option>`;
   });
 }
 
 function calculate(){
-  const p=primary.value,s=secondary.value;
-  if(!p&&!s)return;
-  const damage={};
+  if(!primary.value && !secondary.value){
+    results.innerHTML = '';
+    return;
+  }
+
+  const damage = {};
   elements.forEach(atk=>{
-    let m=1;
-    if(p&&chart[atk]?.[p]!=undefined)m*=chart[atk][p];
-    if(s&&chart[atk]?.[s]!=undefined&&p!==s)m*=chart[atk][s];
-    damage[atk]=m;
+    let m = 1;
+    if(primary.value && chart[atk]?.[primary.value] !== undefined) m *= chart[atk][primary.value];
+    if(secondary.value && chart[atk]?.[secondary.value] !== undefined && primary.value !== secondary.value)
+      m *= chart[atk][secondary.value];
+    damage[atk] = m;
   });
-  lastDamage=damage;
+
   render(damage);
 }
 
 function render(damage){
-  results.innerHTML='';
-  const map={x4:[],x2:[],x1:[],x05:[],x025:[],x0:[]};
+  results.innerHTML = '';
+  const map = {x4:[],x2:[],x1:[],x05:[],x025:[],x0:[]};
+
   for(const e in damage){
-    const v=damage[e];
-    if(v===0)map.x0.push(e);
-    else if(v===0.25)map.x025.push(e);
-    else if(v===0.5)map.x05.push(e);
-    else if(v===2)map.x2.push(e);
-    else if(v===4)map.x4.push(e);
+    const v = damage[e];
+    if(v === 0) map.x0.push(e);
+    else if(v === 0.25) map.x025.push(e);
+    else if(v === 0.5) map.x05.push(e);
+    else if(v === 2) map.x2.push(e);
+    else if(v === 4) map.x4.push(e);
     else map.x1.push(e);
   }
+
   for(const k in map){
-    if(!map[k].length)continue;
-    const sec=document.createElement('div');
-    sec.className='section';
-    sec.innerHTML=`<h2>${texts[lang].groups[k]}</h2>`;
-    const box=document.createElement('div');
-    box.className='badges';
+    if(!map[k].length) continue;
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.innerHTML = `<h2>${texts[lang].groups[k]}</h2>`;
+
+    const box = document.createElement('div');
+    box.className = 'badges';
+
     map[k].forEach(e=>{
-      box.innerHTML+=`
+      box.innerHTML += `
       <div class="badge ${k}">
         <img src="assets/${icons[e]}">
         <span>${e}</span>
       </div>`;
     });
+
     sec.appendChild(box);
     results.appendChild(sec);
   }
 }
 
 function updateLang(){
-  title.textContent=texts[lang].title;
-  langBtn.textContent=texts[lang].btn;
+  title.textContent = texts[lang].title;
+  langBtn.textContent = texts[lang].btn;
   populate();
-  if(lastDamage)render(lastDamage);
+  calculate();
 }
 
-langBtn.onclick=()=>{
-  lang=lang==='pt'?'en':'pt';
+langBtn.onclick = ()=>{
+  lang = lang === 'pt' ? 'en' : 'pt';
   updateLang();
 };
 
-primary.onchange=calculate;
-secondary.onchange=calculate;
+primary.onchange = calculate;
+secondary.onchange = calculate;
+
 updateLang();
 </script>
 
