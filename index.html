@@ -89,26 +89,30 @@ const elements = [
   (baseado na tabela enviada)
 */
 const chart = {
-  Neutral: {},
+  Neutral: {
+    Earth: 0.5, 
+    Soul: 0,
+  },
 
   Fighting: {
-    Nature: 2, Earth: 2, Beast: 2,
-    Psychic: 0.5, Neutral: 2,
+    Ice: 2, Earth: 2, Neutral: 2,
+    Psychic: 0.5, Wind: 0.5, Beast: 0.5, Light: 0.5,
+    Soul: 0,
   },
 
   Fire: {
     Nature: 2, Ice: 2, Beast: 2,
-    Water: 0.5, Fire: 0.5
+    Water: 0.5, Fire: 0.5, Wind: 0.5, Earth: 0.5,
   },
 
   Water: {
     Fire: 2, Earth: 2,
-    Nature: 0.5, Lightning: 0.5
+    Nature: 0.5, Lightning: 0.5, Water: 0.5,
   },
 
   Nature: {
-    Water: 2, Earth: 2,
-    Fire: 0.5, Ice: 0.5
+    Water: 2, Earth: 2, Lighting: 2, 
+    Fire: 0.5, Nature: 0.5, Soul: 0.5, Demon: 0.5,
   },
 
   Earth: {
