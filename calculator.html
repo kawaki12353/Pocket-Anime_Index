@@ -13,11 +13,18 @@ body {
   margin: 0;
 }
 
+/* HEADER */
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
 /* HOME BUTTON */
 .home-btn {
-  position: fixed;
-  top: 15px;
-  left: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
   background: #ffffff;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -31,12 +38,6 @@ body {
 
 .home-btn:hover {
   background: #f1f1f1;
-}
-
-/* HEADER */
-.header {
-  text-align: center;
-  margin-bottom: 30px;
 }
 
 .logo {
@@ -204,9 +205,8 @@ h1 {
 
 <body>
 
-<a href="index.html" class="home-btn">Home</a>
-
 <div class="header">
+  <a href="index.html" class="home-btn">Home</a>
   <img src="assets/Pocket-Anime-logo.png" class="logo">
   <h1 id="title"></h1>
 </div>
