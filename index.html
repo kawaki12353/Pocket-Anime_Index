@@ -16,6 +16,7 @@ body{
   min-height:100vh;
 }
 
+/* CONTAINER */
 .container{
   background:#fff;
   border-radius:16px;
@@ -26,11 +27,13 @@ body{
   box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
 
+/* LOGO */
 .logo{
   width:240px;
   max-width:70%;
 }
 
+/* TEXTOS */
 h1{
   margin:20px 0 10px;
 }
@@ -40,8 +43,9 @@ p{
   font-size:15px;
 }
 
+/* BOTÕES */
 .btn{
-  margin-top:25px;
+  margin-top:18px;
   display:inline-block;
   padding:14px 26px;
   background:#d32f2f;
@@ -57,10 +61,35 @@ p{
   background:#b71c1c;
 }
 
+/* BOTÃO SOON */
+.btn-soon{
+  background:#9e9e9e;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
+/* FOOTER */
 .footer{
-  margin-top:20px;
+  margin-top:22px;
   font-size:13px;
   color:#777;
+}
+
+/* LANGUAGE BUTTON */
+.lang-toggle{
+  position:fixed;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.lang-toggle button{
+  padding:8px 14px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:15px;
 }
 </style>
 </head>
@@ -70,20 +99,64 @@ p{
 <div class="container">
   <img src="assets/Pocket-Anime-logo.png" class="logo">
 
-  <h1>Pocket Anime</h1>
-  <p>
-    Ferramentas, calculadoras e informações para facilitar
-    sua jornada no universo Pocket Anime.
-  </p>
+  <h1 id="title"></h1>
+  <p id="description"></p>
 
-  <a href="calculator.html" class="btn">
-    🔥 Abrir Calculadora de Elementos
-  </a>
+  <div class="btn btn-soon">
+    ⏳ Soon
+  </div>
+
+  <a href="calculator.html" class="btn" id="calcBtn"></a>
 
   <div class="footer">
     Made by Kawaki
   </div>
 </div>
+
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
+
+<script>
+/* TEXTOS DO SITE */
+const texts = {
+  pt: {
+    title: "Pocket Anime",
+    description:
+      "Site criado com o objetivo de ajudar a todos que gostam de Pocket Anime. Selecione uma das opções abaixo para utilizar alguma das funcionalidades do site.",
+    calcBtn: "🔥 Abrir Calculadora de Elementos",
+    langBtn: "🇧🇷 BR"
+  },
+  en: {
+    title: "Pocket Anime",
+    description:
+      "Site created to help everyone who enjoys Pocket Anime. Select one of the options below to use the site's features.",
+    calcBtn: "🔥 Open Element Calculator",
+    langBtn: "🇺🇲 USA"
+  }
+};
+
+/* CARREGA IDIOMA SALVO */
+let lang = localStorage.getItem("siteLang") || "pt";
+
+/* APLICA IDIOMA */
+function updateLang(){
+  document.getElementById("title").textContent = texts[lang].title;
+  document.getElementById("description").textContent = texts[lang].description;
+  document.getElementById("calcBtn").textContent = texts[lang].calcBtn;
+  document.getElementById("langBtn").textContent = texts[lang].langBtn;
+}
+
+/* BOTÃO DE TROCA DE IDIOMA */
+document.getElementById("langBtn").onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang); // SALVA
+  updateLang();
+};
+
+/* INIT */
+updateLang();
+</script>
 
 </body>
 </html>
