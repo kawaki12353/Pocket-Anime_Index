@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anidex - Pocket Anime</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0e0e14;
+    color: #fff;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+    background: #151522;
+    border-bottom: 2px solid #2a2a40;
+}
+
+header h1 {
+    margin: 0;
+    color: #8aa8ff;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.section-title {
+    margin: 25px 0 10px;
+    color: #ffd966;
+    font-size: 20px;
+}
+
+.anidex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.animon-card {
+    background: #1b1b2b;
+    border: 2px solid #2f2f4f;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.animon-card:hover {
+    background: #26263d;
+    transform: scale(1.03);
+}
+
+.animon-card.inicial {
+    border-color: #00ffcc;
+}
+
+.animon-name {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.inicial-tag {
+    font-size: 12px;
+    color: #00ffcc;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #151522;
+    border: 2px solid #3b3b5f;
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.modal h2 {
+    margin-top: 0;
+    color: #8aa8ff;
+}
+
+.location {
+    margin-top: 15px;
+    background: #1f1f35;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.close-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background: #8aa8ff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Anidex</h1>
+    <p>Banco de dados dos Animons</p>
+</header>
+
+<div class="container">
+
+    <div class="section-title">Animons Iniciais</div>
+    <div class="anidex-grid">
+        <div class="animon-card inicial" onclick="openModal('Ruffy', true)">
+            <div class="animon-name">Ruffy</div>
+            <div class="inicial-tag">Inicial</div>
+        </div>
+
+        <div class="animon-card inicial" onclick="openModal('Mystic Bojin', true)">
+            <div class="animon-name">Mystic Bojin</div>
+            <div class="inicial-tag">Inicial</div>
+        </div>
+
+        <div class="animon-card inicial" onclick="openModal('Sasken', true)">
+            <div class="animon-name">Sasken</div>
+            <div class="inicial-tag">Inicial</div>
+        </div>
+
+        <div class="animon-card inicial" onclick="openModal('Isamu', true)">
+            <div class="animon-name">Isamu</div>
+            <div class="inicial-tag">Inicial</div>
+        </div>
+    </div>
+
+    <div class="section-title">Outros Animons</div>
+    <div class="anidex-grid">
+        <div class="animon-card" onclick="openModal('Bandit', false)">Bandit</div>
+        <div class="animon-card" onclick="openModal('Cadet', false)">Cadet</div>
+        <div class="animon-card" onclick="openModal('Joyful', false)">Joyful</div>
+        <div class="animon-card" onclick="openModal('Kid Hero', false)">Kid Hero</div>
+        <div class="animon-card" onclick="openModal('Battle Wolf', false)">Battle Wolf</div>
+        <div class="animon-card" onclick="openModal('Green Alien', false)">Green Alien</div>
+        <div class="animon-card" onclick="openModal('Monkey Warrior', false)">Monkey Warrior</div>
+        <div class="animon-card" onclick="openModal('Bald Warrior', false)">Bald Warrior</div>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h2 id="modal-name"></h2>
+        <p id="modal-type"></p>
+
+        <div class="location">
+            <strong>Localização:</strong>
+            <p id="modal-location"></p>
+        </div>
+
+        <button class="close-btn" onclick="closeModal()">Fechar</button>
+    </div>
+</div>
+
+<script>
+function openModal(name, isInicial) {
+    document.getElementById('modal-name').textContent = name;
+
+    document.getElementById('modal-type').textContent =
+        isInicial ? 'Animon Inicial' : 'Animon Selvagem';
+
+    document.getElementById('modal-location').innerHTML = `
+        • Sunburst Forest<br>
+        • Great Plains
+    `;
+
+    document.getElementById('modal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+</script>
+
+</body>
+      </html>
