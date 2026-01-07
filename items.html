@@ -8,7 +8,7 @@
 <style>
 body{
   margin:0;
-  padding:80px 20px 110px;
+  padding:80px 20px 100px;
   font-family:Arial,sans-serif;
   background:#f2f4f7;
 }
@@ -16,17 +16,14 @@ body{
 /* TOPO */
 .top-bar{
   position:fixed;
-  top:0;
+  top:10px;
   left:0;
-  width:100%;
-  height:60px;
-  background:#fff;
+  right:0;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   padding:0 15px;
-  box-shadow:0 2px 6px rgba(0,0,0,.15);
-  z-index:30;
+  z-index:20;
 }
 
 .home-btn{
@@ -42,13 +39,19 @@ body{
   height:42px;
 }
 
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
 /* LISTA */
-.header{text-align:center;margin-bottom:25px}
 .item-list{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
   gap:15px;
 }
+
 .item{
   background:#fff;
   border-radius:12px;
@@ -66,6 +69,7 @@ body{
 }
 .item img{width:48px;height:48px}
 
+/* RARIDADES */
 .comum{border-color:#9e9e9e}
 .incomum{border-color:#2e7d32}
 .raro{border-color:#0d47a1}
@@ -80,7 +84,7 @@ body{
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:20;
+  z-index:30;
 }
 .modal{
   background:#fff;
@@ -99,17 +103,17 @@ body{
   cursor:pointer;
 }
 
-/* BOTÃO IDIOMA */
+/* BOTÃO DE IDIOMA */
 .lang-btn{
   position:fixed;
-  bottom:20px;
+  bottom:15px;
   left:50%;
   transform:translateX(-50%);
   background:#111;
   color:#fff;
   border:none;
   border-radius:20px;
-  padding:12px 18px;
+  padding:10px 18px;
   font-size:14px;
   cursor:pointer;
   z-index:40;
@@ -121,7 +125,7 @@ body{
 
 <!-- TOPO -->
 <div class="top-bar">
-  <a href="index.html" class="home-btn">Home</a>
+  <a href="index.html" class="home-btn" id="homeBtn"></a>
   <img src="Pocket-Anine-logo.png" class="logo" alt="Pocket Anime">
 </div>
 
@@ -145,13 +149,12 @@ body{
   </div>
 </div>
 
-<!-- IDIOMA -->
 <button class="lang-btn" onclick="toggleLang()" id="langBtn"></button>
 
 <script>
 let lang = localStorage.getItem("lang") || "pt";
 
-/* UI */
+/* UI TEXTOS */
 const uiText={
  pt:{
   title:"Lista de Itens",
@@ -159,7 +162,7 @@ const uiText={
   desc:"Descrição:",
   drop:"Onde obter:",
   cat:"Categoria:",
-  note:"Nota:"
+  home:"Home"
  },
  en:{
   title:"Item List",
@@ -167,11 +170,11 @@ const uiText={
   desc:"Description:",
   drop:"How to obtain:",
   cat:"Category:",
-  note:"Note:"
+  home:"Home"
  }
 };
 
-/* LISTA DE ITENS */
+/* ITENS */
 const items=[
 {
  rarity:"incomum",
@@ -225,19 +228,13 @@ function openModal(i){
  mDesc.textContent=data.desc;
  mDrop.textContent=data.drop;
  mCat.textContent=data.cat;
-
- if(data.note){
-  mNote.style.display="block";
-  mNote.innerHTML=`<strong>${uiText[lang].note}</strong> ${data.note}`;
- }else mNote.style.display="none";
-
  modalBg.style.display="flex";
 }
 function closeModal(){
  modalBg.style.display="none";
 }
 
-/* LANG */
+/* IDIOMA */
 function applyLang(){
  document.documentElement.lang=lang;
  title.textContent=uiText[lang].title;
@@ -245,12 +242,14 @@ function applyLang(){
  lblDesc.textContent=uiText[lang].desc;
  lblDrop.textContent=uiText[lang].drop;
  lblCat.textContent=uiText[lang].cat;
- langBtn.textContent = lang === "pt" ? "🇧🇷 BR" : "🇺🇸 USA";
+ homeBtn.textContent=uiText[lang].home;
+ langBtn.textContent = lang==="pt" ? "🇧🇷 BR" : "🇺🇸 USA";
  render();
 }
+
 function toggleLang(){
- lang = lang === "pt" ? "en" : "pt";
- localStorage.setItem("lang",lang);
+ lang = lang==="pt" ? "en" : "pt";
+ localStorage.setItem("lang", lang);
  applyLang();
 }
 
