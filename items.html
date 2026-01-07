@@ -6,46 +6,76 @@
 <title>Pocket Anime - Items</title>
 
 <style>
-body{
-  margin:0;
-  padding:80px 20px 100px;
-  font-family:Arial,sans-serif;
-  background:#f2f4f7;
-}
-
-/* TOPO */
-.top-bar{
-  position:fixed;
-  top:10px;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 15px;
-  z-index:20;
-}
-
-.home-btn{
-  background:#111;
-  color:#fff;
-  text-decoration:none;
-  padding:8px 14px;
-  border-radius:8px;
-  font-size:14px;
-}
-
-.logo{
-  height:42px;
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f4f7;
+  padding: 20px;
+  margin: 0;
 }
 
 /* HEADER */
-.header{
-  text-align:center;
-  margin-bottom:25px;
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-/* LISTA */
+/* HOME BUTTON */
+.home-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.home-btn:hover {
+  background: #f1f1f1;
+}
+
+/* LOGO */
+.logo {
+  width: 220px;
+  max-width: 60vw;
+}
+
+/* TITLE */
+.page-title {
+  margin-top: 15px;
+  font-size: 24px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .header {
+    display: block;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    width: 150px;
+  }
+
+  .page-title {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+}
+
+/* ITEM LIST */
 .item-list{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
@@ -69,7 +99,7 @@ body{
 }
 .item img{width:48px;height:48px}
 
-/* RARIDADES */
+/* RARITIES */
 .comum{border-color:#9e9e9e}
 .incomum{border-color:#2e7d32}
 .raro{border-color:#0d47a1}
@@ -103,34 +133,35 @@ body{
   cursor:pointer;
 }
 
-/* BOTÃO DE IDIOMA */
-.lang-btn{
-  position:fixed;
-  bottom:15px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#111;
-  color:#fff;
-  border:none;
-  border-radius:20px;
-  padding:10px 18px;
-  font-size:14px;
-  cursor:pointer;
-  z-index:40;
+/* LANG BUTTON */
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- TOPO -->
-<div class="top-bar">
-  <a href="index.html" class="home-btn" id="homeBtn"></a>
-  <img src="Pocket-Anine-logo.png" class="logo" alt="Pocket Anime">
-</div>
-
 <div class="header">
-  <h1 id="title"></h1>
+  <a href="index.html" class="home-btn" id="homeBtn">Home</a>
+
+  <div class="header-top">
+    <img src="assets/Pocket-Anime-logo.png" class="logo">
+  </div>
+
+  <h1 id="title" class="page-title"></h1>
 </div>
 
 <div class="item-list" id="itemList"></div>
@@ -143,18 +174,19 @@ body{
     </div>
     <h2 id="mName"></h2>
     <p><strong id="lblDesc"></strong> <span id="mDesc"></span></p>
-    <p id="mNote" style="display:none;"></p>
     <p><strong id="lblDrop"></strong> <span id="mDrop"></span></p>
     <p><strong id="lblCat"></strong> <span id="mCat"></span></p>
   </div>
 </div>
 
-<button class="lang-btn" onclick="toggleLang()" id="langBtn"></button>
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
 
 <script>
-let lang = localStorage.getItem("lang") || "pt";
+let lang = localStorage.getItem("siteLang") || "pt";
 
-/* UI TEXTOS */
+/* UI TEXT */
 const uiText={
  pt:{
   title:"Lista de Itens",
@@ -162,7 +194,7 @@ const uiText={
   desc:"Descrição:",
   drop:"Onde obter:",
   cat:"Categoria:",
-  home:"Home"
+  btn:"🇧🇷 BR"
  },
  en:{
   title:"Item List",
@@ -170,11 +202,11 @@ const uiText={
   desc:"Description:",
   drop:"How to obtain:",
   cat:"Category:",
-  home:"Home"
+  btn:"🇺🇲 USA"
  }
 };
 
-/* ITENS */
+/* ITEMS */
 const items=[
 {
  rarity:"incomum",
@@ -209,52 +241,49 @@ const items=[
 ];
 
 /* RENDER */
-const list=document.getElementById("itemList");
 function render(){
- list.innerHTML="";
+ itemList.innerHTML="";
  items.forEach(i=>{
   const d=document.createElement("div");
   d.className=`item ${i.rarity}`;
   d.innerHTML=`<img src="assets/sem_icone.png"><strong>${i[lang].name}</strong>`;
   d.onclick=()=>openModal(i);
-  list.appendChild(d);
+  itemList.appendChild(d);
  });
 }
 
 /* MODAL */
 function openModal(i){
- const data=i[lang];
- mName.textContent=data.name;
- mDesc.textContent=data.desc;
- mDrop.textContent=data.drop;
- mCat.textContent=data.cat;
+ const d=i[lang];
+ mName.textContent=d.name;
+ mDesc.textContent=d.desc;
+ mDrop.textContent=d.drop;
+ mCat.textContent=d.cat;
  modalBg.style.display="flex";
 }
 function closeModal(){
  modalBg.style.display="none";
 }
 
-/* IDIOMA */
-function applyLang(){
+/* LANG */
+function updateLang(){
  document.documentElement.lang=lang;
  title.textContent=uiText[lang].title;
  closeBtn.textContent=uiText[lang].close;
  lblDesc.textContent=uiText[lang].desc;
  lblDrop.textContent=uiText[lang].drop;
  lblCat.textContent=uiText[lang].cat;
- homeBtn.textContent=uiText[lang].home;
- langBtn.textContent = lang==="pt" ? "🇧🇷 BR" : "🇺🇸 USA";
+ langBtn.textContent=uiText[lang].btn;
  render();
 }
 
-function toggleLang(){
+langBtn.onclick=()=>{
  lang = lang==="pt" ? "en" : "pt";
- localStorage.setItem("lang", lang);
- applyLang();
-}
+ localStorage.setItem("siteLang", lang);
+ updateLang();
+};
 
-/* INIT */
-applyLang();
+updateLang();
 </script>
 
 </body>
