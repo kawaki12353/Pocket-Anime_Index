@@ -6,78 +6,65 @@
 <title>Pocket Anime - Items</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f4f7;
-  padding: 20px;
-  margin: 0;
+body{
+  font-family:Arial,sans-serif;
+  background:#f2f4f7;
+  padding:20px;
+  margin:0;
 }
 
 /* HEADER */
-.header {
-  position: relative;
-  text-align: center;
-  margin-bottom: 30px;
+.header{
+  position:relative;
+  text-align:center;
+  margin-bottom:30px;
 }
 
-/* HOME BUTTON */
-.home-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
-  color: #000;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+/* HOME */
+.home-btn{
+  position:absolute;
+  top:0;
+  left:0;
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:10px;
+  padding:8px 14px;
+  font-weight:bold;
+  text-decoration:none;
+  color:#000;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
-.home-btn:hover { background:#f1f1f1 }
+.home-btn:hover{background:#f1f1f1}
 
 /* LOGO */
-.logo {
-  width: 220px;
-  max-width: 60vw;
-}
+.logo{width:220px;max-width:60vw}
 
 /* TITLE */
-.page-title {
-  margin-top: 15px;
-  font-size: 24px;
-}
+.page-title{margin-top:15px;font-size:24px}
 
 /* MOBILE */
-@media (max-width: 768px) {
-  .header-top {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-  }
-  .logo { width:150px }
-  .page-title {
-    font-size: 18px;
-    margin-top: 10px;
-  }
+@media(max-width:768px){
+  .header-top{display:flex;justify-content:flex-end;margin-bottom:10px}
+  .logo{width:150px}
+  .page-title{font-size:18px}
 }
 
 /* FILTER BAR */
-.filters {
+.filters{
   display:flex;
-  gap:10px;
+  gap:12px;
   justify-content:center;
   flex-wrap:wrap;
   margin-bottom:25px;
 }
 
 .filters input,
-.filters select {
+.filters select{
   padding:10px 12px;
   border-radius:10px;
   border:1px solid #ccc;
   font-size:14px;
+  background:#fff;
 }
 
 /* ITEM LIST */
@@ -86,7 +73,6 @@ body {
   grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
   gap:15px;
 }
-
 .item{
   background:#fff;
   border-radius:12px;
@@ -104,7 +90,7 @@ body {
 }
 .item img{width:48px;height:48px}
 
-/* RARITIES */
+/* RARIDADES */
 .comum{border-color:#9e9e9e}
 .incomum{border-color:#2e7d32}
 .raro{border-color:#0d47a1}
@@ -138,7 +124,7 @@ body {
   cursor:pointer;
 }
 
-/* LANG BUTTON */
+/* LANG */
 .lang-toggle{
   position:fixed;
   bottom:10px;
@@ -153,13 +139,22 @@ body {
   font-weight:bold;
   font-size:15px;
 }
+
+/* MADE BY */
+.madeby{
+  position:fixed;
+  bottom:10px;
+  right:15px;
+  font-size:13px;
+  color:#555;
+}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-  <a href="index.html" class="home-btn">Home</a>
+  <a href="index.html" class="home-btn" id="homeBtn">Home</a>
   <div class="header-top">
     <img src="assets/Pocket-Anime-logo.png" class="logo">
   </div>
@@ -168,16 +163,9 @@ body {
 
 <!-- FILTERS -->
 <div class="filters">
-  <input type="text" id="searchInput" placeholder="Pesquisar item...">
-  <select id="categoryFilter">
-    <option value="">Todas as categorias</option>
-    <option>Item de Evolução</option>
-    <option>Item de Batalha</option>
-    <option>Item Chave</option>
-    <option>Item de Status</option>
-    <option>Item Médico</option>
-    <option>Item Diverso</option>
-  </select>
+  <input id="searchInput">
+  <select id="categoryFilter"></select>
+  <select id="rarityFilter"></select>
 </div>
 
 <div class="item-list" id="itemList"></div>
@@ -199,22 +187,42 @@ body {
   <button id="langBtn"></button>
 </div>
 
+<div class="madeby">Made by Kawaki</div>
+
 <script>
 let lang = localStorage.getItem("siteLang") || "pt";
 
 /* RARITY ORDER */
-const rarityOrder = {
-  comum:1,
-  incomum:2,
-  raro:3,
-  epico:4,
-  lendario:5
-};
+const rarityOrder={comum:1,incomum:2,raro:3,epico:4,lendario:5};
 
-/* UI */
+/* UI TEXT */
 const uiText={
- pt:{title:"Lista de Itens",close:"Fechar",desc:"Descrição:",drop:"Onde obter:",cat:"Categoria:",btn:"🇧🇷 BR"},
- en:{title:"Item List",close:"Close",desc:"Description:",drop:"How to obtain:",cat:"Category:",btn:"🇺🇲 USA"}
+ pt:{
+  title:"Lista de Itens",
+  search:"Pesquisar item...",
+  allCat:"Todas as categorias",
+  allRare:"Todas as raridades",
+  cats:[
+   "Item de Evolução","Item de Batalha","Item Chave",
+   "Item de Status","Item Médico","Item Diverso"
+  ],
+  rares:["Comum","Incomum","Raro","Épico","Lendário"],
+  close:"Fechar",desc:"Descrição:",drop:"Onde obter:",cat:"Categoria:",
+  btn:"🇧🇷 BR"
+ },
+ en:{
+  title:"Item List",
+  search:"Search item...",
+  allCat:"All categories",
+  allRare:"All rarities",
+  cats:[
+   "Evolution Item","Battle Item","Key Item",
+   "Status Item","Medical Item","Miscellaneous Item"
+  ],
+  rares:["Common","Uncommon","Rare","Epic","Legendary"],
+  close:"Close",desc:"Description:",drop:"How to obtain:",cat:"Category:",
+  btn:"🇺🇲 USA"
+ }
 };
 
 /* ITEMS */
@@ -233,8 +241,9 @@ const items=[
 
 /* RENDER */
 function render(){
- const search=searchInput.value.toLowerCase();
- const cat=categoryFilter.value;
+ const s=searchInput.value.toLowerCase();
+ const c=categoryFilter.value;
+ const r=rarityFilter.value;
 
  itemList.innerHTML="";
  items
@@ -242,8 +251,9 @@ function render(){
   .sort((a,b)=>rarityOrder[a.rarity]-rarityOrder[b.rarity])
   .forEach(i=>{
     const d=i[lang];
-    if(search && !d.name.toLowerCase().includes(search)) return;
-    if(cat && d.cat!==cat) return;
+    if(s && !d.name.toLowerCase().includes(s)) return;
+    if(c && d.cat!==c) return;
+    if(r && i.rarity!==r) return;
 
     const div=document.createElement("div");
     div.className=`item ${i.rarity}`;
@@ -262,16 +272,27 @@ function openModal(i){
  mCat.textContent=d.cat;
  modalBg.style.display="flex";
 }
-function closeModal(){ modalBg.style.display="none"; }
+function closeModal(){modalBg.style.display="none"}
 
 /* LANG */
 function updateLang(){
  title.textContent=uiText[lang].title;
+ searchInput.placeholder=uiText[lang].search;
  closeBtn.textContent=uiText[lang].close;
  lblDesc.textContent=uiText[lang].desc;
  lblDrop.textContent=uiText[lang].drop;
  lblCat.textContent=uiText[lang].cat;
  langBtn.textContent=uiText[lang].btn;
+
+ categoryFilter.innerHTML=`<option value="">${uiText[lang].allCat}</option>`;
+ uiText[lang].cats.forEach(c=>categoryFilter.innerHTML+=`<option>${c}</option>`);
+
+ rarityFilter.innerHTML=`<option value="">${uiText[lang].allRare}</option>`;
+ uiText[lang].rares.forEach((r,i)=>{
+  const key=Object.keys(rarityOrder)[i];
+  rarityFilter.innerHTML+=`<option value="${key}">${r}</option>`;
+ });
+
  render();
 }
 
@@ -283,6 +304,7 @@ langBtn.onclick=()=>{
 
 searchInput.oninput=render;
 categoryFilter.onchange=render;
+rarityFilter.onchange=render;
 
 updateLang();
 </script>
