@@ -35,10 +35,7 @@ body {
   color: #000;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-
-.home-btn:hover {
-  background: #f1f1f1;
-}
+.home-btn:hover { background:#f1f1f1 }
 
 /* LOGO */
 .logo {
@@ -54,25 +51,33 @@ body {
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .header {
-    display: block;
-  }
-
   .header-top {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
   }
-
-  .logo {
-    width: 150px;
-  }
-
+  .logo { width:150px }
   .page-title {
-    text-align: center;
     font-size: 18px;
     margin-top: 10px;
   }
+}
+
+/* FILTER BAR */
+.filters {
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.filters input,
+.filters select {
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:14px;
 }
 
 /* ITEM LIST */
@@ -134,20 +139,19 @@ body {
 }
 
 /* LANG BUTTON */
-.lang-toggle {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+.lang-toggle{
+  position:fixed;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
 }
-
-.lang-toggle button {
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 15px;
+.lang-toggle button{
+  padding:8px 14px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:15px;
 }
 </style>
 </head>
@@ -155,13 +159,25 @@ body {
 <body>
 
 <div class="header">
-  <a href="index.html" class="home-btn" id="homeBtn">Home</a>
-
+  <a href="index.html" class="home-btn">Home</a>
   <div class="header-top">
     <img src="assets/Pocket-Anime-logo.png" class="logo">
   </div>
-
   <h1 id="title" class="page-title"></h1>
+</div>
+
+<!-- FILTERS -->
+<div class="filters">
+  <input type="text" id="searchInput" placeholder="Pesquisar item...">
+  <select id="categoryFilter">
+    <option value="">Todas as categorias</option>
+    <option>Item de Evolução</option>
+    <option>Item de Batalha</option>
+    <option>Item Chave</option>
+    <option>Item de Status</option>
+    <option>Item Médico</option>
+    <option>Item Diverso</option>
+  </select>
 </div>
 
 <div class="item-list" id="itemList"></div>
@@ -186,70 +202,55 @@ body {
 <script>
 let lang = localStorage.getItem("siteLang") || "pt";
 
-/* UI TEXT */
+/* RARITY ORDER */
+const rarityOrder = {
+  comum:1,
+  incomum:2,
+  raro:3,
+  epico:4,
+  lendario:5
+};
+
+/* UI */
 const uiText={
- pt:{
-  title:"Lista de Itens",
-  close:"Fechar",
-  desc:"Descrição:",
-  drop:"Onde obter:",
-  cat:"Categoria:",
-  btn:"🇧🇷 BR"
- },
- en:{
-  title:"Item List",
-  close:"Close",
-  desc:"Description:",
-  drop:"How to obtain:",
-  cat:"Category:",
-  btn:"🇺🇲 USA"
- }
+ pt:{title:"Lista de Itens",close:"Fechar",desc:"Descrição:",drop:"Onde obter:",cat:"Categoria:",btn:"🇧🇷 BR"},
+ en:{title:"Item List",close:"Close",desc:"Description:",drop:"How to obtain:",cat:"Category:",btn:"🇺🇲 USA"}
 };
 
 /* ITEMS */
 const items=[
 {
  rarity:"incomum",
- pt:{
-  name:"Bandit Cutlass",
-  desc:"Aumenta o atributo de ATAQUE do Animon durante a batalha.",
-  drop:"Derrotando o Animon Bandit",
-  cat:"Item de Batalha"
- },
- en:{
-  name:"Bandit Cutlass",
-  desc:"Increases the Animon's ATK stat during battle.",
-  drop:"Defeating the Bandit Animon",
-  cat:"Battle Item"
- }
+ pt:{name:"Bandit Cutlass",desc:"Aumenta o ATAQUE.",drop:"Animon Bandit",cat:"Item de Batalha"},
+ en:{name:"Bandit Cutlass",desc:"Increases ATK.",drop:"Bandit Animon",cat:"Battle Item"}
 },
 {
  rarity:"comum",
- pt:{
-  name:"GX-Accuracy",
-  desc:"Aumenta drasticamente a precisão dos ataques.",
-  drop:"Loja",
-  cat:"Item Diverso"
- },
- en:{
-  name:"GX-Accuracy",
-  desc:"Greatly increases attack accuracy.",
-  drop:"Shop",
-  cat:"Miscellaneous Item"
- }
+ pt:{name:"GX-Accuracy",desc:"Aumenta precisão.",drop:"Loja",cat:"Item Diverso"},
+ en:{name:"GX-Accuracy",desc:"Increases accuracy.",drop:"Shop",cat:"Miscellaneous Item"}
 }
 ];
 
 /* RENDER */
 function render(){
+ const search=searchInput.value.toLowerCase();
+ const cat=categoryFilter.value;
+
  itemList.innerHTML="";
- items.forEach(i=>{
-  const d=document.createElement("div");
-  d.className=`item ${i.rarity}`;
-  d.innerHTML=`<img src="assets/sem_icone.png"><strong>${i[lang].name}</strong>`;
-  d.onclick=()=>openModal(i);
-  itemList.appendChild(d);
- });
+ items
+  .slice()
+  .sort((a,b)=>rarityOrder[a.rarity]-rarityOrder[b.rarity])
+  .forEach(i=>{
+    const d=i[lang];
+    if(search && !d.name.toLowerCase().includes(search)) return;
+    if(cat && d.cat!==cat) return;
+
+    const div=document.createElement("div");
+    div.className=`item ${i.rarity}`;
+    div.innerHTML=`<img src="assets/sem_icone.png"><strong>${d.name}</strong>`;
+    div.onclick=()=>openModal(i);
+    itemList.appendChild(div);
+  });
 }
 
 /* MODAL */
@@ -261,13 +262,10 @@ function openModal(i){
  mCat.textContent=d.cat;
  modalBg.style.display="flex";
 }
-function closeModal(){
- modalBg.style.display="none";
-}
+function closeModal(){ modalBg.style.display="none"; }
 
 /* LANG */
 function updateLang(){
- document.documentElement.lang=lang;
  title.textContent=uiText[lang].title;
  closeBtn.textContent=uiText[lang].close;
  lblDesc.textContent=uiText[lang].desc;
@@ -278,10 +276,13 @@ function updateLang(){
 }
 
 langBtn.onclick=()=>{
- lang = lang==="pt" ? "en" : "pt";
- localStorage.setItem("siteLang", lang);
+ lang=lang==="pt"?"en":"pt";
+ localStorage.setItem("siteLang",lang);
  updateLang();
 };
+
+searchInput.oninput=render;
+categoryFilter.onchange=render;
 
 updateLang();
 </script>
