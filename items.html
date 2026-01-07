@@ -8,10 +8,41 @@
 <style>
 body{
   margin:0;
-  padding:20px 20px 90px;
+  padding:80px 20px 110px;
   font-family:Arial,sans-serif;
   background:#f2f4f7;
 }
+
+/* TOPO */
+.top-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+  z-index:30;
+}
+
+.home-btn{
+  background:#111;
+  color:#fff;
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:14px;
+}
+
+.logo{
+  height:42px;
+}
+
+/* LISTA */
 .header{text-align:center;margin-bottom:25px}
 .item-list{
   display:grid;
@@ -41,6 +72,7 @@ body{
 .epico{border-color:#6a1b9a}
 .lendario{border-color:#f9a825}
 
+/* MODAL */
 .modal-bg{
   position:fixed;
   inset:0;
@@ -48,7 +80,7 @@ body{
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:10;
+  z-index:20;
 }
 .modal{
   background:#fff;
@@ -67,23 +99,31 @@ body{
   cursor:pointer;
 }
 
+/* BOTÃO IDIOMA */
 .lang-btn{
   position:fixed;
-  bottom:15px;
-  right:15px;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
   background:#111;
   color:#fff;
   border:none;
   border-radius:20px;
-  padding:10px 16px;
+  padding:12px 18px;
   font-size:14px;
   cursor:pointer;
-  z-index:20;
+  z-index:40;
 }
 </style>
 </head>
 
 <body>
+
+<!-- TOPO -->
+<div class="top-bar">
+  <a href="index.html" class="home-btn">Home</a>
+  <img src="Pocket-Anine-logo.png" class="logo" alt="Pocket Anime">
+</div>
 
 <div class="header">
   <h1 id="title"></h1>
@@ -91,8 +131,9 @@ body{
 
 <div class="item-list" id="itemList"></div>
 
-<div class="modal-bg" id="modalBg">
-  <div class="modal">
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
     <div class="close">
       <button onclick="closeModal()" id="closeBtn"></button>
     </div>
@@ -104,6 +145,7 @@ body{
   </div>
 </div>
 
+<!-- IDIOMA -->
 <button class="lang-btn" onclick="toggleLang()" id="langBtn"></button>
 
 <script>
@@ -129,7 +171,7 @@ const uiText={
  }
 };
 
-/* LISRA DE ITENS */
+/* LISTA DE ITENS */
 const items=[
 {
  rarity:"incomum",
@@ -152,7 +194,7 @@ const items=[
   name:"GX-Accuracy",
   desc:"Aumenta drasticamente a precisão dos ataques.",
   drop:"Loja",
-  cat:"Itens Diversos"
+  cat:"Item Diverso"
  },
  en:{
   name:"GX-Accuracy",
@@ -191,7 +233,9 @@ function openModal(i){
 
  modalBg.style.display="flex";
 }
-function closeModal(){modalBg.style.display="none";}
+function closeModal(){
+ modalBg.style.display="none";
+}
 
 /* LANG */
 function applyLang(){
@@ -201,11 +245,11 @@ function applyLang(){
  lblDesc.textContent=uiText[lang].desc;
  lblDrop.textContent=uiText[lang].drop;
  lblCat.textContent=uiText[lang].cat;
- langBtn.textContent=lang==="pt"?"🇧🇷 BR":"🇺🇸 USA";
+ langBtn.textContent = lang === "pt" ? "🇧🇷 BR" : "🇺🇸 USA";
  render();
 }
 function toggleLang(){
- lang=lang==="pt"?"en":"pt";
+ lang = lang === "pt" ? "en" : "pt";
  localStorage.setItem("lang",lang);
  applyLang();
 }
