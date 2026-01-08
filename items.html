@@ -667,16 +667,16 @@ function updateLang(){
 langBtn.onclick = () => {
   const scrollPos = window.scrollY;
   const searchValue = searchInput.value;
-  const selectedCategory = categoryFilter.value;
+  const selectedCategoryIndex = categoryFilter.selectedIndex;
   const selectedRarity = rarityFilter.value;
 
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
 
   updateLang();
-  
+
   searchInput.value = searchValue;
-  categoryFilter.value = selectedCategory;
+  categoryFilter.selectedIndex = selectedCategoryIndex;
   rarityFilter.value = selectedRarity;
 
   updateRarityColor();
