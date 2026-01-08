@@ -601,7 +601,12 @@ function render(){
  const c=categoryFilter.value;
  const r=rarityFilter.value;
  itemList.innerHTML="";
- items.slice().sort((a,b)=>rarityOrder[a.rarity]-rarityOrder[b.rarity])
+ items.slice().sort((a, b) => {
+  const rDiff = rarityOrder[a.rarity] - rarityOrder[b.rarity];
+  if (rDiff !== 0) return rDiff;
+
+  return a[lang].name.localeCompare(b[lang].name);
+})
  .forEach(i=>{
   const d=i[lang];
   if(s && !d.name.toLowerCase().includes(s))return;
