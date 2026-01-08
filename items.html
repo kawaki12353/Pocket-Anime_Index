@@ -664,10 +664,15 @@ function updateLang(){
  render();
 }
 
-langBtn.onclick=()=>{
- lang=lang==="pt"?"en":"pt";
- localStorage.setItem("siteLang",lang);
- updateLang();
+langBtn.onclick = () => {
+  const scrollPos = window.scrollY; // salva posição atual da página
+
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
+
+  updateLang();
+
+  window.scrollTo(0, scrollPos); // volta para o mesmo lugar
 };
 
 searchInput.oninput=render;
