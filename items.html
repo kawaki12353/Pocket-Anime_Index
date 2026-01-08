@@ -665,14 +665,24 @@ function updateLang(){
 }
 
 langBtn.onclick = () => {
-  const scrollPos = window.scrollY; // salva posição atual da página
+  const scrollPos = window.scrollY;
+  const searchValue = searchInput.value;
+  const selectedCategory = categoryFilter.value;
+  const selectedRarity = rarityFilter.value;
 
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
 
   updateLang();
+  
+  searchInput.value = searchValue;
+  categoryFilter.value = selectedCategory;
+  rarityFilter.value = selectedRarity;
 
-  window.scrollTo(0, scrollPos); // volta para o mesmo lugar
+  updateRarityColor();
+  render();
+
+  window.scrollTo(0, scrollPos);
 };
 
 searchInput.oninput=render;
