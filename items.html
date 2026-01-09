@@ -227,7 +227,7 @@ body{
   <button id="langBtn"></button>
 </div>
 
-<div class="madeby">Made by Kawaki</div>
+<div class="madeby">Made by Kawaki1963</div>
 
 <script>
 let lang=localStorage.getItem("siteLang")||"pt";
@@ -272,20 +272,21 @@ const uiText={
 
 const items=[
 {rarity:"incomum",
- pt:{name:"Bandit Cutlass",desc:"A Bandit Cutlass! Aumenta o atributo de ATAQUE do Animon que estiver equipado durante a batalha!",drop:"Derrotando o Animon Bandit",cat:"Item de Batalha"},
- en:{name:"Bandit Cutlass",desc:"The Bandit Cutlass! Increases the ATK stat of the Animon equipping it during battle!",drop:"Defeating the Bandit Animon",cat:"Battle Item"}
+ pt:{name:"Bandit Cutlass",desc:"A Bandit Cutlass! Aumenta o atributo de ATAQUE do Animon que estiver equipado durante a batalha!",drop:"Derrotando o Animon Bandit.",cat:"Item de Batalha"},
+ en:{name:"Bandit Cutlass",desc:"The Bandit Cutlass! Increases the ATK stat of the Animon equipping it during battle!",drop:"Defeating the Bandit Animon.",cat:"Battle Item"},
+ icon:"bandit_cutlass.png"
 },
 {rarity:"comum",
- pt:{name:"GX-Accuracy",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a precisão dos Animons.",drop:"Shop",cat:"Item Diverso"},
- en:{name:"GX-Accuracy",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons accuracy.",drop:"Shop",cat:"Miscellaneous Item"}
+ pt:{name:"GX-Accuracy",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a precisão dos Animons.",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"GX-Accuracy",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons accuracy.",drop:"Shops",cat:"Miscellaneous Item"}
 },
 {rarity:"comum",
- pt:{name:"Capsule",desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Shop",cat:"Item de Captura"},
- en:{name:"Capsule",desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shop",cat:"Capture Item"}
+ pt:{name:"Capsule",desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas",cat:"Item de Captura"},
+ en:{name:"Capsule",desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops",cat:"Capture Item"}
 },
 {rarity:"incomum",
- pt:{name:"Advance Capsule",desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Shop",cat:"Item de Captura"},
- en:{name:"Advance Capsule",desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shop",cat:"Capture Item"}
+ pt:{name:"Advance Capsule",desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas",cat:"Item de Captura"},
+ en:{name:"Advance Capsule",desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops",cat:"Capture Item"}
 },
 {rarity:"lendario",
  pt:{name:"Z-Capsule",desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x2 a Chance de Captura.",drop:"Limitado a fase 2 de Testes.",cat:"Item de Captura"},
@@ -405,11 +406,11 @@ const items=[
  icon:"warrior_horn.png"
 },
 {rarity:"incomum",
- pt:{name:"Aloe",desc:"Tratamento para queimaduras! Aplique no seu Animon!",note:"Serve para retirar Queimadura/Burn do Animon.",drop:"Shop",cat:"Item Médico"},
- en:{name:"Aloe",desc:"Treatment for burn! Apply it on your Animon!",note:"Cures Burn status.",drop:"Shop",cat:"Medical Item"}
+ pt:{name:"Aloe",desc:"Tratamento para queimaduras! Aplique no seu Animon!",note:"Serve para retirar Queimadura/Burn do Animon.",drop:"Lojas",cat:"Item Médico"},
+ en:{name:"Aloe",desc:"Treatment for burn! Apply it on your Animon!",note:"Cures Burn status.",drop:"Shops",cat:"Medical Item"}
 },
 {rarity:"comum",
- pt:{name:"C-Potion",desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",note:"Recupera 25 de HP.",drop:"Shop",cat:"Item Médico"},
+ pt:{name:"C-Potion",desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",note:"Recupera 25 de HP.",drop:"Loja",cat:"Item Médico"},
  en:{name:"C-Potion",desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",note:"Restores 25 HP.",drop:"Shop",cat:"Medical Item"}
 },
 {rarity:"epico",
@@ -422,12 +423,12 @@ const items=[
  en:{name:"Green Bean",desc:"A weird Green Bean! Has some properties to heal your Animons! Also heals them if their HP drops to 30%!",note:"Restores 25 HP.",drop:"Korin Tower Shop",cat:"Medical Item"}
 },
 {rarity:"comum",
- pt:{name:"Revive",desc:"Revive Animons desmaiados com 1% de HP.",drop:"Shop",cat:"Item Médico"},
+ pt:{name:"Revive",desc:"Revive Animons desmaiados com 1% de HP.",drop:"Loja",cat:"Item Médico"},
  en:{name:"Revive",desc:"Revives fainted Animons with 1% Health.",drop:"Shop",cat:"Medical Item"}
 },
 {rarity:"incomum",
- pt:{name:"Static-Leaf",desc:"Uma folha estática com efeito anti-paralisia!",note:"Serve para retirar Paralisia do Animon.",drop:"Shop",cat:"Item Médico"},
- en:{name:"Static-Leaf",desc:"A static leaf with an anti-paralysis effect! [Can be used to cure paralysis status]",note:"Cures Paralysis status.",drop:"Shop",cat:"Medical Item"}
+ pt:{name:"Static-Leaf",desc:"Uma folha estática com efeito anti-paralisia!",note:"Serve para retirar Paralisia do Animon.",drop:"Lojas",cat:"Item Médico"},
+ en:{name:"Static-Leaf",desc:"A static leaf with an anti-paralysis effect! [Can be used to cure paralysis status]",note:"Cures Paralysis status.",drop:"Shops",cat:"Medical Item"}
 },
 {rarity:"raro",
  pt:{name:"Vitaloom",desc:"Rica em polpa e refrescante. Dizem que floresce quanto mais é mastigada!",note:"Aumenta o HP TV em 10",drop:"Loja de Fase",cat:"Item de Status"},
@@ -438,8 +439,8 @@ const items=[
  en:{name:"Witherloom",desc:"Dry, faded flesh that saps vigor the longer it's chewed.",note:"Decreases HP TV by 10",drop:"Phase Shop",cat:"Status Item"}
 },
 {rarity:"incomum",
- pt:{name:"Blaze Orb",desc:"Um pequeno orbe que queima com uma chama eterna, intensificando golpes do tipo Fire.",drop:"Shop",cat:"Item de Batalha"},
- en:{name:"Blaze Orb",desc:"A small orb that burns with an eternal flame, enhancing the intensity of Fire-Type moves.",drop:"Shop",cat:"Battle Item"},
+ pt:{name:"Blaze Orb",desc:"Um pequeno orbe que queima com uma chama eterna, intensificando golpes do tipo Fire.",drop:"Loja in Capsule City",cat:"Item de Batalha"},
+ en:{name:"Blaze Orb",desc:"A small orb that burns with an eternal flame, enhancing the intensity of Fire-Type moves.",drop:"Shop in Capsule City",cat:"Battle Item"},
  icon:"blaze_orb.png"
 },
 {rarity:"raro",
@@ -451,12 +452,12 @@ const items=[
  en:{name:"Crumblefruit",desc:"Brittle pulp that flakes at a touch, leaving you feeling fragile.",note:"Decreases DEF TV by 10",drop:"Phase Shop",cat:"Status Item"}
 },
 {rarity:"raro",
- pt:{name:"Dashfruit",desc:"Cítrica e leve — uma mordida e você já está em movimento!",note:"Aumenta o SPD TV em 10",drop:"",cat:"Item de Status"},
- en:{name:"Dashfruit",desc:"Zesty and light — one bite and you're already moving!",note:"Increases SPD TV by 10",drop:"",cat:"Status Item"}
+ pt:{name:"Dashfruit",desc:"Cítrica e leve — uma mordida e você já está em movimento!",note:"Aumenta o SPD TV em 10",drop:"Loja de Fase",cat:"Item de Status"},
+ en:{name:"Dashfruit",desc:"Zesty and light — one bite and you're already moving!",note:"Increases SPD TV by 10",drop:"Phase Shop",cat:"Status Item"}
 },
-{rarity:"raro",
- pt:{name:"Demon Shuriken",desc:"??? Talvez a Raridade esteja errada.",drop:"Shop",cat:"Item de Batalha"},
- en:{name:"Demon Shuriken",desc:"??? Perhaps the rarity is wrong.",drop:"Shop",cat:"Battle Item"}
+{rarity:"incomum",
+ pt:{name:"Demon Shuriken",desc:"??? Talvez a Raridade esteja errada.",drop:"Loja em Capsule City",cat:"Item de Batalha"},
+ en:{name:"Demon Shuriken",desc:"??? Perhaps the rarity is wrong.",drop:"Shop in Capsule City",cat:"Battle Item"}
 },
 {rarity:"incomum",
  pt:{name:"Dinosaur Hide",desc:"Um couro grosso e resistente deixado por um dinossauro poderoso.",drop:"Derrotando o Animon Dinossaur",cat:"Item Diverso"},
@@ -471,32 +472,32 @@ const items=[
  en:{name:"Dullapple",desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",note:"Decreases SP ATK TV by 10",drop:"Phase Shop",cat:"Status Item"}
 },
 {rarity:"raro",
- pt:{name:"Fisher's Pass",desc:"Um passe concedido a qualquer um digno de segurar uma vara de pesca! Permite comprar itens em qualquer loja de pesca.",drop:"Quest",cat:"Item Chave"},
- en:{name:"Fisher's Pass",desc:"A pass given to anyone worthy enough to hold up a fishing rod! Allows you to purchase items from any fishing shop.",drop:"Quest",cat:"Key Item"}
+ pt:{name:"Fisher's Pass",desc:"Um passe concedido a qualquer um digno de segurar uma vara de pesca! Permite comprar itens em qualquer loja de pesca.",drop:"Quest em Great Plains",cat:"Item Chave"},
+ en:{name:"Fisher's Pass",desc:"A pass given to anyone worthy enough to hold up a fishing rod! Allows you to purchase items from any fishing shop.",drop:"Quest in Great Plains",cat:"Key Item"}
 },
 {rarity:"comum",
- pt:{name:"Fishing Reel",desc:"Um molinete usado para pesca! Um molinete por uso!",drop:"Fishing Shop",cat:"Item Diverso"},
+ pt:{name:"Fishing Reel",desc:"Um molinete usado para pesca! Um molinete por uso!",drop:"Loja de Pesca",cat:"Item Diverso"},
  en:{name:"Fishing Reel",desc:"A reel used for fishing! One reel per use!",drop:"Fishing Shop",cat:"Miscellaneous Item"}
 },
 {rarity:"comum",
- pt:{name:"GX-Attack",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente o ataque dos Animons.",drop:"Shop",cat:"Item Diverso"},
- en:{name:"GX-Attack",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons attack.",drop:"Shop",cat:"Miscellaneous Item"}
+ pt:{name:"GX-Attack",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente o ataque dos Animons.",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"GX-Attack",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons attack.",drop:"Shops",cat:"Miscellaneous Item"}
 },
 {rarity:"comum",
- pt:{name:"GX-Defense",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a defesa dos Animons.",drop:"Shop",cat:"Item Diverso"},
- en:{name:"GX-Defense",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons defense.",drop:"Shop",cat:"Miscellaneous Item"}
+ pt:{name:"GX-Defense",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a defesa dos Animons.",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"GX-Defense",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons defense.",drop:"Shops",cat:"Miscellaneous Item"}
 },
 {rarity:"comum",
- pt:{name:"GX-Special Atk",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente o ataque especial dos Animons.",drop:"Shop",cat:"Item Diverso"},
- en:{name:"GX-Special Atk",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons special atk.",drop:"Shop",cat:"Miscellaneous Item"}
+ pt:{name:"GX-Special Atk",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente o ataque especial dos Animons.",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"GX-Special Atk",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons special atk.",drop:"Shops",cat:"Miscellaneous Item"}
 },
 {rarity:"comum",
- pt:{name:"GX-Special Def",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a defesa especial dos Animons.",drop:"Shop",cat:"Item Diverso"},
- en:{name:"GX-Special Def",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons special def.",drop:"Shop",cat:"Miscellaneous Item"}
+ pt:{name:"GX-Special Def",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a defesa especial dos Animons.",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"GX-Special Def",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons special def.",drop:"Shops",cat:"Miscellaneous Item"}
 },
 {rarity:"comum",
- pt:{name:"GX-Speed",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a velocidade dos Animons.",drop:"Shop",cat:"Item Diverso"},
- en:{name:"GX-Speed",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons speed.",drop:"Shop",cat:"Miscellaneous Item"}
+ pt:{name:"GX-Speed",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a velocidade dos Animons.",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"GX-Speed",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons speed.",drop:"Shops",cat:"Miscellaneous Item"}
 },
 {rarity:"raro",
  pt:{name:"Gilded Sidearm",desc:"Aumenta o Dano de Arma em 1.2x",drop:"Baú no labirinto do Palácio",cat:"Item de Batalha"},
@@ -525,8 +526,8 @@ const items=[
  icon:"rocky_helmet.png"
 },
 {rarity:"incomum",
- pt:{name:"S-Potion",desc:"Uma versão aprimorada da C-Potion.",drop:"Shop",cat:"Item Médico"},
- en:{name:"S-Potion",desc:"An upgraded version of the C-Potion.",drop:"Shop",cat:"Medical Item"}
+ pt:{name:"S-Potion",desc:"Uma versão aprimorada da C-Potion.",drop:"Lojas",cat:"Item Médico"},
+ en:{name:"S-Potion",desc:"An upgraded version of the C-Potion.",drop:"Shops",cat:"Medical Item"}
 },
 {rarity:"raro",
  pt:{name:"Seismic Buckler",desc:"Reduz o dano do tipo Earth em 1.2x",drop:"Baú no Palácio",cat:"Item de Batalha"},
@@ -534,8 +535,8 @@ const items=[
  icon:"seismic_buckler.png"
 },
 {rarity:"comum",
- pt:{name:"Smoke Bomb",desc:"Este item possui a habilidade de te teleportar para a sua última visita a uma anistation!",drop:"Shop",cat:"Item Diverso"},
- en:{name:"Smoke Bomb",desc:"This item has the ability to teleport you to your last anistation visit!",drop:"Shop",cat:"Miscellaneous Item"},
+ pt:{name:"Smoke Bomb",desc:"Este item possui a habilidade de te teleportar para a sua última visita a uma anistation!",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"Smoke Bomb",desc:"This item has the ability to teleport you to your last anistation visit!",drop:"Shops",cat:"Miscellaneous Item"},
  icon:"smoke_bomb.png"
 },
 {rarity:"raro",
@@ -573,8 +574,8 @@ const items=[
  en:{name:"Scarf",desc:"[No Description]",drop:"Defeating the Wolfman Animon",cat:"Miscellaneous Item"}
 },
 {rarity:"comum",
- pt:{name:"Shell Casings",desc:"Parece ser algum tipo de munição usada pelos Marines! Também bem inútil.",drop:"Shop",cat:"Item Diverso"},
- en:{name:"Shell Casings",desc:"Seems to be some sort of ammo used by the Marines! Also pretty useless.",drop:"Shop",cat:"Miscellaneous Item"}
+ pt:{name:"Shell Casings",desc:"Parece ser algum tipo de munição usada pelos Marines! Também bem inútil.",drop:"Lojas",cat:"Item Diverso"},
+ en:{name:"Shell Casings",desc:"Seems to be some sort of ammo used by the Marines! Also pretty useless.",drop:"Shops",cat:"Miscellaneous Item"}
 },
 {rarity:"incomum",
  pt:{name:"Wolf-Fang",desc:"Chance de drop ao derrotar Battle Wolf.",drop:"Derrotando Battle Wolf",cat:"Item Diverso"},
@@ -586,7 +587,41 @@ const items=[
 },
 {rarity:"epico",
  pt:{name:"Beast Talisman",desc:"Um talismã gravado em carmesim que, ao ser usado no Animon escolhido com Fox Spirit, desperta sua forma Beast e libera poder adormecido.",drop:"Bandit Crate",cat:"Item de Batalha"},
- en:{name:"Beast Talisman",desc:"A crimson-etched talisman that, when used on its chosen Animon with Fox Spirit, awakens their Beast form and unleashes dormant power.",drop:"Bandit Crate",cat:"Battle Item"}
+ en:{name:"Beast Talisman",desc:"A crimson-etched talisman that, when used on its chosen Animon with Fox Spirit, awakens their Beast form and unleashes dormant power.",drop:"Bandit Crate",cat:"Battle Item"},
+ icon:"beast_talisman.png"
+},
+{rarity:"epico",
+ pt:{name:"Tempest Quills",desc:"Duas penas escuras e resistentes, amarradas juntas, impregnadas com a força de uma tempestade furiosa.",drop:"Derrotando Animons do tipo Wind.",cat:"Item de Evolução"},
+ en:{name:"Tempest Quills",desc:"Two dark, sturdy feathers tied together, infused with the might of a raging storm.",drop:"Defeating Wind-type Animons.",cat:"Evolution Item"}
+},
+{rarity:"epico",
+ pt:{name:"Demonic Blade",desc:"A Lâmina Demoníaca, envolta em mistério e trevas, é uma arma que prospera no calor da batalha!",note:"Derrote Animons para aumentar o dano das habilidades de espadachim! [1.2x-1.8x]",drop:"Fishing Crate",cat:"Item de Batalha"},
+ en:{name:"Demonic Blade",desc:"The Demonic Blade, shrouded in mystery and darkness, is a weapon that thrives on the heat of battle! ",note:"Defeat Animons to increase the damage of your swordsman skills! [1.2x-1.8x]",drop:"Fishing Crate",cat:"Battle Item"}
+},
+{rarity:"epico",
+ pt:{name:"Mysterious Egg",desc:"Um ovo misterioso e enigmático...",drop:"Quest em Great Plains",cat:"Item Chave"},
+ en:{name:"Mysterious Egg",desc:"A mysterious and omincus egg...",drop:"Quest in Great Plains",cat:"Key Item"},
+ icon:"mysterious_egg.png"
+},
+{rarity:"incomum",
+ pt:{name:"Antidote",desc:"Tratamento para veneno! Aplique no seu Animon!",drop:"Lojas",cat:"Item Médico"},
+ en:{name:"Antidote",desc:"Treatment for poison! Apply it on your Animon!",drop:"Shops",cat:"Medical Item"}
+},
+{rarity:"comum",
+ pt:{name:"Missing Shipments",desc:"Restos desaparecidos! Por algum motivo, os alienígenas selvagens são atraídos por isso.",drop:"Derrotando o Animon Alien.",cat:"Item Diverso"},
+ en:{name:"Missing Shipments",desc:"Missing scraps! For some reason the wild aliens are attracted to this.",drop:"Defeating the Animon Alien.",cat:"Miscellaneous Item"}
+},
+{rarity:"incomum",
+ pt:{name:"Shadow Bone",desc:"[Sem Descrição ainda]",drop:"???",cat:"Item de Evolução"},
+ en:{name:"Shadow Bone",desc:"[No description yet]",drop:"???",cat:"Evolution Item"}
+},
+{rarity:"incomum",
+ pt:{name:"Storm Battery",desc:"Uma bateria que absorve eletricidade estática do ar, aumentando o poder dos golpes do tipo Elétrico!",drop:"Loja em Capsule City",cat:"Item de Batalha"},
+ en:{name:"Storm Battery",desc:"A battery that absorbs static electricity from the air, boosting the power of Electric-type moves!",drop:"Shop in Capsule City",cat:"Battle Item"}
+},
+{rarity:"epico",
+ pt:{name:"Abyssal Eye",desc:"Um olho grande e ameaçador, com um olhar penetrante, pulsando com energia malévola.",drop:"Derrotando Animons do tipo Demon.",cat:"Item de Evolução"},
+ en:{name:"Abyssal Eye",desc:"A large, ominous eye with a piercing gaze, pulsing with malevolent energy.",drop:"Defeating Demon-type Animons.",cat:"Evolution Item"}
 }
 ];
 
