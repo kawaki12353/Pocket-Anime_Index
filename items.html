@@ -230,6 +230,58 @@ body{
 .r-epico{background:#6a1b9a}
 .r-lendario{background:#f9a825}
 
+/* TEMA CLARO */
+body.light {
+  background:#f2f4f7;
+  color:#000;
+}
+
+body.light .item {
+  background:#fff;
+  color:#000;
+}
+
+body.light .home-btn {
+  background:#fff;
+  color:#000;
+}
+
+/* TEMA ESCURO */
+body.dark {
+  background:#121212;
+  color:#fff;
+}
+
+body.dark .item {
+  background:#1e1e1e;
+  color:#fff;
+}
+
+body.dark .home-btn {
+  background:#1f1f1f;
+  color:#fff;
+  border-color:#444;
+}
+
+body.dark .madeby {
+  color:#aaa;
+}
+
+body.dark .select-btn {
+  background:#1f1f1f;
+  color:#fff;
+}
+
+body.dark .select-list {
+  background:#1c1c1c;
+}
+
+body.dark .filters input {
+  background:#1f1f1f;
+  color:#fff;
+  border-color:#444;
+}
+
 </style>
 </head>
 
@@ -292,6 +344,17 @@ body{
 <div class="madeby">Made by Kawaki1963</div>
 
 <script>
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+function applyTheme() {
+  document.body.classList.remove("light", "dark");
+  document.body.classList.add(prefersDark.matches ? "dark" : "light");
+}
+
+applyTheme();
+
+prefersDark.addEventListener("change", applyTheme);
+
 let lang=localStorage.getItem("siteLang")||"pt";
 const rarityOrder={comum:1,incomum:2,raro:3,epico:4,lendario:5};
 
