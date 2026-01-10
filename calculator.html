@@ -8,7 +8,8 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #f2f4f7;
+  background: var(--bg);
+  color: var(--text);
   padding: 20px;
   margin: 0;
 }
@@ -25,19 +26,19 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background: #ffffff;
-  border: 1px solid #ccc;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 8px 14px;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
-  color: #000;
+  color: var(--text);
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .home-btn:hover {
-  background: #f1f1f1;
+  background: var(--hover);
 }
 
 /* LOGO */
@@ -93,14 +94,15 @@ body {
 }
 
 .select-btn {
-  background: #fff;
+  background: var(--card);
   border-radius: 10px;
   padding: 10px 12px;
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 
 .select-btn img {
@@ -116,6 +118,7 @@ body {
   content: "▼";
   margin-left: auto;
   font-size: 12px;
+  color: var(--text);
 }
 
 /* DROPDOWN */
@@ -124,7 +127,7 @@ body {
   top: 110%;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: var(--card);
   border-radius: 10px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   max-height: 260px;
@@ -151,15 +154,16 @@ body {
 }
 
 .option:hover {
-  background: #f1f1f1;
+  background: var(--hover);
 }
 
 /* SEÇÕES */
 .section {
-  background: #fff;
+  background: var(--card);
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 20px;
+  color: var(--text);
 }
 
 .section h2 {
@@ -227,6 +231,26 @@ body {
   font-weight: bold;
   font-size: 15px;
 }
+
+/* Modo claro */
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+}
+
+/* Modo Escuro */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+  }
+}
 </style>
 </head>
 
@@ -253,7 +277,7 @@ body {
   <button id="langBtn"></button>
 </div>
 
-<div class="madeby">Made by Kawaki</div>
+<div class="madeby">Made by Kawaki1963</div>
 
 <script>
 const elements = [
