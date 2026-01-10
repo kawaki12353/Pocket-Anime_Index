@@ -241,7 +241,7 @@ const uiText={
   allRare:"Todas raridades",
   cats:[
    "Item de Evolução","Item de Batalha","Item Chave",
-   "Item de Status","Item Médico","Item Diverso","Item de Captura"
+   "Item de Status","Item Médico","Item Diverso","Item de Captura","Scroll de Habilidade"
   ],
   rares:["Comum","Incomum","Raro","Épico","Lendário"],
   close:"Fechar",
@@ -258,7 +258,7 @@ const uiText={
   allRare:"All rarities",
   cats:[
    "Evolution Item","Battle Item","Key Item",
-   "Status Item","Medical Item","Miscellaneous Item","Capture Item"
+   "Status Item","Medical Item","Miscellaneous Item","Capture Item","Skill Scroll" 
   ],
   rares:["Common","Uncommon","Rare","Epic","Legendary"],
   close:"Close",
@@ -366,7 +366,8 @@ const items=[
 },
 {rarity:"incomum",
  pt:{name:"Radiant Ring",desc:"Um anel dourado que brilha com uma luz interna quente.",drop:"Derrotando Animons do tipo Light.",cat:"Item de Evolução"},
- en:{name:"Radiant Ring",desc:"A golden ring that glows with a warm, inner light.",drop:"Defeating Light-type Animons.",cat:"Evolution Item"}
+ en:{name:"Radiant Ring",desc:"A golden ring that glows with a warm, inner light.",drop:"Defeating Light-type Animons.",cat:"Evolution Item"},
+ icon:"radiant_ring.png"
 },
 {rarity:"incomum",
  pt:{name:"Shadow Fang",desc:"Um osso simples e pálido imbuído de energia sombria.",drop:"Derrotando Animons do tipo Dark.",cat:"Item de Evolução"},
@@ -456,8 +457,8 @@ const items=[
  en:{name:"Dashfruit",desc:"Zesty and light — one bite and you're already moving!",note:"Increases SPD TV by 10",drop:"Phase Shop",cat:"Status Item"}
 },
 {rarity:"incomum",
- pt:{name:"Demon Shuriken",desc:"??? Talvez a Raridade esteja errada.",drop:"Loja em Capsule City",cat:"Item de Batalha"},
- en:{name:"Demon Shuriken",desc:"??? Perhaps the rarity is wrong.",drop:"Shop in Capsule City",cat:"Battle Item"}
+ pt:{name:"Demon Shuriken",desc:"[Sem Descrição ainda]",drop:"Loja em Capsule City",cat:"Item de Batalha"},
+ en:{name:"Demon Shuriken",desc:"[No description yet]",drop:"Shop in Capsule City",cat:"Battle Item"}
 },
 {rarity:"incomum",
  pt:{name:"Dinosaur Hide",desc:"Um couro grosso e resistente deixado por um dinossauro poderoso.",drop:"Derrotando o Animon Dinossaur",cat:"Item Diverso"},
@@ -583,7 +584,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Fighter Sash",desc:"Fighter Sash! Conhecida por aumentar o dano de habilidades do atributo ki.",drop:"Fighter Crate",cat:"Item de Batalha"},
- en:{name:"Fighter Sash",desc:"Fighter Sash! Known to increase damage of ki-attribute abilities.",drop:"Fighter Crate",cat:"Battle Item"}
+ en:{name:"Fighter Sash",desc:"Fighter Sash! Known to increase damage of ki-attribute abilities.",drop:"Fighter Crate",cat:"Battle Item"},
+ icon:"fighter_sash.png"
 },
 {rarity:"epico",
  pt:{name:"Beast Talisman",desc:"Um talismã gravado em carmesim que, ao ser usado no Animon escolhido com Fox Spirit, desperta sua forma Beast e libera poder adormecido.",drop:"Bandit Crate",cat:"Item de Batalha"},
@@ -596,7 +598,8 @@ const items=[
 },
 {rarity:"epico",
  pt:{name:"Demonic Blade",desc:"A Lâmina Demoníaca, envolta em mistério e trevas, é uma arma que prospera no calor da batalha!",note:"Derrote Animons para aumentar o dano das habilidades de espadachim! [1.2x-1.8x]",drop:"Fishing Crate",cat:"Item de Batalha"},
- en:{name:"Demonic Blade",desc:"The Demonic Blade, shrouded in mystery and darkness, is a weapon that thrives on the heat of battle! ",note:"Defeat Animons to increase the damage of your swordsman skills! [1.2x-1.8x]",drop:"Fishing Crate",cat:"Battle Item"}
+ en:{name:"Demonic Blade",desc:"The Demonic Blade, shrouded in mystery and darkness, is a weapon that thrives on the heat of battle! ",note:"Defeat Animons to increase the damage of your swordsman skills! [1.2x-1.8x]",drop:"Fishing Crate",cat:"Battle Item"},
+ icon:"demonic_blade.png"
 },
 {rarity:"epico",
  pt:{name:"Mysterious Egg",desc:"Um ovo misterioso e enigmático...",drop:"Quest em Great Plains",cat:"Item Chave"},
@@ -621,7 +624,18 @@ const items=[
 },
 {rarity:"epico",
  pt:{name:"Abyssal Eye",desc:"Um olho grande e ameaçador, com um olhar penetrante, pulsando com energia malévola.",drop:"Derrotando Animons do tipo Demon.",cat:"Item de Evolução"},
- en:{name:"Abyssal Eye",desc:"A large, ominous eye with a piercing gaze, pulsing with malevolent energy.",drop:"Defeating Demon-type Animons.",cat:"Evolution Item"}
+ en:{name:"Abyssal Eye",desc:"A large, ominous eye with a piercing gaze, pulsing with malevolent energy.",drop:"Defeating Demon-type Animons.",cat:"Evolution Item"},
+ icon:"abyssal_eye.png"
+},
+{rarity:"raro",
+ pt:{name:"Merciful Blow Scroll",desc:"Uma técnica misericordiosa, que só pode ser aprendida por espadachins específicos.",note:"Aprende o ataque Merciful Blow, que ao atacar, impede o alvo de ser derrotado. O alvo fica com pelo menos 1 de HP.",drop:"15k na Loja em Capsule City ou Highstar Base Crate.",cat:"Scroll de Habidade"},
+ en:{name:"Merciful Blow Scroll",desc:"A merciful technique, can only be learned by specific swordsman.",note:"Learn the Merciful Blow attack, which, when used, prevents the target from being defeated. The target is left with at least 1 HP.",drop:"15k in Shop in Capsule City or Highstar Base Crate.",cat:"Skill Scroll"},
+ icon:"merciful_blow_scroll.png"
+},
+{rarity:"raro",
+ pt:{name:"Storm Crystal",desc:"Um cristal roxo mais escuro com uma tempestade mais intensa em seu interior, crepitando com poderosos raios.",drop:"Derrotando Animons do tipo Lighting.",cat:"Item de Evolução"},
+ en:{name:"Storm Crystal",desc:"A deeper purple crystal with a more intense storm raging within, crackling with powerful bolts of lightning.",drop:"Defeating Lightning-type Animon.",cat:"Evolution Item"},
+ icon:"storm_crystal.png"
 }
 ];
 
