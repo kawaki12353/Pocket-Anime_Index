@@ -310,12 +310,12 @@ body.dark .lang-toggle button{
 <div class="filters">
   <input id="searchInput" type="text">
 <div class="custom-select" id="categorySelect">
-  <div class="select-btn" id="categoryBtn">Categoria</div>
+  <div class="select-btn" id="categoryBtn"></div>
   <ul class="select-list" id="categoryList"></ul>
 </div>
 
 <div class="custom-select" id="raritySelect">
-  <div class="select-btn" id="rarityBtn">Raridade</div>
+  <div class="select-btn" id="rarityBtn"></div>
   <ul class="select-list" id="rarityList"></ul>
  </div>
 </div>
@@ -885,6 +885,18 @@ function updateLang(){
 
   buildCategoryMenu();
   buildRarityMenu();
+  
+  categoryBtn.textContent = selectedCategory
+  ? categoryLabels[lang][selectedCategory]
+  : uiText[lang].allCat;
+
+rarityBtn.textContent = selectedRarity
+  ? rarityLabels[lang][selectedRarity]
+  : uiText[lang].allRare;
+
+rarityBtn.className = "select-btn";
+if (selectedRarity) rarityBtn.classList.add("r-" + selectedRarity);
+  
   render();
 }
 
