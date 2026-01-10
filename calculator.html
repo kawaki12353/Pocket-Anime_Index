@@ -503,6 +503,14 @@ langBtn.onclick=()=>{
   updateLang();
 };
 
+  document.addEventListener("click", e => {
+  document.querySelectorAll(".select-options").forEach(opt => {
+    if (!opt.parentElement.contains(e.target)) {
+      opt.classList.remove("open");
+    }
+  });
+});
+
 updateLang();
 </script>
 
