@@ -231,8 +231,9 @@ body {
   font-weight: bold;
   font-size: 15px;
 
-  background: transparent;
+  background: var(--lang-btn-bg);
   color: var(--lang-btn);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 /* Modo claro */
@@ -243,7 +244,9 @@ body {
   --border: #ccc;
   --hover: #f1f1f1;
 
-  --lang-btn: #444;
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+}
 }
 
 @media (prefers-color-scheme: dark){
@@ -254,7 +257,8 @@ body {
     --border: #2a2f3a;
     --hover: #232836;
 
-    --lang-btn: #ffffff;
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
   }
 }
 </style>
