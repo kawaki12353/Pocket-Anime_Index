@@ -228,7 +228,7 @@ body{
 .r-incomum{background:#2e7d32}
 .r-raro{background:#0d47a1}
 .r-epico{background:#6a1b9a}
-.r-lendario{background:#f9a825;color:#000}
+.r-lendario{background:#f9a825}
 
 </style>
 </head>
@@ -330,6 +330,23 @@ const uiText={
   cat:"Category",
   btn:"🇺🇸 USA"
  }
+};
+
+const rarityLabels = {
+  pt: {
+    comum: "Comum",
+    incomum: "Incomum",
+    raro: "Raro",
+    epico: "Épico",
+    lendario: "Lendário"
+  },
+  en: {
+    comum: "Common",
+    incomum: "Uncommon",
+    raro: "Rare",
+    epico: "Epic",
+    lendario: "Legendary"
+  }
 };
 
 const items=[
@@ -783,7 +800,9 @@ langBtn.onclick = () => {
   selectedRarity = rar;
 
   categoryBtn.textContent = cat || uiText[lang].allCat;
-rarityBtn.textContent = rar || uiText[lang].allRare;
+rarityBtn.textContent = rar
+  ? rarityLabels[lang][rar]
+  : uiText[lang].allRare;
   rarityBtn.className = "select-btn" + (rar ? " r-" + rar : "");
 
   render();
@@ -793,11 +812,16 @@ rarityBtn.textContent = rar || uiText[lang].allRare;
 let selectedCategory = "";
 let selectedRarity = "";
 
-function buildCategoryMenu(){
-  categoryList.innerHTML = `<li onclick="selectCategory('')">${uiText[lang].allCat}</li>`;
-  uiText[lang].cats.forEach(c=>{
-    categoryList.innerHTML += `
-      <li onclick="selectCategory('${c}')">${c}</li>
+function buildRarityMenu(){
+  rarityList.innerHTML = `
+    <li onclick="selectRarity('')">${uiText[lang].allRare}</li>
+  `;
+
+  Object.keys(rarityOrder).forEach(r=>{
+    rarityList.innerHTML += `
+      <li class="r-${r}" onclick="selectRarity('${r}')">
+        ${rarityLabels[lang][r]}
+      </li>
     `;
   });
 }
@@ -822,7 +846,9 @@ function selectCategory(value){
 
 function selectRarity(value){
   selectedRarity = value;
-  rarityBtn.textContent = value || "Raridade";
+  rarityBtn.textContent = value
+  ? rarityLabels[lang][value]
+  : uiText[lang].allRare;
   rarityBtn.className = "select-btn" + (value ? " r-" + value : "");
   rarityList.style.display = "none";
   render();
