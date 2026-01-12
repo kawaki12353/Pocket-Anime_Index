@@ -249,6 +249,7 @@ const discordImg = document.querySelector(".discord-img");
 const originalSrc = discordImg.src;
 const hoverSrc = discordImg.dataset.hover;
 
+// Desktop
 discordImg.addEventListener("mouseenter", () => {
   discordImg.src = hoverSrc;
 });
@@ -257,6 +258,7 @@ discordImg.addEventListener("mouseleave", () => {
   discordImg.src = originalSrc;
 });
 
+// Mobile
 discordImg.addEventListener("touchstart", () => {
   discordImg.src = hoverSrc;
 });
