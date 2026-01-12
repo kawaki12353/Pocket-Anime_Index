@@ -904,10 +904,18 @@ function updateLang(){
   buildCategoryMenu();
   buildRarityMenu();
   
-  const icon = selectedCategory ? categoryIcons[selectedCategory] : categoryIcons.all;
-  const text = selectedCategory ? categoryLabels[lang][selectedCategory] : uiText[lang].allCat;
+const text = selectedCategory
+  ? categoryLabels[lang][selectedCategory]
+  : uiText[lang].allCat;
 
-categoryBtn.innerHTML = `<img src="${icon}" class="category-icon"> ${text}`;
+if (selectedCategory) {
+  categoryBtn.innerHTML = `
+    <img src="${categoryIcons[selectedCategory]}" class="category-icon">
+    ${text}
+  `;
+} else {
+  categoryBtn.textContent = text; // sem ícone
+}
 
 rarityBtn.textContent = selectedRarity
   ? rarityLabels[lang][selectedRarity]
@@ -947,11 +955,10 @@ let selectedRarity = "";
 
 function buildCategoryMenu(){
   categoryList.innerHTML = `
-    <li onclick="selectCategory('')">
-      <img src="${categoryIcons.all}" class="category-icon">
-      ${uiText[lang].allCat}
-    </li>
-  `;
+  <li onclick="selectCategory('')">
+    ${uiText[lang].allCat}
+  </li>
+`;
 
   categoryKeys.forEach(key=>{
     categoryList.innerHTML += `
@@ -977,13 +984,16 @@ function buildRarityMenu(){
 function selectCategory(value){
   selectedCategory = value;
 
-  const icon = value ? categoryIcons[value] : categoryIcons.all;
   const text = value ? categoryLabels[lang][value] : uiText[lang].allCat;
 
+if (value) {
   categoryBtn.innerHTML = `
-    <img src="${icon}" class="category-icon">
+    <img src="${categoryIcons[value]}" class="category-icon">
     ${text}
   `;
+} else {
+  categoryBtn.textContent = text; // sem ícone
+}
 
   categoryList.style.display = "none";
   render();
