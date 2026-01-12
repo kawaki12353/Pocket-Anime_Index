@@ -137,6 +137,8 @@ p{
   color:#111;
 }
 
+}
+
 /* DISCORD BUTTON */
 .discord-btn{
   margin-top:20px;
@@ -145,15 +147,14 @@ p{
   max-width:90%;
 }
 
-.discord-btn img{
+.discord-img{
   width:100%;
   border-radius:12px;
   transition:0.25s ease;
 }
 
 /* Animação hover (troca de imagem) */
-.discord-btn:hover img{
-  content:url("assets/discordofficial_botton_on.png");
+.discord-btn:hover .discord-img{
   transform:scale(1.04);
 }
 
@@ -182,7 +183,11 @@ p{
 
   <!-- DISCORD BUTTON -->
 <a href="https://discord.gg/pocketanime" target="_blank" class="discord-btn">
-  <img src="assets/discordofficial_botton.png" alt="Official Discord">
+  <img 
+  src="assets/discordofficial_botton.png"
+  data-hover="assets/discordofficial_botton_on.png"
+  class="discord-img"
+  alt="Official Discord">
 </a>
 
   <div class="footer">
@@ -236,6 +241,19 @@ document.getElementById("langBtn").onclick = () => {
 
 /* INIT */
 updateLang();
+
+const discordImg = document.querySelector(".discord-img");
+const originalSrc = discordImg.src;
+const hoverSrc = discordImg.dataset.hover;
+
+discordImg.addEventListener("mouseenter", () => {
+  discordImg.src = hoverSrc;
+});
+
+discordImg.addEventListener("mouseleave", () => {
+  discordImg.src = originalSrc;
+});
+
 </script>
 
 </body>
