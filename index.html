@@ -260,7 +260,32 @@ p{
   .lang-toggle{
     bottom: 12px;
   }
+}
 
+/* WIKI + DOC */
+.extra-buttons{
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.extra-btn{
+  flex: 1;
+  max-width: 48%;
+}
+
+.extra-btn img{
+  width: 100%;
+  border-radius: 12px;
+  transition: transform .25s ease;
+}
+
+/* Hover desktop */
+@media (hover: hover){
+  .extra-btn:hover img{
+    transform: scale(1.04);
+  }
 }
 </style>
 </head>
@@ -278,7 +303,7 @@ p{
     ⏳ Soon
   </div>
 
-  <!-- NOVO BOTÃO ITENS -->
+  <!-- BOTÃO ITENS -->
   <a href="items.html" class="btn" id="itemsBtn"></a>
 
   <!-- CALCULADORA -->
@@ -286,12 +311,31 @@ p{
 
   <!-- DISCORD BUTTON -->
 <a href="https://discord.gg/pocketanime" target="_blank" class="discord-btn">
-  <img 
-  src="assets/discordofficial_botton.png"
-  data-hover="assets/discordofficial_botton_on.png"
-  class="discord-img"
-  alt="Official Discord">
+  <img
+    src="assets/discordofficial_botton.png"
+    data-hover="assets/discordofficial_botton_on.png"
+    class="discord-img"
+    alt="Official Discord">
 </a>
+
+<!-- WIKI + DOC BUTTONS -->
+<div class="extra-buttons">
+  
+  <!-- DOC -->
+<a href="#" class="extra-btn" id="docLink">
+    <img
+      id="docImg"
+      src="assets/doc_botton1.png"
+      alt="Documentation">
+  </a>
+
+  <!-- WIKI -->
+  <a href="https://pocketanime.fandom.com/wiki/PocketAnime_Wiki" class="extra-btn">
+    <img
+      src="assets/wiki_botton.png"
+      alt="Wiki">
+  </a>
+</div>
 
 </div>
 
@@ -367,6 +411,18 @@ function updateLang(){
   document.getElementById("creditsCreatorText").textContent = texts[lang].creditsCreatorText;
   document.getElementById("creditsToolsLabel").textContent = texts[lang].creditsToolsLabel;
   document.getElementById("creditsToolsText").textContent = texts[lang].creditsToolsText;
+
+// BOTÃO DOC
+  const docImg = document.getElementById("docImg");
+  const docLink = document.getElementById("docLink");
+
+  if (lang === "pt") {
+    docImg.src = "assets/doc_botton1.png";
+    docLink.href = "https://docs.google.com/spreadsheets/d/1ny5ffBE45StnPxDY4ZlDzOBTZV4-W2r62rjl1QRfRDE/edit?usp=drivesdk";   // LINK EM PORTUGUÊS
+  } else {
+    docImg.src = "assets/doc_botton2.png";
+    docLink.href = "https://docs.google.com/spreadsheets/d/1j8D2Lv-iq5BFg0vUTjokfoSepDwSeEY1S5Vtj31r64s/edit?usp=drivesdk";   // LINK EM INGLÊS
+  }
 }
 
 /* BOTÃO DE TROCA DE IDIOMA */
