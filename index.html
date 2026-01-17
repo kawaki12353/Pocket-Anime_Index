@@ -52,7 +52,8 @@ body{
 .side-menu{
   position:fixed;
   top:0;
-  left:-280px;
+  transform: translateX(-100%);
+  left:0;
   width:260px;
   height:100%;
   background:#fff;
@@ -64,9 +65,11 @@ body{
   flex-direction:column;
 }
 
+
+
 /* MENU ATIVO */
 .side-menu.active{
-  left:0;
+  transform: translateX(0);
 }
 .menu-overlay.active{
   opacity:1;
