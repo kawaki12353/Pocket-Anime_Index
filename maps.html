@@ -17,7 +17,9 @@ body {
 /* HEADER */
 .header {
   position: relative;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 30px;
 }
 
@@ -39,18 +41,28 @@ body {
   max-width: 60vw;
 }
 
-/* SEARCH */
+@media (max-width: 600px) {
+  .header {
+    justify-content: flex-end;
+  }
+
+  .logo {
+    margin-right: 0;
+  }
+}
+
+/* SEARCH (REDUZIDA) */
 .search-container {
-  max-width: 420px;
+  max-width: 320px;
   margin: 0 auto 20px;
 }
 
 .search-container input {
   width: 100%;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
   border: 1px solid var(--border);
-  font-size: 16px;
+  font-size: 14px;
   background: var(--card);
   color: var(--text);
 }
@@ -166,21 +178,22 @@ body {
 const maps = [
   { name: "Castle Maze", file: "castle_maze_map.png" },
   { name: "Highstar Base", file: "highstar_base_map.png" }
-
-  // 👉 { name: "Novo Mapa", file: "novo_mapa.png" }
 ];
 
 const MAP_PATH = "assets/maps/";
 
 /* BUILD MAP LIST */
 const mapList = document.getElementById("mapList");
+const searchInput = document.getElementById("searchInput");
+const homeBtn = document.getElementById("homeBtn");
+const langBtn = document.getElementById("langBtn");
 
 function renderMaps(filter = "") {
   mapList.innerHTML = "";
 
   maps
     .filter(m => m.name.toLowerCase().includes(filter))
-    .forEach((map, index) => {
+    .forEach(map => {
       const item = document.createElement("div");
       item.className = "map-item";
 
@@ -192,11 +205,15 @@ function renderMaps(filter = "") {
       `;
 
       item.querySelector(".map-header").onclick = () => {
+        const isActive = item.classList.contains("active");
+
         document
           .querySelectorAll(".map-item")
           .forEach(i => i.classList.remove("active"));
 
-        item.classList.toggle("active");
+        if (!isActive) {
+          item.classList.add("active");
+        }
       };
 
       mapList.appendChild(item);
