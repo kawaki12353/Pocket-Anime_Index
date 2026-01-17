@@ -53,16 +53,16 @@ function updateMenuLang(){
 
   const text = {
     pt:{
-      home:"Início",
-      calc:"Calculadora",
-      items:"Itens",
-      maps:"Mapas"
+      home:"🏠 Início",
+      calc:"🔥 Calculadora",
+      items:"🗂 Itens",
+      maps:"🗺 Mapas"
     },
     en:{
-      home:"Home",
-      calc:"Calculator",
-      items:"Items",
-      maps:"Maps"
+      home:"🏠 Home",
+      calc:"🔥 Calculator",
+      items:"🗂 Items",
+      maps:"🗺 Maps"
     }
   };
 
