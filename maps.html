@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pocket Anime</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 20px;
+  margin: 0;
+}
+
+/* HEADER */
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* HOME BUTTON */
+.home-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.home-btn:hover {
+  background: var(--hover);
+}
+
+/* LOGO */
+.logo {
+  width: 220px;
+  max-width: 60vw;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .header-top {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .logo {
+    width: 150px;
+  }
+}
+
+/* LANG BUTTON */
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* CORES */
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <a href="index.html" class="home-btn" id="homeBtn">Home</a>
+
+  <div class="header-top">
+    <img src="assets/Pocket-Anime-logo.png" class="logo">
+  </div>
+</div>
+
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
+
+<script>
+const texts = {
+  pt: {
+    home: "Home",
+    btn: "🇧🇷 BR"
+  },
+  en: {
+    home: "Home",
+    btn: "🇺🇸 USA"
+  }
+};
+
+let lang = localStorage.getItem("siteLang") || "pt";
+
+function updateLang() {
+  homeBtn.textContent = texts[lang].home;
+  langBtn.textContent = texts[lang].btn;
+}
+
+langBtn.onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
+  updateLang();
+};
+
+updateLang();
+</script>
+
+</body>
+</html>
