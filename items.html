@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="menu.js" defer></script>
 <title>Pocket Anime - Items</title>
 
 <style>
@@ -1064,6 +1065,9 @@ rarityBtn.onclick = (e) => {
 };
 
 document.addEventListener("click", closeAllSelects);
+
+localStorage.setItem("siteLang", lang);
+updateMenuLang();
 
 </script>
 
