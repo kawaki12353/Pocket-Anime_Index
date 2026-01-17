@@ -81,3 +81,11 @@
   pointer-events:none;
   opacity:.8;
 }
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark){
+  .side-menu{ background:#1a1d23; }
+  .menu-btn{ background:#1a1d23; color:#fff; }
+  .menu-links a{ background:#2a2f3a; color:#fff; }
+  .menu-links a.active{ background:#3a4050; }
+}
