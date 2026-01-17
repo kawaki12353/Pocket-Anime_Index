@@ -21,7 +21,6 @@ body {
   margin-bottom: 30px;
 }
 
-/* HOME BUTTON */
 .home-btn {
   position: absolute;
   top: 0;
@@ -31,32 +30,71 @@ body {
   border-radius: 10px;
   padding: 8px 14px;
   font-weight: bold;
-  cursor: pointer;
   text-decoration: none;
   color: var(--text);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.home-btn:hover {
-  background: var(--hover);
-}
-
-/* LOGO */
 .logo {
   width: 220px;
   max-width: 60vw;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .header-top {
-    display: flex;
-    justify-content: flex-end;
-  }
+/* SEARCH */
+.search-container {
+  max-width: 420px;
+  margin: 0 auto 20px;
+}
 
-  .logo {
-    width: 150px;
-  }
+.search-container input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 16px;
+  background: var(--card);
+  color: var(--text);
+}
+
+/* MAP LIST */
+.map-list {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.map-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.map-header {
+  padding: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.map-header:hover {
+  background: var(--hover);
+}
+
+/* MAP IMAGE (ACCORDION) */
+.map-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.map-content img {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+/* ACTIVE */
+.map-item.active .map-content {
+  max-height: 1000px;
 }
 
 /* LANG BUTTON */
@@ -71,15 +109,13 @@ body {
   padding: 8px 14px;
   border-radius: 20px;
   border: none;
-  cursor: pointer;
   font-weight: bold;
-  font-size: 15px;
+  cursor: pointer;
   background: var(--lang-btn-bg);
   color: var(--lang-btn);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* CORES */
+/* COLORS */
 :root{
   --bg: #f2f4f7;
   --card: #ffffff;
@@ -110,26 +146,74 @@ body {
 
 <div class="header">
   <a href="index.html" class="home-btn" id="homeBtn">Home</a>
-
-  <div class="header-top">
-    <img src="assets/Pocket-Anime-logo.png" class="logo">
-  </div>
+  <img src="assets/Pocket-Anime-logo.png" class="logo">
 </div>
+
+<!-- SEARCH -->
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Pesquisar mapa...">
+</div>
+
+<!-- MAP LIST -->
+<div class="map-list" id="mapList"></div>
 
 <div class="lang-toggle">
   <button id="langBtn"></button>
 </div>
 
 <script>
+/* MAP CONFIG */
+const maps = [
+  { name: "Castle Maze", file: "castle_maze_map.png" },
+  { name: "Highstar Base", file: "highstar_base_map.png" }
+
+  // 👉 { name: "Novo Mapa", file: "novo_mapa.png" }
+];
+
+const MAP_PATH = "assets/maps/";
+
+/* BUILD MAP LIST */
+const mapList = document.getElementById("mapList");
+
+function renderMaps(filter = "") {
+  mapList.innerHTML = "";
+
+  maps
+    .filter(m => m.name.toLowerCase().includes(filter))
+    .forEach((map, index) => {
+      const item = document.createElement("div");
+      item.className = "map-item";
+
+      item.innerHTML = `
+        <div class="map-header">${map.name}</div>
+        <div class="map-content">
+          <img src="${MAP_PATH}${map.file}" alt="${map.name}">
+        </div>
+      `;
+
+      item.querySelector(".map-header").onclick = () => {
+        document
+          .querySelectorAll(".map-item")
+          .forEach(i => i.classList.remove("active"));
+
+        item.classList.toggle("active");
+      };
+
+      mapList.appendChild(item);
+    });
+}
+
+renderMaps();
+
+/* SEARCH */
+searchInput.addEventListener("input", () => {
+  renderMaps(searchInput.value.toLowerCase());
+});
+
+/* LANGUAGE */
 const texts = {
-  pt: {
-    home: "Home",
-    btn: "🇧🇷 BR"
-  },
-  en: {
-    home: "Home",
-    btn: "🇺🇸 USA"
-  }
+  pt: { home: "Home", btn: "🇧🇷 BR", search: "Pesquisar mapa..." },
+  en: { home: "Home", btn: "🇺🇸 USA", search: "Search map..." }
 };
 
 let lang = localStorage.getItem("siteLang") || "pt";
@@ -137,6 +221,7 @@ let lang = localStorage.getItem("siteLang") || "pt";
 function updateLang() {
   homeBtn.textContent = texts[lang].home;
   langBtn.textContent = texts[lang].btn;
+  searchInput.placeholder = texts[lang].search;
 }
 
 langBtn.onclick = () => {
