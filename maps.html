@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="menu.css">
+<script src="menu.js" defer></script>
+
 <title>Pocket Anime</title>
 
 <style>
@@ -21,19 +25,6 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
-}
-
-.home-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 14px;
-  font-weight: bold;
-  text-decoration: none;
-  color: var(--text);
 }
 
 .logo {
@@ -157,7 +148,6 @@ body {
 <body>
 
 <div class="header">
-  <a href="index.html" class="home-btn" id="homeBtn">Home</a>
   <img src="assets/Pocket-Anime-logo.png" class="logo">
 </div>
 
@@ -185,7 +175,6 @@ const MAP_PATH = "assets/maps/";
 /* BUILD MAP LIST */
 const mapList = document.getElementById("mapList");
 const searchInput = document.getElementById("searchInput");
-const homeBtn = document.getElementById("homeBtn");
 const langBtn = document.getElementById("langBtn");
 
 function renderMaps(filter = "") {
@@ -229,14 +218,13 @@ searchInput.addEventListener("input", () => {
 
 /* LANGUAGE */
 const texts = {
-  pt: { home: "Home", btn: "🇧🇷 BR", search: "Pesquisar mapa..." },
-  en: { home: "Home", btn: "🇺🇸 USA", search: "Search map..." }
+  pt: { btn: "🇧🇷 BR", search: "Pesquisar mapa..." },
+  en: { btn: "🇺🇸 USA", search: "Search map..." }
 };
 
 let lang = localStorage.getItem("siteLang") || "pt";
 
 function updateLang() {
-  homeBtn.textContent = texts[lang].home;
   langBtn.textContent = texts[lang].btn;
   searchInput.placeholder = texts[lang].search;
 }
@@ -245,6 +233,10 @@ langBtn.onclick = () => {
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
   updateLang();
+    
+if (typeof updateMenuLang === "function") {
+    updateMenuLang();
+  }
 };
 
 updateLang();
