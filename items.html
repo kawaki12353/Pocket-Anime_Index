@@ -12,9 +12,36 @@
 <style>
 body{
   font-family:Arial,sans-serif;
-  background:#f2f4f7;
+  background: var(--bg);
+  color: var(--text);
   padding:20px;
   margin:0;
+}
+
+/* Modo claro */
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+}
+
+/* Modo escuro */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
+  }
 }
 
 .category-icon{
@@ -49,16 +76,16 @@ body{
 .filters input,.filters select{
   padding:10px 12px;
   border-radius:10px;
-  border:1px solid #ccc;
   font-size:14px;
   font-weight:bold;
-  background:#fff;
-  color:#000;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
 /* CATEGORY FILTER */
 .category-filter{
-  background:#2b2b2b;
+  background: var(--card);
 }
 
 /* RARITY COLORS */
@@ -76,7 +103,8 @@ body{
   gap:15px;
 }
 .item{
-  background:#fff;
+  background: var(--card);
+  color: var(--text);
   border-radius:12px;
   padding:12px;
   display:flex;
@@ -109,8 +137,8 @@ body{
   z-index:30;
 }
 .modal{
-  background:#2b2b2b;
-  color:#fff;
+  background: var(--card);
+  color: var(--text);
   width:90%;
   max-width:460px;
   border-radius:14px;
@@ -143,14 +171,14 @@ body{
 }
 .section-title{
   font-weight:bold;
-  color:#ccc;
+  color: var(--text);
   margin-bottom:4px;
   position:relative;
 }
 .section-title::after{
   content:"———————————————";
   display:block;
-  color:#555;
+  color: var(--border);
   font-size:12px;
 }
 
@@ -162,6 +190,8 @@ body{
   transform:translateX(-50%);
 }
 .lang-toggle button{
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
   padding:8px 14px;
   border-radius:20px;
   border:none;
@@ -176,13 +206,13 @@ body{
 }
 
 .select-btn{
-  background:#fff;
-  color:#000;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
   padding:12px 14px;
   border-radius:12px;
   cursor:pointer;
   font-weight:bold;
-  border:1px solid #444;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -195,7 +225,7 @@ body{
   top:110%;
   left:0;
   width:100%;
-  background:#fff;
+  background: var(--card);
   border-radius:12px;
   list-style:none;
   padding:6px;
@@ -210,12 +240,12 @@ body{
   display:flex;
   align-items:center;
   gap:8px;
-  color:#000;
+  color: var(--text);
   font-weight:bold;
 }
 
 .select-list li:hover{
-  background:#333;
+  background: var(--hover);
 }
 
 /* RARITY COLORS */
@@ -224,74 +254,6 @@ body{
 .r-raro{background:#0d47a1}
 .r-epico{background:#6a1b9a}
 .r-lendario{background:#f9a825}
-
-@media (prefers-color-scheme: dark) {
-
-  body{
-    background:#0f1115;
-    color:#cfd3dc;
-  }
-
-  /* HEADER */
-  .page-title{
-    color:#ffffff;
-  }
-
-  /* FILTERS */
-  .filters input,
-  .filters select,
-  .select-btn{
-    background:#1a1d23;
-    color:#ffffff;
-    border-color:#444;
-  }
-
-  .select-list{
-    background:#1a1d23;
-  }
-
-  .select-list li{
-    color:#cfd3dc;
-  }
-
-  .select-list li:hover{
-    background:#2a2e36;
-  }
-
-  /* ITEMS */
-  .item{
-    background:#1a1d23;
-    color:#ffffff;
-  }
-
-  /* MODAL */
-  .modal{
-    background:#1a1d23;
-    color:#ffffff;
-  }
-
-  .section-title{
-    color:#cfd3dc;
-  }
-
-  .section-title::after{
-    color:#444;
-  }
-}
-
-/* BOTÃO DE IDIOMA */
-
-/* Modo claro */
-body.light .lang-toggle button{
-  background:#444;
-  color:#fff;
-}
-
-/* Modo escuro */
-body.dark .lang-toggle button{
-  background:#fff;
-  color:#000;
-}
 
 </style>
 </head>
