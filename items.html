@@ -49,10 +49,11 @@ body{
 .filters input,.filters select{
   padding:10px 12px;
   border-radius:10px;
-  border:1px solid #444;
+  border:1px solid #ccc;
   font-size:14px;
   font-weight:bold;
-  color:#fff;
+  background:#fff;
+  color:#000;
 }
 
 /* CATEGORY FILTER */
@@ -175,8 +176,8 @@ body{
 }
 
 .select-btn{
-  background:#1f1f1f;
-  color:#fff;
+  background:#fff;
+  color:#000;
   padding:12px 14px;
   border-radius:12px;
   cursor:pointer;
@@ -194,7 +195,7 @@ body{
   top:110%;
   left:0;
   width:100%;
-  background:#1c1c1c;
+  background:#fff;
   border-radius:12px;
   list-style:none;
   padding:6px;
@@ -209,7 +210,7 @@ body{
   display:flex;
   align-items:center;
   gap:8px;
-  color:#fff;
+  color:#000;
   font-weight:bold;
 }
 
@@ -224,41 +225,50 @@ body{
 .r-epico{background:#6a1b9a}
 .r-lendario{background:#f9a825}
 
-/* TEMA CLARO */
-body.light {
-  background:#f2f4f7;
-  color:#000;
-}
+@media (prefers-color-scheme: dark) {
 
-body.light .item {
-  background:#fff;
-  color:#000;
-}
+  body{
+    background:#0f1115;
+    color:#fff;
+  }
 
-/* TEMA ESCURO */
-body.dark {
-  background:#0f1115;
-  color:#fff;
-}
+  .item{
+    background:#1a1d23;
+    color:#fff;
+  }
 
-body.dark .item {
-  background:#1a1d23;
-  color:#fff;
-}
+  .filters input,
+  .filters select{
+    background:#1a1d23;
+    color:#fff;
+    border-color:#444;
+  }
 
-body.dark .select-btn {
-  background:#1a1d23;
-  color:#fff;
-}
+  .select-btn{
+    background:#1a1d23;
+    color:#fff;
+  }
 
-body.dark .select-list {
-  background:#1a1d23;
-}
+  .select-list{
+    background:#1a1d23;
+  }
 
-body.dark .filters input {
-  background:#1a1d23;
-  color:#fff;
-  border-color:#444;
+  .select-list li{
+    color:#fff;
+  }
+
+  .modal{
+    background:#1a1d23;
+    color:#fff;
+  }
+
+  .section-title{
+    color:#cfd3dc;
+  }
+
+  .section-title::after{
+    color:#555;
+  }
 }
 
 /* BOTÃO DE IDIOMA */
@@ -336,16 +346,6 @@ body.dark .lang-toggle button{
 <script src="items-data.js"></script>
 
 <script>
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-
-function applyTheme() {
-  document.body.classList.remove("light", "dark");
-  document.body.classList.add(prefersDark.matches ? "dark" : "light");
-}
-
-applyTheme();
-
-prefersDark.addEventListener("change", applyTheme);
 
 let lang=localStorage.getItem("siteLang")||"pt";
 const rarityOrder={comum:1,incomum:2,raro:3,epico:4,lendario:5};
