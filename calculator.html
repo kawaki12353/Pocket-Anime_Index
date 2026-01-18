@@ -240,26 +240,6 @@ body {
 
 <body>
 
-<!-- BOTÃO MENU -->
-<button class="menu-btn" id="openMenu">☰</button>
-
-<!-- OVERLAY -->
-<div class="menu-overlay" id="menuOverlay"></div>
-
-<!-- MENU LATERAL -->
-<aside class="side-menu" id="sideMenu">
-  <button class="close-menu" id="closeMenu">✕</button>
-
-  <img src="assets/Pocket-Anime-logo.png" class="menu-logo" alt="Pocket Anime">
-
-  <nav class="menu-links">
-    <a href="index.html" id="menuHome"></a>
-    <a href="calculator.html" id="menuCalc"></a>
-    <a href="items.html" id="menuItems"></a>
-    <a href="maps.html" id="menuMaps"></a>
-  </nav>
-</aside>
-
 <div class="header">
 
   <div class="header-top">
@@ -384,41 +364,6 @@ const texts = {
   groups:{x4:'Extreme Weakness (x4)',x2:'Weakness (x2)',x1:'Normal Damage (x1)',x05:'Resistance (x0.5)',x025:'Strong Resistance (x0.25)',x0:'Immune (x0)'}}
 };
 
-/* ABRIR / FECHAR MENU */
-const openMenu = document.getElementById("openMenu");
-const closeMenu = document.getElementById("closeMenu");
-const sideMenu = document.getElementById("sideMenu");
-const overlay = document.getElementById("menuOverlay");
-
-function closeSideMenu(){
-  sideMenu.classList.remove("active");
-  overlay.classList.remove("active");
-}
-
-openMenu.onclick = () => {
-  sideMenu.classList.add("active");
-  overlay.classList.add("active");
-};
-
-closeMenu.onclick = closeSideMenu;
-overlay.onclick = closeSideMenu;
-
-/* MARCAR PÁGINA ATUAL NO MENU */
-const currentPage = location.pathname.split("/").pop() || "index.html";
-
-const menuMap = {
-  "index.html": "menuHome",
-  "calculator.html": "menuCalc",
-  "items.html": "menuItems",
-  "maps.html": "menuMaps"
-};
-
-if (menuMap[currentPage]) {
-  document
-    .getElementById(menuMap[currentPage])
-    .classList.add("active");
-}
-
 let lang = localStorage.getItem("siteLang") || "pt";
 let primaryValue='', secondaryValue='';
 
@@ -502,11 +447,6 @@ function render(damage){
 function updateLang(){
   title.textContent=texts[lang].title;
   langBtn.textContent=texts[lang].btn;
-  
-  document.getElementById("menuHome").textContent  = texts[lang].menuHome;
-  document.getElementById("menuCalc").textContent  = texts[lang].menuCalc;
-  document.getElementById("menuItems").textContent = texts[lang].menuItems;
-  document.getElementById("menuMaps").textContent  = texts[lang].menuMaps;
   
   createSelect(
   'primarySelect',
