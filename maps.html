@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="menu.css">
 <script src="menu.js" defer></script>
 
-<title>Pocket Anime</title>
+<title>Pocket Anime - Maps</title>
 
 <style>
 body {
@@ -166,6 +166,53 @@ body {
     --lang-btn-bg: #ffffff;
   }
 }
+
+/* DESKTOP LAYOUT */
+@media (min-width: 1024px) {
+
+  body {
+    padding: 40px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .header-top {
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .logo {
+    width: 260px;
+    max-width: none;
+  }
+
+  .search-container {
+    max-width: 500px;
+  }
+
+  .map-list {
+    max-width: 900px;
+  }
+
+  .map-item {
+    font-size: 16px;
+  }
+
+  .map-content img {
+    max-width: 800px;
+  }
+  
+  .lang-toggle {
+    bottom: 20px;
+    right: 20px;
+    left: auto;
+    transform: none;
+  }
+}
+
 </style>
 </head>
 
