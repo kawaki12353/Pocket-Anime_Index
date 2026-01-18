@@ -82,6 +82,14 @@
   opacity:.8;
 }
 
+.menu-divider{
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 10px 0;
+  opacity: 0.6;
+}
+
 /* DARK MODE */
 @media (prefers-color-scheme: dark){
   .side-menu{ background:#1a1d23; }
