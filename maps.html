@@ -39,13 +39,21 @@ body {
   font-weight: bold;
 }
 
-@media (max-width: 600px) {
+/* MOBILE LAYOUT */
+@media (max-width: 768px) {
   .header {
+    display: block;
+  }
+
+  /* Logo no canto direito */
+  .header-top {
+    display: flex;
     justify-content: flex-end;
+    margin-bottom: 10px;
   }
 
   .logo {
-    margin-right: 0;
+    width: 150px;
   }
 }
 
@@ -164,6 +172,7 @@ body {
 <body>
 
 <div class="header">
+ <div class="header-top">
   <img src="assets/Pocket-Anime-logo.png" class="logo">
 </div>
 
