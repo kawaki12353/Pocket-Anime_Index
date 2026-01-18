@@ -13,7 +13,8 @@
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background:#f2f4f7;
+  background: var(--bg);
+  color: var(--text);
   display:flex;
   flex-direction: column;
   justify-content:center;
@@ -27,7 +28,8 @@ body{
 
 /* CONTAINER */
 .container{
-  background:#fff;
+  background: var(--card);
+  color: var(--text);
   border-radius:16px;
   padding:30px 25px;
   max-width:420px;
@@ -38,7 +40,8 @@ body{
 
 /* CONTAINER DE CRÉDITOS */
 .credits-container{
-  background:#fff;
+  background: var(--card);
+  color: var(--text);
   border-radius:16px;
   padding:20px 25px;
   max-width:420px;
@@ -56,22 +59,7 @@ body{
 .credits-container p{
   margin:6px 0;
   font-size:14px;
-  color:#555;
-}
-
-@media (prefers-color-scheme: dark) {
-  .credits-container{
-    background:#1a1d23;
-    box-shadow:0 10px 30px rgba(0,0,0,.6);
-  }
-
-  .credits-container h2{
-    color:#fff;
-  }
-
-  .credits-container p{
-    color:#cfd3dc;
-  }
+  color: var(--text);
 }
 
 /* LOGO */
@@ -86,7 +74,7 @@ h1{
 }
 
 p{
-  color:#555;
+  color: var(--text);
   font-size:15px;
 }
 
@@ -99,55 +87,14 @@ p{
 }
 
 .lang-toggle button{
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
   padding:8px 14px;
   border-radius:20px;
   border:none;
   cursor:pointer;
   font-weight:bold;
   font-size:15px;
-
-  /* MODO CLARO */
-  background:#444;
-  color:#fff;
-}
-
-
-@media (prefers-color-scheme: dark) {
-
-  body{
-    background:#0f1115;
-  }
-
-  .container{
-    background:#1a1d23;
-    box-shadow:0 10px 30px rgba(0,0,0,.6);
-  }
-
-  h1{
-    color:#ffffff;
-  }
-
-  p{
-    color:#cfd3dc;
-  }
-
-  .btn{
-    background:#e53935;
-  }
-
-  .btn:hover{
-    background:#c62828;
-  }
-
-  .btn-soon{
-    background:#555;
-  }
-
-  .lang-toggle button{
-  background:#ffffff;
-  color:#111;
-}
-
 }
 
 /* DISCORD BUTTON */
@@ -274,6 +221,32 @@ p{
     transform: scale(1.04);
   }
 }
+
+/* Modo claro */
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
+  }
+}
+
 </style>
 </head>
 
