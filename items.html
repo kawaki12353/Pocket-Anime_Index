@@ -55,14 +55,26 @@ body{
   text-align:center;
   margin-bottom:30px;
 }
-.logo{width:220px;max-width:60vw}
-.page-title{margin-top:15px;font-size:24px}
+.logo{
+  width:220px;
+  max-width:60vw}
+.page-title{
+  margin-top:15px;
+  font-size:24px}
 
 /* MOBILE */
 @media (max-width:768px){
-  .header{text-align:left;padding-top:10px}
-  .logo{position:absolute;top:0;right:0;width:160px}
-  .page-title{text-align:center;margin-top:70px}
+  .header{
+    text-align:left;
+    padding-top:10px}
+  .logo{
+    position:absolute;
+    top:0;
+    right:0;
+    width:160px}
+  .page-title{
+    text-align:center;
+    margin-top:70px}
 }
 
 /* FILTERS */
@@ -222,15 +234,15 @@ body{
 .select-list{
   display:none;
   position:absolute;
-  top:110%;
+  top: calc(100% + 6px);
   left:0;
   width:100%;
+  margin-top:2px;
   background: var(--card);
   border-radius:12px;
   list-style:none;
   padding:6px;
   z-index:50;
-  box-shadow:0 8px 18px rgba(0,0,0,.4);
 }
 
 .select-list li{
@@ -254,6 +266,13 @@ body{
 .r-raro{background:#0d47a1}
 .r-epico{background:#6a1b9a}
 .r-lendario{background:#f9a825}
+
+@media (max-width: 480px){
+  .custom-select{
+    width:100%;
+    max-width:260px;
+  }
+}
 
 </style>
 </head>
