@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="menu.css">
+<script src="menu.js" defer></script>
+
+<title>Pocket Anime - Update Log</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 20px;
+  margin: 0;
+}
+
+/* HEADER */
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* LOGO */
+.logo {
+  width: 220px;
+  max-width: 60vw;
+}
+
+/* TÍTULO */
+.page-title {
+  margin-top: 15px;
+  font-size: 24px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .header-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    width: 150px;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+}
+
+/* BOTÃO DE IDIOMA */
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* MODO CLARO */
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+}
+
+/* MODO ESCURO */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <img src="assets/Pocket-Anime-logo.png" class="logo">
+  </div>
+
+  <h1 id="title" class="page-title"></h1>
+</div>
+
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
+
+<script>
+const texts = {
+  pt: {
+    title: "Update Log",
+    btn: "🇧🇷 BR"
+  },
+  en: {
+    title: "Update Log",
+    btn: "🇺🇲 USA"
+  }
+};
+
+let lang = localStorage.getItem("siteLang") || "pt";
+
+function updateLang() {
+  title.textContent = texts[lang].title;
+  langBtn.textContent = texts[lang].btn;
+
+  if (typeof updateMenuLang === "function") {
+    updateMenuLang();
+  }
+}
+
+langBtn.onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
+  updateLang();
+};
+
+updateLang();
+</script>
+
+</body>
+</html>
