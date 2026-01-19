@@ -90,8 +90,8 @@ const items=[
  icon:"pure_sphere.png"
 },
 {rarity:"epico",
- pt:{name:"Radiant Blossom",desc:"Uma antiga tábua de bronze gravada com runas misteriosas.",drop:"Derrotando Animons do tipo Nature.",cat:"evolution"},
- en:{name:"Radiant Blossom",desc:"An ancient bronze tablet engraved with mysterious runes.",drop:"Defeating Nature-type Animons.",cat:"evolution"}
+ pt:{name:"Radiant Blossom",desc:"Uma haste majestosa adornada com flores douradas e brilhantes, repletas de poderosa energia natural.",drop:"Derrotando Animons do tipo Nature.",cat:"evolution"},
+ en:{name:"Radiant Blossom",desc:"A Majestic stalk adorned with glowing, golden flowers brimming with potent natural energy.",drop:"Defeating Nature-type Animons.",cat:"evolution"}
 },
 {rarity:"incomum",
  pt:{name:"Radiant Ring",desc:"Um anel dourado que brilha com uma luz interna quente.",drop:"Derrotando Animons do tipo Light.",cat:"evolution"},
