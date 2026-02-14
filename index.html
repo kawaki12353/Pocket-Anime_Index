@@ -125,7 +125,7 @@ p{
     padding: 20px 12px;
     justify-content: flex-start;
   }
-  
+
   /* DOC + WIKI MOBILE */
   .extra-buttons{
     width: 100%;
@@ -256,6 +256,7 @@ p{
   <img src="assets/Pocket-Anime-logo.png" class="logo">
 
   <p id="description"></p>
+  <p id="subDescription"></p>
 
   <!-- DISCORD BUTTON -->
 <a href="https://discord.gg/pocketanime" target="_blank" class="discord-btn">
@@ -268,7 +269,7 @@ p{
 
 <!-- WIKI + DOC BUTTONS -->
 <div class="extra-buttons">
-  
+
   <!-- DOC -->
 <a href="#" class="extra-btn" id="docLink">
     <img
@@ -315,6 +316,7 @@ const texts = {
     title: "Pocket Anime",
     description:
       "Site criado com o objetivo de ajudar a todos que gostam de Pocket Anime. Clique nas 3 barrinhas do canto esquerdo superior para selecionar uma das funcionalidades do Site.",
+    subDescription:"Abaixo está o Discord Oficial do Pocket Anime, o Documento com a lista de todos os Animon e àreas de onde pegar, e a Wiki. (Não existe Wiki Oficial ainda.)",
     langBtn: "🇧🇷 PT",
 
     creditsTitle: "Créditos",
@@ -328,6 +330,7 @@ const texts = {
     title: "Pocket Anime",
     description:
       "Site created to help everyone who enjoys Pocket Anime. Click on the three bars in the upper left corner to select one of the Site's features.",
+    subDescription:"Below is the official Pocket Anime Discord server, the Mastersheet (a document with various information about the game), and the Wiki. (There is no official Wiki yet.)",
     langBtn: "🇺🇸 EN",
 
     creditsTitle: "Credits",
@@ -344,6 +347,7 @@ let lang = localStorage.getItem("siteLang") || "pt";
 /* APLICA IDIOMA */
 function updateLang(){
   document.getElementById("description").textContent = texts[lang].description;
+  document.getElementById("subDescription").textContent = texts[lang].subDescription;
   document.getElementById("langBtn").textContent = texts[lang].langBtn;
 
   // CRÉDITOS
@@ -371,7 +375,7 @@ document.getElementById("langBtn").onclick = () => {
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
   updateLang();
- 
+
 if (typeof updateMenuLang === "function") {
     updateMenuLang();
   }
