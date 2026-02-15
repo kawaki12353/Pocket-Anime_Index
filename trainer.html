@@ -64,7 +64,10 @@ body {
   font-weight: bold;
 }
 
-.search-container { width: 100%; max-width: 500px; }
+.search-container { 
+  width: 100%; 
+  max-width: 500px; 
+}
 
 .search-container input {
   width: 100%;
@@ -94,7 +97,6 @@ body {
 
 .map-header:hover { background: var(--hover); }
 
-/* 🔥 ANIMAÇÃO IGUAL AO MAPS */
 .map-content {
   max-height: 0;
   display: flex;
@@ -189,9 +191,28 @@ body {
   color: var(--lang-btn);
 }
 
+/* 🔥 AJUSTES MOBILE */
 @media (max-width: 768px) {
+
   .logo { width: 150px; }
+
   .map-list { max-width: 420px; }
+
+  /* Barra de pesquisa menor */
+  .search-container {
+    max-width: 320px;
+  }
+
+  .search-container input {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
+  /* Imagem menor no mobile */
+  .trainer-photo img {
+    width: 75%;
+  }
+
 }
 </style>
 </head>
@@ -267,7 +288,7 @@ function render(filter=""){
           <div class="trainer-info">
             <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
             <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
-            <h4>${lang === "pt" ? "Itens Dropados" : "Dropped Items"}</h4>
+            <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>
             <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>
           </div>
 
