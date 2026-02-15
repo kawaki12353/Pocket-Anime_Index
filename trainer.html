@@ -193,21 +193,10 @@ body {
   color: var(--lang-btn);  
 }  
 
-/* 🔥 MOBILE AJUSTADO */  
 @media (max-width: 768px) {  
-
-  .logo {  
-    width: 150px;  
-  }  
-
-  .search-container {  
-    max-width: 300px;  
-  }  
-
-  .trainer-photo img {  
-    width: 75%;  
-  }  
-
+  .logo { width: 150px; }  
+  .search-container { max-width: 300px; }  
+  .trainer-photo img { width: 75%; }  
 }  
 </style>  
 </head>  
@@ -255,18 +244,16 @@ const searchInput = document.getElementById("searchInput");
 const langBtn = document.getElementById("langBtn");  
 
 let lang = localStorage.getItem("siteLang") || "pt";  
-let activeIndex = null;  
 
 function render(filter=""){  
   mapList.innerHTML = "";  
 
   trainers  
   .filter(t => t.trainer.toLowerCase().includes(filter))  
-  .forEach((t, index) => {  
+  .forEach((t) => {  
 
     const item = document.createElement("div");  
     item.className = "map-item";  
-    if(index === activeIndex) item.classList.add("active");  
 
     item.innerHTML = `  
       <div class="map-header">${t.trainer}</div>  
@@ -293,8 +280,14 @@ function render(filter=""){
 
     item.querySelector(".map-header").onclick = () => {  
       const isActive = item.classList.contains("active");  
-      activeIndex = isActive ? null : index;  
-      render(searchInput.value.toLowerCase());  
+
+      document.querySelectorAll(".map-item").forEach(el => {  
+        el.classList.remove("active");  
+      });  
+
+      if (!isActive) {  
+        item.classList.add("active");  
+      }  
     };  
 
     item.querySelector(".animon-btn").onclick = (e) => {  
