@@ -94,22 +94,24 @@ body {
 
 .map-header:hover { background: var(--hover); }
 
-/* 🔥 ANIMAÇÃO IGUAL AO CÓDIGO ANTERIOR */
+/* 🔥 ANIMAÇÃO IGUAL AO MAPS */
 .map-content {
   max-height: 0;
+  display: flex;
+  justify-content: center;
   overflow: hidden;
   transition: max-height 0.35s ease;
 }
 
 .map-item.active .map-content {
   max-height: 1000px;
-  padding: 15px;
 }
 
 .trainer-layout {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  padding: 15px;
 }
 
 .trainer-photo {
