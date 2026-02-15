@@ -1,342 +1,344 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>  
+<html lang="pt-BR">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
 
-<link rel="stylesheet" href="menu.css">
-<script src="menu.js" defer></script>
+<link rel="stylesheet" href="menu.css">  
+<script src="menu.js" defer></script>  
 
-<title>Pocket Anime - Trainers</title>
+<title>Pocket Anime - Trainers</title>  
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  padding: 20px;
-  margin: 0;
-}
+<style>  
+body {  
+  font-family: Arial, sans-serif;  
+  background: var(--bg);  
+  color: var(--text);  
+  padding: 20px;  
+  margin: 0;  
+}  
 
-:root{
-  --bg: #f2f4f7;
-  --card: #ffffff;
-  --text: #111;
-  --border: #ccc;
-  --hover: #f1f1f1;
-  --lang-btn: #ffffff;
-  --lang-btn-bg: #444;
-}
+:root{  
+  --bg: #f2f4f7;  
+  --card: #ffffff;  
+  --text: #111;  
+  --border: #ccc;  
+  --hover: #f1f1f1;  
+  --lang-btn: #ffffff;  
+  --lang-btn-bg: #444;  
+}  
 
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg: #0f1217;
-    --card: #181c24;
-    --text: #ffffff;
-    --border: #2a2f3a;
-    --hover: #232836;
-    --lang-btn: #111;
-    --lang-btn-bg: #ffffff;
-  }
-}
+@media (prefers-color-scheme: dark){  
+  :root{  
+    --bg: #0f1217;  
+    --card: #181c24;  
+    --text: #ffffff;  
+    --border: #2a2f3a;  
+    --hover: #232836;  
+    --lang-btn: #111;  
+    --lang-btn-bg: #ffffff;  
+  }  
+}  
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto 30px;
-  gap: 12px;
-  position: relative;
-}
+.header {  
+  display: flex;  
+  flex-direction: column;  
+  align-items: center;  
+  max-width: 1200px;  
+  margin: 0 auto 30px;  
+  gap: 12px;  
+}  
 
-.header-top {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
+.header-top {  
+  width: 100%;  
+  display: flex;  
+  justify-content: center;  
+}  
 
-.logo { width: 260px; }
+.logo {  
+  width: 260px;  
+}  
 
-.map-title {
-  text-align: center;
-  margin-bottom: 12px;
-  font-size: 20px;
-  font-weight: bold;
-}
+.map-title {  
+  text-align: center;  
+  font-size: 20px;  
+  font-weight: bold;  
+  margin: 0;  
+}  
 
-.search-container { width: 100%; max-width: 500px; }
+.search-container {  
+  width: 100%;  
+  max-width: 500px;  
+}  
 
-.search-container input {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  font-size: 14px;
-  background: var(--card);
-  color: var(--text);
-}
+.search-container input {  
+  width: 100%;  
+  padding: 8px 10px;  
+  border-radius: 10px;  
+  border: 1px solid var(--border);  
+  font-size: 14px;  
+  background: var(--card);  
+  color: var(--text);  
+}  
 
-.map-list { max-width: 900px; margin: 0 auto; }
+.map-list { max-width: 900px; margin: 0 auto; }  
 
-.map-item {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  margin-bottom: 12px;
-  overflow: hidden;
-}
+.map-item {  
+  background: var(--card);  
+  border: 1px solid var(--border);  
+  border-radius: 14px;  
+  margin-bottom: 12px;  
+  overflow: hidden;  
+}  
 
-.map-header {
-  padding: 14px;
-  cursor: pointer;
-  font-weight: bold;
-}
+.map-header {  
+  padding: 14px;  
+  cursor: pointer;  
+  font-weight: bold;  
+}  
 
-.map-header:hover { background: var(--hover); }
+.map-header:hover { background: var(--hover); }  
 
-.map-content {
-  max-height: 0;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  transition: max-height 0.35s ease;
-}
+.map-content {  
+  max-height: 0;  
+  display: flex;  
+  justify-content: center;  
+  overflow: hidden;  
+  transition: max-height 0.35s ease;  
+}  
 
-.map-item.active .map-content {
-  max-height: 1000px;
-}
+.map-item.active .map-content {  
+  max-height: 1000px;  
+}  
 
-.trainer-layout {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  padding: 15px;
-}
+.trainer-layout {  
+  display: flex;  
+  gap: 15px;  
+  flex-wrap: wrap;  
+  padding: 15px;  
+}  
 
-.trainer-photo {
-  flex: 1;
-  min-width: 180px;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  padding: 10px;
-  text-align: center;
-}
+.trainer-photo {  
+  flex: 1;  
+  min-width: 180px;  
+  border: 2px solid var(--border);  
+  border-radius: 12px;  
+  padding: 10px;  
+  text-align: center;  
+}  
 
-.trainer-photo img {
-  width: 100%;
-  border-radius: 10px;
-}
+.trainer-photo img {  
+  width: 100%;  
+  border-radius: 10px;  
+}  
 
-.animon-btn {
-  margin-top: 10px;
-  padding: 8px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  background: var(--lang-btn-bg);
-  color: var(--lang-btn);
-}
+.animon-btn {  
+  margin-top: 10px;  
+  padding: 8px;  
+  border-radius: 10px;  
+  border: none;  
+  cursor: pointer;  
+  font-weight: bold;  
+  background: var(--lang-btn-bg);  
+  color: var(--lang-btn);  
+}  
 
-.trainer-info {
-  flex: 2;
-  min-width: 250px;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  padding: 15px;
-}
+.trainer-info {  
+  flex: 2;  
+  min-width: 250px;  
+  border: 2px solid var(--border);  
+  border-radius: 12px;  
+  padding: 15px;  
+}  
 
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.3s;
-}
+.modal {  
+  position: fixed;  
+  inset: 0;  
+  background: rgba(0,0,0,0.6);  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  opacity: 0;  
+  pointer-events: none;  
+  transition: 0.3s;  
+}  
 
-.modal.active {
-  opacity: 1;
-  pointer-events: auto;
-}
+.modal.active {  
+  opacity: 1;  
+  pointer-events: auto;  
+}  
 
-.modal-content {
-  background: var(--card);
-  padding: 20px;
-  border-radius: 14px;
-  width: 300px;
-  text-align: center;
-}
+.modal-content {  
+  background: var(--card);  
+  padding: 20px;  
+  border-radius: 14px;  
+  width: 300px;  
+  text-align: center;  
+}  
 
-.lang-toggle {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
+.lang-toggle {  
+  position: fixed;  
+  bottom: 10px;  
+  left: 50%;  
+  transform: translateX(-50%);  
+}  
 
-.lang-toggle button {
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  background: var(--lang-btn-bg);
-  color: var(--lang-btn);
-}
+.lang-toggle button {  
+  padding: 8px 14px;  
+  border-radius: 20px;  
+  border: none;  
+  font-weight: bold;  
+  cursor: pointer;  
+  background: var(--lang-btn-bg);  
+  color: var(--lang-btn);  
+}  
 
-/* 🔥 AJUSTES APENAS MOBILE */
-@media (max-width: 768px) {
+/* 🔥 MOBILE AJUSTADO */  
+@media (max-width: 768px) {  
 
-  .logo {
-    width: 130px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
+  .logo {  
+    width: 150px;  
+  }  
 
-  .search-container {
-    max-width: 300px;
-  }
+  .search-container {  
+    max-width: 300px;  
+  }  
 
-  .trainer-photo img {
-    width: 75%;
-  }
+  .trainer-photo img {  
+    width: 75%;  
+  }  
 
-}
-</style>
-</head>
+}  
+</style>  
+</head>  
 
-<body>
+<body>  
 
-<div class="header">
- <div class="header-top">
-  <img src="assets/Pocket-Anime-logo.png" class="logo">
- </div>
+<div class="header">  
+ <div class="header-top">  
+  <img src="assets/Pocket-Anime-logo.png" class="logo">  
+ </div>  
 
-<h2 class="map-title" id="mapTitle"></h2>
+<h2 class="map-title" id="mapTitle"></h2>  
 
-<div class="search-container">
-  <input type="text" id="searchInput">
+<div class="search-container">  
+  <input type="text" id="searchInput">  
+</div>  
 </div>
 
-<div class="map-list" id="mapList"></div>
+<div class="map-list" id="mapList"></div>  
 
-<div class="lang-toggle">
-  <button id="langBtn"></button>
-</div>
+<div class="lang-toggle">  
+  <button id="langBtn"></button>  
+</div>  
 
-<div class="modal" id="animonModal">
-  <div class="modal-content">
-    <h3 id="modalTitle"></h3>
-    <p id="modalAnimons"></p>
-  </div>
-</div>
+<div class="modal" id="animonModal">  
+  <div class="modal-content">  
+    <h3 id="modalTitle"></h3>  
+    <p id="modalAnimons"></p>  
+  </div>  
+</div>  
 
-<script>
-const trainers = [{
-  trainer: "Captain Selene",
-  photo: "assets/trainers/captain_selene.png",
-  description_pt: "Uma capitã experiente que domina batalhas estratégicas no mar e na floresta.",
-  description_en: "An experienced captain who dominates strategic battles at sea and forest.",
-  drops_pt: "Marine Crate, 600 Credits",
-  drops_en: "Marine Crate, 600 Credits",
-  animons: ["Aquazor", "Shellion", "Maritide"]
-}];
+<script>  
+const trainers = [{  
+  trainer: "Captain Selene",  
+  photo: "assets/trainers/captain_selene.png",  
+  description_pt: "Uma capitã experiente que domina batalhas estratégicas no mar e na floresta.",  
+  description_en: "An experienced captain who dominates strategic battles at sea and forest.",  
+  drops_pt: "Marine Crate, 600 Credits",  
+  drops_en: "Marine Crate, 600 Credits",  
+  animons: ["Aquazor", "Shellion", "Maritide"]  
+}];  
 
-const mapList = document.getElementById("mapList");
-const searchInput = document.getElementById("searchInput");
-const langBtn = document.getElementById("langBtn");
+const mapList = document.getElementById("mapList");  
+const searchInput = document.getElementById("searchInput");  
+const langBtn = document.getElementById("langBtn");  
 
-let lang = localStorage.getItem("siteLang") || "pt";
-let activeIndex = null;
+let lang = localStorage.getItem("siteLang") || "pt";  
+let activeIndex = null;  
 
-function render(filter=""){
-  mapList.innerHTML = "";
+function render(filter=""){  
+  mapList.innerHTML = "";  
 
-  trainers
-  .filter(t => t.trainer.toLowerCase().includes(filter))
-  .forEach((t, index) => {
+  trainers  
+  .filter(t => t.trainer.toLowerCase().includes(filter))  
+  .forEach((t, index) => {  
 
-    const item = document.createElement("div");
-    item.className = "map-item";
-    if(index === activeIndex) item.classList.add("active");
+    const item = document.createElement("div");  
+    item.className = "map-item";  
+    if(index === activeIndex) item.classList.add("active");  
 
-    item.innerHTML = `
-      <div class="map-header">${t.trainer}</div>
-      <div class="map-content">
-        <div class="trainer-layout">
+    item.innerHTML = `  
+      <div class="map-header">${t.trainer}</div>  
+      <div class="map-content">  
+        <div class="trainer-layout">  
 
-          <div class="trainer-photo">
-            <img src="${t.photo}">
-            <button class="animon-btn">
-              ${lang === "pt" ? "Ver Animons" : "View Animons"}
-            </button>
-          </div>
+          <div class="trainer-photo">  
+            <img src="${t.photo}">  
+            <button class="animon-btn">  
+              ${lang === "pt" ? "Ver Animons" : "View Animons"}  
+            </button>  
+          </div>  
 
-          <div class="trainer-info">
-            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
-            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
-            <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>
-            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>
-          </div>
+          <div class="trainer-info">  
+            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>  
+            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>  
+            <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>  
+            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>  
+          </div>  
 
-        </div>
-      </div>
-    `;
+        </div>  
+      </div>  
+    `;  
 
-    item.querySelector(".map-header").onclick = () => {
-      const isActive = item.classList.contains("active");
-      activeIndex = isActive ? null : index;
-      render(searchInput.value.toLowerCase());
-    };
+    item.querySelector(".map-header").onclick = () => {  
+      const isActive = item.classList.contains("active");  
+      activeIndex = isActive ? null : index;  
+      render(searchInput.value.toLowerCase());  
+    };  
 
-    item.querySelector(".animon-btn").onclick = (e) => {
-      e.stopPropagation();
-      document.getElementById("animonModal").classList.add("active");
-      document.getElementById("modalTitle").textContent =
-        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
-      document.getElementById("modalAnimons").textContent =
-        t.animons.join(", ");
-    };
+    item.querySelector(".animon-btn").onclick = (e) => {  
+      e.stopPropagation();  
+      document.getElementById("animonModal").classList.add("active");  
+      document.getElementById("modalTitle").textContent =  
+        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";  
+      document.getElementById("modalAnimons").textContent =  
+        t.animons.join(", ");  
+    };  
 
-    mapList.appendChild(item);
-  });
-}
+    mapList.appendChild(item);  
+  });  
+}  
 
-searchInput.addEventListener("input", () => {
-  render(searchInput.value.toLowerCase());
-});
+searchInput.addEventListener("input", () => {  
+  render(searchInput.value.toLowerCase());  
+});  
 
-const texts = {
-  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },
-  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }
-};
+const texts = {  
+  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },  
+  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }  
+};  
 
-function updateLang(){
-  langBtn.textContent = texts[lang].btn;
-  searchInput.placeholder = texts[lang].search;
-  document.getElementById("mapTitle").textContent = texts[lang].title;
-  render(searchInput.value.toLowerCase());
-}
+function updateLang(){  
+  langBtn.textContent = texts[lang].btn;  
+  searchInput.placeholder = texts[lang].search;  
+  document.getElementById("mapTitle").textContent = texts[lang].title;  
+  render(searchInput.value.toLowerCase());  
+}  
 
-langBtn.onclick = () => {
-  lang = lang === "pt" ? "en" : "pt";
-  localStorage.setItem("siteLang", lang);
-  updateLang();
-  if(typeof updateMenuLang==="function"){ updateMenuLang(); }
-};
+langBtn.onclick = () => {  
+  lang = lang === "pt" ? "en" : "pt";  
+  localStorage.setItem("siteLang", lang);  
+  updateLang();  
+  if(typeof updateMenuLang==="function"){ updateMenuLang(); }  
+};  
 
-document.getElementById("animonModal").onclick = () => {
-  document.getElementById("animonModal").classList.remove("active");
-};
+document.getElementById("animonModal").onclick = () => {  
+  document.getElementById("animonModal").classList.remove("active");  
+};  
 
-updateLang();
-</script>
+updateLang();  
+</script>  
 
-</body>
+</body>  
 </html>
