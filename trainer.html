@@ -1,307 +1,326 @@
-<!DOCTYPE html>      
-<html lang="pt-BR">      
-<head>      
-<meta charset="UTF-8">      
-<meta name="viewport" content="width=device-width, initial-scale=1.0">      
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="menu.css">      
-<script src="menu.js" defer></script>      
+<link rel="stylesheet" href="menu.css">
+<script src="menu.js" defer></script>
 
-<title>Pocket Anime - Trainers</title>      
+<title>Pocket Anime - Trainers</title>
 
-<style>      
-body {      
-  font-family: Arial, sans-serif;      
-  background: var(--bg);      
-  color: var(--text);      
-  padding: 20px;      
-  margin: 0;      
-}      
-:root{      
-  --bg: #f2f4f7;      
-  --card: #ffffff;      
-  --text: #111;      
-  --border: #ccc;      
-  --hover: #f1f1f1;      
-  --lang-btn: #ffffff;      
-  --lang-btn-bg: #444;      
-}      
-@media (prefers-color-scheme: dark){      
-  :root{      
-    --bg: #0f1217;      
-    --card: #181c24;      
-    --text: #ffffff;      
-    --border: #2a2f3a;      
-    --hover: #232836;      
-    --lang-btn: #111;      
-    --lang-btn-bg: #ffffff;      
-  }      
-}      
-.header {      
-  display: flex;      
-  flex-direction: column;      
-  align-items: center;      
-  max-width: 1200px;      
-  margin: 0 auto 30px;      
-  gap: 12px;      
-}      
-.header-top {      
-  width: 100%;      
-  display: flex;      
-  justify-content: center;      
-}      
-.logo { width: 260px; }      
-.map-title {      
-  text-align: center;      
-  margin-bottom: 12px;      
-  font-size: 20px;      
-  font-weight: bold;      
-}      
-.search-container { width: 100%; max-width: 500px; }      
-.search-container input {      
-  width: 100%;      
-  padding: 8px 10px;      
-  border-radius: 10px;      
-  border: 1px solid var(--border);      
-  font-size: 14px;      
-  background: var(--card);      
-  color: var(--text);      
-}      
-.map-list { max-width: 900px; margin: 0 auto; }      
-.map-item {      
-  background: var(--card);      
-  border: 1px solid var(--border);      
-  border-radius: 14px;      
-  margin-bottom: 12px;      
-  overflow: hidden;      
-}      
-.map-header {      
-  padding: 14px;      
-  cursor: pointer;      
-  font-weight: bold;      
-}      
-.map-header:hover { background: var(--hover); }      
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 20px;
+  margin: 0;
+}
 
-/* ANIMAÇÃO SUAVE */
-.map-content {      
-  max-height: 0;      
-  overflow: hidden;      
-  opacity: 0;      
-  transform: translateY(-10px);      
-  transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;      
-}      
-.map-item.active .map-content {      
-  max-height: 1000px;      
-  padding: 15px;      
-  opacity: 1;      
-  transform: translateY(0);      
-}      
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+}
 
-.trainer-layout {      
-  display: flex;      
-  gap: 15px;      
-  flex-wrap: wrap;      
-}      
-.trainer-photo {      
-  flex: 1;      
-  min-width: 180px;      
-  border: 2px solid var(--border);      
-  border-radius: 12px;      
-  padding: 10px;      
-  text-align: center;      
-}      
-.trainer-photo img {      
-  width: 100%;      
-  border-radius: 10px;      
-}      
-.animon-btn {      
-  margin-top: 10px;      
-  padding: 8px;      
-  border-radius: 10px;      
-  border: none;      
-  cursor: pointer;      
-  font-weight: bold;      
-  background: var(--lang-btn-bg);      
-  color: var(--lang-btn);      
-}      
-.trainer-info {      
-  flex: 2;      
-  min-width: 250px;      
-  border: 2px solid var(--border);      
-  border-radius: 12px;      
-  padding: 15px;      
-}      
-.modal {      
-  position: fixed;      
-  inset: 0;      
-  background: rgba(0,0,0,0.6);      
-  display: flex;      
-  justify-content: center;      
-  align-items: center;      
-  opacity: 0;      
-  pointer-events: none;      
-  transition: 0.3s;      
-}      
-.modal.active {      
-  opacity: 1;      
-  pointer-events: auto;      
-}      
-.modal-content {      
-  background: var(--card);      
-  padding: 20px;      
-  border-radius: 14px;      
-  width: 300px;      
-  text-align: center;      
-}      
-.lang-toggle {      
-  position: fixed;      
-  bottom: 10px;      
-  left: 50%;      
-  transform: translateX(-50%);      
-}      
-.lang-toggle button {      
-  padding: 8px 14px;      
-  border-radius: 20px;      
-  border: none;      
-  font-weight: bold;      
-  cursor: pointer;      
-  background: var(--lang-btn-bg);      
-  color: var(--lang-btn);      
-}      
-@media (max-width: 768px) {      
-  .logo { width: 150px; }      
-  .map-list { max-width: 420px; }      
-}      
-</style>      
-</head>      
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
+  }
+}
 
-<body>      
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  gap: 12px;
+}
 
-<div class="header">      
- <div class="header-top">      
-  <img src="assets/Pocket-Anime-logo.png" class="logo">      
- </div>      
+.header-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-<h2 class="map-title" id="mapTitle"></h2>      
+.logo { width: 260px; }
 
-<div class="search-container">      
-  <input type="text" id="searchInput">      
-</div>      
+.map-title {
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-<div class="map-list" id="mapList"></div>      
+.search-container { width: 100%; max-width: 500px; }
 
-<div class="lang-toggle">      
-  <button id="langBtn"></button>      
-</div>      
+.search-container input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background: var(--card);
+  color: var(--text);
+}
 
-<div class="modal" id="animonModal">      
-  <div class="modal-content">      
-    <h3 id="modalTitle"></h3>      
-    <p id="modalAnimons"></p>      
-  </div>      
-</div>      
+.map-list { max-width: 900px; margin: 0 auto; }
 
-<script>      
-const trainers = [{      
-  trainer: "Captain Selene",      
-  photo: "assets/trainers/captain_selene.png",      
-  description_pt: "Uma capitã experiente que domina batalhas estratégicas no mar e na floresta.",      
-  description_en: "An experienced captain who dominates strategic battles at sea and forest.",      
-  drops_pt: "Marine Crate, 600 Credits",      
-  drops_en: "Marine Crate, 600 Credits",      
-  animons: ["Aquazor", "Shellion", "Maritide"]      
-}];      
+.map-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
 
-const mapList = document.getElementById("mapList");      
-const searchInput = document.getElementById("searchInput");      
-const langBtn = document.getElementById("langBtn");      
+.map-header {
+  padding: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-let lang = localStorage.getItem("siteLang") || "pt";      
-let activeIndex = null;      
+.map-header:hover { background: var(--hover); }
 
-function render(filter=""){      
-  mapList.innerHTML = "";      
+/* 🔥 ANIMAÇÃO IGUAL AO CÓDIGO ANTERIOR */
+.map-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
 
-  trainers      
-  .filter(t => t.trainer.toLowerCase().includes(filter))      
-  .forEach((t, index) => {      
+.map-item.active .map-content {
+  max-height: 1000px;
+  padding: 15px;
+}
 
-    const item = document.createElement("div");      
-    item.className = "map-item";      
-    if(index === activeIndex) item.classList.add("active");      
+.trainer-layout {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
 
-    item.innerHTML = `      
-      <div class="map-header">${t.trainer}</div>      
-      <div class="map-content">      
-        <div class="trainer-layout">      
+.trainer-photo {
+  flex: 1;
+  min-width: 180px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
 
-          <div class="trainer-photo">      
-            <h4>${t.trainer}</h4>      
-            <img src="${t.photo}">      
-            <button class="animon-btn">      
-              ${lang === "pt" ? "Ver Animons" : "View Animons"}      
-            </button>      
-          </div>      
+.trainer-photo img {
+  width: 100%;
+  border-radius: 10px;
+}
 
-          <div class="trainer-info">      
-            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>      
-            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>      
-            <h4>${lang === "pt" ? "Itens Dropados" : "Dropped Items"}</h4>      
-            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>      
-          </div>      
+.animon-btn {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
+}
 
-        </div>      
-      </div>      
-    `;      
+.trainer-info {
+  flex: 2;
+  min-width: 250px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 15px;
+}
 
-    item.querySelector(".map-header").onclick = () => {      
-      const isActive = item.classList.contains("active");      
-      activeIndex = isActive ? null : index;      
-      render(searchInput.value.toLowerCase());      
-    };      
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
 
-    item.querySelector(".animon-btn").onclick = (e) => {      
-      e.stopPropagation();      
-      document.getElementById("animonModal").classList.add("active");      
-      document.getElementById("modalTitle").textContent =      
-        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";      
-      document.getElementById("modalAnimons").textContent =      
-        t.animons.join(", ");      
-    };      
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 
-    mapList.appendChild(item);      
-  });      
-}      
+.modal-content {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  width: 300px;
+  text-align: center;
+}
 
-searchInput.addEventListener("input", () => {      
-  render(searchInput.value.toLowerCase());      
-});      
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-const texts = {      
-  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },      
-  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }      
-};      
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
+}
 
-function updateLang(){      
-  langBtn.textContent = texts[lang].btn;      
-  searchInput.placeholder = texts[lang].search;      
-  document.getElementById("mapTitle").textContent = texts[lang].title;      
-  render(searchInput.value.toLowerCase());      
-}      
+@media (max-width: 768px) {
+  .logo { width: 150px; }
+  .map-list { max-width: 420px; }
+}
+</style>
+</head>
 
-langBtn.onclick = () => {      
-  lang = lang === "pt" ? "en" : "pt";      
-  localStorage.setItem("siteLang", lang);      
-  updateLang();      
-  if(typeof updateMenuLang==="function"){ updateMenuLang(); }      
-};      
+<body>
 
-document.getElementById("animonModal").onclick = () => {      
-  document.getElementById("animonModal").classList.remove("active");      
-};      
+<div class="header">
+ <div class="header-top">
+  <img src="assets/Pocket-Anime-logo.png" class="logo">
+ </div>
 
-updateLang();      
-</script>      
+<h2 class="map-title" id="mapTitle"></h2>
 
-</body>      
+<div class="search-container">
+  <input type="text" id="searchInput">
+</div>
+
+<div class="map-list" id="mapList"></div>
+
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
+
+<div class="modal" id="animonModal">
+  <div class="modal-content">
+    <h3 id="modalTitle"></h3>
+    <p id="modalAnimons"></p>
+  </div>
+</div>
+
+<script>
+const trainers = [{
+  trainer: "Captain Selene",
+  photo: "assets/trainers/captain_selene.png",
+  description_pt: "Uma capitã experiente que domina batalhas estratégicas no mar e na floresta.",
+  description_en: "An experienced captain who dominates strategic battles at sea and forest.",
+  drops_pt: "Marine Crate, 600 Credits",
+  drops_en: "Marine Crate, 600 Credits",
+  animons: ["Aquazor", "Shellion", "Maritide"]
+}];
+
+const mapList = document.getElementById("mapList");
+const searchInput = document.getElementById("searchInput");
+const langBtn = document.getElementById("langBtn");
+
+let lang = localStorage.getItem("siteLang") || "pt";
+let activeIndex = null;
+
+function render(filter=""){
+  mapList.innerHTML = "";
+
+  trainers
+  .filter(t => t.trainer.toLowerCase().includes(filter))
+  .forEach((t, index) => {
+
+    const item = document.createElement("div");
+    item.className = "map-item";
+    if(index === activeIndex) item.classList.add("active");
+
+    item.innerHTML = `
+      <div class="map-header">${t.trainer}</div>
+      <div class="map-content">
+        <div class="trainer-layout">
+
+          <div class="trainer-photo">
+            <h4>${t.trainer}</h4>
+            <img src="${t.photo}">
+            <button class="animon-btn">
+              ${lang === "pt" ? "Ver Animons" : "View Animons"}
+            </button>
+          </div>
+
+          <div class="trainer-info">
+            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
+            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
+            <h4>${lang === "pt" ? "Itens Dropados" : "Dropped Items"}</h4>
+            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    item.querySelector(".map-header").onclick = () => {
+      const isActive = item.classList.contains("active");
+      activeIndex = isActive ? null : index;
+      render(searchInput.value.toLowerCase());
+    };
+
+    item.querySelector(".animon-btn").onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById("animonModal").classList.add("active");
+      document.getElementById("modalTitle").textContent =
+        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
+      document.getElementById("modalAnimons").textContent =
+        t.animons.join(", ");
+    };
+
+    mapList.appendChild(item);
+  });
+}
+
+searchInput.addEventListener("input", () => {
+  render(searchInput.value.toLowerCase());
+});
+
+const texts = {
+  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },
+  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }
+};
+
+function updateLang(){
+  langBtn.textContent = texts[lang].btn;
+  searchInput.placeholder = texts[lang].search;
+  document.getElementById("mapTitle").textContent = texts[lang].title;
+  render(searchInput.value.toLowerCase());
+}
+
+langBtn.onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
+  updateLang();
+  if(typeof updateMenuLang==="function"){ updateMenuLang(); }
+};
+
+document.getElementById("animonModal").onclick = () => {
+  document.getElementById("animonModal").classList.remove("active");
+};
+
+updateLang();
+</script>
+
+</body>
 </html>
