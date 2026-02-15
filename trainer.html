@@ -40,34 +40,32 @@ body {
   }
 }
 
-/* HEADER AJUSTADO */
 .header {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 1200px;
   margin: 0 auto 30px;
+  gap: 12px;
+  position: relative;
 }
 
 .header-top {
+  width: 100%;
   display: flex;
-  justify-content: flex-end; /* 🔥 logo direita */
+  justify-content: center;
 }
 
-.logo { 
-  width: 260px; 
-}
+.logo { width: 260px; }
 
 .map-title {
   text-align: center;
-  margin: 20px 0 12px 0;
+  margin-bottom: 12px;
   font-size: 20px;
   font-weight: bold;
 }
 
-.search-container { 
-  width: 100%; 
-  max-width: 500px; 
-  margin: 0 auto;
-}
+.search-container { width: 100%; max-width: 500px; }
 
 .search-container input {
   width: 100%;
@@ -191,20 +189,18 @@ body {
   color: var(--lang-btn);
 }
 
-/* MOBILE */
+/* 🔥 AJUSTES APENAS MOBILE */
 @media (max-width: 768px) {
 
-  .logo { width: 150px; }
-
-  .map-list { max-width: 420px; }
-
-  .search-container {
-    max-width: 320px;
+  .logo {
+    width: 130px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 
-  .search-container input {
-    padding: 6px 8px;
-    font-size: 13px;
+  .search-container {
+    max-width: 300px;
   }
 
   .trainer-photo img {
@@ -222,11 +218,10 @@ body {
   <img src="assets/Pocket-Anime-logo.png" class="logo">
  </div>
 
- <h2 class="map-title" id="mapTitle"></h2>
+<h2 class="map-title" id="mapTitle"></h2>
 
- <div class="search-container">
-   <input type="text" id="searchInput">
- </div>
+<div class="search-container">
+  <input type="text" id="searchInput">
 </div>
 
 <div class="map-list" id="mapList"></div>
