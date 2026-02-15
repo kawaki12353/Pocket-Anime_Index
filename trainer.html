@@ -25,6 +25,7 @@ body {
   --text: #111;
   --border: #ccc;
   --hover: #f1f1f1;
+
   --lang-btn: #ffffff;
   --lang-btn-bg: #444;
 }
@@ -36,6 +37,7 @@ body {
     --text: #ffffff;
     --border: #2a2f3a;
     --hover: #232836;
+
     --lang-btn: #111;
     --lang-btn-bg: #ffffff;
   }
@@ -51,10 +53,19 @@ body {
   gap: 12px;
 }
 
-.logo { width: 260px; }
+.header-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-.trainer-title {
+.logo {
+  width: 260px;
+}
+
+.map-title {
   text-align: center;
+  margin-bottom: 12px;
   font-size: 20px;
   font-weight: bold;
 }
@@ -69,16 +80,18 @@ body {
   padding: 8px 10px;
   border-radius: 10px;
   border: 1px solid var(--border);
+  font-size: 14px;
   background: var(--card);
   color: var(--text);
 }
 
-.trainer-list {
+/* LIST */
+.map-list {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.trainer-item {
+.map-item {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -86,41 +99,41 @@ body {
   overflow: hidden;
 }
 
-.trainer-header {
+.map-header {
   padding: 14px;
   cursor: pointer;
   font-weight: bold;
 }
 
-.trainer-header:hover {
+.map-header:hover {
   background: var(--hover);
 }
 
-.trainer-content {
+/* TRAINER CONTENT */
+.map-content {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease;
-  padding: 0 14px;
 }
 
-.trainer-item.active .trainer-content {
+.map-item.active .map-content {
   max-height: 1000px;
-  padding-bottom: 14px;
+  padding: 15px;
 }
 
-/* LAYOUT INTERNO */
 .trainer-layout {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 14px;
-  margin-top: 12px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 /* VERDE - FOTO */
 .trainer-photo {
+  flex: 1;
+  min-width: 180px;
   border: 2px solid var(--border);
   border-radius: 12px;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
 }
 
@@ -129,30 +142,29 @@ body {
   border-radius: 10px;
 }
 
-/* VERMELHO - BOTÃO */
-.animons-btn {
+/* VERMELHO - BOTÃO ANIMONS */
+.animon-btn {
   margin-top: 10px;
   padding: 8px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   font-weight: bold;
-  background: var(--hover);
-  color: var(--text);
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
 }
 
 /* AMARELO - TEXTO */
-.trainer-text {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.trainer-info {
+  flex: 2;
+  min-width: 250px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 15px;
 }
 
-.text-box {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px;
-  background: var(--bg);
+.trainer-info h4 {
+  margin: 0 0 8px 0;
 }
 
 /* MODAL */
@@ -160,21 +172,25 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
-  display: none;
-  align-items: center;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .modal-content {
   background: var(--card);
   padding: 20px;
   border-radius: 14px;
-  max-width: 400px;
-  width: 90%;
-}
-
-.modal h3 {
-  margin-top: 0;
+  width: 300px;
+  text-align: center;
 }
 
 /* LANG BUTTON */
@@ -196,11 +212,9 @@ body {
 }
 
 /* MOBILE */
-@media (max-width:768px){
-  .logo { width:150px; }
-  .trainer-layout {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 768px) {
+  .logo { width: 150px; }
+  .map-list { max-width: 420px; }
 }
 </style>
 </head>
@@ -208,119 +222,126 @@ body {
 <body>
 
 <div class="header">
+ <div class="header-top">
   <img src="assets/Pocket-Anime-logo.png" class="logo">
-  <h2 class="trainer-title" id="trainerTitle"></h2>
+ </div>
 
-  <div class="search-container">
-    <input type="text" id="searchInput">
-  </div>
+<h2 class="map-title" id="mapTitle"></h2>
+
+<div class="search-container">
+  <input type="text" id="searchInput">
 </div>
 
-<div class="trainer-list" id="trainerList"></div>
-
-<div class="modal" id="animonModal">
-  <div class="modal-content">
-    <h3 id="modalTitle"></h3>
-    <ul id="animonList"></ul>
-  </div>
-</div>
+<div class="map-list" id="mapList"></div>
 
 <div class="lang-toggle">
   <button id="langBtn"></button>
 </div>
 
+<!-- MODAL -->
+<div class="modal" id="animonModal">
+  <div class="modal-content">
+    <h3 id="modalTitle"></h3>
+    <p id="modalAnimons"></p>
+  </div>
+</div>
+
 <script>
 const trainers = [
 {
-  name: "Marine Captain",
+  name: "Sunburst Forest",
+  trainer: "Marine Captain",
   photo: "assets/trainers/marine_captain.png",
-  description: {
-    pt: "Um capitão veterano dos mares, especialista em batalhas navais e estratégias táticas.",
-    en: "A veteran sea captain, specialist in naval battles and tactical strategies."
-  },
-  drops: {
-    pt: "Drops: Marine Badge, Rare Compass, 500 Gold",
-    en: "Drops: Marine Badge, Rare Compass, 500 Gold"
-  },
-  animons: ["SeaDrake", "WaveShark", "StormEel"]
+  description_pt: "Um capitão experiente que domina batalhas estratégicas no mar e na floresta.",
+  description_en: "An experienced captain who dominates strategic battles at sea and forest.",
+  drops_pt: "Drops: Pearl Shard, Captain Badge, Rare Potion",
+  drops_en: "Drops: Pearl Shard, Captain Badge, Rare Potion",
+  animons: ["Aquazor", "Shellion", "Maritide"]
 }
 ];
 
-const trainerList = document.getElementById("trainerList");
+const mapList = document.getElementById("mapList");
 const searchInput = document.getElementById("searchInput");
 const langBtn = document.getElementById("langBtn");
-const modal = document.getElementById("animonModal");
 
-function renderTrainers(filter=""){
-  trainerList.innerHTML="";
+let lang = localStorage.getItem("siteLang") || "pt";
+
+function render(filter=""){
+  mapList.innerHTML = "";
+
   trainers
-  .filter(t=>t.name.toLowerCase().includes(filter))
-  .forEach(trainer=>{
-    const item=document.createElement("div");
-    item.className="trainer-item";
+  .filter(t => t.name.toLowerCase().includes(filter))
+  .forEach(t => {
 
-    item.innerHTML=`
-      <div class="trainer-header">${trainer.name}</div>
-      <div class="trainer-content">
+    const item = document.createElement("div");
+    item.className = "map-item";
+
+    item.innerHTML = `
+      <div class="map-header">${t.name}</div>
+      <div class="map-content">
         <div class="trainer-layout">
 
           <div class="trainer-photo">
-            <img src="${trainer.photo}" alt="${trainer.name}">
-            <button class="animons-btn">${lang==="pt"?"Ver Animons":"View Animons"}</button>
+            <h4>${t.trainer}</h4>
+            <img src="${t.photo}">
+            <button class="animon-btn">${lang === "pt" ? "Ver Animons" : "View Animons"}</button>
           </div>
 
-          <div class="trainer-text">
-            <div class="text-box">${trainer.description[lang]}</div>
-            <div class="text-box">${trainer.drops[lang]}</div>
+          <div class="trainer-info">
+            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
+            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
+            <h4>${lang === "pt" ? "Itens Dropados" : "Dropped Items"}</h4>
+            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>
           </div>
 
         </div>
       </div>
     `;
 
-    item.querySelector(".trainer-header").onclick=()=>{
-      const active=item.classList.contains("active");
-      document.querySelectorAll(".trainer-item")
-      .forEach(i=>i.classList.remove("active"));
-      if(!active)item.classList.add("active");
+    item.querySelector(".map-header").onclick = () => {
+      const isActive = item.classList.contains("active");
+      document.querySelectorAll(".map-item").forEach(i=>i.classList.remove("active"));
+      if(!isActive) item.classList.add("active");
     };
 
-    item.querySelector(".animons-btn").onclick=()=>{
-      document.getElementById("modalTitle").textContent=trainer.name+" - Animons";
-      document.getElementById("animonList").innerHTML=
-        trainer.animons.map(a=>`<li>${a}</li>`).join("");
-      modal.style.display="flex";
+    item.querySelector(".animon-btn").onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById("animonModal").classList.add("active");
+      document.getElementById("modalTitle").textContent =
+        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
+      document.getElementById("modalAnimons").textContent =
+        t.animons.join(", ");
     };
 
-    trainerList.appendChild(item);
+    mapList.appendChild(item);
   });
 }
 
-modal.onclick=()=>modal.style.display="none";
-
-searchInput.addEventListener("input",()=>{
-  renderTrainers(searchInput.value.toLowerCase());
+searchInput.addEventListener("input", () => {
+  render(searchInput.value.toLowerCase());
 });
 
-const texts={
-  pt:{btn:"🇧🇷 PT",search:"Pesquisar treinador...",title:"Treinadores Retornáveis"},
-  en:{btn:"🇺🇸 EN",search:"Search trainer...",title:"Returnable Trainers"}
+const texts = {
+  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },
+  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }
 };
 
-let lang=localStorage.getItem("siteLang")||"pt";
-
 function updateLang(){
-  langBtn.textContent=texts[lang].btn;
-  searchInput.placeholder=texts[lang].search;
-  document.getElementById("trainerTitle").textContent=texts[lang].title;
-  renderTrainers(searchInput.value.toLowerCase());
+  langBtn.textContent = texts[lang].btn;
+  searchInput.placeholder = texts[lang].search;
+  document.getElementById("mapTitle").textContent = texts[lang].title;
+  render();
 }
 
-langBtn.onclick=()=>{
-  lang=lang==="pt"?"en":"pt";
-  localStorage.setItem("siteLang",lang);
+langBtn.onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
   updateLang();
-  if(typeof updateMenuLang==="function"){updateMenuLang();}
+  if(typeof updateMenuLang==="function"){ updateMenuLang(); }
+};
+
+document.getElementById("animonModal").onclick = () => {
+  document.getElementById("animonModal").classList.remove("active");
 };
 
 updateLang();
