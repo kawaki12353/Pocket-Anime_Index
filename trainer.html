@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pocket Anime - Treinadores</title>
+
+<link rel="stylesheet" href="menu.css">
+<script src="menu.js" defer></script>
+
+<title>Pocket Anime - Trainers</title>
 
 <style>
 body {
@@ -21,6 +25,9 @@ body {
   --text: #111;
   --border: #ccc;
   --hover: #f1f1f1;
+
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
 }
 
 @media (prefers-color-scheme: dark){
@@ -30,17 +37,52 @@ body {
     --text: #ffffff;
     --border: #2a2f3a;
     --hover: #232836;
+
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
   }
 }
 
 /* HEADER */
 .header {
-  text-align: center;
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  gap: 12px;
+}
+
+.header-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
-  width: 220px;
+  width: 260px;
+}
+
+.map-title {
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.search-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background: var(--card);
+  color: var(--text);
 }
 
 /* TRAINER CARD */
@@ -48,55 +90,53 @@ body {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
+  margin-bottom: 20px;
   padding: 16px;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  margin-bottom: 16px;
 }
 
-/* LEFT - IMAGE */
+.trainer-layout {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* GREEN - IMAGE FRAME */
 .trainer-image {
-  width: 160px;
-  height: 160px;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 2px solid var(--border);
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 180px;
 }
 
 .trainer-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* RIGHT CONTENT */
-.trainer-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.trainer-description,
-.trainer-drops {
-  background: var(--hover);
-  padding: 12px;
   border-radius: 12px;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
 }
 
-/* BUTTON */
+/* RED - BUTTON */
 .animon-btn {
-  padding: 10px 16px;
-  border-radius: 20px;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   font-weight: bold;
-  background: var(--text);
-  color: var(--card);
-  width: fit-content;
+  background: var(--hover);
+  color: var(--text);
+}
+
+/* YELLOW - TEXT CONTAINER */
+.trainer-info {
+  flex: 2;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.description, .drops {
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--hover);
 }
 
 /* MODAL */
@@ -120,37 +160,35 @@ body {
 .modal-content {
   background: var(--card);
   padding: 20px;
-  border-radius: 14px;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
+  border-radius: 12px;
+  width: 300px;
+  max-width: 90%;
 }
 
 .close-btn {
-  margin-top: 14px;
-  padding: 8px 14px;
+  margin-top: 12px;
+  padding: 6px 10px;
   border: none;
-  border-radius: 12px;
+  border-radius: 6px;
   cursor: pointer;
-  background: var(--text);
-  color: var(--card);
 }
 
-@media (max-width: 768px){
-  .trainer-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+/* LANG BUTTON */
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-  .trainer-image {
-    width: 130px;
-    height: 130px;
-  }
-
-  .animon-btn {
-    margin: 0 auto;
-  }
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
 }
 
 </style>
@@ -159,90 +197,130 @@ body {
 <body>
 
 <div class="header">
+ <div class="header-top">
   <img src="assets/Pocket-Anime-logo.png" class="logo">
-  <h2>Treinadores Retornáveis</h2>
+</div>
+
+<h2 class="map-title" id="pageTitle"></h2>
+
+<div class="search-container">
+  <input type="text" id="searchInput">
 </div>
 
 <div id="trainerList"></div>
 
-<!-- MODAL -->
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
+
 <div class="modal" id="modal">
   <div class="modal-content">
-    <h3 id="modalTitle"></h3>
     <div id="modalAnimons"></div>
-    <button class="close-btn" onclick="closeModal()">Fechar</button>
+    <button class="close-btn" onclick="closeModal()">OK</button>
   </div>
 </div>
 
 <script>
 
-/* TRAINER CONFIG */
+/* TRAINERS DATA */
 const trainers = [
   {
-    name: "Leon",
-    image: "assets/trainers/leon.png",
-    description: "Um treinador forte especializado em Animons de fogo.",
-    drops: ["Fire Stone", "Gold Coin", "XP Scroll"],
-    animons: ["Blazion", "Inferbat", "Volcanix"]
-  },
-  {
-    name: "Aqua Mira",
-    image: "assets/trainers/aqua.png",
-    description: "Especialista em Animons aquáticos com grande defesa.",
-    drops: ["Water Crystal", "Potion+", "Pearl"],
-    animons: ["Aquary", "Tsunamix", "Bubbleon"]
+    name: "Aiden",
+    image: "assets/trainers/aiden.png",
+    description: {
+      pt: "Treinador veterano especialista em fogo.",
+      en: "Veteran trainer specialized in fire."
+    },
+    drops: {
+      pt: "Dropa: Fire Stone, Gold Coin",
+      en: "Drops: Fire Stone, Gold Coin"
+    },
+    animons: ["Flareon", "Magmar", "Blaziken"]
   }
 ];
 
 const trainerList = document.getElementById("trainerList");
+const searchInput = document.getElementById("searchInput");
+const langBtn = document.getElementById("langBtn");
+const modal = document.getElementById("modal");
+const modalAnimons = document.getElementById("modalAnimons");
 
-function renderTrainers(){
+/* RENDER */
+function renderTrainers(filter = "") {
   trainerList.innerHTML = "";
 
-  trainers.forEach(trainer => {
-    const card = document.createElement("div");
-    card.className = "trainer-card";
+  trainers
+    .filter(t => t.name.toLowerCase().includes(filter))
+    .forEach(trainer => {
 
-    card.innerHTML = `
-      <div class="trainer-image">
-        <img src="${trainer.image}" alt="${trainer.name}">
-      </div>
+      const card = document.createElement("div");
+      card.className = "trainer-card";
 
-      <div class="trainer-info">
-        <div class="trainer-description">
-          <strong>Descrição:</strong><br>
-          ${trainer.description}
+      card.innerHTML = `
+        <div class="trainer-layout">
+          <div class="trainer-image">
+            <img src="${trainer.image}">
+            <button class="animon-btn">${lang === "pt" ? "Ver Animons" : "View Animons"}</button>
+          </div>
+          <div class="trainer-info">
+            <div class="description">${trainer.description[lang]}</div>
+            <div class="drops">${trainer.drops[lang]}</div>
+          </div>
         </div>
+      `;
 
-        <div class="trainer-drops">
-          <strong>Itens Dropáveis:</strong><br>
-          ${trainer.drops.join(", ")}
-        </div>
+      card.querySelector(".animon-btn").onclick = () => {
+        modalAnimons.innerHTML = trainer.animons.map(a => `• ${a}`).join("<br>");
+        modal.classList.add("active");
+      };
 
-        <button class="animon-btn" onclick='openModal(${JSON.stringify(trainer)})'>
-          Ver Animons
-        </button>
-      </div>
-    `;
-
-    trainerList.appendChild(card);
-  });
-}
-
-function openModal(trainer){
-  document.getElementById("modalTitle").textContent = trainer.name;
-  document.getElementById("modalAnimons").innerHTML =
-    "<strong>Animons:</strong><br>" + trainer.animons.join("<br>");
-
-  document.getElementById("modal").classList.add("active");
+      trainerList.appendChild(card);
+    });
 }
 
 function closeModal(){
-  document.getElementById("modal").classList.remove("active");
+  modal.classList.remove("active");
 }
 
-renderTrainers();
+/* SEARCH */
+searchInput.addEventListener("input", () => {
+  renderTrainers(searchInput.value.toLowerCase());
+});
 
+/* LANGUAGE */
+const texts = {
+  pt: {
+    btn: "🇧🇷 PT",
+    search: "Pesquisar treinador...",
+    title: "Treinadores Retornáveis"
+  },
+  en: {
+    btn: "🇺🇸 EN",
+    search: "Search trainer...",
+    title: "Returnable Trainers"
+  }
+};
+
+let lang = localStorage.getItem("siteLang") || "pt";
+
+function updateLang(){
+  langBtn.textContent = texts[lang].btn;
+  searchInput.placeholder = texts[lang].search;
+  document.getElementById("pageTitle").textContent = texts[lang].title;
+  renderTrainers(searchInput.value.toLowerCase());
+}
+
+langBtn.onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
+  updateLang();
+
+  if (typeof updateMenuLang === "function") {
+    updateMenuLang();
+  }
+};
+
+updateLang();
 </script>
 
 </body>
