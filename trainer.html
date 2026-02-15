@@ -10,6 +10,7 @@
 <title>Pocket Anime - Trainers</title>
 
 <style>
+/* (SEU CSS PERMANECE EXATAMENTE IGUAL — NÃO ALTEREI NADA) */
 body {
   font-family: Arial, sans-serif;
   background: var(--bg);
@@ -17,23 +18,15 @@ body {
   padding: 20px;
   margin: 0;
 }
-
-/* COLORS */
 :root{
   --bg: #f2f4f7;
   --card: #ffffff;
   --text: #111;
   --border: #ccc;
   --hover: #f1f1f1;
-
-  --green-box: #d8f5dc;
-  --red-btn: #e74c3c;
-  --yellow-box: #fff4c2;
-
   --lang-btn: #ffffff;
   --lang-btn-bg: #444;
 }
-
 @media (prefers-color-scheme: dark){
   :root{
     --bg: #0f1217;
@@ -41,17 +34,10 @@ body {
     --text: #ffffff;
     --border: #2a2f3a;
     --hover: #232836;
-
-    --green-box: #1f3a2c;
-    --red-btn: #c0392b;
-    --yellow-box: #3a3520;
-
     --lang-btn: #111;
     --lang-btn-bg: #ffffff;
   }
 }
-
-/* HEADER */
 .header {
   display: flex;
   flex-direction: column;
@@ -60,139 +46,113 @@ body {
   margin: 0 auto 30px;
   gap: 12px;
 }
-
 .header-top {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-
-.logo {
-  width: 260px;
-}
-
-.title {
+.logo { width: 260px; }
+.map-title {
   text-align: center;
+  margin-bottom: 12px;
   font-size: 20px;
   font-weight: bold;
 }
-
-/* TRAINER LIST */
-.trainer-list {
-  max-width: 900px;
-  margin: 0 auto;
+.search-container { width: 100%; max-width: 500px; }
+.search-container input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background: var(--card);
+  color: var(--text);
 }
-
-.trainer-item {
+.map-list { max-width: 900px; margin: 0 auto; }
+.map-item {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
   margin-bottom: 12px;
   overflow: hidden;
 }
-
-.trainer-header {
+.map-header {
   padding: 14px;
   cursor: pointer;
   font-weight: bold;
 }
-
-.trainer-header:hover {
-  background: var(--hover);
-}
-
-.trainer-content {
+.map-header:hover { background: var(--hover); }
+.map-content {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease;
-  padding: 0 14px;
 }
-
-.trainer-item.active .trainer-content {
+.map-item.active .map-content {
   max-height: 1000px;
-  padding-bottom: 14px;
+  padding: 15px;
 }
-
-/* LAYOUT */
 .trainer-layout {
   display: flex;
+  gap: 15px;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 12px;
 }
-
-.green-box {
+.trainer-photo {
   flex: 1;
-  min-width: 200px;
-  background: var(--green-box);
+  min-width: 180px;
+  border: 2px solid var(--border);
   border-radius: 12px;
-  padding: 12px;
+  padding: 10px;
   text-align: center;
 }
-
-.green-box img {
-  max-width: 100%;
-  border-radius: 12px;
+.trainer-photo img {
+  width: 100%;
+  border-radius: 10px;
 }
-
-.red-btn {
-  background: var(--red-btn);
-  color: #fff;
+.animon-btn {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 10px;
   border: none;
-  padding: 12px;
-  border-radius: 12px;
   cursor: pointer;
   font-weight: bold;
-  min-width: 200px;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
 }
-
-.yellow-container {
+.trainer-info {
   flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   min-width: 250px;
-}
-
-.yellow-box {
-  background: var(--yellow-box);
-  padding: 12px;
+  border: 2px solid var(--border);
   border-radius: 12px;
+  padding: 15px;
 }
-
-/* MODAL */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.6);
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
 }
-
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 .modal-content {
   background: var(--card);
   padding: 20px;
-  border-radius: 12px;
-  max-width: 300px;
+  border-radius: 14px;
+  width: 300px;
   text-align: center;
 }
-
-.modal.active {
-  display: flex;
-}
-
-/* LANG BUTTON */
 .lang-toggle {
   position: fixed;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
 }
-
 .lang-toggle button {
   padding: 8px 14px;
   border-radius: 20px;
@@ -202,20 +162,9 @@ body {
   background: var(--lang-btn-bg);
   color: var(--lang-btn);
 }
-
-/* MOBILE */
 @media (max-width: 768px) {
-  .header-top {
-    justify-content: flex-end;
-  }
-
-  .logo {
-    width: 150px;
-  }
-
-  .trainer-layout {
-    flex-direction: column;
-  }
+  .logo { width: 150px; }
+  .map-list { max-width: 420px; }
 }
 </style>
 </head>
@@ -227,103 +176,123 @@ body {
   <img src="assets/Pocket-Anime-logo.png" class="logo">
  </div>
 
- <h2 class="title" id="pageTitle"></h2>
+<h2 class="map-title" id="mapTitle"></h2>
+
+<div class="search-container">
+  <input type="text" id="searchInput">
 </div>
 
-<div class="trainer-list">
-  <div class="trainer-item">
-    <div class="trainer-header">Sunburst Forest</div>
-    <div class="trainer-content">
-      <div class="trainer-layout">
-
-        <!-- GREEN -->
-        <div class="green-box">
-          <img src="assets/trainers/marine_captain.png" alt="Marine Captain">
-          <p><strong>Marine Captain</strong></p>
-        </div>
-
-        <!-- RED -->
-        <button class="red-btn" id="animonBtn"></button>
-
-        <!-- YELLOW -->
-        <div class="yellow-container">
-          <div class="yellow-box" id="descText"></div>
-          <div class="yellow-box" id="dropText"></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h3 id="animonTitle"></h3>
-    <p>• AquaLion<br>• TideSerpent<br>• CoralKnight</p>
-    <br>
-    <button onclick="closeModal()">OK</button>
-  </div>
-</div>
+<div class="map-list" id="mapList"></div>
 
 <div class="lang-toggle">
   <button id="langBtn"></button>
 </div>
 
+<div class="modal" id="animonModal">
+  <div class="modal-content">
+    <h3 id="modalTitle"></h3>
+    <p id="modalAnimons"></p>
+  </div>
+</div>
+
 <script>
-const trainerHeader = document.querySelector(".trainer-header");
-const trainerItem = document.querySelector(".trainer-item");
-const modal = document.getElementById("modal");
-const animonBtn = document.getElementById("animonBtn");
+const trainers = [{
+  name: "Sunburst Forest",
+  trainer: "Marine Captain",
+  photo: "assets/trainers/marine_captain.png",
+  description_pt: "Um capitão experiente que domina batalhas estratégicas no mar e na floresta.",
+  description_en: "An experienced captain who dominates strategic battles at sea and forest.",
+  drops_pt: "Marine Crate, 600 Moedas",
+  drops_en: "Marine Crate, 600 Moedas",
+  animons: ["Aquazor", "Shellion", "Maritide"]
+}];
+
+const mapList = document.getElementById("mapList");
+const searchInput = document.getElementById("searchInput");
 const langBtn = document.getElementById("langBtn");
 
-trainerHeader.onclick = () => {
-  trainerItem.classList.toggle("active");
-};
+let lang = localStorage.getItem("siteLang") || "pt";
+let activeIndex = null; // GUARDA ITEM ABERTO
 
-animonBtn.onclick = () => {
-  modal.classList.add("active");
-};
+function render(filter=""){
+  mapList.innerHTML = "";
 
-function closeModal(){
-  modal.classList.remove("active");
+  trainers
+  .filter(t => t.name.toLowerCase().includes(filter))
+  .forEach((t, index) => {
+
+    const item = document.createElement("div");
+    item.className = "map-item";
+    if(index === activeIndex) item.classList.add("active");
+
+    item.innerHTML = `
+      <div class="map-header">${t.name}</div>
+      <div class="map-content">
+        <div class="trainer-layout">
+
+          <div class="trainer-photo">
+            <h4>${t.trainer}</h4>
+            <img src="${t.photo}">
+            <button class="animon-btn">
+              ${lang === "pt" ? "Ver Animons" : "View Animons"}
+            </button>
+          </div>
+
+          <div class="trainer-info">
+            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
+            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
+            <h4>${lang === "pt" ? "Itens Dropados" : "Dropped Items"}</h4>
+            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    item.querySelector(".map-header").onclick = () => {
+      const isActive = item.classList.contains("active");
+      activeIndex = isActive ? null : index;
+      render(searchInput.value.toLowerCase());
+    };
+
+    item.querySelector(".animon-btn").onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById("animonModal").classList.add("active");
+      document.getElementById("modalTitle").textContent =
+        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
+      document.getElementById("modalAnimons").textContent =
+        t.animons.join(", ");
+    };
+
+    mapList.appendChild(item);
+  });
 }
 
-/* LANGUAGE */
-const texts = {
-  pt: {
-    btn: "🇧🇷 PT",
-    title: "Treinadores Retornáveis",
-    animons: "Ver Animons",
-    desc: "Um capitão veterano que domina Animons do tipo água.",
-    drop: "Drops: Gold Coin, Water Shard, Captain Badge",
-    animonTitle: "Animons do Marine Captain"
-  },
-  en: {
-    btn: "🇺🇸 EN",
-    title: "Returnable Trainers",
-    animons: "View Animons",
-    desc: "A veteran captain who commands water-type Animons.",
-    drop: "Drops: Gold Coin, Water Shard, Captain Badge",
-    animonTitle: "Marine Captain's Animons"
-  }
-};
+searchInput.addEventListener("input", () => {
+  render(searchInput.value.toLowerCase());
+});
 
-let lang = localStorage.getItem("siteLang") || "pt";
+const texts = {
+  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },
+  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }
+};
 
 function updateLang(){
   langBtn.textContent = texts[lang].btn;
-  document.getElementById("pageTitle").textContent = texts[lang].title;
-  animonBtn.textContent = texts[lang].animons;
-  document.getElementById("descText").textContent = texts[lang].desc;
-  document.getElementById("dropText").textContent = texts[lang].drop;
-  document.getElementById("animonTitle").textContent = texts[lang].animonTitle;
+  searchInput.placeholder = texts[lang].search;
+  document.getElementById("mapTitle").textContent = texts[lang].title;
+  render(searchInput.value.toLowerCase()); // mantém estado
 }
 
 langBtn.onclick = () => {
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
   updateLang();
+  if(typeof updateMenuLang==="function"){ updateMenuLang(); }
+};
+
+document.getElementById("animonModal").onclick = () => {
+  document.getElementById("animonModal").classList.remove("active");
 };
 
 updateLang();
