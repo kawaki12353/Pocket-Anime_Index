@@ -271,9 +271,10 @@ function render(filter=""){
 
   mapList.innerHTML = "";      
 
-  trainers      
-  .filter(t => t.trainer.toLowerCase().includes(filter))      
-  .forEach((t) => {      
+  trainers
+  .filter(t => t.trainer.toLowerCase().includes(filter))
+  .sort((a, b) => a.trainer.localeCompare(b.trainer))
+  .forEach((t) => {
 
     const item = document.createElement("div");      
     item.className = "map-item";      
