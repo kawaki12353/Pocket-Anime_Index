@@ -59,7 +59,7 @@ body {
   width: 260px;      
 }      
 
-.map-title {      
+.trainer-title {      
   text-align: center;      
   font-size: 20px;      
   font-weight: bold;      
@@ -81,9 +81,9 @@ body {
   color: var(--text);      
 }      
 
-.map-list { max-width: 900px; margin: 0 auto; }      
+.trainer-list { max-width: 900px; margin: 0 auto; }      
 
-.map-item {      
+.trainer-item {      
   background: var(--card);      
   border: 1px solid var(--border);      
   border-radius: 14px;      
@@ -91,15 +91,15 @@ body {
   overflow: hidden;      
 }      
 
-.map-header {      
+.trainer-header {      
   padding: 14px;      
   cursor: pointer;      
   font-weight: bold;      
 }      
 
-.map-header:hover { background: var(--hover); }      
+.trainer-header:hover { background: var(--hover); }      
 
-.map-content {      
+.trainer-content {      
   max-height: 0;      
   display: flex;      
   justify-content: center;      
@@ -107,7 +107,7 @@ body {
   transition: max-height 0.35s ease;      
 }      
 
-.map-item.active .map-content {      
+.trainer-item.active .trainer-content {      
   max-height: 1000px;      
 }      
 
@@ -191,7 +191,23 @@ body {
   cursor: pointer;      
   background: var(--lang-btn-bg);      
   color: var(--lang-btn);      
-}      
+}  
+
+.button-row{
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mode-btn{
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-weight: bold;
+  background: var(--card);
+  color: var(--text);
+  cursor: default;
+}    
 
 @media (max-width: 768px) {      
   .header-top {      
@@ -220,14 +236,14 @@ body {
   <img src="assets/Pocket-Anime-logo.png" class="logo">      
  </div>      
 
-<h2 class="map-title" id="mapTitle"></h2>      
+<h2 class="trainer-title" id="trainerTitle"></h2>      
 
 <div class="search-container">      
   <input type="text" id="searchInput">      
 </div>      
 </div>    
 
-<div class="map-list" id="mapList"></div>      
+<div class="trainer-list" id="trainerList"></div>      
 
 <div class="lang-toggle">      
   <button id="langBtn"></button>      
@@ -241,125 +257,131 @@ body {
 </div>      
 
 <script>      
-const trainers = [{      
-  trainer: "Captain Selene",      
-  photo: "assets/trainers/captain_selene.png",      
-  description_pt: "*Cadetes! Mantenham a formação. ...Ah, você aí. Você não é um dos meus recrutas.*",      
-  description_en: "*Cadets! Hold formation. ...Ah, you there. You're not one is my recruits.*",      
-  drops_pt: "Marine Crate, 600 Credits",      
-  drops_en: "Marine Crate, 600 Credits",      
-  animons: ["Cadet", "Kid Hero", "Axe Man", "Taesheegi"]      
+const trainers = [{
+  trainer: "Captain Selene",
+  mode: "1v1",
+  photo: "assets/trainers/captain_selene.png",
+  description_pt: "*Cadetes! Mantenham a formação. ...Ah, você aí. Você não é um dos meus recrutas.*",
+  description_en: "*Cadets! Hold formation. ...Ah, you there. You're not one is my recruits.*",
+  drops_pt: "Marine Crate, 600 Credits",
+  drops_en: "Marine Crate, 600 Credits",
+  animons: ["Cadet", "Kid Hero", "Axe Man", "Taesheegi"]
 },
 {
-  trainer: "Manager Vira",      
-  photo: "assets/trainers/manager_vira.png",      
-  description_pt: "Por enquanto nada...",      
-  description_en: "Nothing for now....",      
-  drops_pt: "Highstar Crate, ??? Credits",      
-  drops_en: "Highstar Crate, ??? Credits",      
-  animons: ["???"]      
+  trainer: "Manager Vira",
+  mode: "1v1",
+  photo: "assets/trainers/manager_vira.png",
+  description_pt: "Por enquanto nada...",
+  description_en: "Nothing for now....",
+  drops_pt: "Highstar Crate, ??? Credits",
+  drops_en: "Highstar Crate, ??? Credits",
+  animons: ["???"]
 },
 {
-  trainer: "Bandit King Lucas",      
-  photo: "assets/trainers/bandit_king_lucas.png",      
-  description_pt: "*Eu sou o Rei desta Floresta! O Rei Bandido Lucas, para ser mais exato!*",      
-  description_en: "*I'm the King of this Forest! Bandit King Lucas, to be exact!*",      
-  drops_pt: "Bandit Crate, 600 Credits",      
-  drops_en: "Bandit Crate, 600 Credits",      
-  animons: ["Bandit", "Strong Bandit", "Bandit", "Battle Wolf", "Wolfman"]      
-}];      
+  trainer: "Bandit King Lucas",
+  mode: "2v2",
+  photo: "assets/trainers/bandit_king_lucas.png",
+  description_pt: "*Eu sou o Rei desta Floresta! O Rei Bandido Lucas, para ser mais exato!*",
+  description_en: "*I'm the King of this Forest! Bandit King Lucas, to be exact!*",
+  drops_pt: "Bandit Crate, 600 Credits",
+  drops_en: "Bandit Crate, 600 Credits",
+  animons: ["Bandit", "Strong Bandit", "Bandit", "Battle Wolf", "Wolfman"]
+}];
 
-const mapList = document.getElementById("mapList");      
-const searchInput = document.getElementById("searchInput");      
-const langBtn = document.getElementById("langBtn");      
+const trainerList = document.getElementById("trainerList");
+const searchInput = document.getElementById("searchInput");
+const langBtn = document.getElementById("langBtn");
 
-let lang = localStorage.getItem("siteLang") || "pt";      
+let lang = localStorage.getItem("siteLang") || "pt";
 
-function render(filter=""){      
-  const activeTrainer = document.querySelector(".map-item.active .map-header")?.textContent;
+function render(filter=""){
+  const activeTrainer = document.querySelector(".trainer-item.active .trainer-header")?.textContent;
 
-  mapList.innerHTML = "";      
+  trainerList.innerHTML = "";
 
   trainers
   .filter(t => t.trainer.toLowerCase().includes(filter))
   .sort((a, b) => a.trainer.localeCompare(b.trainer))
   .forEach((t) => {
 
-    const item = document.createElement("div");      
-    item.className = "map-item";      
+    const item = document.createElement("div");
+    item.className = "trainer-item";
 
-    item.innerHTML = `      
-      <div class="map-header">${t.trainer}</div>      
-      <div class="map-content">      
-        <div class="trainer-layout">      
-          <div class="trainer-photo">      
-            <img src="${t.photo}">      
-            <button class="animon-btn">      
-              ${lang === "pt" ? "Ver Animons" : "View Animons"}      
-            </button>      
-          </div>      
-          <div class="trainer-info">      
-            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>      
-            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>      
-            <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>      
-            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>      
-          </div>      
-        </div>      
-      </div>      
-    `;      
+    item.innerHTML = `
+      <div class="trainer-header">${t.trainer}</div>
+      <div class="trainer-content">
+        <div class="trainer-layout">
+          <div class="trainer-photo">
+            <img src="${t.photo}">
+            <div class="button-row">
+              <button class="mode-btn">${t.mode}</button>
+              <button class="animon-btn">
+                ${lang === "pt" ? "Ver Animons" : "View Animons"}
+              </button>
+            </div>
+          </div>
+          <div class="trainer-info">
+            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
+            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
+            <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>
+            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>
+          </div>
+        </div>
+      </div>
+    `;
 
-    if (t.trainer === activeTrainer) {      
-      item.classList.add("active");      
+    if (t.trainer === activeTrainer) {
+      item.classList.add("active");
     }
 
-    item.querySelector(".map-header").onclick = () => {      
-      const isActive = item.classList.contains("active");      
-      document.querySelectorAll(".map-item").forEach(el => el.classList.remove("active"));      
-      if (!isActive) item.classList.add("active");      
-    };      
+    item.querySelector(".trainer-header").onclick = () => {
+      const isActive = item.classList.contains("active");
+      document.querySelectorAll(".trainer-item").forEach(el => el.classList.remove("active"));
+      if (!isActive) item.classList.add("active");
+    };
 
-    item.querySelector(".animon-btn").onclick = (e) => {      
-      e.stopPropagation();      
-      document.getElementById("animonModal").classList.add("active");      
-      document.getElementById("modalTitle").textContent =      
-        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";      
-      document.getElementById("modalAnimons").textContent =      
-        t.animons.join(", ");      
-    };      
+    item.querySelector(".animon-btn").onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById("animonModal").classList.add("active");
+      document.getElementById("modalTitle").textContent =
+        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
+      document.getElementById("modalAnimons").textContent =
+        t.animons.join(", ");
+    };
 
-    mapList.appendChild(item);      
-  });      
-}      
+    trainerList.appendChild(item);
+  });
+}
 
-searchInput.addEventListener("input", () => {      
-  render(searchInput.value.toLowerCase());      
-});      
+searchInput.addEventListener("input", () => {
+  render(searchInput.value.toLowerCase());
+});
 
-const texts = {      
-  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },      
-  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }      
-};      
+const texts = {
+  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },
+  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }
+};
 
-function updateLang(){      
-  langBtn.textContent = texts[lang].btn;      
-  searchInput.placeholder = texts[lang].search;      
-  document.getElementById("mapTitle").textContent = texts[lang].title;      
-  render(searchInput.value.toLowerCase());      
-}      
+function updateLang(){
+  langBtn.textContent = texts[lang].btn;
+  searchInput.placeholder = texts[lang].search;
+  document.getElementById("trainerTitle").textContent = texts[lang].title;
+  render(searchInput.value.toLowerCase());
+}
 
-langBtn.onclick = () => {      
-  lang = lang === "pt" ? "en" : "pt";      
-  localStorage.setItem("siteLang", lang);      
-  updateLang();      
-  if(typeof updateMenuLang==="function"){ updateMenuLang(); }      
-};      
+langBtn.onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
+  updateLang();
+  if(typeof updateMenuLang==="function"){ updateMenuLang(); }
+};
 
-document.getElementById("animonModal").onclick = () => {      
-  document.getElementById("animonModal").classList.remove("active");      
-};      
+document.getElementById("animonModal").onclick = () => {
+  document.getElementById("animonModal").classList.remove("active");
+};
 
-updateLang();      
-</script>      
+updateLang();
+</script>
 
-</body>      
+</body>
 </html>
