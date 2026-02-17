@@ -230,6 +230,26 @@ body {
   border-bottom: none;
 }
 
+.animon-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.animon-elements{
+  display: flex;
+  gap: 6px;
+}
+
+.animon-elements img{
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
 @media (max-width: 768px) {      
   .header-top {      
     justify-content: flex-end;      
@@ -306,8 +326,20 @@ const trainers = [{
   description_en: "*I'm the King of this Forest! Bandit King Lucas, to be exact!*",
   drops_pt: "Bandit Crate, 600 Credits",
   drops_en: "Bandit Crate, 600 Credits",
-  animons: ["Bandit", "Strong Bandit", "Bandit", "Battle Wolf", "Wolfman"]
+  animons: ["Bandit", "Strong Bandit", "Bandit", "Battle Wolf", "Teen Wolfman"]
 }];
+
+const animonElements = {
+  "Cadet": ["neutral"],
+  "Kid Hero": ["water"],
+  "Axe Man": ["earth"],
+  "Taesheegi": ["water"],
+  "Bandit": ["neutral"],
+  "Strong Bandit": ["dark"],
+  "Battle Wolf": ["neutral"],
+  "Teen Wolfman": ["fighting"],
+  "???": []
+};
 
 const trainerList = document.getElementById("trainerList");
 const searchInput = document.getElementById("searchInput");
@@ -371,16 +403,28 @@ function render(filter=""){
       document.getElementById("animonModal").classList.add("active");
       document.getElementById("modalTitle").textContent =
         lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
-      
-      const sortedAnimons = [...t.animons].sort((a, b) => a.localeCompare(b));
+
+      const sortedAnimons = t.animons;
 
 document.getElementById("modalAnimons").innerHTML =
   sortedAnimons
-    .map((animon, index) => `
-      <div class="animon-item">
-        ${index + 1}. ${animon}
-      </div>
-    `)
+    .map((animon, index) => {
+
+      const elements = animonElements[animon] || [];
+
+      const elementIcons = elements.map(el => 
+        `<img src="assets/${el}_element.png" alt="${el}">`
+      ).join("");
+
+      return `
+        <div class="animon-item">
+          <span>${index + 1}. ${animon}</span>
+          <div class="animon-elements">
+            ${elementIcons}
+          </div>
+        </div>
+      `;
+    })
     .join("");
     };
 
