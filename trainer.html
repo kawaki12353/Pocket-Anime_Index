@@ -288,7 +288,13 @@ body {
 
   .search-container {      
     max-width: 240px;
-  }      
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .custom-select {
+    width: 100%;
+  }
 
   .trainer-photo img {      
     width: 75%;      
@@ -614,7 +620,7 @@ function updateLang(){
   searchInput.placeholder = texts[lang].search;
   document.getElementById("trainerTitle").textContent = texts[lang].title;
   render(searchInput.value.toLowerCase());
-  
+
   buildAreaMenu();
 
 if (selectedArea) {
