@@ -1,6 +1,7 @@
 const trainers = [
 {
   trainer: "Martial Artist Koti",
+  area: "plains"
   mode: "1v1",
   photo: "assets/trainers/martial_artist_koti.png",
   description_pt: "*Perfeito! Estou no meio do treinamento com meu Animon!*",
@@ -11,6 +12,7 @@ const trainers = [
 },
 {
   trainer: "Captain Selene",
+  area: "sunburst"
   mode: "1v1",
   photo: "assets/trainers/captain_selene.png",
   description_pt: "*Cadetes! Mantenham a formação. ...Ah, você aí. Você não é um dos meus recrutas.*",
@@ -21,6 +23,7 @@ const trainers = [
 },
 {
   trainer: "Manager Vira",
+  area: "plains"
   mode: "1v1",
   photo: "assets/trainers/manager_vira.png",
   description_pt: "Por enquanto nada...",
@@ -31,6 +34,7 @@ const trainers = [
 },
 {
   trainer: "Bandit King Lucas",
+  area: "sunburst"
   mode: "2v2",
   photo: "assets/trainers/bandit_king_lucas.png",
   description_pt: "*Eu sou o Rei desta Floresta! O Rei Bandido Lucas, para ser mais exato!*",
