@@ -12,7 +12,7 @@ const trainers = [
 },
 {
   trainer: "Captain Selene",
-  area: "sunburst"
+  area: "sunburst",
   mode: "1v1",
   photo: "assets/trainers/captain_selene.png",
   description_pt: "*Cadetes! Mantenham a formação. ...Ah, você aí. Você não é um dos meus recrutas.*",
@@ -23,7 +23,7 @@ const trainers = [
 },
 {
   trainer: "Manager Vira",
-  area: "plains"
+  area: "plains",
   mode: "1v1",
   photo: "assets/trainers/manager_vira.png",
   description_pt: "Por enquanto nada...",
