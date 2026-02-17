@@ -211,6 +211,25 @@ body {
   cursor: default;
 }    
 
+.reward-list{
+  margin: 5px 0 0 0;
+  padding-left: 18px;
+}
+
+.reward-list li{
+  margin-bottom: 4px;
+}
+
+.animon-item{
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.animon-item:last-child{
+  border-bottom: none;
+}
+
 @media (max-width: 768px) {      
   .header-top {      
     justify-content: flex-end;      
@@ -326,7 +345,12 @@ function render(filter=""){
             <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
             <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
             <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>
-            <p>${lang === "pt" ? t.drops_pt : t.drops_en}</p>
+            <ul class="reward-list">
+             ${(lang === "pt" ? t.drops_pt : t.drops_en)
+              .split(",")
+              .map(r => `<li>${r.trim()}</li>`)
+              .join("")}
+           </ul>
           </div>
         </div>
       </div>
@@ -347,8 +371,17 @@ function render(filter=""){
       document.getElementById("animonModal").classList.add("active");
       document.getElementById("modalTitle").textContent =
         lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
-      document.getElementById("modalAnimons").textContent =
-        t.animons.join(", ");
+      
+      const sortedAnimons = [...t.animons].sort((a, b) => a.localeCompare(b));
+
+document.getElementById("modalAnimons").innerHTML =
+  sortedAnimons
+    .map((animon, index) => `
+      <div class="animon-item">
+        ${index + 1}. ${animon}
+      </div>
+    `)
+    .join("");
     };
 
     trainerList.appendChild(item);
