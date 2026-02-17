@@ -35,8 +35,8 @@ const trainers = [
   photo: "assets/trainers/bandit_king_lucas.png",
   description_pt: "*Eu sou o Rei desta Floresta! O Rei Bandido Lucas, para ser mais exato!*",
   description_en: "*I'm the King of this Forest! Bandit King Lucas, to be exact!*",
-  drops_pt: "Bandit Crate, 600 Credits",
-  drops_en: "Bandit Crate, 600 Credits",
+  drops_pt: "Bandit Crate, 400 Credits",
+  drops_en: "Bandit Crate, 400 Credits",
   animons: ["Bandit", "Strong Bandit", "Bandit", "Battle Wolf", "Teen Wolfman"]
 }
 ];
