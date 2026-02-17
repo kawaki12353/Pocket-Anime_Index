@@ -435,9 +435,14 @@ langBtn.onclick = () => {
   if(typeof updateMenuLang==="function"){ updateMenuLang(); }
 };
 
-document.getElementById("animonModal").onclick = () => {
-  document.getElementById("animonModal").classList.remove("active");
-};
+  const modal = document.getElementById("animonModal");
+const modalContent = document.querySelector(".modal-content");
+
+modal.addEventListener("click", (e) => {
+  if (!modalContent.contains(e.target)) {
+    modal.classList.remove("active");
+  }
+});
 
 updateLang();
 </script>
