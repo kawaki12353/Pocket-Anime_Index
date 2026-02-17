@@ -1,5 +1,15 @@
 const trainers = [
 {
+  trainer: "Martial Artist Koti",
+  mode: "1v1",
+  photo: "assets/trainers/martial_artist_koti.png",
+  description_pt: "*Perfeito! Estou no meio do treinamento com meu Animon!*",
+  description_en: "*Perfect! I'm in the middle of training with my Animon!*",
+  drops_pt: "Fighter Crate, 500 Credits",
+  drops_en: "Fighter Crate, 500 Credits",
+  animons: ["Kid Gocu", "Pickle Jr.", "Gocu", "Super Gocu"]
+},
+{
   trainer: "Captain Selene",
   mode: "1v1",
   photo: "assets/trainers/captain_selene.png",
@@ -40,5 +50,9 @@ const animonElements = {
   "Strong Bandit": ["dark"],
   "Battle Wolf": ["neutral"],
   "Teen Wolfman": ["fighting"],
+  "Kid Gocu": ["fighting", "beast"],
+  "Pickle Jr.": ["demon", "psychic"],
+  "Gocu": ["fighting"],
+  "Super Gocu": ["fighting"],
   "???": []
 };
