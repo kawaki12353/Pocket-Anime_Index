@@ -43,6 +43,7 @@ const trainers = [
 
 const animonElements = {
   "Cadet": ["neutral"],
+  "Navy Captain": ["water"],
   "Kid Hero": ["water"],
   "Axe Man": ["earth"],
   "Taesheegi": ["water"],
