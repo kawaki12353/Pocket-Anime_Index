@@ -1,7 +1,7 @@
 const trainers = [
 {
   trainer: "Martial Artist Koti",
-  area: "plains"
+  area: "plains",
   mode: "1v1",
   photo: "assets/trainers/martial_artist_koti.png",
   description_pt: "*Perfeito! Estou no meio do treinamento com meu Animon!*",
@@ -34,7 +34,7 @@ const trainers = [
 },
 {
   trainer: "Bandit King Lucas",
-  area: "sunburst"
+  area: "sunburst",
   mode: "2v2",
   photo: "assets/trainers/bandit_king_lucas.png",
   description_pt: "*Eu sou o Rei desta Floresta! O Rei Bandido Lucas, para ser mais exato!*",
