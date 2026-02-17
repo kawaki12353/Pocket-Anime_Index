@@ -4,6 +4,14 @@ const items=[
  en:{name:"Bandit Cutlass",desc:"The Bandit Cutlass! Increases the ATK stat of the Animon equipping it during battle!",drop:"Defeating the Bandit Animon.",cat:"battle"},
  icon:"bandit_cutlass.png"
 },
+{rarity:"incomum",
+ pt:{name:"Plain Cloth",desc:"Um simples rolo de tecido, versátil e sem adornos.",cat:"evolution"},
+ en:{name:"Plain Cloth",desc:"A simple roll of cloth, versatile and unadorned.",cat:"evolution"},
+},
+{rarity:"raro",
+ pt:{name:"Tide Crystal",desc:"Um cristal azul profundo com camadas que imitam as profundezas tranquilas do oceano.",cat:"evolution"},
+ en:{name:"Tide Crystal",desc:"A deep blue crystal with layers that mimic the tranquil depths of the ocean.",cat:"evolution"},
+},
 {rarity:"comum",
  pt:{name:"GX-Accuracy",desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a precisão dos Animons.",drop:"Lojas",cat:"misc"},
  en:{name:"GX-Accuracy",desc:"A rapid-assimilation metabolic accelerator from Gamyng Corp, crafted to drastically increase Animons accuracy.",drop:"Shops",cat:"misc"}
