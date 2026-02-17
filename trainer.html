@@ -320,6 +320,64 @@ body {
 .element-wrapper.active .element-tooltip {
   opacity: 1;
 }   
+
+/* AREA FILTER */
+.custom-select{
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  margin: 10px auto 0;
+}
+
+.select-btn{
+  background: var(--card);
+  color: var(--text);
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.select-list{
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 6px;
+  box-sizing: border-box;
+  background: var(--card);
+  border-radius: 12px;
+  list-style: none;
+  padding: 6px;
+  z-index: 100;
+}
+
+.select-list li{
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+}
+
+.select-list li:hover{
+  background: var(--hover);
+}
+
+.area-icon{
+  width: 20px;
+  height: 20px;
+}
 </style>      
 </head>      
 
@@ -334,7 +392,10 @@ body {
 
 <div class="search-container">      
   <input type="text" id="searchInput">      
-</div>      
+<div class="custom-select" id="areaSelect">
+  <div class="select-btn" id="areaBtn"></div>
+  <ul class="select-list" id="areaList"></ul>
+</div>
 </div>    
 
 <div class="trainer-list" id="trainerList"></div>      
@@ -358,6 +419,27 @@ const trainerList = document.getElementById("trainerList");
 const searchInput = document.getElementById("searchInput");
 const langBtn = document.getElementById("langBtn");
 
+let selectedArea = "";
+
+const areaIcons = {
+  all: "",
+  sunburst: "assets/sunburst_forest.png",
+  plains: "assets/great_plains.png"
+};
+
+const areaLabels = {
+  pt: {
+    all: "Todas as áreas",
+    sunburst: "Sunburst Forest",
+    plains: "Great Plains"
+  },
+  en: {
+    all: "All areas",
+    sunburst: "Sunburst Forest",
+    plains: "Great Plains"
+  }
+};
+
 let lang = localStorage.getItem("siteLang") || "pt";
 
 function render(filter=""){
@@ -366,7 +448,11 @@ function render(filter=""){
   trainerList.innerHTML = "";
 
   trainers
-  .filter(t => t.trainer.toLowerCase().includes(filter))
+  .filter(t => {
+    const nameMatch = t.trainer.toLowerCase().includes(filter);
+    const areaMatch = selectedArea ? t.area === selectedArea : true;
+    return nameMatch && areaMatch;
+  })
   .sort((a, b) => a.trainer.localeCompare(b.trainer))
   .forEach((t) => {
 
@@ -466,6 +552,51 @@ searchInput.addEventListener("input", () => {
   render(searchInput.value.toLowerCase());
 });
 
+function buildAreaMenu(){
+  areaList.innerHTML = `
+    <li onclick="selectArea('')">
+      ${areaLabels[lang].all}
+    </li>
+    <li onclick="selectArea('sunburst')">
+      <img src="${areaIcons.sunburst}" class="area-icon">
+      ${areaLabels[lang].sunburst}
+    </li>
+    <li onclick="selectArea('plains')">
+      <img src="${areaIcons.plains}" class="area-icon">
+      ${areaLabels[lang].plains}
+    </li>
+  `;
+}
+
+function selectArea(value){
+  selectedArea = value;
+
+  if(value){
+    areaBtn.innerHTML = `
+      <img src="${areaIcons[value]}" class="area-icon">
+      ${areaLabels[lang][value]}
+    `;
+  }else{
+    areaBtn.textContent = areaLabels[lang].all;
+  }
+
+  areaList.style.display = "none";
+  render(searchInput.value.toLowerCase());
+}
+
+areaBtn.onclick = (e) => {
+  e.stopPropagation();
+  const open = areaList.style.display === "block";
+  closeAllSelects();
+  areaList.style.display = open ? "none" : "block";
+};
+
+function closeAllSelects(){
+  areaList.style.display = "none";
+}
+
+document.addEventListener("click", closeAllSelects);
+
 const texts = {
   pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },
   en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }
@@ -476,6 +607,17 @@ function updateLang(){
   searchInput.placeholder = texts[lang].search;
   document.getElementById("trainerTitle").textContent = texts[lang].title;
   render(searchInput.value.toLowerCase());
+  
+  buildAreaMenu();
+
+if (selectedArea) {
+  areaBtn.innerHTML = `
+    <img src="${areaIcons[selectedArea]}" class="area-icon">
+    ${areaLabels[lang][selectedArea]}
+  `;
+} else {
+  areaBtn.textContent = areaLabels[lang].all;
+ }
 }
 
 langBtn.onclick = () => {
