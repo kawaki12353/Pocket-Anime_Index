@@ -318,10 +318,32 @@ body {
   background: #191919;
   padding: 4px;
   border-radius: 8px;
+  
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  box-shadow:
+   0 0 0 2px #191919,
+   0 0 0 4px var(--element-color);
 }
+
+.element-neutral   { --element-color: #e6e5e3; }
+.element-fighting   { --element-color: #e5901b; }
+.element-fire   { --element-color: #e60000; }
+.element-water   { --element-color: #00b0e6; }
+.element-nature   { --element-color: #24e30c; }
+.element-earth   { --element-color: #8a5e39; }
+.element-wind   { --element-color: #59e657; }
+.element-ice   { --element-color: #00ffe1; }
+.element-lightning   { --element-color: #ffe100; }
+.element-soul   { --element-color: #89a2e6; }
+.element-psychic   { --element-color: #e66ae0; }
+.element-poison   { --element-color: #ac8fff; }
+.element-light   { --element-color: #decc7c; }
+.element-dark   { --element-color: #262626; }
+.element-demon   { --element-color: #b00000; }
+.element-beast   { --element-color: #aa6272; }
 
 .element-tooltip {
   position: absolute;
