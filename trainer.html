@@ -558,7 +558,7 @@ document.getElementById("modalAnimons").innerHTML =
       const elements = animonElements[animon] || [];
 
       const elementIcons = elements.map(el => `
-       <div class="element-wrapper">
+       <div class="element-wrapper element-${el}">
         <img src="assets/${el}_element.png" alt="${el}">
         <div class="element-tooltip">${el.charAt(0).toUpperCase() + el.slice(1)}</div>
        </div>
