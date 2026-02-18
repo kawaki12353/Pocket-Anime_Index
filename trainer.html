@@ -246,15 +246,10 @@ body {
   text-align: left;
 }
 
-.animon-elements{
+.animon-elements {
   display: flex;
   gap: 6px;
-}
-
-.animon-elements img{
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
+  position: relative;
 }
 
 /* PC */
@@ -269,11 +264,6 @@ body {
   .animon-item {
     padding: 14px 0;
     font-size: 18px;
-  }
-
-  .animon-elements img {
-    width: 46px;
-    height: 46px;
   }
 
   .element-wrapper:hover .element-tooltip {
@@ -305,37 +295,47 @@ body {
   }      
 }   
 
-.animon-elements {
-  display: flex;
-  gap: 6px;
-  position: relative;
-}
-
 .element-wrapper {
   position: relative;
-  width: 30px;
-  height: 30px;
+  cursor: pointer;
+
+  width: 52px;
+  height: 52px;
 
   background: #191919;
-  border-radius: 8px;
+  border-radius: 14px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   flex-shrink: 0;
-  
+}
+
+.element-inner {
+  position: relative;
+  width: 36px;   /* moldura colorida menor */
+  height: 36px;
+
+  border-radius: 10px;
+  border: 2px solid var(--element-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   overflow: visible;
 }
 
-.element-wrapper img {
+.element-inner img {
   position: absolute;
-  width: 40;
-  height: 40;
+  width: 48px;   /* maior que a moldura colorida */
+  height: 48px;
   object-fit: contain;
 
-  border-radius: 8px;
-  border: 1px solid var(--element-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .element-neutral   { --element-color: #e6e5e3; }
@@ -569,7 +569,9 @@ document.getElementById("modalAnimons").innerHTML =
 
       const elementIcons = elements.map(el => `
        <div class="element-wrapper element-${el}">
-        <img src="assets/${el}_element.png" alt="${el}">
+        <div class="element-inner">
+         <img src="assets/${el}_element.png" alt="${el}">
+        </div>
         <div class="element-tooltip">${el.charAt(0).toUpperCase() + el.slice(1)}</div>
        </div>
       `).join("");
