@@ -315,20 +315,25 @@ body {
   position: relative;
   cursor: pointer;
 
+  width: 40px;
+  height: 40px;
+
   background: #191919;
-  padding: 4px;
   border-radius: 8px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
 }
 
 .element-wrapper img {
-  background: #191919;
-  padding: 2px;
-  border-radius: 8px;
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
 
+  border-radius: 8px;
   border: 2px solid var(--element-color);
 }
 
