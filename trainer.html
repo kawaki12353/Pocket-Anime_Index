@@ -313,8 +313,6 @@ body {
 
 .element-wrapper {
   position: relative;
-  cursor: pointer;
-
   width: 30px;
   height: 30px;
 
@@ -326,11 +324,14 @@ body {
   justify-content: center;
 
   flex-shrink: 0;
+  
+  overflow: visible;
 }
 
 .element-wrapper img {
-  width: 70%;
-  height: 70%;
+  position: absolute;
+  width: 40;
+  height: 40;
   object-fit: contain;
 
   border-radius: 8px;
