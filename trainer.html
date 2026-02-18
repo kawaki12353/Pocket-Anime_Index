@@ -322,10 +322,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  box-shadow:
-   0 0 0 1px #191919,
-   0 0 0 2px var(--element-color);
+}
+
+.element-wrapper img {
+  background: #191919;
+  padding: 2px;
+  border-radius: 8px;
+
+  border: 2px solid var(--element-color);
 }
 
 .element-neutral   { --element-color: #e6e5e3; }
