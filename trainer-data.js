@@ -30,7 +30,7 @@ const trainers = [
   description_en: "*Oh! You're... um... someone. Right? I think. I'm supposed to battle you? Let's do that!*",
   drops_pt: "Highstar Crate, ??? Credits",
   drops_en: "Highstar Crate, ??? Credits",
-  animons: ["Mutated Water Chimera", "Mutated Chimera", "Radish", "Ice Sculpture", "Super Bojin"]
+  animons: ["Mutated Water Chimera", "Mutated Chimer", "Radish", "Ice Sculpture", "Super Bojin"]
 },
 {
   trainer: "Bandit King Lucas",
