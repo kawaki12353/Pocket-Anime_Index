@@ -181,52 +181,21 @@ body {
   border: 2px solid #191919;
 }
 
-.legend-battle .legend-color {
-  background: #750001;
-}
-
-.legend-chest .legend-color {
-  background: #38c3ff;
-}
-
-.legend-interactive .legend-color {
-  background: #a77a24;
-}
+.legend-battle .legend-color { background: #750001; }
+.legend-chest .legend-color { background: #38c3ff; }
+.legend-interactive .legend-color { background: #a77a24; }
 
 @media (max-width: 768px) {
-
-  .header {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .header-top {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-  }
-
-  .logo {
-    width: 150px;
-  }
-
-  .search-container {
-    max-width: 320px;
-  }
-
-  .map-list {
-    max-width: 420px;
-  }
-
-  .map-content img {
-    max-width: 100%;
-  }
+  .header { flex-direction: column; align-items: center; }
+  .header-top { display: flex; justify-content: flex-end; width: 100%; }
+  .logo { width: 150px; }
+  .search-container { max-width: 320px; }
+  .map-list { max-width: 420px; }
+  .map-content img { max-width: 100%; }
 }
 
 @media (max-width: 600px) {
-  .search-container {
-    max-width: 240px;
-  }
+  .search-container { max-width: 240px; }
 }
 </style>
 </head>
@@ -308,8 +277,7 @@ function renderMaps(filter = "") {
       item.querySelector(".map-header").onclick = () => {
         const isActive = item.classList.contains("active");
 
-        document
-          .querySelectorAll(".map-item")
+        document.querySelectorAll(".map-item")
           .forEach(i => i.classList.remove("active"));
 
         if (!isActive) {
@@ -331,11 +299,24 @@ function updateLang() {
   document.getElementById("mapTitle").textContent = texts[lang].title;
 }
 
+/* 🔥 NOVA FUNÇÃO (sem resetar mapas) */
+function updateLegends() {
+  document.querySelectorAll(".legend-battle span")
+    .forEach(el => el.textContent = texts[lang].battle);
+
+  document.querySelectorAll(".legend-chest span")
+    .forEach(el => el.textContent = texts[lang].chest);
+
+  document.querySelectorAll(".legend-interactive span")
+    .forEach(el => el.textContent = texts[lang].interactive);
+}
+
 langBtn.onclick = () => {
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
+
   updateLang();
-  renderMaps(searchInput.value.toLowerCase());
+  updateLegends();
 
   if (typeof updateMenuLang === "function") {
     updateMenuLang();
