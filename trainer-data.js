@@ -26,11 +26,11 @@ const trainers = [
   area: "plains",
   mode: "1v1",
   photo: "assets/trainers/manager_vira.png",
-  description_pt: "Por enquanto nada...",
-  description_en: "Nothing for now....",
+  description_pt: "*Ah! Você é... hum... alguém. Certo? Acho que sim. Eu deveria batalhar com você? Vamos nessa!*",
+  description_en: "*Oh! You're... um... someone. Right? I think. I'm supposed to battle you? Let's do that!*",
   drops_pt: "Highstar Crate, ??? Credits",
   drops_en: "Highstar Crate, ??? Credits",
-  animons: ["???"]
+  animons: ["Mutated Water Chimera", "Mutated Quimera", "Radish", "Ice Sculpture", "Super Bojin"]
 },
 {
   trainer: "Bandit King Lucas",
@@ -59,5 +59,9 @@ const animonElements = {
   "Pickle Jr.": ["demon", "psychic"],
   "Gocu": ["fighting"],
   "Super Gocu": ["fighting"],
-  "???": []
+  "Mutated Water Chimera": ["water", "beast"],
+  "Mutated Chimera": ["beast"],
+  "Radish": ["dark", "fighting"],
+  "Ice Sculpture": ["ice"],
+  "Super Bojin": ["psychic"]
 };
