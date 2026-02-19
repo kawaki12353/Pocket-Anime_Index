@@ -41,6 +41,7 @@ function setActivePage(){
     "calculator.html": "menuCalc",
     "items.html": "menuItems",
     "maps.html": "menuMaps",
+    "trainer.html": "menuTrainers",
     "update-log.html": "menuUpdate"
   };
 
@@ -58,6 +59,7 @@ function updateMenuLang(){
     calc:"🔥 Calculadora",
     items:"🗂 Itens",
     maps:"🗺 Mapas",
+    trainers:"🤵‍♂️ Treinadores",
     update:"📝 Update Log"
   },
   en:{
@@ -65,6 +67,7 @@ function updateMenuLang(){
     calc:"🔥 Calculator",
     items:"🗂 Items",
     maps:"🗺 Maps",
+    trainers:"🤵‍♂️ Trainers",
     update:"📝 Update Log"
   }
 };
@@ -73,5 +76,7 @@ function updateMenuLang(){
   document.getElementById("menuCalc").textContent  = text[lang].calc;
   document.getElementById("menuItems").textContent = text[lang].items;
   document.getElementById("menuMaps").textContent  = text[lang].maps;
+
+document.getElementById("menuTrainers").textContent = text[lang].trainers;
   document.getElementById("menuUpdate").textContent = text[lang].update;
 }
