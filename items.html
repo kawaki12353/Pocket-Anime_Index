@@ -164,16 +164,6 @@ body{
 .modal.epico{border-color:#6a1b9a}
 .modal.lendario{border-color:#f9a825}
 
-.close{text-align:right}
-.close button{
-  background:#d32f2f;
-  color:#fff;
-  border:none;
-  border-radius:6px;
-  padding:6px 12px;
-  cursor:pointer;
-}
-
 .modal h2{
   text-align:center;
   margin-bottom:15px;
@@ -318,9 +308,6 @@ body{
 
 <div class="modal-bg" id="modalBg" onclick="closeModal()">
   <div class="modal" id="modal" onclick="event.stopPropagation()">
-    <div class="close">
-      <button onclick="closeModal()" id="closeBtn"></button>
-    </div>
     <h2 id="mName"></h2>
 
     <div class="section">
@@ -503,7 +490,6 @@ function closeModal(){modalBg.style.display="none"}
 function updateLang(){
   title.textContent = uiText[lang].title;
   searchInput.placeholder = uiText[lang].search;
-  closeBtn.textContent = uiText[lang].close;
   lblDesc.textContent = uiText[lang].desc;
   lblNote.textContent = uiText[lang].note;
   lblDrop.textContent = uiText[lang].drop;
@@ -512,7 +498,7 @@ function updateLang(){
 
   buildCategoryMenu();
   buildRarityMenu();
-  
+
 const text = selectedCategory
   ? categoryLabels[lang][selectedCategory]
   : uiText[lang].allCat;
@@ -532,7 +518,7 @@ rarityBtn.textContent = selectedRarity
 
 rarityBtn.className = "select-btn";
 if (selectedRarity) rarityBtn.classList.add("r-" + selectedRarity);
-  
+
   render();
 }
 
