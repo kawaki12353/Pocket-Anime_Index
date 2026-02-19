@@ -175,20 +175,18 @@ body {
   border: 2px solid #191919;
 }
 
-/* Cores específicas */
 .legend-battle .legend-color {
-  background: #e74c3c; /* vermelho */
+  background: #e74c3c;
 }
 
 .legend-chest .legend-color {
-  background: #f1c40f; /* dourado */
+  background: #f1c40f;
 }
 
 .legend-interactive .legend-color {
-  background: #3498db; /* azul */
+  background: #3498db;
 }
 
-/* MOBILE LAYOUT */
 @media (max-width: 768px) {
 
   .header {
@@ -224,7 +222,6 @@ body {
     max-width: 240px;
   }
 }
-
 </style>
 </head>
 
@@ -235,15 +232,12 @@ body {
   <img src="assets/Pocket-Anime-logo.png" class="logo">
 </div>
 
-<!-- TITLE -->
 <h2 class="map-title" id="mapTitle"></h2>
 
-<!-- SEARCH -->
 <div class="search-container">
   <input type="text" id="searchInput" placeholder="Pesquisar mapa...">
 </div>
 
-<!-- MAP LIST -->
 <div class="map-list" id="mapList"></div>
 
 <div class="lang-toggle">
@@ -251,7 +245,6 @@ body {
 </div>
 
 <script>
-/* MAP CONFIG */
 const maps = [
   { name: "Castle Maze", file: "castle_maze_map.png" },
   { name: "Highstar Base", file: "highstar_base_map.png" }
@@ -259,10 +252,16 @@ const maps = [
 
 const MAP_PATH = "assets/maps/";
 
-/* BUILD MAP LIST */
 const mapList = document.getElementById("mapList");
 const searchInput = document.getElementById("searchInput");
 const langBtn = document.getElementById("langBtn");
+
+const texts = {
+  pt: { btn: "🇧🇷 PT", search: "Pesquisar mapa...", title:'Mapas de "Dungeons"', battle: "Batalhas", chest: "Baús", interactive: "Interagíveis" },
+  en: { btn: "🇺🇸 EN", search: "Search map...", title:'"Dungeons" Maps', battle: "Battles", chest: "Chests", interactive: "Interactives" }
+};
+
+let lang = localStorage.getItem("siteLang") || "pt";
 
 function renderMaps(filter = "") {
   mapList.innerHTML = "";
@@ -316,25 +315,13 @@ function renderMaps(filter = "") {
     });
 }
 
-renderMaps();
-
-/* SEARCH */
 searchInput.addEventListener("input", () => {
   renderMaps(searchInput.value.toLowerCase());
 });
 
-/* LANGUAGE */
-const texts = {
-  pt: { btn: "🇧🇷 PT", search: "Pesquisar mapa...", title:'Mapas de "Dungeons"', battle: "Batalhas", chest: "Baús", interactive: "Interagíveis" },
-  en: { btn: "🇺🇸 EN", search: "Search map...", title:'"Dungeons" Maps', battle: "Battles", chest: "Chests", interactive: "Interactives" }
-};
-
-let lang = localStorage.getItem("siteLang") || "pt";
-
 function updateLang() {
   langBtn.textContent = texts[lang].btn;
   searchInput.placeholder = texts[lang].search;
-
   document.getElementById("mapTitle").textContent = texts[lang].title;
 }
 
@@ -342,7 +329,6 @@ langBtn.onclick = () => {
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
   updateLang();
-
   renderMaps(searchInput.value.toLowerCase());
 
   if (typeof updateMenuLang === "function") {
@@ -351,6 +337,7 @@ langBtn.onclick = () => {
 };
 
 updateLang();
+renderMaps();
 </script>
 
 </body>
