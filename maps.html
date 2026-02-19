@@ -148,6 +148,46 @@ body {
   color: var(--lang-btn);
 }
 
+/* MAP LEGEND */
+.map-legend {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.legend-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 2px solid #191919;
+}
+
+/* Cores específicas */
+.legend-battle .legend-color {
+  background: #e74c3c; /* vermelho */
+}
+
+.legend-chest .legend-color {
+  background: #f1c40f; /* dourado */
+}
+
+.legend-interactive .legend-color {
+  background: #3498db; /* azul */
+}
+
 /* MOBILE LAYOUT */
 @media (max-width: 768px) {
 
@@ -234,10 +274,30 @@ function renderMaps(filter = "") {
       item.className = "map-item";
 
       item.innerHTML = `
-        <div class="map-header">${map.name}</div>
-        <div class="map-content">
-          <img src="${MAP_PATH}${map.file}" alt="${map.name}">
+       <div class="map-header">${map.name}</div>
+       <div class="map-content">
+        <div>
+         <img src="${MAP_PATH}${map.file}" alt="${map.name}">
+      
+         <div class="map-legend">
+          <div class="legend-box legend-battle">
+           <div class="legend-color"></div>
+           <span>${texts[lang].battle}</span>
+          </div>
+
+          <div class="legend-box legend-chest">
+           <div class="legend-color"></div>
+           <span>${texts[lang].chest}</span>
+          </div>
+
+          <div class="legend-box legend-interactive">
+           <div class="legend-color"></div>
+           <span>${texts[lang].interactive}</span>
+          </div>
+         </div>
+
         </div>
+       </div>
       `;
 
       item.querySelector(".map-header").onclick = () => {
@@ -265,8 +325,8 @@ searchInput.addEventListener("input", () => {
 
 /* LANGUAGE */
 const texts = {
-  pt: { btn: "🇧🇷 PT", search: "Pesquisar mapa...", title:'Mapas de "Dungeons"' },
-  en: { btn: "🇺🇸 EN", search: "Search map...", title:'"Dungeons" Maps' }
+  pt: { btn: "🇧🇷 PT", search: "Pesquisar mapa...", title:'Mapas de "Dungeons"', battle: "Batalhas", chest: "Baús", interactive: "Interagíveis" },
+  en: { btn: "🇺🇸 EN", search: "Search map...", title:'"Dungeons" Maps', battle: "Battles", chest: "Chests", interactive: "Interactives" }
 };
 
 let lang = localStorage.getItem("siteLang") || "pt";
@@ -274,7 +334,7 @@ let lang = localStorage.getItem("siteLang") || "pt";
 function updateLang() {
   langBtn.textContent = texts[lang].btn;
   searchInput.placeholder = texts[lang].search;
-  
+
   document.getElementById("mapTitle").textContent = texts[lang].title;
 }
 
@@ -282,8 +342,10 @@ langBtn.onclick = () => {
   lang = lang === "pt" ? "en" : "pt";
   localStorage.setItem("siteLang", lang);
   updateLang();
-    
-if (typeof updateMenuLang === "function") {
+
+  renderMaps(searchInput.value.toLowerCase());
+
+  if (typeof updateMenuLang === "function") {
     updateMenuLang();
   }
 };
