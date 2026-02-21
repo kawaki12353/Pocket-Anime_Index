@@ -1,414 +1,386 @@
-<!DOCTYPE html>  
-<html lang="pt-BR">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-
-<link rel="stylesheet" href="menu.css">  
-<script src="menu.js" defer></script>  
-
-<title>Pocket Anime - Team Builder</title>  
-
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>  
-
-<style>  
-body {  
-  font-family: Arial, sans-serif;  
-  background: var(--bg);  
-  color: var(--text);  
-  padding: 20px;  
-  margin: 0;  
-}  
-
-:root{  
-  --bg: #f2f4f7;  
-  --card: #ffffff;  
-  --text: #111;  
-  --border: #ccc;  
-  --hover: #f1f1f1;  
-  --lang-btn: #ffffff;  
-  --lang-btn-bg: #444;  
-}  
-
-@media (prefers-color-scheme: dark){  
-  :root{  
-    --bg: #0f1217;  
-    --card: #181c24;  
-    --text: #ffffff;  
-    --border: #2a2f3a;  
-    --hover: #232836;  
-    --lang-btn: #111;  
-    --lang-btn-bg: #ffffff;  
-  }  
-}  
-
-.header {  
-  display: flex;  
-  flex-direction: column;  
-  align-items: center;  
-  max-width: 1200px;  
-  margin: 0 auto 30px;  
-  gap: 12px;  
-}  
-
-.header-top {  
-  width: 100%;  
-  display: flex;  
-  justify-content: center;  
-}  
-
-.logo { width: 260px; }  
-
-.map-title {  
-  text-align: center;  
-  font-size: 22px;  
-  font-weight: bold;  
-}  
-
-.map-list { max-width:1200px; margin:0 auto; }  
-
-.team-grid{  
-  display:grid;  
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));  
-  gap:12px;  
-}  
-
-.team-slot{  
-  background:var(--card);  
-  border:1px solid var(--border);  
-  border-radius:14px;  
-  text-align:center;  
-  cursor:pointer;  
-  display:flex;  
-  align-items:center;  
-  justify-content:center;  
-  flex-direction:column;  
-  aspect-ratio:1/1;  
-  padding:10px;  
-}  
-
-.team-slot img{ width:80px; }  
-
-.analysis{  
-  margin-top:25px;  
-  background:var(--card);  
-  border:1px solid var(--border);  
-  border-radius:14px;  
-  padding:20px;  
-}  
-
-.analysis button{  
-  margin-top:10px;  
-  padding:8px 14px;  
-  border-radius:10px;  
-  border:none;  
-  cursor:pointer;  
-  background:var(--lang-btn-bg);  
-  color:var(--lang-btn);  
-}  
-
-.lang-toggle {  
-  position: fixed;  
-  bottom: 10px;  
-  left: 50%;  
-  transform: translateX(-50%);  
-}  
-
-.lang-toggle button {  
-  padding: 8px 14px;  
-  border-radius: 20px;  
-  border: none;  
-  font-weight: bold;  
-  cursor: pointer;  
-  background: var(--lang-btn-bg);  
-  color: var(--lang-btn);  
-}  
-
-/* 🔥 MODAL */  
-
-.modal-overlay{  
-  position:fixed;  
-  inset:0;  
-  background:rgba(0,0,0,0.6);  
-  display:none;  
-  align-items:center;  
-  justify-content:center;  
-  z-index:1000;  
-}  
-
-.modal{  
-  background:var(--card);  
-  width:600px;  
-  height:600px;  
-  border-radius:16px;  
-  padding:20px;  
-  display:flex;  
-  flex-direction:column;  
-}  
-
-.modal h3{  
-  margin-top:0;  
-  text-align:center;  
-}  
-
-.modal-search{  
-  margin-bottom:10px;  
-}  
-
-.modal-search input{  
-  width:100%;  
-  padding:8px;  
-  border-radius:10px;  
-  border:1px solid var(--border);  
-  background:var(--bg);  
-  color:var(--text);  
-}  
-
-.modal-list{  
-  overflow-y:auto;  
-  flex:1;  
-  padding-right:5px;  
-}  
-
-.animon-option{  
-  display:flex;  
-  align-items:center;  
-  gap:10px;  
-  padding:10px;  
-  border-radius:10px;  
-  cursor:pointer;  
-}  
-
-.animon-option:hover{  
-  background:var(--hover);  
-}  
-
-.animon-option img{  
-  width:50px;  
-}  
-
-@media (max-width: 768px) {  
-  .header-top {  
-    display: flex;  
-    justify-content: flex-end;  
-    width: 100%;  
-  }  
-  .logo { width: 150px; }  
-
-  .modal{  
-    width:85%;  
-    height:60vh;
-    padding:15px;
-  }  
-}  
-</style>  
-</head>  
-
-<body>  
-
-<div class="header">  
- <div class="header-top">  
-  <img src="assets/Pocket-Anime-logo.png" class="logo">  
- </div>  
- <h2 class="map-title" id="mapTitle"></h2>  
-</div>  
-
-<div class="map-list">  
-  <div id="teamExportArea">  
-    <div class="team-grid" id="teamGrid"></div>  
-
-    <div class="analysis">  
-      <div id="statsTotal"></div>  
-      <div id="weakness"></div>  
-      <div id="rating"></div>  
-      <button id="shareBtn"></button>  
-      <button id="exportBtn">Exportar Imagem</button>  
-    </div>  
-  </div>  
-</div>  
-
-<div class="lang-toggle">  
-  <button id="langBtn"></button>  
-</div>  
-
-<div class="modal-overlay" id="modal">  
-  <div class="modal" onclick="event.stopPropagation()">  
-    <h3>Escolha um Animon</h3>  
-    <div class="modal-search">  
-      <input type="text" id="searchInput" placeholder="Pesquisar Animon...">  
-    </div>  
-    <div class="modal-list" id="animonList"></div>  
-  </div>  
-</div>  
-
-<script>  
-const animons = [  
- {id:1,name:"Ruffy",type:"Fire",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spd:85}},  
- {id:2,name:"Mystic Bojin",type:"Water",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spd:50}},  
- {id:3,name:"TS Ruffy",type:"Fire",sprite:"assets/animons/ts_ruffy.png",stats:{hp:95,atk:110,def:70,spd:100}}  
-];  
-
-const typeChart={  
- Fire:{weak:["Water"]},  
- Water:{weak:["Grass"]},  
- Grass:{weak:["Fire"]}  
-};  
-
-const texts={  
- pt:{btn:"🇧🇷 PT",title:"Team Builder",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Clique para adicionar"},  
- en:{btn:"🇺🇸 EN",title:"Team Builder",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Click to add"}  
-};  
-
-let lang=localStorage.getItem("siteLang")||"pt";  
-let team=JSON.parse(localStorage.getItem("team"))||[];  
-let currentSlot=null;  
-
-const grid=document.getElementById("teamGrid");  
-const shareBtn=document.getElementById("shareBtn");  
-const exportBtn=document.getElementById("exportBtn");  
-const langBtn=document.getElementById("langBtn");  
-const modal=document.getElementById("modal");  
-const animonList=document.getElementById("animonList");  
-const searchInput=document.getElementById("searchInput");  
-
-function save(){ localStorage.setItem("team",JSON.stringify(team)); }  
-
-function render(){  
- grid.innerHTML="";  
- for(let i=0;i<6;i++){  
-  const div=document.createElement("div");  
-  div.className="team-slot";  
-
-  if(team[i]){  
-   div.innerHTML=`  
-    <img src="${team[i].sprite}">  
-    <h4>${team[i].name}</h4>  
-    <small>${team[i].type}</small><br>  
-    <button onclick="event.stopPropagation();removeFromTeam(${i})">X</button>  
-   `;  
-  }else{  
-   div.innerHTML=`<p>${texts[lang].empty}</p>`;  
-   div.onclick=()=>openModal(i);  
-  }  
-
-  grid.appendChild(div);  
- }  
-
- updateAnalysis();  
-}  
-
-function openModal(slotIndex){  
- currentSlot=slotIndex;  
- searchInput.value="";  
- renderAnimonList(animons);  
- modal.style.display="flex";  
-}  
-
-function renderAnimonList(list){  
- animonList.innerHTML="";  
- list.forEach(a=>{  
-  const div=document.createElement("div");  
-  div.className="animon-option";  
-  div.innerHTML=`  
-    <img src="${a.sprite}">  
-    <div>  
-      <strong>${a.name}</strong><br>  
-      <small>${a.type}</small>  
-    </div>  
-  `;  
-  div.onclick=()=>{  
-    team[currentSlot]=a;  
-    save();  
-    render();  
-    closeModal();  
-  };  
-  animonList.appendChild(div);  
- });  
-}  
-
-searchInput.addEventListener("input",()=>{  
- const value=searchInput.value.toLowerCase();  
- const filtered=animons.filter(a=>  
-  a.name.toLowerCase().includes(value)  
- );  
- renderAnimonList(filtered);  
-});  
-
-modal.addEventListener("click",()=>closeModal());  
-
-function closeModal(){  
- modal.style.display="none";  
-}  
-
-function removeFromTeam(i){  
- team.splice(i,1);  
- save();  
- render();  
-}  
-
-function updateAnalysis(){  
- const total={hp:0,atk:0,def:0,spd:0};  
- team.forEach(a=>{  
-  total.hp+=a.stats.hp;  
-  total.atk+=a.stats.atk;  
-  total.def+=a.stats.def;  
-  total.spd+=a.stats.spd;  
- });  
-
- document.getElementById("statsTotal").innerHTML=  
- `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SPD:${total.spd}`;  
-
- let weaknesses={};  
- team.forEach(a=>{  
-  typeChart[a.type]?.weak.forEach(w=>{  
-   weaknesses[w]=(weaknesses[w]||0)+1;  
-  });  
- });  
-
- const worst=Object.entries(weaknesses).sort((a,b)=>b[1]-a[1])[0];  
- document.getElementById("weakness").textContent=  
- texts[lang].weak+" "+(worst?worst[0]:"None");  
-
- let rating="Balanceado ⚖️";  
- if(total.atk>total.def) rating="Ofensivo 🔥";  
- if(total.def>total.atk) rating="Defensivo 🛡️";  
-
- document.getElementById("rating").textContent=  
- texts[lang].rating+" "+rating;  
-}  
-
-shareBtn.onclick=()=>{  
- const ids=team.map(a=>a.id).join(",");  
- const url=location.origin+location.pathname+"?team="+ids;  
- navigator.clipboard.writeText(url);  
- alert("Link copiado!");  
-};  
-
-exportBtn.onclick=async()=>{  
- const canvas=await html2canvas(document.getElementById("teamExportArea"),{scale:2});  
- const link=document.createElement("a");  
- link.download="pocket-anime-team.png";  
- link.href=canvas.toDataURL();  
- link.click();  
-};  
-
-langBtn.onclick=()=>{  
- lang=lang==="pt"?"en":"pt";  
- localStorage.setItem("siteLang",lang);  
- updateLang();  
- render();  
- if(typeof updateMenuLang==="function") updateMenuLang();  
-};  
-
-function updateLang(){  
- document.getElementById("mapTitle").textContent=texts[lang].title;  
- shareBtn.textContent=texts[lang].share;  
- langBtn.textContent=texts[lang].btn;  
-}  
-
-updateLang();  
-render();  
-</script>  
-
-</body>  
+<!DOCTYPE html>      
+<html lang="pt-BR">      
+<head>      
+<meta charset="UTF-8">      
+<meta name="viewport" content="width=device-width, initial-scale=1.0">      
+    
+<link rel="stylesheet" href="menu.css">      
+<script src="menu.js" defer></script>      
+    
+<title>Pocket Anime - Team Builder</title>      
+    
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>      
+    
+<style>      
+body {      
+  font-family: Arial, sans-serif;      
+  background: var(--bg);      
+  color: var(--text);      
+  padding: 20px;      
+  margin: 0;      
+}      
+    
+:root{      
+  --bg: #f2f4f7;      
+  --card: #ffffff;      
+  --text: #111;      
+  --border: #ccc;      
+  --hover: #f1f1f1;      
+  --lang-btn: #ffffff;      
+  --lang-btn-bg: #444;      
+}      
+    
+@media (prefers-color-scheme: dark){      
+  :root{      
+    --bg: #0f1217;      
+    --card: #181c24;      
+    --text: #ffffff;      
+    --border: #2a2f3a;      
+    --hover: #232836;      
+    --lang-btn: #111;      
+    --lang-btn-bg: #ffffff;      
+  }      
+}      
+
+/* ================= ELEMENT SYSTEM ================= */
+
+.animon-elements {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  justify-content: center;
+}
+
+.element-wrapper {
+  position: relative;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  background: #191919;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.element-inner {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 2px solid var(--element-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.element-inner img {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.element-fire      { --element-color: #e60000; }
+.element-water     { --element-color: #00b0e6; }
+.element-grass     { --element-color: #24e30c; }
+
+.element-tooltip {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  z-index: 10;
+}
+
+.element-wrapper:hover .element-tooltip {
+  opacity: 1;
+}
+
+/* ================= RESTANTE DO SEU CÓDIGO ================= */
+
+.header { display: flex; flex-direction: column; align-items: center; max-width: 1200px; margin: 0 auto 30px; gap: 12px; }
+.header-top { width: 100%; display: flex; justify-content: center; }
+.logo { width: 260px; }
+.map-title { text-align: center; font-size: 22px; font-weight: bold; }
+.map-list { max-width:1200px; margin:0 auto; }
+
+.team-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; }
+
+.team-slot{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  text-align:center;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  aspect-ratio:1/1;
+  padding:10px;
+}
+
+.team-slot img{ width:80px; }
+
+.analysis{ margin-top:25px; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; }
+
+.analysis button{ margin-top:10px; padding:8px 14px; border-radius:10px; border:none; cursor:pointer; background:var(--lang-btn-bg); color:var(--lang-btn); }
+
+.lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); }
+.lang-toggle button { padding: 8px 14px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); }
+
+.modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:1000; }
+
+.modal{ background:var(--card); width:600px; height:600px; border-radius:16px; padding:20px; display:flex; flex-direction:column; }
+
+.modal h3{ margin-top:0; text-align:center; }
+
+.modal-search{ margin-bottom:10px; }
+
+.modal-search input{ width:100%; padding:8px; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); }
+
+.modal-list{ overflow-y:auto; flex:1; padding-right:5px; }
+
+.animon-option{ display:flex; align-items:center; gap:10px; padding:10px; border-radius:10px; cursor:pointer; }
+
+.animon-option:hover{ background:var(--hover); }
+
+.animon-option img{ width:50px; }
+
+@media (max-width: 768px) {
+  .header-top { display: flex; justify-content: flex-end; width: 100%; }
+  .logo { width: 150px; }
+  .modal{ width:85%; height:60vh; padding:15px; }
+}
+</style>      
+</head>      
+    
+<body>      
+    
+<div class="header">      
+ <div class="header-top">      
+  <img src="assets/Pocket-Anime-logo.png" class="logo">      
+ </div>      
+ <h2 class="map-title" id="mapTitle"></h2>      
+</div>      
+    
+<div class="map-list">      
+  <div id="teamExportArea">      
+    <div class="team-grid" id="teamGrid"></div>      
+    
+    <div class="analysis">      
+      <div id="statsTotal"></div>      
+      <div id="weakness"></div>      
+      <div id="rating"></div>      
+      <button id="shareBtn"></button>      
+      <button id="exportBtn">Exportar Imagem</button>      
+    </div>      
+  </div>      
+</div>      
+    
+<div class="lang-toggle">      
+  <button id="langBtn"></button>      
+</div>      
+    
+<div class="modal-overlay" id="modal">      
+  <div class="modal" onclick="event.stopPropagation()">      
+    <h3>Escolha um Animon</h3>      
+    <div class="modal-search">      
+      <input type="text" id="searchInput" placeholder="Pesquisar Animon...">      
+    </div>      
+    <div class="modal-list" id="animonList"></div>      
+  </div>      
+</div>      
+    
+<script>      
+const animons = [      
+ {id:1,name:"Ruffy",type:"Fire",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spd:85}},      
+ {id:2,name:"Mystic Bojin",type:"Water",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spd:50}},      
+ {id:3,name:"TS Ruffy",type:"Fire",sprite:"assets/animons/ts_ruffy.png",stats:{hp:95,atk:110,def:70,spd:100}}      
+];      
+
+function createElementIcon(type){
+ const lower = type.toLowerCase();
+ return `
+  <div class="animon-elements">
+   <div class="element-wrapper element-${lower}">
+    <div class="element-inner">
+     <img src="assets/${lower}_element.png" alt="${type}">
+    </div>
+    <div class="element-tooltip">${type}</div>
+   </div>
+  </div>
+ `;
+}
+
+const typeChart={ Fire:{weak:["Water"]}, Water:{weak:["Grass"]}, Grass:{weak:["Fire"]} };
+
+const texts={
+ pt:{btn:"🇧🇷 PT",title:"Team Builder",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Clique para adicionar"},
+ en:{btn:"🇺🇸 EN",title:"Team Builder",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Click to add"}
+};
+
+let lang=localStorage.getItem("siteLang")||"pt";
+let team=JSON.parse(localStorage.getItem("team"))||[];
+let currentSlot=null;
+
+const grid=document.getElementById("teamGrid");
+const shareBtn=document.getElementById("shareBtn");
+const exportBtn=document.getElementById("exportBtn");
+const langBtn=document.getElementById("langBtn");
+const modal=document.getElementById("modal");
+const animonList=document.getElementById("animonList");
+const searchInput=document.getElementById("searchInput");
+
+function save(){ localStorage.setItem("team",JSON.stringify(team)); }
+
+function render(){
+ grid.innerHTML="";
+ for(let i=0;i<6;i++){
+  const div=document.createElement("div");
+  div.className="team-slot";
+
+  if(team[i]){
+   div.innerHTML=`
+    <img src="${team[i].sprite}">
+    <h4>${team[i].name}</h4>
+    ${createElementIcon(team[i].type)}
+    <button onclick="event.stopPropagation();removeFromTeam(${i})">X</button>
+   `;
+  }else{
+   div.innerHTML=`<p>${texts[lang].empty}</p>`;
+   div.onclick=()=>openModal(i);
+  }
+
+  grid.appendChild(div);
+ }
+ updateAnalysis();
+}
+
+function openModal(slotIndex){
+ currentSlot=slotIndex;
+ searchInput.value="";
+ renderAnimonList(animons);
+ modal.style.display="flex";
+}
+
+function renderAnimonList(list){
+ animonList.innerHTML="";
+ list.forEach(a=>{
+  const div=document.createElement("div");
+  div.className="animon-option";
+  div.innerHTML=`
+    <img src="${a.sprite}">
+    <div>
+      <strong>${a.name}</strong><br>
+      ${createElementIcon(a.type)}
+    </div>
+  `;
+  div.onclick=()=>{
+    team[currentSlot]=a;
+    save();
+    render();
+    closeModal();
+  };
+  animonList.appendChild(div);
+ });
+}
+
+searchInput.addEventListener("input",()=>{
+ const value=searchInput.value.toLowerCase();
+ const filtered=animons.filter(a=>a.name.toLowerCase().includes(value));
+ renderAnimonList(filtered);
+});
+
+modal.addEventListener("click",()=>closeModal());
+
+function closeModal(){ modal.style.display="none"; }
+
+function removeFromTeam(i){
+ team.splice(i,1);
+ save();
+ render();
+}
+
+function updateAnalysis(){
+ const total={hp:0,atk:0,def:0,spd:0};
+ team.forEach(a=>{
+  total.hp+=a.stats.hp;
+  total.atk+=a.stats.atk;
+  total.def+=a.stats.def;
+  total.spd+=a.stats.spd;
+ });
+
+ document.getElementById("statsTotal").innerHTML=
+ `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SPD:${total.spd}`;
+
+ let weaknesses={};
+ team.forEach(a=>{
+  typeChart[a.type]?.weak.forEach(w=>{
+   weaknesses[w]=(weaknesses[w]||0)+1;
+  });
+ });
+
+ const worst=Object.entries(weaknesses).sort((a,b)=>b[1]-a[1])[0];
+ document.getElementById("weakness").textContent=
+ texts[lang].weak+" "+(worst?worst[0]:"None");
+
+ let rating="Balanceado ⚖️";
+ if(total.atk>total.def) rating="Ofensivo 🔥";
+ if(total.def>total.atk) rating="Defensivo 🛡️";
+
+ document.getElementById("rating").textContent=
+ texts[lang].rating+" "+rating;
+}
+
+shareBtn.onclick=()=>{
+ const ids=team.map(a=>a.id).join(",");
+ const url=location.origin+location.pathname+"?team="+ids;
+ navigator.clipboard.writeText(url);
+ alert("Link copiado!");
+};
+
+exportBtn.onclick=async()=>{
+ const canvas=await html2canvas(document.getElementById("teamExportArea"),{scale:2});
+ const link=document.createElement("a");
+ link.download="pocket-anime-team.png";
+ link.href=canvas.toDataURL();
+ link.click();
+};
+
+langBtn.onclick=()=>{
+ lang=lang==="pt"?"en":"pt";
+ localStorage.setItem("siteLang",lang);
+ updateLang();
+ render();
+ if(typeof updateMenuLang==="function") updateMenuLang();
+};
+
+function updateLang(){
+ document.getElementById("mapTitle").textContent=texts[lang].title;
+ shareBtn.textContent=texts[lang].share;
+ langBtn.textContent=texts[lang].btn;
+}
+
+updateLang();
+render();
+</script>      
+    
+</body>      
 </html>
