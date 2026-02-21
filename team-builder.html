@@ -4,16 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pocket Anime - Team Builder</title>
-
 <link rel="stylesheet" href="menu.css">
 <script src="menu.js" defer></script>
 
-<!-- html2canvas -->
+<title>Pocket Anime - Team Builder</title>
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-body{
+body {
   font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -22,42 +21,60 @@ body{
 }
 
 :root{
-  --bg:#f2f4f7;
-  --card:#ffffff;
-  --text:#111;
-  --border:#ccc;
-  --hover:#f1f1f1;
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
 }
 
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#0f1217;
-    --card:#181c24;
-    --text:#fff;
-    --border:#2a2f3a;
-    --hover:#232836;
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
   }
 }
 
-.header{
-  text-align:center;
-  margin-bottom:30px;
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  gap: 12px;
 }
 
-.logo{
-  width:220px;
+.header-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.controls{
+.logo { width: 260px; }
+
+.map-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.search-container {
+  width: 100%;
+  max-width: 500px;
   display:flex;
   gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-bottom:20px;
 }
 
-select, button{
-  padding:8px 12px;
+.search-container select, 
+.search-container button{
+  padding:8px;
   border-radius:10px;
   border:1px solid var(--border);
   background:var(--card);
@@ -65,47 +82,57 @@ select, button{
   cursor:pointer;
 }
 
-button:hover{
-  background:var(--hover);
-}
+.map-list { max-width:1200px; margin:0 auto; }
 
 .team-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:15px;
-  margin-bottom:30px;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:12px;
 }
 
 .team-slot{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:14px;
-  padding:12px;
+  padding:10px;
   text-align:center;
-  min-height:180px;
 }
 
-.team-slot img{
-  width:90px;
-}
+.team-slot img{ width:80px; }
 
 .analysis{
+  margin-top:25px;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:14px;
   padding:20px;
-  max-width:700px;
-  margin:0 auto 30px;
 }
 
-.export-area{
-  padding:30px;
-  border-radius:20px;
+.analysis button{
+  margin-top:10px;
+  padding:8px 14px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  background:var(--lang-btn-bg);
+  color:var(--lang-btn);
 }
 
-.rating{
-  font-weight:bold;
-  font-size:18px;
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
 }
 </style>
 </head>
@@ -113,234 +140,181 @@ button:hover{
 <body>
 
 <div class="header">
+ <div class="header-top">
   <img src="assets/Pocket-Anime-logo.png" class="logo">
-  <h2>Team Builder</h2>
+ </div>
+
+ <h2 class="map-title" id="mapTitle"></h2>
+
+ <div class="search-container">
+   <select id="animonSelect"></select>
+   <button id="addBtn"></button>
+ </div>
 </div>
 
-<div class="controls">
-  <select id="animonSelect"></select>
-  <button id="addBtn">Adicionar</button>
-  <button id="shareBtn">Copiar Link</button>
-  <button id="exportBtn">Exportar Imagem</button>
-</div>
+<div class="map-list">
+  <div id="teamExportArea">
+    <div class="team-grid" id="teamGrid"></div>
 
-<div id="teamExportArea" class="export-area">
-  <div class="team-grid" id="teamGrid"></div>
-
-  <div class="analysis">
-    <h3>Total do Time</h3>
-    <div id="statsTotal"></div>
-    <p id="weakness"></p>
-    <p id="rating" class="rating"></p>
+    <div class="analysis">
+      <div id="statsTotal"></div>
+      <div id="weakness"></div>
+      <div id="rating"></div>
+      <button id="shareBtn"></button>
+      <button id="exportBtn">Exportar Imagem</button>
+    </div>
   </div>
 </div>
 
+<div class="lang-toggle">
+  <button id="langBtn"></button>
+</div>
+
 <script>
-/* ======================
-   🔥 DADOS
-====================== */
+/* ================= DADOS ================= */
 
 const animons = [
-{
-  id:1,
-  name:"Ruffy",
-  type:"Fire",
-  sprite:"https://via.placeholder.com/90",
-  stats:{hp:80,atk:95,def:60,spd:85}
-},
-{
-  id:2,
-  name:"Mystic Bojin",
-  type:"Water",
-  sprite:"https://via.placeholder.com/90",
-  stats:{hp:100,atk:70,def:90,spd:50}
-},
-{
-  id:3,
-  name:"TS Ruffy",
-  type:"Fire",
-  sprite:"https://via.placeholder.com/90",
-  stats:{hp:95,atk:110,def:70,spd:100}
-}
+ {id:1,name:"Ruffy",type:"Fire",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spd:85}},
+ {id:2,name:"Mystic Bojin",type:"Water",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spd:50}},
+ {id:3,name:"TS Ruffy",type:"Fire",sprite:"assets/animons/ts_ruffy.png",stats:{hp:95,atk:110,def:70,spd:100}}
 ];
 
 const typeChart={
-  Fire:{weak:["Water"]},
-  Water:{weak:["Grass"]},
-  Grass:{weak:["Fire"]}
+ Fire:{weak:["Water"]},
+ Water:{weak:["Grass"]},
+ Grass:{weak:["Fire"]}
 };
 
-let team = JSON.parse(localStorage.getItem("team")) || [];
+/* ================= IDIOMA ================= */
 
-/* ======================
-   LOAD SELECT
-====================== */
-
-const select = document.getElementById("animonSelect");
-
-animons.forEach(a=>{
-  const opt=document.createElement("option");
-  opt.value=a.id;
-  opt.textContent=a.name;
-  select.appendChild(opt);
-});
-
-/* ======================
-   ADD
-====================== */
-
-document.getElementById("addBtn").onclick=()=>{
-  if(team.length>=6) return;
-
-  const id=Number(select.value);
-  const animon=animons.find(a=>a.id===id);
-  team.push(animon);
-
-  save();
-  render();
+const texts={
+ pt:{btn:"🇧🇷 PT",title:"Team Builder",add:"Adicionar",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Slot vazio"},
+ en:{btn:"🇺🇸 EN",title:"Team Builder",add:"Add",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Empty slot"}
 };
 
-/* ======================
-   REMOVE
-====================== */
+let lang=localStorage.getItem("siteLang")||"pt";
 
-function removeMember(index){
-  team.splice(index,1);
-  save();
-  render();
-}
+/* ================= ESTADO ================= */
 
-/* ======================
-   SAVE
-====================== */
+let team=JSON.parse(localStorage.getItem("team"))||[];
 
-function save(){
-  localStorage.setItem("team",JSON.stringify(team));
-}
+/* ================= ELEMENTOS ================= */
 
-/* ======================
-   ANALYSIS
-====================== */
+const grid=document.getElementById("teamGrid");
+const select=document.getElementById("animonSelect");
+const addBtn=document.getElementById("addBtn");
+const shareBtn=document.getElementById("shareBtn");
+const exportBtn=document.getElementById("exportBtn");
+const langBtn=document.getElementById("langBtn");
 
-function calcTotals(){
-  let total={hp:0,atk:0,def:0,spd:0};
+/* ================= FUNÇÕES ================= */
 
-  team.forEach(a=>{
-    total.hp+=a.stats.hp;
-    total.atk+=a.stats.atk;
-    total.def+=a.stats.def;
-    total.spd+=a.stats.spd;
-  });
-
-  return total;
-}
-
-function calcWeak(){
-  let weakCount={};
-
-  team.forEach(a=>{
-    typeChart[a.type]?.weak.forEach(w=>{
-      weakCount[w]=(weakCount[w]||0)+1;
-    });
-  });
-
-  let worst=Object.entries(weakCount)
-  .sort((a,b)=>b[1]-a[1])[0];
-
-  return worst?worst[0]:"Nenhuma";
-}
-
-function calcRating(t){
-  if(t.atk>t.def && t.atk>t.hp) return "Ofensivo 🔥";
-  if(t.def>t.atk) return "Defensivo 🛡️";
-  return "Balanceado ⚖️";
-}
-
-/* ======================
-   RENDER
-====================== */
+function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
 function render(){
-  const grid=document.getElementById("teamGrid");
-  grid.innerHTML="";
+ grid.innerHTML="";
+ for(let i=0;i<6;i++){
+  const div=document.createElement("div");
+  div.className="team-slot";
 
-  for(let i=0;i<6;i++){
-    const div=document.createElement("div");
-    div.className="team-slot";
-
-    if(team[i]){
-      div.innerHTML=`
-        <img src="${team[i].sprite}">
-        <h4>${team[i].name}</h4>
-        <small>${team[i].type}</small><br>
-        <button onclick="removeMember(${i})">Remover</button>
-      `;
-    }else{
-      div.innerHTML="<p>Slot vazio</p>";
-    }
-
-    grid.appendChild(div);
+  if(team[i]){
+   div.innerHTML=`
+    <img src="${team[i].sprite}">
+    <h4>${team[i].name}</h4>
+    <small>${team[i].type}</small><br>
+    <button onclick="removeFromTeam(${i})">X</button>
+   `;
+  }else{
+   div.innerHTML=`<p>${texts[lang].empty}</p>`;
   }
 
-  const total=calcTotals();
+  grid.appendChild(div);
+ }
 
-  document.getElementById("statsTotal").innerHTML=`
-    HP: ${total.hp} |
-    ATK: ${total.atk} |
-    DEF: ${total.def} |
-    SPD: ${total.spd}
-  `;
+ const total={hp:0,atk:0,def:0,spd:0};
+ team.forEach(a=>{
+  total.hp+=a.stats.hp;
+  total.atk+=a.stats.atk;
+  total.def+=a.stats.def;
+  total.spd+=a.stats.spd;
+ });
 
-  document.getElementById("weakness").textContent=
-    "Fraqueza Global: "+calcWeak();
+ document.getElementById("statsTotal").innerHTML=
+ `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SPD:${total.spd}`;
 
-  document.getElementById("rating").textContent=
-    "Classificação: "+calcRating(total);
-}
-
-/* ======================
-   SHARE
-====================== */
-
-document.getElementById("shareBtn").onclick=()=>{
-  const ids=team.map(a=>a.id).join(",");
-  const url=location.origin+location.pathname+"?team="+ids;
-  navigator.clipboard.writeText(url);
-  alert("Link copiado!");
-};
-
-/* ======================
-   LOAD FROM URL
-====================== */
-
-const params=new URLSearchParams(location.search);
-if(params.get("team")){
-  const ids=params.get("team").split(",").map(Number);
-  team=ids.map(id=>animons.find(a=>a.id===id)).filter(Boolean);
-}
-
-/* ======================
-   EXPORT IMAGE
-====================== */
-
-document.getElementById("exportBtn").onclick=async()=>{
-  const area=document.getElementById("teamExportArea");
-
-  const canvas=await html2canvas(area,{
-    backgroundColor:null,
-    scale:2
+ let weaknesses={};
+ team.forEach(a=>{
+  typeChart[a.type]?.weak.forEach(w=>{
+   weaknesses[w]=(weaknesses[w]||0)+1;
   });
+ });
 
-  const link=document.createElement("a");
-  link.download="pocket-anime-team.png";
-  link.href=canvas.toDataURL();
-  link.click();
+ const worst=Object.entries(weaknesses).sort((a,b)=>b[1]-a[1])[0];
+ document.getElementById("weakness").textContent=
+ texts[lang].weak+" "+(worst?worst[0]:"None");
+
+ let rating="Balanceado ⚖️";
+ if(total.atk>total.def) rating="Ofensivo 🔥";
+ if(total.def>total.atk) rating="Defensivo 🛡️";
+
+ document.getElementById("rating").textContent=
+ texts[lang].rating+" "+rating;
+}
+
+function removeFromTeam(i){
+ team.splice(i,1);
+ save();
+ render();
+}
+
+/* ================= EVENTOS ================= */
+
+animons.forEach(a=>{
+ const opt=document.createElement("option");
+ opt.value=a.id;
+ opt.textContent=a.name;
+ select.appendChild(opt);
+});
+
+addBtn.onclick=()=>{
+ if(team.length>=6) return;
+ const id=Number(select.value);
+ team.push(animons.find(a=>a.id===id));
+ save();
+ render();
 };
 
-/* ======================
-   INIT
-====================== */
+shareBtn.onclick=()=>{
+ const ids=team.map(a=>a.id).join(",");
+ const url=location.origin+location.pathname+"?team="+ids;
+ navigator.clipboard.writeText(url);
+ alert("Link copiado!");
+};
 
+exportBtn.onclick=async()=>{
+ const canvas=await html2canvas(document.getElementById("teamExportArea"),{scale:2});
+ const link=document.createElement("a");
+ link.download="pocket-anime-team.png";
+ link.href=canvas.toDataURL();
+ link.click();
+};
+
+langBtn.onclick=()=>{
+ lang=lang==="pt"?"en":"pt";
+ localStorage.setItem("siteLang",lang);
+ updateLang();
+ render();
+ if(typeof updateMenuLang==="function") updateMenuLang();
+};
+
+function updateLang(){
+ document.getElementById("mapTitle").textContent=texts[lang].title;
+ addBtn.textContent=texts[lang].add;
+ shareBtn.textContent=texts[lang].share;
+ langBtn.textContent=texts[lang].btn;
+}
+
+updateLang();
 render();
 </script>
 
