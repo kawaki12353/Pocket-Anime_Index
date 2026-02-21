@@ -3,14 +3,14 @@
 <head>      
 <meta charset="UTF-8">      
 <meta name="viewport" content="width=device-width, initial-scale=1.0">      
-    
+
 <link rel="stylesheet" href="menu.css">      
 <script src="menu.js" defer></script>      
-    
+
 <title>Pocket Anime - Team Builder</title>      
-    
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>      
-    
+
 <style>      
 body {      
   font-family: Arial, sans-serif;      
@@ -19,7 +19,7 @@ body {
   padding: 20px;      
   margin: 0;      
 }      
-    
+
 :root{      
   --bg: #f2f4f7;      
   --card: #ffffff;      
@@ -29,7 +29,7 @@ body {
   --lang-btn: #ffffff;      
   --lang-btn-bg: #444;      
 }      
-    
+
 @media (prefers-color-scheme: dark){      
   :root{      
     --bg: #0f1217;      
@@ -174,27 +174,22 @@ body {
 
 .animon-option img{ width:50px; }
 
-@media (max-width: 768px) {
-  .header-top { display: flex; justify-content: flex-end; width: 100%; }
-  .logo { width: 150px; }
-  .modal{ width:85%; height:60vh; padding:15px; }
-}
 </style>      
 </head>      
-    
+
 <body>      
-    
+
 <div class="header">      
  <div class="header-top">      
   <img src="assets/Pocket-Anime-logo.png" class="logo">      
  </div>      
  <h2 class="map-title" id="mapTitle"></h2>      
 </div>      
-    
+
 <div class="map-list">      
   <div id="teamExportArea">      
     <div class="team-grid" id="teamGrid"></div>      
-    
+
     <div class="analysis">      
       <div id="statsTotal"></div>      
       <div id="weakness"></div>      
@@ -204,11 +199,11 @@ body {
     </div>      
   </div>      
 </div>      
-    
+
 <div class="lang-toggle">      
   <button id="langBtn"></button>      
 </div>      
-    
+
 <div class="modal-overlay" id="modal">      
   <div class="modal" onclick="event.stopPropagation()">      
     <h3>Escolha um Animon</h3>      
@@ -218,12 +213,12 @@ body {
     <div class="modal-list" id="animonList"></div>      
   </div>      
 </div>      
-    
+
 <script>      
 const animons = [      
- {id:1,name:"Ruffy",type:"Fighting",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spd:85}},      
- {id:2,name:"Mystic Bojin",type:"Psychic",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spd:50}},      
- {id:3,name:"TS Ruffy",type:"Fighting",sprite:"assets/animons/ts_ruffy.png",stats:{hp:95,atk:110,def:70,spd:100}}      
+ {id:1,name:"Ruffy",type:"Fighting",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spAtk:70,spDef:55,spd:85}},      
+ {id:2,name:"Mystic Bojin",type:"Psychic",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spAtk:110,spDef:95,spd:50}},      
+ {id:3,name:"TS Ruffy",type:"Fighting",sprite:"assets/animons/ts_ruffy.png",stats:{hp:95,atk:110,def:70,spAtk:80,spDef:60,spd:100}}      
 ];      
 
 function createElementIcon(type){
@@ -240,7 +235,7 @@ function createElementIcon(type){
  `;
 }
 
-const typeChart={ Fire:{weak:["Water"]}, Water:{weak:["Grass"]}, Grass:{weak:["Fire"]} };
+const typeChart={};
 
 const texts={
  pt:{btn:"🇧🇷 PT",title:"Team Builder",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Clique para adicionar"},
@@ -320,7 +315,6 @@ searchInput.addEventListener("input",()=>{
 });
 
 modal.addEventListener("click",()=>closeModal());
-
 function closeModal(){ modal.style.display="none"; }
 
 function removeFromTeam(i){
@@ -330,31 +324,25 @@ function removeFromTeam(i){
 }
 
 function updateAnalysis(){
- const total={hp:0,atk:0,def:0,spd:0};
+ const total={hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0};
+
  team.forEach(a=>{
   total.hp+=a.stats.hp;
   total.atk+=a.stats.atk;
   total.def+=a.stats.def;
+  total.spAtk+=a.stats.spAtk;
+  total.spDef+=a.stats.spDef;
   total.spd+=a.stats.spd;
  });
 
  document.getElementById("statsTotal").innerHTML=
- `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SPD:${total.spd}`;
+ `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SP.ATK:${total.spAtk} | SP.DEF:${total.spDef} | SPD:${total.spd}`;
 
- let weaknesses={};
- team.forEach(a=>{
-  typeChart[a.type]?.weak.forEach(w=>{
-   weaknesses[w]=(weaknesses[w]||0)+1;
-  });
- });
-
- const worst=Object.entries(weaknesses).sort((a,b)=>b[1]-a[1])[0];
- document.getElementById("weakness").textContent=
- texts[lang].weak+" "+(worst?worst[0]:"None");
+ document.getElementById("weakness").textContent=texts[lang].weak+" None";
 
  let rating="Balanceado ⚖️";
- if(total.atk>total.def) rating="Ofensivo 🔥";
- if(total.def>total.atk) rating="Defensivo 🛡️";
+ if(total.atk+total.spAtk > total.def+total.spDef) rating="Ofensivo 🔥";
+ if(total.def+total.spDef > total.atk+total.spAtk) rating="Defensivo 🛡️";
 
  document.getElementById("rating").textContent=
  texts[lang].rating+" "+rating;
@@ -392,6 +380,6 @@ function updateLang(){
 updateLang();
 render();
 </script>      
-    
+
 </body>      
 </html>
