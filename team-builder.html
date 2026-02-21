@@ -72,14 +72,12 @@ body {
   gap:10px;
 }
 
-.search-container select, 
-.search-container button{
+.search-container select{
   padding:8px;
   border-radius:10px;
   border:1px solid var(--border);
   background:var(--card);
   color:var(--text);
-  cursor:pointer;
 }
 
 .map-list { max-width:1200px; margin:0 auto; }
@@ -96,9 +94,19 @@ body {
   border-radius:14px;
   padding:10px;
   text-align:center;
+  aspect-ratio: 1 / 1; /* 🔥 QUADRADO */
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
 }
 
-.team-slot img{ width:80px; }
+.team-slot:hover{
+  background:var(--hover);
+}
+
+.team-slot img{ width:70px; }
 
 .analysis{
   margin-top:25px;
@@ -136,20 +144,9 @@ body {
 }
 
 @media (max-width: 768px) {
-  .header { 
-    flex-direction: column; 
-    align-items: center; 
-  }
-
-  .header-top { 
-    display: flex; 
-    justify-content: flex-end; 
-    width: 100%; 
-  }
-
-  .logo { 
-    width: 150px; 
-  }
+  .header { flex-direction: column; align-items: center; }
+  .header-top { display: flex; justify-content: flex-end; width: 100%; }
+  .logo { width: 150px; }
 }
 </style>
 </head>
@@ -165,7 +162,6 @@ body {
 
  <div class="search-container">
    <select id="animonSelect"></select>
-   <button id="addBtn"></button>
  </div>
 </div>
 
@@ -188,8 +184,6 @@ body {
 </div>
 
 <script>
-/* ================= DADOS ================= */
-
 const animons = [
  {id:1,name:"Ruffy",type:"Fire",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spd:85}},
  {id:2,name:"Mystic Bojin",type:"Water",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spd:50}},
@@ -202,29 +196,19 @@ const typeChart={
  Grass:{weak:["Fire"]}
 };
 
-/* ================= IDIOMA ================= */
-
 const texts={
- pt:{btn:"🇧🇷 PT",title:"Team Builder",add:"Adicionar",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Slot vazio"},
- en:{btn:"🇺🇸 EN",title:"Team Builder",add:"Add",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Empty slot"}
+ pt:{btn:"🇧🇷 PT",title:"Team Builder",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Clique para adicionar"},
+ en:{btn:"🇺🇸 EN",title:"Team Builder",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Click to add"}
 };
 
 let lang=localStorage.getItem("siteLang")||"pt";
-
-/* ================= ESTADO ================= */
-
 let team=JSON.parse(localStorage.getItem("team"))||[];
-
-/* ================= ELEMENTOS ================= */
 
 const grid=document.getElementById("teamGrid");
 const select=document.getElementById("animonSelect");
-const addBtn=document.getElementById("addBtn");
 const shareBtn=document.getElementById("shareBtn");
 const exportBtn=document.getElementById("exportBtn");
 const langBtn=document.getElementById("langBtn");
-
-/* ================= FUNÇÕES ================= */
 
 function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
@@ -239,15 +223,34 @@ function render(){
     <img src="${team[i].sprite}">
     <h4>${team[i].name}</h4>
     <small>${team[i].type}</small><br>
-    <button onclick="removeFromTeam(${i})">X</button>
+    <button onclick="event.stopPropagation(); removeFromTeam(${i})">X</button>
    `;
   }else{
    div.innerHTML=`<p>${texts[lang].empty}</p>`;
+   div.onclick=()=>addFromSelect();
   }
 
   grid.appendChild(div);
  }
 
+ updateAnalysis();
+}
+
+function addFromSelect(){
+ if(team.length>=6) return;
+ const id=Number(select.value);
+ team.push(animons.find(a=>a.id===id));
+ save();
+ render();
+}
+
+function removeFromTeam(i){
+ team.splice(i,1);
+ save();
+ render();
+}
+
+function updateAnalysis(){
  const total={hp:0,atk:0,def:0,spd:0};
  team.forEach(a=>{
   total.hp+=a.stats.hp;
@@ -278,28 +281,12 @@ function render(){
  texts[lang].rating+" "+rating;
 }
 
-function removeFromTeam(i){
- team.splice(i,1);
- save();
- render();
-}
-
-/* ================= EVENTOS ================= */
-
 animons.forEach(a=>{
  const opt=document.createElement("option");
  opt.value=a.id;
  opt.textContent=a.name;
  select.appendChild(opt);
 });
-
-addBtn.onclick=()=>{
- if(team.length>=6) return;
- const id=Number(select.value);
- team.push(animons.find(a=>a.id===id));
- save();
- render();
-};
 
 shareBtn.onclick=()=>{
  const ids=team.map(a=>a.id).join(",");
@@ -326,7 +313,6 @@ langBtn.onclick=()=>{
 
 function updateLang(){
  document.getElementById("mapTitle").textContent=texts[lang].title;
- addBtn.textContent=texts[lang].add;
  shareBtn.textContent=texts[lang].share;
  langBtn.textContent=texts[lang].btn;
 }
