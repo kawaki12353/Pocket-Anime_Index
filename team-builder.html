@@ -209,7 +209,13 @@ body {
     <h3>Escolha um Animon</h3>      
     <div class="modal-search">      
       <input type="text" id="searchInput" placeholder="Pesquisar Animon...">      
-    </div>      
+    </div> 
+  
+    <button id="removeBtn"
+     style="display:none; margin-bottom:10px; padding:8px; border-radius:10px; border:none; cursor:pointer; background:#c0392b; color:white;">
+     Remover do Time
+    </button>
+     
     <div class="modal-list" id="animonList"></div>      
   </div>      
 </div>      
@@ -246,7 +252,10 @@ let lang=localStorage.getItem("siteLang")||"pt";
 let team=JSON.parse(localStorage.getItem("team"))||[];
 let currentSlot=null;
 
-const grid=document.getElementById("teamGrid");
+const
+removeBtn=document.getElementById("removeBtn"); 
+const 
+grid=document.getElementById("teamGrid");
 const shareBtn=document.getElementById("shareBtn");
 const exportBtn=document.getElementById("exportBtn");
 const langBtn=document.getElementById("langBtn");
@@ -267,8 +276,8 @@ function render(){
     <img src="${team[i].sprite}">
     <h4>${team[i].name}</h4>
     ${createElementIcon(team[i].type)}
-    <button onclick="event.stopPropagation();removeFromTeam(${i})">X</button>
    `;
+   div.onclick = () => openModal(i);
   }else{
    div.innerHTML=`<p>${texts[lang].empty}</p>`;
    div.onclick=()=>openModal(i);
@@ -283,6 +292,13 @@ function openModal(slotIndex){
  currentSlot=slotIndex;
  searchInput.value="";
  renderAnimonList(animons);
+
+ if(team[slotIndex]){
+   removeBtn.style.display="block";
+ }else{
+   removeBtn.style.display="none";
+ }
+
  modal.style.display="flex";
 }
 
@@ -322,6 +338,16 @@ function removeFromTeam(i){
  save();
  render();
 }
+
+removeBtn.onclick=()=>{
+ if(currentSlot !== null){
+   team[currentSlot]=null;
+   team = team.filter(a => a !== null);
+   save();
+   render();
+   closeModal();
+ }
+};
 
 function updateAnalysis(){
  const total={hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0};
