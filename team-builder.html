@@ -1,410 +1,413 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>  
+<html lang="pt-BR">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
 
-<link rel="stylesheet" href="menu.css">
-<script src="menu.js" defer></script>
+<link rel="stylesheet" href="menu.css">  
+<script src="menu.js" defer></script>  
 
-<title>Pocket Anime - Team Builder</title>
+<title>Pocket Anime - Team Builder</title>  
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>  
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  padding: 20px;
-  margin: 0;
-}
+<style>  
+body {  
+  font-family: Arial, sans-serif;  
+  background: var(--bg);  
+  color: var(--text);  
+  padding: 20px;  
+  margin: 0;  
+}  
 
-:root{
-  --bg: #f2f4f7;
-  --card: #ffffff;
-  --text: #111;
-  --border: #ccc;
-  --hover: #f1f1f1;
-  --lang-btn: #ffffff;
-  --lang-btn-bg: #444;
-}
+:root{  
+  --bg: #f2f4f7;  
+  --card: #ffffff;  
+  --text: #111;  
+  --border: #ccc;  
+  --hover: #f1f1f1;  
+  --lang-btn: #ffffff;  
+  --lang-btn-bg: #444;  
+}  
 
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg: #0f1217;
-    --card: #181c24;
-    --text: #ffffff;
-    --border: #2a2f3a;
-    --hover: #232836;
-    --lang-btn: #111;
-    --lang-btn-bg: #ffffff;
-  }
-}
+@media (prefers-color-scheme: dark){  
+  :root{  
+    --bg: #0f1217;  
+    --card: #181c24;  
+    --text: #ffffff;  
+    --border: #2a2f3a;  
+    --hover: #232836;  
+    --lang-btn: #111;  
+    --lang-btn-bg: #ffffff;  
+  }  
+}  
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto 30px;
-  gap: 12px;
-}
+.header {  
+  display: flex;  
+  flex-direction: column;  
+  align-items: center;  
+  max-width: 1200px;  
+  margin: 0 auto 30px;  
+  gap: 12px;  
+}  
 
-.header-top {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
+.header-top {  
+  width: 100%;  
+  display: flex;  
+  justify-content: center;  
+}  
 
-.logo { width: 260px; }
+.logo { width: 260px; }  
 
-.map-title {
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-}
+.map-title {  
+  text-align: center;  
+  font-size: 22px;  
+  font-weight: bold;  
+}  
 
-.map-list { max-width:1200px; margin:0 auto; }
+.map-list { max-width:1200px; margin:0 auto; }  
 
-.team-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:12px;
-}
+.team-grid{  
+  display:grid;  
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));  
+  gap:12px;  
+}  
 
-.team-slot{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  text-align:center;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  aspect-ratio:1/1;
-  padding:10px;
-}
+.team-slot{  
+  background:var(--card);  
+  border:1px solid var(--border);  
+  border-radius:14px;  
+  text-align:center;  
+  cursor:pointer;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  flex-direction:column;  
+  aspect-ratio:1/1;  
+  padding:10px;  
+}  
 
-.team-slot img{ width:80px; }
+.team-slot img{ width:80px; }  
 
-.analysis{
-  margin-top:25px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:20px;
-}
+.analysis{  
+  margin-top:25px;  
+  background:var(--card);  
+  border:1px solid var(--border);  
+  border-radius:14px;  
+  padding:20px;  
+}  
 
-.analysis button{
-  margin-top:10px;
-  padding:8px 14px;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  background:var(--lang-btn-bg);
-  color:var(--lang-btn);
-}
+.analysis button{  
+  margin-top:10px;  
+  padding:8px 14px;  
+  border-radius:10px;  
+  border:none;  
+  cursor:pointer;  
+  background:var(--lang-btn-bg);  
+  color:var(--lang-btn);  
+}  
 
-.lang-toggle {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
+.lang-toggle {  
+  position: fixed;  
+  bottom: 10px;  
+  left: 50%;  
+  transform: translateX(-50%);  
+}  
 
-.lang-toggle button {
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  background: var(--lang-btn-bg);
-  color: var(--lang-btn);
-}
+.lang-toggle button {  
+  padding: 8px 14px;  
+  border-radius: 20px;  
+  border: none;  
+  font-weight: bold;  
+  cursor: pointer;  
+  background: var(--lang-btn-bg);  
+  color: var(--lang-btn);  
+}  
 
-/* 🔥 MODAL */
+/* 🔥 MODAL */  
 
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
-}
+.modal-overlay{  
+  position:fixed;  
+  inset:0;  
+  background:rgba(0,0,0,0.6);  
+  display:none;  
+  align-items:center;  
+  justify-content:center;  
+  z-index:1000;  
+}  
 
-.modal{
-  background:var(--card);
-  width:95%;
-  max-width:500px;
-  border-radius:16px;
-  padding:20px;
-  max-height:85vh;
-  display:flex;
-  flex-direction:column;
-}
+.modal{  
+  background:var(--card);  
+  width:600px;  
+  height:600px;  
+  border-radius:16px;  
+  padding:20px;  
+  display:flex;  
+  flex-direction:column;  
+}  
 
-.modal h3{
-  margin-top:0;
-  text-align:center;
-}
+.modal h3{  
+  margin-top:0;  
+  text-align:center;  
+}  
 
-.modal-search{
-  margin-bottom:10px;
-}
+.modal-search{  
+  margin-bottom:10px;  
+}  
 
-.modal-search input{
-  width:100%;
-  padding:8px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:var(--bg);
-  color:var(--text);
-}
+.modal-search input{  
+  width:100%;  
+  padding:8px;  
+  border-radius:10px;  
+  border:1px solid var(--border);  
+  background:var(--bg);  
+  color:var(--text);  
+}  
 
-.modal-list{
-  overflow-y:auto;
-  flex:1;
-  padding-right:5px;
-}
+.modal-list{  
+  overflow-y:auto;  
+  flex:1;  
+  padding-right:5px;  
+}  
 
-.animon-option{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px;
-  border-radius:10px;
-  cursor:pointer;
-}
+.animon-option{  
+  display:flex;  
+  align-items:center;  
+  gap:10px;  
+  padding:10px;  
+  border-radius:10px;  
+  cursor:pointer;  
+}  
 
-.animon-option:hover{
-  background:var(--hover);
-}
+.animon-option:hover{  
+  background:var(--hover);  
+}  
 
-.animon-option img{
-  width:50px;
-}
+.animon-option img{  
+  width:50px;  
+}  
 
-@media (max-width: 768px) {
-  .header-top {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-  }
-  .logo { width: 150px; }
-}
-</style>
-</head>
+@media (max-width: 768px) {  
+  .header-top {  
+    display: flex;  
+    justify-content: flex-end;  
+    width: 100%;  
+  }  
+  .logo { width: 150px; }  
 
-<body>
+  .modal{  
+    width:90%;  
+    height:80%;  
+  }  
+}  
+</style>  
+</head>  
 
-<div class="header">
- <div class="header-top">
-  <img src="assets/Pocket-Anime-logo.png" class="logo">
- </div>
- <h2 class="map-title" id="mapTitle"></h2>
-</div>
+<body>  
 
-<div class="map-list">
-  <div id="teamExportArea">
-    <div class="team-grid" id="teamGrid"></div>
+<div class="header">  
+ <div class="header-top">  
+  <img src="assets/Pocket-Anime-logo.png" class="logo">  
+ </div>  
+ <h2 class="map-title" id="mapTitle"></h2>  
+</div>  
 
-    <div class="analysis">
-      <div id="statsTotal"></div>
-      <div id="weakness"></div>
-      <div id="rating"></div>
-      <button id="shareBtn"></button>
-      <button id="exportBtn">Exportar Imagem</button>
-    </div>
-  </div>
-</div>
+<div class="map-list">  
+  <div id="teamExportArea">  
+    <div class="team-grid" id="teamGrid"></div>  
 
-<div class="lang-toggle">
-  <button id="langBtn"></button>
-</div>
+    <div class="analysis">  
+      <div id="statsTotal"></div>  
+      <div id="weakness"></div>  
+      <div id="rating"></div>  
+      <button id="shareBtn"></button>  
+      <button id="exportBtn">Exportar Imagem</button>  
+    </div>  
+  </div>  
+</div>  
 
-<!-- 🔥 MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal" onclick="event.stopPropagation()">
-    <h3>Escolha um Animon</h3>
-    <div class="modal-search">
-      <input type="text" id="searchInput" placeholder="Pesquisar Animon...">
-    </div>
-    <div class="modal-list" id="animonList"></div>
-  </div>
-</div>
+<div class="lang-toggle">  
+  <button id="langBtn"></button>  
+</div>  
 
-<script>
-const animons = [
- {id:1,name:"Ruffy",type:"Fire",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spd:85}},
- {id:2,name:"Mystic Bojin",type:"Water",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spd:50}},
- {id:3,name:"TS Ruffy",type:"Fire",sprite:"assets/animons/ts_ruffy.png",stats:{hp:95,atk:110,def:70,spd:100}}
-];
+<div class="modal-overlay" id="modal">  
+  <div class="modal" onclick="event.stopPropagation()">  
+    <h3>Escolha um Animon</h3>  
+    <div class="modal-search">  
+      <input type="text" id="searchInput" placeholder="Pesquisar Animon...">  
+    </div>  
+    <div class="modal-list" id="animonList"></div>  
+  </div>  
+</div>  
 
-const typeChart={
- Fire:{weak:["Water"]},
- Water:{weak:["Grass"]},
- Grass:{weak:["Fire"]}
-};
+<script>  
+const animons = [  
+ {id:1,name:"Ruffy",type:"Fire",sprite:"assets/animons/ruffy.png",stats:{hp:80,atk:95,def:60,spd:85}},  
+ {id:2,name:"Mystic Bojin",type:"Water",sprite:"assets/animons/mystic_bojin.png",stats:{hp:100,atk:70,def:90,spd:50}},  
+ {id:3,name:"TS Ruffy",type:"Fire",sprite:"assets/animons/ts_ruffy.png",stats:{hp:95,atk:110,def:70,spd:100}}  
+];  
 
-const texts={
- pt:{btn:"🇧🇷 PT",title:"Team Builder",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Clique para adicionar"},
- en:{btn:"🇺🇸 EN",title:"Team Builder",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Click to add"}
-};
+const typeChart={  
+ Fire:{weak:["Water"]},  
+ Water:{weak:["Grass"]},  
+ Grass:{weak:["Fire"]}  
+};  
 
-let lang=localStorage.getItem("siteLang")||"pt";
-let team=JSON.parse(localStorage.getItem("team"))||[];
-let currentSlot=null;
+const texts={  
+ pt:{btn:"🇧🇷 PT",title:"Team Builder",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Clique para adicionar"},  
+ en:{btn:"🇺🇸 EN",title:"Team Builder",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Click to add"}  
+};  
 
-const grid=document.getElementById("teamGrid");
-const shareBtn=document.getElementById("shareBtn");
-const exportBtn=document.getElementById("exportBtn");
-const langBtn=document.getElementById("langBtn");
-const modal=document.getElementById("modal");
-const animonList=document.getElementById("animonList");
-const searchInput=document.getElementById("searchInput");
+let lang=localStorage.getItem("siteLang")||"pt";  
+let team=JSON.parse(localStorage.getItem("team"))||[];  
+let currentSlot=null;  
 
-function save(){ localStorage.setItem("team",JSON.stringify(team)); }
+const grid=document.getElementById("teamGrid");  
+const shareBtn=document.getElementById("shareBtn");  
+const exportBtn=document.getElementById("exportBtn");  
+const langBtn=document.getElementById("langBtn");  
+const modal=document.getElementById("modal");  
+const animonList=document.getElementById("animonList");  
+const searchInput=document.getElementById("searchInput");  
 
-function render(){
- grid.innerHTML="";
- for(let i=0;i<6;i++){
-  const div=document.createElement("div");
-  div.className="team-slot";
+function save(){ localStorage.setItem("team",JSON.stringify(team)); }  
 
-  if(team[i]){
-   div.innerHTML=`
-    <img src="${team[i].sprite}">
-    <h4>${team[i].name}</h4>
-    <small>${team[i].type}</small><br>
-    <button onclick="event.stopPropagation();removeFromTeam(${i})">X</button>
-   `;
-  }else{
-   div.innerHTML=`<p>${texts[lang].empty}</p>`;
-   div.onclick=()=>openModal(i);
-  }
+function render(){  
+ grid.innerHTML="";  
+ for(let i=0;i<6;i++){  
+  const div=document.createElement("div");  
+  div.className="team-slot";  
 
-  grid.appendChild(div);
- }
+  if(team[i]){  
+   div.innerHTML=`  
+    <img src="${team[i].sprite}">  
+    <h4>${team[i].name}</h4>  
+    <small>${team[i].type}</small><br>  
+    <button onclick="event.stopPropagation();removeFromTeam(${i})">X</button>  
+   `;  
+  }else{  
+   div.innerHTML=`<p>${texts[lang].empty}</p>`;  
+   div.onclick=()=>openModal(i);  
+  }  
 
- updateAnalysis();
-}
+  grid.appendChild(div);  
+ }  
 
-function openModal(slotIndex){
- currentSlot=slotIndex;
- searchInput.value="";
- renderAnimonList(animons);
- modal.style.display="flex";
-}
+ updateAnalysis();  
+}  
 
-function renderAnimonList(list){
- animonList.innerHTML="";
- list.forEach(a=>{
-  const div=document.createElement("div");
-  div.className="animon-option";
-  div.innerHTML=`
-    <img src="${a.sprite}">
-    <div>
-      <strong>${a.name}</strong><br>
-      <small>${a.type}</small>
-    </div>
-  `;
-  div.onclick=()=>{
-    team[currentSlot]=a;
-    save();
-    render();
-    closeModal();
-  };
-  animonList.appendChild(div);
- });
-}
+function openModal(slotIndex){  
+ currentSlot=slotIndex;  
+ searchInput.value="";  
+ renderAnimonList(animons);  
+ modal.style.display="flex";  
+}  
 
-searchInput.addEventListener("input",()=>{
- const value=searchInput.value.toLowerCase();
- const filtered=animons.filter(a=>
-  a.name.toLowerCase().includes(value)
- );
- renderAnimonList(filtered);
-});
+function renderAnimonList(list){  
+ animonList.innerHTML="";  
+ list.forEach(a=>{  
+  const div=document.createElement("div");  
+  div.className="animon-option";  
+  div.innerHTML=`  
+    <img src="${a.sprite}">  
+    <div>  
+      <strong>${a.name}</strong><br>  
+      <small>${a.type}</small>  
+    </div>  
+  `;  
+  div.onclick=()=>{  
+    team[currentSlot]=a;  
+    save();  
+    render();  
+    closeModal();  
+  };  
+  animonList.appendChild(div);  
+ });  
+}  
 
-modal.addEventListener("click",()=>closeModal());
+searchInput.addEventListener("input",()=>{  
+ const value=searchInput.value.toLowerCase();  
+ const filtered=animons.filter(a=>  
+  a.name.toLowerCase().includes(value)  
+ );  
+ renderAnimonList(filtered);  
+});  
 
-function closeModal(){
- modal.style.display="none";
-}
+modal.addEventListener("click",()=>closeModal());  
 
-function removeFromTeam(i){
- team.splice(i,1);
- save();
- render();
-}
+function closeModal(){  
+ modal.style.display="none";  
+}  
 
-function updateAnalysis(){
- const total={hp:0,atk:0,def:0,spd:0};
- team.forEach(a=>{
-  total.hp+=a.stats.hp;
-  total.atk+=a.stats.atk;
-  total.def+=a.stats.def;
-  total.spd+=a.stats.spd;
- });
+function removeFromTeam(i){  
+ team.splice(i,1);  
+ save();  
+ render();  
+}  
 
- document.getElementById("statsTotal").innerHTML=
- `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SPD:${total.spd}`;
+function updateAnalysis(){  
+ const total={hp:0,atk:0,def:0,spd:0};  
+ team.forEach(a=>{  
+  total.hp+=a.stats.hp;  
+  total.atk+=a.stats.atk;  
+  total.def+=a.stats.def;  
+  total.spd+=a.stats.spd;  
+ });  
 
- let weaknesses={};
- team.forEach(a=>{
-  typeChart[a.type]?.weak.forEach(w=>{
-   weaknesses[w]=(weaknesses[w]||0)+1;
-  });
- });
+ document.getElementById("statsTotal").innerHTML=  
+ `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SPD:${total.spd}`;  
 
- const worst=Object.entries(weaknesses).sort((a,b)=>b[1]-a[1])[0];
- document.getElementById("weakness").textContent=
- texts[lang].weak+" "+(worst?worst[0]:"None");
+ let weaknesses={};  
+ team.forEach(a=>{  
+  typeChart[a.type]?.weak.forEach(w=>{  
+   weaknesses[w]=(weaknesses[w]||0)+1;  
+  });  
+ });  
 
- let rating="Balanceado ⚖️";
- if(total.atk>total.def) rating="Ofensivo 🔥";
- if(total.def>total.atk) rating="Defensivo 🛡️";
+ const worst=Object.entries(weaknesses).sort((a,b)=>b[1]-a[1])[0];  
+ document.getElementById("weakness").textContent=  
+ texts[lang].weak+" "+(worst?worst[0]:"None");  
 
- document.getElementById("rating").textContent=
- texts[lang].rating+" "+rating;
-}
+ let rating="Balanceado ⚖️";  
+ if(total.atk>total.def) rating="Ofensivo 🔥";  
+ if(total.def>total.atk) rating="Defensivo 🛡️";  
 
-shareBtn.onclick=()=>{
- const ids=team.map(a=>a.id).join(",");
- const url=location.origin+location.pathname+"?team="+ids;
- navigator.clipboard.writeText(url);
- alert("Link copiado!");
-};
+ document.getElementById("rating").textContent=  
+ texts[lang].rating+" "+rating;  
+}  
 
-exportBtn.onclick=async()=>{
- const canvas=await html2canvas(document.getElementById("teamExportArea"),{scale:2});
- const link=document.createElement("a");
- link.download="pocket-anime-team.png";
- link.href=canvas.toDataURL();
- link.click();
-};
+shareBtn.onclick=()=>{  
+ const ids=team.map(a=>a.id).join(",");  
+ const url=location.origin+location.pathname+"?team="+ids;  
+ navigator.clipboard.writeText(url);  
+ alert("Link copiado!");  
+};  
 
-langBtn.onclick=()=>{
- lang=lang==="pt"?"en":"pt";
- localStorage.setItem("siteLang",lang);
- updateLang();
- render();
- if(typeof updateMenuLang==="function") updateMenuLang();
-};
+exportBtn.onclick=async()=>{  
+ const canvas=await html2canvas(document.getElementById("teamExportArea"),{scale:2});  
+ const link=document.createElement("a");  
+ link.download="pocket-anime-team.png";  
+ link.href=canvas.toDataURL();  
+ link.click();  
+};  
 
-function updateLang(){
- document.getElementById("mapTitle").textContent=texts[lang].title;
- shareBtn.textContent=texts[lang].share;
- langBtn.textContent=texts[lang].btn;
-}
+langBtn.onclick=()=>{  
+ lang=lang==="pt"?"en":"pt";  
+ localStorage.setItem("siteLang",lang);  
+ updateLang();  
+ render();  
+ if(typeof updateMenuLang==="function") updateMenuLang();  
+};  
 
-updateLang();
-render();
-</script>
+function updateLang(){  
+ document.getElementById("mapTitle").textContent=texts[lang].title;  
+ shareBtn.textContent=texts[lang].share;  
+ langBtn.textContent=texts[lang].btn;  
+}  
 
-</body>
+updateLang();  
+render();  
+</script>  
+
+</body>  
 </html>
