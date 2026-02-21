@@ -65,8 +65,6 @@ body {
   font-weight: bold;
 }
 
-.search-container { display:none; }
-
 .map-list { max-width:1200px; margin:0 auto; }
 
 .team-grid{
@@ -140,17 +138,37 @@ body {
 
 .modal{
   background:var(--card);
-  width:90%;
+  width:95%;
   max-width:500px;
   border-radius:16px;
   padding:20px;
-  max-height:80vh;
-  overflow:auto;
+  max-height:85vh;
+  display:flex;
+  flex-direction:column;
 }
 
 .modal h3{
   margin-top:0;
   text-align:center;
+}
+
+.modal-search{
+  margin-bottom:10px;
+}
+
+.modal-search input{
+  width:100%;
+  padding:8px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+}
+
+.modal-list{
+  overflow-y:auto;
+  flex:1;
+  padding-right:5px;
 }
 
 .animon-option{
@@ -168,17 +186,6 @@ body {
 
 .animon-option img{
   width:50px;
-}
-
-.modal-close{
-  margin-top:15px;
-  width:100%;
-  padding:8px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  background:var(--lang-btn-bg);
-  color:var(--lang-btn);
 }
 
 @media (max-width: 768px) {
@@ -219,12 +226,14 @@ body {
   <button id="langBtn"></button>
 </div>
 
-<!-- 🔥 MODAL HTML -->
+<!-- 🔥 MODAL -->
 <div class="modal-overlay" id="modal">
-  <div class="modal">
+  <div class="modal" onclick="event.stopPropagation()">
     <h3>Escolha um Animon</h3>
-    <div id="animonList"></div>
-    <button class="modal-close" onclick="closeModal()">Fechar</button>
+    <div class="modal-search">
+      <input type="text" id="searchInput" placeholder="Pesquisar Animon...">
+    </div>
+    <div class="modal-list" id="animonList"></div>
   </div>
 </div>
 
@@ -256,6 +265,7 @@ const exportBtn=document.getElementById("exportBtn");
 const langBtn=document.getElementById("langBtn");
 const modal=document.getElementById("modal");
 const animonList=document.getElementById("animonList");
+const searchInput=document.getElementById("searchInput");
 
 function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
@@ -285,8 +295,14 @@ function render(){
 
 function openModal(slotIndex){
  currentSlot=slotIndex;
+ searchInput.value="";
+ renderAnimonList(animons);
+ modal.style.display="flex";
+}
+
+function renderAnimonList(list){
  animonList.innerHTML="";
- animons.forEach(a=>{
+ list.forEach(a=>{
   const div=document.createElement("div");
   div.className="animon-option";
   div.innerHTML=`
@@ -304,8 +320,17 @@ function openModal(slotIndex){
   };
   animonList.appendChild(div);
  });
- modal.style.display="flex";
 }
+
+searchInput.addEventListener("input",()=>{
+ const value=searchInput.value.toLowerCase();
+ const filtered=animons.filter(a=>
+  a.name.toLowerCase().includes(value)
+ );
+ renderAnimonList(filtered);
+});
+
+modal.addEventListener("click",()=>closeModal());
 
 function closeModal(){
  modal.style.display="none";
