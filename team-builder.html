@@ -66,18 +66,7 @@ body {
 }
 
 .search-container {
-  width: 100%;
-  max-width: 500px;
-  display:flex;
-  gap:10px;
-}
-
-.search-container select{
-  padding:8px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
+  display:none; /* removido botão adicionar */
 }
 
 .map-list { max-width:1200px; margin:0 auto; }
@@ -92,21 +81,17 @@ body {
   background:var(--card);
   border:1px solid var(--border);
   border-radius:14px;
-  padding:10px;
   text-align:center;
-  aspect-ratio: 1 / 1; /* 🔥 QUADRADO */
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  aspect-ratio:1/1; /* 🔥 QUADRADO */
+  padding:10px;
 }
 
-.team-slot:hover{
-  background:var(--hover);
-}
-
-.team-slot img{ width:70px; }
+.team-slot img{ width:80px; }
 
 .analysis{
   margin-top:25px;
@@ -144,8 +129,11 @@ body {
 }
 
 @media (max-width: 768px) {
-  .header { flex-direction: column; align-items: center; }
-  .header-top { display: flex; justify-content: flex-end; width: 100%; }
+  .header-top {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
   .logo { width: 150px; }
 }
 </style>
@@ -159,10 +147,6 @@ body {
  </div>
 
  <h2 class="map-title" id="mapTitle"></h2>
-
- <div class="search-container">
-   <select id="animonSelect"></select>
- </div>
 </div>
 
 <div class="map-list">
@@ -205,7 +189,6 @@ let lang=localStorage.getItem("siteLang")||"pt";
 let team=JSON.parse(localStorage.getItem("team"))||[];
 
 const grid=document.getElementById("teamGrid");
-const select=document.getElementById("animonSelect");
 const shareBtn=document.getElementById("shareBtn");
 const exportBtn=document.getElementById("exportBtn");
 const langBtn=document.getElementById("langBtn");
@@ -223,11 +206,11 @@ function render(){
     <img src="${team[i].sprite}">
     <h4>${team[i].name}</h4>
     <small>${team[i].type}</small><br>
-    <button onclick="event.stopPropagation(); removeFromTeam(${i})">X</button>
+    <button onclick="event.stopPropagation();removeFromTeam(${i})">X</button>
    `;
   }else{
    div.innerHTML=`<p>${texts[lang].empty}</p>`;
-   div.onclick=()=>addFromSelect();
+   div.onclick=()=>addToSlot(i); /* 🔥 CLICA NO SLOT */
   }
 
   grid.appendChild(div);
@@ -236,12 +219,18 @@ function render(){
  updateAnalysis();
 }
 
-function addFromSelect(){
+function addToSlot(index){
  if(team.length>=6) return;
- const id=Number(select.value);
- team.push(animons.find(a=>a.id===id));
- save();
- render();
+
+ let list=animons.map(a=>`${a.id} - ${a.name}`).join("\n");
+ let choice=prompt("Escolha o ID do Animon:\n\n"+list);
+
+ const selected=animons.find(a=>a.id==choice);
+ if(selected){
+  team[index]=selected;
+  save();
+  render();
+ }
 }
 
 function removeFromTeam(i){
@@ -280,13 +269,6 @@ function updateAnalysis(){
  document.getElementById("rating").textContent=
  texts[lang].rating+" "+rating;
 }
-
-animons.forEach(a=>{
- const opt=document.createElement("option");
- opt.value=a.id;
- opt.textContent=a.name;
- select.appendChild(opt);
-});
 
 shareBtn.onclick=()=>{
  const ids=team.map(a=>a.id).join(",");
