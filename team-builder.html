@@ -380,7 +380,21 @@ shareBtn.onclick=()=>{
 };
 
 exportBtn.onclick=async()=>{
- const canvas=await html2canvas(document.getElementById("teamExportArea"),{scale:2});
+
+ const exportArea=document.getElementById("teamExportArea");
+
+ // força layout PC
+ exportArea.style.width="900px";
+
+ const originalGridStyle = grid.style.gridTemplateColumns;
+ grid.style.gridTemplateColumns="repeat(3, 1fr)";
+
+ const canvas=await html2canvas(exportArea,{scale:2});
+
+ // volta ao normal
+ exportArea.style.width="";
+ grid.style.gridTemplateColumns=originalGridStyle;
+
  const link=document.createElement("a");
  link.download="pocket-anime-team.png";
  link.href=canvas.toDataURL();
