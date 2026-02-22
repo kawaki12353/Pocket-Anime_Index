@@ -434,16 +434,25 @@ body {
 
 <script>      
 
-function createElementIcon(type){
- const lower = type.toLowerCase();
+function createElementIcon(types){
+
+ if(!Array.isArray(types)){
+   types = [types]; // transforma em array se for 1 só
+ }
+
  return `
   <div class="animon-elements">
-   <div class="element-wrapper element-${lower}">
-    <div class="element-inner">
-     <img src="assets/${lower}_element.png" alt="${type}">
-    </div>
-    <div class="element-tooltip">${type}</div>
-   </div>
+    ${types.map(type=>{
+      const lower = type.toLowerCase();
+      return `
+        <div class="element-wrapper element-${lower}">
+          <div class="element-inner">
+            <img src="assets/${lower}_element.png" alt="${type}">
+          </div>
+          <div class="element-tooltip">${type}</div>
+        </div>
+      `;
+    }).join("")}
   </div>
  `;
 }
