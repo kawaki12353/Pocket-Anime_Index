@@ -239,6 +239,29 @@ body {
 
 .animon-option img{ width:50px; }
 
+/* FAB - Add Animon Button */
+.fab-add{
+  position: fixed;
+  right: 20px;
+  bottom: 80px; /* acima do botão de idioma */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  transition: 0.2s;
+  z-index: 999;
+}
+
+.fab-add:hover{
+  transform: scale(1.08);
+}
+
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -317,12 +340,12 @@ body {
     <div class="modal-search">      
       <input type="text" id="searchInput">      
     </div> 
-  
+
     <button id="removeBtn"
      style="display:none; margin-bottom:10px; padding:8px; border-radius:10px; border:none; cursor:pointer; background:#c0392b; color:white;">
      <span id="removeText"></span>
     </button>
-     
+
     <div class="modal-list" id="animonList"></div>      
   </div>      
 </div>      
@@ -362,6 +385,7 @@ const texts={
    search:"Pesquisar Animon...",
    remove:"Remover do Time",
    copied:"Link copiado!"
+   full:"Time já está cheio!"
  },
  en:{
    btn:"🇺🇸 EN",
@@ -374,6 +398,7 @@ const texts={
    search:"Search Animon...",
    remove:"Remove from Team",
    copied:"Link copied!"
+   full:"Team is already full!"
  }
 };
 
@@ -381,6 +406,7 @@ let lang=localStorage.getItem("siteLang")||"pt";
 let team=JSON.parse(localStorage.getItem("team"))||[];
 let currentSlot=null;
 
+const addAnimonBtn = document.getElementById("addAnimonBtn");
 const removeBtn=document.getElementById("removeBtn"); 
 const grid=document.getElementById("teamGrid");
 const shareBtn=document.getElementById("shareBtn");
@@ -407,9 +433,7 @@ function render(){
    div.onclick = () => openModal(i);
   }else{
    div.innerHTML=`<p>${texts[lang].empty}</p>`;
-   div.onclick=()=>openModal(i);
   }
-
   grid.appendChild(div);
  }
  updateAnalysis();
@@ -450,6 +474,16 @@ function renderAnimonList(list){
   animonList.appendChild(div);
  });
 }
+
+addAnimonBtn.onclick = () => {
+  if(team.length >= 6){
+    alert(texts[lang].full);
+    return;
+  }
+
+  currentSlot = team.length; // adiciona no próximo slot vazio
+  openModal(currentSlot);
+};
 
 searchInput.addEventListener("input",()=>{
  const value=searchInput.value.toLowerCase();
@@ -551,6 +585,8 @@ function updateLang(){
 updateLang();
 render();
 </script>      
+
+<button class="fab-add" id="addAnimonBtn">+</button>
 
 </body>      
 </html>
