@@ -688,8 +688,7 @@ function render(){
       <img src="${team[i].sprite}">
     </div>
     
-     <div class="slot-edit"
-      onclick="event.stopPropagation(); openEditPanel(${i})">
+     <div class="slot-edit" data-index="${i}">
       <img src="assets/pencil.png" alt="Edit">
      </div>
 
@@ -712,6 +711,14 @@ function render(){
   }
 
   grid.appendChild(div);
+
+  const editBtn = div.querySelector(".slot-edit");
+  if(editBtn){
+   editBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    openEditPanel(i);
+   });
+  }
  }
 
  updateAnalysis();
