@@ -579,6 +579,8 @@ body {
 
 <script>      
 
+document.addEventListener("DOMContentLoaded", () => {
+
 function createElementIcon(types){
 
  if(!Array.isArray(types)){
@@ -1026,6 +1028,9 @@ function updateLang(){
 
 updateLang();
 render();
+
+});
+
 </script>      
 
 <div class="edit-overlay" id="editOverlay">
