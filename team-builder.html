@@ -202,6 +202,19 @@ body {
   transition:0.2s;
 }
 
+.team-slot::after{
+  content:"";
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  right:58px; /* posição da coluna */
+
+  width:1px;
+  background:var(--border);
+}
+
 .team-slot:hover{
   background:var(--hover);
   transform:translateY(-2px);
@@ -274,7 +287,7 @@ body {
 .fab-add{
   position: fixed;
   right: 20px;
-  bottom: 80px; /* acima do botão de idioma */
+  bottom: 80px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -293,8 +306,6 @@ body {
   transform: scale(1.08);
 }
 
-
-
 /* ACTION BUTTONS */
 .slot-actions{
   position:absolute;
@@ -304,10 +315,6 @@ body {
   display:flex;
   align-items:center;
   gap:10px;
-
-  /* LINHA SEPARADORA */
-  border-left:1px solid var(--border);
-  padding-left:10px;
 }
 
 /* BUTTON DELETE */
