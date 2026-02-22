@@ -1,5 +1,5 @@
 /* TYPE CHART */
-const chart = {
+window.chart = {
   Neutral: { 
     Earth: 0.5, 
     Soul: 0 
