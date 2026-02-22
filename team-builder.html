@@ -382,6 +382,34 @@ body {
  font-size:18px;
 }
 
+/* ANIMON INFO BALLOON */
+.animon-balloon{
+ position:absolute;
+ top:100%;
+ left:50%;
+ transform:translateX(-50%);
+ margin-top:10px;
+
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:12px;
+
+ width:260px;
+ font-size:14px;
+ text-align:left;
+
+ box-shadow:0 6px 18px rgba(0,0,0,.25);
+ z-index:50;
+
+ animation:fadeIn .2s ease;
+}
+
+@keyframes fadeIn{
+ from{opacity:0; transform:translate(-50%,10px);}
+ to{opacity:1; transform:translate(-50%,0);}
+}
+
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -570,6 +598,11 @@ function render(){
 
   if(team[i]){
 
+  div.onclick=(e)=>{
+   e.stopPropagation();
+   toggleBalloon(div, team[i]);
+   };
+
    div.innerHTML=`
 
     <div class="slot-info">
@@ -728,14 +761,11 @@ document.getElementById("statsTotal").innerHTML = `
 </div>
 `;
 
-/* TYPE ANALYSIS */
-const weaknessCount={};
-const resistCount={};
-const immuneCount={};
+function getAnimonTypeInfo(animon){
 
-team.forEach(animon=>{
-
- if(!animon) return;
+ const weakness={};
+ const resist={};
+ const immune={};
 
  const types = Array.isArray(animon.type)
   ? animon.type
@@ -746,44 +776,63 @@ team.forEach(animon=>{
   let multiplier=1;
 
   types.forEach(defType=>{
-   multiplier *= chart[attackType]?.[defType] ?? 1;
+   multiplier*=chart[attackType]?.[defType] ?? 1;
   });
 
-  if(multiplier>1){
-   weaknessCount[attackType]=(weaknessCount[attackType]||0)+1;
-  }
+  if(multiplier>1)
+   weakness[attackType]=true;
 
-  else if(multiplier===0){
-   immuneCount[attackType]=(immuneCount[attackType]||0)+1;
-  }
+  else if(multiplier===0)
+   immune[attackType]=true;
 
-  else if(multiplier<1){
-   resistCount[attackType]=(resistCount[attackType]||0)+1;
-  }
+  else if(multiplier<1)
+   resist[attackType]=true;
  });
-});
 
-/* FORMAT DISPLAY */
-const format = obj =>
- Object.entries(obj)
-  .map(([t,v])=>`${t} (${v})`)
-  .join(", ") || "None";
+ const format=obj =>
+  Object.keys(obj).join(", ") || "None";
 
-const weaknessHTML = `
-<b>${texts[lang].weak}</b><br><br>
+ return `
+  <b>${texts[lang].weakTypes}</b><br>
+  🔴 ${format(weakness)}<br><br>
 
-🔴 <b>${texts[lang].weakTypes}:</b><br>
-${format(weaknessCount)}<br><br>
+  <b>${texts[lang].resistTypes}</b><br>
+  🟢 ${format(resist)}<br><br>
 
-🟢 <b>${texts[lang].resistTypes}:</b><br>
-${format(resistCount)}<br><br>
-
-⚫ <b>${texts[lang].immuneTypes}:</b><br>
-${format(immuneCount)}
-`;
-
-document.getElementById("weakness").innerHTML = weaknessHTML;
+  <b>${texts[lang].immuneTypes}</b><br>
+  ⚫ ${format(immune)}
+ `;
 }
+
+function toggleBalloon(slotDiv, animon){
+
+ // fecha anterior
+ if(openedBalloon){
+   openedBalloon.remove();
+   openedBalloon=null;
+ }
+
+ const balloon=document.createElement("div");
+ balloon.className="animon-balloon";
+ balloon.innerHTML=getAnimonTypeInfo(animon);
+
+ slotDiv.appendChild(balloon);
+ openedBalloon=balloon;
+
+ // clicar fora fecha
+ setTimeout(()=>{
+  document.addEventListener("click",closeBalloonOnce,{once:true});
+ },0);
+}
+
+function closeBalloonOnce(){
+ if(openedBalloon){
+  openedBalloon.remove();
+  openedBalloon=null;
+ }
+}
+
+let openedBalloon = null;
 
 shareBtn.onclick=()=>{
  const ids=team.map(a=>a.id).join(",");
