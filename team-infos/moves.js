@@ -1,22 +1,22 @@
 const moves = [
   {
     name: "Fire Blast",
-    type: "Fogo",
+    type: "Fire",
     power: 90,
   },
   {
     name: "Scratch",
-    type: "Normal",
+    type: "Neutral",
     power: 40,
   },
   {
     name: "Water Gun",
-    type: "Água",
+    type: "Water",
     power: 40,
   },
   {
     name: "Thunder Shock",
-    type: "Elétrico",
+    type: "Lightning",
     power: 40,
   }
 ];
