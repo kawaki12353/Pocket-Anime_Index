@@ -296,18 +296,28 @@ body {
 /* ACTION BUTTONS (EDIT + DELETE) */
 .slot-actions{
   position:absolute;
-  right:14px;
+  bottom:8px;
+  right:8px;
+
+  display:flex;
+  gap:6px;
+  z-index:10;
   top:50%;
   transform:translateY(-50%);
-  display:flex;
-  gap:8px;
 }
 
 .slot-edit,
 .slot-delete{
+  cursor:pointer;
+  z-index:20;
+  position:relative;
   font-size:20px;
   opacity:.6;
   cursor:pointer;
+}
+
+.slot-center img{
+  pointer-events:none;
 }
 
 .slot-edit:hover,
