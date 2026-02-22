@@ -645,12 +645,9 @@ function updateAnalysis(){
   total.spDef+=a.stats.spDef;
   total.spd+=a.stats.spd;
  });
-
  document.getElementById("statsTotal").innerHTML=
  `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} |
   SP.ATK:${total.spAtk} | SP.DEF:${total.spDef} | SPD:${total.spd}`;
-
-
 
  /* FRAQUEZA GLOBAL DO TIME */
 
@@ -685,16 +682,13 @@ function updateAnalysis(){
    if(multiplier===0){
      immuneCount[attackType]=(immuneCount[attackType]||0)+1;
    }
-
   });
-
  });
 
  const weakText =
   Object.entries(weaknessCount)
    .map(([t,v])=>`${t}(${v})`)
    .join(", ") || "None";
-
  document.getElementById("weakness").textContent =
    texts[lang].weak + " " + weakText;
 }
