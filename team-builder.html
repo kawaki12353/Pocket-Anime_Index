@@ -443,7 +443,13 @@ const texts={
 };
 
 let lang=localStorage.getItem("siteLang")||"pt";
-let team=JSON.parse(localStorage.getItem("team"))||[];
+let team = JSON.parse(localStorage.getItem("team")) || [];
+
+team = team
+  .filter(a => a && a.name && a.sprite)
+  .slice(0,6);
+
+save();
 let currentSlot=null;
 
 const addAnimonBtn = document.getElementById("addAnimonBtn"); 
@@ -634,7 +640,6 @@ function updateLang(){
 
  document.getElementById("modalTitle").textContent=texts[lang].modalTitle;
  searchInput.placeholder=texts[lang].search;
- document.getElementById("removeText").textContent=texts[lang].remove;
 }
 
 updateLang();
