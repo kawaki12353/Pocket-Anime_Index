@@ -387,11 +387,6 @@ body {
       <input type="text" id="searchInput">      
     </div> 
 
-    <button id="removeBtn"
-     style="display:none; margin-bottom:10px; padding:8px; border-radius:10px; border:none; cursor:pointer; background:#c0392b; color:white;">
-     <span id="removeText"></span>
-    </button>
-
     <div class="modal-list" id="animonList"></div>      
   </div>      
 </div>      
@@ -451,8 +446,7 @@ let lang=localStorage.getItem("siteLang")||"pt";
 let team=JSON.parse(localStorage.getItem("team"))||[];
 let currentSlot=null;
 
-const addAnimonBtn = document.getElementById("addAnimonBtn");
-const removeBtn=document.getElementById("removeBtn"); 
+const addAnimonBtn = document.getElementById("addAnimonBtn"); 
 const grid=document.getElementById("teamGrid");
 const shareBtn=document.getElementById("shareBtn");
 const exportBtn=document.getElementById("exportBtn");
@@ -503,7 +497,6 @@ function render(){
      </div>
    `;
 
-   div.onclick=()=>openModal(i);
   }
 
   grid.appendChild(div);
@@ -516,12 +509,6 @@ function openModal(slotIndex){
  currentSlot=slotIndex;
  searchInput.value="";
  renderAnimonList(animons);
-
- if(team[slotIndex]){
-   removeBtn.style.display="block";
- }else{
-   removeBtn.style.display="none";
- }
 
  modal.style.display="flex";
 }
@@ -549,13 +536,17 @@ function renderAnimonList(list){
 }
 
 addAnimonBtn.onclick = () => {
-  if(team.length >= 6){
-    alert(texts[lang].full);
-    return;
-  }
 
-  currentSlot = team.length; // adiciona no próximo slot vazio
-  openModal(currentSlot);
+ const emptyIndex = team.findIndex(a => !a);
+
+ if(emptyIndex === -1 && team.length >= 6){
+   alert(texts[lang].full);
+   return;
+ }
+
+ currentSlot = emptyIndex === -1 ? team.length : emptyIndex;
+
+ openModal(currentSlot);
 };
 
 searchInput.addEventListener("input",()=>{
@@ -573,16 +564,6 @@ function removeFromTeam(i){
  save();
  render();
 }
-
-removeBtn.onclick=()=>{
- if(currentSlot !== null){
-   team[currentSlot]=null;
-   team = team.filter(a => a !== null);
-   save();
-   render();
-   closeModal();
- }
-};
 
 function updateAnalysis(){
  const total={hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0};
