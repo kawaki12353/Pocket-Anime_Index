@@ -308,6 +308,64 @@ body {
   transform: scale(1.08);
 }
 
+/* EDIT BUTTON */
+.slot-edit{
+  position:absolute;
+  right:45px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
+  opacity:.6;
+  cursor:pointer;
+}
+
+.slot-edit:hover{
+  opacity:1;
+}
+
+.edit-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:2000;
+}
+
+.edit-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.edit-modal{
+  background:var(--card);
+  width:100%;
+  max-width:500px;
+  padding:20px;
+  border-radius:20px 20px 0 0;
+  transform:translateY(100%);
+  transition:.35s;
+}
+
+.edit-overlay.active .edit-modal{
+  transform:translateY(0);
+}
+
+.edit-modal input,
+.edit-modal select{
+  width:100%;
+  margin:6px 0;
+  padding:8px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+}
+
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -393,6 +451,26 @@ body {
 
 <button class="fab-add" id="addAnimonBtn">+</button>
 
+<div class="edit-overlay" id="editOverlay">
+  <div class="edit-modal" onclick="event.stopPropagation()">
+
+    <h3>Editar Animon</h3>
+
+    <label>Level</label>
+    <input type="number" id="editLevel" min="1" max="100">
+
+    <h4>Moves</h4>
+
+    <select class="move-select"></select>
+    <select class="move-select"></select>
+    <select class="move-select"></select>
+    <select class="move-select"></select>
+
+    <button onclick="saveEdit()">Salvar</button>
+
+  </div>
+</div>
+
 <script src="team-infos/typechart.js"></script>
 <script src="team-infos/moves.js"></script>
 <script src="team-infos/animons.js"></script>
@@ -477,7 +555,9 @@ function render(){
 
     <div class="slot-info">
       <div class="slot-name">${team[i].name}</div>
-      <div class="slot-level">Lv.100</div>
+      <div class="slot-level">
+       Lv.${team[i].level || 100}
+      </div>
     </div>
 
     <div class="slot-elements">
@@ -487,7 +567,12 @@ function render(){
     <div class="slot-center">
       <img src="${team[i].sprite}">
     </div>
-
+    
+    <div class="slot-edit"
+     onclick="event.stopPropagation(); openEditModal(${i})">
+     ✏️
+    </div>
+    
     <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})">
       🗑️
     </div>
@@ -568,6 +653,74 @@ function removeFromTeam(i){
  save();
  render();
 }
+
+let editIndex = null;
+
+function openEditModal(index){
+
+  editIndex = index;
+
+  const overlay = document.getElementById("editOverlay");
+  const levelInput = document.getElementById("editLevel");
+
+  const animon = team[index];
+
+  if(!animon) return;
+
+  levelInput.value = animon.level || 100;
+
+  populateMoves(animon);
+
+  overlay.classList.add("active");
+}
+
+function populateMoves(animon){
+
+  const selects = document.querySelectorAll(".move-select");
+
+  selects.forEach((select,i)=>{
+
+    select.innerHTML="";
+
+    moves.forEach(m=>{
+      const opt=document.createElement("option");
+      opt.value=m.name;
+      opt.textContent=m.name;
+      select.appendChild(opt);
+    });
+
+    if(animon.moves && animon.moves[i])
+      select.value = animon.moves[i];
+  });
+}
+
+function saveEdit(){
+
+  const level =
+    document.getElementById("editLevel").value;
+
+  const selects =
+    document.querySelectorAll(".move-select");
+
+  const newMoves = [...selects].map(s=>s.value);
+
+  team[editIndex].level = level;
+  team[editIndex].moves = newMoves;
+
+  save();
+  render();
+  closeEditModal();
+}
+
+function closeEditModal(){
+  document
+    .getElementById("editOverlay")
+    .classList.remove("active");
+}
+
+document
+.getElementById("editOverlay")
+.addEventListener("click",closeEditModal);
 
 function updateAnalysis(){
  const total={hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0};
