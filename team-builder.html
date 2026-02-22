@@ -293,7 +293,9 @@ body {
   transform: scale(1.08);
 }
 
-/* ACTION BUTTONS (EDIT + DELETE) */
+
+
+/* ACTION BUTTONS (DELETE) */
 .slot-actions{
   position:absolute;
   right:14px;
@@ -303,14 +305,12 @@ body {
   gap:8px;
 }
 
-.slot-edit,
 .slot-delete{
   font-size:20px;
   opacity:.6;
   cursor:pointer;
 }
 
-.slot-edit:hover,
 .slot-delete:hover{
   opacity:1;
 }
@@ -443,7 +443,6 @@ body {
 
 <button class="fab-add" id="addAnimonBtn">+</button>
 
-<div class="edit-overlay" id="editOverlay">
   <div class="edit-modal" onclick="event.stopPropagation()">
 
     <h3>Editar Animon</h3>
@@ -562,11 +561,6 @@ function render(){
     
    <div class="slot-actions">
 
-    <div class="slot-edit"
-      onclick="event.stopPropagation(); openEditModal(${i})">
-      ✏️
-    </div>
-
     <div class="slot-delete"
       onclick="event.stopPropagation(); removeFromTeam(${i})">
       🗑️
@@ -654,78 +648,6 @@ function removeFromTeam(i){
  save();
  render();
 }
-
-let editIndex = null;
-
-function openEditModal(index){
-
-  editIndex = index;
-
-  const overlay = document.getElementById("editOverlay");
-  const levelInput = document.getElementById("editLevel");
-
-  const animon = team[index];
-
-  if(!animon) return;
-
-  levelInput.value = animon.level || 100;
-
-  populateMoves(animon);
-
-  overlay.classList.add("active");
-}
-
-function populateMoves(animon){
-
-  const selects = document.querySelectorAll(".move-select");
-
-  selects.forEach((select,i)=>{
-
-    select.innerHTML="";
-
-    moves.forEach(m=>{
-      const opt=document.createElement("option");
-      opt.value=m.name;
-      opt.textContent=m.name;
-      select.appendChild(opt);
-    });
-
-    if(animon.moves && animon.moves[i])
-      select.value = animon.moves[i];
-  });
-}
-
-function saveEdit(){
-
-  const level =
-    document.getElementById("editLevel").value;
-
-  const selects =
-    document.querySelectorAll(".move-select");
-
-  const newMoves = [...selects].map(s=>s.value);
-
-  team[editIndex].level = level;
-  team[editIndex].moves = newMoves;
-
-  save();
-  render();
-  closeEditModal();
-}
-
-function closeEditModal(){
-  document
-    .getElementById("editOverlay")
-    .classList.remove("active");
-}
-
-const editOverlay = document.getElementById("editOverlay");
-
-editOverlay.addEventListener("click", (e) => {
-  if(e.target === editOverlay){
-    closeEditModal();
-  }
-});
 
 function updateAnalysis(){
  const total={hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0};
