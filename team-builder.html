@@ -624,73 +624,81 @@ function removeFromTeam(i){
 
 function updateAnalysis(){
 
- /* TOTAL STATS DO TIME */
+/* TOTAL STATS */
+const total={
+ hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0
+};
 
- const total={
-  hp:0,
-  atk:0,
-  def:0,
-  spAtk:0,
-  spDef:0,
-  spd:0
- };
+team.forEach(a=>{
+ if(!a) return;
 
- team.forEach(a=>{
-  if(!a) return;
+ total.hp+=a.stats.hp;
+ total.atk+=a.stats.atk;
+ total.def+=a.stats.def;
+ total.spAtk+=a.stats.spAtk;
+ total.spDef+=a.stats.spDef;
+ total.spd+=a.stats.spd;
+});
 
-  total.hp+=a.stats.hp;
-  total.atk+=a.stats.atk;
-  total.def+=a.stats.def;
-  total.spAtk+=a.stats.spAtk;
-  total.spDef+=a.stats.spDef;
-  total.spd+=a.stats.spd;
- });
- document.getElementById("statsTotal").innerHTML=
- `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} |
-  SP.ATK:${total.spAtk} | SP.DEF:${total.spDef} | SPD:${total.spd}`;
+document.getElementById("statsTotal").innerHTML=
+`HP:${total.hp} | ATK:${total.atk} | DEF:${total.def}
+ | SP.ATK:${total.spAtk} | SP.DEF:${total.spDef} | SPD:${total.spd}`;
 
- /* FRAQUEZA GLOBAL DO TIME */
+/* TYPE ANALYSIS */
+const weaknessCount={};
+const resistCount={};
+const immuneCount={};
 
- const weaknessCount={};
- const resistCount={};
- const immuneCount={};
+team.forEach(animon=>{
 
- team.forEach(animon=>{
+ if(!animon) return;
 
-  if(!animon) return;
+ const types = Array.isArray(animon.type)
+  ? animon.type
+  : [animon.type];
 
-  const types = Array.isArray(animon.type)
-   ? animon.type
-   : [animon.type];
+ Object.keys(chart).forEach(attackType=>{
 
-  Object.keys(chart).forEach(attackType=>{
+  let multiplier=1;
 
-   let multiplier=1;
-
-   types.forEach(defType=>{
-     multiplier *= chart[attackType]?.[defType] ?? 1;
-   });
-
-   if(multiplier>1){
-     weaknessCount[attackType]=(weaknessCount[attackType]||0)+1;
-   }
-
-   if(multiplier<1 && multiplier>0){
-     resistCount[attackType]=(resistCount[attackType]||0)+1;
-   }
-
-   if(multiplier===0){
-     immuneCount[attackType]=(immuneCount[attackType]||0)+1;
-   }
+  types.forEach(defType=>{
+   multiplier *= chart[attackType]?.[defType] ?? 1;
   });
- });
 
- const weakText =
-  Object.entries(weaknessCount)
-   .map(([t,v])=>`${t}(${v})`)
-   .join(", ") || "None";
- document.getElementById("weakness").textContent =
-   texts[lang].weak + " " + weakText;
+  if(multiplier>1){
+   weaknessCount[attackType]=(weaknessCount[attackType]||0)+1;
+  }
+
+  else if(multiplier===0){
+   immuneCount[attackType]=(immuneCount[attackType]||0)+1;
+  }
+
+  else if(multiplier<1){
+   resistCount[attackType]=(resistCount[attackType]||0)+1;
+  }
+ });
+});
+
+/* FORMAT DISPLAY */
+const format = obj =>
+ Object.entries(obj)
+  .map(([t,v])=>`${t} (${v})`)
+  .join(", ") || "None";
+
+const weaknessHTML = `
+<b>${texts[lang].weak}</b><br><br>
+
+🔴 <b>Fraquezas:</b><br>
+${format(weaknessCount)}<br><br>
+
+🟢 <b>Resistências:</b><br>
+${format(resistCount)}<br><br>
+
+⚫ <b>Imunidades:</b><br>
+${format(immuneCount)}
+`;
+
+document.getElementById("weakness").innerHTML = weaknessHTML;
 }
 
 shareBtn.onclick=()=>{
