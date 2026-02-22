@@ -183,19 +183,22 @@ body {
   }
 }
 
+/* TEAM SLOT SHOWDOWN STYLE */
 .team-slot{
+  position:relative;
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:16px;
+  border-radius:18px;
   cursor:pointer;
+
+  min-height:130px;
+  padding:14px;
 
   display:flex;
   align-items:center;
-  gap:15px;
+  justify-content:center;
 
-  padding:16px;
-  min-height:110px;
-
+  overflow:hidden;
   transition:0.2s;
 }
 
@@ -204,14 +207,57 @@ body {
   transform:translateY(-2px);
 }
 
-.team-slot img{
-  width:90px;
-  height:90px;
+/* TOP LEFT (NAME + LEVEL) */
+.slot-info{
+  position:absolute;
+  top:10px;
+  left:14px;
+  text-align:left;
+}
+
+.slot-name{
+  font-weight:bold;
+  font-size:18px;
+}
+
+.slot-level{
+  font-size:14px;
+  opacity:.8;
+}
+
+/* TOP RIGHT (ELEMENTS) */
+.slot-elements{
+  position:absolute;
+  top:10px;
+  right:14px;
+}
+
+/* CENTER ANIMON */
+.slot-center img{
+  width:95px;
+  height:95px;
   object-fit:contain;
 }
 
-.team-slot h4{
-  margin:0;
+/* DELETE BUTTON */
+.slot-delete{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
+  opacity:.6;
+  cursor:pointer;
+}
+
+.slot-delete:hover{
+  opacity:1;
+}
+
+/* EMPTY SLOT */
+.empty-slot{
+  opacity:.6;
+  font-weight:bold;
 }
 
 .analysis{ margin-top:25px; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; }
@@ -419,22 +465,50 @@ function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
 function render(){
  grid.innerHTML="";
+
  for(let i=0;i<6;i++){
+
   const div=document.createElement("div");
   div.className="team-slot";
 
   if(team[i]){
+
    div.innerHTML=`
-    <img src="${team[i].sprite}">
-    <h4>${team[i].name}</h4>
-    ${createElementIcon(team[i].type)}
+
+    <div class="slot-info">
+      <div class="slot-name">${team[i].name}</div>
+      <div class="slot-level">Lv.100</div>
+    </div>
+
+    <div class="slot-elements">
+      ${createElementIcon(team[i].type)}
+    </div>
+
+    <div class="slot-center">
+      <img src="${team[i].sprite}">
+    </div>
+
+    <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})">
+      🗑️
+    </div>
    `;
-   div.onclick = () => openModal(i);
+
+   div.onclick=()=>openModal(i);
+
   }else{
-   div.innerHTML=`<p>${texts[lang].empty}</p>`;
+
+   div.innerHTML=`
+     <div class="empty-slot">
+       ${texts[lang].empty}
+     </div>
+   `;
+
+   div.onclick=()=>openModal(i);
   }
+
   grid.appendChild(div);
  }
+
  updateAnalysis();
 }
 
@@ -494,7 +568,8 @@ modal.addEventListener("click",()=>closeModal());
 function closeModal(){ modal.style.display="none"; }
 
 function removeFromTeam(i){
- team.splice(i,1);
+ team[i]=null;
+ team = team.filter(a=>a!==null);
  save();
  render();
 }
