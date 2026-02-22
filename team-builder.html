@@ -463,25 +463,31 @@ const texts={
    title:"Team Builder",
    share:"Copiar Link",
    weak:"Fraqueza Global:",
+   weakTypes:"Fraquezas",
+   resistTypes:"Resistências",
+   immuneTypes:"Imunidades",
    empty:"Slot Vazio",
    modalTitle:"Escolha um Animon",
    search:"Pesquisar Animon...",
    remove:"Remover do Time",
    copied:"Link copiado!",
    full:"Time já está cheio!"
- },
+},
  en:{
-   btn:"🇺🇸 EN",
+ btn:"🇺🇸 EN",
    title:"Team Builder",
    share:"Copy Link",
    weak:"Global Weakness:",
+   weakTypes:"Weaknesses",
+   resistTypes:"Resistances",
+   immuneTypes:"Immunities",
    empty:"Empty Slot ",
    modalTitle:"Choose an Animon",
    search:"Search Animon...",
    remove:"Remove from Team",
    copied:"Link copied!",
    full:"Team is already full!"
- }
+}
 };
 
 let lang=localStorage.getItem("siteLang")||"pt";
@@ -688,13 +694,13 @@ const format = obj =>
 const weaknessHTML = `
 <b>${texts[lang].weak}</b><br><br>
 
-🔴 <b>Fraquezas:</b><br>
+🔴 <b>${texts[lang].weakTypes}:</b><br>
 ${format(weaknessCount)}<br><br>
 
-🟢 <b>Resistências:</b><br>
+🟢 <b>${texts[lang].resistTypes}:</b><br>
 ${format(resistCount)}<br><br>
 
-⚫ <b>Imunidades:</b><br>
+⚫ <b>${texts[lang].immuneTypes}:</b><br>
 ${format(immuneCount)}
 `;
 
