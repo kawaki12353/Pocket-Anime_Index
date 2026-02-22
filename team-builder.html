@@ -202,6 +202,10 @@ body {
   transition:0.2s;
 }
 
+:root{
+  --right-column:58px;
+}
+
 .team-slot::after{
   content:"";
   position:absolute;
@@ -209,7 +213,7 @@ body {
   top:0;
   bottom:0;
 
-  right:58px; /* posição da coluna */
+  right:var(--right-column);
 
   width:1px;
   background:var(--border);
@@ -242,7 +246,10 @@ body {
 .slot-elements{
   position:absolute;
   top:10px;
-  right:14px;
+
+  right:calc(var(--right-column) + 12px);
+
+  display:flex;
 }
 
 /* CENTER ANIMON */
