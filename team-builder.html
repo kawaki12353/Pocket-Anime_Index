@@ -239,21 +239,6 @@ body {
   object-fit:contain;
 }
 
-/* DELETE BUTTON */
-.slot-delete{
-  position:absolute;
-  right:12px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:20px;
-  opacity:.6;
-  cursor:pointer;
-}
-
-.slot-delete:hover{
-  opacity:1;
-}
-
 /* EMPTY SLOT */
 .empty-slot{
   opacity:.6;
@@ -308,18 +293,25 @@ body {
   transform: scale(1.08);
 }
 
-/* EDIT BUTTON */
-.slot-edit{
+/* ACTION BUTTONS (EDIT + DELETE) */
+.slot-actions{
   position:absolute;
-  right:45px;
+  right:14px;
   top:50%;
   transform:translateY(-50%);
+  display:flex;
+  gap:8px;
+}
+
+.slot-edit,
+.slot-delete{
   font-size:20px;
   opacity:.6;
   cursor:pointer;
 }
 
-.slot-edit:hover{
+.slot-edit:hover,
+.slot-delete:hover{
   opacity:1;
 }
 
@@ -568,13 +560,18 @@ function render(){
       <img src="${team[i].sprite}">
     </div>
     
+   <div class="slot-actions">
+
     <div class="slot-edit"
-     onclick="event.stopPropagation(); openEditModal(${i})">
-     ✏️
+      onclick="event.stopPropagation(); openEditModal(${i})">
+      ✏️
     </div>
-    
-    <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})">
+
+    <div class="slot-delete"
+      onclick="event.stopPropagation(); removeFromTeam(${i})">
       🗑️
+     </div>
+
     </div>
    `;
 
@@ -615,7 +612,11 @@ function renderAnimonList(list){
     </div>
   `;
   div.onclick=()=>{
-    team[currentSlot]=a;
+    team[currentSlot]={
+     ...a,
+     level:100,
+     moves:["","","",""]
+    };
     save();
     render();
     closeModal();
