@@ -579,8 +579,6 @@ body {
 
 <script>      
 
-document.addEventListener("DOMContentLoaded", () => {
-
 function createElementIcon(types){
 
  if(!Array.isArray(types)){
@@ -908,10 +906,6 @@ function closeBalloonOnce(){
  }
 }
 
-const editOverlay = document.getElementById("editOverlay");
-const editLevel = document.getElementById("editLevel");
-const editMovesDiv = document.getElementById("editMoves");
-
 let editingIndex = null;
 
 function openEditPanel(index){
@@ -1029,7 +1023,9 @@ function updateLang(){
 updateLang();
 render();
 
-});
+const editOverlay = document.getElementById("editOverlay");
+const editLevel = document.getElementById("editLevel");
+const editMovesDiv = document.getElementById("editMoves");
 
 </script>      
 
