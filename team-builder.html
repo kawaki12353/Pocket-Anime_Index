@@ -315,49 +315,6 @@ body {
   opacity:1;
 }
 
-.edit-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:2000;
-}
-
-.edit-overlay.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.edit-modal{
-  background:var(--card);
-  width:100%;
-  max-width:500px;
-  padding:20px;
-  border-radius:20px 20px 0 0;
-  transform:translateY(100%);
-  transition:.35s;
-}
-
-.edit-overlay.active .edit-modal{
-  transform:translateY(0);
-}
-
-.edit-modal input,
-.edit-modal select{
-  width:100%;
-  margin:6px 0;
-  padding:8px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:var(--bg);
-  color:var(--text);
-}
-
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
