@@ -623,9 +623,21 @@ function removeFromTeam(i){
 }
 
 function updateAnalysis(){
- const total={hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0};
+
+ /* TOTAL STATS DO TIME */
+
+ const total={
+  hp:0,
+  atk:0,
+  def:0,
+  spAtk:0,
+  spDef:0,
+  spd:0
+ };
 
  team.forEach(a=>{
+  if(!a) return;
+
   total.hp+=a.stats.hp;
   total.atk+=a.stats.atk;
   total.def+=a.stats.def;
@@ -635,9 +647,56 @@ function updateAnalysis(){
  });
 
  document.getElementById("statsTotal").innerHTML=
- `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} | SP.ATK:${total.spAtk} | SP.DEF:${total.spDef} | SPD:${total.spd}`;
+ `HP:${total.hp} | ATK:${total.atk} | DEF:${total.def} |
+  SP.ATK:${total.spAtk} | SP.DEF:${total.spDef} | SPD:${total.spd}`;
 
- document.getElementById("weakness").textContent=texts[lang].weak+" None";
+
+
+ /* FRAQUEZA GLOBAL DO TIME */
+
+ const weaknessCount={};
+ const resistCount={};
+ const immuneCount={};
+
+ team.forEach(animon=>{
+
+  if(!animon) return;
+
+  const types = Array.isArray(animon.type)
+   ? animon.type
+   : [animon.type];
+
+  Object.keys(chart).forEach(attackType=>{
+
+   let multiplier=1;
+
+   types.forEach(defType=>{
+     multiplier *= chart[attackType]?.[defType] ?? 1;
+   });
+
+   if(multiplier>1){
+     weaknessCount[attackType]=(weaknessCount[attackType]||0)+1;
+   }
+
+   if(multiplier<1 && multiplier>0){
+     resistCount[attackType]=(resistCount[attackType]||0)+1;
+   }
+
+   if(multiplier===0){
+     immuneCount[attackType]=(immuneCount[attackType]||0)+1;
+   }
+
+  });
+
+ });
+
+ const weakText =
+  Object.entries(weaknessCount)
+   .map(([t,v])=>`${t}(${v})`)
+   .join(", ") || "None";
+
+ document.getElementById("weakness").textContent =
+   texts[lang].weak + " " + weakText;
 }
 
 shareBtn.onclick=()=>{
