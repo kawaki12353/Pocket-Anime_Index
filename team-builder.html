@@ -350,6 +350,8 @@ body {
   </div>      
 </div>      
 
+<button class="fab-add" id="addAnimonBtn">+</button>
+
 <script>      
 const animons = [      
  {id:1,name:"Ruffy",type:"Fighting",sprite:"assets/animons-icon/ruffy.png",stats:{hp:46,atk:65,def:55,spAtk:35,spDef:44,spd:55}},
@@ -581,8 +583,6 @@ function updateLang(){
  searchInput.placeholder=texts[lang].search;
  document.getElementById("removeText").textContent=texts[lang].remove;
 }
-
-<button class="fab-add" id="addAnimonBtn">+</button>
 
 updateLang();
 render();
