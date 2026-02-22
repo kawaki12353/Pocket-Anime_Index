@@ -573,6 +573,20 @@ body {
 
 <button class="fab-add" id="addAnimonBtn">+</button>
 
+<div class="edit-overlay" id="editOverlay">
+  <div class="edit-panel" onclick="event.stopPropagation()">
+    <div class="edit-close" onclick="closeEditPanel()">✖</div>
+    <h3>Editar Animon</h3>
+
+    <div class="edit-field">
+      <label>Level</label>
+      <input type="number" id="editLevel" min="1" max="100">
+    </div>
+
+    <div id="editMoves"></div>
+  </div>
+</div>
+
 <script src="team-infos/typechart.js"></script>
 <script src="team-infos/moves.js"></script>
 <script src="team-infos/animons.js"></script>
@@ -1035,20 +1049,6 @@ const editLevel = document.getElementById("editLevel");
 const editMovesDiv = document.getElementById("editMoves");
 
 </script>      
-
-<div class="edit-overlay" id="editOverlay">
-  <div class="edit-panel" onclick="event.stopPropagation()">
-    <div class="edit-close" onclick="closeEditPanel()">✖</div>
-    <h3>Editar Animon</h3>
-
-    <div class="edit-field">
-      <label>Level</label>
-      <input type="number" id="editLevel" min="1" max="100">
-    </div>
-
-    <div id="editMoves"></div>
-  </div>
-</div>
 
 </body>      
 </html>
