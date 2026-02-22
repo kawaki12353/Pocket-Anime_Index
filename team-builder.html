@@ -760,6 +760,9 @@ document.getElementById("statsTotal").innerHTML = `
   <div class="stat-value">${total.spd}</div>
 </div>
 `;
+}
+
+let openedBalloon = null;
 
 function getAnimonTypeInfo(animon){
 
@@ -831,8 +834,6 @@ function closeBalloonOnce(){
   openedBalloon=null;
  }
 }
-
-let openedBalloon = null;
 
 shareBtn.onclick=()=>{
  const ids=team.map(a=>a.id).join(",");
