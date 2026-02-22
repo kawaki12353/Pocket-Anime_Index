@@ -719,9 +719,13 @@ function closeEditModal(){
     .classList.remove("active");
 }
 
-document
-.getElementById("editOverlay")
-.addEventListener("click",closeEditModal);
+const editOverlay = document.getElementById("editOverlay");
+
+editOverlay.addEventListener("click", (e) => {
+  if(e.target === editOverlay){
+    closeEditModal();
+  }
+});
 
 function updateAnalysis(){
  const total={hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0};
