@@ -1,7 +1,8 @@
 /* TYPE CHART */
 const chart = {
   Neutral: { 
-    Earth: 0.5, Soul: 0 
+    Earth: 0.5, 
+    Soul: 0 
   },
 
   Fighting: {
