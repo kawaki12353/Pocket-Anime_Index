@@ -305,10 +305,20 @@ body {
   gap:8px;
 }
 
+/* BUTTON DELETE */
 .slot-delete{
-  font-size:20px;
   opacity:.6;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.slot-delete img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  pointer-events:none;
 }
 
 .slot-delete:hover{
@@ -496,9 +506,9 @@ function render(){
     
    <div class="slot-actions">
 
-    <div class="slot-delete"
+     <div class="slot-delete"
       onclick="event.stopPropagation(); removeFromTeam(${i})">
-      🗑️
+      <img src="assets/bin.png" alt="Delete">
      </div>
 
     </div>
