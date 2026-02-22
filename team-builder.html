@@ -313,14 +313,14 @@ body {
 
 <div class="modal-overlay" id="modal">      
   <div class="modal" onclick="event.stopPropagation()">      
-    <h3>Escolha um Animon</h3>      
+    <h3 id="modalTitle"></h3>      
     <div class="modal-search">      
-      <input type="text" id="searchInput" placeholder="Pesquisar Animon...">      
+      <input type="text" id="searchInput">      
     </div> 
   
     <button id="removeBtn"
      style="display:none; margin-bottom:10px; padding:8px; border-radius:10px; border:none; cursor:pointer; background:#c0392b; color:white;">
-     Remover do Time
+     <span id="removeText"></span>
     </button>
      
     <div class="modal-list" id="animonList"></div>      
@@ -351,8 +351,30 @@ function createElementIcon(type){
 const typeChart={};
 
 const texts={
- pt:{btn:"🇧🇷 PT",title:"Team Builder",share:"Copiar Link",weak:"Fraqueza Global:",rating:"Classificação:",empty:"Clique para adicionar"},
- en:{btn:"🇺🇸 EN",title:"Team Builder",share:"Copy Link",weak:"Global Weakness:",rating:"Rating:",empty:"Click to add"}
+ pt:{
+   btn:"🇧🇷 PT",
+   title:"Team Builder",
+   share:"Copiar Link",
+   weak:"Fraqueza Global:",
+   rating:"Classificação:",
+   empty:"Clique para adicionar",
+   modalTitle:"Escolha um Animon",
+   search:"Pesquisar Animon...",
+   remove:"Remover do Time",
+   copied:"Link copiado!"
+ },
+ en:{
+   btn:"🇺🇸 EN",
+   title:"Team Builder",
+   share:"Copy Link",
+   weak:"Global Weakness:",
+   rating:"Rating:",
+   empty:"Click to add",
+   modalTitle:"Choose an Animon",
+   search:"Search Animon...",
+   remove:"Remove from Team",
+   copied:"Link copied!"
+ }
 };
 
 let lang=localStorage.getItem("siteLang")||"pt";
@@ -520,6 +542,10 @@ function updateLang(){
  document.getElementById("mapTitle").textContent=texts[lang].title;
  shareBtn.textContent=texts[lang].share;
  langBtn.textContent=texts[lang].btn;
+
+ document.getElementById("modalTitle").textContent=texts[lang].modalTitle;
+ searchInput.placeholder=texts[lang].search;
+ document.getElementById("removeText").textContent=texts[lang].remove;
 }
 
 updateLang();
