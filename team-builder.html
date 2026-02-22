@@ -505,7 +505,7 @@ shareBtn.onclick=()=>{
  const ids=team.map(a=>a.id).join(",");
  const url=location.origin+location.pathname+"?team="+ids;
  navigator.clipboard.writeText(url);
- alert("Link copiado!");
+ alert(texts[lang].copied);
 };
 
 exportBtn.onclick=async()=>{
