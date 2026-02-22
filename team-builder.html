@@ -441,12 +441,18 @@ body {
   <div id="teamExportArea">      
     <div class="team-grid" id="teamGrid"></div>      
 
-    <div class="analysis">      
-      <div id="statsTotal"></div>      
-      <div id="weakness"></div>      
-      <button id="shareBtn"></button>      
-      <button id="exportBtn">Exportar Imagem</button>      
-    </div>      
+   <div class="analysis">
+
+    <div>
+     <div id="weakness"></div>
+
+     <button id="shareBtn"></button>
+     <button id="exportBtn">Exportar Imagem</button>
+    </div>
+
+    <div id="statsTotal" class="stats-grid"></div>
+
+   </div>      
   </div>      
 </div>      
 
@@ -685,9 +691,38 @@ team.forEach(a=>{
  total.spd+=a.stats.spd;
 });
 
-document.getElementById("statsTotal").innerHTML=
-`HP:${total.hp} | ATK:${total.atk} | DEF:${total.def}
- | SP.ATK:${total.spAtk} | SP.DEF:${total.spDef} | SPD:${total.spd}`;
+document.getElementById("statsTotal").innerHTML = `
+
+<div class="stat-btn">
+  <div class="stat-label">HP</div>
+  <div class="stat-value">${total.hp}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">ATK</div>
+  <div class="stat-value">${total.atk}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">DEF</div>
+  <div class="stat-value">${total.def}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">SP.ATK</div>
+  <div class="stat-value">${total.spAtk}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">SP.DEF</div>
+  <div class="stat-value">${total.spDef}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">SPD</div>
+  <div class="stat-value">${total.spd}</div>
+</div>
+`;
 
 /* TYPE ANALYSIS */
 const weaknessCount={};
