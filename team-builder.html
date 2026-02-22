@@ -580,7 +580,7 @@ body {
 
     <div class="edit-field">
      <label>Level: <span id="levelValue">100</span></label>
-     <input type="range" id="editLevel" min="0" max="100" step="1">
+     <input type="range" id="editLevel" min="1" max="100" step="1">
     </div>
 
     <div id="editMoves"></div>
@@ -992,7 +992,7 @@ function renderMoveOptions(animon){
   const levelValue = document.getElementById("levelValue");
 
  editLevel.oninput = ()=>{
-  const value = parseInt(editLevel.value) || 0;
+  const value = parseInt(editLevel.value) || 1;
 
   levelValue.textContent = value;
   team[editingIndex].level = value;
