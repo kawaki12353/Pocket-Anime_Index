@@ -960,46 +960,81 @@ function renderMoveOptions(animon){
 
   for(let i=0;i<4;i++){
 
-    const div = document.createElement("div");
-    div.className="edit-field";
+    const wrapper = document.createElement("div");
+    wrapper.className="edit-field";
 
-    const select = document.createElement("select");
+    wrapper.innerHTML = `<label>Move ${i+1}</label>`;
 
-    const emptyOption = document.createElement("option");
-    emptyOption.value="";
-    emptyOption.textContent="--";
-    select.appendChild(emptyOption);
+    /* CUSTOM SELECT */
+    const customSelect = document.createElement("div");
+    customSelect.className="custom-select";
+
+    const selected = document.createElement("div");
+    selected.className="custom-selected";
+    selected.textContent = animon.moves?.[i] || "--";
+
+    const options = document.createElement("div");
+    options.className="custom-options";
+
+    /* OPÇÃO VAZIA */
+    const emptyOpt = document.createElement("div");
+    emptyOpt.className="custom-option";
+    emptyOpt.textContent="--";
+    emptyOpt.onclick=()=>{
+      selected.textContent="--";
+      team[editingIndex].moves[i]="";
+      save();
+      options.style.display="none";
+    };
+    options.appendChild(emptyOpt);
 
     allowedMoves.forEach(moveName=>{
-      const opt = document.createElement("option");
-      opt.value = moveName;
-      opt.textContent = moveName;
-      select.appendChild(opt);
+
+      const moveData = moves.find(m=>m.name===moveName);
+      if(!moveData) return;
+
+      const opt = document.createElement("div");
+      opt.className="custom-option";
+
+      opt.innerHTML=`
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${createElementIcon(moveData.type)}
+          <span>${moveName}</span>
+        </div>
+      `;
+
+      opt.onclick=()=>{
+        selected.innerHTML=opt.innerHTML;
+        team[editingIndex].moves[i]=moveName;
+        save();
+        options.style.display="none";
+      };
+
+      options.appendChild(opt);
     });
 
-    select.value = animon.moves?.[i] || "";
-
-    select.onchange = ()=>{
-      team[editingIndex].moves[i] = select.value;
-      save();
+    selected.onclick=()=>{
+      options.style.display=
+        options.style.display==="block"?"none":"block";
     };
 
-    div.innerHTML = `<label>Move ${i+1}</label>`;
-    div.appendChild(select);
-    editMovesDiv.appendChild(div);
+    customSelect.appendChild(selected);
+    customSelect.appendChild(options);
+
+    wrapper.appendChild(customSelect);
+    editMovesDiv.appendChild(wrapper);
   }
 
+  /* LEVEL SLIDER */
   const levelValue = document.getElementById("levelValue");
 
- editLevel.oninput = ()=>{
-  const value = parseInt(editLevel.value) || 1;
-
-  levelValue.textContent = value;
-  team[editingIndex].level = value;
-
-  save();
-  render();
- };
+  editLevel.oninput = ()=>{
+    const value = parseInt(editLevel.value) || 1;
+    levelValue.textContent = value;
+    team[editingIndex].level = value;
+    save();
+    render();
+  };
 }
 
 shareBtn.onclick=()=>{
