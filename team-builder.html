@@ -188,7 +188,7 @@ body {
   background:var(--card);
   border:1px solid var(--border);
   border-radius:18px;
-  cursor:pointer;
+  cursor:default;
 
   min-height:130px;
   padding:14px;
@@ -216,11 +216,6 @@ body {
 
   width:1px;
   background:var(--border);
-}
-
-.team-slot:hover{
-  background:var(--hover);
-  transform:translateY(-2px);
 }
 
 /* TOP LEFT (NAME + LEVEL) */
@@ -680,11 +675,6 @@ function render(){
 
   if(team[i]){
 
-  div.onclick=(e)=>{
-   e.stopPropagation();
-   toggleBalloon(div, team[i]);
-   };
-
    div.innerHTML=`
 
     <div class="slot-info">
@@ -699,7 +689,7 @@ function render(){
     </div>
 
     <div class="slot-center">
-      <img src="${team[i].sprite}">
+     <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
     </div>
     
      <div class="slot-edit" data-index="${i}">
@@ -710,9 +700,15 @@ function render(){
       onclick="event.stopPropagation(); removeFromTeam(${i})">
       <img src="assets/bin.png" alt="Delete">
      </div>
-
-    </div>
    `;
+
+   const img = div.querySelector(".animon-img");
+   if(img){
+     img.addEventListener("click", (e)=>{
+       e.stopPropagation();
+       toggleBalloon(div, team[i]);
+     });
+   }
 
   }else{
 
@@ -721,7 +717,6 @@ function render(){
        ${texts[lang].empty}
      </div>
    `;
-
   }
 
   grid.appendChild(div);
@@ -734,6 +729,7 @@ function render(){
    });
   }
  }
+}
 
  updateAnalysis();
 }
