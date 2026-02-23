@@ -165,8 +165,8 @@ body {
   width: 260px; 
 }
 
-.team-builder-title { text-align: center; font-size: 22px; font-weight: bold; }
-.team-builder-container { max-width:1200px; margin:0 auto; }
+.map-title { text-align: center; font-size: 22px; font-weight: bold; }
+.map-list { max-width:1200px; margin:0 auto; }
 
 .team-grid{
   display:grid;
@@ -318,79 +318,6 @@ body {
   transform: scale(1.08);
 }
 
-/* BOTAO LAPIS */
-.slot-edit{
- position:absolute;
- top:6px;
- right:40px;
- width:24px;
- height:24px;
- cursor:pointer;
- z-index:3;
-}
-
-.slot-edit img{
- width:100%;
- height:100%;
-}
-
-.edit-menu{
- position:absolute;
- top:0;
- left:0;
- width:100%;
- height:100%;
- background:#1b1b1b;
- border-radius:12px;
- padding:10px;
- display:flex;
- flex-direction:column;
- gap:8px;
- z-index:5;
-}
-
-.edit-menu h4{
- margin:0;
- font-size:14px;
-}
-
-.edit-menu input{
- width:100%;
-}
-
-/* SELECT MOVE */
-.custom-select{
- position:relative;
- background:#2a2a2a;
- border-radius:8px;
- cursor:pointer;
-}
-
-.custom-select-selected{
- padding:6px;
-}
-
-.custom-select-options{
- display:none;
- position:absolute;
- width:100%;
- background:#222;
- max-height:150px;
- overflow-y:auto;
- z-index:10;
-}
-
-.custom-select-option{
- padding:6px;
- display:flex;
- align-items:center;
- gap:6px;
-}
-
-.custom-select-option:hover{
- background:#333;
-}
-
 /* BOTÃO LIXEIRA (direita central) */
 .slot-delete{
   position:absolute;
@@ -527,10 +454,10 @@ body {
  <div class="header-top">      
   <img src="assets/Pocket-Anime-logo.png" class="logo">      
  </div>      
- <h2 class="team-builder-title" id="teamBuilderTitle"></h2>      
+ <h2 class="map-title" id="mapTitle"></h2>      
 </div>      
 
-<div class="team-builder-container">      
+<div class="map-list">      
   <div id="teamExportArea">      
     <div class="team-grid" id="teamGrid"></div>      
 
@@ -662,23 +589,18 @@ function render(){
    div.innerHTML=`
 
     <div class="slot-info">
-     <div class="slot-name">${team[i].name}</div>
-     <div class="slot-level">
-      Lv.${team[i].level || 100}
-     </div>
+      <div class="slot-name">${team[i].name}</div>
+      <div class="slot-level">
+       Lv.${team[i].level || 100}
+      </div>
     </div>
 
     <div class="slot-elements">
-     ${createElementIcon(team[i].type)}
+      ${createElementIcon(team[i].type)}
     </div>
 
     <div class="slot-center">
      <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
-    </div>
-
-    <div class="slot-edit"
-     onclick="event.stopPropagation(); openEditMenu(${i}, this)">
-     <img src="assets/pencil.png" alt="Edit">
     </div>
 
      <div class="slot-delete"
@@ -906,131 +828,6 @@ shareBtn.onclick=()=>{
  alert(texts[lang].copied);
 };
 
-let openedEditMenu = null;
-
-function openEditMenu(index, button){
-
- if(openedEditMenu){
-  openedEditMenu.remove();
-  openedEditMenu = null;
- }
-
- const slotDiv = button.closest(".team-slot");
- const animon = team[index];
-
- const menu = document.createElement("div");
- menu.className = "edit-menu";
-
- menu.innerHTML = `
-   <h4>${animon.name}</h4>
-
-   <label>Level</label>
-   <input type="number" min="1" max="100" value="${animon.level || 100}" id="levelInput">
-
-   <div id="movesContainer"></div>
- `;
-
- slotDiv.appendChild(menu);
- openedEditMenu = menu;
-
- // LEVEL UPDATE
- const levelInput = menu.querySelector("#levelInput");
- levelInput.addEventListener("input", ()=>{
-   let val = parseInt(levelInput.value);
-   if(val < 1) val = 1;
-   if(val > 100) val = 100;
-   animon.level = val;
-   save();
-   render();
- });
-
- // CREATE 4 MOVE SELECTS
- const container = menu.querySelector("#movesContainer");
-
- for(let i=0;i<4;i++){
-   const select = createCustomMoveSelect(index, i);
-   container.appendChild(select);
- }
-
- setTimeout(()=>{
-  document.addEventListener("click", closeEditMenuOnce, {once:true});
- },0);
-}
-
-function closeEditMenuOnce(){
- if(openedEditMenu){
-   openedEditMenu.remove();
-   openedEditMenu = null;
- }
-}
-
-function createCustomMoveSelect(teamIndex, moveIndex){
-
- const wrapper = document.createElement("div");
- wrapper.className = "custom-select";
-
- const selected = document.createElement("div");
- selected.className = "custom-select-selected";
-
- const options = document.createElement("div");
- options.className = "custom-select-options";
-
- const currentMoveName = team[teamIndex].moves[moveIndex];
-
- const currentMove = moves.find(m=>m.name === currentMoveName);
-
- selected.innerHTML = currentMove
-   ? formatMoveOption(currentMove)
-   : "Selecionar Move";
-
- selected.onclick = ()=>{
-   options.style.display =
-     options.style.display === "block" ? "none" : "block";
- };
-
- const allowedMoves = moves.filter(m =>
- team[teamIndex].movesList?.includes(m.name)
-);
-
- allowedMoves.forEach(move=>{
-   const option = document.createElement("div");
-   option.className = "custom-select-option";
-   option.innerHTML = formatMoveOption(move);
-
-   option.onclick = ()=>{
-     team[teamIndex].moves[moveIndex] = move.name;
-     save();
-     render();
-   };
-
-   options.appendChild(option);
- });
-
- wrapper.appendChild(selected);
- wrapper.appendChild(options);
-
- return wrapper;
-}
-
-function formatMoveOption(move){
-
- const elementIcon = `
-   <img src="assets/${move.type.toLowerCase()}_element.png"
-    style="width:18px;height:18px">
- `;
-
- const attackIcon = `
-   <img src="assets/${move.attack.toLowerCase()}.png"
-    style="width:18px;height:18px">
- `;
-
- return `
-   ${elementIcon}
-   <span>${move.name}</span>
-   ${attackIcon}
- `;
-}
-
 exportBtn.onclick=async()=>{
 
  const exportArea=document.getElementById("teamExportArea");
@@ -1062,7 +859,7 @@ langBtn.onclick=()=>{
 };
 
 function updateLang(){
- document.getElementById("teamBuilderTitle").textContent = texts[lang].title;
+ document.getElementById("mapTitle").textContent=texts[lang].title;
  shareBtn.textContent=texts[lang].share;
  langBtn.textContent=texts[lang].btn;
 
