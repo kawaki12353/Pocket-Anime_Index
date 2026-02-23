@@ -237,10 +237,12 @@ body {
 .slot-elements{
   position:absolute;
   top:10px;
-
   right:calc(var(--right-column) + 12px);
 
   display:flex;
+  flex-direction: column;
+
+  align-items:center;
 }
 
 /* CENTER ANIMON */
