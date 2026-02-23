@@ -1,9 +1,1155 @@
-function updateLevel() {
-    // Your updated logic here
-    render();
+<!DOCTYPE html>      
+<html lang="pt-BR">      
+<head>      
+<meta charset="UTF-8">      
+<meta name="viewport" content="width=device-width, initial-scale=1.0">      
+
+<link rel="stylesheet" href="menu.css">      
+<script src="menu.js" defer></script>      
+
+<title>Pocket Anime - Team Builder</title>      
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>      
+
+<style>      
+body {      
+  font-family: Arial, sans-serif;      
+  background: var(--bg);      
+  color: var(--text);      
+  padding: 20px;      
+  margin: 0;      
+}      
+
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+  --right-column: 58px;
+}      
+
+@media (prefers-color-scheme: dark){      
+  :root{      
+    --bg: #0f1217;      
+    --card: #181c24;      
+    --text: #ffffff;      
+    --border: #2a2f3a;      
+    --hover: #232836;      
+    --lang-btn: #111;      
+    --lang-btn-bg: #ffffff;      
+  }      
+}      
+
+/* ELEMENT SYSTEM */
+.animon-elements {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  justify-content: center;
 }
 
-function selectMove() {
-    // Your updated logic here
-    render();
+.element-wrapper {
+  position: relative;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  background: #191919;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
+
+.element-inner {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 2px solid var(--element-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.element-inner img {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.element-neutral   { --element-color: #e6e5e3; }
+.element-fighting   { --element-color: #e5901b; }
+.element-fire   { --element-color: #e60000; }
+.element-water   { --element-color: #00b0e6; }
+.element-nature   { --element-color: #24e30c; }
+.element-earth   { --element-color: #8a5e39; }
+.element-wind   { --element-color: #59e657; }
+.element-ice   { --element-color: #00ffe1; }
+.element-lightning   { --element-color: #ffe100; }
+.element-soul   { --element-color: #89a2e6; }
+.element-psychic   { --element-color: #e66ae0; }
+.element-poison   { --element-color: #ac8fff; }
+.element-light   { --element-color: #decc7c; }
+.element-dark   { --element-color: #262626; }
+.element-demon   { --element-color: #b00000; }
+.element-beast   { --element-color: #aa6272; }
+
+.element-tooltip {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  z-index: 10;
+}
+
+.element-wrapper:hover .element-tooltip {
+  opacity: 1;
+}
+
+.team-slot .animon-elements{
+  margin-left:auto;
+  margin-top:0;
+}
+
+.team-slot .element-wrapper{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+}
+
+.team-slot .element-inner{
+  width:28px;
+  height:28px;
+  border-width:2px;
+}
+
+.team-slot .element-inner img{
+  width:32px;
+  height:32px;
+}
+
+.header { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  max-width: 1200px; 
+  margin: 0 auto 30px; 
+  gap: 12px;
+}
+
+.header-top { 
+  width: 100%; 
+  display: flex; 
+  justify-content: center; 
+}
+
+.logo { 
+  width: 260px; 
+}
+
+.map-title { text-align: center; font-size: 22px; font-weight: bold; }
+.map-list { max-width:1200px; margin:0 auto; }
+
+.team-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:14px;
+}
+
+@media (min-width: 900px){
+  .team-grid{
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+/* TEAM SLOT SHOWDOWN STYLE */
+.team-slot{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  cursor:default;
+
+  min-height:130px;
+  padding:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:visible;
+  transition:0.2s;
+}
+
+.team-slot::after{
+  content:"";
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  right:var(--right-column);
+
+  width:1px;
+  background:var(--border);
+}
+
+/* TOP LEFT (NAME + LEVEL) */
+.slot-info{
+  position:absolute;
+  top:10px;
+  left:14px;
+  text-align:left;
+}
+
+.slot-name{
+  font-weight:bold;
+  font-size:18px;
+}
+
+.slot-level{
+  font-size:14px;
+  opacity:.8;
+}
+
+/* TOP RIGHT (ELEMENTS) */
+.slot-elements{
+  position:absolute;
+  top:10px;
+
+  right:calc(var(--right-column) + 12px);
+
+  display:flex;
+}
+
+/* CENTER ANIMON */
+.slot-center img{
+  width:95px;
+  height:95px;
+  object-fit:contain;
+}
+
+/* EMPTY SLOT */
+.empty-slot{
+  opacity:.6;
+  font-weight:bold;
+}
+
+.analysis{
+ margin-top:25px;
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:20px;
+
+ display:flex;
+ justify-content:space-between;
+ align-items:flex-start;
+ gap:20px;
+}
+
+.analysis button{ margin-top:10px; padding:8px 14px; border-radius:10px; border:none; cursor:pointer; background:var(--lang-btn-bg); color:var(--lang-btn); }
+
+.lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); }
+.lang-toggle button { padding: 8px 14px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); }
+
+.modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:1000; }
+
+.modal{ background:var(--card); width:600px; height:600px; border-radius:16px; padding:20px; display:flex; flex-direction:column; }
+
+.modal h3{ margin-top:0; text-align:center; }
+
+.modal-search{ margin-bottom:10px; }
+
+.modal-search input{ width:100%; padding:8px; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); }
+
+.modal-list{ overflow-y:auto; flex:1; padding-right:5px; }
+
+.animon-option{ display:flex; align-items:center; gap:10px; padding:10px; border-radius:10px; cursor:pointer; }
+
+.animon-option:hover{ background:var(--hover); }
+
+.animon-option img{ width:50px; }
+
+/* FAB - Add Animon Button */
+.fab-add{
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  transition: 0.2s;
+  z-index: 999;
+}
+
+.fab-add:hover{
+  transform: scale(1.08);
+}
+
+/* BOTÃO LIXEIRA (direita central) */
+.slot-delete{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:.6;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.slot-delete img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  pointer-events:none;
+}
+
+.slot-delete:hover{
+  opacity:1;
+}
+
+/* BOTÃO EDITAR (acima da lixeira) */
+.slot-edit{
+  position:absolute;
+  right:14px;
+  top:25%;
+  opacity:.6;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.slot-edit img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+  pointer-events:none;
+}
+
+.slot-edit:hover{
+  opacity:1;
+}
+
+/* TEAM STATS GRID */
+.stats-grid{
+ display:grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap:10px;
+ min-width:260px;
+}
+
+.stat-btn{
+ background:var(--hover);
+ border:1px solid var(--border);
+ border-radius:12px;
+ padding:10px;
+ text-align:center;
+ font-weight:bold;
+ user-select:none;
+ pointer-events:none;
+}
+
+.stat-label{
+ font-size:12px;
+ opacity:.7;
+}
+
+.stat-value{
+ font-size:18px;
+}
+
+/* ANIMON INFO BALLOON */
+.animon-balloon{
+ position:absolute;
+ bottom:100%;
+ left:50%;
+ transform:translateX(-50%);
+ margin-top:10px;
+
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:12px;
+
+ width:260px;
+ font-size:14px;
+ text-align:left;
+
+ box-shadow:0 6px 18px rgba(0,0,0,.25);
+ z-index:50;
+
+ animation:fadeIn .2s ease;
+}
+
+@keyframes fadeIn{
+ from{opacity:0; transform:translate(-50%,10px);}
+ to{opacity:1; transform:translate(-50%,0);}
+}
+
+/* EDIT MENU FLUTUANTE */
+.edit-menu{
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%);
+  margin-bottom:10px;
+
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+
+  width:320px;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  z-index:50;
+
+  animation:fadeIn .2s ease;
+}
+
+.edit-menu h4{
+  margin-top:0;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+.level-control{
+  margin-bottom:16px;
+}
+
+.level-slider{
+  width:100%;
+  cursor:pointer;
+}
+
+.level-display{
+  text-align:center;
+  font-weight:bold;
+  margin-top:8px;
+  font-size:14px;
+}
+
+.moves-section{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.move-select-wrapper{
+  position:relative;
+}
+
+.move-select-btn{
+  background:var(--bg);
+  border-radius:8px;
+  padding:8px 10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  border:1px solid var(--border);
+  color:var(--text);
+  font-size:12px;
+  min-height:36px;
+}
+
+.move-select-btn img{
+  width:20px;
+  height:20px;
+}
+
+.move-select-btn span{
+  flex:1;
+  text-align:left;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.move-select-btn::after{
+  content:"▼";
+  font-size:10px;
+  color:var(--text);
+}
+
+.move-options{
+  position:absolute;
+  top:110%;
+  left:0;
+  width:100%;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  max-height:180px;
+  overflow-y:auto;
+  display:none;
+  z-index:100;
+}
+
+.move-options.open{
+  display:block;
+}
+
+.move-option{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  cursor:pointer;
+  font-size:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.move-option:last-child{
+  border-bottom:none;
+}
+
+.move-option:hover{
+  background:var(--hover);
+}
+
+.move-option img{
+  width:16px;
+  height:16px;
+}
+
+.move-option-name{
+  flex:1;
+}
+
+.move-option-attack{
+  font-size:10px;
+  opacity:0.7;
+}
+
+@media (max-width: 768px){
+  .header { 
+    flex-direction: column; 
+    align-items: center; 
+  }
+  .header-top { 
+    display: flex; 
+    justify-content: flex-end; 
+    width: 100%;
+  }
+
+  .logo { 
+    width: 150px;
+  }
+
+  .modal{
+    width: 90%;
+    height: 75vh;
+    max-height: 520px;
+
+    padding:16px;
+    border-radius:14px;
+  }
+
+  .modal h3{
+    font-size:18px;
+  }
+
+  .modal-search input{
+    padding:6px;
+    font-size:14px;
+  }
+
+  .animon-option{
+    padding:8px;
+  }
+
+  .animon-option img{
+    width:40px;
+  }
+
+  .analysis{
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .edit-menu{
+    width:280px;
+  }
+}
+
+</style>      
+</head>      
+
+<body>      
+
+<div class="header">      
+ <div class="header-top">      
+  <img src="assets/Pocket-Anime-logo.png" class="logo">      
+ </div>      
+ <h2 class="map-title" id="mapTitle"></h2>      
+</div>      
+
+<div class="map-list">      
+  <div id="teamExportArea">      
+    <div class="team-grid" id="teamGrid"></div>      
+
+   <div class="analysis">
+
+    <div>
+     <button id="shareBtn"></button>
+     <button id="exportBtn">Exportar Imagem</button>
+    </div>
+
+    <div>
+     <h3 id="statsTitle"></h3>
+     <div id="statsTotal" class="stats-grid"></div>
+    </div>
+
+   </div>      
+  </div>      
+</div>      
+
+<div class="lang-toggle">      
+  <button id="langBtn"></button>      
+</div>      
+
+<div class="modal-overlay" id="modal">      
+  <div class="modal" onclick="event.stopPropagation()">      
+    <h3 id="modalTitle"></h3>      
+    <div class="modal-search">      
+      <input type="text" id="searchInput">      
+    </div> 
+
+    <div class="modal-list" id="animonList"></div>      
+  </div>      
+</div>      
+
+<button class="fab-add" id="addAnimonBtn">+</button>
+
+<script src="team-infos/typechart.js"></script>
+<script src="team-infos/moves.js"></script>
+<script src="team-infos/animons.js"></script>
+
+<script>      
+
+function createElementIcon(types){
+
+ if(!Array.isArray(types)){
+   types = [types];
+ }
+
+ return `
+  <div class="animon-elements">
+    ${types.map(type=>{
+      const lower = type.toLowerCase();
+      return `
+        <div class="element-wrapper element-${lower}">
+          <div class="element-inner">
+            <img src="assets/${lower}_element.png" alt="${type}">
+          </div>
+          <div class="element-tooltip">${type}</div>
+        </div>
+      `;
+    }).join("")}
+  </div>
+ `;
+}
+
+const texts={
+ pt:{
+   btn:"🇧🇷 PT",
+   title:"Team Builder",
+   share:"Copiar Link",
+   totalStats:"Status Total",
+   weakTypes:"Fraquezas",
+   resistTypes:"Resistências",
+   immuneTypes:"Imunidades",
+   empty:"Slot Vazio",
+   modalTitle:"Escolha um Animon",
+   search:"Pesquisar Animon...",
+   remove:"Remover do Time",
+   copied:"Link copiado!",
+   full:"Time já está cheio!",
+   level:"Level",
+   moves:"Moves"
+},
+ en:{
+ btn:"🇺🇸 EN",
+   title:"Team Builder",
+   share:"Copy Link",
+   totalStats:"Total Stats",
+   weakTypes:"Weaknesses",
+   resistTypes:"Resistances",
+   immuneTypes:"Immunities",
+   empty:"Empty Slot ",
+   modalTitle:"Choose an Animon",
+   search:"Search Animon...",
+   remove:"Remove from Team",
+   copied:"Link copied!",
+   full:"Team is already full!",
+   level:"Level",
+   moves:"Moves"
+}
+};
+
+let lang=localStorage.getItem("siteLang")||"pt";
+let team = JSON.parse(localStorage.getItem("team")) || [];
+
+team = team
+  .filter(a => a && a.name && a.sprite)
+  .slice(0,6);
+
+save();
+let currentSlot=null;
+
+const addAnimonBtn = document.getElementById("addAnimonBtn"); 
+const grid=document.getElementById("teamGrid");
+const shareBtn=document.getElementById("shareBtn");
+const exportBtn=document.getElementById("exportBtn");
+const langBtn=document.getElementById("langBtn");
+const modal=document.getElementById("modal");
+const animonList=document.getElementById("animonList");
+const searchInput=document.getElementById("searchInput");
+
+function save(){ localStorage.setItem("team",JSON.stringify(team)); }
+
+function render(){
+ grid.innerHTML="";
+
+ for(let i=0;i<6;i++){
+
+  const div=document.createElement("div");
+  div.className="team-slot";
+
+  if(team[i]){
+
+   div.innerHTML=`
+
+    <div class="slot-info">
+      <div class="slot-name">${team[i].name}</div>
+      <div class="slot-level">
+       Lv.${team[i].level || 100}
+      </div>
+    </div>
+
+    <div class="slot-elements">
+      ${createElementIcon(team[i].type)}
+    </div>
+
+    <div class="slot-center">
+     <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
+    </div>
+
+    <div class="slot-edit"
+     onclick="event.stopPropagation(); openEditMenu(event, ${i})">
+     <img src="assets/pencil.png" alt="Edit">
+    </div>
+
+     <div class="slot-delete"
+      onclick="event.stopPropagation(); removeFromTeam(${i})">
+      <img src="assets/bin.png" alt="Delete">
+     </div>
+   `;
+
+   const img = div.querySelector(".animon-img");
+   if(img){
+     img.addEventListener("click", (e)=>{
+       e.stopPropagation();
+       toggleBalloon(div, team[i]);
+     });
+   }
+
+  }else{
+
+   div.innerHTML=`
+     <div class="empty-slot">
+       ${texts[lang].empty}
+     </div>
+   `;
+  }
+
+  grid.appendChild(div);
+ }
+
+ updateAnalysis();
+}
+
+function openModal(slotIndex){
+ currentSlot=slotIndex;
+ searchInput.value="";
+ renderAnimonList(animons);
+
+ modal.style.display="flex";
+}
+
+function renderAnimonList(list){
+ animonList.innerHTML="";
+ list.forEach(a=>{
+  const div=document.createElement("div");
+  div.className="animon-option";
+  div.innerHTML=`
+    <img src="${a.sprite}">
+    <div>
+      <strong>${a.name}</strong><br>
+      ${createElementIcon(a.type)}
+    </div>
+  `;
+  div.onclick=()=>{
+    team[currentSlot]={
+     ...a,
+     level:100,
+     moves:["","","",""]
+    };
+    save();
+    render();
+    closeModal();
+  };
+  animonList.appendChild(div);
+ });
+}
+
+addAnimonBtn.onclick = () => {
+
+ const emptyIndex = team.findIndex(a => !a);
+
+ if(emptyIndex === -1 && team.length >= 6){
+   alert(texts[lang].full);
+   return;
+ }
+
+ currentSlot = emptyIndex === -1 ? team.length : emptyIndex;
+
+ openModal(currentSlot);
+};
+
+searchInput.addEventListener("input",()=>{
+ const value=searchInput.value.toLowerCase();
+ const filtered=animons.filter(a=>a.name.toLowerCase().includes(value));
+ renderAnimonList(filtered);
+});
+
+modal.addEventListener("click", (e) => {
+  if(e.target === modal) closeModal();
+});
+function closeModal(){ modal.style.display="none"; }
+
+function removeFromTeam(i){
+ team[i]=null;
+ team = team.filter(a=>a!==null);
+ save();
+ render();
+}
+
+function updateAnalysis(){
+
+/* TOTAL STATS */
+const total={
+ hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0
+};
+
+team.forEach(a => {
+  if(!a || !a.stats) return;
+  
+ total.hp+=a.stats.hp;
+ total.atk+=a.stats.atk;
+ total.def+=a.stats.def;
+ total.spAtk+=a.stats.spAtk;
+ total.spDef+=a.stats.spDef;
+ total.spd+=a.stats.spd;
+});
+
+document.getElementById("statsTotal").innerHTML = `
+
+<div class="stat-btn">
+  <div class="stat-label">HP</div>
+  <div class="stat-value">${total.hp}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">ATK</div>
+  <div class="stat-value">${total.atk}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">DEF</div>
+  <div class="stat-value">${total.def}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">SP.ATK</div>
+  <div class="stat-value">${total.spAtk}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">SP.DEF</div>
+  <div class="stat-value">${total.spDef}</div>
+</div>
+
+<div class="stat-btn">
+  <div class="stat-label">SPD</div>
+  <div class="stat-value">${total.spd}</div>
+</div>
+`;
+}
+
+let openedBalloon = null;
+let openedEditMenu = null;
+
+function getAnimonTypeInfo(animon){
+
+ const weakness={};
+ const resist={};
+ const immune={};
+
+ const types = Array.isArray(animon.type)
+  ? animon.type
+  : [animon.type];
+
+ Object.keys(chart).forEach(attackType=>{
+
+  let multiplier=1;
+
+  types.forEach(defType=>{
+   multiplier*=chart[attackType]?.[defType] ?? 1;
+  });
+
+  if(multiplier>1)
+   weakness[attackType]=true;
+
+  else if(multiplier===0)
+   immune[attackType]=true;
+
+  else if(multiplier<1)
+   resist[attackType]=true;
+ });
+
+ const format=obj =>
+  Object.keys(obj).join(", ") || "None";
+
+ return `
+  <b>${texts[lang].weakTypes}</b><br>
+  🔴 ${format(weakness)}<br><br>
+
+  <b>${texts[lang].resistTypes}</b><br>
+  🟢 ${format(resist)}<br><br>
+
+  <b>${texts[lang].immuneTypes}</b><br>
+  ⚫ ${format(immune)}
+ `;
+}
+
+function toggleBalloon(slotDiv, animon){
+
+ if(openedBalloon){
+   openedBalloon.remove();
+   openedBalloon=null;
+ }
+
+ const balloon=document.createElement("div");
+ balloon.className="animon-balloon";
+ balloon.innerHTML=getAnimonTypeInfo(animon);
+
+ slotDiv.appendChild(balloon);
+ openedBalloon=balloon;
+
+ setTimeout(()=>{
+  document.addEventListener("click",closeBalloonOnce,{once:true});
+ },0);
+}
+
+function closeBalloonOnce(){
+ if(openedBalloon){
+  openedBalloon.remove();
+  openedBalloon=null;
+ }
+}
+
+// FUNÇÃO PARA ABRIR MENU DE EDIÇÃO
+function openEditMenu(event, slotIndex){
+  
+  // Fecha menu anterior
+  if(openedEditMenu){
+    openedEditMenu.remove();
+    openedEditMenu=null;
+  }
+
+  const animon = team[slotIndex];
+  if(!animon) return;
+
+  // Criar menu
+  const menu = document.createElement("div");
+  menu.className = "edit-menu";
+  
+  let movesHTML = '';
+  for(let i = 0; i < 4; i++){
+    const moveId = animon.moves?.[i] || '';
+    const move = moves.find(m => m.name === moveId);
+    const moveType = move?.type?.toLowerCase() || '';
+    const moveAttack = move?.attack || '';
+    const moveName = move?.name || 'Selecionar Move';
+    
+    movesHTML += `
+      <div class="move-select-wrapper">
+        <div class="move-select-btn" onclick="toggleMoveOptions(event, ${slotIndex}, ${i})">
+          ${move ? `<img src="assets/${moveType}_element.png" alt="${move.type}">` : ''}
+          <span>${moveName}</span>
+          ${moveAttack ? `<img src="assets/${moveAttack.toLowerCase()}_attack.png" alt="${moveAttack}">` : ''}
+        </div>
+        <div class="move-options" data-slot="${slotIndex}" data-move-slot="${i}">
+          ${moves.map(m => {
+            const mType = m.type?.toLowerCase() || '';
+            const mAttack = m.attack?.toLowerCase() || '';
+            return `
+              <div class="move-option" onclick="selectMove(${slotIndex}, ${i}, '${m.name}', event)">
+                <img src="assets/${mType}_element.png" alt="${m.type}">
+                <span class="move-option-name">${m.name}</span>
+                <img src="assets/${mAttack}_attack.png" alt="${m.attack}" class="move-option-attack">
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  menu.innerHTML = `
+    <h4>${texts[lang].level}: <span id="levelValue">${animon.level || 100}</span></h4>
+    <div class="level-control">
+      <input type="range" min="1" max="100" value="${animon.level || 100}" class="level-slider" 
+        onchange="updateLevel(${slotIndex}, this.value)">
+      <div class="level-display">Lv. <span id="levelDisplay">${animon.level || 100}</span></div>
+    </div>
+    
+    <h4>${texts[lang].moves}:</h4>
+    <div class="moves-section">
+      ${movesHTML}
+    </div>
+  `;
+
+  const slotDiv = event.target.closest('.team-slot');
+  slotDiv.appendChild(menu);
+  openedEditMenu = menu;
+
+  // Fechar ao clicar fora
+  setTimeout(()=>{
+    document.addEventListener("click", closeEditMenuOnce, {once:true});
+  }, 0);
+}
+
+function closeEditMenuOnce(){
+  if(openedEditMenu){
+    openedEditMenu.remove();
+    openedEditMenu=null;
+  }
+}
+
+function updateLevel(slotIndex, value){
+  team[slotIndex].level = parseInt(value);
+  document.getElementById('levelValue').textContent = value;
+  document.getElementById('levelDisplay').textContent = value;
+  save();
+  render();
+}
+
+function toggleMoveOptions(event, slotIndex, moveSlot){
+  event.stopPropagation();
+  const options = event.target.closest('.move-select-wrapper').querySelector('.move-options');
+  options.classList.toggle('open');
+  
+  // Fechar outras opções abertas
+  document.querySelectorAll('.move-options.open').forEach(opt => {
+    if(opt !== options) opt.classList.remove('open');
+  });
+}
+
+function selectMove(slotIndex, moveSlot, moveName, event){
+  event.stopPropagation();
+  team[slotIndex].moves[moveSlot] = moveName;
+  save();
+  render();
+  // Reabre o menu após atualizar
+  setTimeout(() => {
+    const editBtn = document.querySelectorAll('.slot-edit')[slotIndex];
+    if(editBtn) openEditMenu({target: editBtn}, slotIndex);
+  }, 50);
+}
+
+shareBtn.onclick=()=>{
+ const ids=team.map(a=>a.id).join(",");
+ const url=location.origin+location.pathname+"?team="+ids;
+ navigator.clipboard.writeText(url);
+ alert(texts[lang].copied);
+};
+
+exportBtn.onclick=async()=>{
+
+ const exportArea=document.getElementById("teamExportArea");
+
+ exportArea.style.width="900px";
+
+ const originalGridStyle = grid.style.gridTemplateColumns;
+ grid.style.gridTemplateColumns="repeat(3, 1fr)";
+
+ const canvas=await html2canvas(exportArea,{scale:2});
+
+ exportArea.style.width="";
+ grid.style.gridTemplateColumns=originalGridStyle;
+
+ const link=document.createElement("a");
+ link.download="pocket-anime-team.png";
+ link.href=canvas.toDataURL();
+ link.click();
+};
+
+langBtn.onclick=()=>{
+ lang=lang==="pt"?"en":"pt";
+ localStorage.setItem("siteLang",lang);
+ updateLang();
+ render();
+ if(typeof updateMenuLang==="function") updateMenuLang();
+};
+
+function updateLang(){
+ document.getElementById("mapTitle").textContent=texts[lang].title;
+ shareBtn.textContent=texts[lang].share;
+ langBtn.textContent=texts[lang].btn;
+
+ document.getElementById("modalTitle").textContent=texts[lang].modalTitle;
+ searchInput.placeholder=texts[lang].search;
+ 
+ document.getElementById("statsTitle").textContent = texts[lang].totalStats; 
+}
+
+updateLang();
+render();
+</script>      
+
+</body>      
+</html>
