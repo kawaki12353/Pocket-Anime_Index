@@ -1090,15 +1090,19 @@ function toggleMoveOptions(event, slotIndex, moveSlot){
 }
 
 function selectMove(slotIndex, moveSlot, moveName, event){
-  event.stopPropagation();
-  team[slotIndex].moves[moveSlot] = moveName;
-  save();
-  render();
-  // Reabre o menu após atualizar
-  setTimeout(() => {
-    const editBtn = document.querySelectorAll('.slot-edit')[slotIndex];
-    if(editBtn) openEditMenu({target: editBtn}, slotIndex);
-  }, 50);
+   event.stopPropagation();
+   team[slotIndex].moves[moveSlot] = moveName;
+   save();
+   render();
+   // Reabre o menu após atualizar
+   setTimeout(() => {
+     const slotDiv = document.querySelectorAll('.team-slot')[slotIndex];
+     const editBtn = slotDiv.querySelector('.slot-edit');
+     if(editBtn) {
+       // Criar um evento falso com o target correto
+       openEditMenu({target: editBtn, stopPropagation: () => {}}, slotIndex);
+     }
+   }, 50);
 }
 
 shareBtn.onclick=()=>{
