@@ -286,11 +286,20 @@ body {
 
 .modal-list{ overflow-y:auto; flex:1; padding-right:5px; }
 
-.animon-option{ display:flex; align-items:center; gap:10px; padding:10px; border-radius:10px; cursor:pointer; }
+.animon-option{display:flex;align-items:center;padding:10px;border-radius:10px;cursor:pointer;justify-content:space-between;
+}
 
-.animon-option:hover{ background:var(--hover); }
+.animon-option:hover{background:var(--hover);
+}
 
-.animon-option img{ width:50px; }
+.animon-left{display:flex;align-items:center;gap:10px;
+}
+
+.animon-option img{width:50px;
+}
+
+.animon-id{font-weight:bold;opacity:.6;min-width:50px;
+}
 
 /* FAB - Add Animon Button */
 .fab-add{
@@ -640,16 +649,29 @@ function openModal(slotIndex){
 
 function renderAnimonList(list){
  animonList.innerHTML="";
+
  list.forEach(a=>{
+
   const div=document.createElement("div");
   div.className="animon-option";
+
   div.innerHTML=`
-    <img src="${a.sprite}">
-    <div>
-      <strong>${a.name}</strong><br>
-      ${createElementIcon(a.type)}
+
+    <div class="animon-left">
+      <img src="${a.sprite}">
+
+      <div>
+        <div>
+          <span class="animon-id">#${a.id}</span>
+          <strong>${a.name}</strong>
+        </div>
+      </div>
     </div>
+
+    ${createElementIcon(a.type)}
+
   `;
+
   div.onclick=()=>{
     team[currentSlot]={
      ...a,
@@ -660,6 +682,7 @@ function renderAnimonList(list){
     render();
     closeModal();
   };
+
   animonList.appendChild(div);
  });
 }
@@ -680,7 +703,12 @@ addAnimonBtn.onclick = () => {
 
 searchInput.addEventListener("input",()=>{
  const value=searchInput.value.toLowerCase();
- const filtered=animons.filter(a=>a.name.toLowerCase().includes(value));
+
+ const filtered=animons.filter(a=>
+   a.name.toLowerCase().includes(value) ||
+   String(a.id).includes(value)
+ );
+
  renderAnimonList(filtered);
 });
 
