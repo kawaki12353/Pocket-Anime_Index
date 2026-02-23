@@ -1131,8 +1131,12 @@ function updateLang(){
  searchInput.placeholder=texts[lang].search;
 }
 
-updateLang();
-render();
+document.addEventListener("DOMContentLoaded", () => {
+
+  updateLang();
+  render();
+
+});
 
 document.addEventListener("click", ()=>{
   document.querySelectorAll(".custom-options")
