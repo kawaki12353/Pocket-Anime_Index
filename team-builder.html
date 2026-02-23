@@ -143,8 +143,8 @@ body {
 }
 
 .team-slot .element-inner img{
-  width:38px;
-  height:38px;
+  width:32px;
+  height:32px;
 }
 
 .header { 
@@ -406,32 +406,6 @@ body {
  z-index:50;
 
  animation:fadeIn .2s ease;
-}
-
-/* MINI STATS GRID NO BALÃO */
-.balloon-stats-grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:6px;
-  margin-top:8px;
-}
-
-.balloon-stat{
-  background:var(--hover);
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:6px;
-  text-align:center;
-}
-
-.balloon-stat-label{
-  font-size:10px;
-  opacity:.7;
-}
-
-.balloon-stat-value{
-  font-size:14px;
-  font-weight:bold;
 }
 
 @keyframes fadeIn{
@@ -844,49 +818,7 @@ function getAnimonTypeInfo(animon){
  const format=obj =>
   Object.keys(obj).join(", ") || "None";
 
- const format = obj =>
-  Object.keys(obj).join(", ") || "None";
-
-/* MINI GRID STATS */
-const statsHtml = animon.stats ? `
-  <hr style="margin:8px 0; border-color: var(--border);">
-
-  <div class="balloon-stats-grid">
-
-    <div class="balloon-stat">
-      <div class="balloon-stat-label">HP</div>
-      <div class="balloon-stat-value">${animon.stats.hp}</div>
-    </div>
-
-    <div class="balloon-stat">
-      <div class="balloon-stat-label">ATK</div>
-      <div class="balloon-stat-value">${animon.stats.atk}</div>
-    </div>
-
-    <div class="balloon-stat">
-      <div class="balloon-stat-label">DEF</div>
-      <div class="balloon-stat-value">${animon.stats.def}</div>
-    </div>
-
-    <div class="balloon-stat">
-      <div class="balloon-stat-label">SP.ATK</div>
-      <div class="balloon-stat-value">${animon.stats.spAtk}</div>
-    </div>
-
-    <div class="balloon-stat">
-      <div class="balloon-stat-label">SP.DEF</div>
-      <div class="balloon-stat-value">${animon.stats.spDef}</div>
-    </div>
-
-    <div class="balloon-stat">
-      <div class="balloon-stat-label">SPD</div>
-      <div class="balloon-stat-value">${animon.stats.spd}</div>
-    </div>
-
-  </div>
-` : "";
-
-return `
+ return `
   <b>${texts[lang].weakTypes}</b><br>
   🔴 ${format(weakness)}<br><br>
 
@@ -895,9 +827,7 @@ return `
 
   <b>${texts[lang].immuneTypes}</b><br>
   ⚫ ${format(immune)}
-
-  ${statsHtml}
-`;
+ `;
 }
 
 function toggleBalloon(slotDiv, animon){
