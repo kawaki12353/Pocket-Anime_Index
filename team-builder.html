@@ -318,29 +318,6 @@ body {
   transform: scale(1.08);
 }
 
-/* BOTÃO EDITAR (canto superior direito) */
-.slot-edit{
-  position:absolute;
-  top:10px;
-  right:14px;
-  opacity:.6;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.slot-edit img{
-  width:22px;
-  height:22px;
-  object-fit:contain;
-  pointer-events:none;
-}
-
-.slot-edit:hover{
-  opacity:1;
-}
-
 /* BOTÃO LIXEIRA (direita central) */
 .slot-delete{
   position:absolute;
@@ -419,58 +396,6 @@ body {
 @keyframes fadeIn{
  from{opacity:0; transform:translate(-50%,10px);}
  to{opacity:1; transform:translate(-50%,0);}
-}
-
-/* EDIT PANEL */
-.edit-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:2000;
-}
-
-.edit-panel{
-  background:var(--card);
-  width:420px;
-  max-width:95%;
-  border-radius:18px;
-  padding:20px;
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.edit-close{
-  position:absolute;
-  top:10px;
-  right:14px;
-  font-size:22px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.edit-panel h3{
-  margin:0;
-  text-align:center;
-}
-
-.edit-field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.edit-field input,
-.edit-field select{
-  padding:8px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:var(--bg);
-  color:var(--text);
 }
 
 @media (max-width: 768px){
@@ -567,20 +492,6 @@ body {
 </div>      
 
 <button class="fab-add" id="addAnimonBtn">+</button>
-
-<div class="edit-overlay" id="editOverlay">
-  <div class="edit-panel" onclick="event.stopPropagation()">
-    <div class="edit-close" onclick="closeEditPanel()">✖</div>
-    <h3>Editar Animon</h3>
-
-    <div class="edit-field">
-     <label>Level: <span id="levelValue">100</span></label>
-     <input type="range" id="editLevel" min="1" max="100" step="1">
-    </div>
-
-    <div id="editMoves"></div>
-  </div>
-</div>
 
 <script src="team-infos/typechart.js"></script>
 <script src="team-infos/moves.js"></script>
@@ -691,10 +602,6 @@ function render(){
     <div class="slot-center">
      <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
     </div>
-    
-     <div class="slot-edit" data-index="${i}">
-      <img src="assets/pencil.png" alt="Edit">
-     </div>
 
      <div class="slot-delete"
       onclick="event.stopPropagation(); removeFromTeam(${i})">
@@ -720,14 +627,6 @@ function render(){
   }
 
   grid.appendChild(div);
-
-  const editBtn = div.querySelector(".slot-edit");
-  if(editBtn){
-   editBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    openEditPanel(i);
-   });
-  }
  }
 
  updateAnalysis();
@@ -922,81 +821,6 @@ function closeBalloonOnce(){
  }
 }
 
-let editingIndex = null;
-
-function openEditPanel(index){
-
-  editingIndex = index;
-  const animon = team[index];
-
-  editLevel.value = animon.level || 100;
-
-  renderMoveOptions(animon);
-
-  editOverlay.style.display = "flex";
-document.getElementById("levelValue").textContent = editLevel.value;
-
-  // fechar clicando fora apenas PC
-  if(window.innerWidth > 768){
-    editOverlay.onclick = () => closeEditPanel();
-  }
-}
-
-function closeEditPanel(){
-  editOverlay.style.display = "none";
-  editingIndex = null;
-}
-
-function renderMoveOptions(animon){
-
-  editMovesDiv.innerHTML = "";
-
-  const allowedMoves = animon.movesList || animon.moves || [];
-
-  for(let i=0;i<4;i++){
-
-    const div = document.createElement("div");
-    div.className="edit-field";
-
-    const select = document.createElement("select");
-
-    const emptyOption = document.createElement("option");
-    emptyOption.value="";
-    emptyOption.textContent="--";
-    select.appendChild(emptyOption);
-
-    allowedMoves.forEach(moveName=>{
-      const opt = document.createElement("option");
-      opt.value = moveName;
-      opt.textContent = moveName;
-      select.appendChild(opt);
-    });
-
-    select.value = animon.moves?.[i] || "";
-
-    select.onchange = ()=>{
-      team[editingIndex].moves[i] = select.value;
-      save();
-    };
-
-    div.innerHTML = `<label>Move ${i+1}</label>`;
-    div.appendChild(select);
-    editMovesDiv.appendChild(div);
-  }
-
-  const levelValue = document.getElementById("levelValue");
-
- editLevel.oninput = ()=>{
-  const value = parseInt(editLevel.value) || 1;
-
-  levelValue.textContent = value;
-  team[editingIndex].level = value;
-
-  save();
-  render();
- };
-}
-
 shareBtn.onclick=()=>{
  const ids=team.map(a=>a.id).join(",");
  const url=location.origin+location.pathname+"?team="+ids;
@@ -1045,11 +869,6 @@ function updateLang(){
 
 updateLang();
 render();
-
-const editOverlay = document.getElementById("editOverlay");
-const editLevel = document.getElementById("editLevel");
-const editMovesDiv = document.getElementById("editMoves");
-
 </script>      
 
 </body>      
