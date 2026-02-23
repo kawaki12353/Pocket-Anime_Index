@@ -404,53 +404,6 @@ body {
  to{opacity:1; transform:translate(-50%,0);}
 }
 
-/* BOTAO */
-.slot-expand-btn{
- margin-top:8px;
- padding:6px;
- background:#2a2a2a;
- border-radius:8px;
- text-align:center;
- cursor:pointer;
- font-size:13px;
-}
-
-/* CONTAINER EXPANSIVO */
-.slot-expand-container{
- max-height:0;
- overflow:hidden;
- transition:max-height 0.35s ease;
-}
-
-.slot-expand-container.open{
- max-height:300px;
-}
-
-/* GRID 2x2 */
-.moves-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:8px;
- padding:10px 4px;
-}
-
-/* MOVE BOX */
-.move-box{
- background:#1f1f1f;
- border-radius:10px;
- padding:10px;
- display:flex;
- flex-direction:column;
- align-items:center;
- gap:6px;
- font-size:12px;
-}
-
-.move-icon img{
- width:20px;
- height:20px;
-}
-
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -576,31 +529,6 @@ function createElementIcon(types){
  `;
 }
 
-function renderMoves(animon){
-
- if(!animon.moves){
-   animon.moves = ["","","",""];
- }
-
- return animon.moves.map((moveName, index)=>{
-
-   const moveData = moves.find(m => m.name === moveName);
-
-   const icon = moveData
-     ? `<img src="assets/${moveData.type.toLowerCase()}_element.png">`
-     : "";
-
-   return `
-     <div class="move-box">
-       <div class="move-icon">${icon}</div>
-       <div class="move-name">
-         ${moveName || "—"}
-       </div>
-     </div>
-   `;
- }).join("");
-}
-
 const texts={
  pt:{
    btn:"🇧🇷 PT",
@@ -635,22 +563,11 @@ const texts={
 };
 
 let lang=localStorage.getItem("siteLang")||"pt";
-let team;
+let team = JSON.parse(localStorage.getItem("team")) || [];
 
-try {
-  team = JSON.parse(localStorage.getItem("team")) || [];
-} catch (e) {
-  team = [];
-}
-
-if (!Array.isArray(team)) team = [];
-
-team = team.slice(0, 6);
-
-// garante que sempre existam 6 posições
-while (team.length < 6) {
-  team.push(null);
-}
+team = team
+  .filter(a => a && a.name && a.sprite)
+  .slice(0,6);
 
 save();
 let currentSlot=null;
@@ -678,40 +595,25 @@ function render(){
 
    div.innerHTML=`
 
-    <div class="slot-main">
-
-     <div class="slot-info">
+    <div class="slot-info">
       <div class="slot-name">${team[i].name}</div>
       <div class="slot-level">
        Lv.${team[i].level || 100}
       </div>
-     </div>
+    </div>
 
-     <div class="slot-elements">
+    <div class="slot-elements">
       ${createElementIcon(team[i].type)}
-     </div>
+    </div>
 
-     <div class="slot-center">
-      <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
-     </div>
+    <div class="slot-center">
+     <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
+    </div>
 
      <div class="slot-delete"
       onclick="event.stopPropagation(); removeFromTeam(${i})">
-       <img src="assets/bin.png" alt="Delete">
+      <img src="assets/bin.png" alt="Delete">
      </div>
-
-     <div class="slot-expand-btn"
-      onclick="event.stopPropagation(); toggleMoves(${i})">
-      Moves ▼
-     </div>
-
-    </div>
-
-    <div class="slot-expand-container" id="moves-${i}">
-     <div class="moves-grid">
-      ${renderMoves(team[i])}
-     </div>
-    </div>
    `;
 
    const img = div.querySelector(".animon-img");
@@ -816,7 +718,8 @@ modal.addEventListener("click", (e) => {
 function closeModal(){ modal.style.display="none"; }
 
 function removeFromTeam(i){
- team[i] = null;
+ team[i]=null;
+ team = team.filter(a=>a!==null);
  save();
  render();
 }
@@ -943,31 +846,6 @@ function closeBalloonOnce(){
  if(openedBalloon){
   openedBalloon.remove();
   openedBalloon=null;
- }
-}
-
-function toggleMoves(index){
-
- const container = document.getElementById(`moves-${index}`);
- const btn = document
-   .querySelector(`#moves-${index}`)
-   .previousElementSibling
-   .querySelector(".slot-expand-btn");
-
- const isOpen = container.classList.contains("open");
-
- // fecha todos
- document.querySelectorAll(".slot-expand-container").forEach(c=>{
-   c.classList.remove("open");
- });
-
- document.querySelectorAll(".slot-expand-btn").forEach(b=>{
-   b.textContent="Moves ▼";
- });
-
- if(!isOpen){
-   container.classList.add("open");
-   btn.textContent="Moves ▲";
  }
 }
 
