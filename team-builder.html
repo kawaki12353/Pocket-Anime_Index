@@ -237,10 +237,12 @@ body {
 .slot-elements{
   position:absolute;
   top:10px;
-
   right:calc(var(--right-column) + 12px);
 
   display:flex;
+  flex-direction: column;
+
+  align-items:center;
 }
 
 /* CENTER ANIMON */
@@ -402,111 +404,6 @@ body {
 @keyframes fadeIn{
  from{opacity:0; transform:translate(-50%,10px);}
  to{opacity:1; transform:translate(-50%,0);}
-}
-
-.slot-edit{
-  position:absolute;
-  right:14px;
-  top:14px;
-  opacity:.6;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.slot-edit img{
-  width:20px;
-  height:20px;
-  pointer-events:none;
-}
-
-.slot-edit:hover{
-  opacity:1;
-}
-
-.edit-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.5);
-  display:none;
-  justify-content:flex-end;
-  z-index:2000;
-}
-
-.edit-drawer{
-  width:380px;
-  height:100%;
-  background:var(--card);
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  animation:slideIn .25s ease;
-  overflow-y:auto;
-}
-
-@keyframes slideIn{
-  from{ transform:translateX(100%); }
-  to{ transform:translateX(0); }
-}
-
-.custom-select{
-  position:relative;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:8px;
-  cursor:pointer;
-  background:var(--bg);
-}
-
-.custom-selected{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-}
-
-.custom-options{
-  position:absolute;
-  top:110%;
-  left:0;
-  right:0;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  max-height:220px;
-  overflow-y:auto;
-  display:none;
-  z-index:50;
-}
-
-.custom-option{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:8px;
-  cursor:pointer;
-}
-
-.custom-option:hover{
-  background:var(--hover);
-}
-
-.move-left{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-.move-icon{
-  width:20px;
-  height:20px;
-}
-
-.attack-icon{
-  width:18px;
-  height:18px;
 }
 
 @media (max-width: 768px){
@@ -713,11 +610,6 @@ function render(){
 
     <div class="slot-center">
      <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
-    </div>
-
-    <div class="slot-edit"
-     onclick="event.stopPropagation(); openEditMenu(${i})">
-     <img src="assets/pencil.png">
     </div>
 
      <div class="slot-delete"
@@ -959,27 +851,6 @@ function closeBalloonOnce(){
  }
 }
 
-let editingIndex = null;
-
-function openEditMenu(index){
-  editingIndex = index;
-
-  const animon = team[index];
-
-  document.getElementById("editLevel").value = animon.level || 100;
-
-  renderMoveSelects(animon);
-
-  document.getElementById("editOverlay").style.display="flex";
-}
-
-function closeEditMenu(){
-  document.getElementById("editOverlay").style.display="none";
-}
-
-document.getElementById("editOverlay")
-  .addEventListener("click", closeEditMenu);
-
 shareBtn.onclick=()=>{
  const ids=team.map(a=>a.id).join(",");
  const url=location.origin+location.pathname+"?team="+ids;
@@ -1028,150 +899,9 @@ function updateLang(){
  document.getElementById("statsTitle").textContent = texts[lang].totalStats; 
 }
 
-function renderMoveSelects(animon){
-
-  const container = document.getElementById("movesContainer");
-  container.innerHTML="";
-
-  const availableMoves = moves.filter(m =>
-    animon.movesList.includes(m.name)
-  );
-
-  for(let i=0;i<4;i++){
-
-    const wrapper = document.createElement("div");
-    wrapper.className="custom-select";
-
-    const selected = document.createElement("div");
-    selected.className="custom-selected";
-
-    const options = document.createElement("div");
-    options.className="custom-options";
-
-    let currentMove = animon.moves[i];
-
-    function renderSelected(move){
-
-      if(!move){
-        selected.innerHTML = "-- Selecionar Move --";
-        return;
-      }
-
-      const typeLower = move.type.toLowerCase();
-      const attackLower = move.attack.toLowerCase();
-
-      selected.innerHTML = `
-        <div class="move-left">
-          <img class="move-icon" src="assets/${typeLower}_element.png">
-          <span>${move.name}</span>
-        </div>
-        <img class="attack-icon"
-          src="assets/${attackLower}_attack.png">
-      `;
-    }
-
-    renderSelected(
-      availableMoves.find(m=>m.name===currentMove)
-    );
-
-    availableMoves.forEach(move=>{
-
-      const option = document.createElement("div");
-      option.className="custom-option";
-
-      const typeLower = move.type.toLowerCase();
-      const attackLower = move.attack.toLowerCase();
-
-      option.innerHTML = `
-        <div class="move-left">
-          <img class="move-icon"
-           src="assets/${typeLower}_element.png">
-          <span>${move.name}</span>
-        </div>
-        <img class="attack-icon"
-         src="assets/${attackLower}_attack.png">
-      `;
-
-      option.onclick=(e)=>{
-        e.stopPropagation();
-        currentMove = move.name;
-        renderSelected(move);
-        options.style.display="none";
-      };
-
-      options.appendChild(option);
-    });
-
-    selected.onclick=(e)=>{
-      e.stopPropagation();
-      closeAllDropdowns();
-      options.style.display="block";
-    };
-
-    wrapper.appendChild(selected);
-    wrapper.appendChild(options);
-
-    wrapper.dataset.index = i;
-
-    container.appendChild(wrapper);
-  }
-}
-
-function closeAllDropdowns(){
-  document.querySelectorAll(".custom-options")
-    .forEach(o=>o.style.display="none");
-}
-
-document.addEventListener("click", closeAllDropdowns);
-
-function saveEdit(){
-
-  const level = parseInt(
-    document.getElementById("editLevel").value
-  );
-
-  team[editingIndex].level =
-    Math.min(100, Math.max(1, level));
-
-  const wrappers =
-    document.querySelectorAll(".custom-select");
-
-  const movesSelected = [];
-
-  wrappers.forEach(w=>{
-    const text =
-      w.querySelector(".custom-selected span");
-
-    movesSelected.push(
-      text ? text.textContent : ""
-    );
-  });
-
-  team[editingIndex].moves = movesSelected;
-
-  save();
-  render();
-  closeEditMenu();
-}
-
 updateLang();
 render();
 </script>      
-
-<div class="edit-overlay" id="editOverlay">
-  <div class="edit-drawer" onclick="event.stopPropagation()">
-
-    <h3>Editar Animon</h3>
-
-    <label>Level</label>
-    <input type="number" id="editLevel" min="1" max="100">
-
-    <div id="movesContainer"></div>
-
-    <button onclick="saveEdit()">Salvar</button>
-
-  </div>
-</div>
 
 </body>      
 </html>
