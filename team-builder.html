@@ -473,66 +473,6 @@ body {
   color:var(--text);
 }
 
-.custom-select{
- position:relative;
- cursor:pointer;
-}
-
-.select-selected{
- background:var(--bg);
- border:1px solid var(--border);
- border-radius:10px;
- padding:8px;
-}
-
-.select-options{
- display:none;
- position:absolute;
- width:100%;
- background:var(--card);
- border:1px solid var(--border);
- border-radius:10px;
- margin-top:5px;
- max-height:180px;
- overflow-y:auto;
- z-index:999;
-}
-
-.select-options.show{
- display:block;
-}
-
-.select-option{
- padding:8px;
-}
-
-.select-option:hover{
- background:var(--hover);
-}
-
-.move-option-content{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:8px;
-}
-
-.move-element{
- width:24px;
- height:24px;
-}
-
-.move-attack{
- width:22px;
- height:22px;
-}
-
-.move-name{
- flex:1;
- text-align:center;
- font-weight:bold;
-}
-
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -722,9 +662,6 @@ const langBtn=document.getElementById("langBtn");
 const modal=document.getElementById("modal");
 const animonList=document.getElementById("animonList");
 const searchInput=document.getElementById("searchInput");
-const editOverlay = document.getElementById("editOverlay");
-const editLevel = document.getElementById("editLevel");
-const editMovesDiv = document.getElementById("editMoves");
 
 function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
@@ -997,8 +934,6 @@ function openEditPanel(index){
   renderMoveOptions(animon);
 
   editOverlay.style.display = "flex";
-  editOverlay.style.opacity = "1";
-  editOverlay.style.visibility = "visible";
 document.getElementById("levelValue").textContent = editLevel.value;
 
   // fechar clicando fora apenas PC
@@ -1012,28 +947,6 @@ function closeEditPanel(){
   editingIndex = null;
 }
 
-function getMoveData(moveName){
-  return moves.find(m => m.name === moveName);
-}
-
-function renderMoveOptionContent(move){
-
-  if(!move){
-    return `<span style="opacity:.5">--</span>`;
-  }
-
-  const element = move.type.toLowerCase();
-  const attack = move.attack.toLowerCase();
-
-  return `
-    <div class="move-option-content">
-      <img class="move-element" src="assets/${element}_element.png">
-      <span class="move-name">${move.name}</span>
-      <img class="move-attack" src="assets/${attack}.png">
-    </div>
-  `;
-}
-
 function renderMoveOptions(animon){
 
   editMovesDiv.innerHTML = "";
@@ -1042,57 +955,46 @@ function renderMoveOptions(animon){
 
   for(let i=0;i<4;i++){
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "edit-field";
+    const div = document.createElement("div");
+    div.className="edit-field";
 
-    wrapper.innerHTML = `<label>Move ${i+1}</label>`;
+    const select = document.createElement("select");
 
-    const customSelect = document.createElement("div");
-    customSelect.className = "custom-select";
-
-    const currentMoveName = animon.moves?.[i] || "";
-    const moveData = getMoveData(currentMoveName);
-
-    customSelect.innerHTML = `
-      <div class="select-selected">
-        ${renderMoveOptionContent(moveData)}
-      </div>
-      <div class="select-options"></div>
-    `;
-
-    const optionsContainer = customSelect.querySelector(".select-options");
+    const emptyOption = document.createElement("option");
+    emptyOption.value="";
+    emptyOption.textContent="--";
+    select.appendChild(emptyOption);
 
     allowedMoves.forEach(moveName=>{
-      const data = getMoveData(moveName);
-
-      const option = document.createElement("div");
-      option.className = "select-option";
-      option.innerHTML = renderMoveOptionContent(data);
-
-      option.onclick = ()=>{
-        team[editingIndex].moves[i] = moveName;
-        save();
-        renderMoveOptions(animon);
-      };
-
-      optionsContainer.appendChild(option);
+      const opt = document.createElement("option");
+      opt.value = moveName;
+      opt.textContent = moveName;
+      select.appendChild(opt);
     });
 
-    customSelect.querySelector(".select-selected").onclick = ()=>{
-      optionsContainer.classList.toggle("show");
+    select.value = animon.moves?.[i] || "";
+
+    select.onchange = ()=>{
+      team[editingIndex].moves[i] = select.value;
+      save();
     };
 
-    wrapper.appendChild(customSelect);
-    editMovesDiv.appendChild(wrapper);
+    div.innerHTML = `<label>Move ${i+1}</label>`;
+    div.appendChild(select);
+    editMovesDiv.appendChild(div);
   }
 
-  editLevel.oninput = ()=>{
-    const value = parseInt(editLevel.value) || 1;
-    document.getElementById("levelValue").textContent = value;
-    team[editingIndex].level = value;
-    save();
-    render();
-  };
+  const levelValue = document.getElementById("levelValue");
+
+ editLevel.oninput = ()=>{
+  const value = parseInt(editLevel.value) || 1;
+
+  levelValue.textContent = value;
+  team[editingIndex].level = value;
+
+  save();
+  render();
+ };
 }
 
 shareBtn.onclick=()=>{
@@ -1143,6 +1045,11 @@ function updateLang(){
 
 updateLang();
 render();
+
+const editOverlay = document.getElementById("editOverlay");
+const editLevel = document.getElementById("editLevel");
+const editMovesDiv = document.getElementById("editMoves");
+
 </script>      
 
 </body>      
