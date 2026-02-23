@@ -999,10 +999,11 @@ function openEditPanel(index){
 document.getElementById("levelValue").textContent = editLevel.value;
 
   // fechar clicando fora apenas PC
-  if(window.innerWidth > 768){
-    editOverlay.onclick = () => closeEditPanel();
+  editOverlay.addEventListener("click", (e)=>{
+  if(e.target === editOverlay){
+    closeEditPanel();
   }
-}
+});
 
 function closeEditPanel(){
   editOverlay.style.display = "none";
@@ -1138,7 +1139,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-document.addEventListener("click", ()=>{
+document.addEventListener("click", (e)=>{
+
+  const isSelectBtn = e.target.closest(".custom-select-btn");
+  const isOption = e.target.closest(".custom-option");
+
+  // Se clicou no botão ou numa opção, NÃO fecha
+  if(isSelectBtn || isOption) return;
+
+  // Se clicou fora, fecha todos
   document.querySelectorAll(".custom-options")
     .forEach(o=>o.style.display="none");
 });
