@@ -732,6 +732,13 @@ const editOverlay = document.getElementById("editOverlay");
 const editLevel = document.getElementById("editLevel");
 const editMovesDiv = document.getElementById("editMoves");
 
+document.addEventListener("click", function(e){
+  if(!e.target.closest(".custom-select")){
+    document.querySelectorAll(".custom-select")
+      .forEach(s => s.classList.remove("open"));
+  }
+});
+
 function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
 function render(){
@@ -1112,14 +1119,6 @@ function renderMoveOptions(animon){
 
     editMovesDiv.appendChild(wrapper);
   }
-
-  // FECHAR AO CLICAR FORA
-  document.addEventListener("click", function(e){
-    if(!e.target.closest(".custom-select")){
-      document.querySelectorAll(".custom-select")
-        .forEach(s => s.classList.remove("open"));
-    }
-  });
 }
 
 shareBtn.onclick=()=>{
