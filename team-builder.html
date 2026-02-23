@@ -478,6 +478,59 @@ body {
   color:var(--text);
 }
 
+.custom-select {
+  position: relative;
+}
+
+.custom-select-btn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-select-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.custom-options {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 999;
+  display: none;
+}
+
+.custom-option {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-option:hover {
+  background: var(--hover);
+}
+
+.custom-option img {
+  width: 18px;
+  height: 18px;
+}
+
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -960,46 +1013,71 @@ function renderMoveOptions(animon){
 
   for(let i=0;i<4;i++){
 
-    const div = document.createElement("div");
-    div.className="edit-field";
+  const div = document.createElement("div");
+  div.className="edit-field";
 
-    const select = document.createElement("select");
+  const label = document.createElement("label");
+  label.textContent = `Move ${i+1}`;
+  div.appendChild(label);
 
-    const emptyOption = document.createElement("option");
-    emptyOption.value="";
-    emptyOption.textContent="--";
-    select.appendChild(emptyOption);
+  const wrapper = document.createElement("div");
+  wrapper.className = "custom-select";
 
-    allowedMoves.forEach(moveName=>{
-      const opt = document.createElement("option");
-      opt.value = moveName;
-      opt.textContent = moveName;
-      select.appendChild(opt);
-    });
+  const btn = document.createElement("div");
+  btn.className = "custom-select-btn";
 
-    select.value = animon.moves?.[i] || "";
+  const selectedMove = animon.moves?.[i] || "";
+  const moveData = moves.find(m => m.name === selectedMove);
 
-    select.onchange = ()=>{
-      team[editingIndex].moves[i] = select.value;
+  btn.innerHTML = selectedMove
+    ? `<img src="assets/${moveData.type.toLowerCase()}_element.png">
+       ${selectedMove}`
+    : "--";
+
+  const options = document.createElement("div");
+  options.className = "custom-options";
+
+  const empty = document.createElement("div");
+  empty.className = "custom-option";
+  empty.textContent = "--";
+  empty.onclick = () => {
+    team[editingIndex].moves[i] = "";
+    save();
+    renderMoveOptions(team[editingIndex]);
+  };
+  options.appendChild(empty);
+
+  allowedMoves.forEach(moveName=>{
+    const move = moves.find(m=>m.name===moveName);
+    if(!move) return;
+
+    const opt = document.createElement("div");
+    opt.className="custom-option";
+    opt.innerHTML = `
+      <img src="assets/${move.type.toLowerCase()}_element.png">
+      ${move.name}
+    `;
+
+    opt.onclick = ()=>{
+      team[editingIndex].moves[i] = move.name;
       save();
+      renderMoveOptions(team[editingIndex]);
     };
 
-    div.innerHTML = `<label>Move ${i+1}</label>`;
-    div.appendChild(select);
-    editMovesDiv.appendChild(div);
-  }
+    options.appendChild(opt);
+  });
 
-  const levelValue = document.getElementById("levelValue");
+  btn.onclick = (e)=>{
+    e.stopPropagation();
+    document.querySelectorAll(".custom-options")
+      .forEach(o=>o.style.display="none");
+    options.style.display = "block";
+  };
 
- editLevel.oninput = ()=>{
-  const value = parseInt(editLevel.value) || 1;
-
-  levelValue.textContent = value;
-  team[editingIndex].level = value;
-
-  save();
-  render();
- };
+  wrapper.appendChild(btn);
+  wrapper.appendChild(options);
+  div.appendChild(wrapper);
+  editMovesDiv.appendChild(div);
 }
 
 shareBtn.onclick=()=>{
@@ -1054,6 +1132,11 @@ render();
 const editOverlay = document.getElementById("editOverlay");
 const editLevel = document.getElementById("editLevel");
 const editMovesDiv = document.getElementById("editMoves");
+
+document.addEventListener("click", ()=>{
+  document.querySelectorAll(".custom-options")
+    .forEach(o=>o.style.display="none");
+});
 
 </script>      
 
