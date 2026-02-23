@@ -20,14 +20,15 @@ body {
   margin: 0;      
 }      
 
-:root{      
-  --bg: #f2f4f7;      
-  --card: #ffffff;      
-  --text: #111;      
-  --border: #ccc;      
-  --hover: #f1f1f1;      
-  --lang-btn: #ffffff;      
-  --lang-btn-bg: #444;      
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+  --right-column: 58px;
 }      
 
 @media (prefers-color-scheme: dark){      
@@ -199,10 +200,6 @@ body {
 
   overflow:visible;
   transition:0.2s;
-}
-
-:root{
-  --right-column:58px;
 }
 
 .team-slot::after{
@@ -686,7 +683,9 @@ searchInput.addEventListener("input",()=>{
  renderAnimonList(filtered);
 });
 
-modal.addEventListener("click",()=>closeModal());
+modal.addEventListener("click", (e) => {
+  if(e.target === modal) closeModal();
+});
 function closeModal(){ modal.style.display="none"; }
 
 function removeFromTeam(i){
@@ -703,9 +702,9 @@ const total={
  hp:0,atk:0,def:0,spAtk:0,spDef:0,spd:0
 };
 
-team.forEach(a=>{
- if(!a) return;
-
+team.forEach(a => {
+  if(!a || !a.stats) return;
+  
  total.hp+=a.stats.hp;
  total.atk+=a.stats.atk;
  total.def+=a.stats.def;
