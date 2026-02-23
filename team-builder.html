@@ -126,9 +126,6 @@ body {
 }
 
 .team-slot .animon-elements{
-  flex-direction: column;
-  align-items: center;
-
   margin-left:auto;
   margin-top:0;
 }
@@ -407,6 +404,58 @@ body {
  to{opacity:1; transform:translate(-50%,0);}
 }
 
+.team-slot{
+ position:relative;
+ overflow:hidden;
+}
+
+/* BOTÃO EXPANDIR */
+.slot-expand{
+ position:absolute;
+ right:8px;
+ bottom:8px;
+ width:26px;
+ height:26px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:#222;
+ color:white;
+ border-radius:6px;
+ cursor:pointer;
+ font-size:12px;
+}
+
+/* CONTAINER */
+.slot-moves-container{
+ max-height:0;
+ overflow:hidden;
+ transition: max-height 0.3s ease;
+ width:100%;
+ margin-top:10px;
+}
+
+.slot-moves-container.open{
+ max-height:200px;
+}
+
+/* GRID 2x2 */
+.moves-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:6px;
+ padding:8px 4px;
+}
+
+.move-trainer{
+ background:#2d2d2d;
+ padding:10px;
+ text-align:center;
+ border-radius:8px;
+ font-size:12px;
+ cursor:pointer;
+}
+
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -599,10 +648,10 @@ function render(){
    div.innerHTML=`
 
     <div class="slot-info">
-      <div class="slot-name">${team[i].name}</div>
-      <div class="slot-level">
-       Lv.${team[i].level || 100}
-      </div>
+     <div class="slot-name">${team[i].name}</div>
+     <div class="slot-level">
+      Lv.${team[i].level || 100}
+     </div>
     </div>
 
     <div class="slot-elements">
@@ -617,7 +666,25 @@ function render(){
       onclick="event.stopPropagation(); removeFromTeam(${i})">
       <img src="assets/bin.png" alt="Delete">
      </div>
-   `;
+
+     <!-- BOTÃO EXPANDIR -->
+     <div class="slot-expand"
+      onclick="event.stopPropagation(); toggleMoves(${i}, this)">
+      ▼
+     </div>
+
+     <!-- CONTAINER EXPANSÍVEL -->
+     <div class="slot-moves-container" id="moves-${i}">
+      <div class="moves-grid">
+
+       <div class="move-trainer">Move 1</div>
+       <div class="move-trainer">Move 2</div>
+       <div class="move-trainer">Move 3</div>
+       <div class="move-trainer">Move 4</div>
+
+      </div>
+     </div>
+    `;
 
    const img = div.querySelector(".animon-img");
    if(img){
@@ -849,6 +916,27 @@ function closeBalloonOnce(){
  if(openedBalloon){
   openedBalloon.remove();
   openedBalloon=null;
+ }
+}
+
+function toggleMoves(index, btn){
+
+ const container = document.getElementById(`moves-${index}`);
+
+ const isOpen = container.classList.contains("open");
+
+ // fecha todos
+ document.querySelectorAll(".slot-moves-container").forEach(c=>{
+   c.classList.remove("open");
+ });
+
+ document.querySelectorAll(".slot-expand").forEach(b=>{
+   b.textContent="▼";
+ });
+
+ if(!isOpen){
+   container.classList.add("open");
+   btn.textContent="▲";
  }
 }
 
