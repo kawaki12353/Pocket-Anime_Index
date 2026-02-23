@@ -732,6 +732,18 @@ const editOverlay = document.getElementById("editOverlay");
 const editLevel = document.getElementById("editLevel");
 const editMovesDiv = document.getElementById("editMoves");
 
+editLevel.addEventListener("input", () => {
+
+  if(editingIndex === null) return;
+
+  team[editingIndex].level = parseInt(editLevel.value);
+
+  document.getElementById("levelValue").textContent = editLevel.value;
+
+  save();
+  render();
+});
+
 document.addEventListener("click", function(e){
   if(!e.target.closest(".custom-select")){
     document.querySelectorAll(".custom-select")
@@ -1002,17 +1014,18 @@ let editingIndex = null;
 
 function openEditPanel(index){
 
+  if(!team[index]) return; // evita erro
+
   editingIndex = index;
   const animon = team[index];
 
   editLevel.value = animon.level || 100;
+  document.getElementById("levelValue").textContent = editLevel.value;
 
   renderMoveOptions(animon);
 
   editOverlay.style.display = "flex";
-document.getElementById("levelValue").textContent = editLevel.value;
 
-  // fechar clicando fora apenas PC
   if(window.innerWidth > 768){
     editOverlay.onclick = () => closeEditPanel();
   }
