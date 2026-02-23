@@ -721,6 +721,10 @@ const modal=document.getElementById("modal");
 const animonList=document.getElementById("animonList");
 const searchInput=document.getElementById("searchInput");
 
+const editOverlay = document.getElementById("editOverlay");
+const editLevel = document.getElementById("editLevel");
+const editMovesDiv = document.getElementById("editMoves");
+
 function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
 function render(){
@@ -1129,10 +1133,6 @@ function updateLang(){
 
 updateLang();
 render();
-
-const editOverlay = document.getElementById("editOverlay");
-const editLevel = document.getElementById("editLevel");
-const editMovesDiv = document.getElementById("editMoves");
 
 document.addEventListener("click", ()=>{
   document.querySelectorAll(".custom-options")
