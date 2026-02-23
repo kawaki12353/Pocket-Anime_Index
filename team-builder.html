@@ -773,15 +773,14 @@ function render(){
       <img src="${team[i].sprite}">
     </div>
     
-     <div class="slot-edit" data-index="${i}">
-      <img src="assets/pencil.png" alt="Edit">
-     </div>
+      <div class="slot-edit" data-index="${i}">
+       <img src="assets/pencil.png" alt="Edit">
+      </div>
 
      <div class="slot-delete"
       onclick="event.stopPropagation(); removeFromTeam(${i})">
       <img src="assets/bin.png" alt="Delete">
      </div>
-
     </div>
    `;
 
