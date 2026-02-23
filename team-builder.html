@@ -654,9 +654,12 @@ try {
 
 if (!Array.isArray(team)) team = [];
 
-team = team
-  .filter(a => a && a.name && a.sprite)
-  .slice(0,6);
+team = team.slice(0, 6);
+
+// garante que sempre existam 6 posições
+while (team.length < 6) {
+  team.push(null);
+}
 
 save();
 let currentSlot=null;
@@ -822,8 +825,7 @@ modal.addEventListener("click", (e) => {
 function closeModal(){ modal.style.display="none"; }
 
 function removeFromTeam(i){
- team[i]=null;
- team = team.filter(a=>a!==null);
+ team[i] = null;
  save();
  render();
 }
