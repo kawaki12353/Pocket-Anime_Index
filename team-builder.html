@@ -644,7 +644,15 @@ const texts={
 };
 
 let lang=localStorage.getItem("siteLang")||"pt";
-let team = JSON.parse(localStorage.getItem("team")) || [];
+let team;
+
+try {
+  team = JSON.parse(localStorage.getItem("team")) || [];
+} catch (e) {
+  team = [];
+}
+
+if (!Array.isArray(team)) team = [];
 
 team = team
   .filter(a => a && a.name && a.sprite)
