@@ -478,18 +478,6 @@ body {
   color:var(--text);
 }
 
-.move-select-wrapper{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.move-icon{
-  width:28px;
-  height:28px;
-  object-fit:contain;
-}
-
 @media (max-width: 768px){
   .header { 
     flex-direction: column; 
@@ -975,15 +963,6 @@ function renderMoveOptions(animon){
     const div = document.createElement("div");
     div.className="edit-field";
 
-    const label = document.createElement("label");
-    label.textContent = `Move ${i+1}`;
-
-    const wrapper = document.createElement("div");
-    wrapper.className="move-select-wrapper";
-
-    const icon = document.createElement("img");
-    icon.className="move-icon";
-
     const select = document.createElement("select");
 
     const emptyOption = document.createElement("option");
@@ -1000,44 +979,27 @@ function renderMoveOptions(animon){
 
     select.value = animon.moves?.[i] || "";
 
-    // Função para atualizar ícone
-    function updateMoveIcon(moveName){
-      if(!moveName || !moves[moveName]){
-        icon.style.display="none";
-        return;
-      }
-
-      const moveType = moves[moveName].type.toLowerCase();
-      icon.src = `assets/${moveType}_element.png`;
-      icon.style.display="block";
-    }
-
-    // Atualiza ao iniciar
-    updateMoveIcon(select.value);
-
     select.onchange = ()=>{
       team[editingIndex].moves[i] = select.value;
       save();
-      updateMoveIcon(select.value);
     };
 
-    wrapper.appendChild(icon);
-    wrapper.appendChild(select);
-
-    div.appendChild(label);
-    div.appendChild(wrapper);
+    div.innerHTML = `<label>Move ${i+1}</label>`;
+    div.appendChild(select);
     editMovesDiv.appendChild(div);
   }
 
   const levelValue = document.getElementById("levelValue");
 
-  editLevel.oninput = ()=>{
-    const value = parseInt(editLevel.value) || 1;
-    levelValue.textContent = value;
-    team[editingIndex].level = value;
-    save();
-    render();
-  };
+ editLevel.oninput = ()=>{
+  const value = parseInt(editLevel.value) || 1;
+
+  levelValue.textContent = value;
+  team[editingIndex].level = value;
+
+  save();
+  render();
+ };
 }
 
 shareBtn.onclick=()=>{
