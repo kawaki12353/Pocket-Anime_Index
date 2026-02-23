@@ -461,13 +461,14 @@ body {
    <div class="analysis">
 
     <div>
-     <div id="weakness"></div>
-
      <button id="shareBtn"></button>
      <button id="exportBtn">Exportar Imagem</button>
     </div>
 
-    <div id="statsTotal" class="stats-grid"></div>
+    <div>
+     <h3 id="statsTitle"></h3>
+     <div id="statsTotal" class="stats-grid"></div>
+    </div>
 
    </div>      
   </div>      
@@ -524,7 +525,7 @@ const texts={
    btn:"🇧🇷 PT",
    title:"Team Builder",
    share:"Copiar Link",
-   weak:"Quantia de Animons com Fraqueza à algum elemento:",
+   totalStats:"Status Total",
    weakTypes:"Fraquezas",
    resistTypes:"Resistências",
    immuneTypes:"Imunidades",
@@ -539,7 +540,7 @@ const texts={
  btn:"🇺🇸 EN",
    title:"Team Builder",
    share:"Copy Link",
-   weak:"Number of Animons with Weakness to a certain element:",
+   totalStats:"Total Stats",
    weakTypes:"Weaknesses",
    resistTypes:"Resistances",
    immuneTypes:"Immunities",
@@ -864,6 +865,8 @@ function updateLang(){
 
  document.getElementById("modalTitle").textContent=texts[lang].modalTitle;
  searchInput.placeholder=texts[lang].search;
+ 
+ document.getElementById("statsTitle").textContent = texts[lang].totalStats; 
 }
 
 updateLang();
