@@ -1071,11 +1071,14 @@ function closeEditMenuOnce(){
 }
 
 function updateLevel(slotIndex, value){
-  team[slotIndex].level = parseInt(value);
-  document.getElementById('levelValue').textContent = value;
-  document.getElementById('levelDisplay').textContent = value;
-  save();
-  render();
+   team[slotIndex].level = parseInt(value);
+   document.getElementById('levelValue').textContent = value;
+   document.getElementById('levelDisplay').textContent = value;
+   save();
+   
+   // Fechar o menu antes de re-renderizar
+   closeEditMenuOnce();
+   render();
 }
 
 function toggleMoveOptions(event, slotIndex, moveSlot){
@@ -1093,16 +1096,10 @@ function selectMove(slotIndex, moveSlot, moveName, event){
    event.stopPropagation();
    team[slotIndex].moves[moveSlot] = moveName;
    save();
+   
+   // Fechar o menu antes de re-renderizar
+   closeEditMenuOnce();
    render();
-   // Reabre o menu após atualizar
-   setTimeout(() => {
-     const slotDiv = document.querySelectorAll('.team-slot')[slotIndex];
-     const editBtn = slotDiv.querySelector('.slot-edit');
-     if(editBtn) {
-       // Criar um evento falso com o target correto
-       openEditMenu({target: editBtn, stopPropagation: () => {}}, slotIndex);
-     }
-   }, 50);
 }
 
 shareBtn.onclick=()=>{
