@@ -339,6 +339,29 @@ body {
   opacity:1;
 }
 
+/* BOTÃO EDITAR (acima da lixeira) */
+.slot-edit{
+  position:absolute;
+  right:14px;
+  top:25%;
+  opacity:.6;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.slot-edit img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+  pointer-events:none;
+}
+
+.slot-edit:hover{
+  opacity:1;
+}
+
 /* TEAM STATS GRID */
 .stats-grid{
  display:grid;
@@ -355,7 +378,7 @@ body {
  text-align:center;
  font-weight:bold;
  user-select:none;
- pointer-events:none; /* botão fake */
+ pointer-events:none;
 }
 
 .stat-label{
@@ -393,6 +416,141 @@ body {
 @keyframes fadeIn{
  from{opacity:0; transform:translate(-50%,10px);}
  to{opacity:1; transform:translate(-50%,0);}
+}
+
+/* EDIT MENU FLUTUANTE */
+.edit-menu{
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%);
+  margin-bottom:10px;
+
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+
+  width:320px;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  z-index:50;
+
+  animation:fadeIn .2s ease;
+}
+
+.edit-menu h4{
+  margin-top:0;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+.level-control{
+  margin-bottom:16px;
+}
+
+.level-slider{
+  width:100%;
+  cursor:pointer;
+}
+
+.level-display{
+  text-align:center;
+  font-weight:bold;
+  margin-top:8px;
+  font-size:14px;
+}
+
+.moves-section{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.move-select-wrapper{
+  position:relative;
+}
+
+.move-select-btn{
+  background:var(--bg);
+  border-radius:8px;
+  padding:8px 10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  border:1px solid var(--border);
+  color:var(--text);
+  font-size:12px;
+  min-height:36px;
+}
+
+.move-select-btn img{
+  width:20px;
+  height:20px;
+}
+
+.move-select-btn span{
+  flex:1;
+  text-align:left;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.move-select-btn::after{
+  content:"▼";
+  font-size:10px;
+  color:var(--text);
+}
+
+.move-options{
+  position:absolute;
+  top:110%;
+  left:0;
+  width:100%;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  max-height:180px;
+  overflow-y:auto;
+  display:none;
+  z-index:100;
+}
+
+.move-options.open{
+  display:block;
+}
+
+.move-option{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  cursor:pointer;
+  font-size:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.move-option:last-child{
+  border-bottom:none;
+}
+
+.move-option:hover{
+  background:var(--hover);
+}
+
+.move-option img{
+  width:16px;
+  height:16px;
+}
+
+.move-option-name{
+  flex:1;
+}
+
+.move-option-attack{
+  font-size:10px;
+  opacity:0.7;
 }
 
 @media (max-width: 768px){
@@ -439,6 +597,10 @@ body {
   .analysis{
     flex-direction: column-reverse;
     align-items: stretch;
+  }
+
+  .edit-menu{
+    width:280px;
   }
 }
 
@@ -500,7 +662,7 @@ body {
 function createElementIcon(types){
 
  if(!Array.isArray(types)){
-   types = [types]; // transforma em array se for 1 só
+   types = [types];
  }
 
  return `
@@ -534,7 +696,9 @@ const texts={
    search:"Pesquisar Animon...",
    remove:"Remover do Time",
    copied:"Link copiado!",
-   full:"Time já está cheio!"
+   full:"Time já está cheio!",
+   level:"Level",
+   moves:"Moves"
 },
  en:{
  btn:"🇺🇸 EN",
@@ -549,7 +713,9 @@ const texts={
    search:"Search Animon...",
    remove:"Remove from Team",
    copied:"Link copied!",
-   full:"Team is already full!"
+   full:"Team is already full!",
+   level:"Level",
+   moves:"Moves"
 }
 };
 
@@ -599,6 +765,11 @@ function render(){
 
     <div class="slot-center">
      <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
+    </div>
+
+    <div class="slot-edit"
+     onclick="event.stopPropagation(); openEditMenu(event, ${i})">
+     <img src="assets/pencil.png" alt="Edit">
     </div>
 
      <div class="slot-delete"
@@ -749,6 +920,7 @@ document.getElementById("statsTotal").innerHTML = `
 }
 
 let openedBalloon = null;
+let openedEditMenu = null;
 
 function getAnimonTypeInfo(animon){
 
@@ -795,7 +967,6 @@ function getAnimonTypeInfo(animon){
 
 function toggleBalloon(slotDiv, animon){
 
- // fecha anterior
  if(openedBalloon){
    openedBalloon.remove();
    openedBalloon=null;
@@ -808,7 +979,6 @@ function toggleBalloon(slotDiv, animon){
  slotDiv.appendChild(balloon);
  openedBalloon=balloon;
 
- // clicar fora fecha
  setTimeout(()=>{
   document.addEventListener("click",closeBalloonOnce,{once:true});
  },0);
@@ -819,6 +989,116 @@ function closeBalloonOnce(){
   openedBalloon.remove();
   openedBalloon=null;
  }
+}
+
+// FUNÇÃO PARA ABRIR MENU DE EDIÇÃO
+function openEditMenu(event, slotIndex){
+  
+  // Fecha menu anterior
+  if(openedEditMenu){
+    openedEditMenu.remove();
+    openedEditMenu=null;
+  }
+
+  const animon = team[slotIndex];
+  if(!animon) return;
+
+  // Criar menu
+  const menu = document.createElement("div");
+  menu.className = "edit-menu";
+  
+  let movesHTML = '';
+  for(let i = 0; i < 4; i++){
+    const moveId = animon.moves?.[i] || '';
+    const move = moves.find(m => m.name === moveId);
+    const moveType = move?.type?.toLowerCase() || '';
+    const moveAttack = move?.attack || '';
+    const moveName = move?.name || 'Selecionar Move';
+    
+    movesHTML += `
+      <div class="move-select-wrapper">
+        <div class="move-select-btn" onclick="toggleMoveOptions(event, ${slotIndex}, ${i})">
+          ${move ? `<img src="assets/${moveType}_element.png" alt="${move.type}">` : ''}
+          <span>${moveName}</span>
+          ${moveAttack ? `<img src="assets/${moveAttack.toLowerCase()}_attack.png" alt="${moveAttack}">` : ''}
+        </div>
+        <div class="move-options" data-slot="${slotIndex}" data-move-slot="${i}">
+          ${moves.map(m => {
+            const mType = m.type?.toLowerCase() || '';
+            const mAttack = m.attack?.toLowerCase() || '';
+            return `
+              <div class="move-option" onclick="selectMove(${slotIndex}, ${i}, '${m.name}', event)">
+                <img src="assets/${mType}_element.png" alt="${m.type}">
+                <span class="move-option-name">${m.name}</span>
+                <img src="assets/${mAttack}_attack.png" alt="${m.attack}" class="move-option-attack">
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  menu.innerHTML = `
+    <h4>${texts[lang].level}: <span id="levelValue">${animon.level || 100}</span></h4>
+    <div class="level-control">
+      <input type="range" min="1" max="100" value="${animon.level || 100}" class="level-slider" 
+        onchange="updateLevel(${slotIndex}, this.value)">
+      <div class="level-display">Lv. <span id="levelDisplay">${animon.level || 100}</span></div>
+    </div>
+    
+    <h4>${texts[lang].moves}:</h4>
+    <div class="moves-section">
+      ${movesHTML}
+    </div>
+  `;
+
+  const slotDiv = event.target.closest('.team-slot');
+  slotDiv.appendChild(menu);
+  openedEditMenu = menu;
+
+  // Fechar ao clicar fora
+  setTimeout(()=>{
+    document.addEventListener("click", closeEditMenuOnce, {once:true});
+  }, 0);
+}
+
+function closeEditMenuOnce(){
+  if(openedEditMenu){
+    openedEditMenu.remove();
+    openedEditMenu=null;
+  }
+}
+
+function updateLevel(slotIndex, value){
+  team[slotIndex].level = parseInt(value);
+  document.getElementById('levelValue').textContent = value;
+  document.getElementById('levelDisplay').textContent = value;
+  save();
+  render();
+}
+
+function toggleMoveOptions(event, slotIndex, moveSlot){
+  event.stopPropagation();
+  const options = event.target.closest('.move-select-wrapper').querySelector('.move-options');
+  options.classList.toggle('open');
+  
+  // Fechar outras opções abertas
+  document.querySelectorAll('.move-options.open').forEach(opt => {
+    if(opt !== options) opt.classList.remove('open');
+  });
+}
+
+function selectMove(slotIndex, moveSlot, moveName, event){
+  event.stopPropagation();
+  team[slotIndex].moves[moveSlot] = moveName;
+  save();
+  render();
+  // Reabre o menu após atualizar
+  setTimeout(() => {
+    const editBtn = document.querySelectorAll('.slot-edit')[slotIndex];
+    if(editBtn) openEditMenu({target: editBtn}, slotIndex);
+  }, 50);
 }
 
 shareBtn.onclick=()=>{
@@ -832,7 +1112,6 @@ exportBtn.onclick=async()=>{
 
  const exportArea=document.getElementById("teamExportArea");
 
- // força layout PC
  exportArea.style.width="900px";
 
  const originalGridStyle = grid.style.gridTemplateColumns;
@@ -840,7 +1119,6 @@ exportBtn.onclick=async()=>{
 
  const canvas=await html2canvas(exportArea,{scale:2});
 
- // volta ao normal
  exportArea.style.width="";
  grid.style.gridTemplateColumns=originalGridStyle;
 
