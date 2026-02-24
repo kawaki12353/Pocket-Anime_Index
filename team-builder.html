@@ -427,29 +427,28 @@ body {
   font-size:12px;
 }
 
-/* BOTÃO EDITAR (canto superior direito acima da lixeira) */
+/* BOTÃO EDITAR (direita superior) */
 .slot-edit{
   position:absolute;
   right:14px;
   top:14px;
-  opacity:.7;
+  opacity:.6;
   cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:20;
 }
 
 .slot-edit img{
-  width:20px;
-  height:20px;
+  width:22px;
+  height:22px;
   object-fit:contain;
   pointer-events:none;
 }
 
 .slot-edit:hover{
   opacity:1;
-}
+},
 
 .custom-select-wrapper{
   position:relative;
@@ -737,15 +736,17 @@ function render(){
      <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
     </div>
 
+    <!-- BOTÃO EDITAR -->
     <div class="slot-edit"
-     onclick="event.stopPropagation(); openEditModal(${i})">
-     <img src="assets/pencil.png" alt="Edit">
+      onclick="event.stopPropagation(); openModal(${i})">
+      <img src="assets/edit.png" alt="Edit">
     </div>
 
-     <div class="slot-delete"
+    <!-- BOTÃO REMOVER -->
+    <div class="slot-delete"
       onclick="event.stopPropagation(); removeFromTeam(${i})">
       <img src="assets/bin.png" alt="Delete">
-     </div>
+    </div>
    `;
 
    const img = div.querySelector(".animon-img");
@@ -759,7 +760,9 @@ function render(){
   }else{
 
    div.innerHTML=`
-     <div class="empty-slot">
+     <div class="empty-slot"
+       onclick="openModal(${i})"
+       style="cursor:pointer;">
        ${texts[lang].empty}
      </div>
    `;
