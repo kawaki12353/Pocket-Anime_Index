@@ -451,6 +451,64 @@ body {
   opacity:1;
 }
 
+.custom-select-wrapper{
+  position:relative;
+  margin-bottom:12px;
+}
+
+.custom-select-button{
+  background:var(--bg);
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.custom-select-dropdown{
+  position:absolute;
+  top:105%;
+  left:0;
+  right:0;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  max-height:200px;
+  overflow-y:auto;
+  display:none;
+  z-index:50;
+}
+
+.custom-select-dropdown.open{
+  display:block;
+}
+
+.custom-select-option{
+  padding:8px;
+  cursor:pointer;
+}
+
+.custom-select-option:hover{
+  background:var(--hover);
+}
+
+.move-option-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.move-type-icon{
+  width:22px;
+}
+
+.move-attack-icon{
+  width:22px;
+}
+
 @keyframes fadeIn{
  from{opacity:0; transform:translate(-50%,10px);}
  to{opacity:1; transform:translate(-50%,0);}
@@ -558,10 +616,6 @@ body {
     <input type="range" id="levelSlider" min="1" max="100">
 
     <div id="editMovesContainer" style="margin-top:20px;"></div>
-
-    <button onclick="saveEdit()" style="margin-top:auto;">
-      Salvar
-    </button>
   </div>
 </div>
 
@@ -952,8 +1006,34 @@ function openEditModal(index){
 }
 
 levelSlider.addEventListener("input", ()=>{
+  if(editingIndex === null) return;
+
   levelValue.textContent = levelSlider.value;
+
+  team[editingIndex].level = parseInt(levelSlider.value);
+
+  save();
+  render();
 });
+
+function formatMoveOption(move){
+
+  const typeIcon = `assets/${move.type.toLowerCase()}_element.png`;
+
+  const attackIcon = move.attack === "Physical"
+    ? "assets/physical_attack.png"
+    : move.attack === "Special"
+      ? "assets/special_attack.png"
+      : "assets/status_attack.png";
+
+  return `
+    <div class="move-option-inner">
+      <img src="${typeIcon}" class="move-type-icon">
+      <span>${move.name}</span>
+      <img src="${attackIcon}" class="move-attack-icon">
+    </div>
+  `;
+}
 
 function renderMoveSelectors(animon){
 
@@ -964,34 +1044,51 @@ function renderMoveSelectors(animon){
   for(let i=0;i<4;i++){
 
     const wrapper = document.createElement("div");
-    wrapper.style.marginBottom = "12px";
+    wrapper.className = "custom-select-wrapper";
 
-    const select = document.createElement("select");
-    select.dataset.slot = i;
-    select.style.width = "100%";
-    select.style.padding = "8px";
-    select.style.borderRadius = "10px";
+    const selectedMoveName = animon.moves?.[i] || "";
 
-    const emptyOption = document.createElement("option");
-    emptyOption.value = "";
-    emptyOption.textContent = "Selecionar Move";
-    select.appendChild(emptyOption);
+    const selectedMoveData = moves.find(m => m.name === selectedMoveName);
 
-    allowedMoves.forEach(moveName => {
+    const button = document.createElement("div");
+    button.className = "custom-select-button";
 
-      const moveData = moves.find(m => m.name === moveName);
+    button.innerHTML = selectedMoveData
+      ? formatMoveOption(selectedMoveData)
+      : `<span style="opacity:.6;">Selecionar Move</span>`;
+
+    const dropdown = document.createElement("div");
+    dropdown.className = "custom-select-dropdown";
+
+    allowedMoves.forEach(moveName=>{
+
+      const moveData = moves.find(m=>m.name===moveName);
       if(!moveData) return;
 
-      const option = document.createElement("option");
-      option.value = moveData.name;
-      option.textContent = moveData.name;
-      select.appendChild(option);
+      const option = document.createElement("div");
+      option.className="custom-select-option";
+      option.innerHTML = formatMoveOption(moveData);
 
+      option.onclick = ()=>{
+        animon.moves[i] = moveData.name;
+
+        save();
+        render();
+
+        button.innerHTML = formatMoveOption(moveData);
+        dropdown.classList.remove("open");
+      };
+
+      dropdown.appendChild(option);
     });
 
-    select.value = animon.moves?.[i] || "";
+    button.onclick = ()=>{
+      dropdown.classList.toggle("open");
+    };
 
-    wrapper.appendChild(select);
+    wrapper.appendChild(button);
+    wrapper.appendChild(dropdown);
+
     editMovesContainer.appendChild(wrapper);
   }
 }
