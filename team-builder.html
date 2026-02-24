@@ -349,23 +349,37 @@
     /* =========================================
        5. MODAL DE EDIÇÃO E MOVES
        ========================================= */
-    function getMoveHtml(moveName) {
+    function getMoveHtml(moveInput) {
+      // Normaliza o nome do ataque caso o item do array seja um objeto ao invés de string
+      const moveName = typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput;
+      
       if (!moveName || moveName === "") return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
+      // Se por algum motivo o moves.js não estiver carregado, retorna só o nome
       if (typeof moves === "undefined") return `<span class="move-name-txt">${moveName}</span>`;
 
-      const moveData = moves.find(m => m.name === moveName);
+      // Lida tranquilamente tanto se 'moves' for um Array quanto se for um Objeto Dicionário
+      let moveData = null;
+      if (Array.isArray(moves)) {
+        moveData = moves.find(m => m.name === moveName || m.id === moveName);
+      } else if (typeof moves === 'object' && moves !== null) {
+        moveData = moves[moveName] || Object.values(moves).find(m => m.name === moveName);
+      }
+
+      // Se o golpe não existir na base, retorna só o nome
       if (!moveData) return `<span class="move-name-txt">${moveName}</span>`;
 
-      const typeStr = (moveData.type || "normal").toLowerCase();
-      const attackStr = (moveData.attack || "physical").toLowerCase();
+      // Fallbacks resilientes (Suporta chaves .type/.element e .attack/.category)
+      const finalName = moveData.name || moveName;
+      const typeStr = (moveData.type || moveData.element || "normal").toLowerCase();
+      const attackStr = (moveData.attack || moveData.category || moveData.class || "physical").toLowerCase();
 
-      // Ajustado: Elemento primeiro, depois tipo de ataque, alinhados à direita!
+      // Renderiza as imagens do Tipo e do Elemento
       return `
-        <span class="move-name-txt">${moveData.name}</span>
+        <span class="move-name-txt">${finalName}</span>
         <div class="move-icons-wrapper">
-          <img src="assets/${typeStr}_element.png" class="move-icon-type" alt="${typeStr}" title="${moveData.type}">
-          <img src="assets/${attackStr}.png" class="move-icon-atk" alt="${attackStr}" title="${moveData.attack}">
+          <img src="assets/${typeStr}_element.png" class="move-icon-type" alt="${typeStr}" title="${typeStr}">
+          <img src="assets/${attackStr}.png" class="move-icon-atk" alt="${attackStr}" title="${attackStr}">
         </div>
       `;
     }
@@ -380,7 +394,9 @@
           <span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span>
         </div>`;
 
-      safeMovesArray.forEach(mName => {
+      safeMovesArray.forEach(m => {
+        // Pega o nome correto caso a lista de moves da base seja de objetos
+        const mName = typeof m === 'object' ? (m.name || m.id) : m;
         optionsHtml += `
           <div class="option" data-value="${mName}">
             ${getMoveHtml(mName)}
@@ -432,7 +448,8 @@
       DOM.levelInput.value = currentLevel;
       DOM.levelValueDisplay.textContent = currentLevel;
 
-      const availableMoves = Array.isArray(animon.movesList) ? animon.movesList : [];
+      // Resiliência caso seja movesList ou moves direto
+      const availableMoves = Array.isArray(animon.movesList) ? animon.movesList : (Array.isArray(animon.moves) ? animon.moves : []);
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
 
       for (let i = 0; i < 4; i++) {
