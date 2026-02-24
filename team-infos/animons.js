@@ -6,5 +6,11 @@ var animons = [
  {id:3,name:"Sasken",type:"Fire",sprite:"assets/animons-icon/sasken.png",stats:{hp:40,atk:52,def:43,spAtk:60,spDef:45,spd:60}},
  {id:3.01,name:"TS Saskeh",type:["Fire", "Lightning"],sprite:"assets/animons-icon/ts_saskeh.png",stats:{hp:58,atk:75,def:53,spAtk:87,spDef:55,spd:70}},
  {id:4,name:"Isamu",type:"Neutral",sprite:"assets/animons-icon/isamu.png",stats:{hp:45,atk:54,def:35,spAtk:50,spDef:45,spd:71}},
- {id:4.01,name:"Release Isamu",type:["Dark", "Soul"],sprite:"assets/animons-icon/release_isamu.png",stats:{hp:58,atk:87,def:52,spAtk:80,spDef:47,spd:97}}
+ {id:4.01,name:"Release Isamu",type:["Dark", "Soul"],sprite:"assets/animons-icon/release_isamu.png",stats:{hp:58,atk:87,def:52,spAtk:80,spDef:47,spd:97}},
+  {id:5,name:"Bandit",type:"Neutral",sprite:"assets/animons-icon/bandit.png",stats:{hp:40,atk:58,def:35,spAtk:42,spDef:30,spd:45}},
+ {id:5.01,name:"Strong Bandit",type:"Dark",sprite:"assets/animons-icon/strong_bandit.png",stats:{hp:59,atk:70,def:44,spAtk:59,spDef:39,spd:61}},
+ {id:6,name:"Cadet",type:"Neutral",sprite:"assets/animons-icon/cadet.png",stats:{hp:35,atk:50,def:35,spAtk:50,spDef:35,spd:45}},
+ {id:6.01,name:"Navy Captain",type:"Water",sprite:"assets/animons-icon/navy_captain.png",stats:{hp:45,atk:65,def:45,spAtk:65,spDef:45,spd:75}},
+ {id:7,name:"Kid Hero",type:"Water",sprite:"assets/animons-icon/kid_hero.png",stats:{hp:42,atk:27,def:32,spAtk:25,spDef:34,spd:50}},
+ {id:7.01,name:"Lt. Hero",type:"Water",sprite:"assets/sem_icone.png",stats:{hp:56,atk:51,def:39,spAtk:41,spDef:45,spd:74}}
 ];    
