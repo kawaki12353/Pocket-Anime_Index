@@ -143,8 +143,8 @@ body {
 }
 
 .team-slot .element-inner img{
-  width:32px;
-  height:32px;
+  width:38px;
+  height:38px;
 }
 
 .header { 
@@ -388,7 +388,7 @@ body {
 /* ANIMON INFO BALLOON */
 .animon-balloon{
  position:absolute;
- bottom:100%;
+ top:100%;
  left:50%;
  transform:translateX(-50%);
  margin-top:10px;
@@ -406,6 +406,25 @@ body {
  z-index:50;
 
  animation:fadeIn .2s ease;
+}
+
+/* MINI GRID MENOR DENTRO DO BALÃO */
+.animon-balloon .stats-grid{
+  gap:6px;
+  min-width:unset;
+}
+
+.animon-balloon .stat-btn{
+  padding:2px;
+  border-radius:6px;
+}
+
+.animon-balloon .stat-label{
+  font-size:9px;
+}
+
+.animon-balloon .stat-value{
+  font-size:12px;
 }
 
 @keyframes fadeIn{
@@ -815,8 +834,45 @@ function getAnimonTypeInfo(animon){
    resist[attackType]=true;
  });
 
- const format=obj =>
+ const format = obj =>
   Object.keys(obj).join(", ") || "None";
+
+ /* MINI GRID DE STATS */
+ const statsHtml = animon.stats ? `
+  <hr style="margin:8px 0; border-color: var(--border);">
+
+   <div class="stats-grid" style="margin-top:8px;">
+     <div class="stat-btn">
+       <div class="stat-label">HP</div>
+       <div class="stat-value">${animon.stats.hp}</div>
+     </div>
+
+     <div class="stat-btn">
+       <div class="stat-label">ATK</div>
+       <div class="stat-value">${animon.stats.atk}</div>
+     </div>
+
+     <div class="stat-btn">
+       <div class="stat-label">DEF</div>
+       <div class="stat-value">${animon.stats.def}</div>
+     </div>
+
+     <div class="stat-btn">
+       <div class="stat-label">SP.ATK</div>
+       <div class="stat-value">${animon.stats.spAtk}</div>
+     </div>
+
+     <div class="stat-btn">
+       <div class="stat-label">SP.DEF</div>
+       <div class="stat-value">${animon.stats.spDef}</div>
+     </div>
+
+     <div class="stat-btn">
+       <div class="stat-label">SPD</div>
+       <div class="stat-value">${animon.stats.spd}</div>
+     </div>
+   </div>
+ ` : "";
 
  return `
   <b>${texts[lang].weakTypes}</b><br>
@@ -827,6 +883,8 @@ function getAnimonTypeInfo(animon){
 
   <b>${texts[lang].immuneTypes}</b><br>
   ⚫ ${format(immune)}
+
+  ${statsHtml}
  `;
 }
 
