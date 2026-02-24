@@ -427,6 +427,30 @@ body {
   font-size:12px;
 }
 
+/* BOTÃO EDITAR (canto superior direito acima da lixeira) */
+.slot-edit{
+  position:absolute;
+  right:14px;
+  top:14px;
+  opacity:.7;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:20;
+}
+
+.slot-edit img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+  pointer-events:none;
+}
+
+.slot-edit:hover{
+  opacity:1;
+}
+
 @keyframes fadeIn{
  from{opacity:0; transform:translate(-50%,10px);}
  to{opacity:1; transform:translate(-50%,0);}
@@ -526,6 +550,21 @@ body {
   </div>      
 </div>      
 
+<div class="modal-overlay" id="editModal">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Editar Animon</h3>
+
+    <label>Level: <span id="levelValue"></span></label>
+    <input type="range" id="levelSlider" min="1" max="100">
+
+    <div id="editMovesContainer" style="margin-top:20px;"></div>
+
+    <button onclick="saveEdit()" style="margin-top:auto;">
+      Salvar
+    </button>
+  </div>
+</div>
+
 <button class="fab-add" id="addAnimonBtn">+</button>
 
 <script src="team-infos/typechart.js"></script>
@@ -608,6 +647,12 @@ const langBtn=document.getElementById("langBtn");
 const modal=document.getElementById("modal");
 const animonList=document.getElementById("animonList");
 const searchInput=document.getElementById("searchInput");
+const editModal = document.getElementById("editModal");
+const levelSlider = document.getElementById("levelSlider");
+const levelValue = document.getElementById("levelValue");
+const editMovesContainer = document.getElementById("editMovesContainer");
+
+let editingIndex = null;
 
 function save(){ localStorage.setItem("team",JSON.stringify(team)); }
 
@@ -636,6 +681,11 @@ function render(){
 
     <div class="slot-center">
      <img src="${team[i].sprite}" class="animon-img" data-index="${i}">
+    </div>
+
+    <div class="slot-edit"
+     onclick="event.stopPropagation(); openEditModal(${i})">
+     <img src="assets/pencil.png" alt="Edit">
     </div>
 
      <div class="slot-delete"
@@ -887,6 +937,90 @@ function getAnimonTypeInfo(animon){
   ${statsHtml}
  `;
 }
+
+function openEditModal(index){
+
+  editingIndex = index;
+  const animon = team[index];
+
+  levelSlider.value = animon.level || 100;
+  levelValue.textContent = levelSlider.value;
+
+  renderMoveSelectors(animon);
+
+  editModal.style.display = "flex";
+}
+
+levelSlider.addEventListener("input", ()=>{
+  levelValue.textContent = levelSlider.value;
+});
+
+function renderMoveSelectors(animon){
+
+  editMovesContainer.innerHTML = "";
+
+  const allowedMoves = animon.movesList || [];
+
+  for(let i=0;i<4;i++){
+
+    const wrapper = document.createElement("div");
+    wrapper.style.marginBottom = "12px";
+
+    const select = document.createElement("select");
+    select.dataset.slot = i;
+    select.style.width = "100%";
+    select.style.padding = "8px";
+    select.style.borderRadius = "10px";
+
+    const emptyOption = document.createElement("option");
+    emptyOption.value = "";
+    emptyOption.textContent = "Selecionar Move";
+    select.appendChild(emptyOption);
+
+    allowedMoves.forEach(moveName => {
+
+      const moveData = moves.find(m => m.name === moveName);
+      if(!moveData) return;
+
+      const option = document.createElement("option");
+      option.value = moveData.name;
+      option.textContent = moveData.name;
+      select.appendChild(option);
+
+    });
+
+    select.value = animon.moves?.[i] || "";
+
+    wrapper.appendChild(select);
+    editMovesContainer.appendChild(wrapper);
+  }
+}
+
+function saveEdit(){
+
+  if(editingIndex === null) return;
+
+  const animon = team[editingIndex];
+
+  animon.level = parseInt(levelSlider.value);
+
+  const selects = editMovesContainer.querySelectorAll("select");
+
+  animon.moves = Array.from(selects).map(s => s.value);
+
+  save();
+  render();
+
+  closeEditModal();
+}
+
+function closeEditModal(){
+  editModal.style.display = "none";
+}
+
+editModal.addEventListener("click", (e)=>{
+  if(e.target === editModal) closeEditModal();
+});
 
 function toggleBalloon(slotDiv, animon){
 
