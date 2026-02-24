@@ -992,6 +992,12 @@ function getAnimonTypeInfo(animon){
  `;
 }
 
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("edit-btn")) {
+    editarPersonagem()
+  }
+})
+
 function openEditModal(index){
 
   editingIndex = index;
