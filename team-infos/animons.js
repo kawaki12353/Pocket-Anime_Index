@@ -12,5 +12,19 @@ var animons = [
  {id:6,name:"Cadet",type:"Neutral",sprite:"assets/animons-icon/cadet.png",stats:{hp:35,atk:50,def:35,spAtk:50,spDef:35,spd:45}},
  {id:6.01,name:"Navy Captain",type:"Water",sprite:"assets/animons-icon/navy_captain.png",stats:{hp:45,atk:65,def:45,spAtk:65,spDef:45,spd:75}},
  {id:7,name:"Kid Hero",type:"Water",sprite:"assets/animons-icon/kid_hero.png",stats:{hp:42,atk:27,def:32,spAtk:25,spDef:34,spd:50}},
- {id:7.01,name:"Lt. Hero",type:"Water",sprite:"assets/sem_icone.png",stats:{hp:56,atk:51,def:39,spAtk:41,spDef:45,spd:74}}
+ {id:7.01,name:"Lt. Hero",type:"Water",sprite:"assets/sem_icone.png",stats:{hp:56,atk:51,def:39,spAtk:41,spDef:45,spd:74}},
+ {id:8,name:"Battle Wolf",type:"Neutral",sprite:"assets/animons-icon/battle_wolf.png",stats:{hp:35,atk:62,def:33,spAtk:25,spDef:28,spd:70}},
+ {id:8.01,name:"Teen Battle Wolf",type:"Beast",sprite:"assets/animons-icon/teen_battle_wolf.png",stats:{hp:54,atk:85,def:44,spAtk:36,spDef:40,spd:90}},
+ {id:9,name:"Joyful",type:["Wind","Beast"],sprite:"assets/animons-icon/joyful.png",stats:{hp:35,atk:25,def:35,spAtk:50,spDef:35,spd:70}},
+ {id:10,name:"Teen Wolfman",type:"Fighting",sprite:"assets/animons-icon/teen_wolfman.png",stats:{hp:35,atk:53,def:35,spAtk:49,spDef:30,spd:51}},
+ {id:10.01,name:"Adult Wolfman",type:"Fighting",sprite:"assets/animons-icon/adult_wolfman.png",stats:{hp:47,atk:63,def:44,spAtk:62,spDef:39,spd:73}},
+ {id:11,name:"Sniper",type:"Neutral",sprite:"assets/animons-icon/sniper.png",stats:{hp:35,atk:27,def:29,spAtk:60,spDef:33,spd:45}},
+ {id:11.01,name:"Big-Nose",type:["Neutral","Fire"],sprite:"assets/animons-icon/big_nose.png",stats:{hp:64,atk:39,def:39,spAtk:90,spDef:44,spd:60}},
+ {id:12,name:"Secret Ninja",type:"Fire",sprite:"assets/animons-icon/secret_ninja.png",stats:{hp:42,atk:50,def:34,spAtk:46,spDef:34,spd:66}},
+ {id:13,name:"Ramen",type:"Wind",sprite:"assets/animons-icon/ramen.png",stats:{hp:45,atk:75,def:40,spAtk:48,spDef:40,spd:65}},
+ {id:13.01,name:"TS Ramen",type:["Wind","Demon"],sprite:"assets/animons-icon/ts_ramen.png",stats:{hp:54,atk:88,def:48,spAtk:54,spDef:48,spd:80}},
+ {id:14,name:"Dinosaur",type:"Beast",sprite:"assets/animons-icon/dinosaur.png",stats:{hp:74,atk:80,def:60,spAtk:25,spDef:29,spd:46}},
+ {id:15,name:"Pickle Jr.",type:["Demon","Psychic"],sprite:"assets/animons-icon/pickle_jr.png",stats:{hp:57,atk:53,def:45,spAtk:85,spDef:41,spd:70}},
+ {id:15.01,name:"Fused Pickle",type:["Demon","Psychic"],sprite:"assets/animons-icon/fused_pickle.png",stats:{hp:67,atk:59,def:51,spAtk:93,spDef:41,spd:79}},
+ {id:16,name:"Kaiyuki",type:"Demon",sprite:"assets/animons-icon/kaiyuki.png",stats:{hp:52,atk:70,def:42,spAtk:39,spDef:39,spd:70}}
 ];    
