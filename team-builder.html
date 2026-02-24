@@ -10,6 +10,9 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <style>
+    /* =========================================
+       1. VARIÁVEIS E TEMA (LIGHT/DARK)
+       ========================================= */
     :root {
       --bg: #f2f4f7; --card: #ffffff; --text: #111; --border: #ccc;
       --hover: #f1f1f1; --lang-btn: #ffffff; --lang-btn-bg: #444; --right-column: 58px;
@@ -21,72 +24,140 @@
       }
     }
 
-    /* Cores Elementos */
-    .element-neutral { --element-color: #e6e5e3; } .element-fire { --element-color: #e60000; }
-    .element-water { --element-color: #00b0e6; } .element-nature { --element-color: #24e30c; }
-    .element-light { --element-color: #decc7c; } .element-dark { --element-color: #262626; }
-    /* Adicione as outras conforme necessário... */
+    /* Cores dos Elementos */
+    .element-neutral   { --element-color: #e6e5e3; } .element-fighting  { --element-color: #e5901b; }
+    .element-fire      { --element-color: #e60000; } .element-water     { --element-color: #00b0e6; }
+    .element-nature    { --element-color: #24e30c; } .element-earth     { --element-color: #8a5e39; }
+    .element-wind      { --element-color: #59e657; } .element-ice       { --element-color: #00ffe1; }
+    .element-lightning { --element-color: #ffe100; } .element-soul      { --element-color: #89a2e6; }
+    .element-psychic   { --element-color: #e66ae0; } .element-poison    { --element-color: #ac8fff; }
+    .element-light     { --element-color: #decc7c; } .element-dark      { --element-color: #262626; }
+    .element-demon     { --element-color: #b00000; } .element-beast     { --element-color: #aa6272; }
 
+    /* =========================================
+       2. BASE E LAYOUT PRINCIPAL
+       ========================================= */
     body { font-family: Arial, sans-serif; background: var(--bg); color: var(--text); padding: 20px; margin: 0; }
     .header { display: flex; flex-direction: column; align-items: center; max-width: 1200px; margin: 0 auto 30px; gap: 12px; }
+    .header-top { width: 100%; display: flex; justify-content: center; }
     .logo { width: 260px; }
+    .map-title { text-align: center; font-size: 22px; font-weight: bold; }
+    .map-list { max-width: 1200px; margin: 0 auto; }
     .team-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
-    /* Slots */
-    .team-slot { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 18px; min-height: 130px; padding: 14px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    /* =========================================
+       3. COMPONENTES: SLOTS DO TIME
+       ========================================= */
+    .team-slot { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 18px; cursor: default; min-height: 130px; padding: 14px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
     .team-slot::after { content: ""; position: absolute; top: 0; bottom: 0; right: var(--right-column); width: 1px; background: var(--border); }
     .slot-info { position: absolute; top: 10px; left: 14px; text-align: left; }
     .slot-name { font-weight: bold; font-size: 18px; }
     .slot-level { font-size: 14px; opacity: 0.8; }
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
-    
-    /* Botões Laterais */
-    .slot-edit, .slot-delete { position: absolute; right: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; opacity: 0.6; }
-    .slot-edit { top: 14px; }
-    .slot-delete { top: 50%; transform: translateY(-50%); } /* Lixeira no meio vertical da coluna direita */
-    .slot-edit:hover, .slot-delete:hover { opacity: 1; scale: 1.1; }
-    .slot-edit img, .slot-delete img { width: 22px; height: 22px; }
+    .empty-slot { opacity: 0.6; font-weight: bold; }
 
-    /* Elementos */
-    .slot-elements { position: absolute; top: 10px; right: calc(var(--right-column) + 12px); display: flex; flex-direction: column; gap: 4px; }
-    .element-wrapper { width: 38px; height: 38px; background: #191919; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .element-inner { width: 24px; height: 24px; border-radius: 4px; border: 1px solid var(--element-color); position: relative; }
-    .element-inner img { width: 32px; height: 32px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    /* Lápis em cima e Lixeira no meio (Centralizados na coluna de 58px usando right: 18px) */
+    .slot-delete, .slot-edit { position: absolute; right: 18px; opacity: 0.6; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .slot-edit { top: 14px; } 
+    .slot-delete { top: 50%; transform: translateY(-50%); }
 
-    /* Modal */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 1000; }
-    .modal { background: var(--card); width: 550px; max-height: 90vh; border-radius: 20px; padding: 25px; display: flex; flex-direction: column; gap: 15px; }
-    .edit-body { overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
-    
-    /* Custom Select Moves */
-    .moves-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .slot-edit:hover { opacity: 1; transform: scale(1.1); }
+    .slot-delete:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+    .slot-delete img, .slot-edit img { width: 22px; height: 22px; object-fit: contain; pointer-events: none; }
+
+    /* =========================================
+       4. COMPONENTES: SISTEMA DE ELEMENTOS
+       ========================================= */
+    .animon-elements { display: flex; gap: 6px; margin-top: 6px; justify-content: center; }
+    .slot-elements { position: absolute; top: 10px; right: calc(var(--right-column) + 12px); display: flex; flex-direction: column; align-items: center; }
+    .slot-elements .animon-elements { margin-left: auto; margin-top: 0; flex-direction: column; align-items: center; }
+    .element-wrapper { position: relative; cursor: pointer; width: 42px; height: 42px; background: #191919; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .slot-elements .element-wrapper { border-radius: 12px; }
+    .element-inner { position: relative; width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--element-color); display: flex; align-items: center; justify-content: center; }
+    .element-inner img { position: absolute; width: 38px; height: 38px; object-fit: contain; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .element-tooltip { position: absolute; top: 110%; left: 50%; transform: translateX(-50%); background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 4px 8px; border-radius: 8px; font-size: 12px; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; z-index: 10; }
+    .element-wrapper:hover .element-tooltip { opacity: 1; }
+
+    /* =========================================
+       5. COMPONENTES: STATUS E ANÁLISE
+       ========================================= */
+    .analysis { margin-top: 25px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+    .analysis button { margin-top: 10px; padding: 8px 14px; border-radius: 10px; border: none; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); font-weight:bold; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; min-width: 260px; }
+    .stat-btn { background: var(--hover); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center; font-weight: bold; user-select: none; }
+    .stat-label { font-size: 12px; opacity: 0.7; }
+    .stat-value { font-size: 18px; }
+
+    .animon-balloon { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; width: 260px; font-size: 14px; text-align: left; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 50; animation: fadeIn 0.2s ease; }
+    .animon-balloon .stats-grid { gap: 6px; min-width: unset; }
+    .animon-balloon .stat-btn { padding: 2px; border-radius: 6px; }
+    .animon-balloon .stat-label { font-size: 9px; }
+    .animon-balloon .stat-value { font-size: 12px; }
+
+    /* =========================================
+       6. MODAIS E UI CUSTOMIZADA
+       ========================================= */
+    .fab-add { position: fixed; right: 20px; bottom: 80px; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 32px; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); box-shadow: 0 6px 18px rgba(0,0,0,0.3); transition: 0.2s; z-index: 999; }
+    .fab-add:hover { transform: scale(1.08); }
+    .lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); }
+    .lang-toggle button { padding: 8px 14px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal { background: var(--card); width: 600px; height: 600px; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; overflow: visible; }
+    .modal h3 { margin-top: 0; text-align: center; }
+
+    .modal-search { margin-bottom: 10px; }
+    .modal-search input { width: 100%; padding: 8px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
+    .modal-list { overflow-y: auto; flex: 1; padding-right: 5px; }
+    .animon-option { display: flex; align-items: center; padding: 10px; border-radius: 10px; cursor: pointer; justify-content: space-between; }
+    .animon-option:hover { background: var(--hover); }
+    .animon-left { display: flex; align-items: center; gap: 10px; }
+    .animon-option img { width: 50px; }
+    .animon-id { font-weight: bold; opacity: 0.6; min-width: 50px; }
+
+    .edit-body { display: flex; flex-direction: column; gap: 20px; flex: 1; overflow-y: visible; }
+    .level-container { background: var(--bg); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+    .level-container input[type="range"] { width: 100%; margin-top: 10px; cursor: pointer; }
+    .level-container span { font-weight: bold; font-size: 18px; color: var(--text); }
+
+    .moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+
+    /* Custom Selects - Ajustados para os ícones na direita */
     .custom-select { position: relative; width: 100%; }
-    .select-btn { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; }
-    .select-options { position: absolute; top: 100%; left: 0; width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 12px; max-height: 250px; overflow-y: auto; display: none; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .select-btn { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border); color: var(--text); font-weight: bold; height: 44px; box-sizing: border-box;}
+    .select-btn::after { content: "▼"; margin-left: 10px; font-size: 12px; color: var(--text); }
+
+    .select-options { position: absolute; top: 110%; left: 0; width: 100%; background: var(--card); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-height: 200px; overflow-y: auto; display: none; z-index: 99; border: 1px solid var(--border); }
     .select-options.open { display: block; }
-    
-    .option { padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; border-bottom: 1px solid var(--border); }
+    .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; }
     .option:hover { background: var(--hover); }
-    
-    .move-name-txt { flex: 1; font-size: 15px; }
-    .move-icon-element { width: 22px; height: 22px; object-fit: contain; }
-    .move-icon-category { width: 24px; height: 24px; object-fit: contain; margin-left: auto; }
 
-    .analysis { margin-top: 25px; background: var(--card); padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .stat-btn { background: var(--bg); padding: 8px; border-radius: 10px; text-align: center; }
-    .stat-label { font-size: 10px; opacity: 0.6; }
-    
-    .fab-add { position: fixed; right: 20px; bottom: 80px; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 30px; background: var(--lang-btn-bg); color: var(--lang-btn); cursor: pointer; z-index: 999; }
+    /* Move text flex:1 empurra os ícones para a direita */
+    .move-name-txt { flex: 1; font-size: 14px; text-align: left; }
+    .move-icons-wrapper { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .move-icon-type { width: 24px; height: 24px; object-fit: contain; }
+    .move-icon-atk { width: 22px; height: 22px; object-fit: contain; }
 
-    @media (max-width: 600px) { .modal { width: 95%; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+    @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; } }
+    @media (max-width: 768px) {
+      .header { flex-direction: column; align-items: center; }
+      .header-top { justify-content: flex-end; width: 100%; }
+      .logo { width: 150px; }
+      .modal { width: 90%; height: 75vh; max-height: 520px; padding: 16px; border-radius: 14px; }
+      .moves-grid { grid-template-columns: 1fr; gap: 10px; }
+      .analysis { flex-direction: column-reverse; align-items: stretch; }
+    }
   </style>
 </head>
+
 <body>
 
   <header class="header">
-    <div class="header-top"><img src="assets/Pocket-Anime-logo.png" class="logo"></div>
-    <h2 id="mapTitle"></h2>
+    <div class="header-top">
+      <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
+    </div>
+    <h2 class="map-title" id="mapTitle"></h2>
   </header>
 
   <main class="map-list">
@@ -105,10 +176,22 @@
     </div>
   </main>
 
-  <div class="modal-overlay" id="modal"><div class="modal"><h3 id="modalTitle"></h3><div class="modal-search"><input type="text" id="searchInput"></div><div class="modal-list" id="animonList"></div></div></div>
+  <div class="lang-toggle">
+    <button id="langBtn"></button>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3 id="modalTitle"></h3>
+      <div class="modal-search">
+        <input type="text" id="searchInput" autocomplete="off">
+      </div>
+      <div class="modal-list" id="animonList"></div>
+    </div>
+  </div>
 
   <div class="modal-overlay" id="editModal">
-    <div class="modal">
+    <div class="modal" onclick="event.stopPropagation()">
       <h3 id="editModalTitle">Editar Animon</h3>
       <div class="edit-body">
         <div class="level-container">
@@ -116,127 +199,85 @@
           <input type="range" id="levelInput" min="1" max="100" value="100">
         </div>
         <div class="moves-grid">
-          <div class="custom-select" id="moveSelect0" data-slot="0"></div>
-          <div class="custom-select" id="moveSelect1" data-slot="1"></div>
-          <div class="custom-select" id="moveSelect2" data-slot="2"></div>
-          <div class="custom-select" id="moveSelect3" data-slot="3"></div>
+          <div class="custom-select" id="moveSelect0"></div>
+          <div class="custom-select" id="moveSelect1"></div>
+          <div class="custom-select" id="moveSelect2"></div>
+          <div class="custom-select" id="moveSelect3"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <button class="fab-add" id="addAnimonBtn">+</button>
+  <button class="fab-add" id="addAnimonBtn" title="Adicionar Animon">+</button>
 
   <script src="team-infos/typechart.js"></script>
   <script src="team-infos/moves.js"></script>
   <script src="team-infos/animons.js"></script>
 
   <script>
+    /* =========================================
+       1. ESTADO E VARIÁVEIS GERAIS
+       ========================================= */
     const texts = {
-      pt: { title: "Team Builder", empty: "Slot Vazio", modalTitle: "Escolha um Animon", moveEmpty: "Nenhum Ataque", search: "Pesquisar..." },
-      en: { title: "Team Builder", empty: "Empty Slot", modalTitle: "Choose an Animon", moveEmpty: "No Move", search: "Search..." }
+      pt: { btn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!" },
+      en: { btn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", moveEmpty: "None", remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
-    let team = JSON.parse(localStorage.getItem("team")) || [];
+    let team = (JSON.parse(localStorage.getItem("team")) || []).filter(a => a && a.name && a.sprite).slice(0, 6);
+    let currentSlot = null;
     let editSlotIndex = null;
+    let openedBalloon = null;
 
     const DOM = {
-      grid: document.getElementById("teamGrid"),
-      editModal: document.getElementById("editModal"),
-      levelInput: document.getElementById("levelInput"),
-      levelValueDisplay: document.getElementById("levelValueDisplay")
+      grid: document.getElementById("teamGrid"), shareBtn: document.getElementById("shareBtn"), exportBtn: document.getElementById("exportBtn"), langBtn: document.getElementById("langBtn"), modal: document.getElementById("modal"), editModal: document.getElementById("editModal"), animonList: document.getElementById("animonList"), searchInput: document.getElementById("searchInput"), addAnimonBtn: document.getElementById("addAnimonBtn"), levelInput: document.getElementById("levelInput"), levelValueDisplay: document.getElementById("levelValueDisplay")
     };
 
+    /* =========================================
+       2. INICIALIZAÇÃO E AUTO-SAVE
+       ========================================= */
     function init() {
+      saveData();
+      updateLangUI();
       renderTeam();
       
-      // Auto-save no Level
-      DOM.levelInput.addEventListener('input', (e) => {
-        const val = e.target.value;
-        DOM.levelValueDisplay.textContent = val;
-        if(editSlotIndex !== null) {
-          team[editSlotIndex].level = parseInt(val);
-          saveAndRefresh();
-        }
+      // Auto-save ao alterar o nível
+      DOM.levelInput.addEventListener('input', (e) => { 
+        DOM.levelValueDisplay.textContent = e.target.value; 
+        autoSaveEditData();
       });
     }
 
-    function saveAndRefresh() {
-      localStorage.setItem("team", JSON.stringify(team));
-      renderTeam();
-    }
+    function saveData() { localStorage.setItem("team", JSON.stringify(team)); }
 
-    /* --- Lógica de Ataques (Moves) --- */
-    function getMoveHtml(moveName) {
-      if (!moveName) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-      const m = moves.find(x => x.name === moveName);
-      if (!m) return `<span class="move-name-txt">${moveName}</span>`;
-
-      return `
-        <span class="move-name-txt">${m.name}</span>
-        <img src="assets/${m.type.toLowerCase()}_element.png" class="move-icon-element">
-        <img src="assets/${m.attack.toLowerCase()}.png" class="move-icon-category">
-      `;
-    }
-
-    function createMoveSelect(containerId, currentMove, availableMoves) {
-      const container = document.getElementById(containerId);
-      const btn = container.querySelector('.select-btn') || document.createElement('div');
-      const menu = container.querySelector('.select-options') || document.createElement('div');
-      
-      btn.className = 'select-btn';
-      btn.innerHTML = getMoveHtml(currentMove);
-      menu.className = 'select-options';
-
-      // Criar lista de opções
-      let optionsHtml = `<div class="option" data-value="">${texts[lang].moveEmpty}</div>`;
-      availableMoves.forEach(mName => {
-        optionsHtml += `<div class="option" data-value="${mName}">${getMoveHtml(mName)}</div>`;
-      });
-      menu.innerHTML = optionsHtml;
-
-      if(!container.contains(btn)) {
-        container.appendChild(btn);
-        container.appendChild(menu);
+    // Função que salva silenciosamente as edições do modal
+    function autoSaveEditData() {
+      if (editSlotIndex !== null && team[editSlotIndex]) {
+        team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
+        team[editSlotIndex].moves = [
+          document.getElementById('moveSelect0').dataset.value || "",
+          document.getElementById('moveSelect1').dataset.value || "",
+          document.getElementById('moveSelect2').dataset.value || "",
+          document.getElementById('moveSelect3').dataset.value || ""
+        ];
+        saveData();
+        renderTeam();
       }
-
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        document.querySelectorAll('.select-options').forEach(el => el !== menu && el.classList.remove('open'));
-        menu.classList.toggle('open');
-      };
-
-      menu.querySelectorAll('.option').forEach(opt => {
-        opt.onclick = () => {
-          const moveValue = opt.dataset.value;
-          const slotIdx = parseInt(container.dataset.slot);
-          
-          team[editSlotIndex].moves[slotIdx] = moveValue;
-          btn.innerHTML = getMoveHtml(moveValue);
-          menu.classList.remove('open');
-          saveAndRefresh();
-        };
-      });
     }
 
-    function openEditModal(index) {
-      editSlotIndex = index;
-      const animon = team[index];
-      
-      DOM.levelInput.value = animon.level || 100;
-      DOM.levelValueDisplay.textContent = DOM.levelInput.value;
-
-      const movesList = animon.movesList || [];
-      const currentMoves = animon.moves || ["", "", "", ""];
-
-      for (let i = 0; i < 4; i++) {
-        createMoveSelect(`moveSelect${i}`, currentMoves[i], movesList);
-      }
-
-      DOM.editModal.style.display = "flex";
+    function createElementIcon(types) {
+      if (!Array.isArray(types)) types = [types];
+      return `<div class="animon-elements">
+        ${types.map(type => `<div class="element-wrapper element-${type.toLowerCase()}">
+          <div class="element-inner"><img src="assets/${type.toLowerCase()}_element.png" alt="${type}"></div>
+          <div class="element-tooltip">${type}</div>
+        </div>`).join("")}
+      </div>`;
     }
 
+    /* =========================================
+       3. RENDERIZAÇÃO
+       ========================================= */
     function renderTeam() {
       DOM.grid.innerHTML = "";
       for (let i = 0; i < 6; i++) {
@@ -248,34 +289,265 @@
               <div class="slot-name">${team[i].name}</div>
               <div class="slot-level">Lv.${team[i].level || 100}</div>
             </div>
-            <div class="slot-elements">${team[i].type.map(t => `<div class="element-wrapper element-${t.toLowerCase()}"><div class="element-inner"><img src="assets/${t.toLowerCase()}_element.png"></div></div>`).join("")}</div>
-            <div class="slot-center"><img src="${team[i].sprite}"></div>
-            <div class="slot-edit" onclick="event.stopPropagation(); openEditModal(${i})"><img src="assets/pencil.png"></div>
-            <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})"><img src="assets/bin.png"></div>
+            <div class="slot-elements">${createElementIcon(team[i].type)}</div>
+            <div class="slot-center">
+              <img src="${team[i].sprite}" class="animon-img" alt="${team[i].name}">
+            </div>
+            <div class="slot-edit" onclick="event.stopPropagation(); openEditModal(${i})" title="Editar">
+              <img src="assets/pencil.png" alt="Edit">
+            </div>
+            <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})" title="Remover">
+              <img src="assets/bin.png" alt="Delete">
+            </div>
           `;
+          const img = div.querySelector(".animon-img");
+          if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div, team[i]); });
         } else {
           div.innerHTML = `<div class="empty-slot">${texts[lang].empty}</div>`;
         }
         DOM.grid.appendChild(div);
       }
+      updateAnalysis();
     }
 
     function removeFromTeam(index) {
-      team.splice(index, 1);
-      saveAndRefresh();
+      team[index] = null;
+      team = team.filter(a => a !== null);
+      saveData();
+      renderTeam();
     }
 
-    // Fechar modais ao clicar fora
-    window.onclick = (e) => {
-      if (e.target.classList.contains('modal-overlay')) {
-        e.target.style.display = "none";
-        document.querySelectorAll('.select-options').forEach(el => el.classList.remove('open'));
+    /* =========================================
+       4. MODAL ADICIONAR
+       ========================================= */
+    function openModal(slotIndex) {
+      currentSlot = slotIndex;
+      DOM.searchInput.value = "";
+      renderAnimonList(typeof animons !== 'undefined' ? animons : []);
+      DOM.modal.style.display = "flex";
+    }
+
+    function closeModal() { DOM.modal.style.display = "none"; }
+
+    function renderAnimonList(list) {
+      DOM.animonList.innerHTML = "";
+      list.forEach(a => {
+        const div = document.createElement("div");
+        div.className = "animon-option";
+        div.innerHTML = `
+          <div class="animon-left"><img src="${a.sprite}" alt="${a.name}"><div><span class="animon-id">#${a.id}</span> <strong>${a.name}</strong></div></div>
+          ${createElementIcon(a.type)}
+        `;
+        div.onclick = () => {
+          team[currentSlot] = { ...a, level: 100, moves: ["", "", "", ""] };
+          saveData(); renderTeam(); closeModal();
+        };
+        DOM.animonList.appendChild(div);
+      });
+    }
+
+    /* =========================================
+       5. MODAL DE EDIÇÃO E MOVES
+       ========================================= */
+    function getMoveHtml(moveName) {
+      if (!moveName || moveName === "") return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
+
+      if (typeof moves === "undefined") return `<span class="move-name-txt">${moveName}</span>`;
+
+      const moveData = moves.find(m => m.name === moveName);
+      if (!moveData) return `<span class="move-name-txt">${moveName}</span>`;
+
+      const typeStr = (moveData.type || "normal").toLowerCase();
+      const attackStr = (moveData.attack || "physical").toLowerCase();
+
+      // Ajustado: Elemento primeiro, depois tipo de ataque, alinhados à direita!
+      return `
+        <span class="move-name-txt">${moveData.name}</span>
+        <div class="move-icons-wrapper">
+          <img src="assets/${typeStr}_element.png" class="move-icon-type" alt="${typeStr}" title="${moveData.type}">
+          <img src="assets/${attackStr}.png" class="move-icon-atk" alt="${attackStr}" title="${moveData.attack}">
+        </div>
+      `;
+    }
+
+    function createMoveSelect(containerId, currentMove, availableMoves) {
+      const container = document.getElementById(containerId);
+      const label = texts[lang].moveSelect;
+      const safeMovesArray = Array.isArray(availableMoves) ? availableMoves : [];
+
+      let optionsHtml = `
+        <div class="option" data-value="">
+          <span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span>
+        </div>`;
+
+      safeMovesArray.forEach(mName => {
+        optionsHtml += `
+          <div class="option" data-value="${mName}">
+            ${getMoveHtml(mName)}
+          </div>`;
+      });
+
+      container.innerHTML = `
+        <div class="select-btn">
+          ${currentMove ? getMoveHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}
+        </div>
+        <div class="select-options">
+          ${optionsHtml}
+        </div>
+      `;
+
+      const btn = container.querySelector('.select-btn');
+      const options = container.querySelector('.select-options');
+
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.select-options').forEach(opt => {
+          if (opt !== options) opt.classList.remove('open');
+        });
+        options.classList.toggle('open');
+      };
+
+      container.querySelectorAll('.option').forEach(opt => {
+        opt.onclick = () => {
+          const val = opt.dataset.value;
+          btn.innerHTML = val ? getMoveHtml(val) : `<span class="move-name-txt">${label}</span>`;
+          container.dataset.value = val;
+          options.classList.remove('open');
+          
+          // Dispara o Auto-save quando escolhe um golpe!
+          autoSaveEditData();
+        };
+      });
+
+      container.dataset.value = currentMove || "";
+    }
+
+    function openEditModal(index) {
+      const animon = team[index];
+      if (!animon) return; 
+
+      editSlotIndex = index;
+
+      const currentLevel = animon.level || 100;
+      DOM.levelInput.value = currentLevel;
+      DOM.levelValueDisplay.textContent = currentLevel;
+
+      const availableMoves = Array.isArray(animon.movesList) ? animon.movesList : [];
+      const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
+
+      for (let i = 0; i < 4; i++) {
+        createMoveSelect(`moveSelect${i}`, currentMoves[i] || "", availableMoves);
       }
+
+      DOM.editModal.style.display = "flex";
+    }
+
+    function closeEditModal() { DOM.editModal.style.display = "none"; }
+
+
+    /* =========================================
+       6. ANÁLISE E STATUS
+       ========================================= */
+    function updateAnalysis() {
+      const total = { hp: 0, atk: 0, def: 0, spAtk: 0, spDef: 0, spd: 0 };
+      team.forEach(a => {
+        if (!a || !a.stats) return;
+        total.hp += a.stats.hp || 0; total.atk += a.stats.atk || 0; total.def += a.stats.def || 0;
+        total.spAtk += a.stats.spAtk || 0; total.spDef += a.stats.spDef || 0; total.spd += a.stats.spd || 0;
+      });
+      document.getElementById("statsTotal").innerHTML = Object.entries(total).map(([key, value]) => `
+        <div class="stat-btn"><div class="stat-label">${key.toUpperCase()}</div><div class="stat-value">${value}</div></div>
+      `).join("");
+    }
+
+    function getAnimonTypeInfo(animon) {
+      const weakness = {}, resist = {}, immune = {};
+      const types = Array.isArray(animon.type) ? animon.type : [animon.type];
+
+      if (typeof chart !== "undefined") {
+        Object.keys(chart).forEach(attackType => {
+          let multiplier = 1;
+          types.forEach(defType => { multiplier *= chart[attackType]?.[defType] ?? 1; });
+          if (multiplier > 1) weakness[attackType] = true;
+          else if (multiplier === 0) immune[attackType] = true;
+          else if (multiplier < 1) resist[attackType] = true;
+        });
+      }
+
+      const formatObj = obj => Object.keys(obj).join(", ") || "None";
+      let statsHtml = "";
+      if (animon.stats) {
+        const statsGrid = Object.entries(animon.stats).map(([key, val]) => `<div class="stat-btn"><div class="stat-label">${key.toUpperCase()}</div><div class="stat-value">${val}</div></div>`).join("");
+        statsHtml = `<hr style="margin:8px 0; border-color: var(--border);"><div class="stats-grid" style="margin-top:8px;">${statsGrid}</div>`;
+      }
+      return `<b>${texts[lang].weakTypes}</b><br>🔴 ${formatObj(weakness)}<br><br><b>${texts[lang].resistTypes}</b><br>🟢 ${formatObj(resist)}<br><br><b>${texts[lang].immuneTypes}</b><br>⚫ ${formatObj(immune)}${statsHtml}`;
+    }
+
+    function toggleBalloon(slotDiv, animon) {
+      if (openedBalloon) { openedBalloon.remove(); openedBalloon = null; }
+      const balloon = document.createElement("div");
+      balloon.className = "animon-balloon";
+      balloon.innerHTML = getAnimonTypeInfo(animon);
+      slotDiv.appendChild(balloon);
+      openedBalloon = balloon;
+      setTimeout(() => { document.addEventListener("click", closeBalloonOnce, { once: true }); }, 0);
+    }
+    function closeBalloonOnce() { if (openedBalloon) { openedBalloon.remove(); openedBalloon = null; } }
+
+    /* =========================================
+       7. EVENT LISTENERS E I18N
+       ========================================= */
+    function updateLangUI() {
+      document.getElementById("mapTitle").textContent = texts[lang].title;
+      DOM.shareBtn.textContent = texts[lang].share;
+      DOM.langBtn.textContent = texts[lang].btn;
+      document.getElementById("modalTitle").textContent = texts[lang].modalTitle;
+      document.getElementById("editModalTitle").textContent = texts[lang].editTitle;
+      DOM.searchInput.placeholder = texts[lang].search;
+      document.getElementById("statsTitle").textContent = texts[lang].totalStats;
+    }
+
+    DOM.langBtn.onclick = () => {
+      lang = lang === "pt" ? "en" : "pt";
+      localStorage.setItem("siteLang", lang);
+      updateLangUI();
+      renderTeam();
+      if (typeof updateMenuLang === "function") updateMenuLang();
     };
 
-    document.getElementById("addAnimonBtn").onclick = () => {
-      // Lógica de abrir modal de escolha (simplificada para este exemplo)
-      document.getElementById("modal").style.display = "flex";
+    DOM.addAnimonBtn.onclick = () => {
+      const emptyIndex = team.findIndex(a => !a);
+      if (emptyIndex === -1 && team.length >= 6) return alert(texts[lang].full);
+      openModal(emptyIndex === -1 ? team.length : emptyIndex);
+    };
+
+    DOM.searchInput.addEventListener("input", () => {
+      if (typeof animons === 'undefined') return;
+      const value = DOM.searchInput.value.toLowerCase();
+      renderAnimonList(animons.filter(a => a.name.toLowerCase().includes(value) || String(a.id).includes(value)));
+    });
+
+    DOM.modal.addEventListener("click", (e) => { if (e.target === DOM.modal) closeModal(); });
+    DOM.editModal.addEventListener("click", (e) => { if (e.target === DOM.editModal) closeEditModal(); });
+
+    document.addEventListener("click", e => {
+      if (!e.target.closest('.custom-select')) {
+        document.querySelectorAll(".select-options").forEach(opt => opt.classList.remove("open"));
+      }
+    });
+
+    DOM.shareBtn.onclick = () => {
+      const url = `${location.origin}${location.pathname}?team=${team.map(a => a.id).join(",")}`;
+      navigator.clipboard.writeText(url); alert(texts[lang].copied);
+    };
+
+    DOM.exportBtn.onclick = async () => {
+      const exportArea = document.getElementById("teamExportArea");
+      const originalWidth = exportArea.style.width, originalGridStyle = DOM.grid.style.gridTemplateColumns;
+      exportArea.style.width = "900px"; DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
+      const canvas = await html2canvas(exportArea, { scale: 2 });
+      exportArea.style.width = originalWidth; DOM.grid.style.gridTemplateColumns = originalGridStyle;
+      const link = document.createElement("a"); link.download = "pocket-anime-team.png"; link.href = canvas.toDataURL(); link.click();
     };
 
     init();
