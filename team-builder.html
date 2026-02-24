@@ -14,45 +14,25 @@
        1. VARIÁVEIS E TEMA (LIGHT/DARK)
        ========================================= */
     :root {
-      --bg: #f2f4f7;
-      --card: #ffffff;
-      --text: #111;
-      --border: #ccc;
-      --hover: #f1f1f1;
-      --lang-btn: #ffffff;
-      --lang-btn-bg: #444;
-      --right-column: 58px;
+      --bg: #f2f4f7; --card: #ffffff; --text: #111; --border: #ccc;
+      --hover: #f1f1f1; --lang-btn: #ffffff; --lang-btn-bg: #444; --right-column: 58px;
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0f1217;
-        --card: #181c24;
-        --text: #ffffff;
-        --border: #2a2f3a;
-        --hover: #232836;
-        --lang-btn: #111;
-        --lang-btn-bg: #ffffff;
+        --bg: #0f1217; --card: #181c24; --text: #ffffff; --border: #2a2f3a;
+        --hover: #232836; --lang-btn: #111; --lang-btn-bg: #ffffff;
       }
     }
 
     /* Cores dos Elementos */
-    .element-neutral   { --element-color: #e6e5e3; }
-    .element-fighting  { --element-color: #e5901b; }
-    .element-fire      { --element-color: #e60000; }
-    .element-water     { --element-color: #00b0e6; }
-    .element-nature    { --element-color: #24e30c; }
-    .element-earth     { --element-color: #8a5e39; }
-    .element-wind      { --element-color: #59e657; }
-    .element-ice       { --element-color: #00ffe1; }
-    .element-lightning { --element-color: #ffe100; }
-    .element-soul      { --element-color: #89a2e6; }
-    .element-psychic   { --element-color: #e66ae0; }
-    .element-poison    { --element-color: #ac8fff; }
-    .element-light     { --element-color: #decc7c; }
-    .element-dark      { --element-color: #262626; }
-    .element-demon     { --element-color: #b00000; }
-    .element-beast     { --element-color: #aa6272; }
+    .element-neutral   { --element-color: #e6e5e3; } .element-fighting  { --element-color: #e5901b; }
+    .element-fire      { --element-color: #e60000; } .element-water     { --element-color: #00b0e6; }
+    .element-nature    { --element-color: #24e30c; } .element-earth     { --element-color: #8a5e39; }
+    .element-wind      { --element-color: #59e657; } .element-ice       { --element-color: #00ffe1; }
+    .element-lightning { --element-color: #ffe100; } .element-soul      { --element-color: #89a2e6; }
+    .element-psychic   { --element-color: #e66ae0; } .element-poison    { --element-color: #ac8fff; }
+    .element-light     { --element-color: #decc7c; } .element-dark      { --element-color: #262626; }
+    .element-demon     { --element-color: #b00000; } .element-beast     { --element-color: #aa6272; }
 
     /* =========================================
        2. BASE E LAYOUT PRINCIPAL
@@ -68,11 +48,7 @@
     /* =========================================
        3. COMPONENTES: SLOTS DO TIME
        ========================================= */
-    .team-slot {
-      position: relative; background: var(--card); border: 1px solid var(--border);
-      border-radius: 18px; cursor: default; min-height: 130px; padding: 14px;
-      display: flex; align-items: center; justify-content: center; overflow: visible; transition: 0.2s;
-    }
+    .team-slot { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 18px; cursor: default; min-height: 130px; padding: 14px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
     .team-slot::after { content: ""; position: absolute; top: 0; bottom: 0; right: var(--right-column); width: 1px; background: var(--border); }
     .slot-info { position: absolute; top: 10px; left: 14px; text-align: left; }
     .slot-name { font-weight: bold; font-size: 18px; }
@@ -80,14 +56,9 @@
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
     .empty-slot { opacity: 0.6; font-weight: bold; }
 
-    /* Botões do Slot (Lixeira e Edição) */
-    .slot-delete, .slot-edit {
-      position: absolute; right: 14px; opacity: 0.6; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: 0.2s;
-    }
-    .slot-edit { top: 14px; } /* Lápis no topo direito */
-    .slot-delete { bottom: 14px; } /* Lixeira na base direita */
-    
+    .slot-delete, .slot-edit { position: absolute; right: 14px; opacity: 0.6; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .slot-edit { top: 14px; } 
+    .slot-delete { bottom: 14px; }
     .slot-delete:hover, .slot-edit:hover { opacity: 1; transform: scale(1.1); }
     .slot-delete img, .slot-edit img { width: 22px; height: 22px; object-fit: contain; pointer-events: none; }
 
@@ -99,7 +70,7 @@
     .slot-elements .animon-elements { margin-left: auto; margin-top: 0; flex-direction: column; align-items: center; }
     .element-wrapper { position: relative; cursor: pointer; width: 42px; height: 42px; background: #191919; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
     .slot-elements .element-wrapper { border-radius: 12px; }
-    .element-inner { position: relative; width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--element-color); display: flex; align-items: center; justify-content: center; overflow: visible; }
+    .element-inner { position: relative; width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--element-color); display: flex; align-items: center; justify-content: center; }
     .element-inner img { position: absolute; width: 38px; height: 38px; object-fit: contain; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     .element-tooltip { position: absolute; top: 110%; left: 50%; transform: translateX(-50%); background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 4px 8px; border-radius: 8px; font-size: 12px; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; z-index: 10; }
     .element-wrapper:hover .element-tooltip { opacity: 1; }
@@ -113,7 +84,7 @@
     .stat-btn { background: var(--hover); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center; font-weight: bold; user-select: none; }
     .stat-label { font-size: 12px; opacity: 0.7; }
     .stat-value { font-size: 18px; }
-    
+
     .animon-balloon { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; width: 260px; font-size: 14px; text-align: left; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 50; animation: fadeIn 0.2s ease; }
     .animon-balloon .stats-grid { gap: 6px; min-width: unset; }
     .animon-balloon .stat-btn { padding: 2px; border-radius: 6px; }
@@ -121,18 +92,17 @@
     .animon-balloon .stat-value { font-size: 12px; }
 
     /* =========================================
-       6. MODAIS E UI CUSTOMIZADA (Edição e Seleção)
+       6. MODAIS E UI CUSTOMIZADA
        ========================================= */
     .fab-add { position: fixed; right: 20px; bottom: 80px; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 32px; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); box-shadow: 0 6px 18px rgba(0,0,0,0.3); transition: 0.2s; z-index: 999; }
     .fab-add:hover { transform: scale(1.08); }
     .lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); }
     .lang-toggle button { padding: 8px 14px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); }
-    
+
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; }
     .modal { background: var(--card); width: 600px; height: 600px; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; overflow: visible; }
     .modal h3 { margin-top: 0; text-align: center; }
-    
-    /* Search List (Modal Escolha) */
+
     .modal-search { margin-bottom: 10px; }
     .modal-search input { width: 100%; padding: 8px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
     .modal-list { overflow-y: auto; flex: 1; padding-right: 5px; }
@@ -142,35 +112,27 @@
     .animon-option img { width: 50px; }
     .animon-id { font-weight: bold; opacity: 0.6; min-width: 50px; }
 
-    /* Modal de Edição (Level e Moves) */
     .edit-body { display: flex; flex-direction: column; gap: 20px; flex: 1; overflow-y: visible; }
-    
     .level-container { background: var(--bg); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
     .level-container input[type="range"] { width: 100%; margin-top: 10px; cursor: pointer; }
     .level-container span { font-weight: bold; font-size: 18px; color: var(--text); }
-    
+
     .moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    
     .save-edit-btn { padding: 12px; background: var(--lang-btn-bg); color: var(--lang-btn); border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: auto; }
     .save-edit-btn:hover { opacity: 0.9; }
 
-    /* Custom Selects (Estilo da Calculadora) */
     .custom-select { position: relative; width: 100%; }
     .select-btn { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border); color: var(--text); font-weight: bold; }
     .select-btn::after { content: "▼"; margin-left: auto; font-size: 12px; color: var(--text); }
-    
     .select-options { position: absolute; top: 110%; left: 0; width: 100%; background: var(--card); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-height: 200px; overflow-y: auto; display: none; z-index: 99; border: 1px solid var(--border); }
     .select-options.open { display: block; }
     .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; }
     .option:hover { background: var(--hover); }
-    
+
     .move-icon-type { width: 24px; height: 24px; object-fit: contain; }
     .move-icon-atk { width: 22px; height: 22px; object-fit: contain; }
     .move-name-txt { flex: 1; font-size: 14px; }
 
-    /* =========================================
-       7. ANIMAÇÕES E RESPONSIVIDADE
-       ========================================= */
     @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
     @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; } }
     @media (max-width: 768px) {
@@ -178,7 +140,7 @@
       .header-top { justify-content: flex-end; width: 100%; }
       .logo { width: 150px; }
       .modal { width: 90%; height: 75vh; max-height: 520px; padding: 16px; border-radius: 14px; }
-      .moves-grid { grid-template-columns: 1fr; gap: 10px; } /* 1 coluna no celular */
+      .moves-grid { grid-template-columns: 1fr; gap: 10px; }
       .analysis { flex-direction: column-reverse; align-items: stretch; }
     }
   </style>
@@ -196,7 +158,6 @@
   <main class="map-list">
     <div id="teamExportArea">
       <div class="team-grid" id="teamGrid"></div>
-
       <div class="analysis">
         <div>
           <button id="shareBtn"></button>
@@ -227,20 +188,17 @@
   <div class="modal-overlay" id="editModal">
     <div class="modal" onclick="event.stopPropagation()">
       <h3 id="editModalTitle">Editar Animon</h3>
-      
       <div class="edit-body">
         <div class="level-container">
           Level: <span id="levelValueDisplay">100</span>
           <input type="range" id="levelInput" min="1" max="100" value="100">
         </div>
-
         <div class="moves-grid">
           <div class="custom-select" id="moveSelect0"></div>
           <div class="custom-select" id="moveSelect1"></div>
           <div class="custom-select" id="moveSelect2"></div>
           <div class="custom-select" id="moveSelect3"></div>
         </div>
-        
         <button class="save-edit-btn" id="saveEditBtn">Salvar Alterações</button>
       </div>
     </div>
@@ -257,20 +215,8 @@
        1. ESTADO E VARIÁVEIS GERAIS
        ========================================= */
     const texts = {
-      pt: {
-        btn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", totalStats: "Status Total",
-        weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades",
-        empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...",
-        editTitle: "Editar Animon", saveBtn: "Salvar Alterações", moveSelect: "Selecionar Move", moveEmpty: "Nenhum",
-        remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!"
-      },
-      en: {
-        btn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", totalStats: "Total Stats",
-        weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities",
-        empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...",
-        editTitle: "Edit Animon", saveBtn: "Save Changes", moveSelect: "Select Move", moveEmpty: "None",
-        remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!"
-      }
+      pt: { btn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", saveBtn: "Salvar Alterações", moveSelect: "Selecionar Move", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!" },
+      en: { btn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", saveBtn: "Save Changes", moveSelect: "Select Move", moveEmpty: "None", remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
@@ -280,32 +226,17 @@
     let openedBalloon = null;
 
     const DOM = {
-      grid: document.getElementById("teamGrid"),
-      shareBtn: document.getElementById("shareBtn"),
-      exportBtn: document.getElementById("exportBtn"),
-      langBtn: document.getElementById("langBtn"),
-      modal: document.getElementById("modal"),
-      editModal: document.getElementById("editModal"),
-      animonList: document.getElementById("animonList"),
-      searchInput: document.getElementById("searchInput"),
-      addAnimonBtn: document.getElementById("addAnimonBtn"),
-      levelInput: document.getElementById("levelInput"),
-      levelValueDisplay: document.getElementById("levelValueDisplay"),
-      saveEditBtn: document.getElementById("saveEditBtn")
+      grid: document.getElementById("teamGrid"), shareBtn: document.getElementById("shareBtn"), exportBtn: document.getElementById("exportBtn"), langBtn: document.getElementById("langBtn"), modal: document.getElementById("modal"), editModal: document.getElementById("editModal"), animonList: document.getElementById("animonList"), searchInput: document.getElementById("searchInput"), addAnimonBtn: document.getElementById("addAnimonBtn"), levelInput: document.getElementById("levelInput"), levelValueDisplay: document.getElementById("levelValueDisplay"), saveEditBtn: document.getElementById("saveEditBtn")
     };
 
     /* =========================================
-       2. INICIALIZAÇÃO E UTILIDADES
+       2. INICIALIZAÇÃO
        ========================================= */
     function init() {
       saveData();
       updateLangUI();
       renderTeam();
-      
-      // Atualizar texto do slider em tempo real
-      DOM.levelInput.addEventListener('input', (e) => {
-        DOM.levelValueDisplay.textContent = e.target.value;
-      });
+      DOM.levelInput.addEventListener('input', (e) => { DOM.levelValueDisplay.textContent = e.target.value; });
     }
 
     function saveData() { localStorage.setItem("team", JSON.stringify(team)); }
@@ -321,15 +252,13 @@
     }
 
     /* =========================================
-       3. RENDERIZAÇÃO DO TIME
+       3. RENDERIZAÇÃO
        ========================================= */
     function renderTeam() {
       DOM.grid.innerHTML = "";
-
       for (let i = 0; i < 6; i++) {
         const div = document.createElement("div");
         div.className = "team-slot";
-
         if (team[i]) {
           div.innerHTML = `
             <div class="slot-info">
@@ -338,7 +267,7 @@
             </div>
             <div class="slot-elements">${createElementIcon(team[i].type)}</div>
             <div class="slot-center">
-              <img src="${team[i].sprite}" class="animon-img" data-index="${i}" alt="${team[i].name}">
+              <img src="${team[i].sprite}" class="animon-img" alt="${team[i].name}">
             </div>
             <div class="slot-edit" onclick="event.stopPropagation(); openEditModal(${i})" title="Editar">
               <img src="assets/pencil.png" alt="Edit">
@@ -347,7 +276,6 @@
               <img src="assets/bin.png" alt="Delete">
             </div>
           `;
-
           const img = div.querySelector(".animon-img");
           if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div, team[i]); });
         } else {
@@ -366,12 +294,12 @@
     }
 
     /* =========================================
-       4. MODAL DE ESCOLHA (Adicionar)
+       4. MODAL ADICIONAR
        ========================================= */
     function openModal(slotIndex) {
       currentSlot = slotIndex;
       DOM.searchInput.value = "";
-      renderAnimonList(animons);
+      renderAnimonList(typeof animons !== 'undefined' ? animons : []);
       DOM.modal.style.display = "flex";
     }
 
@@ -383,10 +311,7 @@
         const div = document.createElement("div");
         div.className = "animon-option";
         div.innerHTML = `
-          <div class="animon-left">
-            <img src="${a.sprite}" alt="${a.name}">
-            <div><span class="animon-id">#${a.id}</span> <strong>${a.name}</strong></div>
-          </div>
+          <div class="animon-left"><img src="${a.sprite}" alt="${a.name}"><div><span class="animon-id">#${a.id}</span> <strong>${a.name}</strong></div></div>
           ${createElementIcon(a.type)}
         `;
         div.onclick = () => {
@@ -398,59 +323,69 @@
     }
 
     /* =========================================
-       5. MODAL DE EDIÇÃO (NOVO)
+       5. MODAL DE EDIÇÃO (Corrigido)
        ========================================= */
     function getMoveHtml(moveName) {
       if (!moveName || moveName === "") return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
       
+      // Proteção: Caso a variável global 'moves' não exista ou não seja carregada
+      if (typeof moves === "undefined") return `<span class="move-name-txt">${moveName}</span>`;
+
       const moveData = moves.find(m => m.name === moveName);
       if (!moveData) return `<span class="move-name-txt">${moveName}</span>`;
 
-      const typeIcon = `assets/${moveData.type.toLowerCase()}_element.png`;
-      const atkIcon = `assets/${moveData.attack.toLowerCase()}_attack.png`;
+      // Proteção contra propriedades indefinidas usando Optional Chaining e Fallbacks
+      const typeStr = (moveData.type || "normal").toLowerCase();
+      const attackStr = (moveData.attack || "physical").toLowerCase();
 
       return `
-        <img src="${typeIcon}" class="move-icon-type" alt="${moveData.type}">
+        <img src="assets/${typeStr}_element.png" class="move-icon-type" alt="${typeStr}">
         <span class="move-name-txt">${moveData.name}</span>
-        <img src="${atkIcon}" class="move-icon-atk" alt="${moveData.attack}">
+        <img src="assets/${attackStr}_attack.png" class="move-icon-atk" alt="${attackStr}">
       `;
     }
 
     function createMoveSelect(containerId, currentMove, availableMoves) {
       const container = document.getElementById(containerId);
       const label = texts[lang].moveSelect;
+
+      // Proteção: Garante que availableMoves é um array
+      const safeMovesArray = Array.isArray(availableMoves) ? availableMoves : [];
+
+      // Montar HTML dos options via string para melhor performance (evitando innerHTML +=)
+      let optionsHtml = `
+        <div class="option" data-value="">
+          <span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span>
+        </div>`;
       
+      safeMovesArray.forEach(mName => {
+        optionsHtml += `
+          <div class="option" data-value="${mName}">
+            ${getMoveHtml(mName)}
+          </div>`;
+      });
+
       container.innerHTML = `
         <div class="select-btn">
           ${currentMove ? getMoveHtml(currentMove) : `<span>${label}</span>`}
         </div>
-        <div class="select-options"></div>
+        <div class="select-options">
+          ${optionsHtml}
+        </div>
       `;
-      
+
       const btn = container.querySelector('.select-btn');
       const options = container.querySelector('.select-options');
-      
-      btn.onclick = () => {
+
+      btn.onclick = (e) => {
+        e.stopPropagation();
         document.querySelectorAll('.select-options').forEach(opt => {
           if (opt !== options) opt.classList.remove('open');
         });
         options.classList.toggle('open');
       };
-      
-      // Opção "Nenhum"
-      options.innerHTML = `
-        <div class="option" data-value="">
-          <span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span>
-        </div>`;
-        
-      availableMoves.forEach(mName => {
-        options.innerHTML += `
-          <div class="option" data-value="${mName}">
-            ${getMoveHtml(mName)}
-          </div>`;
-      });
-      
-      options.querySelectorAll('.option').forEach(opt => {
+
+      container.querySelectorAll('.option').forEach(opt => {
         opt.onclick = () => {
           const val = opt.dataset.value;
           btn.innerHTML = val ? getMoveHtml(val) : `<span>${label}</span>`;
@@ -458,35 +393,35 @@
           options.classList.remove('open');
         };
       });
-      
+
       container.dataset.value = currentMove || "";
     }
 
     function openEditModal(index) {
-      editSlotIndex = index;
       const animon = team[index];
+      if (!animon) return; // Proteção extra
+
+      editSlotIndex = index;
       
-      // Setup Level
       const currentLevel = animon.level || 100;
       DOM.levelInput.value = currentLevel;
       DOM.levelValueDisplay.textContent = currentLevel;
-      
-      // Setup Moves (Fallback para array vazio se o animon não tiver movesList configurado)
-      const availableMoves = animon.movesList || [];
-      const currentMoves = animon.moves || ["", "", "", ""];
-      
-      for(let i=0; i<4; i++){
-        createMoveSelect(`moveSelect${i}`, currentMoves[i], availableMoves);
+
+      const availableMoves = Array.isArray(animon.movesList) ? animon.movesList : [];
+      const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
+
+      for (let i = 0; i < 4; i++) {
+        createMoveSelect(`moveSelect${i}`, currentMoves[i] || "", availableMoves);
       }
-      
+
       DOM.editModal.style.display = "flex";
     }
 
     function closeEditModal() { DOM.editModal.style.display = "none"; }
 
     DOM.saveEditBtn.onclick = () => {
-      if(editSlotIndex !== null && team[editSlotIndex]) {
-        team[editSlotIndex].level = parseInt(DOM.levelInput.value);
+      if (editSlotIndex !== null && team[editSlotIndex]) {
+        team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
         team[editSlotIndex].moves = [
           document.getElementById('moveSelect0').dataset.value || "",
           document.getElementById('moveSelect1').dataset.value || "",
@@ -506,8 +441,8 @@
       const total = { hp: 0, atk: 0, def: 0, spAtk: 0, spDef: 0, spd: 0 };
       team.forEach(a => {
         if (!a || !a.stats) return;
-        total.hp += a.stats.hp; total.atk += a.stats.atk; total.def += a.stats.def;
-        total.spAtk += a.stats.spAtk; total.spDef += a.stats.spDef; total.spd += a.stats.spd;
+        total.hp += a.stats.hp || 0; total.atk += a.stats.atk || 0; total.def += a.stats.def || 0;
+        total.spAtk += a.stats.spAtk || 0; total.spDef += a.stats.spDef || 0; total.spd += a.stats.spd || 0;
       });
       document.getElementById("statsTotal").innerHTML = Object.entries(total).map(([key, value]) => `
         <div class="stat-btn"><div class="stat-label">${key.toUpperCase()}</div><div class="stat-value">${value}</div></div>
@@ -518,13 +453,16 @@
       const weakness = {}, resist = {}, immune = {};
       const types = Array.isArray(animon.type) ? animon.type : [animon.type];
 
-      Object.keys(chart).forEach(attackType => {
-        let multiplier = 1;
-        types.forEach(defType => { multiplier *= chart[attackType]?.[defType] ?? 1; });
-        if (multiplier > 1) weakness[attackType] = true;
-        else if (multiplier === 0) immune[attackType] = true;
-        else if (multiplier < 1) resist[attackType] = true;
-      });
+      // Proteção caso o chart.js não tenha carregado
+      if (typeof chart !== "undefined") {
+        Object.keys(chart).forEach(attackType => {
+          let multiplier = 1;
+          types.forEach(defType => { multiplier *= chart[attackType]?.[defType] ?? 1; });
+          if (multiplier > 1) weakness[attackType] = true;
+          else if (multiplier === 0) immune[attackType] = true;
+          else if (multiplier < 1) resist[attackType] = true;
+        });
+      }
 
       const formatObj = obj => Object.keys(obj).join(", ") || "None";
       let statsHtml = "";
@@ -575,6 +513,7 @@
     };
 
     DOM.searchInput.addEventListener("input", () => {
+      if (typeof animons === 'undefined') return;
       const value = DOM.searchInput.value.toLowerCase();
       renderAnimonList(animons.filter(a => a.name.toLowerCase().includes(value) || String(a.id).includes(value)));
     });
@@ -582,7 +521,6 @@
     DOM.modal.addEventListener("click", (e) => { if (e.target === DOM.modal) closeModal(); });
     DOM.editModal.addEventListener("click", (e) => { if (e.target === DOM.editModal) closeEditModal(); });
 
-    // Fechar dropdowns ao clicar fora
     document.addEventListener("click", e => {
       if (!e.target.closest('.custom-select')) {
         document.querySelectorAll(".select-options").forEach(opt => opt.classList.remove("open"));
