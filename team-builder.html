@@ -53,7 +53,7 @@
 
     .slot-main-content {
       position: relative; display: flex; align-items: center; justify-content: center;
-      min-height: 130px; padding: 14px;
+      min-height: 130px; padding: 14px; z-index: 2;
     }
     .slot-main-content::after { 
       content: ""; position: absolute; top: 0; bottom: 0; right: var(--right-column); 
@@ -83,6 +83,8 @@
     .team-slot.active .slot-expand { transform: rotate(180deg); opacity: 1; }
 
     .slot-moves-content {
+      position: relative;
+      z-index: 1;
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.35s ease;
