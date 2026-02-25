@@ -315,7 +315,7 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move */
+    /* Função Auxiliar para resgatar infos de um Move (ARRUMADA) */
     function getMoveInfo(moveName) {
       if (!moveName || moveName === "") return null;
 
@@ -324,19 +324,28 @@
         if (Array.isArray(moves)) {
           moveData = moves.find(m => m.name === moveName || m.id === moveName);
         } else if (typeof moves === 'object') {
-          moveData = moves[moveName] || Object.values(moves).find(m => m.name === moveName);
+          moveData = moves[moveName] || Object.values(moves).find(m => m.name === moveName || m.id === moveName);
         }
       }
 
+      // Se não achar nada no banco global, retorna o nome com ícones padrão
       if (!moveData) return { name: moveName, typeStr: "neutral", attackStr: "physical" };
 
-      const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
-      const attackValue = moveData.attack || "physical";
+      // Garante a extração correta do Elemento (Type)
+      let typeValue = "neutral";
+      if (moveData.type) {
+        typeValue = Array.isArray(moveData.type) ? moveData.type[0] : moveData.type;
+      } else if (moveData.element) {
+        typeValue = Array.isArray(moveData.element) ? moveData.element[0] : moveData.element;
+      }
+
+      // Garante a extração correta da Categoria de Ataque
+      let attackValue = moveData.attack || moveData.category || "physical";
 
       return {
         name: moveData.name || moveName,
-        typeStr: typeValue.toLowerCase(),
-        attackStr: attackValue.toLowerCase()
+        typeStr: String(typeValue).toLowerCase(),
+        attackStr: String(attackValue).toLowerCase()
       };
     }
 
@@ -359,8 +368,8 @@
               <div class="mini-move">
                 <span class="move-name-txt">${minfo.name}</span>
                 <div class="move-icons-wrapper">
-                  <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}">
-                  <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}">
+                  <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" title="${minfo.typeStr}">
+                  <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" title="${minfo.attackStr}">
                 </div>
               </div>
             `;
@@ -428,7 +437,6 @@
           ${createElementIcon(a.type)}
         `;
         div.onclick = () => {
-          // CLONAGEM COMPLETA DO OBJETO PARA GARANTIR O MOVESLIST
           team[currentSlot] = JSON.parse(JSON.stringify(a));
           team[currentSlot].level = 100;
           team[currentSlot].moves = ["", "", "", ""];
@@ -501,7 +509,6 @@
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
-      // DETECTA MOVES ESPECÍFICOS DO ANIMON OU TODOS OS MOVES
       let availableMoves = [];
       if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
         availableMoves = animon.movesList;
