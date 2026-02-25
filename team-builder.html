@@ -319,38 +319,51 @@
     }
 
     /* Função Auxiliar para resgatar infos de um Move com busca aprimorada */
-    function getMoveInfo(moveInput, localMoveList = null) {
+    function getMoveInfo(moveInput) {
       if (!moveInput || moveInput === "") return null;
 
       let moveData = null;
-      const finalName = typeof moveInput === "string"
-       ? moveInput.trim().toLowerCase()
-       : null;
-            
-            
-      if (localMoveList && Array.isArray(localMoveList)) {
-        moveData = localMoveList.find(m =>
-         m.name && m.name.toLowerCase().trim() === finalName
-       );
+      let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || moveInput.id || "Unknown");
+
+      if (typeof moveInput === 'object') {
+        moveData = moveInput;
+      } else if (typeof moves !== "undefined") {
+        if (Array.isArray(moves)) {
+          moveData = moves.find(m => 
+            (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()) || 
+            (m.id && String(m.id).toLowerCase().trim() === finalName.toLowerCase())
+          );
+        } else if (typeof moves === 'object') {
+          const exactKey = Object.keys(moves).find(k => k.toLowerCase().trim() === finalName.toLowerCase());
+
+          if (exactKey) {
+            moveData = moves[exactKey];
+            finalName = moveData.name || exactKey;
+          } else {
+            const foundVal = Object.values(moves).find(m => 
+              (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()) || 
+              (m.id && String(m.id).toLowerCase().trim() === finalName.toLowerCase())
+            );
+            if (foundVal) {
+              moveData = foundVal;
+              finalName = moveData.name || finalName;
+            }
+          }
+        }
       }
 
-      /
-      if (!moveData && typeof moves !== "undefined") {
-       const moveArray = Array.isArray(moves)
-        ? moves
-        : Object,values(moves);
-      
-       moveData = moveArray.find(m =>
-        m.name && m.name.toLowerCase().trim() === finalName
-       );
-      }
+      // Se não encontrar o move, usa o nome dele mas seta o fallback visual
+      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
-      if (!moveData) return null;
+      // Verifica variações das chaves do seu JSON
+      const tVal = moveData.type || moveData.element || "neutral";
+      const typeValue = Array.isArray(tVal) ? tVal[0] : tVal;
+      const attackValue = moveData.attack || moveData.category || moveData.damage_class || "physical";
 
       return {
-        name: moveData.name,
+        name: moveData.name || finalName,
         typeStr: String(typeValue).toLowerCase().trim(),
-        attackStr: String(moveData.attack).toLowerCase().trim()
+        attackStr: String(attackValue).toLowerCase().trim()
       };
     }
 
