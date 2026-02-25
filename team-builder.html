@@ -45,9 +45,6 @@
     .map-list { max-width: 1200px; margin: 0 auto; }
     .team-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
-    /* =========================================
-       3. COMPONENTES: SLOTS DO TIME
-       ========================================= */
     .team-slot { 
       position: relative; background: var(--card); border: 1px solid var(--border); 
       border-radius: 18px; cursor: default; transition: 0.2s; 
@@ -68,10 +65,8 @@
     .slot-level { font-size: 14px; opacity: 0.8; }
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
 
-    /* Quando vazio */
     .empty-slot { opacity: 0.6; font-weight: bold; min-height: 130px; display: flex; align-items: center; justify-content: center; width: 100%; }
 
-    /* Botões: Lápis, Lixeira e Expansão na coluna direita */
     .slot-edit, .slot-delete, .slot-expand { 
       position: absolute; right: 18px; opacity: 0.6; cursor: pointer; 
       display: flex; align-items: center; justify-content: center; transition: 0.2s; 
@@ -85,10 +80,8 @@
     .slot-expand:hover { opacity: 1; transform: scale(1.2); }
     .slot-delete img, .slot-edit img { width: 22px; height: 22px; object-fit: contain; pointer-events: none; }
 
-    /* Rotação da seta quando ativo */
     .team-slot.active .slot-expand { transform: rotate(180deg); opacity: 1; }
 
-    /* Expandir Container de Moves igual ao Map-Content */
     .slot-moves-content {
       max-height: 0;
       overflow: hidden;
@@ -183,7 +176,7 @@
     .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; }
     .option:hover { background: var(--hover); }
 
-    .move-name-txt { flex: 1; font-size: 14px; text-align: left; }
+    .move-name-txt { flex: 1; font-size: 14px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .move-icons-wrapper { display: flex; align-items: center; gap: 8px; margin-left: auto; }
     .move-icon-type { width: 24px; height: 24px; object-fit: contain; }
     .move-icon-atk { width: 22px; height: 22px; object-fit: contain; }
@@ -287,7 +280,6 @@
        2. INICIALIZAÇÃO E AUTO-SAVE
        ========================================= */
     function init() {
-      saveData();
       updateLangUI();
       renderTeam();
 
@@ -313,34 +305,39 @@
       }
     }
 
+    // CORRIGIDO: Removido o underline "_" para bater com fireelement.png, etc.
     function createElementIcon(types) {
       if (!Array.isArray(types)) types = [types];
       return `<div class="animon-elements">
         ${types.map(type => `<div class="element-wrapper element-${type.toLowerCase()}">
-          <div class="element-inner"><img src="assets/${type.toLowerCase()}_element.png" alt="${type}"></div>
+          <div class="element-inner"><img src="assets/${type.toLowerCase()}element.png" alt="${type}"></div>
           <div class="element-tooltip">${type}</div>
         </div>`).join("")}
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move com segurança */
-    function getMoveInfo(moveInput) {
-      const moveName = typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput;
+    /* Função Auxiliar para resgatar infos de um Move */
+    function getMoveInfo(moveName) {
       if (!moveName || moveName === "") return null;
 
       let moveData = null;
       if (typeof moves !== "undefined") {
         if (Array.isArray(moves)) {
           moveData = moves.find(m => m.name === moveName || m.id === moveName);
-        } else if (typeof moves === 'object' && moves !== null) {
+        } else if (typeof moves === 'object') {
           moveData = moves[moveName] || Object.values(moves).find(m => m.name === moveName);
         }
       }
 
+      if (!moveData) return { name: moveName, typeStr: "neutral", attackStr: "physical" };
+
+      const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
+      const attackValue = moveData.attack || "physical";
+
       return {
-        name: moveData ? (moveData.name || moveName) : moveName,
-        typeStr: moveData ? (moveData.type || moveData.element || "normal").toLowerCase() : "normal",
-        attackStr: moveData ? (moveData.attack || moveData.category || moveData.class || "physical").toLowerCase() : "physical"
+        name: moveData.name || moveName,
+        typeStr: typeValue.toLowerCase(),
+        attackStr: attackValue.toLowerCase()
       };
     }
 
@@ -354,10 +351,8 @@
         div.className = "team-slot";
 
         if (team[i]) {
-          // Garante que o array de moves exista
           const animonMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
 
-          // Gera o HTML dos 4 mini containers de Moves
           const movesHtml = [0, 1, 2, 3].map(mIndex => {
             const minfo = getMoveInfo(animonMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
@@ -365,8 +360,8 @@
               <div class="mini-move">
                 <span class="move-name-txt">${minfo.name}</span>
                 <div class="move-icons-wrapper">
-                  <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" title="${minfo.typeStr}">
-                  <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" title="${minfo.attackStr}">
+                  <img src="assets/${minfo.typeStr}element.png" class="move-icon-type" alt="${minfo.typeStr}">
+                  <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}">
                 </div>
               </div>
             `;
@@ -392,17 +387,14 @@
                 ▼
               </div>
             </div>
-
             <div class="slot-moves-content">
-              <div class="moves-container">
-                ${movesHtml}
-              </div>
+              <div class="moves-container">${movesHtml}</div>
             </div>
           `;
           const img = div.querySelector(".animon-img");
           if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div.querySelector('.slot-main-content'), team[i]); });
         } else {
-          div.innerHTML = `<div class="empty-slot">${texts[lang].empty}</div>`;
+          div.innerHTML = `<div class="empty-slot" onclick="openModal(${i})">${texts[lang].empty}</div>`;
         }
         DOM.grid.appendChild(div);
       }
@@ -410,8 +402,7 @@
     }
 
     function removeFromTeam(index) {
-      team[index] = null;
-      team = team.filter(a => a !== null);
+      team.splice(index, 1);
       saveData();
       renderTeam();
     }
@@ -438,7 +429,9 @@
           ${createElementIcon(a.type)}
         `;
         div.onclick = () => {
-          team[currentSlot] = { ...a, level: 100, moves: ["", "", "", ""] };
+          team[currentSlot] = JSON.parse(JSON.stringify(a));
+          team[currentSlot].level = 100;
+          team[currentSlot].moves = ["", "", "", ""];
           saveData(); renderTeam(); closeModal();
         };
         DOM.animonList.appendChild(div);
@@ -448,15 +441,15 @@
     /* =========================================
        5. MODAL DE EDIÇÃO E MOVES
        ========================================= */
-    function getMoveHtml(moveInput) {
-      const minfo = getMoveInfo(moveInput);
+    function getMoveHtml(moveName) {
+      const minfo = getMoveInfo(moveName);
       if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
       return `
         <span class="move-name-txt">${minfo.name}</span>
         <div class="move-icons-wrapper">
-          <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" title="${minfo.typeStr}">
-          <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" title="${minfo.attackStr}">
+          <img src="assets/${minfo.typeStr}element.png" class="move-icon-type" alt="${minfo.typeStr}">
+          <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}">
         </div>
       `;
     }
@@ -464,28 +457,19 @@
     function createMoveSelect(containerId, currentMove, availableMoves) {
       const container = document.getElementById(containerId);
       const label = texts[lang].moveSelect;
-      const safeMovesArray = Array.isArray(availableMoves) ? availableMoves : [];
 
-      let optionsHtml = `
-        <div class="option" data-value="">
-          <span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span>
-        </div>`;
+      let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
 
-      safeMovesArray.forEach(m => {
-        const mName = typeof m === 'object' ? (m.name || m.id) : m;
-        optionsHtml += `
-          <div class="option" data-value="${mName}">
-            ${getMoveHtml(mName)}
-          </div>`;
+      availableMoves.forEach(m => {
+        const mName = (typeof m === 'object') ? (m.name || m.id) : m;
+        optionsHtml += `<div class="option" data-value="${mName}">${getMoveHtml(mName)}</div>`;
       });
 
       container.innerHTML = `
         <div class="select-btn">
           ${currentMove ? getMoveHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}
         </div>
-        <div class="select-options">
-          ${optionsHtml}
-        </div>
+        <div class="select-options">${optionsHtml}</div>
       `;
 
       const btn = container.querySelector('.select-btn');
@@ -493,9 +477,7 @@
 
       btn.onclick = (e) => {
         e.stopPropagation();
-        document.querySelectorAll('.select-options').forEach(opt => {
-          if (opt !== options) opt.classList.remove('open');
-        });
+        document.querySelectorAll('.select-options').forEach(opt => { if (opt !== options) opt.classList.remove('open'); });
         options.classList.toggle('open');
       };
 
@@ -508,7 +490,6 @@
           autoSaveEditData();
         };
       });
-
       container.dataset.value = currentMove || "";
     }
 
@@ -517,14 +498,17 @@
       if (!animon) return; 
 
       editSlotIndex = index;
+      DOM.levelInput.value = animon.level || 100;
+      DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
-      const currentLevel = animon.level || 100;
-      DOM.levelInput.value = currentLevel;
-      DOM.levelValueDisplay.textContent = currentLevel;
+      let availableMoves = [];
+      if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
+        availableMoves = animon.movesList;
+      } else if (typeof moves !== "undefined") {
+        availableMoves = Array.isArray(moves) ? moves : Object.values(moves);
+      }
 
-      const availableMoves = Array.isArray(animon.movesList) ? animon.movesList : (Array.isArray(animon.moves) ? animon.moves : []);
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
-
       for (let i = 0; i < 4; i++) {
         createMoveSelect(`moveSelect${i}`, currentMoves[i] || "", availableMoves);
       }
@@ -601,13 +585,11 @@
       localStorage.setItem("siteLang", lang);
       updateLangUI();
       renderTeam();
-      if (typeof updateMenuLang === "function") updateMenuLang();
     };
 
     DOM.addAnimonBtn.onclick = () => {
-      const emptyIndex = team.findIndex(a => !a);
-      if (emptyIndex === -1 && team.length >= 6) return alert(texts[lang].full);
-      openModal(emptyIndex === -1 ? team.length : emptyIndex);
+      if (team.length >= 6) return alert(texts[lang].full);
+      openModal(team.length);
     };
 
     DOM.searchInput.addEventListener("input", () => {
@@ -632,21 +614,9 @@
 
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
-      const originalWidth = exportArea.style.width, originalGridStyle = DOM.grid.style.gridTemplateColumns;
-
-      // Expande tudo temporariamente para o canvas pegar os moves caso abertos
-      exportArea.style.width = "900px"; 
-      DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
-
-      const canvas = await html2canvas(exportArea, { scale: 2 });
-
-      exportArea.style.width = originalWidth; 
-      DOM.grid.style.gridTemplateColumns = originalGridStyle;
-
+      const canvas = await html2canvas(exportArea, { scale: 2, useCORS: true });
       const link = document.createElement("a"); 
-      link.download = "pocket-anime-team.png"; 
-      link.href = canvas.toDataURL(); 
-      link.click();
+      link.download = "team.png"; link.href = canvas.toDataURL(); link.click();
     };
 
     init();
