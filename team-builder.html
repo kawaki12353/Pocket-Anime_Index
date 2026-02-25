@@ -323,27 +323,47 @@
       if (!moveInput || moveInput === "") return null;
 
       let moveData = null;
-      // Se o input for apenas o nome (string), procuramos no array moves
-      let searchName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || "");
+      let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || moveInput.id || "Unknown");
 
-      if (typeof moves !== "undefined" && Array.isArray(moves)) {
-        moveData = moves.find(m => m.name.toLowerCase() === searchName.toLowerCase());
+      if (typeof moveInput === 'object') {
+        moveData = moveInput;
+      } else if (typeof moves !== "undefined") {
+        if (Array.isArray(moves)) {
+          moveData = moves.find(m => 
+            (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()) || 
+            (m.id && String(m.id).toLowerCase().trim() === finalName.toLowerCase())
+          );
+        } else if (typeof moves === 'object') {
+          const exactKey = Object.keys(moves).find(k => k.toLowerCase().trim() === finalName.toLowerCase());
+
+          if (exactKey) {
+            moveData = moves[exactKey];
+            finalName = moveData.name || exactKey;
+          } else {
+            const foundVal = Object.values(moves).find(m => 
+              (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()) || 
+              (m.id && String(m.id).toLowerCase().trim() === finalName.toLowerCase())
+            );
+            if (foundVal) {
+              moveData = foundVal;
+              finalName = moveData.name || finalName;
+            }
+          }
+        }
       }
 
-      // Se não encontrar no banco de dados, retorna um objeto básico com o nome que recebeu
-      if (!moveData) {
-        return { 
-          name: searchName, 
-          typeStr: "neutral", 
-          attackStr: "physical" 
-        };
-      }
+      // Se não encontrar o move, usa o nome dele mas seta o fallback visual
+      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
-      // Mapeamento e normalização para minúsculo
+      // Verifica variações das chaves do seu JSON
+      const tVal = moveData.type || moveData.element || "neutral";
+      const typeValue = Array.isArray(tVal) ? tVal[0] : tVal;
+      const attackValue = moveData.attack || moveData.category || moveData.damage_class || "physical";
+
       return {
-        name: moveData.name,
-        typeStr: String(moveData.type || "neutral").toLowerCase().trim(),
-        attackStr: String(moveData.attack || "physical").toLowerCase().trim()
+        name: moveData.name || finalName,
+        typeStr: String(typeValue).toLowerCase().trim(),
+        attackStr: String(attackValue).toLowerCase().trim()
       };
     }
 
@@ -374,9 +394,7 @@
 
           const movesHtml = [0, 1, 2, 3].map(mIndex => {
             const minfo = getMoveInfo(animonMoves[mIndex]);
-            // Verifica se o move é nulo ou se o texto está vazio
-            if (!minfo || animonMoves[mIndex] === "") return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
-            
+            if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
             return `
               <div class="mini-move">
                 <span class="move-name-txt">${minfo.name}</span>
