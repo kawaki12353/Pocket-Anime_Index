@@ -315,7 +315,7 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move (ARRUMADA) */
+    /* Função Auxiliar para resgatar infos de um Move (CORRIGIDA) */
     function getMoveInfo(moveName) {
       if (!moveName || moveName === "") return null;
 
@@ -328,19 +328,14 @@
         }
       }
 
-      // Se não achar nada no banco global, retorna o nome com ícones padrão
-      if (!moveData) return { name: moveName, typeStr: "neutral", attackStr: "physical" };
+      // Se não achar o move no banco de dados, não renderiza ícones errados
+      if (!moveData) return null;
 
-      // Garante a extração correta do Elemento (Type)
-      let typeValue = "neutral";
-      if (moveData.type) {
-        typeValue = Array.isArray(moveData.type) ? moveData.type[0] : moveData.type;
-      } else if (moveData.element) {
-        typeValue = Array.isArray(moveData.element) ? moveData.element[0] : moveData.element;
-      }
-
-      // Garante a extração correta da Categoria de Ataque
-      let attackValue = moveData.attack || moveData.category || "physical";
+      // Pegando o elemento (Fighting, Fire, etc)
+      let typeValue = moveData.type || moveData.element || "Neutral";
+      
+      // Pegando o tipo de ataque (Physical, Special, Status)
+      let attackValue = moveData.attack || moveData.category || moveData.type_atk || "Physical";
 
       return {
         name: moveData.name || moveName,
