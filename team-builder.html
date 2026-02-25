@@ -319,42 +319,38 @@
     }
 
     /* Função Auxiliar para resgatar infos de um Move com busca aprimorada */
-    function getMoveInfo(moveInput) {
-     if (!moveInput || moveInput === "") return null;
+    function getMoveInfo(moveInput, localMoveList = null) {
+      if (!moveInput || moveInput === "") return null;
 
-     let moveData = null;
-     let finalName = "";
-
-     if (typeof moveInput === "object") {
-       moveData = moveInput;
-     } else if (typeof moveInput === "string" && typeof moves !== "undefined") {
-       finalName = moveInput.trim().toLowerCase();
+      let moveData = null;
+      const finalName = typeof moveInput === "string"
+       ? moveInput.trim().toLowerCase()
+       : null;
             
-       if (Array.isArray(moves)) {
-         moveData = moves.find(m =>
-          m.name && m.name.toLowerCase().trim() === finalName
-         );
-        } else if (typeof moves === "object") {   
-          moveData = Object.values(moves).find(m =>
-           m.name && m.name.toLowerCase().trim() === finalName
-          );
-        }
+            
+      if (localMoveList && Array.isArray(localMoveList)) {
+        moveData = localMoveList.find(m =>
+         m.name && m.name.toLowerCase().trim() === finalName
+       );
+      }
+
+      /
+      if (!moveData && typeof moves !== "undefined") {
+       const moveArray = Array.isArray(moves)
+        ? moves
+        : Object,values(moves);
+      
+       moveData = moveArray.find(m =>
+        m.name && m.name.toLowerCase().trim() === finalName
+       );
       }
 
       if (!moveData) return null;
 
-      // Verifica variações das chaves do seu JSON
-      const tVal = moveData.type || moveData.element || "neutral";
-      const typeValue = Array.isArray(moveData.Type)
-       ? moveData.Type[0]
-       : moveData.Type;
-      
-      const attackValue = moveData.attack;
-
       return {
         name: moveData.name,
         typeStr: String(typeValue).toLowerCase().trim(),
-        attackStr: String(attackValue).toLowerCase().trim()
+        attackStr: String(moveData.attack).toLowerCase().trim()
       };
     }
 
