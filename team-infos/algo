@@ -1,34 +1,42 @@
-function getMoveInfo(moveInput, localMoveList = null) {
-  if (!moveInput || moveInput === "") return null;
+/* Função Auxiliar para resgatar infos de um Move com busca aprimorada */
+function getMoveInfo(moveInput) {
+  if (!moveInput || moveInput === "" || moveInput === "None") return null;
 
   let moveData = null;
-  const finalName = typeof moveInput === "string"
-    ? moveInput.trim().toLowerCase()
-    : null;
+  let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || "Unknown");
 
-  // 1️⃣ Procura primeiro na lista local do animon
-  if (localMoveList && Array.isArray(localMoveList)) {
-    moveData = localMoveList.find(m =>
-      m.name && m.name.toLowerCase().trim() === finalName
-    );
+  // Busca no objeto global 'moves' (carregado do moves.js)
+  if (typeof moves !== "undefined") {
+    // Se 'moves' for um objeto onde a chave é o nome do golpe
+    if (moves[finalName]) {
+      moveData = moves[finalName];
+    } else {
+      // Busca ignorando maiúsculas/minúsculas
+      const foundKey = Object.keys(moves).find(k => k.toLowerCase() === finalName.toLowerCase());
+      if (foundKey) {
+        moveData = moves[foundKey];
+        finalName = foundKey;
+      }
+    }
   }
 
-  // 2️⃣ Se não achou, procura no moves.js global
-  if (!moveData && typeof moves !== "undefined") {
-    const moveArray = Array.isArray(moves)
-      ? moves
-      : Object.values(moves);
-
-    moveData = moveArray.find(m =>
-      m.name && m.name.toLowerCase().trim() === finalName
-    );
+  // Se não encontrar os dados, tenta usar o que veio no input (caso o objeto já tenha as propriedades)
+  if (!moveData && typeof moveInput === 'object') {
+    moveData = moveInput;
   }
 
-  if (!moveData) return null;
+  // Se mesmo assim não encontrar no banco de dados, retorna o nome mas mantém ícones padrão para não quebrar
+  if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
+
+  // Mapeamento dos campos (aceita 'type' ou 'element' e 'attack' ou 'category')
+  const tVal = moveData.type || moveData.element || "neutral";
+  const typeValue = Array.isArray(tVal) ? tVal[0] : tVal;
+  
+  const aVal = moveData.attack || moveData.category || moveData.damage_class || "physical";
 
   return {
-    name: moveData.name,
-    typeStr: String(moveData.type).toLowerCase().trim(),
-    attackStr: String(moveData.attack).toLowerCase().trim()
+    name: moveData.name || finalName,
+    typeStr: String(typeValue).toLowerCase().trim(),
+    attackStr: String(aVal).toLowerCase().trim()
   };
 }
