@@ -323,12 +323,16 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move com segurança (CORRIGIDA) */
+    /* Função Auxiliar para resgatar infos de um Move (ATUALIZADA) */
     function getMoveInfo(moveInput) {
-      const moveName = typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput;
+      const moveName = typeof moveInput === 'object'
+        ? (moveInput.name || moveInput.id)
+        : moveInput;
+
       if (!moveName || moveName === "") return null;
 
       let moveData = null;
+
       if (typeof moves !== "undefined") {
         if (Array.isArray(moves)) {
           moveData = moves.find(m => m.name === moveName || m.id === moveName);
@@ -337,18 +341,19 @@
         }
       }
 
-      // Correção: Extrai o tipo de forma segura, pegando o índice [0] se for Array
-      let rawType = moveData ? (moveData.type || moveData.element || "normal") : "normal";
-      if (Array.isArray(rawType)) rawType = rawType[0];
+      if (!moveData) return null;
 
-      // Correção: Extrai a classe de ataque de forma segura
-      let rawAttack = moveData ? (moveData.attack || moveData.category || moveData.class || "physical") : "physical";
-      if (Array.isArray(rawAttack)) rawAttack = rawAttack[0];
+      // 🔥 CORREÇÃO AQUI
+      const typeValue = Array.isArray(moveData.type)
+        ? moveData.type[0]   // pega o primeiro elemento do array
+        : moveData.type || "normal";
+
+      const attackValue = moveData.attack || "physical";
 
       return {
-        name: moveData ? (moveData.name || moveName) : moveName,
-        typeStr: String(rawType).toLowerCase(),
-        attackStr: String(rawAttack).toLowerCase()
+        name: moveData.name,
+        typeStr: typeValue.toLowerCase(),
+        attackStr: attackValue.toLowerCase()
       };
     }
 
@@ -528,7 +533,6 @@
       DOM.levelInput.value = currentLevel;
       DOM.levelValueDisplay.textContent = currentLevel;
 
-      // CORREÇÃO: Garante que os moves sejam puxados do moves globais caso o animon não tenha 'movesList'
       let availableMoves = [];
       if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
         availableMoves = animon.movesList;
