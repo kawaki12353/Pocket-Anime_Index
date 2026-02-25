@@ -296,11 +296,20 @@
     function autoSaveEditData() {
       if (editSlotIndex !== null && team[editSlotIndex]) {
         team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
+    
+        // Função auxiliar para recuperar o valor do dataset e transformá-lo em objeto se necessário
+        const getSelectVal = (id) => {
+          const val = document.getElementById(id).dataset.value;
+          if (!val) return "";
+          try { if (val.startsWith('{')) return JSON.parse(val); } catch(e) {}
+          return val;
+        };
+
         team[editSlotIndex].moves = [
-          document.getElementById('moveSelect0').dataset.value || "",
-          document.getElementById('moveSelect1').dataset.value || "",
-          document.getElementById('moveSelect2').dataset.value || "",
-          document.getElementById('moveSelect3').dataset.value || ""
+          getSelectVal('moveSelect0'),
+          getSelectVal('moveSelect1'),
+          getSelectVal('moveSelect2'),
+          getSelectVal('moveSelect3')
         ];
         saveData();
         renderTeam();
@@ -360,10 +369,10 @@
       // =========================================
       // AQUI ESTÁ A LÓGICA REFEITA DOS ELEMENTOS
       // =========================================
-      
+
       // Busca a chave exata "type" ou um fallback
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
-      
+
       // Busca a chave exata "attack" ou um fallback
       const attackValue = moveData.attack || "physical";
 
@@ -491,9 +500,9 @@
       let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
 
       availableMoves.forEach(m => {
-        const mName = (typeof m === 'object') ? (m.name || m.id) : m;
-        // Passamos o próprio objeto "m" caso esteja disponível para pular a pesquisa global
-        optionsHtml += `<div class="option" data-value="${mName}">${getMoveHtml(m)}</div>`;
+        // Se 'm' for um objeto, converte para string JSON para não perder os dados vitais.
+        const mData = typeof m === 'object' ? JSON.stringify(m).replace(/"/g, '&quot;') : m;
+        optionsHtml += `<div class="option" data-value="${mData}">${getMoveHtml(m)}</div>`;
       });
 
       container.innerHTML = `
@@ -515,13 +524,21 @@
       container.querySelectorAll('.option').forEach(opt => {
         opt.onclick = () => {
           const val = opt.dataset.value;
-          btn.innerHTML = val ? getMoveHtml(val) : `<span class="move-name-txt">${label}</span>`;
+
+          // Tenta converter de volta para objeto se for um JSON salvo
+          let parsedVal = val;
+          try { if (val.startsWith('{')) parsedVal = JSON.parse(val); } catch(e) {}
+
+          btn.innerHTML = val ? getMoveHtml(parsedVal) : `<span class="move-name-txt">${label}</span>`;
           container.dataset.value = val;
           options.classList.remove('open');
           autoSaveEditData();
         };
       });
-      container.dataset.value = currentMove || "";
+
+      // Lida corretamente com objetos vindos de carregamentos anteriores (evita "[object Object]")
+      const initialVal = typeof currentMove === 'object' ? JSON.stringify(currentMove) : (currentMove || "");
+      container.dataset.value = initialVal;
     }
 
     function openEditModal(index) {
