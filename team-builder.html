@@ -337,25 +337,18 @@
         }
       }
 
-      // Se passou um objeto e não achou em moves.js, aproveita os dados do próprio objeto
-      if (!moveData && typeof moveInput === 'object') {
-        moveData = moveInput;
-      }
-
-      // Tratamento para Extrair Elemento/Tipo corretamente
-      let typeData = moveData ? (moveData.type || moveData.element || "normal") : "normal";
-      // Se for um array ex: ["Light"], pega só a primeira string.
-      if (Array.isArray(typeData)) typeData = typeData[0];
-
-      // Tratamento para Extrair o Ataque corretamente
-      let atkData = moveData ? (moveData.attack || moveData.category || moveData.class || "physical") : "physical";
-      // Caso algum dado de ataque venha em array também, tratamos por precaução
-      if (Array.isArray(atkData)) atkData = atkData[0];
+      // Correção: Extrai o tipo de forma segura, pegando o índice [0] se for Array
+      let rawType = moveData ? (moveData.type || moveData.element || "normal") : "normal";
+      if (Array.isArray(rawType)) rawType = rawType[0];
+      
+      // Correção: Extrai a classe de ataque de forma segura
+      let rawAttack = moveData ? (moveData.attack || moveData.category || moveData.class || "physical") : "physical";
+      if (Array.isArray(rawAttack)) rawAttack = rawAttack[0];
 
       return {
         name: moveData ? (moveData.name || moveName) : moveName,
-        typeStr: String(typeData).toLowerCase(),
-        attackStr: String(atkData).toLowerCase()
+        typeStr: String(rawType).toLowerCase(),
+        attackStr: String(rawAttack).toLowerCase()
       };
     }
 
@@ -369,10 +362,8 @@
         div.className = "team-slot";
 
         if (team[i]) {
-          // Garante que o array de moves exista
           const animonMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
 
-          // Gera o HTML dos 4 mini containers de Moves
           const movesHtml = [0, 1, 2, 3].map(mIndex => {
             const minfo = getMoveInfo(animonMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
@@ -488,10 +479,9 @@
 
       safeMovesArray.forEach(m => {
         const mName = typeof m === 'object' ? (m.name || m.id) : m;
-        // Agora passamos "m" direto, assim o getMoveHtml consegue ler o objeto se não achar globalmente
         optionsHtml += `
           <div class="option" data-value="${mName}">
-            ${getMoveHtml(m)} 
+            ${getMoveHtml(mName)}
           </div>`;
       });
 
@@ -538,7 +528,16 @@
       DOM.levelInput.value = currentLevel;
       DOM.levelValueDisplay.textContent = currentLevel;
 
-      const availableMoves = Array.isArray(animon.movesList) ? animon.movesList : (Array.isArray(animon.moves) ? animon.moves : []);
+      // CORREÇÃO: Garante que os moves sejam puxados do moves globais caso o animon não tenha 'movesList'
+      let availableMoves = [];
+      if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
+        availableMoves = animon.movesList;
+      } else if (typeof moves !== "undefined" && Array.isArray(moves)) {
+        availableMoves = moves; 
+      } else {
+        availableMoves = Array.isArray(animon.moves) ? animon.moves : [];
+      }
+
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
 
       for (let i = 0; i < 4; i++) {
@@ -650,7 +649,6 @@
       const exportArea = document.getElementById("teamExportArea");
       const originalWidth = exportArea.style.width, originalGridStyle = DOM.grid.style.gridTemplateColumns;
 
-      // Expande tudo temporariamente para o canvas pegar os moves caso abertos
       exportArea.style.width = "900px"; 
       DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
 
