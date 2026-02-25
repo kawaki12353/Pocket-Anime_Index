@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -48,7 +49,7 @@
     .team-slot { 
       position: relative; background: var(--card); border: 1px solid var(--border); 
       border-radius: 18px; cursor: default; transition: 0.2s; 
-      display: flex; flex-direction: column; overflow: hidden;
+      display: flex; flex-direction: column; overflow: visible;
     }
 
     .slot-main-content {
@@ -296,19 +297,11 @@
     function autoSaveEditData() {
       if (editSlotIndex !== null && team[editSlotIndex]) {
         team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
-
-        const getSelectVal = (id) => {
-          const val = document.getElementById(id).dataset.value;
-          if (!val) return "";
-          try { if (val.startsWith('{')) return JSON.parse(val); } catch(e) {}
-          return val;
-        };
-
         team[editSlotIndex].moves = [
-          getSelectVal('moveSelect0'),
-          getSelectVal('moveSelect1'),
-          getSelectVal('moveSelect2'),
-          getSelectVal('moveSelect3')
+          document.getElementById('moveSelect0').dataset.value || "",
+          document.getElementById('moveSelect1').dataset.value || "",
+          document.getElementById('moveSelect2').dataset.value || "",
+          document.getElementById('moveSelect3').dataset.value || ""
         ];
         saveData();
         renderTeam();
@@ -362,22 +355,23 @@
         }
       }
 
+      // Se não encontrar o move, usa o nome dele mas seta o fallback visual
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
       // =========================================
-      // GARANTIA DE ELEMENTOS EM MINÚSCULO AQUI
+      // AQUI ESTÁ A LÓGICA REFEITA DOS ELEMENTOS
       // =========================================
 
+      // Busca a chave exata "type" ou um fallback
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
-      // Aqui garantimos buscar a chave 'attack' que define se é physical, special ou status
+
+      // Busca a chave exata "attack" ou um fallback
       const attackValue = moveData.attack || "physical";
 
       return {
         name: moveData.name || finalName,
-        // O .toLowerCase().trim() assegura que "Fire" vira "fire", gerando "fire_element.png" no HTML
-        typeStr: String(typeValue).toLowerCase().trim(),
-        // O .toLowerCase().trim() assegura que "Physical" vira "physical", gerando "physical.png" no HTML
-        attackStr: String(attackValue).toLowerCase().trim() 
+        typeStr: String(typeValue).toLowerCase().trim(), // Ex: 'Fighting' vira 'fighting'
+        attackStr: String(attackValue).toLowerCase().trim() // Ex: 'Status' vira 'status'
       };
     }
 
@@ -388,7 +382,6 @@
       const minfo = getMoveInfo(moveInput);
       if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
-      // A renderização abaixo já usa 'minfo.typeStr' e 'minfo.attackStr' convertidos para minúsculo
       return `
         <span class="move-name-txt">${minfo.name}</span>
         <div class="move-icons-wrapper">
@@ -499,8 +492,9 @@
       let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
 
       availableMoves.forEach(m => {
-        const mData = typeof m === 'object' ? JSON.stringify(m).replace(/"/g, '&quot;') : m;
-        optionsHtml += `<div class="option" data-value="${mData}">${getMoveHtml(m)}</div>`;
+        const mName = (typeof m === 'object') ? (m.name || m.id) : m;
+        // Passamos o próprio objeto "m" caso esteja disponível para pular a pesquisa global
+        optionsHtml += `<div class="option" data-value="${mName}">${getMoveHtml(m)}</div>`;
       });
 
       container.innerHTML = `
@@ -522,18 +516,13 @@
       container.querySelectorAll('.option').forEach(opt => {
         opt.onclick = () => {
           const val = opt.dataset.value;
-          let parsedVal = val;
-          try { if (val.startsWith('{')) parsedVal = JSON.parse(val); } catch(e) {}
-
-          btn.innerHTML = val ? getMoveHtml(parsedVal) : `<span class="move-name-txt">${label}</span>`;
+          btn.innerHTML = val ? getMoveHtml(val) : `<span class="move-name-txt">${label}</span>`;
           container.dataset.value = val;
           options.classList.remove('open');
           autoSaveEditData();
         };
       });
-
-      const initialVal = typeof currentMove === 'object' ? JSON.stringify(currentMove) : (currentMove || "");
-      container.dataset.value = initialVal;
+      container.dataset.value = currentMove || "";
     }
 
     function openEditModal(index) {
