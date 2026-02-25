@@ -1,0 +1,36 @@
+function getMoveInfo(moveInput) {
+  if (!moveInput || moveInput === "") return null;
+
+  let moveData = null;
+  let finalName = "";
+
+  if (typeof moveInput === "object") {
+    moveData = moveInput;
+  } else if (typeof moveInput === "string" && typeof moves !== "undefined") {
+    finalName = moveInput.trim().toLowerCase();
+
+    if (Array.isArray(moves)) {
+      moveData = moves.find(m =>
+        m.name && m.name.toLowerCase().trim() === finalName
+      );
+    } else if (typeof moves === "object") {
+      moveData = Object.values(moves).find(m =>
+        m.name && m.name.toLowerCase().trim() === finalName
+      );
+    }
+  }
+
+  if (!moveData) return null;
+
+  const typeValue = Array.isArray(moveData.type)
+    ? moveData.type[0]
+    : moveData.type;
+
+  const attackValue = moveData.attack;
+
+  return {
+    name: moveData.name,
+    typeStr: String(typeValue).toLowerCase().trim(),
+    attackStr: String(attackValue).toLowerCase().trim()
+  };
+}
