@@ -315,49 +315,39 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move com busca aprimorada */
+    /* CORREÇÃO AQUI: Função getMoveInfo 
+       Agora mapeia corretamente as imagens de elementos e tipos de ataque.
+    */
     function getMoveInfo(moveName) {
       if (!moveName || moveName === "") return null;
 
       let moveData = null;
       let finalName = moveName;
 
+      // Busca nos dados carregados do moves.js
       if (typeof moves !== "undefined") {
         if (Array.isArray(moves)) {
-          moveData = moves.find(m => 
-            (m.name && m.name.toLowerCase() === moveName.toLowerCase()) || 
-            (m.id && String(m.id).toLowerCase() === moveName.toLowerCase())
-          );
+          moveData = moves.find(m => (m.name && m.name.toLowerCase() === moveName.toLowerCase()));
         } else if (typeof moves === 'object') {
-          // Busca primeiro pela chave exata ou case-insensitive
           const exactKey = Object.keys(moves).find(k => k.toLowerCase() === moveName.toLowerCase());
-          
           if (exactKey) {
             moveData = moves[exactKey];
             finalName = moveData.name || exactKey;
-          } else {
-            // Se não achou na chave, procura dentro dos valores do objeto
-            const foundVal = Object.values(moves).find(m => 
-              (m.name && m.name.toLowerCase() === moveName.toLowerCase()) || 
-              (m.id && String(m.id).toLowerCase() === moveName.toLowerCase())
-            );
-            if (foundVal) {
-              moveData = foundVal;
-              finalName = moveData.name || moveName;
-            }
           }
         }
       }
 
+      // Fallback caso não encontre o move
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
+      // Garante que o tipo e o ataque sejam strings minúsculas para os nomes dos arquivos png
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
       const attackValue = moveData.attack || "physical";
 
       return {
         name: moveData.name || finalName,
-        typeStr: String(typeValue).toLowerCase(),
-        attackStr: String(attackValue).toLowerCase()
+        typeStr: String(typeValue).toLowerCase(),   // Ex: fire_element.png
+        attackStr: String(attackValue).toLowerCase() // Ex: special.png
       };
     }
 
@@ -449,7 +439,6 @@
           ${createElementIcon(a.type)}
         `;
         div.onclick = () => {
-          // CLONAGEM COMPLETA DO OBJETO PARA GARANTIR O MOVESLIST
           team[currentSlot] = JSON.parse(JSON.stringify(a));
           team[currentSlot].level = 100;
           team[currentSlot].moves = ["", "", "", ""];
@@ -482,6 +471,7 @@
       let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
 
       availableMoves.forEach(m => {
+        // Trata se m é um objeto ou string
         const mName = (typeof m === 'object') ? (m.name || m.id) : m;
         optionsHtml += `<div class="option" data-value="${mName}">${getMoveHtml(mName)}</div>`;
       });
@@ -522,7 +512,6 @@
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
-      // DETECTA MOVES ESPECÍFICOS DO ANIMON OU TODOS OS MOVES DE FORMA MAIS INTELIGENTE
       let availableMoves = [];
       if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
         availableMoves = animon.movesList;
@@ -530,11 +519,7 @@
         if (Array.isArray(moves)) {
           availableMoves = moves;
         } else {
-          // Transforma o objeto num array estruturado para evitar erros [object Object]
-          availableMoves = Object.keys(moves).map(key => {
-            const m = moves[key];
-            return typeof m === 'object' ? { name: key, ...m } : m;
-          });
+          availableMoves = Object.keys(moves);
         }
       }
 
