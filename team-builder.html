@@ -48,22 +48,74 @@
     /* =========================================
        3. COMPONENTES: SLOTS DO TIME
        ========================================= */
-    .team-slot { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 18px; cursor: default; min-height: 130px; padding: 14px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-    .team-slot::after { content: ""; position: absolute; top: 0; bottom: 0; right: var(--right-column); width: 1px; background: var(--border); }
+    .team-slot { 
+      position: relative; background: var(--card); border: 1px solid var(--border); 
+      border-radius: 18px; cursor: default; transition: 0.2s; 
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    
+    .slot-main-content {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      min-height: 130px; padding: 14px;
+    }
+    .slot-main-content::after { 
+      content: ""; position: absolute; top: 0; bottom: 0; right: var(--right-column); 
+      width: 1px; background: var(--border); 
+    }
+    
     .slot-info { position: absolute; top: 10px; left: 14px; text-align: left; }
     .slot-name { font-weight: bold; font-size: 18px; }
     .slot-level { font-size: 14px; opacity: 0.8; }
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
-    .empty-slot { opacity: 0.6; font-weight: bold; }
+    
+    /* Quando vazio */
+    .empty-slot { opacity: 0.6; font-weight: bold; min-height: 130px; display: flex; align-items: center; justify-content: center; width: 100%; }
 
-    /* Lápis em cima e Lixeira no meio (Centralizados na coluna de 58px usando right: 18px) */
-    .slot-delete, .slot-edit { position: absolute; right: 18px; opacity: 0.6; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    /* Botões: Lápis, Lixeira e Expansão na coluna direita */
+    .slot-edit, .slot-delete, .slot-expand { 
+      position: absolute; right: 18px; opacity: 0.6; cursor: pointer; 
+      display: flex; align-items: center; justify-content: center; transition: 0.2s; 
+    }
     .slot-edit { top: 14px; } 
     .slot-delete { top: 50%; transform: translateY(-50%); }
+    .slot-expand { bottom: 14px; font-size: 14px; padding: 4px; user-select: none; }
 
     .slot-edit:hover { opacity: 1; transform: scale(1.1); }
     .slot-delete:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+    .slot-expand:hover { opacity: 1; transform: scale(1.2); }
     .slot-delete img, .slot-edit img { width: 22px; height: 22px; object-fit: contain; pointer-events: none; }
+
+    /* Rotação da seta quando ativo */
+    .team-slot.active .slot-expand { transform: rotate(180deg); opacity: 1; }
+
+    /* Expandir Container de Moves igual ao Map-Content */
+    .slot-moves-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      background: var(--hover);
+    }
+    .team-slot.active .slot-moves-content {
+      max-height: 400px;
+      border-top: 1px solid var(--border);
+    }
+    .moves-container {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .mini-move {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+    .empty-move { opacity: 0.5; justify-content: center; font-style: italic; }
 
     /* =========================================
        4. COMPONENTES: SISTEMA DE ELEMENTOS
@@ -122,7 +174,6 @@
 
     .moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
 
-    /* Custom Selects - Ajustados para os ícones na direita */
     .custom-select { position: relative; width: 100%; }
     .select-btn { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border); color: var(--text); font-weight: bold; height: 44px; box-sizing: border-box;}
     .select-btn::after { content: "▼"; margin-left: 10px; font-size: 12px; color: var(--text); }
@@ -132,7 +183,6 @@
     .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; }
     .option:hover { background: var(--hover); }
 
-    /* Move text flex:1 empurra os ícones para a direita */
     .move-name-txt { flex: 1; font-size: 14px; text-align: left; }
     .move-icons-wrapper { display: flex; align-items: center; gap: 8px; margin-left: auto; }
     .move-icon-type { width: 24px; height: 24px; object-fit: contain; }
@@ -240,8 +290,7 @@
       saveData();
       updateLangUI();
       renderTeam();
-      
-      // Auto-save ao alterar o nível
+
       DOM.levelInput.addEventListener('input', (e) => { 
         DOM.levelValueDisplay.textContent = e.target.value; 
         autoSaveEditData();
@@ -250,7 +299,6 @@
 
     function saveData() { localStorage.setItem("team", JSON.stringify(team)); }
 
-    // Função que salva silenciosamente as edições do modal
     function autoSaveEditData() {
       if (editSlotIndex !== null && team[editSlotIndex]) {
         team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
@@ -275,6 +323,27 @@
       </div>`;
     }
 
+    /* Função Auxiliar para resgatar infos de um Move com segurança */
+    function getMoveInfo(moveInput) {
+      const moveName = typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput;
+      if (!moveName || moveName === "") return null;
+
+      let moveData = null;
+      if (typeof moves !== "undefined") {
+        if (Array.isArray(moves)) {
+          moveData = moves.find(m => m.name === moveName || m.id === moveName);
+        } else if (typeof moves === 'object' && moves !== null) {
+          moveData = moves[moveName] || Object.values(moves).find(m => m.name === moveName);
+        }
+      }
+
+      return {
+        name: moveData ? (moveData.name || moveName) : moveName,
+        typeStr: moveData ? (moveData.type || moveData.element || "normal").toLowerCase() : "normal",
+        attackStr: moveData ? (moveData.attack || moveData.category || moveData.class || "physical").toLowerCase() : "physical"
+      };
+    }
+
     /* =========================================
        3. RENDERIZAÇÃO
        ========================================= */
@@ -283,25 +352,55 @@
       for (let i = 0; i < 6; i++) {
         const div = document.createElement("div");
         div.className = "team-slot";
+        
         if (team[i]) {
+          // Garante que o array de moves exista
+          const animonMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
+
+          // Gera o HTML dos 4 mini containers de Moves
+          const movesHtml = [0, 1, 2, 3].map(mIndex => {
+            const minfo = getMoveInfo(animonMoves[mIndex]);
+            if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
+            return `
+              <div class="mini-move">
+                <span class="move-name-txt">${minfo.name}</span>
+                <div class="move-icons-wrapper">
+                  <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" title="${minfo.typeStr}">
+                  <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" title="${minfo.attackStr}">
+                </div>
+              </div>
+            `;
+          }).join('');
+
           div.innerHTML = `
-            <div class="slot-info">
-              <div class="slot-name">${team[i].name}</div>
-              <div class="slot-level">Lv.${team[i].level || 100}</div>
+            <div class="slot-main-content">
+              <div class="slot-info">
+                <div class="slot-name">${team[i].name}</div>
+                <div class="slot-level">Lv.${team[i].level || 100}</div>
+              </div>
+              <div class="slot-elements">${createElementIcon(team[i].type)}</div>
+              <div class="slot-center">
+                <img src="${team[i].sprite}" class="animon-img" alt="${team[i].name}">
+              </div>
+              <div class="slot-edit" onclick="event.stopPropagation(); openEditModal(${i})" title="Editar">
+                <img src="assets/pencil.png" alt="Edit">
+              </div>
+              <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})" title="Remover">
+                <img src="assets/bin.png" alt="Delete">
+              </div>
+              <div class="slot-expand" onclick="event.stopPropagation(); this.closest('.team-slot').classList.toggle('active')" title="Ver Moves">
+                ▼
+              </div>
             </div>
-            <div class="slot-elements">${createElementIcon(team[i].type)}</div>
-            <div class="slot-center">
-              <img src="${team[i].sprite}" class="animon-img" alt="${team[i].name}">
-            </div>
-            <div class="slot-edit" onclick="event.stopPropagation(); openEditModal(${i})" title="Editar">
-              <img src="assets/pencil.png" alt="Edit">
-            </div>
-            <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})" title="Remover">
-              <img src="assets/bin.png" alt="Delete">
+            
+            <div class="slot-moves-content">
+              <div class="moves-container">
+                ${movesHtml}
+              </div>
             </div>
           `;
           const img = div.querySelector(".animon-img");
-          if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div, team[i]); });
+          if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div.querySelector('.slot-main-content'), team[i]); });
         } else {
           div.innerHTML = `<div class="empty-slot">${texts[lang].empty}</div>`;
         }
@@ -350,36 +449,14 @@
        5. MODAL DE EDIÇÃO E MOVES
        ========================================= */
     function getMoveHtml(moveInput) {
-      // Normaliza o nome do ataque caso o item do array seja um objeto ao invés de string
-      const moveName = typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput;
-      
-      if (!moveName || moveName === "") return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
+      const minfo = getMoveInfo(moveInput);
+      if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
-      // Se por algum motivo o moves.js não estiver carregado, retorna só o nome
-      if (typeof moves === "undefined") return `<span class="move-name-txt">${moveName}</span>`;
-
-      // Lida tranquilamente tanto se 'moves' for um Array quanto se for um Objeto Dicionário
-      let moveData = null;
-      if (Array.isArray(moves)) {
-        moveData = moves.find(m => m.name === moveName || m.id === moveName);
-      } else if (typeof moves === 'object' && moves !== null) {
-        moveData = moves[moveName] || Object.values(moves).find(m => m.name === moveName);
-      }
-
-      // Se o golpe não existir na base, retorna só o nome
-      if (!moveData) return `<span class="move-name-txt">${moveName}</span>`;
-
-      // Fallbacks resilientes (Suporta chaves .type/.element e .attack/.category)
-      const finalName = moveData.name || moveName;
-      const typeStr = (moveData.type || moveData.element || "normal").toLowerCase();
-      const attackStr = (moveData.attack || moveData.category || moveData.class || "physical").toLowerCase();
-
-      // Renderiza as imagens do Tipo e do Elemento
       return `
-        <span class="move-name-txt">${finalName}</span>
+        <span class="move-name-txt">${minfo.name}</span>
         <div class="move-icons-wrapper">
-          <img src="assets/${typeStr}_element.png" class="move-icon-type" alt="${typeStr}" title="${typeStr}">
-          <img src="assets/${attackStr}.png" class="move-icon-atk" alt="${attackStr}" title="${attackStr}">
+          <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" title="${minfo.typeStr}">
+          <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" title="${minfo.attackStr}">
         </div>
       `;
     }
@@ -395,7 +472,6 @@
         </div>`;
 
       safeMovesArray.forEach(m => {
-        // Pega o nome correto caso a lista de moves da base seja de objetos
         const mName = typeof m === 'object' ? (m.name || m.id) : m;
         optionsHtml += `
           <div class="option" data-value="${mName}">
@@ -429,8 +505,6 @@
           btn.innerHTML = val ? getMoveHtml(val) : `<span class="move-name-txt">${label}</span>`;
           container.dataset.value = val;
           options.classList.remove('open');
-          
-          // Dispara o Auto-save quando escolhe um golpe!
           autoSaveEditData();
         };
       });
@@ -448,7 +522,6 @@
       DOM.levelInput.value = currentLevel;
       DOM.levelValueDisplay.textContent = currentLevel;
 
-      // Resiliência caso seja movesList ou moves direto
       const availableMoves = Array.isArray(animon.movesList) ? animon.movesList : (Array.isArray(animon.moves) ? animon.moves : []);
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
 
@@ -460,7 +533,6 @@
     }
 
     function closeEditModal() { DOM.editModal.style.display = "none"; }
-
 
     /* =========================================
        6. ANÁLISE E STATUS
@@ -561,10 +633,20 @@
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
       const originalWidth = exportArea.style.width, originalGridStyle = DOM.grid.style.gridTemplateColumns;
-      exportArea.style.width = "900px"; DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
+      
+      // Expande tudo temporariamente para o canvas pegar os moves caso abertos
+      exportArea.style.width = "900px"; 
+      DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
+      
       const canvas = await html2canvas(exportArea, { scale: 2 });
-      exportArea.style.width = originalWidth; DOM.grid.style.gridTemplateColumns = originalGridStyle;
-      const link = document.createElement("a"); link.download = "pocket-anime-team.png"; link.href = canvas.toDataURL(); link.click();
+      
+      exportArea.style.width = originalWidth; 
+      DOM.grid.style.gridTemplateColumns = originalGridStyle;
+      
+      const link = document.createElement("a"); 
+      link.download = "pocket-anime-team.png"; 
+      link.href = canvas.toDataURL(); 
+      link.click();
     };
 
     init();
