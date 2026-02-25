@@ -315,7 +315,7 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move (CORRIGIDA) */
+    /* Função Auxiliar para resgatar infos de um Move */
     function getMoveInfo(moveName) {
       if (!moveName || moveName === "") return null;
 
@@ -328,13 +328,9 @@
         }
       }
 
-      // Se não achar o move no banco de dados, não renderiza ícones errados
       if (!moveData) return null;
 
-      // Pegando o elemento (Fighting, Fire, etc)
       let typeValue = moveData.type || moveData.element || "Neutral";
-      
-      // Pegando o tipo de ataque (Physical, Special, Status)
       let attackValue = moveData.attack || moveData.category || moveData.type_atk || "Physical";
 
       return {
@@ -504,8 +500,14 @@
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
+      // SOLUÇÃO: Busca o animon original no arquivo animons.js pelo ID para pegar o movesList atualizado
+      const dbAnimon = (typeof animons !== 'undefined') ? animons.find(a => String(a.id) === String(animon.id)) : null;
+      
       let availableMoves = [];
-      if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
+      // Tenta pegar do banco de dados primeiro, se não encontrar tenta do slot, se não, pega todos os moves globais
+      if (dbAnimon && Array.isArray(dbAnimon.movesList)) {
+        availableMoves = dbAnimon.movesList;
+      } else if (Array.isArray(animon.movesList)) {
         availableMoves = animon.movesList;
       } else if (typeof moves !== "undefined") {
         availableMoves = Array.isArray(moves) ? moves : Object.values(moves);
