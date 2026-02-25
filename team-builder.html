@@ -53,7 +53,7 @@
       border-radius: 18px; cursor: default; transition: 0.2s; 
       display: flex; flex-direction: column; overflow: hidden;
     }
-    
+
     .slot-main-content {
       position: relative; display: flex; align-items: center; justify-content: center;
       min-height: 130px; padding: 14px;
@@ -62,12 +62,12 @@
       content: ""; position: absolute; top: 0; bottom: 0; right: var(--right-column); 
       width: 1px; background: var(--border); 
     }
-    
+
     .slot-info { position: absolute; top: 10px; left: 14px; text-align: left; }
     .slot-name { font-weight: bold; font-size: 18px; }
     .slot-level { font-size: 14px; opacity: 0.8; }
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
-    
+
     /* Quando vazio */
     .empty-slot { opacity: 0.6; font-weight: bold; min-height: 130px; display: flex; align-items: center; justify-content: center; width: 100%; }
 
@@ -323,7 +323,7 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move com segurança */
+    /* Função Auxiliar para resgatar infos de um Move com segurança (CORRIGIDA) */
     function getMoveInfo(moveInput) {
       const moveName = typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput;
       if (!moveName || moveName === "") return null;
@@ -337,10 +337,25 @@
         }
       }
 
+      // Se passou um objeto e não achou em moves.js, aproveita os dados do próprio objeto
+      if (!moveData && typeof moveInput === 'object') {
+        moveData = moveInput;
+      }
+
+      // Tratamento para Extrair Elemento/Tipo corretamente
+      let typeData = moveData ? (moveData.type || moveData.element || "normal") : "normal";
+      // Se for um array ex: ["Light"], pega só a primeira string.
+      if (Array.isArray(typeData)) typeData = typeData[0];
+
+      // Tratamento para Extrair o Ataque corretamente
+      let atkData = moveData ? (moveData.attack || moveData.category || moveData.class || "physical") : "physical";
+      // Caso algum dado de ataque venha em array também, tratamos por precaução
+      if (Array.isArray(atkData)) atkData = atkData[0];
+
       return {
         name: moveData ? (moveData.name || moveName) : moveName,
-        typeStr: moveData ? (moveData.type || moveData.element || "normal").toLowerCase() : "normal",
-        attackStr: moveData ? (moveData.attack || moveData.category || moveData.class || "physical").toLowerCase() : "physical"
+        typeStr: String(typeData).toLowerCase(),
+        attackStr: String(atkData).toLowerCase()
       };
     }
 
@@ -352,7 +367,7 @@
       for (let i = 0; i < 6; i++) {
         const div = document.createElement("div");
         div.className = "team-slot";
-        
+
         if (team[i]) {
           // Garante que o array de moves exista
           const animonMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
@@ -473,9 +488,10 @@
 
       safeMovesArray.forEach(m => {
         const mName = typeof m === 'object' ? (m.name || m.id) : m;
+        // Agora passamos "m" direto, assim o getMoveHtml consegue ler o objeto se não achar globalmente
         optionsHtml += `
           <div class="option" data-value="${mName}">
-            ${getMoveHtml(mName)}
+            ${getMoveHtml(m)} 
           </div>`;
       });
 
@@ -633,16 +649,16 @@
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
       const originalWidth = exportArea.style.width, originalGridStyle = DOM.grid.style.gridTemplateColumns;
-      
+
       // Expande tudo temporariamente para o canvas pegar os moves caso abertos
       exportArea.style.width = "900px"; 
       DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
-      
+
       const canvas = await html2canvas(exportArea, { scale: 2 });
-      
+
       exportArea.style.width = originalWidth; 
       DOM.grid.style.gridTemplateColumns = originalGridStyle;
-      
+
       const link = document.createElement("a"); 
       link.download = "pocket-anime-team.png"; 
       link.href = canvas.toDataURL(); 
