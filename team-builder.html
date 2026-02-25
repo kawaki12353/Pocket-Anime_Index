@@ -296,8 +296,7 @@
     function autoSaveEditData() {
       if (editSlotIndex !== null && team[editSlotIndex]) {
         team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
-    
-        // Função auxiliar para recuperar o valor do dataset e transformá-lo em objeto se necessário
+
         const getSelectVal = (id) => {
           const val = document.getElementById(id).dataset.value;
           if (!val) return "";
@@ -363,23 +362,22 @@
         }
       }
 
-      // Se não encontrar o move, usa o nome dele mas seta o fallback visual
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
       // =========================================
-      // AQUI ESTÁ A LÓGICA REFEITA DOS ELEMENTOS
+      // GARANTIA DE ELEMENTOS EM MINÚSCULO AQUI
       // =========================================
 
-      // Busca a chave exata "type" ou um fallback
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
-
-      // Busca a chave exata "attack" ou um fallback
+      // Aqui garantimos buscar a chave 'attack' que define se é physical, special ou status
       const attackValue = moveData.attack || "physical";
 
       return {
         name: moveData.name || finalName,
-        typeStr: String(typeValue).toLowerCase().trim(), // Ex: 'Fighting' vira 'fighting'
-        attackStr: String(attackValue).toLowerCase().trim() // Ex: 'Status' vira 'status'
+        // O .toLowerCase().trim() assegura que "Fire" vira "fire", gerando "fire_element.png" no HTML
+        typeStr: String(typeValue).toLowerCase().trim(),
+        // O .toLowerCase().trim() assegura que "Physical" vira "physical", gerando "physical.png" no HTML
+        attackStr: String(attackValue).toLowerCase().trim() 
       };
     }
 
@@ -390,6 +388,7 @@
       const minfo = getMoveInfo(moveInput);
       if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
+      // A renderização abaixo já usa 'minfo.typeStr' e 'minfo.attackStr' convertidos para minúsculo
       return `
         <span class="move-name-txt">${minfo.name}</span>
         <div class="move-icons-wrapper">
@@ -500,7 +499,6 @@
       let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
 
       availableMoves.forEach(m => {
-        // Se 'm' for um objeto, converte para string JSON para não perder os dados vitais.
         const mData = typeof m === 'object' ? JSON.stringify(m).replace(/"/g, '&quot;') : m;
         optionsHtml += `<div class="option" data-value="${mData}">${getMoveHtml(m)}</div>`;
       });
@@ -524,8 +522,6 @@
       container.querySelectorAll('.option').forEach(opt => {
         opt.onclick = () => {
           const val = opt.dataset.value;
-
-          // Tenta converter de volta para objeto se for um JSON salvo
           let parsedVal = val;
           try { if (val.startsWith('{')) parsedVal = JSON.parse(val); } catch(e) {}
 
@@ -536,7 +532,6 @@
         };
       });
 
-      // Lida corretamente com objetos vindos de carregamentos anteriores (evita "[object Object]")
       const initialVal = typeof currentMove === 'object' ? JSON.stringify(currentMove) : (currentMove || "");
       container.dataset.value = initialVal;
     }
