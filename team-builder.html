@@ -315,28 +315,49 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move */
+    /* Função Auxiliar para resgatar infos de um Move com busca aprimorada */
     function getMoveInfo(moveName) {
       if (!moveName || moveName === "") return null;
 
       let moveData = null;
+      let finalName = moveName;
+
       if (typeof moves !== "undefined") {
         if (Array.isArray(moves)) {
-          moveData = moves.find(m => m.name === moveName || m.id === moveName);
+          moveData = moves.find(m => 
+            (m.name && m.name.toLowerCase() === moveName.toLowerCase()) || 
+            (m.id && String(m.id).toLowerCase() === moveName.toLowerCase())
+          );
         } else if (typeof moves === 'object') {
-          moveData = moves[moveName] || Object.values(moves).find(m => m.name === moveName);
+          // Busca primeiro pela chave exata ou case-insensitive
+          const exactKey = Object.keys(moves).find(k => k.toLowerCase() === moveName.toLowerCase());
+          
+          if (exactKey) {
+            moveData = moves[exactKey];
+            finalName = moveData.name || exactKey;
+          } else {
+            // Se não achou na chave, procura dentro dos valores do objeto
+            const foundVal = Object.values(moves).find(m => 
+              (m.name && m.name.toLowerCase() === moveName.toLowerCase()) || 
+              (m.id && String(m.id).toLowerCase() === moveName.toLowerCase())
+            );
+            if (foundVal) {
+              moveData = foundVal;
+              finalName = moveData.name || moveName;
+            }
+          }
         }
       }
 
-      if (!moveData) return { name: moveName, typeStr: "neutral", attackStr: "physical" };
+      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
       const attackValue = moveData.attack || "physical";
 
       return {
-        name: moveData.name || moveName,
-        typeStr: typeValue.toLowerCase(),
-        attackStr: attackValue.toLowerCase()
+        name: moveData.name || finalName,
+        typeStr: String(typeValue).toLowerCase(),
+        attackStr: String(attackValue).toLowerCase()
       };
     }
 
@@ -501,12 +522,20 @@
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
-      // DETECTA MOVES ESPECÍFICOS DO ANIMON OU TODOS OS MOVES
+      // DETECTA MOVES ESPECÍFICOS DO ANIMON OU TODOS OS MOVES DE FORMA MAIS INTELIGENTE
       let availableMoves = [];
       if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
         availableMoves = animon.movesList;
       } else if (typeof moves !== "undefined") {
-        availableMoves = Array.isArray(moves) ? moves : Object.values(moves);
+        if (Array.isArray(moves)) {
+          availableMoves = moves;
+        } else {
+          // Transforma o objeto num array estruturado para evitar erros [object Object]
+          availableMoves = Object.keys(moves).map(key => {
+            const m = moves[key];
+            return typeof m === 'object' ? { name: key, ...m } : m;
+          });
+        }
       }
 
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
