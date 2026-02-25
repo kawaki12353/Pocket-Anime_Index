@@ -357,15 +357,20 @@
       // Se não encontrar o move, usa o nome dele mas seta o fallback visual
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
-      // Verifica variações das chaves do seu JSON
-      const tVal = moveData.type || moveData.element || "neutral";
-      const typeValue = Array.isArray(tVal) ? tVal[0] : tVal;
-      const attackValue = moveData.attack || moveData.category || moveData.damage_class || "physical";
+      // =========================================
+      // AQUI ESTÁ A LÓGICA REFEITA DOS ELEMENTOS
+      // =========================================
+      
+      // Busca a chave exata "type" ou um fallback
+      const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
+      
+      // Busca a chave exata "attack" ou um fallback
+      const attackValue = moveData.attack || "physical";
 
       return {
         name: moveData.name || finalName,
-        typeStr: String(typeValue).toLowerCase().trim(),
-        attackStr: String(attackValue).toLowerCase().trim()
+        typeStr: String(typeValue).toLowerCase().trim(), // Ex: 'Fighting' vira 'fighting'
+        attackStr: String(attackValue).toLowerCase().trim() // Ex: 'Status' vira 'status'
       };
     }
 
