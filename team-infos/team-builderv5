@@ -48,7 +48,7 @@
     .team-slot { 
       position: relative; background: var(--card); border: 1px solid var(--border); 
       border-radius: 18px; cursor: default; transition: 0.2s; 
-      display: flex; flex-direction: column; overflow: hidden;
+      display: flex; flex-direction: column; overflow: visible;
     }
 
     .slot-main-content {
@@ -83,6 +83,8 @@
     .team-slot.active .slot-expand { transform: rotate(180deg); opacity: 1; }
 
     .slot-moves-content {
+      position: relative;
+      z-index: 1;
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.35s ease;
