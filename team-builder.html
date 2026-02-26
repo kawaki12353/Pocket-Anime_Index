@@ -94,7 +94,7 @@
     .team-slot.active .slot-moves-content {
       max-height: 400px;
       border-top: 1px solid var(--border);
-      overflow: visible; /* ARRUMADO: Garante que o balão não seja cortado */
+      overflow: visible; 
     }
     .moves-container {
       padding: 14px;
@@ -143,13 +143,12 @@
     .animon-balloon .stat-label { font-size: 9px; }
     .animon-balloon .stat-value { font-size: 12px; }
 
-    /* Novo balão de moves */
     .move-balloon { 
       position: absolute; 
-      bottom: 100%; /* ARRUMADO: Faz aparecer para cima */
+      bottom: 100%; 
       left: 50%; 
       transform: translateX(-50%); 
-      margin-bottom: 8px; /* ARRUMADO: Espaçamento para cima */
+      margin-bottom: 8px; 
       background: var(--card); 
       border: 1px solid var(--border); 
       border-radius: 10px; 
@@ -343,7 +342,7 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move com busca aprimorada */
+    /* Função Auxiliar para resgatar infos de um Move - CORRIGIDO ACCURACY */
     function getMoveInfo(moveInput) {
       if (!moveInput || moveInput === "") return null;
 
@@ -386,8 +385,9 @@
         name: moveData.name || finalName,
         typeStr: String(typeValue).toLowerCase().trim(),
         attackStr: String(attackValue).toLowerCase().trim(),
-        power: moveData.power !== undefined ? moveData.power : "-",
-        accuracy: moveData.accuracy !== undefined ? moveData.accuracy : "-"
+        // CORREÇÃO: Garante que qualquer número (incluindo 0) ou string seja exibido corretamente
+        power: (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") ? moveData.power : "-",
+        accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-"
       };
     }
 
@@ -731,20 +731,17 @@
       const exportArea = document.getElementById("teamExportArea");
       const bgColor = getComputedStyle(document.body).getPropertyValue('--bg').trim();
 
-      // Armazena estilos originais para restaurar depois
       const originalWidth = exportArea.style.width;
       const originalGrid = DOM.grid.style.gridTemplateColumns;
 
-      // Força modo "PC" (Desktop) para a imagem
       exportArea.style.width = "1000px";
       DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
 
-      // Força todos os moves a ficarem visíveis na imagem
       const moveContents = exportArea.querySelectorAll('.slot-moves-content');
       const originalMaxHeights = [];
       moveContents.forEach((mc, i) => {
         originalMaxHeights[i] = mc.style.maxHeight;
-        mc.style.maxHeight = "500px"; // Valor alto o suficiente para mostrar tudo
+        mc.style.maxHeight = "500px"; 
         mc.style.borderTop = "1px solid var(--border)";
       });
 
@@ -764,7 +761,6 @@
       } catch (err) {
         console.error("Erro ao exportar:", err);
       } finally {
-        // Restaura o layout original da página
         exportArea.style.width = originalWidth;
         DOM.grid.style.gridTemplateColumns = originalGrid;
         moveContents.forEach((mc, i) => {
