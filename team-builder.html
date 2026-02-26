@@ -441,7 +441,11 @@
           const img = div.querySelector(".animon-img");
           if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div.querySelector('.slot-main-content'), team[i]); });
         } else {
-          div.innerHTML = `<div class="empty-slot">${texts[lang].empty}</div>`;
+          div.innerHTML = `
+           <div class="slot-main-content">
+            <div class="empty-slot">${texts[lang].empty}</div>
+           </div>
+         `;
         }
         DOM.grid.appendChild(div);
       }
@@ -466,7 +470,7 @@
      // Caso contrário, abre só ele
      slot.classList.add('active');
     }
-    
+
     /* =========================================
        4. MODAL ADICIONAR E MOVES
        ========================================= */
