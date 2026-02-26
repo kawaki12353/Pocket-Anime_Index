@@ -78,5 +78,16 @@ var animons = [
  {id:58,name:"Waterfall Samurai",type:["Water","Fire"],sprite:"assets/animons-icon/waterfall_samurai.png",stats:{hp:59,atk:70,def:48,spAtk:44,spDef:44,spd:73}},
  {id:59,name:"Warrior Bug Jr.",type:"Fighting",sprite:"assets/animons-icon/warrior_bug_jr.png",stats:{hp:52,atk:70,def:41,spAtk:60,spDef:39,spd:90}},
  {id:60,name:"Fire Prince",type:"Fire",sprite:"assets/animons-icon/fire_prince.png",stats:{hp:49,atk:54,def:42,spAtk:44,spDef:35,spd:62}},
- {id:60.01,name:"Fire King",type:"Fire",sprite:"assets/animons-icon/fire_king.png",stats:{hp:63,atk:70,def:54,spAtk:60,spDef:44,spd:76}}
+ {id:60.01,name:"Fire King",type:"Fire",sprite:"assets/animons-icon/fire_king.png",stats:{hp:63,atk:70,def:54,spAtk:60,spDef:44,spd:76}},
+ {id:73,name:"Fedora",type:["Earth","Dark"],sprite:"assets/animons-icon/fedora.png",stats:{hp:65,atk:56,def:110,spAtk:70,spDef:85,spd:60}},
+ {id:74,name:"Brorok",type:["Fighting","Dark"],sprite:"assets/animons-icon/brorok.png",stats:{hp:49,atk:80,def:50,spAtk:70,spDef:45,spd:85}},
+ {id:74.01,name:"Full Power Brorok",type:["Fighting","Dark"],sprite:"assets/animons-icon/full_power_brorok.png",stats:{hp:66,atk:90,def:66,spAtk:105,spDef:66,spd:93}},
+ {id:75,name:"Yoshi",type:["Fighting","Fire"],sprite:"assets/animons-icon/yoshi.png",stats:{hp:85,atk:125,def:75,spAtk:80,spDef:75,spd:103}},
+ {id:78,name:"Master Swordsman",type:"Dark",sprite:"assets/animons-icon/master_swordsman.png",stats:{hp:62,atk:110,def:60,spAtk:75,spDef:49,spd:80}},
+ {id:79,name:"Bald Warrior",type:["Dark","Fighting"],sprite:"assets/animons-icon/bald_warrior.png",stats:{hp:63,atk:75,def:50,spAtk:62,spDef:41,spd:75}},
+ {id:79.01,name:"Super Bald Warrior",type:["Dark","Fighting"],sprite:"assets/animons-icon/super_bald_warrior.png",stats:{hp:72,atk:95,def:62,spAtk:78,spDef:47,spd:81}},
+ {id:81,name:"Alligator",type:"Earth",sprite:"assets/animons-icon/alligator.png",stats:{hp:66,atk:60,def:59,spAtk:87,spDef:57,spd:67}},
+ {id:83,name:"Taesheegi",type:"Water",sprite:"assets/animons-icon/taesheegi.png",stats:{hp:54,atk:75,def:45,spAtk:28,spDef:32,spd:63}},
+ {id:84,name:"Water Chimera",type:["Water","Beast"],sprite:"assets/animons-icon/water_chimera.png",stats:{hp:75,atk:75,def:50,spAtk:67,spDef:54,spd:75}},
+ {id:84.01,name:"Mutated Water Chimera",type:["Water","Beast"],sprite:"assets/animons-icon/mutated_water_chimera.png",stats:{hp:100,atk:90,def:70,spAtk:77,spDef:64,spd:81}}
 ];    
