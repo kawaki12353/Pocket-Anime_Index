@@ -94,6 +94,7 @@
     .team-slot.active .slot-moves-content {
       max-height: 400px;
       border-top: 1px solid var(--border);
+      overflow: visible; /* ARRUMADO: Garante que o balão não seja cortado */
     }
     .moves-container {
       padding: 14px;
@@ -143,7 +144,24 @@
     .animon-balloon .stat-value { font-size: 12px; }
 
     /* Novo balão de moves */
-    .move-balloon { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; font-size: 13px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.25); z-index: 60; animation: fadeIn 0.2s ease; white-space: nowrap; color: var(--text); }
+    .move-balloon { 
+      position: absolute; 
+      bottom: 100%; /* ARRUMADO: Faz aparecer para cima */
+      left: 50%; 
+      transform: translateX(-50%); 
+      margin-bottom: 8px; /* ARRUMADO: Espaçamento para cima */
+      background: var(--card); 
+      border: 1px solid var(--border); 
+      border-radius: 10px; 
+      padding: 8px 12px; 
+      font-size: 13px; 
+      text-align: left; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25); 
+      z-index: 60; 
+      animation: fadeIn 0.2s ease; 
+      white-space: nowrap; 
+      color: var(--text); 
+    }
 
     /* =========================================
        6. MODAIS E UI CUSTOMIZADA
@@ -648,17 +666,17 @@
 
     function toggleMoveBalloon(moveDiv) {
       if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
-      
+
       const power = moveDiv.dataset.power;
       const acc = moveDiv.dataset.acc;
 
       const balloon = document.createElement("div");
       balloon.className = "move-balloon";
       balloon.innerHTML = `<b>Power:</b> ${power} &nbsp;|&nbsp; <b>Accuracy:</b> ${acc}`;
-      
+
       moveDiv.appendChild(balloon);
       openedMoveBalloon = balloon;
-      
+
       setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
     }
     function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
