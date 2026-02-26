@@ -1,4 +1,4 @@
-var moves = [
+const moves = [
   {
     name: "Rubber Balloon",
     type: "Neutral",
