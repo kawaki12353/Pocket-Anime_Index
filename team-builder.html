@@ -379,14 +379,24 @@
        3. RENDERIZAÇÃO E MOVES
        ========================================= */
     function getMoveHtml(moveInput) {
+      if (!moveInput) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
+      
       const minfo = getMoveInfo(moveInput);
       if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-
+      
+      // 🔥 Detecta se tem level
+      const levelText = (typeof moveInput === "object" && moveInput.level)
+        ? `<span class="move-level">Lv.${moveInput.level}</span> `
+        : "";
+      
       return `
-        <span class="move-name-txt">${minfo.name}</span>
-        <div class="move-icons-wrapper">
-          <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
-          <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
+        <div class="move-wrapper">
+          ${levelText}
+          <span class="move-name-txt">${minfo.name}</span>
+          <div class="move-icons-wrapper">
+            <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type">
+            <img src="assets/${minfo.attackStr}.png" class="move-icon-atk">
+          </div>
         </div>
       `;
     }
