@@ -1,62 +1,62 @@
-const moves = [
-  {
+const moves = {
+  "Rubber Balloon": {
     name: "Rubber Balloon",
-    type: "Neutral",
-    attack: "Status",
+    type: "neutral",
+    attack: "status",
     power: 40,
   },
-  {
+  "Punch": {
     name: "Punch",
-    type: "Neutral",
-    attack: "Physical",
+    type: "neutral",
+    attack: "physical",
     power: 40,
   },
-  {
+  "Rapid Punches": {
     name: "Rapid Punches",
-    type: "Fighting",
-    attack: "Physical",
+    type: "fighting",
+    attack: "physical",
     power: 40,
   },
-  {
+  "Rubber Pistol": {
     name: "Rubber Pistol",
-    type: "Fighting",
-    attack: "Physical",
+    type: "fighting",
+    attack: "physical",
     power: 40,
   },
-  {
+  "Fighting Spirit": {
     name: "Fighting Spirit",
-    type: "Fighting",
-    attack: "Status",
+    type: "fighting",
+    attack: "status",
     power: 40,
   },
-  {
+  "Bazooka": {
     name: "Bazooka",
-    type: "Fighting",
-    attack: "Physical",
+    type: "fighting",
+    attack: "physical",
     power: 40,
   },
-  {
+  "Phase Two": {
     name: "Phase Two",
-    type: "Neutral",
-    attack: "Status",
+    type: "neutral",
+    attack: "status",
     power: -,
   },
-  {
+  "Headbutt": {
     name: "Headbutt",
-    type: "Neutral",
-    attack: "Physical",
+    type: "neutral",
+    attack: "physical",
     power: 40,
   },
-  {
+  "Armament": {
     name: "Armament",
-    type: "Fighting",
-    attack: "Status",
+    type: "fighting",
+    attack: "status",
     power: 40,
   },
-  {
+  "Thunder Shock": {
     name: "Thunder Shock",
-    type: "Lightning",
-    attack: "Special",
+    type: "lightning",
+    attack: "special",
     power: 40,
   }
-];
+};
