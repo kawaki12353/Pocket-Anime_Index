@@ -113,10 +113,8 @@
     }
     .empty-move { opacity: 0.5; justify-content: center; font-style: italic; }
 
-    .move-level { font-size: 11px; color: #aaa; margin-right: 4px; }
-
     /* =========================================
-       3. COMPONENTES: SISTEMA DE ELEMENTOS
+       4. COMPONENTES: SISTEMA DE ELEMENTOS
        ========================================= */
     .animon-elements { display: flex; gap: 6px; margin-top: 6px; justify-content: center; }
     .slot-elements { position: absolute; top: 10px; right: calc(var(--right-column) + 12px); display: flex; flex-direction: column; align-items: center; }
@@ -129,7 +127,7 @@
     .element-wrapper:hover .element-tooltip { opacity: 1; }
 
     /* =========================================
-       4. COMPONENTES: STATUS E ANÁLISE
+       5. COMPONENTES: STATUS E ANÁLISE
        ========================================= */
     .analysis { margin-top: 25px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
     .analysis button { margin-top: 10px; padding: 8px 14px; border-radius: 10px; border: none; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); font-weight:bold; }
@@ -145,7 +143,7 @@
     .animon-balloon .stat-value { font-size: 12px; }
 
     /* =========================================
-       5. MODAIS E UI CUSTOMIZADA
+       6. MODAIS E UI CUSTOMIZADA
        ========================================= */
     .fab-add { position: fixed; right: 20px; bottom: 80px; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 32px; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); box-shadow: 0 6px 18px rgba(0,0,0,0.3); transition: 0.2s; z-index: 999; }
     .fab-add:hover { transform: scale(1.08); }
@@ -381,24 +379,14 @@
        3. RENDERIZAÇÃO E MOVES
        ========================================= */
     function getMoveHtml(moveInput) {
-      if (!moveInput) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-      
       const minfo = getMoveInfo(moveInput);
       if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-      
-      // 🔥 Detecta se tem level
-      const levelText = (typeof moveInput === "object" && moveInput.level)
-        ? `<span class="move-level">Lv.${moveInput.level}</span> `
-        : "";
-      
+
       return `
-        <div class="move-wrapper">
-          ${levelText}
-          <span class="move-name-txt">${minfo.name}</span>
-          <div class="move-icons-wrapper">
-            <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type">
-            <img src="assets/${minfo.attackStr}.png" class="move-icon-atk">
-          </div>
+        <span class="move-name-txt">${minfo.name}</span>
+        <div class="move-icons-wrapper">
+          <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
+          <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
         </div>
       `;
     }
