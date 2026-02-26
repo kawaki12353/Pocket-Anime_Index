@@ -1,62 +1,22 @@
-var moves = [
-  {
-    name: "Rubber Balloon",
-    type: "Neutral",
-    attack: "Status",
-    power: 40,
-  },
-  {
-    name: "Punch",
-    type: "Neutral",
-    attack: "Physical",
-    power: 40,
-  },
-  {
-    name: "Rapid Punches",
-    type: "Fighting",
-    attack: "Physical",
-    power: 40,
-  },
-  {
-    name: "Rubber Pistol",
-    type: "Fighting",
-    attack: "Physical",
-    power: 40,
-  },
-  {
-    name: "Fighting Spirit",
-    type: "Fighting",
-    attack: "Status",
-    power: 40,
-  },
-  {
-    name: "Bazooka",
-    type: "Fighting",
-    attack: "Physical",
-    power: 40,
-  },
-  {
-    name: "Phase Two",
-    type: "Neutral",
-    attack: "Status",
-    power: -,
-  },
-  {
-    name: "Headbutt",
-    type: "Neutral",
-    attack: "Physical",
-    power: 40,
-  },
-  {
-    name: "Armament",
-    type: "Fighting",
-    attack: "Status",
-    power: 40,
-  },
-  {
-    name: "Thunder Shock",
-    type: "Lightning",
-    attack: "Special",
-    power: 40,
-  }
-];
+function getMoveHtml(moveInput) {
+  if (!moveInput) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
+
+  const minfo = getMoveInfo(moveInput);
+  if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
+
+  // 🔥 Detecta se tem level
+  const levelText = (typeof moveInput === "object" && moveInput.level)
+    ? `<span class="move-level">Lv.${moveInput.level}</span> `
+    : "";
+
+  return `
+    <div class="move-wrapper">
+      ${levelText}
+      <span class="move-name-txt">${minfo.name}</span>
+      <div class="move-icons-wrapper">
+        <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type">
+        <img src="assets/${minfo.attackStr}.png" class="move-icon-atk">
+      </div>
+    </div>
+  `;
+}
