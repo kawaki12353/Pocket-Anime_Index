@@ -142,6 +142,9 @@
     .animon-balloon .stat-label { font-size: 9px; }
     .animon-balloon .stat-value { font-size: 12px; }
 
+    /* Novo balão de moves */
+    .move-balloon { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; font-size: 13px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.25); z-index: 60; animation: fadeIn 0.2s ease; white-space: nowrap; color: var(--text); }
+
     /* =========================================
        6. MODAIS E UI CUSTOMIZADA
        ========================================= */
@@ -274,6 +277,7 @@
     let currentSlot = null;
     let editSlotIndex = null;
     let openedBalloon = null;
+    let openedMoveBalloon = null;
 
     const DOM = {
       grid: document.getElementById("teamGrid"), shareBtn: document.getElementById("shareBtn"), exportBtn: document.getElementById("exportBtn"), langBtn: document.getElementById("langBtn"), modal: document.getElementById("modal"), editModal: document.getElementById("editModal"), animonList: document.getElementById("animonList"), searchInput: document.getElementById("searchInput"), addAnimonBtn: document.getElementById("addAnimonBtn"), levelInput: document.getElementById("levelInput"), levelValueDisplay: document.getElementById("levelValueDisplay")
@@ -355,7 +359,7 @@
         }
       }
 
-      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
+      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-" };
 
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
       const attackValue = moveData.attack || "physical";
@@ -363,7 +367,9 @@
       return {
         name: moveData.name || finalName,
         typeStr: String(typeValue).toLowerCase().trim(),
-        attackStr: String(attackValue).toLowerCase().trim()
+        attackStr: String(attackValue).toLowerCase().trim(),
+        power: moveData.power !== undefined ? moveData.power : "-",
+        accuracy: moveData.accuracy !== undefined ? moveData.accuracy : "-"
       };
     }
 
@@ -385,12 +391,12 @@
 
     function renderTeam() {
       const activeSlots = Array.from(DOM.grid.children).map(slot => slot.classList.contains('active'));
-      
+
       DOM.grid.innerHTML = "";
       for (let i = 0; i < 6; i++) {
         const div = document.createElement("div");
         div.className = "team-slot";
-        
+
         if (activeSlots[i]) div.classList.add("active");
 
         if (team[i]) {
@@ -400,7 +406,7 @@
             const minfo = getMoveInfo(animonMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
             return `
-              <div class="mini-move">
+              <div class="mini-move" style="position:relative; cursor:pointer;" data-power="${minfo.power}" data-acc="${minfo.accuracy}" onclick="event.stopPropagation(); toggleMoveBalloon(this)">
                 <span class="move-name-txt">${minfo.name}</span>
                 <div class="move-icons-wrapper">
                   <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
@@ -640,6 +646,23 @@
     }
     function closeBalloonOnce() { if (openedBalloon) { openedBalloon.remove(); openedBalloon = null; } }
 
+    function toggleMoveBalloon(moveDiv) {
+      if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
+      
+      const power = moveDiv.dataset.power;
+      const acc = moveDiv.dataset.acc;
+
+      const balloon = document.createElement("div");
+      balloon.className = "move-balloon";
+      balloon.innerHTML = `<b>Power:</b> ${power} &nbsp;|&nbsp; <b>Accuracy:</b> ${acc}`;
+      
+      moveDiv.appendChild(balloon);
+      openedMoveBalloon = balloon;
+      
+      setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
+    }
+    function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
+
     /* =========================================
        6. EVENT LISTENERS E I18N
        ========================================= */
@@ -689,15 +712,15 @@
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
       const bgColor = getComputedStyle(document.body).getPropertyValue('--bg').trim();
-      
+
       // Armazena estilos originais para restaurar depois
       const originalWidth = exportArea.style.width;
       const originalGrid = DOM.grid.style.gridTemplateColumns;
-      
+
       // Força modo "PC" (Desktop) para a imagem
       exportArea.style.width = "1000px";
       DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
-      
+
       // Força todos os moves a ficarem visíveis na imagem
       const moveContents = exportArea.querySelectorAll('.slot-moves-content');
       const originalMaxHeights = [];
