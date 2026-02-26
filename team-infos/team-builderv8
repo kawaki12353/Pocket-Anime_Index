@@ -328,7 +328,9 @@
       let moveData = null;
       let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || moveInput.id || "Unknown");
 
-      if (typeof moveInput === 'object') {
+      // CORREÇÃO: Se for um objeto, só usamos ele como base se ele tiver as propriedades de tipo/ataque.
+      // Caso contrário, tratamos como uma referência e buscamos no banco de dados.
+      if (typeof moveInput === 'object' && moveInput.type) {
         moveData = moveInput;
       } else if (typeof moves !== "undefined") {
         if (Array.isArray(moves)) {
