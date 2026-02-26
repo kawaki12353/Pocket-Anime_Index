@@ -256,6 +256,6 @@ const moves = {
     type: "neutral",
     attack: "special",
     power: 25,
-    accuracy: 0,
+    accuracy: 100,
   }
 };
