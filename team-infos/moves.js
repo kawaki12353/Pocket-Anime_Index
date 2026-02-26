@@ -172,7 +172,7 @@ const moves = {
     type: "psychic",
     attack: "status",
     power: 0,
-    accuracy: 0,
+    accuracy: 80,
   },
   "Psychic Blast": {
     name: "Psychic Blast",
@@ -235,7 +235,7 @@ const moves = {
     type: "neutral",
     attack: "status",
     power: 0,
-    accuracy: -,
+    accuracy: 100,
   },
   "Headbutt": {
     name: "Headbutt",
@@ -249,13 +249,13 @@ const moves = {
     type: "fighting",
     attack: "status",
     power: 0,
-    accuracy: 0,
+    accuracy: 100,
   },
   "Energy Blast": {
     name: "Energy Blast",
     type: "neutral",
     attack: "special",
     power: 25,
-    accuracy: 0,
+    accuracy: 100,
   }
 };
