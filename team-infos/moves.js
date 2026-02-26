@@ -235,7 +235,7 @@ const moves = {
     type: "neutral",
     attack: "status",
     power: 0,
-    accuracy: 0,
+    accuracy: -,
   },
   "Headbutt": {
     name: "Headbutt",
