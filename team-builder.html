@@ -430,7 +430,7 @@
               <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})" title="Remover">
                 <img src="assets/bin.png" alt="Delete">
               </div>
-              <div class="slot-expand" onclick="event.stopPropagation(); this.closest('.team-slot').classList.toggle('active')" title="Ver Moves">
+              <div class="slot-expand" onclick="event.stopPropagation(); toggleSlotExpand(this)" title="Ver Moves">
                 ▼
               </div>
             </div>
@@ -454,6 +454,19 @@
       renderTeam();
     }
 
+    function toggleSlotExpand(btn) {
+     const slot = btn.closest('.team-slot');
+
+     // Se já estiver aberto, fecha ele
+     if (slot.classList.contains('active')) {
+       slot.classList.remove('active');
+       return;
+     }
+
+     // Caso contrário, abre só ele
+     slot.classList.add('active');
+    }
+    
     /* =========================================
        4. MODAL ADICIONAR E MOVES
        ========================================= */
