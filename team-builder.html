@@ -355,7 +355,6 @@
         }
       }
 
-      // Se não encontrar o move, usa o nome dele mas seta o fallback visual
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
@@ -495,37 +494,18 @@
       const container = document.getElementById(containerId);
       const label = texts[lang].moveSelect;
 
-      // Função interna para renderizar o move COM level (apenas no modal)
-      const getMoveWithLevelHtml = (moveInput) => {
-        const minfo = getMoveInfo(moveInput);
-        if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-        
-        // Tenta encontrar o level no objeto original do movesList
-        const moveObj = availableMoves.find(m => (typeof m === 'object' && m.name === minfo.name));
-        const levelSpan = moveObj && moveObj.level ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
-
-        return `
-          <div style="display:flex; align-items:center; width:100%;">
-            ${levelSpan}
-            <span class="move-name-txt">${minfo.name}</span>
-            <div class="move-icons-wrapper">
-              <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
-              <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
-            </div>
-          </div>
-        `;
-      };
-
       let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
 
       availableMoves.forEach(m => {
         const mName = (typeof m === 'object') ? (m.name || m.id) : m;
-        optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m)}</div>`;
+        // Adiciona o level à esquerda no modal de edição
+        const lvlTag = m.level ? `<span style="font-size: 10px; opacity: 0.6; margin-right: 5px;">Lv.${m.level}</span>` : "";
+        optionsHtml += `<div class="option" data-value="${mName}">${lvlTag}${getMoveHtml(m)}</div>`;
       });
 
       container.innerHTML = `
         <div class="select-btn">
-          ${currentMove ? getMoveWithLevelHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}
+          ${currentMove ? getMoveHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}
         </div>
         <div class="select-options">${optionsHtml}</div>
       `;
@@ -542,7 +522,7 @@
       container.querySelectorAll('.option').forEach(opt => {
         opt.onclick = () => {
           const val = opt.dataset.value;
-          btn.innerHTML = val ? getMoveWithLevelHtml(val) : `<span class="move-name-txt">${label}</span>`;
+          btn.innerHTML = val ? getMoveHtml(val) : `<span class="move-name-txt">${label}</span>`;
           container.dataset.value = val;
           options.classList.remove('open');
           autoSaveEditData();
@@ -560,13 +540,9 @@
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
       let availableMoves = [];
-      // Se tiver movesList no animon, usamos ela e ordenamos por level
-      if (animon.movesList) {
-        availableMoves = Array.isArray(animon.movesList) ? [...animon.movesList] : [animon.movesList];
-        availableMoves.sort((a, b) => (a.level || 0) - (b.level || 0));
-      } else {
-        // Caso não tenha movesList, a lista de seleção fica vazia conforme pedido
-        availableMoves = [];
+      // Filtra para usar apenas a movesList do Animon e organiza por nível
+      if (Array.isArray(animon.movesList) && animon.movesList.length > 0) {
+        availableMoves = [...animon.movesList].sort((a, b) => (a.level || 0) - (b.level || 0));
       }
 
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
