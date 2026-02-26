@@ -207,12 +207,12 @@
   </header>
 
   <main class="map-list">
-    <div id="teamExportArea">
+    <div id="teamExportArea" style="padding: 20px; border-radius: 20px;">
       <div class="team-grid" id="teamGrid"></div>
       <div class="analysis">
         <div>
           <button id="shareBtn"></button>
-          <button id="exportBtn">Exportar Imagem</button>
+          <button id="exportBtn"></button>
         </div>
         <div>
           <h3 id="statsTitle"></h3>
@@ -265,8 +265,8 @@
        1. ESTADO E VARIÁVEIS GERAIS
        ========================================= */
     const texts = {
-      pt: { btn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!" },
-      en: { btn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", moveEmpty: "None", remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!" }
+      pt: { btn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!" },
+      en: { btn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", moveEmpty: "None", remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
@@ -328,8 +328,6 @@
       let moveData = null;
       let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || moveInput.id || "Unknown");
 
-      // CORREÇÃO: Se for um objeto, só usamos ele como base se ele tiver as propriedades de tipo/ataque.
-      // Caso contrário, tratamos como uma referência e buscamos no banco de dados.
       if (typeof moveInput === 'object' && moveInput.type) {
         moveData = moveInput;
       } else if (typeof moves !== "undefined") {
@@ -357,7 +355,6 @@
         }
       }
 
-      // Se não encontrar o move, usa o nome dele mas seta o fallback visual
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
 
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
@@ -387,7 +384,6 @@
     }
 
     function renderTeam() {
-      // FIX: Salva o estado atual de expansão dos slots antes de recriá-los
       const activeSlots = Array.from(DOM.grid.children).map(slot => slot.classList.contains('active'));
       
       DOM.grid.innerHTML = "";
@@ -395,7 +391,6 @@
         const div = document.createElement("div");
         div.className = "team-slot";
         
-        // FIX: Se o slot estava ativo antes, devolve a classe active para ele
         if (activeSlots[i]) div.classList.add("active");
 
         if (team[i]) {
@@ -503,12 +498,10 @@
       const container = document.getElementById(containerId);
       const label = texts[lang].moveSelect;
 
-      // Função interna para renderizar o move COM level (apenas no modal)
       const getMoveWithLevelHtml = (moveInput) => {
         const minfo = getMoveInfo(moveInput);
         if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
-        // Tenta encontrar o level no objeto original do movesList
         const moveObj = availableMoves.find(m => (typeof m === 'object' && m.name === minfo.name));
         const levelSpan = moveObj && moveObj.level !== undefined ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
 
@@ -524,7 +517,6 @@
         `;
       };
 
-      // Função para renderizar as opções filtrando os repetidos
       const renderOptions = () => {
         const otherSelectedMoves = [0, 1, 2, 3]
           .map(i => document.getElementById(`moveSelect${i}`))
@@ -536,7 +528,6 @@
 
         availableMoves.forEach(m => {
           const mName = (typeof m === 'object') ? (m.name || m.id) : m;
-          // Não renderiza se o Move já estiver em outro slot
           if (!otherSelectedMoves.includes(mName)) {
             optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m)}</div>`;
           }
@@ -569,7 +560,7 @@
       btn.onclick = (e) => {
         e.stopPropagation();
         document.querySelectorAll('.select-options').forEach(opt => { if (opt !== options) opt.classList.remove('open'); });
-        renderOptions(); // Atualiza a lista toda vez que abre para remover repetidos em tempo real
+        renderOptions();
         options.classList.toggle('open');
       };
 
@@ -587,7 +578,6 @@
       let availableMoves = [];
       if (animon.movesList) {
         availableMoves = Array.isArray(animon.movesList) ? [...animon.movesList] : [animon.movesList];
-        // Ordena numericamente pelo Level
         availableMoves.sort((a, b) => (parseInt(a.level) || 0) - (parseInt(b.level) || 0));
       }
 
@@ -656,6 +646,7 @@
     function updateLangUI() {
       document.getElementById("mapTitle").textContent = texts[lang].title;
       DOM.shareBtn.textContent = texts[lang].share;
+      DOM.exportBtn.textContent = texts[lang].export;
       DOM.langBtn.textContent = texts[lang].btn;
       document.getElementById("modalTitle").textContent = texts[lang].modalTitle;
       document.getElementById("editModalTitle").textContent = texts[lang].editTitle;
@@ -697,9 +688,51 @@
 
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
-      const canvas = await html2canvas(exportArea, { scale: 2, useCORS: true });
-      const link = document.createElement("a"); 
-      link.download = "team.png"; link.href = canvas.toDataURL(); link.click();
+      const bgColor = getComputedStyle(document.body).getPropertyValue('--bg').trim();
+      
+      // Armazena estilos originais para restaurar depois
+      const originalWidth = exportArea.style.width;
+      const originalGrid = DOM.grid.style.gridTemplateColumns;
+      
+      // Força modo "PC" (Desktop) para a imagem
+      exportArea.style.width = "1000px";
+      DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
+      
+      // Força todos os moves a ficarem visíveis na imagem
+      const moveContents = exportArea.querySelectorAll('.slot-moves-content');
+      const originalMaxHeights = [];
+      moveContents.forEach((mc, i) => {
+        originalMaxHeights[i] = mc.style.maxHeight;
+        mc.style.maxHeight = "500px"; // Valor alto o suficiente para mostrar tudo
+        mc.style.borderTop = "1px solid var(--border)";
+      });
+
+      try {
+        const canvas = await html2canvas(exportArea, { 
+          scale: 2, 
+          useCORS: true,
+          backgroundColor: bgColor,
+          logging: false,
+          width: 1000
+        });
+
+        const link = document.createElement("a"); 
+        link.download = `team-pocket-anime.png`; 
+        link.href = canvas.toDataURL("image/png"); 
+        link.click();
+      } catch (err) {
+        console.error("Erro ao exportar:", err);
+      } finally {
+        // Restaura o layout original da página
+        exportArea.style.width = originalWidth;
+        DOM.grid.style.gridTemplateColumns = originalGrid;
+        moveContents.forEach((mc, i) => {
+          mc.style.maxHeight = originalMaxHeights[i];
+          if (!mc.closest('.team-slot').classList.contains('active')) {
+             mc.style.borderTop = "none";
+          }
+        });
+      }
     };
 
     init();
