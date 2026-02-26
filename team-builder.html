@@ -83,7 +83,10 @@
     .team-slot.active .slot-expand { transform: rotate(180deg); opacity: 1; }
 
     .slot-moves-content {
-      position: relative;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
       z-index: 1;
       max-height: 0;
       overflow: hidden;
@@ -103,12 +106,12 @@
     .mini-move {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 10px;
+      border-radius: 8px;
+      padding: 4px 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 11px;
     }
     .empty-move { opacity: 0.5; justify-content: center; font-style: italic; }
 
