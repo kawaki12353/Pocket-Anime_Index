@@ -321,69 +321,33 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move com busca aprimorada */
     function getMoveInfo(moveInput) {
       if (!moveInput || moveInput === "") return null;
-
       let moveData = null;
       let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || moveInput.id || "Unknown");
 
-      if (typeof moveInput === 'object') {
+      if (typeof moveInput === 'object' && !Array.isArray(moveInput)) {
         moveData = moveInput;
       } else if (typeof moves !== "undefined") {
-        if (Array.isArray(moves)) {
-          moveData = moves.find(m => 
-            (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()) || 
-            (m.id && String(m.id).toLowerCase().trim() === finalName.toLowerCase())
-          );
-        } else if (typeof moves === 'object') {
-          const exactKey = Object.keys(moves).find(k => k.toLowerCase().trim() === finalName.toLowerCase());
-
-          if (exactKey) {
-            moveData = moves[exactKey];
-            finalName = moveData.name || exactKey;
-          } else {
-            const foundVal = Object.values(moves).find(m => 
-              (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()) || 
-              (m.id && String(m.id).toLowerCase().trim() === finalName.toLowerCase())
-            );
-            if (foundVal) {
-              moveData = foundVal;
-              finalName = moveData.name || finalName;
-            }
-          }
+        const exactKey = Object.keys(moves).find(k => k.toLowerCase().trim() === finalName.toLowerCase());
+        if (exactKey) {
+          moveData = moves[exactKey];
+          finalName = moveData.name || exactKey;
         }
       }
 
-      // Se não encontrar o move, usa o nome dele mas seta o fallback visual
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical" };
-
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
-      const attackValue = moveData.attack || "physical";
-
       return {
         name: moveData.name || finalName,
         typeStr: String(typeValue).toLowerCase().trim(),
-        attackStr: String(attackValue).toLowerCase().trim()
+        attackStr: String(moveData.attack || "physical").toLowerCase().trim()
       };
     }
 
     /* =========================================
        3. RENDERIZAÇÃO E MOVES
        ========================================= */
-    function getMoveHtml(moveInput) {
-      const minfo = getMoveInfo(moveInput);
-      if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-
-      return `
-        <span class="move-name-txt">${minfo.name}</span>
-        <div class="move-icons-wrapper">
-          <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
-          <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
-        </div>
-      `;
-    }
-
     function renderTeam() {
       DOM.grid.innerHTML = "";
       for (let i = 0; i < 6; i++) {
@@ -392,7 +356,6 @@
 
         if (team[i]) {
           const animonMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
-
           const movesHtml = [0, 1, 2, 3].map(mIndex => {
             const minfo = getMoveInfo(animonMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
@@ -414,54 +377,28 @@
                 <div class="slot-level">Lv.${team[i].level || 100}</div>
               </div>
               <div class="slot-elements">${createElementIcon(team[i].type)}</div>
-              <div class="slot-center">
-                <img src="${team[i].sprite}" class="animon-img" alt="${team[i].name}">
-              </div>
-              <div class="slot-edit" onclick="event.stopPropagation(); openEditModal(${i})" title="Editar">
-                <img src="assets/pencil.png" alt="Edit">
-              </div>
-              <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})" title="Remover">
-                <img src="assets/bin.png" alt="Delete">
-              </div>
-              <div class="slot-expand" onclick="event.stopPropagation(); toggleSlotExpand(this)" title="Ver Moves">
-                ▼
-              </div>
+              <div class="slot-center"><img src="${team[i].sprite}" class="animon-img" alt="${team[i].name}"></div>
+              <div class="slot-edit" onclick="event.stopPropagation(); openEditModal(${i})" title="Editar"><img src="assets/pencil.png" alt="Edit"></div>
+              <div class="slot-delete" onclick="event.stopPropagation(); removeFromTeam(${i})" title="Remover"><img src="assets/bin.png" alt="Delete"></div>
+              <div class="slot-expand" onclick="event.stopPropagation(); toggleSlotExpand(this)" title="Ver Moves">▼</div>
             </div>
-            <div class="slot-moves-content">
-              <div class="moves-container">${movesHtml}</div>
-            </div>
+            <div class="slot-moves-content"><div class="moves-container">${movesHtml}</div></div>
           `;
           const img = div.querySelector(".animon-img");
           if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div.querySelector('.slot-main-content'), team[i]); });
         } else {
-          div.innerHTML = `
-           <div class="slot-main-content">
-            <div class="empty-slot">${texts[lang].empty}</div>
-           </div>
-         `;
+          div.innerHTML = `<div class="slot-main-content"><div class="empty-slot">${texts[lang].empty}</div></div>`;
         }
         DOM.grid.appendChild(div);
       }
       updateAnalysis();
     }
 
-    function removeFromTeam(index) {
-      team.splice(index, 1);
-      saveData();
-      renderTeam();
-    }
-
-    function toggleSlotExpand(btn) {
-     const slot = btn.closest('.team-slot');
-     if (slot.classList.contains('active')) {
-       slot.classList.remove('active');
-       return;
-     }
-     slot.classList.add('active');
-    }
+    function removeFromTeam(index) { team.splice(index, 1); saveData(); renderTeam(); }
+    function toggleSlotExpand(btn) { btn.closest('.team-slot').classList.toggle('active'); }
 
     /* =========================================
-       4. MODAL ADICIONAR E MOVES
+       4. MODAL ADICIONAR E EDIÇÃO (MOVES)
        ========================================= */
     function openModal(slotIndex) {
       currentSlot = slotIndex;
@@ -477,40 +414,55 @@
       list.forEach(a => {
         const div = document.createElement("div");
         div.className = "animon-option";
-        div.innerHTML = `
-          <div class="animon-left"><img src="${a.sprite}" alt="${a.name}"><div><span class="animon-id">#${a.id}</span> <strong>${a.name}</strong></div></div>
-          ${createElementIcon(a.type)}
-        `;
-        div.onclick = () => {
-          team[currentSlot] = JSON.parse(JSON.stringify(a));
-          team[currentSlot].level = 100;
-          team[currentSlot].moves = ["", "", "", ""];
-          saveData(); renderTeam(); closeModal();
-        };
+        div.innerHTML = `<div class="animon-left"><img src="${a.sprite}"><div><span class="animon-id">#${a.id}</span> <strong>${a.name}</strong></div></div>${createElementIcon(a.type)}`;
+        div.onclick = () => { team[currentSlot] = JSON.parse(JSON.stringify(a)); team[currentSlot].level = 100; team[currentSlot].moves = ["", "", "", ""]; saveData(); renderTeam(); closeModal(); };
         DOM.animonList.appendChild(div);
       });
     }
 
-    function createMoveSelect(containerId, currentMove, availableMoves) {
+    function openEditModal(index) {
+      const animon = team[index];
+      if (!animon) return; 
+
+      editSlotIndex = index;
+      DOM.levelInput.value = animon.level || 100;
+      DOM.levelValueDisplay.textContent = DOM.levelInput.value;
+
+      // Se não houver movesList, a lista disponível fica vazia
+      let availableMoves = [];
+      if (animon.movesList && Array.isArray(animon.movesList)) {
+        availableMoves = [...animon.movesList];
+        // Organiza em ordem numérica de acordo com o level
+        availableMoves.sort((a, b) => (a.level || 0) - (b.level || 0));
+      }
+
+      const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
+      for (let i = 0; i < 4; i++) {
+        createMoveSelect(`moveSelect${i}`, currentMoves[i] || "", availableMoves, i, currentMoves);
+      }
+
+      DOM.editModal.style.display = "flex";
+    }
+
+    function createMoveSelect(containerId, currentMove, availableMoves, slotIdx, allSelectedMoves) {
       const container = document.getElementById(containerId);
       const label = texts[lang].moveSelect;
 
-      // Função interna para renderizar o move COM level (apenas no modal)
+      // Função para renderizar com Level (apenas no modal de edição)
       const getMoveWithLevelHtml = (moveInput) => {
         const minfo = getMoveInfo(moveInput);
         if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
-        // Tenta encontrar o level no objeto original do movesList
-        const moveObj = availableMoves.find(m => (typeof m === 'object' && m.name === minfo.name));
-        const levelSpan = moveObj && moveObj.level ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
+        const moveObj = availableMoves.find(m => (m.name === minfo.name));
+        const levelDisplay = moveObj && moveObj.level !== undefined ? `<b style="margin-right:8px; opacity:0.7; font-size:10px;">${moveObj.level}</b>` : "";
 
         return `
           <div style="display:flex; align-items:center; width:100%;">
-            ${levelSpan}
+            ${levelDisplay}
             <span class="move-name-txt">${minfo.name}</span>
             <div class="move-icons-wrapper">
-              <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
-              <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
+              <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" onerror="this.src='assets/neutral_element.png'">
+              <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" onerror="this.src='assets/physical.png'">
             </div>
           </div>
         `;
@@ -520,13 +472,15 @@
 
       availableMoves.forEach(m => {
         const mName = (typeof m === 'object') ? (m.name || m.id) : m;
-        optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m)}</div>`;
+        // Não deixa selecionar Moves repetidos
+        const isDuplicate = allSelectedMoves.some((sel, idx) => sel === mName && idx !== slotIdx);
+        if (!isDuplicate) {
+            optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m)}</div>`;
+        }
       });
 
       container.innerHTML = `
-        <div class="select-btn">
-          ${currentMove ? getMoveWithLevelHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}
-        </div>
+        <div class="select-btn">${currentMove ? getMoveWithLevelHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}</div>
         <div class="select-options">${optionsHtml}</div>
       `;
 
@@ -542,39 +496,14 @@
       container.querySelectorAll('.option').forEach(opt => {
         opt.onclick = () => {
           const val = opt.dataset.value;
-          btn.innerHTML = val ? getMoveWithLevelHtml(val) : `<span class="move-name-txt">${label}</span>`;
           container.dataset.value = val;
           options.classList.remove('open');
           autoSaveEditData();
+          // Atualiza os outros selects para esconder o move recém selecionado (evitar duplicata em tempo real)
+          openEditModal(editSlotIndex);
         };
       });
       container.dataset.value = currentMove || "";
-    }
-
-    function openEditModal(index) {
-      const animon = team[index];
-      if (!animon) return; 
-
-      editSlotIndex = index;
-      DOM.levelInput.value = animon.level || 100;
-      DOM.levelValueDisplay.textContent = DOM.levelInput.value;
-
-      let availableMoves = [];
-      // Se tiver movesList no animon, usamos ela e ordenamos por level
-      if (animon.movesList) {
-        availableMoves = Array.isArray(animon.movesList) ? [...animon.movesList] : [animon.movesList];
-        availableMoves.sort((a, b) => (a.level || 0) - (b.level || 0));
-      } else {
-        // Caso não tenha movesList, a lista de seleção fica vazia conforme pedido
-        availableMoves = [];
-      }
-
-      const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
-      for (let i = 0; i < 4; i++) {
-        createMoveSelect(`moveSelect${i}`, currentMoves[i] || "", availableMoves);
-      }
-
-      DOM.editModal.style.display = "flex";
     }
 
     function closeEditModal() { DOM.editModal.style.display = "none"; }
@@ -597,7 +526,6 @@
     function getAnimonTypeInfo(animon) {
       const weakness = {}, resist = {}, immune = {};
       const types = Array.isArray(animon.type) ? animon.type : [animon.type];
-
       if (typeof chart !== "undefined") {
         Object.keys(chart).forEach(attackType => {
           let multiplier = 1;
@@ -607,7 +535,6 @@
           else if (multiplier < 1) resist[attackType] = true;
         });
       }
-
       const formatObj = obj => Object.keys(obj).join(", ") || "None";
       let statsHtml = "";
       if (animon.stats) {
@@ -624,9 +551,8 @@
       balloon.innerHTML = getAnimonTypeInfo(animon);
       slotDiv.appendChild(balloon);
       openedBalloon = balloon;
-      setTimeout(() => { document.addEventListener("click", closeBalloonOnce, { once: true }); }, 0);
+      setTimeout(() => { document.addEventListener("click", () => { if(openedBalloon){openedBalloon.remove(); openedBalloon=null;} }, { once: true }); }, 0);
     }
-    function closeBalloonOnce() { if (openedBalloon) { openedBalloon.remove(); openedBalloon = null; } }
 
     /* =========================================
        6. EVENT LISTENERS E I18N
@@ -641,26 +567,16 @@
       document.getElementById("statsTitle").textContent = texts[lang].totalStats;
     }
 
-    DOM.langBtn.onclick = () => {
-      lang = lang === "pt" ? "en" : "pt";
-      localStorage.setItem("siteLang", lang);
-      updateLangUI();
-      renderTeam();
-    };
-
-    DOM.addAnimonBtn.onclick = () => {
-      if (team.length >= 6) return alert(texts[lang].full);
-      openModal(team.length);
-    };
-
+    DOM.langBtn.onclick = () => { lang = lang === "pt" ? "en" : "pt"; localStorage.setItem("siteLang", lang); updateLangUI(); renderTeam(); };
+    DOM.addAnimonBtn.onclick = () => { if (team.length >= 6) return alert(texts[lang].full); openModal(team.length); };
     DOM.searchInput.addEventListener("input", () => {
       if (typeof animons === 'undefined') return;
       const value = DOM.searchInput.value.toLowerCase().trim();
       renderAnimonList(animons.filter(a => a.name.toLowerCase().includes(value) || String(a.id).includes(value)));
     });
 
-    DOM.modal.addEventListener("click", (e) => { if (e.target === DOM.modal) closeModal(); });
-    DOM.editModal.addEventListener("click", (e) => { if (e.target === DOM.editModal) closeEditModal(); });
+    DOM.modal.onclick = (e) => { if (e.target === DOM.modal) closeModal(); };
+    DOM.editModal.onclick = (e) => { if (e.target === DOM.editModal) closeEditModal(); };
 
     document.addEventListener("click", e => {
       if (!e.target.closest('.custom-select')) {
@@ -676,8 +592,7 @@
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
       const canvas = await html2canvas(exportArea, { scale: 2, useCORS: true });
-      const link = document.createElement("a"); 
-      link.download = "team.png"; link.href = canvas.toDataURL(); link.click();
+      const link = document.createElement("a"); link.download = "team.png"; link.href = canvas.toDataURL(); link.click();
     };
 
     init();
