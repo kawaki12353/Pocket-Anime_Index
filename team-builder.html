@@ -387,10 +387,16 @@
     }
 
     function renderTeam() {
+      // FIX: Salva o estado atual de expansão dos slots antes de recriá-los
+      const activeSlots = Array.from(DOM.grid.children).map(slot => slot.classList.contains('active'));
+      
       DOM.grid.innerHTML = "";
       for (let i = 0; i < 6; i++) {
         const div = document.createElement("div");
         div.className = "team-slot";
+        
+        // FIX: Se o slot estava ativo antes, devolve a classe active para ele
+        if (activeSlots[i]) div.classList.add("active");
 
         if (team[i]) {
           const animonMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
