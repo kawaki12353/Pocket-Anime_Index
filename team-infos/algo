@@ -1,22 +1,62 @@
-function autoSaveEditData() {
-  if (editSlotIndex !== null && team[editSlotIndex]) {
-    team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
-    
-    // Função auxiliar para recuperar o valor do dataset e transformá-lo em objeto se necessário
-    const getSelectVal = (id) => {
-      const val = document.getElementById(id).dataset.value;
-      if (!val) return "";
-      try { if (val.startsWith('{')) return JSON.parse(val); } catch(e) {}
-      return val;
-    };
-
-    team[editSlotIndex].moves = [
-      getSelectVal('moveSelect0'),
-      getSelectVal('moveSelect1'),
-      getSelectVal('moveSelect2'),
-      getSelectVal('moveSelect3')
-    ];
-    saveData();
-    renderTeam();
+var moves = [
+  {
+    name: "Rubber Balloon",
+    type: "Neutral",
+    attack: "Status",
+    power: 40,
+  },
+  {
+    name: "Punch",
+    type: "Neutral",
+    attack: "Physical",
+    power: 40,
+  },
+  {
+    name: "Rapid Punches",
+    type: "Fighting",
+    attack: "Physical",
+    power: 40,
+  },
+  {
+    name: "Rubber Pistol",
+    type: "Fighting",
+    attack: "Physical",
+    power: 40,
+  },
+  {
+    name: "Fighting Spirit",
+    type: "Fighting",
+    attack: "Status",
+    power: 40,
+  },
+  {
+    name: "Bazooka",
+    type: "Fighting",
+    attack: "Physical",
+    power: 40,
+  },
+  {
+    name: "Phase Two",
+    type: "Neutral",
+    attack: "Status",
+    power: -,
+  },
+  {
+    name: "Headbutt",
+    type: "Neutral",
+    attack: "Physical",
+    power: 40,
+  },
+  {
+    name: "Armament",
+    type: "Fighting",
+    attack: "Status",
+    power: 40,
+  },
+  {
+    name: "Thunder Shock",
+    type: "Lightning",
+    attack: "Special",
+    power: 40,
   }
-}
+];
