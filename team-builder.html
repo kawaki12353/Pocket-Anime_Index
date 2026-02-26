@@ -114,6 +114,26 @@
     .empty-move { opacity: 0.5; justify-content: center; font-style: italic; }
 
     /* =========================================
+       REGRAS ESPECÍFICAS PARA EXPORTAÇÃO (PC FORMAT)
+       ========================================= */
+    .export-mode #teamExportArea {
+      width: 950px !important;
+      padding: 20px !important;
+      box-sizing: border-box !important;
+    }
+    .export-mode .team-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+      width: 900px !important;
+    }
+    .export-mode .slot-moves-content {
+      max-height: 500px !important;
+      border-top: 1px solid var(--border) !important;
+    }
+    .export-mode .slot-expand, .export-mode .slot-edit, .export-mode .slot-delete {
+      display: none !important; /* Remove botões de UI na foto */
+    }
+
+    /* =========================================
        4. COMPONENTES: SISTEMA DE ELEMENTOS
        ========================================= */
     .animon-elements { display: flex; gap: 6px; margin-top: 6px; justify-content: center; }
@@ -675,9 +695,32 @@
 
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
-      const canvas = await html2canvas(exportArea, { scale: 2, useCORS: true });
-      const link = document.createElement("a"); 
-      link.download = "team.png"; link.href = canvas.toDataURL(); link.click();
+      const body = document.body;
+      
+      // Captura a cor de fundo atual computada do body (respeita light/dark mode)
+      const bgColor = window.getComputedStyle(body).backgroundColor;
+
+      // Ativa o modo de exportação para forçar layout PC e mostrar moves
+      body.classList.add("export-mode");
+
+      try {
+        const canvas = await html2canvas(exportArea, { 
+          scale: 2, 
+          useCORS: true,
+          backgroundColor: bgColor,
+          width: 950 // Garante a largura de PC no canvas
+        });
+
+        const link = document.createElement("a"); 
+        link.download = "meu-time-animon.png"; 
+        link.href = canvas.toDataURL("image/png"); 
+        link.click();
+      } catch (err) {
+        console.error("Erro ao exportar:", err);
+      } finally {
+        // Remove o modo de exportação para voltar ao layout normal do usuário
+        body.classList.remove("export-mode");
+      }
     };
 
     init();
