@@ -39,7 +39,6 @@ const moves = {
     name: "Phase Two",
     type: "neutral",
     attack: "status",
-    power: -,
   },
   "Headbutt": {
     name: "Headbutt",
