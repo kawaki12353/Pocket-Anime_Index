@@ -182,7 +182,7 @@
     .move-name-txt { flex: 1; font-size: 11px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .move-icons-wrapper { display: flex; align-items: center; gap: 4px; margin-left: auto; }
     .move-icon-type { width: 16px; height: 16px; object-fit: contain; }
-    .move-icon-atk { width: 14px; height: 14px; object-fit: contain; }
+    .move-icon-atk { width: 16px; height: 16px; object-fit: contain; }
 
     @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
     @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; } }
