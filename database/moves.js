@@ -1,4 +1,39 @@
 const moves = {
+  "Wind Shuriken": {
+    name: "Wind Shuriken",
+    type: "wind",
+    attack: "physical",
+    power: 70,
+    accuracy: 100,
+  },
+  "Wind Palm": {
+    name: "Wind Palm",
+    type: "wind",
+    attack: "physical",
+    power: 60,
+    accuracy: 80,
+  },
+  "Smoke Screen": {
+    name: "Smoke Screen",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+  },
+  "Clone Barrage": {
+    name: "Clone Barrage",
+    type: "neutral",
+    attack: "physical",
+    power: 45,
+    accuracy: 100,
+  },
+  "Aerial Combo": {
+    name: "Aerial Combo",
+    type: "neutral",
+    attack: "physical",
+    power: 45,
+    accuracy: 100,
+  },
   "Plunder": {
     name: "Plunder",
     type: "neutral",
