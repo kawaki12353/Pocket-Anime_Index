@@ -221,14 +221,14 @@ const moves = {
     type: "fighting",
     attack: "status",
     power: 0,
-    accuracy: 0,
+    accuracy: 100,
   },
   "Bazooka": {
     name: "Bazooka",
     type: "fighting",
     attack: "physical",
     power: 65,
-    accuracy: 0,
+    accuracy: 90,
   },
   "Phase Two": {
     name: "Phase Two",
