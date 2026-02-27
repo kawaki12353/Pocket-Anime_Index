@@ -1,4 +1,4 @@
-var animons = [      
+const animons = [      
  {id:1,name:"Ruffy",type:"Fighting",sprite:"assets/animons-icon/ruffy.png",stats:{hp:46,atk:65,def:55,spAtk:35,spDef:44,spd:55},movesList: [{level:1, name:"Punch"},{level:1, name:"Rubber Balloon"}, {level:5, name:"Rubber Pistol"}, {level:8, name:"Fighting Spirit"}, {level:10, name:"Rapid Punches"}, {level:15, name:"Bazooka"}, {level:18, name:"Phase Two"}, {level:21, name:"Armament"}, {level:24, name:"Headbutt"}]},
  {id:1.01,name:"TS Ruffy",type:"Fighting",sprite:"assets/animons-icon/ts_ruffy.png",stats:{hp:62,atk:93,def:70,spAtk:25,spDef:52,spd:75},movesList: [{level:1, name:"Punch"},{level:1, name:"Rubber Balloon"}, {level:5, name:"Rubber Pistol"}, {level:8, name:"Fighting Spirit"}, {level:10, name:"Rapid Punches"}, {level:15, name:"Bazooka"}, {level:18, name:"Phase Two"}, {level:21, name:"Armament"}, {level:24, name:"Headbutt"}]},   
  {id:2,name:"Mystic Bojin",type:"Psychic",sprite:"assets/animons-icon/mystic_bojin.png",stats:{hp:62,atk:33,def:52,spAtk:70,spDef:46,spd:45}},
