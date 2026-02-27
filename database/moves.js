@@ -1,6 +1,6 @@
 const moves = {
   "Plunder": {
-    name: Plunder",
+    name: "Plunder",
     type: "dark",
     attack: "status",
     power: 0,
