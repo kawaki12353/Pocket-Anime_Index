@@ -1,5 +1,5 @@
 /* TYPE CHART */
-var chart = {
+const chart = {
   Neutral: { 
     Earth: 0.5, 
     Soul: 0 
