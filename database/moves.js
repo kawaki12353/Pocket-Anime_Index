@@ -1,4 +1,11 @@
 const moves = {
+  "Plunder": {
+    name: Plunder",
+    type: "dark",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+  },
   "Spiritual Pressure": {
     name: "Spiritual Pressure",
     type: "soul",
