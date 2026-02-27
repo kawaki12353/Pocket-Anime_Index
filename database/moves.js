@@ -1,7 +1,7 @@
 const moves = {
   "Plunder": {
     name: "Plunder",
-    type: "dark",
+    type: "neutral",
     attack: "status",
     power: 0,
     accuracy: 100,
