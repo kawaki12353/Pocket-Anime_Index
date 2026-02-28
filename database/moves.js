@@ -1,4 +1,46 @@
 const moves = {
+  "Sand Arm": {
+    name: "Sand Arm",
+    type: "demon",
+    attack: "physical",
+    power: 70,
+    accuracy: 100,
+  },
+  "Substitution": {
+    name: "Substitution",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+  },
+  "Sand Bomb": {
+    name: "Sand Bomb",
+    type: "earth",
+    attack: "special",
+    power: 65,
+    accuracy: 100,
+  },
+  "Sand Burial": {
+    name: "Sand Burial",
+    type: "earth",
+    attack: "special",
+    power: 60,
+    accuracy: 70,
+  },
+  "Sand Storm": {
+    name: Sand Storm",
+    type: "earth",
+    attack: "special",
+    power: 0,
+    accuracy: 100,
+  },
+  "Sand Tsunami": {
+    name: "Sand Tsunami",
+    type: "earth",
+    attack: "special",
+    power: 45,
+    accuracy: 100,
+  },
   "Wind Shuriken": {
     name: "Wind Shuriken",
     type: "wind",
