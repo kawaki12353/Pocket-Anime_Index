@@ -82,7 +82,7 @@ const animons = [
      movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
-      { level: 5, name: " Aerial Combo" },
+      { level: 5, name: "Aerial Combo" },
       { level: 11, name: "Clone Barrage" },
       { level: 14, name: "Smoke Screen" },
       { level: 19, name: "Wind Palm" },
@@ -93,7 +93,7 @@ const animons = [
      movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
-      { level: 5, name: " Aerial Combo" },
+      { level: 5, name: "Aerial Combo" },
       { level: 11, name: "Clone Barrage" },
       { level: 14, name: "Smoke Screen" },
       { level: 19, name: "Wind Palm" },
@@ -140,7 +140,7 @@ const animons = [
       { level: 20, name: "Meteor Combo" },
       { level: 21, name: "Afterimage" },
       { level: 24, name: "Divine Bomb" }
-     ]
+    ]
   },
   { id: 28, name: "Green Alien", type: "Nature", sprite: "assets/animons-icon/green_alien.png", stats: { hp: 52, atk: 63, def: 43, spAtk: 70, spDef: 39, spd: 75 } },
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 } },
@@ -158,19 +158,19 @@ const animons = [
       { level: 15, name: "Dive Kick" },
       { level: 20, name: "Reverse Lily" },
       { level: 24, name: "Guzzle" }
-   ]
+    ]
   }, 
   { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 } 
     movesList: [
       { level: 1, name: "Energy Charge" }, 
-      { level: 1, name: " Kunai Barrage" },
+      { level: 1, name: "Kunai Barrage" },
       { level: 6, name: "Sand Tsunami" },
       { level: 8, name: "Sand Storm" },
       { level: 13, name: "Sand Burial" },
       { level: 18, name: "Sand Bomb" },
-      { level: 20, name: " Substitution" },
+      { level: 20, name: "Substitution" },
       { level: 24, name: "Sand Arm" }
-   ] 
+    ] 
   },
   { id: 34.01, name: "Tanuki Ganra", type: ["Earth", "Demon"], sprite: "assets/animons-icon/tanuki_ganra.png", stats: { hp: 65, atk: 46, def: 94, spAtk: 81, spDef: 65, spd: 48 } },
   { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 } },
