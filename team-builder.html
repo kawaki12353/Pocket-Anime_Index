@@ -342,7 +342,7 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move - CORRIGIDO ACCURACY */
+    /* Função Auxiliar para resgatar infos de um Move - CORRIGIDO ACCURACY E ADICIONADO DESCRIÇÃO */
     function getMoveInfo(moveInput) {
       if (!moveInput || moveInput === "") return null;
 
@@ -376,7 +376,7 @@
         }
       }
 
-      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-" };
+      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-", desc: "" };
 
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
       const attackValue = moveData.attack || "physical";
@@ -385,9 +385,9 @@
         name: moveData.name || finalName,
         typeStr: String(typeValue).toLowerCase().trim(),
         attackStr: String(attackValue).toLowerCase().trim(),
-        // CORREÇÃO: Garante que qualquer número (incluindo 0) ou string seja exibido corretamente
         power: (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") ? moveData.power : "-",
-        accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-"
+        accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-",
+        desc: moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc || ""
       };
     }
 
@@ -424,7 +424,7 @@
             const minfo = getMoveInfo(animonMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
             return `
-              <div class="mini-move" style="position:relative; cursor:pointer;" data-power="${minfo.power}" data-acc="${minfo.accuracy}" onclick="event.stopPropagation(); toggleMoveBalloon(this)">
+              <div class="mini-move" style="position:relative; cursor:pointer;" data-power="${minfo.power}" data-acc="${minfo.accuracy}" data-desc="${minfo.desc.replace(/"/g, '&quot;')}" onclick="event.stopPropagation(); toggleMoveBalloon(this)">
                 <span class="move-name-txt">${minfo.name}</span>
                 <div class="move-icons-wrapper">
                   <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
@@ -669,10 +669,24 @@
 
       const power = moveDiv.dataset.power;
       const acc = moveDiv.dataset.acc;
+      const desc = moveDiv.dataset.desc;
 
       const balloon = document.createElement("div");
       balloon.className = "move-balloon";
-      balloon.innerHTML = `<b>Power:</b> ${power} &nbsp;|&nbsp; <b>Accuracy:</b> ${acc}`;
+      
+      // Montagem do balão com a descrição por cima e as cores personalizadas no Power e Accuracy
+      let contentHtml = "";
+      if (desc) {
+        contentHtml += `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: center;">${desc}</div>`;
+      }
+      contentHtml += `
+        <div style="text-align: center;">
+          <span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; 
+          <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span>
+        </div>
+      `;
+
+      balloon.innerHTML = contentHtml;
 
       moveDiv.appendChild(balloon);
       openedMoveBalloon = balloon;
