@@ -22,7 +22,7 @@ const animons = [
       { level: 15, name: "Bazooka" },
       { level: 18, name: "Phase Two" },
       { level: 21, name: "Armament" },
-      { level: 24, name: "Headbutt" }
+      { level: 24, name: "Headbutt" },
     ]
   },
   { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 } },
@@ -33,7 +33,7 @@ const animons = [
       { level: 4, name: "Solar Flare" },
       { level: 6, name: "Vanishing Blow" },
       { level: 12, name: "Drain Life" },
-      { level: 24, name: "Limb Regrowth" }
+      { level: 24, name: "Limb Regrowth" },
     ]
   },
   { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 } },
@@ -46,10 +46,10 @@ const animons = [
       { level: 5, name: "Blade Surge" },
       { level: 10, name: "Sword Slam" },
       { level: 11, name: "Lunge" },
-      { level: 16, name: "Moon Fang Slash" }
-      { level: 22, name: "Moon Fang Barrage" }
-      { level: 26, name: "Menacing Aura" }
-      { level: 32, name: " Cut Down" }
+      { level: 16, name: "Moon Fang Slash" },
+      { level: 22, name: "Moon Fang Barrage" },
+      { level: 26, name: "Menacing Aura" },
+      { level: 32, name: " Cut Down" },
     ]
   { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 } },
   { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 } },
@@ -73,8 +73,8 @@ const animons = [
       { level: 5, name: "Aerial Combo" },
       { level: 11, name: "Clone Barrage" },
       { level: 14, name: "Smoke Screen" },
-      { level: 19, name: "Wind Palm" }
-      { level: 24, name: "Wind Shuriken" }
+      { level: 19, name: "Wind Palm" },
+      { level: 24, name: "Wind Shuriken" },
      ]
   { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 } },
   { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 } },
