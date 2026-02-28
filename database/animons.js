@@ -105,8 +105,32 @@ const animons = [
   { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 } },
   { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 } },
   { id: 17, name: "Green Head", type: "Neutral", sprite: "assets/animons-icon/green_head.png", stats: { hp: 40, atk: 20, def: 39, spAtk: 30, spDef: 25, spd: 65 } },
-  { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 } },
-  { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 } },
+  { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 },
+     movesList: [
+      { level: 1, name: "Dexterity" }, 
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Blade Surge" },
+      { level: 11, name: "Slashgiri" },
+      { level: 17, name: "108 Hawk" },
+      { level: 19, name: "Armament" },
+      { level: 23, name: "5000 Worlds" },
+      { level: 25, name: "Sinister Presence" },
+      { level: 29, name: "Tiger Song" }
+    ]
+  },
+  { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 },
+     movesList: [
+      { level: 1, name: "Dexterity" }, 
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Blade Surge" },
+      { level: 11, name: "Slashgiri" },
+      { level: 17, name: "108 Hawk" },
+      { level: 19, name: "Armament" },
+      { level: 23, name: "5000 Worlds" },
+      { level: 25, name: "Sinister Presence" },
+      { level: 29, name: "Tiger Song" }
+    ]
+  },
   { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 } },
   { id: 20, name: "Wuno", type: "Wind", sprite: "assets/animons-icon/wuno.png", stats: { hp: 50, atk: 37, def: 47, spAtk: 80, spDef: 65, spd: 75 } },
   { id: 21, name: "Laxon", type: "Lightning", sprite: "assets/animons-icon/laxon.png", stats: { hp: 64, atk: 70, def: 45, spAtk: 74, spDef: 54, spd: 74 } },
