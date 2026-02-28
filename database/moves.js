@@ -1,8 +1,8 @@
 const moves = {
   "Energy Shell": {
     name: "Energy Shell",
-    desc_pt: "Uma barreira que impede o próximo ataque. Ataques especiais serão anulados, habilidades físicas causarão metade do dano e o alvo ficará paralisado.",
-    desc_en: "A barrier that stops the next attack. Special attacks will be negated, physical skills will do halve damage and be paralyzed.",
+    desc_pt: "Uma barreira que impede o próximo ataque. Ataques especiais serão anulados, habilidades físicas causarão metade do dano e o alvo ficará [008]paralisado[000].",
+    desc_en: "A barrier that stops the next attack. Special attacks will be negated, physical skills will do halve damage and be [008]paralyzed[000].",
     type: "neutral",
     attack: "status",
     power: 0,
