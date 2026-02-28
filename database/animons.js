@@ -261,7 +261,7 @@ const animons = [
       { level: 22, name: "Lightning Strike" }
     ]
   },
-  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 }
+  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 },
      movesList: [
       { level: 1, name: "Junk Toss" }, 
       { level: 1, name: "Taunt" },
