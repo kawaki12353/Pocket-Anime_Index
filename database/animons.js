@@ -51,7 +51,7 @@ const animons = [
       { level: 26, name: "Menacing Aura" },
       { level: 32, name: " Cut Down" }
    ] 
-    }  
+    },  
   { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 } },
   { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 } },
   { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 } },
@@ -77,7 +77,7 @@ const animons = [
       { level: 19, name: "Wind Palm" }
       { level: 24, name: "Wind Shuriken" }
      ]
-    }
+    },
   { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 } },
   { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 } },
   { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 } },
