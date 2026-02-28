@@ -1,4 +1,32 @@
 const moves = {
+  "Guzzle": {
+    name: "Guzzle",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+  },
+  "Reverse Lily": {
+    name: "Reverse Lily",
+    type: "fighting",
+    attack: "physical",
+    power: 100,
+    accuracy: 100,
+  },
+  "Dive Kick": {
+    name: "Dive Kick",
+    type: "fighting",
+    attack: "physical",
+    power: 50,
+    accuracy: 85,
+  },
+  "Afterimage": {
+    name: "Afterimage",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 0,
+  },
   "Sand Arm": {
     name: "Sand Arm",
     type: "demon",
