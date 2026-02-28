@@ -74,7 +74,7 @@ const animons = [
       { level: 5, name: " Aerial Combo" },
       { level: 11, name: "Clone Barrage" },
       { level: 14, name: "Smoke Screen" },
-      { level: 19, name: "Wind Palm" }
+      { level: 19, name: "Wind Palm" },
       { level: 24, name: "Wind Shuriken" }
      ]
     },
