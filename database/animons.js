@@ -170,8 +170,33 @@ const animons = [
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 } },
   { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 } },
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 } },
-  { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 } },
-  { id: 32.01, name: "Perfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/perfect_warrior_bug.png", stats: { hp: 67, atk: 84, def: 57, spAtk: 95, spDef: 57, spd: 107 } },
+  { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 },
+     movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Energy Shell" },
+      { level: 4, name: "Solar Flare" },
+      { level: 6, name: "Energy Wave" },
+      { level: 12, name: "Drain Life" },
+      { level: 17, name: "Super Energy Wave" },
+      { level: 22, name: "Precise Energy Beam" },
+      { level: 24, name: "Limb Regrowth" }
+    ]
+  },
+  { id: 32.01, name: "Perfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/perfect_warrior_bug.png", stats: { hp: 67, atk: 84, def: 57, spAtk: 95, spDef: 57, spd: 107 },
+     movesList: [
+      { level: 1, name: "Afterimage" }, 
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Energy Shell" },
+      { level: 4, name: "Solar Flare" },
+      { level: 6, name: "Energy Wave" },
+      { level: 12, name: "Drain Life" },
+      { level: 17, name: "Super Energy Wave" },
+      { level: 22, name: "Precise Energy Beam" },
+      { level: 24, name: "Limb Regrowth" }
+    ]
+  },
   { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 } },
   { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 },
      movesList: [
