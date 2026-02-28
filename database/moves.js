@@ -220,6 +220,8 @@ const moves = {
   },
   "Moon Fang Barrage": {
     name: "Moon Fang Barrage",
+    desc_pt: "Golpes rápidos com lâminas de chamas negras. A chance de acerto crítico [001]aumenta em 2x[000] a cada turno em que for usado consecutivamente.",
+    desc_en: "Rapidly slash with blades of black flame. Critical chance is [001]increased by 2x[000] each turn it is used consecutively.",
     type: "dark",
     attack: "special",
     power: 55,
