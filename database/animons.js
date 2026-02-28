@@ -53,7 +53,7 @@ const animons = [
   },
   { id: 4.01, name: "Release Isamu", type: ["Dark", "Soul"], sprite: "assets/animons-icon/release_isamu.png", stats: { hp: 58, atk: 87, def: 52, spAtk: 80, spDef: 47, spd: 97 },
    movesList: [
-      { level: 1, name: "Spiritual Pressure"}, 
+      { level: 1, name: "Spiritual Pressure" }, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
       { level: 10, name: "Sword Slam" },
@@ -81,7 +81,7 @@ const animons = [
   { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 } },
   { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
      movesList: [
-      { level: 1, name: "Energy Charge"}, 
+      { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
       { level: 5, name: " Aerial Combo" },
       { level: 11, name: "Clone Barrage" },
