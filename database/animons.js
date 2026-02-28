@@ -115,10 +115,33 @@ const animons = [
   { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 } },
   { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 } },
   { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 } },
-  { id: 26.01, name: "Super Vegetable", type: "Fighting", sprite: "assets/animons-icon/super_vegetable.png", stats: { hp: 67, atk: 72, def: 58, spAtk: 90, spDef: 57, spd: 90 } },
+  { id: 26.01, name: "Super Vegetable", type: "Fighting", sprite: "assets/animons-icon/super_vegetable.png", stats: { hp: 67, atk: 72, def: 58, spAtk: 90, spDef: 57, spd: 90 } 
+    movesList: [
+      { level: 1, name: "Energy Blast" }, 
+      { level: 1, name: "Energy Charge" },
+      { level: 7, name: "Dirty Fireworks" },
+      { level: 12, name: "Energy Beam" },
+      { level: 18, name: "Galaxy Cannon" },
+      { level: 20, name: "Galaxy Burst" },
+      { level: 24, name: "Dive Kick" }
+     ]
+  },
   { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 } },
   { id: 27.01, name: "Adult Gocu", type: "Fighting", sprite: "assets/animons-icon/adult_gocu.png", stats: { hp: 55, atk: 80, def: 50, spAtk: 71, spDef: 45, spd: 80 } },
-  { id: 27.02, name: "Super Gocu", type: "Fighting", sprite: "assets/animons-icon/super_gocu.png", stats: { hp: 63, atk: 93, def: 54, spAtk: 82, spDef: 51, spd: 90 } },
+  { id: 27.02, name: "Super Gocu", type: "Fighting", sprite: "assets/animons-icon/super_gocu.png", stats: { hp: 63, atk: 93, def: 54, spAtk: 82, spDef: 51, spd: 90 } 
+     movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Punch" },
+      { level: 1, name: "Vanishing Blow" },
+      { level: 6, name: "Energy Wave" },
+      { level: 9, name: "Solar Flare" },
+      { level: 11, name: "Cyclone Throw" },
+      { level: 16, name: "Super Energy Wave" },
+      { level: 20, name: "Meteor Combo" },
+      { level: 21, name: "Afterimage" },
+      { level: 24, name: "Divine Bomb" }
+     ]
+  },
   { id: 28, name: "Green Alien", type: "Nature", sprite: "assets/animons-icon/green_alien.png", stats: { hp: 52, atk: 63, def: 43, spAtk: 70, spDef: 39, spd: 75 } },
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 } },
   { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 } },
@@ -126,8 +149,29 @@ const animons = [
   { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 } },
   { id: 32.01, name: "Perfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/perfect_warrior_bug.png", stats: { hp: 67, atk: 84, def: 57, spAtk: 95, spDef: 57, spd: 107 } },
   { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 } },
-  { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 } },
-  { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 } },
+  { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 }
+     movesList: [
+      { level: 1, name: "Fighting Spirit" }, 
+      { level: 1, name: "Kunai Barrage" },
+      { level: 9, name: "Afterimage" },
+      { level: 12, name: "Tiger's Barrage" },
+      { level: 15, name: "Dive Kick" },
+      { level: 20, name: "Reverse Lily" },
+      { level: 24, name: "Guzzle" }
+   ]
+  }, 
+  { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 } 
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: " Kunai Barrage" },
+      { level: 6, name: "Sand Tsunami" },
+      { level: 8, name: "Sand Storm" },
+      { level: 13, name: "Sand Burial" },
+      { level: 18, name: "Sand Bomb" },
+      { level: 20, name: " Substitution" },
+      { level: 24, name: "Sand Arm" }
+   ] 
+  },
   { id: 34.01, name: "Tanuki Ganra", type: ["Earth", "Demon"], sprite: "assets/animons-icon/tanuki_ganra.png", stats: { hp: 65, atk: 46, def: 94, spAtk: 81, spDef: 65, spd: 48 } },
   { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 } },
   { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 } },
