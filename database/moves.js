@@ -400,6 +400,8 @@ const moves = {
   },
   "Bazooka": {
     name: "Bazooka",
+    desc_pt: "Arremesse seu oponente para longe com força, usando as duas palmas das mãos.",
+    desc_en: "Blast your opponent away on impact with two forceful palms.",
     type: "fighting",
     attack: "physical",
     power: 65,
