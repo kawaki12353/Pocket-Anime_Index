@@ -28,7 +28,7 @@ const moves = {
     accuracy: 70,
   },
   "Sand Storm": {
-    name: Sand Storm",
+    name: "Sand Storm",
     type: "earth",
     attack: "special",
     power: 0,
