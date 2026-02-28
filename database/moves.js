@@ -213,6 +213,8 @@ const moves = {
   },
   "Moon Fang Slash": {
     name: "Moon Fang Slash",
+    desc_pt: "Libere uma poderosa onda de energia espiritual de sua espada.",
+    desc_en: "Unleash a powerful spiritual energy wave from your sword.",
     type: "dark",
     attack: "special",
     power: 65,
