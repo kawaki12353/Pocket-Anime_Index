@@ -134,6 +134,8 @@ const moves = {
   },
   "Wind Shuriken": {
     name: "Wind Shuriken",
+    desc_pt: "Uma versão arremessável da técnica Palma de Vento com 20% de chance de reduzir a [001]DEF em [-1][000] do Oponente.",
+    desc_en: "A throwable version of the Wind Palm technique with a 20% chance to lower [001]DEF[-1][000] of the opponent.",
     type: "wind",
     attack: "physical",
     power: 70,
