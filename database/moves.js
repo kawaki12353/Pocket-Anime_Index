@@ -1,4 +1,39 @@
 const moves = {
+  "Divine Bomb": {
+    name: "Divine Bomb",
+    type: "light",
+    attack: "special",
+    power: 250,
+    accuracy: 100,
+  },
+  "Meteor Combo": {
+    name: "Meteor Combo",
+    type: "fighting",
+    attack: "physical",
+    power: 75,
+    accuracy: 100,
+  },
+  "Super Energy Wave": {
+    name: "Super Energy Wave",
+    type: "fighting",
+    attack: "special",
+    power: 60,
+    accuracy: 100,
+  },
+  "Cyclone Throw": {
+    name: "Cyclone Throw",
+    type: "fighting",
+    attack: "physical",
+    power: 50,
+    accuracy: 100,
+  },
+  "Energy Wave": {
+    name: "Energy Wave",
+    type: "fighting",
+    attack: "special",
+    power: 40,
+    accuracy: 100,
+  },
   "Guzzle": {
     name: "Guzzle",
     type: "neutral",
