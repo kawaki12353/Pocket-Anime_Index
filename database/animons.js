@@ -25,15 +25,31 @@ const animons = [
       { level: 24, name: "Headbutt" }
     ]
   },
-  { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 } },
+  { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 },
+     movesList: [
+      { level: 1, name: "Energy Blast" }, 
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Psychic Blast" },
+      { level: 10, name: "Candy Beam" },
+      { level: 14, name: "Rest" },
+      { level: 18, name: "Angry Explosion" },
+      { level: 18, name: "Limb Regrowth" },
+      { level: 21, name: "Demon Elbow" }
+    ]
+  },
   { id: 2.01, name: "Super Bojin", type: "Psychic", sprite: "assets/animons-icon/super_bojin.png", stats: { hp: 80, atk: 39, def: 67, spAtk: 90, spDef: 49, spd: 63 },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Psychic Blast" },
       { level: 4, name: "Solar Flare" },
       { level: 6, name: "Vanishing Blow" },
+      { level: 10, name: "Candy Beam" },
       { level: 12, name: "Drain Life" },
-      { level: 24, name: "Limb Regrowth" }
+      { level: 14, name: "Rest" },
+      { level: 18, name: "Angry Explosion" },
+      { level: 24, name: "Limb Regrowth" },
+      { level: 21, name: "Demon Elbow" }
     ]
   },
   { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 } },
