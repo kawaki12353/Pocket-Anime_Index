@@ -301,6 +301,32 @@
     };
 
     /* =========================================
+       FUNÇÃO DE CORES PERSONALIZADAS
+       ========================================= */
+    function parseColoredText(text) {
+      if (!text) return "";
+      const colorMap = {
+        "001": "#ff4d4d", // Vermelho
+        "002": "#2ecc71", // Verde
+        "003": "#f39c12", // Laranja
+        "004": "#95a5a6", // Cinza
+        "005": "#a93226", // Vermelho Escuro
+        "006": "#d2b4de", // Roxo Claro
+        "007": "#1a5276", // Azul Escuro
+        "000": "inherit"  // Reset para cor padrão
+      };
+
+      let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
+        if (code === "000") return "</span>";
+        const color = colorMap[code];
+        if (color) return `</span><span style="color: ${color}; font-weight: bold;">`;
+        return match;
+      });
+
+      return `<span>${formatted}</span>`;
+    }
+
+    /* =========================================
        2. INICIALIZAÇÃO E AUTO-SAVE
        ========================================= */
     function init() {
@@ -673,11 +699,11 @@
 
       const balloon = document.createElement("div");
       balloon.className = "move-balloon";
-      
-      // Montagem do balão com a descrição por cima e as cores personalizadas no Power e Accuracy
+
+      // Montagem do balão com a descrição processada para cores
       let contentHtml = "";
       if (desc) {
-        contentHtml += `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${desc}</div>`;
+        contentHtml += `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${parseColoredText(desc)}</div>`;
       }
       contentHtml += `
         <div style="text-align: center;">
