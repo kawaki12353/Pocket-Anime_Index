@@ -22,7 +22,7 @@ const animons = [
       { level: 15, name: "Bazooka" },
       { level: 18, name: "Phase Two" },
       { level: 21, name: "Armament" },
-      { level: 24, name: "Headbutt" },
+      { level: 24, name: "Headbutt" }
     ]
   },
   { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 } },
@@ -33,13 +33,13 @@ const animons = [
       { level: 4, name: "Solar Flare" },
       { level: 6, name: "Vanishing Blow" },
       { level: 12, name: "Drain Life" },
-      { level: 24, name: "Limb Regrowth" },
+      { level: 24, name: "Limb Regrowth" }
     ]
   },
   { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 } },
   { id: 3.01, name: "TS Saskeh", type: ["Fire", "Lightning"], sprite: "assets/animons-icon/ts_saskeh.png", stats: { hp: 58, atk: 75, def: 53, spAtk: 87, spDef: 55, spd: 70 } },
   { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 } },
-  { id: 4.01, name: "Release Isamu", type: ["Dark", "Soul"], sprite: "assets/animons-icon/release_isamu.png", stats: { hp: 58, atk: 87, def: 52, spAtk: 80, spDef: 47, spd: 97 } },
+  { id: 4.01, name: "Release Isamu", type: ["Dark", "Soul"], sprite: "assets/animons-icon/release_isamu.png", stats: { hp: 58, atk: 87, def: 52, spAtk: 80, spDef: 47, spd: 97 },
    movesList: [
       { level: 1, name: "Spiritual Pressure"}, 
       { level: 1, name: "Sword Slash" },
@@ -49,8 +49,9 @@ const animons = [
       { level: 16, name: "Moon Fang Slash" },
       { level: 22, name: "Moon Fang Barrage" },
       { level: 26, name: "Menacing Aura" },
-      { level: 32, name: " Cut Down" },
-    ]
+      { level: 32, name: " Cut Down" }
+   ] 
+    }  
   { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 } },
   { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 } },
   { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 } },
@@ -66,16 +67,17 @@ const animons = [
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 } },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 } },
   { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 } },
-  { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 } },
+  { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
      movesList: [
       { level: 1, name: "Energy Charge"}, 
       { level: 1, name: "Kunai Barrage" },
-      { level: 5, name: "Aerial Combo" },
+      { level: 5, name: " Aerial Combo" },
       { level: 11, name: "Clone Barrage" },
       { level: 14, name: "Smoke Screen" },
-      { level: 19, name: "Wind Palm" },
-      { level: 24, name: "Wind Shuriken" },
+      { level: 19, name: "Wind Palm" }
+      { level: 24, name: "Wind Shuriken" }
      ]
+    }
   { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 } },
   { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 } },
   { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 } },
