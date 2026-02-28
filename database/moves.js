@@ -1,4 +1,32 @@
 const moves = {
+  "Galaxy Cannon": {
+    name: "Galaxy Cannon",
+    type: "fighting",
+    attack: "special",
+    power: 75,
+    accuracy: 100,
+  },
+  "Galaxy Burst": {
+    name: "Galaxy Burst",
+    type: "fighting",
+    attack: "physical",
+    power: 70,
+    accuracy: 100,
+  },
+  "Energy Beam": {
+    name: "Energy Beam",
+    type: "neutral",
+    attack: "special",
+    power: 60,
+    accuracy: 100,
+  },
+  "Dirty Fireworks": {
+    name: "Dirty Fireworks",
+    type: "fighting",
+    attack: "physical",
+    power: 55,
+    accuracy: 100,
+  },
   "Divine Bomb": {
     name: "Divine Bomb",
     type: "light",
