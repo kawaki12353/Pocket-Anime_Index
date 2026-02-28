@@ -78,7 +78,17 @@ const animons = [
   { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 } },
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 } },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 } },
-  { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 } },
+  { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 },
+     movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Kunai Barrage" },
+      { level: 5, name: " Aerial Combo" },
+      { level: 11, name: "Clone Barrage" },
+      { level: 14, name: "Smoke Screen" },
+      { level: 19, name: "Wind Palm" },
+      { level: 24, name: "Wind Shuriken" }
+    ]
+  },
   { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
      movesList: [
       { level: 1, name: "Energy Charge" }, 
