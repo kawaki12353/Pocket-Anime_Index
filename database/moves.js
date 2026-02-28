@@ -1,4 +1,13 @@
 const moves = {
+  "Precise Energy Beam": {
+    name: "Precise Energy Beam",
+    desc_pt: ".",
+    desc_en: ".",
+    type: "psychic",
+    attack: "special",
+    power: 150,
+    accuracy: 100,
+  },
   "Energy Shell": {
     name: "Energy Shell",
     desc_pt: "Uma barreira que impede o próximo ataque. Ataques especiais serão anulados, habilidades físicas causarão metade do dano e o alvo ficará [008]paralisado[000].",
