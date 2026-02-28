@@ -208,8 +208,30 @@ const animons = [
   { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 } },
   { id: 47, name: "Hired Assassin", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/hired_assassin.png", stats: { hp: 50, atk: 65, def: 50, spAtk: 63, spDef: 43, spd: 80 } },
   { id: 48, name: "Hired Spy", type: "Dark", sprite: "assets/animons-icon/hired_spy.png", stats: { hp: 50, atk: 52, def: 53, spAtk: 60, spDef: 51, spd: 74 } },
-  { id: 49, name: "Little Cow", type: "Lightning", sprite: "assets/animons-icon/little_cow.png", stats: { hp: 40, atk: 35, def: 30, spAtk: 60, spDef: 35, spd: 50 } },
-  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 } },
+  { id: 49, name: "Little Cow", type: "Lightning", sprite: "assets/animons-icon/little_cow.png", stats: { hp: 40, atk: 35, def: 30, spAtk: 60, spDef: 35, spd: 50 },
+     movesList: [
+      { level: 1, name: "Junk Toss" }, 
+      { level: 1, name: "Taunt" },
+      { level: 5, name: "Rifle Shot" },
+      { level: 9, name: "Missile Barrage" },
+      { level: 12, name: "Thunder Set" },
+      { level: 16, name: "Electric Horn Angle" },
+      { level: 19, name: "Discharge" },
+      { level: 22, name: "Lightning Strike" }
+    ]
+  },
+  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 }
+     movesList: [
+      { level: 1, name: "Junk Toss" }, 
+      { level: 1, name: "Taunt" },
+      { level: 5, name: "Rifle Shot" },
+      { level: 9, name: "Missile Barrage" },
+      { level: 12, name: "Thunder Set" },
+      { level: 16, name: "Electric Horn Angle" },
+      { level: 19, name: "Discharge" },
+      { level: 22, name: "Lightning Strike" }
+    ]
+  },
   { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 } },
   { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 } },
   { id: 52.01, name: "Demon Ice Sculpture", type: ["Ice", "Demon"], sprite: "assets/animons-icon/demon_ice_sculpture.png", stats: { hp: 62, atk: 65, def: 53, spAtk: 83, spDef: 50, spd: 71 } },
