@@ -1,4 +1,13 @@
 const moves = {
+  "Energy Shell": {
+    name: "Energy Shell",
+    desc_pt: "Uma barreira que impede o próximo ataque. Ataques especiais serão anulados, habilidades físicas causarão metade do dano e o alvo ficará paralisado.",
+    desc_en: "A barrier that stops the next attack. Special attacks will be negated, physical skills will do halve damage and be paralyzed.",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+  },
   "Galaxy Cannon": {
     name: "Galaxy Cannon",
     type: "fighting",
