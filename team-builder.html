@@ -99,7 +99,7 @@
     .moves-container {
       padding: 14px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
     }
     .mini-move {
@@ -111,6 +111,7 @@
       align-items: center;
       justify-content: space-between;
       font-size: 11px;
+      min-width: 0;
     }
     .empty-move { opacity: 0.5; justify-content: center; font-style: italic; }
 
