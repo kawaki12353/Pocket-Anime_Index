@@ -1,8 +1,8 @@
 const moves = {
   "Precise Energy Beam": {
     name: "Precise Energy Beam",
-    desc_pt: ".",
-    desc_en: ".",
+    desc_pt: "Concentre intensamente sua energia na ponta dos dedos, carregando-a por 2 turnos. Em seguida, libere essa energia formando uma poderosa broca.",
+    desc_en: "Concentrate your energy intensely at your fingertips, charging it for 2 turns. Then release this energy forming a powerful drill.",
     type: "psychic",
     attack: "special",
     power: 150,
@@ -10,7 +10,7 @@ const moves = {
   },
   "Energy Shell": {
     name: "Energy Shell",
-    desc_pt: "Uma barreira que impede o próximo ataque. Ataques especiais serão anulados, habilidades físicas causarão metade do dano e o alvo ficará [008]paralisado[000].",
+    desc_pt: "Uma barreira que impede o próximo ataque. Ataques Especiais serão anulados, habilidades Físicas causarão metade do dano e o alvo ficará [008]paralisado[000].",
     desc_en: "A barrier that stops the next attack. Special attacks will be negated, physical skills will do halve damage and be [008]paralyzed[000].",
     type: "neutral",
     attack: "status",
