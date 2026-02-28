@@ -38,7 +38,19 @@ const animons = [
   },
   { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 } },
   { id: 3.01, name: "TS Saskeh", type: ["Fire", "Lightning"], sprite: "assets/animons-icon/ts_saskeh.png", stats: { hp: 58, atk: 75, def: 53, spAtk: 87, spDef: 55, spd: 70 } },
-  { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 } },
+  { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 },
+  movesList: [
+      { level: 1, name: "Spiritual Pressure"}, 
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Blade Surge" },
+      { level: 10, name: "Sword Slam" },
+      { level: 11, name: "Lunge" },
+      { level: 16, name: "Moon Fang Slash" },
+      { level: 22, name: "Moon Fang Barrage" },
+      { level: 26, name: "Menacing Aura" },
+      { level: 32, name: "Cut Down" }
+    ] 
+  },
   { id: 4.01, name: "Release Isamu", type: ["Dark", "Soul"], sprite: "assets/animons-icon/release_isamu.png", stats: { hp: 58, atk: 87, def: 52, spAtk: 80, spDef: 47, spd: 97 },
    movesList: [
       { level: 1, name: "Spiritual Pressure"}, 
@@ -49,7 +61,7 @@ const animons = [
       { level: 16, name: "Moon Fang Slash" },
       { level: 22, name: "Moon Fang Barrage" },
       { level: 26, name: "Menacing Aura" },
-      { level: 32, name: " Cut Down" }
+      { level: 32, name: "Cut Down" }
     ] 
   },  
   { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 } },
