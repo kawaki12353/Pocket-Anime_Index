@@ -71,7 +71,7 @@ const animons = [
       { level: 15, name: "Vengeful Illusion" },
       { level: 18, name: "Pheonix Fire Bomb" },
       { level: 21, name: "Electric Strike Spear" },
-      { level: 24, name: "Heavenly Flames" }
+      { level: 24, name: "Heavenly Flame" }
     ]
   },
   { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 },
