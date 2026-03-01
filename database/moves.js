@@ -319,6 +319,8 @@ const moves = {
   },
   "Spiritual Pressure": {
     name: "Spiritual Pressure",
+    desc_pt: "Exerça sua pressão espiritual, diminuindo o [001]SPD [-1][000] de seus inimigos.",
+    desc_en: "Exert your spiritual pressure, lowering your enemies [001]SPD [-1][000].",
     type: "soul",
     attack: "status",
     power: 0,
@@ -372,6 +374,8 @@ const moves = {
   },
   "Menacing Aura": {
     name: "Menacing Aura",
+    desc_pt: "Uma presença ameaçadora que reduz a [001]DEF [-1][000] e a [001]Evasão [-1][000] do alvo.",
+    desc_en: "A menacing presence that lowers the target [001]DEF [-1][000] and [001]Evasion [-1][000].",
     type: "dark",
     attack: "status",
     power: 0,
@@ -379,6 +383,8 @@ const moves = {
   },
   "Cut Down": {
     name: "Cut Down",
+    desc_pt: "Elimine seu alvo. Se ele estiver recuando, isso terá prioridade e causará o dobro de dano.",
+    desc_en: "Cut your target down. If they are retreating, this will take priority and deal 2x damage.",
     type: "dark",
     attack: "physical",
     power: 40,
