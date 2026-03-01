@@ -538,19 +538,28 @@
       if (!container) return;
       
       const label = texts[lang].moveSelect;
-      container.innerHTML = ""; // Limpa para evitar duplicatas
+      container.innerHTML = ""; 
 
-      const getMoveWithLevelHtml = (moveInput) => {
+      const getMoveWithLevelHtml = (moveInput, providedObj = null) => {
         const minfo = getMoveInfo(moveInput);
         if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
-        const moveObj = availableMoves.find(m => (typeof m === 'object' && (m.name === minfo.name || m.id === minfo.name)));
-        const levelSpan = moveObj && moveObj.level !== undefined ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
+        let moveObj = providedObj;
+        if (!moveObj) {
+          const inputName = (typeof moveInput === 'object') ? (moveInput.name || moveInput.id) : moveInput;
+          moveObj = availableMoves.find(m => {
+            const mName = (typeof m === 'object') ? (m.name || m.id) : m;
+            return String(mName).toLowerCase().trim() === String(inputName).toLowerCase().trim();
+          });
+        }
+
+        const levelSpan = (moveObj && moveObj.level !== undefined) ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
+        const displayName = (moveObj && (moveObj.name || moveObj.id)) || minfo.name;
 
         return `
           <div style="display:flex; align-items:center; width:100%;">
             ${levelSpan}
-            <span class="move-name-txt">${minfo.name}</span>
+            <span class="move-name-txt">${displayName}</span>
             <div class="move-icons-wrapper">
               <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
               <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
@@ -571,7 +580,7 @@
         availableMoves.forEach(m => {
           const mName = (typeof m === 'object') ? (m.name || m.id) : m;
           if (!otherSelectedMoves.includes(mName)) {
-            optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m)}</div>`;
+            optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m, m)}</div>`;
           }
         });
 
@@ -617,7 +626,6 @@
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
-      // Garantir que a lista de moves venha estritamente do animon atual
       let availableMoves = [];
       if (animon.movesList) {
         availableMoves = Array.isArray(animon.movesList) ? [...animon.movesList] : [animon.movesList];
@@ -626,7 +634,6 @@
 
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
       
-      // Limpar os containers antes de recriar os selects para garantir que não haja "lixo"
       for (let i = 0; i < 4; i++) {
         const selectId = `moveSelect${i}`;
         const container = document.getElementById(selectId);
