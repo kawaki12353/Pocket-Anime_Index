@@ -265,7 +265,7 @@
           Level: <span id="levelValueDisplay">100</span>
           <input type="range" id="levelInput" min="1" max="100" value="100">
         </div>
-        <div class="moves-grid">
+        <div class="moves-grid" id="editMovesGrid">
           <div class="custom-select" id="moveSelect0"></div>
           <div class="custom-select" id="moveSelect1"></div>
           <div class="custom-select" id="moveSelect2"></div>
@@ -370,7 +370,7 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move - CORRIGIDO ACCURACY E ADICIONADO DESCRIÇÃO */
+    /* Função Auxiliar para resgatar infos de um Move */
     function getMoveInfo(moveInput) {
       if (!moveInput || moveInput === "") return null;
 
@@ -422,19 +422,6 @@
     /* =========================================
        3. RENDERIZAÇÃO E MOVES
        ========================================= */
-    function getMoveHtml(moveInput) {
-      const minfo = getMoveInfo(moveInput);
-      if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-
-      return `
-        <span class="move-name-txt">${minfo.name}</span>
-        <div class="move-icons-wrapper">
-          <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
-          <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
-        </div>
-      `;
-    }
-
     function renderTeam() {
       const activeSlots = Array.from(DOM.grid.children).map(slot => slot.classList.contains('active'));
 
@@ -548,13 +535,16 @@
 
     function createMoveSelect(containerId, currentMove, availableMoves) {
       const container = document.getElementById(containerId);
+      if (!container) return;
+      
       const label = texts[lang].moveSelect;
+      container.innerHTML = ""; // Limpa para evitar duplicatas
 
       const getMoveWithLevelHtml = (moveInput) => {
         const minfo = getMoveInfo(moveInput);
         if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
 
-        const moveObj = availableMoves.find(m => (typeof m === 'object' && m.name === minfo.name));
+        const moveObj = availableMoves.find(m => (typeof m === 'object' && (m.name === minfo.name || m.id === minfo.name)));
         const levelSpan = moveObj && moveObj.level !== undefined ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
 
         return `
@@ -627,6 +617,7 @@
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
 
+      // Garantir que a lista de moves venha estritamente do animon atual
       let availableMoves = [];
       if (animon.movesList) {
         availableMoves = Array.isArray(animon.movesList) ? [...animon.movesList] : [animon.movesList];
@@ -634,14 +625,24 @@
       }
 
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
+      
+      // Limpar os containers antes de recriar os selects para garantir que não haja "lixo"
       for (let i = 0; i < 4; i++) {
-        createMoveSelect(`moveSelect${i}`, currentMoves[i] || "", availableMoves);
+        const selectId = `moveSelect${i}`;
+        const container = document.getElementById(selectId);
+        if (container) {
+          container.dataset.value = ""; 
+          createMoveSelect(selectId, currentMoves[i] || "", availableMoves);
+        }
       }
 
       DOM.editModal.style.display = "flex";
     }
 
-    function closeEditModal() { DOM.editModal.style.display = "none"; }
+    function closeEditModal() { 
+      editSlotIndex = null;
+      DOM.editModal.style.display = "none"; 
+    }
 
     /* =========================================
        5. ANÁLISE E STATUS
@@ -702,9 +703,8 @@
       const balloon = document.createElement("div");
       balloon.className = "move-balloon";
 
-      // Montagem do balão com a descrição processada para cores
       let contentHtml = "";
-      if (desc) {
+      if (desc && desc !== "undefined") {
         contentHtml += `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${parseColoredText(desc)}</div>`;
       }
       contentHtml += `
@@ -715,7 +715,6 @@
       `;
 
       balloon.innerHTML = contentHtml;
-
       moveDiv.appendChild(balloon);
       openedMoveBalloon = balloon;
 
