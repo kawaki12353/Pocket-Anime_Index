@@ -37,8 +37,8 @@ const moves = {
   },
   "Thunder Set": {
     name: "Thunder Set",
-    desc_pt: "Aumenta o [002]Sp.Atk [+2][000] ao carregar com energia elétrica.",
-    desc_en: "Raise [002]Sp.Atk [+2][000] by charging with electric energy.",
+    desc_pt: "Aumenta o [002]SP.ATK [+2][000] ao carregar com energia elétrica.",
+    desc_en: "Raise [002]SP.ATK [+2][000] by charging with electric energy.",
     type: "lightning",
     attack: "status",
     power: 0,
@@ -519,6 +519,8 @@ const moves = {
   },
   "Armament": {
     name: "Armament",
+    desc_pt: "Vista-se com uma armadura preta para aumentar seu [002]ATK [+1][000] e permitir que você acerte inimigos intangíveis.",
+    desc_en: "Coat yourself in a armor black to increase your [002]ATK [+1][000] and allow you to hit intangible enemies.",
     type: "fighting",
     attack: "status",
     power: 0,
