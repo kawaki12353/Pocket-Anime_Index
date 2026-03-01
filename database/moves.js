@@ -1,4 +1,9 @@
 const moves = {
+  "Electric Strike Spear": {
+    name: "Electric Strike Spear",
+    type: "lightning",
+    attack: "special",
+  },
   "Dexterity": {
     name: "Dexterity",
     desc_pt: "Exiba sua proficiência com suas armas, aumentando sua [002]ACCURACY [+2][000].",
