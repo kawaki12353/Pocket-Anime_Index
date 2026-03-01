@@ -491,6 +491,8 @@ const moves = {
   },
   "Candy Beam": {
     name: "Candy Beam",
+    desc_pt: "Transforme o inimigo em doce. Ele ficará incapacitado por dois turnos; se o usuário o derrotar, [002]recuperará 20% de HP[000].",
+    desc_en: "Turn the enemy into candy. They are disabled for two turns, if the user defeats them [002]heal 20% HP[000].",
     type: "psychic",
     attack: "status",
     power: 0,
