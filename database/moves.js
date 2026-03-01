@@ -1,8 +1,8 @@
 const moves = {
   "Discharge": {
     name: "Discharge",
-    desc_pt: "Envie raios através do solo para [009]paralisar[000] múltiplos alvos.",
-    desc_en: "Send lightning through the ground to [009]paralyze[000] multiple targets.",
+    desc_pt: "Envie raios através do solo para [008]paralisar[000] múltiplos alvos.",
+    desc_en: "Send lightning through the ground to [008]paralyze[000] multiple targets.",
     type: "lightning",
     attack: "status",
     power: 0,
