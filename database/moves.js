@@ -60,7 +60,7 @@ const moves = {
     type: "lightning",
     attack: "status",
     power: 0,
-    accuracy: 75,
+    accuracy: 55,
   },
   "Lightning Strike": {
     name: "Lightning Strike",
