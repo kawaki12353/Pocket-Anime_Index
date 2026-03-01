@@ -52,8 +52,28 @@ const animons = [
       { level: 21, name: "Demon Elbow" }
     ]
   },
-  { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 } },
-  { id: 3.01, name: "TS Saskeh", type: ["Fire", "Lightning"], sprite: "assets/animons-icon/ts_saskeh.png", stats: { hp: 58, atk: 75, def: 53, spAtk: 87, spDef: 55, spd: 70 } },
+  { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 },
+    movesList: [
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Kunai Barrage" },
+      { level: 5, name: "Fireball" },
+      { level: 12, name: "Tiger's Barrage" },
+      { level: 13, name: "Electric Strike" }
+    ]
+  },
+  { id: 3.01, name: "TS Saskeh", type: ["Fire", "Lightning"], sprite: "assets/animons-icon/ts_saskeh.png", stats: { hp: 58, atk: 75, def: 53, spAtk: 87, spDef: 55, spd: 70 },
+    movesList: [
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Kunai Barrage" },
+      { level: 5, name: "Fireball" },
+      { level: 12, name: "Tiger's Barrage" },
+      { level: 13, name: "Electric Strike" },
+      { level: 15, name: "Vangeful Illusion" },
+      { level: 18, name: "Pheonix Fire Bomb" },
+      { level: 21, name: "Electric Strike Spear" },
+      { level: 24, name: "Heavenly Flames" }
+    ]
+  },
   { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 },
   movesList: [
       { level: 1, name: "Spiritual Pressure"}, 
