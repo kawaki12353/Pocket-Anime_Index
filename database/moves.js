@@ -402,13 +402,6 @@ const moves = {
     power: 0,
     accuracy: 60,
   },
-  "Electric Strike Spear": {
-    name: "Rubber Balloon",
-    type: "lightning",
-    attack: "special",
-    power: 0,
-    accuracy: 0,
-  },
   "Pheonix Fire Bomb": {
     name: "Pheonix Fire Bomb",
     type: "fire",
