@@ -1,4 +1,22 @@
 const moves = {
+  "Discharge": {
+    name: "Discharge",
+    desc_pt: "Envie raios através do solo para [009]paralisar[000] múltiplos alvos.",
+    desc_en: "Send lightning through the ground to [009]paralyze[000] multiple targets.",
+    type: "lightning",
+    attack: "status",
+    power: 0,
+    accuracy: 75,
+  },
+  "Lightning Strike": {
+    name: "Lightning Strike",
+    desc_pt: "Um relâmpago com 20% de chance de [009]paralisar[000] o alvo.",
+    desc_en: "A crash of lightning with a 20% chance to [009]paralyze[000] the target.",
+    type: "lightning",
+    attack: "special",
+    power: 60.5,
+    accuracy: 75,
+  },
   "Precise Energy Beam": {
     name: "Precise Energy Beam",
     desc_pt: "Concentre intensamente sua energia na ponta dos dedos, carregando-a por 2 turnos. Em seguida, libere essa energia formando uma poderosa broca.",
