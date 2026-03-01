@@ -10,8 +10,8 @@ const moves = {
   },
   "Lightning Strike": {
     name: "Lightning Strike",
-    desc_pt: "Um relâmpago com 20% de chance de [009]paralisar[000] o alvo.",
-    desc_en: "A crash of lightning with a 20% chance to [009]paralyze[000] the target.",
+    desc_pt: "Um relâmpago com 20% de chance de [008]paralisar[000] o alvo.",
+    desc_en: "A crash of lightning with a 20% chance to [008]paralyze[000] the target.",
     type: "lightning",
     attack: "special",
     power: 60.5,
