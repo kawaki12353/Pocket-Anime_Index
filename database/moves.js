@@ -80,7 +80,7 @@ const moves = {
   "Missile Barrage": {
     name: "Missile Barrage",
     desc_pt: "Dispare mísseis de um RPG contra um alvo com 20% de chance de [003]queimá-lo[000].",
-    desc_en: "Shoot missiles from a RPG at a target with 20% chance to [003]burn them[000].",
+    desc_en: "Shoot missiles from a RPG at a target with 20% chance to [003]burn[000] them.",
     type: "neutral",
     attack: "special",
     power: 50,
@@ -275,7 +275,7 @@ const moves = {
   },
   "Wind Shuriken": {
     name: "Wind Shuriken",
-    desc_pt: "Uma versão arremessável da técnica Wind Palm com 20% de chance de reduzir a [001]DEF em [-1][000] do Oponente.",
+    desc_pt: "Uma versão arremessável da técnica Wind Palm com 20% de chance de reduzir a [001]DEF [-1][000] do Oponente.",
     desc_en: "A throwable version of the Wind Palm technique with a 20% chance to lower [001]DEF[-1][000] of the opponent.",
     type: "wind",
     attack: "physical",
@@ -500,6 +500,8 @@ const moves = {
   },
   "Psychic Blast": {
     name: "Psychic Blast",
+    desc_pt: "Atire uma pedra no seu inimigo! Use seus poderes psíquicos.",
+    desc_en: "Throw a rock at your Enemy! Using your psychic prowess.",
     type: "psychic",
     attack: "special",
     power: 40,
@@ -507,6 +509,8 @@ const moves = {
   },
   "Energy Charge": {
     name: "Energy Charge",
+    desc_pt: "Aumenta o [002]SP.ATK [+1][000] ou o [002]ATK [+1][000]. [004](Dependendo de qual for maior)[000]",
+    desc_en: "Raises [002]SP.ATK [+1][000] or [002]ATK [+1][000]. [004](Depending on which is higher)[000]",
     type: "neutral",
     attack: "status",
     power: 0,
@@ -514,6 +518,8 @@ const moves = {
   },
   "Rubber Balloon": {
     name: "Rubber Balloon",
+    desc_pt: "Infle-se para aumentar a [002]DEF [+1][000].",
+    desc_en: "Inflate yourself to increase [002]DEF [+1][000].",
     type: "neutral",
     attack: "status",
     power: 0,
@@ -521,6 +527,8 @@ const moves = {
   },
   "Punch": {
     name: "Punch",
+    desc_pt: "Uma técnica básica de combate corpo a corpo que desfere um golpe poderoso e rápido usando o punho.",
+    desc_en: "A basic melee combat technique that delivers a powerful and swift strike using one's fist.",
     type: "neutral",
     attack: "physical",
     power: 35,
@@ -528,6 +536,8 @@ const moves = {
   },
   "Rapid Punches": {
     name: "Rapid Punches",
+    desc_pt: "Aprimore seu oponente com os punhos até conseguir um bom golpe. Aumenta a chance de acerto crítico.",
+    desc_en: "Better your opponent with fists until you get a good one in. Increased chance to crit.",
     type: "neutral",
     attack: "physical",
     power: 35,
@@ -535,6 +545,8 @@ const moves = {
   },
   "Rubber Pistol": {
     name: "Rubber Pistol",
+    desc_pt: "Um soco potente como uma pistola, com um alcance incrível!",
+    desc_en: "A pistol-like punch that has insane reach!",
     type: "fighting",
     attack: "physical",
     power: 35,
@@ -542,6 +554,8 @@ const moves = {
   },
   "Fighting Spirit": {
     name: "Fighting Spirit",
+    desc_pt: "Prepare-se para a luta e concentre sua força interior, aumentando [002]SP.DEF [+1][000] e [002]ATK [+1][000].",
+    desc_en: "Ready yourself for the fight and focus your inner strength, increasing [002]SP.DEF [+1][000] and [002]ATK [+1][000].",
     type: "fighting",
     attack: "status",
     power: 0,
@@ -567,8 +581,6 @@ const moves = {
     name: "Headbutt",
     type: "neutral",
     attack: "physical",
-    power: 40,
-    accuracy: 80,
   },
   "Armament": {
     name: "Armament",
@@ -581,6 +593,8 @@ const moves = {
   },
   "Energy Blast": {
     name: "Energy Blast",
+    desc_pt: "Dispare uma rajada de energia contra o inimigo, causando dano!",
+    desc_en: "Fire a blast of energy at the enemy dealing damage!",
     type: "neutral",
     attack: "special",
     power: 25,
