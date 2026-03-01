@@ -68,7 +68,7 @@ const animons = [
       { level: 5, name: "Fireball" },
       { level: 12, name: "Tiger's Barrage" },
       { level: 13, name: "Electric Strike" },
-      { level: 15, name: "Vangeful Illusion" },
+      { level: 15, name: "Vengeful Illusion" },
       { level: 18, name: "Pheonix Fire Bomb" },
       { level: 21, name: "Electric Strike Spear" },
       { level: 24, name: "Heavenly Flames" }
