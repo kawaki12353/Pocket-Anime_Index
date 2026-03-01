@@ -397,13 +397,17 @@ const moves = {
   },
   "Heavenly Flame": {
     name: "Heavenly Flame",
+    desc_pt: "Lançar uma chama eterna pelos olhos [003]queima[000] o alvo, causando dano equivalente a 1/16 da sua vida.",
+    desc_en: "Cast a never-ending flame from your eyes [003]burns[000] a target for 1/16th of their health.",
     type: "fire",
     attack: "status",
     power: 0,
     accuracy: 60,
   },
-  "Pheonix Fire Bomb": {
-    name: "Pheonix Fire Bomb",
+  "Phoenix Fire Bomb": {
+    name: "Phoenix Fire Bomb",
+    desc_pt: "Bolas de fogo consecutivas com 20% de chance de [003]queimar[000] o alvo.",
+    desc_en: "Consecutive fireballs with a 20% chance to [003]burn[000] a target.",
     type: "fire",
     attack: "physical",
     power: 70,
@@ -411,6 +415,8 @@ const moves = {
   },
   "Vengeful Illusion": {
     name: "Vengeful Illusion",
+    desc_pt: "Confunda o alvo com um olhar que distorça sua percepção e seus pensamentos.",
+    desc_en: "Confuse the target with a gaze that distorts their perception and thoughts.",
     type: "dark",
     attack: "status",
     power: 0,
@@ -418,13 +424,17 @@ const moves = {
   },
   "Electric Strike": {
     name: "Electric Strike",
+    desc_pt: "Ataque um alvo com um raio na palma da sua mão, com 20% de chance de [008]paralisá-lo[000] por 3 turnos.",
+    desc_en: "Strike a target with lightning in the palm of yours with a 20% chance to [008]paralyze[000] them for 3 turns",
     type: "lightning",
     attack: "physical",
     power: 60,
-    accuracy: 75,
+    accuracy: 90,
   },
   "Tiger's Barrage": {
     name: "Tiger's Barrage",
+    desc_pt: "Uma técnica que envolve uma série rápida e poderosa de chutes e socos, demonstrando a velocidade e precisão excepcionais do usuário.",
+    desc_en: "A technique that involves a rapid and powerful series of kicks and punches, showcasing the user's exceptional speed and precision.",
     type: "neutral",
     attack: "physical",
     power: 45,
@@ -432,6 +442,8 @@ const moves = {
   },
   "Fireball": {
     name: "Fireball",
+    desc_pt: "Projeta uma bola de fogo no oponente, causando dano e com uma baixa chance[004](20%)[000] de [003]queimá-lo[000].",
+    desc_en: "Projects a ball of fire at the opponent dealing damage and having a low change[004](20%)[000] to [003]burn[000] them.",
     type: "fire",
     attack: "special",
     power: 50,
@@ -439,6 +451,8 @@ const moves = {
   },
   "Kunai Barrage": {
     name: "Kunai Barrage",
+    desc_pt: "Arremesse várias kunais que atinjam inimigos adjacentes.",
+    desc_en: "Throw multiple Kunai that hit adjacent enemies.",
     type: "neutral",
     attack: "physical",
     power: 45,
@@ -481,6 +495,8 @@ const moves = {
   },
   "Angry Explosion": {
     name: "Angry Explosion",
+    desc_pt: "Libere sua raiva em uma explosão, que dobra de poder se você estiver afetado por uma condição de status.",
+    desc_en: "Release your anger in an explosion, doubling in power if you are affected by a status condition.",
     type: "psychic",
     attack: "special",
     power: 50,
