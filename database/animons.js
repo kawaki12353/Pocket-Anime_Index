@@ -101,7 +101,19 @@ const animons = [
     ] 
   },  
   { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 } },
-  { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 } },
+  { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 },
+    movesList: [
+      { level: 1, name: "Cut Down"}, 
+      { level: 1, name: "Plunder" },
+      { level: 1, name: "Sword Slash" },
+      { level: 1, name: "Taunt" },
+      { level: 5, name: "Guzzle" },
+      { level: 5, name: "Rifle Shot" },
+      { level: 15, name: "Double Shot" },
+      { level: 17, name: "Lunge" },
+      { level: 20, name: "Coated Blade" }
+    ]
+  },
   { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 } },
   { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 } },
   { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 } },
