@@ -250,9 +250,11 @@ const moves = {
   },
   "Cyclone Throw": {
     name: "Cyclone Throw",
+    desc_pt: "Gire o alvo antes de arremessá-lo. Isso diminui a prioridade e o força a recuar.",
+    desc_en: "Spin a target around before tossing them. This has decreased priority and forces them to retreat.",
     type: "fighting",
     attack: "physical",
-    power: 50,
+    power: 30,
     accuracy: 100,
   },
   "Energy Wave": {
@@ -658,6 +660,8 @@ const moves = {
   },
   "Phase Two": {
     name: "Phase Two",
+    desc_pt: "Prepare-se e aqueça-se para a transformação. Aprimora as técnicas de atributos de borracha.",
+    desc_en: "Pump up and become hot-blooded to transform. Upgrades rubber-attribute techniques.",
     type: "neutral",
     attack: "status",
     power: 0,
