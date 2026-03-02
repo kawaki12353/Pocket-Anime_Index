@@ -461,7 +461,10 @@
             const minfo = getMoveInfo(displayMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
             
-            const isActiveTrigger = (triggerIdx === mIndex);
+            // Verificamos se o move ORIGINAL deste slot tem moveTrigger para decidir a borda
+            const originalMoveInfo = getMoveInfo(originalMoves[mIndex]);
+            const hasTrigger = originalMoveInfo && originalMoveInfo.raw && originalMoveInfo.raw.moveTrigger;
+            const isActiveTrigger = hasTrigger && (triggerIdx === mIndex);
             
             return `
               <div class="mini-move ${isActiveTrigger ? 'active-trigger' : ''}" 
@@ -518,17 +521,22 @@
     }
 
     function handleMoveClick(animonIdx, moveIdx, moveDiv) {
-      // Abre o balão original
+      // Abre o balão original EM QUALQUER MOVE
       toggleMoveBalloon(moveDiv);
       
-      // Lógica do Trigger
       const animon = team[animonIdx];
-      if (animon.activeTriggerIndex === moveIdx) {
-        animon.activeTriggerIndex = null;
-      } else {
-        animon.activeTriggerIndex = moveIdx;
+      const moveName = animon.moves[moveIdx];
+      const minfo = getMoveInfo(moveName);
+
+      // SÓ altera o estado do trigger se o move tiver moveTrigger na database
+      if (minfo && minfo.raw && minfo.raw.moveTrigger) {
+        if (animon.activeTriggerIndex === moveIdx) {
+          animon.activeTriggerIndex = null;
+        } else {
+          animon.activeTriggerIndex = moveIdx;
+        }
+        renderTeam();
       }
-      renderTeam();
     }
 
     function removeFromTeam(index) {
