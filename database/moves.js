@@ -1,6 +1,6 @@
 const moves = {
   "Jet Bullet": {
-    name: "Jst Bullet",
+    name: "Jet Bullet",
     desc_pt: "Uma versão quase instantânea da habilidade Bazooka, com velocidade equivalente ao seu alcance.",
     desc_en: "An almost instant version of the Bazooka ability with a speed to match its reach.",
     type: "fighting",
