@@ -662,7 +662,7 @@ const moves = {
     name: "Phase Two",
     desc_pt: "Prepare-se e aqueça-se para a transformação. Aprimora as técnicas de atributos de borracha.",
     desc_en: "Pump up and become hot-blooded to transform. Upgrades rubber-attribute techniques.",
-    type: "neutral",
+    type: "fighting",
     attack: "status",
     power: 0,
     accuracy: 100,
