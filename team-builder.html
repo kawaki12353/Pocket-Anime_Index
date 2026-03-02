@@ -112,6 +112,10 @@
       justify-content: space-between;
       font-size: 11px;
       min-width: 0;
+      transition: border 0.2s;
+    }
+    .mini-move.active-trigger {
+      border: 1.5px solid #00b0e6 !important;
     }
     .empty-move { opacity: 0.5; justify-content: center; font-style: italic; }
 
@@ -352,6 +356,8 @@
           document.getElementById('moveSelect2').dataset.value || "",
           document.getElementById('moveSelect3').dataset.value || ""
         ];
+        // Reset trigger if moves change
+        team[editSlotIndex].activeTriggerIndex = null;
         saveData();
         renderTeam();
       }
@@ -404,7 +410,7 @@
         }
       }
 
-      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-", desc: "" };
+      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-", desc: "", raw: null };
 
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
       const attackValue = moveData.attack || "physical";
@@ -415,7 +421,8 @@
         attackStr: String(attackValue).toLowerCase().trim(),
         power: (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") ? moveData.power : "-",
         accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-",
-        desc: moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc || ""
+        desc: moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc || "",
+        raw: moveData
       };
     }
 
@@ -433,13 +440,36 @@
         if (activeSlots[i]) div.classList.add("active");
 
         if (team[i]) {
-          const animonMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
+          const originalMoves = Array.isArray(team[i].moves) ? team[i].moves : ["", "", "", ""];
+          let displayMoves = [...originalMoves];
+          const triggerIdx = team[i].activeTriggerIndex;
+
+          // LOGICA DE TRADE (MOVE TRIGGER)
+          if (triggerIdx !== null && triggerIdx !== undefined) {
+            const triggerMoveData = getMoveInfo(originalMoves[triggerIdx]);
+            if (triggerMoveData && triggerMoveData.raw && triggerMoveData.raw.moveTrigger) {
+              triggerMoveData.raw.moveTrigger.forEach(t => {
+                const targetIdx = displayMoves.findIndex(m => m && m.toLowerCase().trim() === t.move.toLowerCase().trim());
+                if (targetIdx !== -1) {
+                  displayMoves[targetIdx] = t.trade;
+                }
+              });
+            }
+          }
 
           const movesHtml = [0, 1, 2, 3].map(mIndex => {
-            const minfo = getMoveInfo(animonMoves[mIndex]);
+            const minfo = getMoveInfo(displayMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
+            
+            const isActiveTrigger = (triggerIdx === mIndex);
+            
             return `
-              <div class="mini-move" style="position:relative; cursor:pointer;" data-power="${minfo.power}" data-acc="${minfo.accuracy}" data-desc="${minfo.desc.replace(/"/g, '&quot;')}" onclick="event.stopPropagation(); toggleMoveBalloon(this)">
+              <div class="mini-move ${isActiveTrigger ? 'active-trigger' : ''}" 
+                   style="position:relative; cursor:pointer;" 
+                   data-power="${minfo.power}" 
+                   data-acc="${minfo.accuracy}" 
+                   data-desc="${minfo.desc.replace(/"/g, '&quot;')}" 
+                   onclick="event.stopPropagation(); handleMoveClick(${i}, ${mIndex}, this)">
                 <span class="move-name-txt">${minfo.name}</span>
                 <div class="move-icons-wrapper">
                   <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
@@ -487,6 +517,20 @@
       updateAnalysis();
     }
 
+    function handleMoveClick(animonIdx, moveIdx, moveDiv) {
+      // Abre o balão original
+      toggleMoveBalloon(moveDiv);
+      
+      // Lógica do Trigger
+      const animon = team[animonIdx];
+      if (animon.activeTriggerIndex === moveIdx) {
+        animon.activeTriggerIndex = null;
+      } else {
+        animon.activeTriggerIndex = moveIdx;
+      }
+      renderTeam();
+    }
+
     function removeFromTeam(index) {
       team.splice(index, 1);
       saveData();
@@ -527,6 +571,7 @@
           team[currentSlot] = JSON.parse(JSON.stringify(a));
           team[currentSlot].level = 100;
           team[currentSlot].moves = ["", "", "", ""];
+          team[currentSlot].activeTriggerIndex = null; // Inicia sem trigger
           saveData(); renderTeam(); closeModal();
         };
         DOM.animonList.appendChild(div);
@@ -536,7 +581,7 @@
     function createMoveSelect(containerId, currentMove, availableMoves) {
       const container = document.getElementById(containerId);
       if (!container) return;
-      
+
       const label = texts[lang].moveSelect;
       container.innerHTML = ""; 
 
@@ -633,7 +678,7 @@
       }
 
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
-      
+
       for (let i = 0; i < 4; i++) {
         const selectId = `moveSelect${i}`;
         const container = document.getElementById(selectId);
