@@ -666,6 +666,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    moveTrigger: [{ move:"Armament", trade:"Red Talon" }, { move:"Bazooka", trade:"Jet Bullet"}],
   },
   "Headbutt": {
     name: "Headbutt",
