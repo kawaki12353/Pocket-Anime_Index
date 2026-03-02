@@ -1,4 +1,20 @@
 const moves = {
+  "Jet Bullet": {
+    name: "Jst Bullet",
+    desc_pt: "Uma versão quase instantânea da habilidade Bazooka, com velocidade equivalente ao seu alcance.",
+    desc_en: "An almost instant version of the Bazooka ability with a speed to match its reach.",
+    type: "fighting",
+    attack: "physical",
+    power: 60,
+    accuracy: 100,
+  },
+  "Red Talon": {
+    name: "Red Talon",
+    type: "fire",
+    attack: "physical",
+    power: 65,
+    accuracy: 100,
+  },
   "Mystic Shot": {
     name: "Mystic Shot",
     desc_pt: "Um dardo de energia mística com 10% de chance de reduzir a [001]SP.DEF [-1][000] do alvo.",
