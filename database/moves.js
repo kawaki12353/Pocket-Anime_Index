@@ -238,6 +238,8 @@ const moves = {
   },
   "Sand Arm": {
     name: "Sand Arm",
+    desc_pt: "Um braço de areia demoníaco com 20% de chance de diminuir a [001]SPD [-1][000].",
+    desc_en: "A demonic sand arm with 20% chance to lower [001]SPD [-1][000].",
     type: "demon",
     attack: "physical",
     power: 70,
@@ -245,6 +247,8 @@ const moves = {
   },
   "Substitution": {
     name: "Substitution",
+    desc_pt: "Troque por um substituto, gaste 20% de HP e o próximo ataque que te atingir errará. Se você não tiver HP suficiente, este movimento falhará.",
+    desc_en: "Swap out for a substitute, spend 20% HP and the next attack to hit you will miss. If you don't have enough HP this move will fail.",
     type: "neutral",
     attack: "status",
     power: 0,
@@ -252,6 +256,8 @@ const moves = {
   },
   "Sand Bomb": {
     name: "Sand Bomb",
+    desc_pt: "Colete areia para esmagar seu alvo com prioridade reduzida; isso o atingirá ignorando o Accuracy ou a evasão.",
+    desc_en: "Collect sand to crush your target with decreased priority, this will hit ignoring accuracy, or evasive.",
     type: "earth",
     attack: "special",
     power: 65,
@@ -259,6 +265,8 @@ const moves = {
   },
   "Sand Burial": {
     name: "Sand Burial",
+    desc_pt: "Esmague o oponente em um caixão de areia que incapacita o alvo por 2 turnos. Falha se o alvo já estiver incapacitado.",
+    desc_en: "Crush the opponent in a coffin made of sand that disables the target for 2 turns. Fails if target is already disabled.",
     type: "earth",
     attack: "special",
     power: 60,
@@ -266,6 +274,8 @@ const moves = {
   },
   "Sand Storm": {
     name: "Sand Storm",
+    desc_pt: "Invoca uma tempestade de areia que causa dano equivalente a 1/12 do HP desde que não sejam do tipo Terra por 5 turnos.",
+    desc_en: "Summon a sandstorm that deals 1/12th HP damage to non-Earth types for 5 turns.",
     type: "earth",
     attack: "special",
     power: 0,
@@ -273,6 +283,8 @@ const moves = {
   },
   "Sand Tsunami": {
     name: "Sand Tsunami",
+    desc_pt: "Uma onda de areia que atinge inimigos adjacentes, com 80% de chance de reduzir sua [001]SPD [-1][000].",
+    desc_en: "A wave of sand thats hits adjacent enemies, and an 80% chance to lower their [001]SPD [-1][000].",
     type: "earth",
     attack: "special",
     power: 45,
