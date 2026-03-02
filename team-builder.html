@@ -521,21 +521,32 @@
     }
 
     function handleMoveClick(animonIdx, moveIdx, moveDiv) {
-      // Abre o balão original EM QUALQUER MOVE
-      toggleMoveBalloon(moveDiv);
-      
       const animon = team[animonIdx];
       const moveName = animon.moves[moveIdx];
       const minfo = getMoveInfo(moveName);
 
-      // SÓ altera o estado do trigger se o move tiver moveTrigger na database
+      // Se o move clicado tiver um gatilho de mudança
       if (minfo && minfo.raw && minfo.raw.moveTrigger) {
         if (animon.activeTriggerIndex === moveIdx) {
           animon.activeTriggerIndex = null;
         } else {
           animon.activeTriggerIndex = moveIdx;
         }
+        
+        // Atualiza o time (isso destrói o moveDiv atual)
         renderTeam();
+
+        // Após renderizar, buscamos o NOVO elemento que foi criado no mesmo lugar
+        const updatedSlot = DOM.grid.children[animonIdx];
+        const newMoveDiv = updatedSlot.querySelectorAll('.mini-move')[moveIdx];
+        
+        // Abre o balão no novo elemento
+        if (newMoveDiv) {
+          toggleMoveBalloon(newMoveDiv);
+        }
+      } else {
+        // Se não for trigger, apenas abre o balão normalmente no elemento atual
+        toggleMoveBalloon(moveDiv);
       }
     }
 
