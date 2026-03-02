@@ -93,8 +93,8 @@ const moves = {
   },
   "Thunder Set": {
     name: "Thunder Set",
-    desc_pt: "Aumenta o [002]SP.ATK [+2][000] ao carregar com energia elétrica.",
-    desc_en: "Raise [002]SP.ATK [+2][000] by charging with electric energy.",
+    desc_pt: "Carregue com energia elétrica com 50% de chance de aumentar [002]SP.ATK [+1][000] ou [002][+2][000].",
+    desc_en: "Charge with electrical energy with a 50% chance to raise [002]SP.ATK [+1][000] or [002][+2][000].",
     type: "lightning",
     attack: "status",
     power: 0,
