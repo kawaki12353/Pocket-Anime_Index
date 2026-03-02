@@ -194,7 +194,18 @@ const animons = [
   { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 } },
   { id: 20, name: "Wuno", type: "Wind", sprite: "assets/animons-icon/wuno.png", stats: { hp: 50, atk: 37, def: 47, spAtk: 80, spDef: 65, spd: 75 } },
   { id: 21, name: "Laxon", type: "Lightning", sprite: "assets/animons-icon/laxon.png", stats: { hp: 64, atk: 70, def: 45, spAtk: 74, spDef: 54, spd: 74 } },
-  { id: 22, name: "Rie", type: ["Fire", "Psychic"], sprite: "assets/animons-icon/rie.png", stats: { hp: 54, atk: 25, def: 38, spAtk: 100, spDef: 40, spd: 60 } },
+  { id: 22, name: "Rie", type: ["Fire", "Psychic"], sprite: "assets/animons-icon/rie.png", stats: { hp: 54, atk: 25, def: 38, spAtk: 100, spDef: 40, spd: 60 },
+    movesList: [
+      { level: 1, name: "Energy Shell" },
+      { level: 1, name: "Mystic Shot" },
+      { level: 5, name: "Junk Toss" },
+      { level: 12, name: "Explosion" },
+      { level: 15, name: "Charm" },
+      { level: 18, name: "Fire Zone" },
+      { level: 21, name: "Fortune" },
+      { level: 21, name: "Wide Explosion" }
+    ]
+  },
   { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 } },
   { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 } },
   { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 } },
