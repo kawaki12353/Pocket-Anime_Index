@@ -257,7 +257,18 @@ const animons = [
       { level: 24, name: "Sand Arm" }
     ] 
   },
-  { id: 34.01, name: "Tanuki Ganra", type: ["Earth", "Demon"], sprite: "assets/animons-icon/tanuki_ganra.png", stats: { hp: 65, atk: 46, def: 94, spAtk: 81, spDef: 65, spd: 48 } },
+  { id: 34.01, name: "Tanuki Ganra", type: ["Earth", "Demon"], sprite: "assets/animons-icon/tanuki_ganra.png", stats: { hp: 65, atk: 46, def: 94, spAtk: 81, spDef: 65, spd: 48 },
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Kunai Barrage" },
+      { level: 6, name: "Sand Tsunami" },
+      { level: 8, name: "Sand Storm" },
+      { level: 13, name: "Sand Burial" },
+      { level: 18, name: "Sand Bomb" },
+      { level: 20, name: "Substitution" },
+      { level: 24, name: "Sand Arm" }
+    ] 
+  },
   { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 } },
   { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 } },
   { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 } },
