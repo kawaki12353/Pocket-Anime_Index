@@ -100,7 +100,19 @@ const animons = [
       { level: 32, name: "Cut Down" }
     ] 
   },  
-  { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 } },
+  { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 },
+   movesList: [
+      { level: 1, name: "Cut Down"}, 
+      { level: 1, name: "Plunder" },
+      { level: 1, name: "Sword Slash" },
+      { level: 1, name: "Taunt" },
+      { level: 5, name: "Rifle Shot" },
+      { level: 9, name: "Guzzle" },
+      { level: 15, name: "Double Shot" },
+      { level: 17, name: "Lunge" },
+      { level: 20, name: "Coated Blade" }
+    ]
+  },
   { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 },
     movesList: [
       { level: 1, name: "Cut Down"}, 
