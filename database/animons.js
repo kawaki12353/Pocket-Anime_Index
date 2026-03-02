@@ -354,8 +354,30 @@ const animons = [
   { id: 60, name: "Fire Prince", type: "Fire", sprite: "assets/animons-icon/fire_prince.png", stats: { hp: 49, atk: 54, def: 42, spAtk: 44, spDef: 35, spd: 62 } },
   { id: 60.01, name: "Fire King", type: "Fire", sprite: "assets/animons-icon/fire_king.png", stats: { hp: 63, atk: 70, def: 54, spAtk: 60, spDef: 44, spd: 76 } },
   { id: 73, name: "Fedora", type: ["Earth", "Dark"], sprite: "assets/animons-icon/fedora.png", stats: { hp: 65, atk: 56, def: 110, spAtk: 70, spDef: 85, spd: 60 } },
-  { id: 74, name: "Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/brorok.png", stats: { hp: 49, atk: 80, def: 50, spAtk: 70, spDef: 45, spd: 85 } },
-  { id: 74.01, name: "Full Power Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/full_power_brorok.png", stats: { hp: 66, atk: 90, def: 66, spAtk: 105, spDef: 66, spd: 93 } },
+  { id: 74, name: "Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/brorok.png", stats: { hp: 49, atk: 80, def: 50, spAtk: 70, spDef: 45, spd: 85 },
+    movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Energy Shell" },
+      { level: 1, name: "Punch" },
+      { level: 6, name: "Crush" },
+      { level: 10, name: "Fury" },
+      { level: 15, name: "Cyclone Throw" },
+      { level: 18, name: "Z Bomb" }
+    ]
+  },
+  { id: 74.01, name: "Full Power Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/full_power_brorok.png", stats: { hp: 66, atk: 90, def: 66, spAtk: 105, spDef: 66, spd: 93 },
+    movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Energy Shell" },
+      { level: 1, name: "Punch" },
+      { level: 6, name: "Crush" },
+      { level: 10, name: "Fury" },
+      { level: 15, name: "Cyclone Throw" },
+      { level: 18, name: "Z Bomb" }
+    ]
+  },
   { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 } },
   { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
   { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 } },
