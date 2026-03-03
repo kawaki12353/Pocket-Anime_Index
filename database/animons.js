@@ -130,9 +130,44 @@ const animons = [
       { level: 20, name: "Coated Blade" }
     ]
   },
-  { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 } },
-  { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 } },
-  { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 } },
+  { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 },
+    movesList: [
+      { level: 1, name: "Mop the floor"}, 
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Rifle Shot" },
+      { level: 9, name: "Bounty Hunt" },
+      { level: 15, name: "Buckshot" },
+      { level: 18, name: "Armament" },
+      { level: 19, name: " Aqua Cross" },
+      { level: 22, name: "Iron Body" },
+      { level: 24, name: "Justice Cannon" }
+    ]
+  },
+  { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 },
+    movesList: [
+      { level: 1, name: "Mop the floor"}, 
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Rifle Shot" },
+      { level: 9, name: "Bounty Hunt" },
+      { level: 15, name: "Buckshot" },
+      { level: 18, name: "Armament" },
+      { level: 19, name: " Aqua Cross" },
+      { level: 22, name: "Iron Body" },
+      { level: 24, name: "Justice Cannon" }
+    ]
+  },
+  { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 },
+     movesList: [
+      { level: 1, name: "Mop Attack"}, 
+      { level: 1, name: "Taunt" },
+      { level: 5, name: "Rifle Shot" },
+      { level: 5, name: "Bounty Hunt" },
+      { level: 10, name: "Quick Assist" },
+      { level: 16, name: "Wave Kick" },
+      { level: 20, name: "After Image" },    
+      { level: 24, name: "Armament" }
+    ]
+  },
   { id: 7.01, name: "Lt. Hero", type: "Water", sprite: "assets/lt_hero.png", stats: { hp: 56, atk: 51, def: 39, spAtk: 41, spDef: 45, spd: 74 } },
   { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 } },
   { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 } },
