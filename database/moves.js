@@ -1,4 +1,31 @@
 const moves = {
+  "Sharp Claw": {
+    name: "Sharp Claw",
+    desc_pt: "Arranhe seu oponente com garras afiadas.",
+    desc_en: "Scratch at your opponent with sharp claws.",
+    type: "beast",
+    attack: "physical",
+    power: 35,
+    accuracy: 100,
+  },
+  "Coated Blade": {
+    name: "Coated Blade",
+    desc_pt: "Lâmina que secreta um veneno letal com 30% de chance de [006]envenenar[000] por 5 turnos. Se o alvo estiver ferido, ela...",
+    desc_en: "Blade secreting a lethal poison with a 30% chance to [006]poison[000] for 5 turns. If the target is wounded, it will...",
+    type: "poison",
+    attack: "physical",
+    power: 60,
+    accuracy: 100,
+  },
+  "Desert Espada": {
+    name: "Desert Espada",
+    desc_pt: "Uma lâmina de areia que irrompe do chão abaixo de você com 30% de chance de reduzir a [001]DEF [-1][000] do inimigo.",
+    desc_en: "A blade of sand that erupts from the ground beneath you with a 30% chance to lower enemy [001]SPDEF [-1][000].",
+    type: "earth",
+    attack: "special",
+    power: 60,
+    accuracy: 100,
+  },
   "Crush": {
     name: "Crush",
     desc_pt: "Esmague um alvo sob seus pés e cause mais dano com base na diferença entre sua saúde máxima e a dele.",
