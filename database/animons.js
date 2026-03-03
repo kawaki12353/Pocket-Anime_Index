@@ -58,7 +58,8 @@ const animons = [
       { level: 1, name: "Kunai Barrage" },
       { level: 5, name: "Fireball" },
       { level: 12, name: "Tiger's Barrage" },
-      { level: 13, name: "Electric Strike" }
+      { level: 13, name: "Electric Strike" },
+      { level: 15, name: "Vengeful Illusion" }
     ]
   },
   { id: 3.01, name: "TS Saskeh", type: ["Fire", "Lightning"], sprite: "assets/animons-icon/ts_saskeh.png", stats: { hp: 58, atk: 75, def: 53, spAtk: 87, spDef: 55, spd: 70 },
