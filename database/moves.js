@@ -1,4 +1,31 @@
 const moves = {
+  "Crush": {
+    name: "Crush",
+    desc_pt: "Esmague um alvo sob seus pés e cause mais dano com base na diferença entre sua saúde máxima e a dele.",
+    desc_en: "Crush a target under you, deal more damage based on the difference between your max health.",
+    type: "neutral",
+    attack: "physical",
+    power: 30,
+    accuracy: 100,
+  },
+  "Fury": {
+    name: "Fury",
+    desc_pt: "Fique com raiva, aumentando seu ATK [+2], mas você fica mais distraído, perdendo [002]DEF [-1][000] e [002]Evasão [-1][000].",
+    desc_en: "Become angry, raising your ATK [+2] but you become more distracted losing [002]DEF [-1][000] and [002]Evasive [-1][000].",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+  },
+  "Z Bomb": {
+    name: "Z Bomb",
+    desc_pt: "Uma bomba gigante de ki que destrói o campo ao impacto, reduz seu [001]SP.ATK [-3][000] após usá-la.",
+    desc_en: "A giant bomb of ki that destroys the field on impact, decrease your [001]SP.ATK [-3][000] after using it.",
+    type: "dark",
+    attack: "special",
+    power: 140,
+    accuracy: 100,
+  },
   "Jet Bullet": {
     name: "Jet Bullet",
     desc_pt: "Uma versão quase instantânea da habilidade Bazooka, com velocidade equivalente ao seu alcance.",
