@@ -10,8 +10,8 @@ const moves = {
   },
   "Fury": {
     name: "Fury",
-    desc_pt: "Fique com raiva, aumentando seu ATK [+2], mas você fica mais distraído, perdendo [002]DEF [-1][000] e [002]Evasão [-1][000].",
-    desc_en: "Become angry, raising your ATK [+2] but you become more distracted losing [002]DEF [-1][000] and [002]Evasive [-1][000].",
+    desc_pt: "Fique com raiva, aumentando seu [002]ATK [+2][000], mas você fica mais distraído, perdendo [001]DEF [-1][000] e [001]Evasão [-1][000].",
+    desc_en: "Become angry, raising your ATK [+2] but you become more distracted losing [001]DEF [-1][000] and [001]Evasive [-1][000].",
     type: "neutral",
     attack: "status",
     power: 0,
