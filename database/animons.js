@@ -382,7 +382,17 @@ const animons = [
   { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
   { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 } },
   { id: 79.01, name: "Super Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/super_bald_warrior.png", stats: { hp: 72, atk: 95, def: 62, spAtk: 78, spDef: 47, spd: 81 } },
-  { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 } },
+  { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 },
+    movesList: [
+      { level: 1, name: "Menacing Aura" },
+      { level: 1, name: "Sharp Claw" },
+      { level: 6, name: "Sand Tsunami" },
+      { level: 11, name: "Sand Bomb" },
+      { level: 16, name: "Coated Blade" },
+      { level: 20, name: "Sand Storm" },
+      { level: 23, name: "Desert Espada" }
+    ]
+  },
   { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 } },
   { id: 84, name: "Water Chimera", type: ["Water", "Beast"], sprite: "assets/animons-icon/water_chimera.png", stats: { hp: 75, atk: 75, def: 50, spAtk: 67, spDef: 54, spd: 75 } },
   { id: 84.01, name: "Mutated Water Chimera", type: ["Water", "Beast"], sprite: "assets/animons-icon/mutated_water_chimera.png", stats: { hp: 100, atk: 90, def: 70, spAtk: 77, spDef: 64, spd: 81 } }
