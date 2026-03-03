@@ -168,7 +168,17 @@ const animons = [
       { level: 24, name: "Armament" }
     ]
   },
-  { id: 7.01, name: "Lt. Hero", type: "Water", sprite: "assets/lt_hero.png", stats: { hp: 56, atk: 51, def: 39, spAtk: 41, spDef: 45, spd: 74 } },
+  { id: 7.01, name: "Lt. Hero", type: "Water", sprite: "assets/lt_hero.png", stats: { hp: 56, atk: 51, def: 39, spAtk: 41, spDef: 45, spd: 74 },
+    movesList: [
+      { level: 1, name: "Mop Attack"}, 
+      { level: 1, name: "Mop the floor" },
+      { level: 5, name: "Taunt" },
+      { level: 10, name: "Quick Assist" },
+      { level: 16, name: "Wave Kick" },
+      { level: 20, name: "Afterimage" },
+      { level: 24, name: "Armament" }
+    ]
+  },
   { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 } },
   { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 } },
   { id: 9, name: "Joyful", type: ["Wind", "Beast"], sprite: "assets/animons-icon/joyful.png", stats: { hp: 35, atk: 25, def: 35, spAtk: 50, spDef: 35, spd: 70 } },
