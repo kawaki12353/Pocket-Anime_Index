@@ -102,6 +102,8 @@ const moves = {
     desc_en: "A crackling spear meant for long range with a 10% chance to lower target [001]SPDEF[-1][000] and [008]paralyze[000] them.",
     type: "lightning",
     attack: "special",
+    power: 60,
+    accuracy: 100,
   },
   "Dexterity": {
     name: "Dexterity",
