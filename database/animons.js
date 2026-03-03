@@ -57,6 +57,7 @@ const animons = [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" },
       { level: 5, name: "Fireball" },
+      { level: 7, name: "Substitution" },
       { level: 12, name: "Tiger's Barrage" },
       { level: 13, name: "Electric Strike" },
       { level: 15, name: "Vengeful Illusion" }
