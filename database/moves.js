@@ -98,7 +98,7 @@ const moves = {
   },
   "Lightning Spear": {
     name: "Lightning Spear",
-    desc_pt: "Uma lança crepitante feita para longo alcance com 10% de chance de reduzir a [008]SP.DEF [-1][000] do alvo e [008]paralisá-lo[000].",
+    desc_pt: "Uma lança crepitante feita para longo alcance com 10% de chance de reduzir a [001]SP.DEF [-1][000] do alvo e [008]paralisá-lo[000].",
     desc_en: "A crackling spear meant for long range with a 10% chance to lower target [001]SPDEF[-1][000] and [008]paralyze[000] them.",
     type: "lightning",
     attack: "special",
