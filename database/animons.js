@@ -138,7 +138,7 @@ const animons = [
       { level: 9, name: "Bounty Hunt" },
       { level: 15, name: "Buckshot" },
       { level: 18, name: "Armament" },
-      { level: 19, name: " Aqua Cross" },
+      { level: 19, name: "Aqua Cross" },
       { level: 22, name: "Iron Body" },
       { level: 24, name: "Justice Cannon" }
     ]
@@ -151,7 +151,7 @@ const animons = [
       { level: 9, name: "Bounty Hunt" },
       { level: 15, name: "Buckshot" },
       { level: 18, name: "Armament" },
-      { level: 19, name: " Aqua Cross" },
+      { level: 19, name: "Aqua Cross" },
       { level: 22, name: "Iron Body" },
       { level: 24, name: "Justice Cannon" }
     ]
