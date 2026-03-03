@@ -307,8 +307,28 @@ const animons = [
   { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 } },
   { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 } },
   { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 } },
-  { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 } },
-  { id: 42.01, name: "Karate Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/karate_whale_shark.png", stats: { hp: 75, atk: 95, def: 62, spAtk: 60, spDef: 51, spd: 62 } },
+  { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 },
+    movesList: [
+      { level: 1, name: "False Courage" },
+      { level: 1, name: "Punch" },
+      { level: 4, name: "Armament" },
+      { level: 10, name: "Shark Tile Fist" },
+      { level: 14, name: "Brick Fist" },
+      { level: 19, name: "Shark Throw" },
+      { level: 23, name: "Water Spear" }
+    ]
+  },
+  { id: 42.01, name: "Karate Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/karate_whale_shark.png", stats: { hp: 75, atk: 95, def: 62, spAtk: 60, spDef: 51, spd: 62 },
+    movesList: [
+      { level: 1, name: "False Courage" },
+      { level: 1, name: "Punch" },
+      { level: 4, name: "Armament" },
+      { level: 10, name: "Shark Tile Fist" },
+      { level: 14, name: "Brick Fist" },
+      { level: 19, name: "Shark Throw" },
+      { level: 23, name: "Water Spear" }
+    ]
+  },
   { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 } },
   { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 } },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 } },
