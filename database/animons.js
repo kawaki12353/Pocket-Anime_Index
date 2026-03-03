@@ -189,7 +189,16 @@ const animons = [
       { level: 23, name: "Ripping Claw" }
    ]
   },
-  { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 } },
+  { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 },
+      movesList: [
+      { level: 1, name: "Growl"}, 
+      { level: 1, name: "Sharp Claw" },
+      { level: 5, name: "Quick Attack" },
+      { level: 11, name: "Bite" },
+      { level: 17, name: "Savage Fang" },
+      { level: 23, name: "Ripping Claw" }
+   ]
+  },
   { id: 9, name: "Joyful", type: ["Wind", "Beast"], sprite: "assets/animons-icon/joyful.png", stats: { hp: 35, atk: 25, def: 35, spAtk: 50, spDef: 35, spd: 70 } },
   { id: 10, name: "Teen Wolfman", type: "Fighting", sprite: "assets/animons-icon/teen_wolfman.png", stats: { hp: 35, atk: 53, def: 35, spAtk: 49, spDef: 30, spd: 51 } },
   { id: 10.01, name: "Adult Wolfman", type: "Fighting", sprite: "assets/animons-icon/adult_wolfman.png", stats: { hp: 47, atk: 63, def: 44, spAtk: 62, spDef: 39, spd: 73 } },
