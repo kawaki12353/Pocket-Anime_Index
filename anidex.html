@@ -19,14 +19,24 @@
             --lang-btn: #ffffff;
             --lang-btn-bg: #444;
             --accent-blue: #007bff;
-
-            /* Cores dos Elementos */
-            --color-fire: #ff4422; --color-water: #3399ff; --color-grass: #77cc55;
-            --color-electric: #ffcc33; --color-ice: #66ccff; --color-fighting: #bb5544;
-            --color-poison: #aa5599; --color-ground: #ddbb55; --color-flying: #8899ff;
-            --color-psychic: #ff5599; --color-bug: #aabb22; --color-rock: #bbaa66;
-            --color-ghost: #6666bb; --color-dragon: #7766ee; --color-dark: #775544;
-            --color-steel: #aaaabb; --color-fairy: #ee99ee; --color-neutral: #aaaa99;
+            
+            /* Cores dos Elementos (Baseadas no trainer.html) */
+            --element-neutral: #e6e5e3;
+            --element-fighting: #e5901b;
+            --element-fire: #e60000;
+            --element-water: #00b0e6;
+            --element-nature: #24e30c;
+            --element-earth: #8a5e39;
+            --element-wind: #59e657;
+            --element-ice: #00ffe1;
+            --element-lightning: #ffe100;
+            --element-soul: #89a2e6;
+            --element-psychic: #e66ae0;
+            --element-poison: #ac8fff;
+            --element-light: #decc7c;
+            --element-dark: #262626;
+            --element-demon: #b00000;
+            --element-beast: #aa6272;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -50,7 +60,7 @@
             line-height: 1.5;
         }
 
-        /* --- HEADER (Igual ao maps.html) --- */
+        /* --- HEADER --- */
         .header {
             display: flex;
             flex-direction: column;
@@ -66,9 +76,7 @@
             justify-content: center;
         }
 
-        .logo {
-            width: 260px;
-        }
+        .logo { width: 260px; }
 
         .map-title {
             flex: 1;
@@ -104,7 +112,7 @@
         /* --- Selects Customizados --- */
         .custom-select { position: relative; width: 100%; max-width: 260px; }
         .select-btn {
-            width: 100%; display: flex; align-items: center; justify-content: flex-start;
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
             gap: 8px; cursor: pointer; box-sizing: border-box; border: 1px solid var(--border);
         }
         .select-list {
@@ -116,7 +124,6 @@
         .select-list li {
             padding: 10px 12px; border-radius: 8px; cursor: pointer;
             display: flex; align-items: center; gap: 8px; font-weight: bold;
-            border-left: 4px solid transparent;
         }
         .select-list li:hover { background: var(--hover); }
 
@@ -125,11 +132,11 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 12px;
         }
 
-        /* --- ESTILO EXPANDÍVEL (Igual ao maps.html) --- */
+        /* --- ESTILO EXPANDÍVEL --- */
         .animon-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -139,41 +146,96 @@
         }
 
         .card-header {
-            padding: 14px;
+            padding: 10px 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-weight: bold;
+            justify-content: space-between; /* Divide esquerda e direita */
+            gap: 10px;
         }
         .card-header:hover { background: var(--hover); }
 
-        .animon-id {
-            font-weight: bold;
-            font-size: 18px;
-            color: var(--text);
-            opacity: 0.6;
-            min-width: 40px;
-        }
-
-        .animon-info h3 { margin: 0; font-size: 18px; flex: 1; }
-
-        .element-badge {
+        /* Lado Esquerdo: ID e Nome */
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 5px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #fff;
-            margin-top: 5px;
-            font-weight: bold;
-            width: fit-content;
+            gap: 12px;
+            flex: 1;
         }
-        .element-icon { width: 14px; height: 14px; object-fit: contain; }
 
-        /* CONTEÚDO EXPANSÍVEL */
+        /* Lado Direito: Elementos e Seta */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .animon-id {
+            font-weight: bold;
+            font-size: 16px;
+            opacity: 0.5;
+            min-width: 35px;
+        }
+
+        .animon-info h3 { margin: 0; font-size: 16px; white-space: nowrap; }
+
+        /* Coluna da Seta */
+        .arrow-column {
+            border-left: 1px solid var(--border);
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+        .animon-card.active .arrow-column { transform: rotate(180deg); }
+
+        /* --- Ícones de Elementos (Estilo Trainer.html) --- */
+        .animon-elements { display: flex; gap: 4px; }
+
+        .element-wrapper {
+            position: relative;
+            width: 32px; height: 32px;
+            background: #191919;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .element-inner {
+            position: relative;
+            width: 22px; height: 22px;
+            border-radius: 5px;
+            border: 1.5px solid var(--el-color);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .element-inner img {
+            position: absolute;
+            width: 28px; height: 28px;
+            object-fit: contain;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Classes de cores específicas */
+        .element-neutral   { --el-color: var(--element-neutral); }
+        .element-fighting  { --el-color: var(--element-fighting); }
+        .element-fire      { --el-color: var(--element-fire); }
+        .element-water     { --el-color: var(--element-water); }
+        .element-nature    { --el-color: var(--element-nature); }
+        .element-earth     { --el-color: var(--element-earth); }
+        .element-wind      { --el-color: var(--element-wind); }
+        .element-ice       { --el-color: var(--element-ice); }
+        .element-lightning { --el-color: var(--element-lightning); }
+        .element-soul      { --el-color: var(--element-soul); }
+        .element-psychic   { --el-color: var(--element-psychic); }
+        .element-poison    { --el-color: var(--element-poison); }
+        .element-light     { --el-color: var(--element-light); }
+        .element-dark      { --el-color: var(--element-dark); }
+        .element-demon     { --el-color: var(--element-demon); }
+        .element-beast     { --el-color: var(--element-beast); }
+
         .details-container {
             max-height: 0;
             overflow: hidden;
@@ -188,17 +250,9 @@
             gap: 15px;
         }
 
-        .animon-card.active .details-container {
-            max-height: 1000px;
-        }
+        .animon-card.active .details-container { max-height: 1000px; }
 
-        /* Status grid */
-        .stats-grid { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 8px; 
-            width: 100%;
-        }
+        .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
         .stat-mini-card {
             background: var(--card);
             padding: 5px 10px;
@@ -215,18 +269,10 @@
         .stat-mini-card.total-box { background: var(--accent-blue); color: white; border: none; }
 
         .link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent-blue);
-            color: white;
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background 0.2s;
-            font-weight: bold;
-            box-sizing: border-box;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--accent-blue); color: white; width: 100%;
+            padding: 10px; border-radius: 8px; text-decoration: none;
+            transition: background 0.2s; font-weight: bold; box-sizing: border-box;
         }
         .link-btn:hover { background: #0056b3; }
 
@@ -241,9 +287,9 @@
         }
 
         @media (max-width: 768px) {
-            .header-top { justify-content: center; }
+            .header-top { justify-content: flex-end; }
             .logo { width: 150px; }
-            .animon-list { max-width: 420px; }
+            .animon-list { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -299,10 +345,10 @@ const uiText = {
     }
 };
 
+// Lista de elementos atualizada conforme pedido
 const elementKeys = [
-    "fire", "water", "grass", "electric", "ice", "fighting", "poison", 
-    "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", 
-    "steel", "dark", "fairy", "neutral"
+    "neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", 
+    "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"
 ];
 
 const statsKeys = ["hp", "atk", "def", "spAtk", "spDef", "spd"];
@@ -317,11 +363,14 @@ function render() {
     const listEl = document.getElementById("animonList");
     listEl.innerHTML = "";
 
-    // Filtra e ordena todos os animons
     const filtered = animons
         .filter(ani => {
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
-            const elementMatch = !selectedElement || ani.type.toLowerCase() === selectedElement.toLowerCase();
+            
+            // Lógica para detectar se o tipo é array ou string no filtro
+            const types = Array.isArray(ani.type) ? ani.type.map(t => t.toLowerCase()) : [ani.type.toLowerCase()];
+            const elementMatch = !selectedElement || types.includes(selectedElement.toLowerCase());
+            
             return nameMatch && elementMatch;
         })
         .sort((a, b) => {
@@ -337,20 +386,38 @@ function render() {
     filtered.forEach(ani => {
         const stats = ani.stats;
         const total = Object.values(stats).reduce((a, b) => a + b, 0);
-        const typeLower = ani.type.toLowerCase();
+        
+        // Trata múltiplos elementos
+        const typesArray = Array.isArray(ani.type) ? ani.type : [ani.type];
+        const elementsHtml = typesArray.map(t => {
+            const lowT = t.toLowerCase();
+            return `
+                <div class="element-wrapper element-${lowT}">
+                    <div class="element-inner">
+                        <img src="assets/${lowT}_element.png" alt="${t}">
+                    </div>
+                </div>
+            `;
+        }).join('');
 
         const card = document.createElement("div");
         card.className = `animon-card`;
 
         card.innerHTML = `
             <div class="card-header">
-                <div class="animon-id">#${ani.id}</div>
-                <div class="animon-info">
-                    <h3>${ani.name}</h3>
-                    <span class="element-badge" style="background-color: var(--color-${typeLower})">
-                        <img src="assets/${typeLower}_element.png" class="element-icon" onerror="this.style.display='none'">
-                        ${ani.type.toUpperCase()}
-                    </span>
+                <div class="header-left">
+                    <div class="animon-id">#${ani.id}</div>
+                    <div class="animon-info">
+                        <h3>${ani.name}</h3>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="animon-elements">
+                        ${elementsHtml}
+                    </div>
+                    <div class="arrow-column">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
                 </div>
             </div>
             <div class="details-container">
@@ -372,7 +439,6 @@ function render() {
             </div>
         `;
 
-        // Lógica de expansão literal do maps.html
         card.querySelector(".card-header").onclick = () => {
             const isActive = card.classList.contains("active");
             document.querySelectorAll(".animon-card").forEach(c => c.classList.remove("active"));
@@ -402,8 +468,12 @@ function buildElementMenu() {
         const li = document.createElement("li");
         li.dataset.value = key;
         li.innerHTML = `
-            <img src="assets/${key}_element.png" style="width:16px; height:16px;" onerror="this.style.display='none'"> 
-            ${key.toUpperCase()}
+            <div class="element-wrapper element-${key}" style="width:24px; height:24px;">
+                <div class="element-inner" style="width:16px; height:16px; border-width:1px;">
+                    <img src="assets/${key}_element.png" style="width:20px; height:20px;">
+                </div>
+            </div>
+            ${key.charAt(0).toUpperCase() + key.slice(1)}
         `;
         li.onclick = () => selectElement(key);
         list.appendChild(li);
@@ -430,8 +500,23 @@ function updateFilterButtonsDisplay() {
     const eBtn = document.getElementById("elementBtn");
     const sBtn = document.getElementById("statusBtn");
 
-    eBtn.textContent = selectedElement ? selectedElement.toUpperCase() : uiText[lang].allElements;
-    sBtn.textContent = selectedSort === "id" ? uiText[lang].sortLabel : statLabels[lang][selectedSort] || "TOTAL";
+    if (selectedElement) {
+        eBtn.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px;">
+                <div class="element-wrapper element-${selectedElement}" style="width:22px; height:22px;">
+                    <div class="element-inner" style="width:14px; height:14px; border-width:1px;">
+                        <img src="assets/${selectedElement}_element.png" style="width:18px; height:18px;">
+                    </div>
+                </div>
+                ${selectedElement.toUpperCase()}
+            </div>
+            <span style="font-size:10px;">▼</span>
+        `;
+    } else {
+        eBtn.innerHTML = `<span>${uiText[lang].allElements}</span> <span style="font-size:10px;">▼</span>`;
+    }
+    
+    sBtn.innerHTML = `<span>${selectedSort === "id" ? uiText[lang].sortLabel : statLabels[lang][selectedSort] || "TOTAL"}</span> <span style="font-size:10px;">▼</span>`;
 }
 
 function selectElement(val) {
