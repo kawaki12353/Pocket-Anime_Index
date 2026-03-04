@@ -610,7 +610,7 @@ function renderTypeChart() {
 
     if (typeof chart === 'undefined' || !currentAnimon) return;
 
-    // 1. Identifica tipos do animon atual (suporta array 'types' ou string 'type')
+    // 1. Identifica tipos do animon atual
     let defenderTypes = [];
     if (currentAnimon.types && Array.isArray(currentAnimon.types)) {
         defenderTypes = currentAnimon.types.filter(t => t).map(t => t.toLowerCase().trim());
@@ -631,8 +631,9 @@ function renderTypeChart() {
         let totalMult = 1.0;
         const atkData = chart[atkType];
 
+        // Para cada tipo do defensor, verifica se o atacante atual tem modificador contra ele
         defenderTypes.forEach(defType => {
-            // Procura o valor no objeto do atacante ignorando Case
+            // Procura a chave no objeto interno ignorando Case (ex: "Earth" no database vs "earth" do animon)
             const matchKey = Object.keys(atkData).find(k => k.toLowerCase() === defType);
             if (matchKey) {
                 totalMult *= atkData[matchKey];
@@ -641,7 +642,7 @@ function renderTypeChart() {
         multipliers[atkType] = totalMult;
     });
 
-    // 3. Agrupa por valor
+    // 3. Agrupa por valor (Suporta dual type: 2x2=4x, 0.5x0.5=0.25x)
     const groups = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
 
     Object.entries(multipliers).forEach(([type, val]) => {
@@ -679,7 +680,6 @@ function renderTypeChart() {
             groups[group.key].forEach(typeName => {
                 const badge = document.createElement('div');
                 badge.className = 'type-badge';
-                // Caminho dos ícones baseado no nome do tipo em minúsculo
                 const lowName = typeName.toLowerCase();
                 badge.innerHTML = `
                     <img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">
