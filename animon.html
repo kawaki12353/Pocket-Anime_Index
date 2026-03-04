@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="menu.css">
     <script src="menu.js" defer></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -89,8 +89,16 @@
             padding: 20px;
             flex-grow: 1;
             display: flex;
-            align-items: center;
+            flex-direction: column; /* Alterado para empilhar Nome + Descrição */
+            justify-content: center;
             font-size: 16px;
+        }
+        #nameInside {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: var(--primary);
+            text-transform: capitalize;
         }
 
         /* --- Abas / Botões --- */
@@ -164,7 +172,7 @@
         }
         .move-item {
             display: grid;
-            grid-template-columns: 60px 1fr 100px 100px;
+            grid-template-columns: 60px 1fr 60px 60px; /* Ajustado para os ícones na direita */
             gap: 10px;
             padding: 12px;
             background: var(--bg);
@@ -176,6 +184,14 @@
         .move-header { background: var(--border); }
         .move-item span { text-align: center; }
         .move-item .move-name { text-align: left; }
+        
+        /* Estilo dos ícones dos moves */
+        .move-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            margin: 0 auto;
+        }
 
         /* --- Fraquezas e Resistências --- */
         .type-grid {
@@ -217,16 +233,27 @@
 
         /* --- Responsividade --- */
         @media (max-width: 768px) {
-            .top-section { flex-direction: column; align-items: center; }
-            .sprite-frame { width: 50%; height: auto; aspect-ratio: 1/1; }
-            .desc-box { width: 100%; text-align: center; min-height: auto; box-sizing: border-box;}
-            .move-item {
-                grid-template-columns: 40px 1fr;
-                grid-template-rows: auto auto;
+            .top-section { 
+                flex-direction: row; /* Mantém lado a lado no mobile */
+                align-items: center; 
+                gap: 10px;
             }
-            .move-item .move-type { grid-column: 1 / 2; }
-            .move-item .move-cat { grid-column: 2 / 3; text-align: left; }
-            .move-header { display: none; } /* Oculta cabeçalho no mobile para melhor leitura em card */
+            .sprite-frame { 
+                width: 120px; /* Reduzido para caber ao lado da descrição */
+                height: 120px; 
+            }
+            .desc-box { 
+                width: 100%; 
+                text-align: left; 
+                min-height: 120px; 
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 14px;
+            }
+            .move-item {
+                grid-template-columns: 40px 1fr 40px 40px;
+            }
+            .move-header { display: none; } 
         }
     </style>
 </head>
@@ -243,7 +270,9 @@
         <div class="sprite-frame">
             <img id="animonSprite" src="" alt="Sprite">
         </div>
-        <div class="desc-box" id="animonDesc"></div>
+        <div class="desc-box">
+            <div id="nameInside"></div> <div id="animonDesc"></div>
+        </div>
     </div>
 
     <div class="tabs-container">
@@ -347,8 +376,9 @@ function updateLang() {
     if (!currentAnimon) return;
 
     const ui = uiText[lang];
-    
+
     document.getElementById('pageTitle').textContent = currentAnimon.name;
+    document.getElementById('nameInside').textContent = currentAnimon.name; // Nome dentro da descrição
     document.getElementById('langBtn').textContent = ui.btn;
     document.getElementById('btnInfo').textContent = ui.btnInfo;
     document.getElementById('btnMoves').textContent = ui.btnMoves;
@@ -373,7 +403,7 @@ function updateLang() {
 function renderStats() {
     const st = currentAnimon.stats || { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
     const total = st.hp + st.atk + st.def + (st.spAtk || 0) + (st.spDef || 0) + st.spd;
-    
+
     document.getElementById('statsTotal').textContent = uiText[lang].totalStr + total;
 
     const rootStyle = getComputedStyle(document.documentElement);
@@ -382,13 +412,12 @@ function renderStats() {
     const chartLine = rootStyle.getPropertyValue('--chart-line').trim() || '#0d47a1';
 
     const ctx = document.getElementById('statsChart').getContext('2d');
-    
+
     if (radarChart) radarChart.destroy();
 
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            // Valores exibidos diretamente no rótulo conforme solicitado
             labels: [
                 `HP: ${st.hp}`, 
                 `ATK: ${st.atk}`, 
@@ -417,12 +446,15 @@ function renderStats() {
                         font: { size: 11, weight: 'bold' },
                         padding: 10
                     },
-                    ticks: { display: false, min: 0, max: 200 }
+                    ticks: { display: false },
+                    // Melhora a escala para não ficar variando drasticamente de tamanho
+                    suggestedMin: 0,
+                    suggestedMax: 160
                 }
             },
             plugins: { 
                 legend: { display: false },
-                tooltip: { enabled: false } // Desativa o popup ao clicar/hover
+                tooltip: { enabled: false }
             }
         }
     });
@@ -453,20 +485,18 @@ function renderMoves() {
     container.appendChild(header);
 
     sortedMoves.forEach(m => {
-        // Detecta o const moves do database/moves.js (acessando pelo nome da chave)
         let moveInfo = (typeof moves !== 'undefined') ? moves[m.name] : null;
-        
-        // Se moveInfo existir, usa o type e attack dele
-        const moveType = (moveInfo && moveInfo.type) ? moveInfo.type : '-';
-        const moveCat = (moveInfo && moveInfo.attack) ? moveInfo.attack : '-';
-        
+
+        const moveType = (moveInfo && moveInfo.type) ? moveInfo.type.toLowerCase() : 'unknown';
+        const moveCat = (moveInfo && moveInfo.attack) ? moveInfo.attack.toLowerCase() : 'physical';
+
         const row = document.createElement('div');
         row.className = 'move-item';
         row.innerHTML = `
             <span>${m.level}</span>
             <span class="move-name">${m.name}</span>
-            <span class="move-type">${moveType}</span>
-            <span class="move-cat">${moveCat}</span>
+            <img src="assets/${moveType}_element.png" class="move-icon" title="${moveType}" onerror="this.style.display='none'">
+            <img src="assets/${moveCat}.png" class="move-icon" title="${moveCat}" onerror="this.style.display='none'">
         `;
         container.appendChild(row);
     });
@@ -530,7 +560,7 @@ function switchTab(tabId) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
-    
+
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
 }
