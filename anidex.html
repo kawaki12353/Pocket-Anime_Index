@@ -163,8 +163,8 @@
         .animon-list {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            display: flex; /* Alterado para flex para ficarem um em cima do outro */
+            flex-direction: column;
             gap: 12px;
         }
 
@@ -182,7 +182,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Divide esquerda e direita */
+            justify-content: space-between; 
             gap: 10px;
         }
         .card-header:hover { background: var(--hover); }
@@ -193,6 +193,7 @@
             align-items: center;
             gap: 12px;
             flex: 1;
+            min-width: 0; /* Permite que o flex-item encolha para o ellipsis funcionar */
         }
 
         /* Lado Direito: Elementos e Seta */
@@ -200,6 +201,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-shrink: 0;
         }
 
         .animon-id {
@@ -209,7 +211,18 @@
             min-width: 35px;
         }
 
-        .animon-info h3 { margin: 0; font-size: 16px; white-space: nowrap; }
+        .animon-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .animon-info h3 { 
+            margin: 0; 
+            font-size: 16px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; /* Adicionado limite com reticências */
+        }
 
         /* Coluna da Seta */
         .arrow-column {
@@ -224,7 +237,7 @@
         }
         .animon-card.active .arrow-column { transform: rotate(180deg); }
 
-        /* --- Ícones de Elementos (Estilo Trainer.html) --- */
+        /* --- Ícones de Elementos --- */
         .animon-elements { display: flex; gap: 4px; }
 
         .element-wrapper {
@@ -322,7 +335,6 @@
         @media (max-width: 768px) {
             .header-top { justify-content: flex-end; }
             .logo { width: 150px; }
-            .animon-list { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -377,24 +389,24 @@
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedElement = "";
 let selectedSort = "id"; 
-let sortOrder = "asc"; // Nova variável para controle de ordem
+let sortOrder = "asc"; 
+let activeAnimonId = null; // Para manter o modal aberto na troca de língua
 
 const uiText = {
     pt: {
-        title: "Anidex Animons", search: "Pesquisar por nome...",
+        title: "Anidex Animons", search: "Pesquisar nome ou ID...",
         allElements: "Todos os Elementos", sortLabel: "Ordenar por...",
         total: "TOTAL", lv: "Nível", btn: "🇧🇷 PT", details: "Sobre o Animon",
         asc: "Crescente", desc: "Decrescente"
     },
     en: {
-        title: "Anidex Animons", search: "Search by name...",
+        title: "Anidex Animons", search: "Search name or ID...",
         allElements: "All Elements", sortLabel: "Sort by...",
         total: "TOTAL", lv: "Level", btn: "🇺🇸 EN", details: "About Animon",
         asc: "Ascending", desc: "Descending"
     }
 };
 
-// Lista de elementos atualizada conforme pedido
 const elementKeys = [
     "neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", 
     "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"
@@ -414,17 +426,17 @@ function render() {
 
     const filtered = animons
         .filter(ani => {
+            // Busca por nome ou por ID
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
+            const idMatch = ani.id.toString().includes(searchVal);
             
-            // Lógica para detectar se o tipo é array ou string no filtro
             const types = Array.isArray(ani.type) ? ani.type.map(t => t.toLowerCase()) : [ani.type.toLowerCase()];
             const elementMatch = !selectedElement || types.includes(selectedElement.toLowerCase());
             
-            return nameMatch && elementMatch;
+            return (nameMatch || idMatch) && elementMatch;
         })
         .sort((a, b) => {
             let valA, valB;
-
             if (selectedSort === "id") {
                 valA = parseInt(a.id);
                 valB = parseInt(b.id);
@@ -435,7 +447,6 @@ function render() {
                 valA = a.stats[selectedSort];
                 valB = b.stats[selectedSort];
             }
-
             return sortOrder === "asc" ? valA - valB : valB - valA;
         });
 
@@ -443,7 +454,6 @@ function render() {
         const stats = ani.stats;
         const total = Object.values(stats).reduce((a, b) => a + b, 0);
         
-        // Trata múltiplos elementos
         const typesArray = Array.isArray(ani.type) ? ani.type : [ani.type];
         const elementsHtml = typesArray.map(t => {
             const lowT = t.toLowerCase();
@@ -458,6 +468,9 @@ function render() {
 
         const card = document.createElement("div");
         card.className = `animon-card`;
+        
+        // Verifica se este Animon deve estar aberto
+        if (activeAnimonId === ani.id) card.classList.add("active");
 
         card.innerHTML = `
             <div class="card-header">
@@ -498,7 +511,12 @@ function render() {
         card.querySelector(".card-header").onclick = () => {
             const isActive = card.classList.contains("active");
             document.querySelectorAll(".animon-card").forEach(c => c.classList.remove("active"));
-            if (!isActive) card.classList.add("active");
+            if (!isActive) {
+                card.classList.add("active");
+                activeAnimonId = ani.id;
+            } else {
+                activeAnimonId = null;
+            }
         };
 
         listEl.appendChild(card);
@@ -537,8 +555,6 @@ function buildElementMenu() {
 
 function buildStatusMenu() {
     const list = document.getElementById("statusList");
-    
-    // CORREÇÃO DO BUG: Adicionado onclick para a opção de ID
     const liId = document.createElement("li");
     liId.textContent = "ID (Padrão)";
     liId.onclick = () => selectSort("id");
@@ -562,10 +578,12 @@ function updateFilterButtonsDisplay() {
     const sBtn = document.getElementById("statusBtn");
 
     if (selectedElement) {
+        // Agora mostra capitalizado (Ex: Fire)
+        const capitalized = selectedElement.charAt(0).toUpperCase() + selectedElement.slice(1);
         eBtn.innerHTML = `
             <div style="display:flex; align-items:center; gap:8px;">
                 <img src="assets/${selectedElement}_element.png" style="width:22px; height:22px; object-fit:contain;">
-                ${selectedElement.toUpperCase()}
+                ${capitalized}
             </div>
             <span style="font-size:10px;">▼</span>
         `;
