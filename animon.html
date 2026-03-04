@@ -323,7 +323,6 @@ window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get('id');
 
-    // Assumindo que o animons.js expõe uma array chamada 'animons'
     if (idParam && typeof animons !== 'undefined') {
         currentAnimon = animons.find(a => a.id == idParam || a.name.toLowerCase() === idParam.toLowerCase());
     }
@@ -333,10 +332,9 @@ window.onload = () => {
         return;
     }
 
-    // Carrega o sprite (Adapte a extensão/pasta conforme o seu padrão)
+    // Carrega o sprite direto do banco conforme exemplo
     const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
     document.getElementById('animonSprite').src = spriteSrc;
-    // Fallback de imagem
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
 
     updateLang();
@@ -350,7 +348,6 @@ function updateLang() {
 
     const ui = uiText[lang];
     
-    // Header e Botões
     document.getElementById('pageTitle').textContent = currentAnimon.name;
     document.getElementById('langBtn').textContent = ui.btn;
     document.getElementById('btnInfo').textContent = ui.btnInfo;
@@ -361,7 +358,6 @@ function updateLang() {
     document.getElementById('lblResist').textContent = ui.lblResist;
     document.getElementById('locText').textContent = ui.notAvail;
 
-    // Descrição
     const descText = currentAnimon.desc && currentAnimon.desc[lang] ? currentAnimon.desc[lang] : ui.noDesc;
     document.getElementById('animonDesc').innerHTML = `<i>"${descText}"</i>`;
 
@@ -371,12 +367,12 @@ function updateLang() {
 }
 
 /**
- * RENDERIZAR ESTRUTURAS (Stats, Moves, Types)
+ * RENDERIZAR ESTRUTURAS
  */
 function renderStats() {
-    // Exemplo de estrutura esperada: currentAnimon.stats = { hp: 50, atk: 60, def: 40, spatk: 60, spdef: 40, spd: 70 }
-    const st = currentAnimon.stats || { hp:0, atk:0, def:0, spatk:0, spdef:0, spd:0 };
-    const total = st.hp + st.atk + st.def + st.spatk + st.spdef + st.spd;
+    // Ajustado para spAtk e spDef conforme o banco de dados animons.js
+    const st = currentAnimon.stats || { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
+    const total = st.hp + st.atk + st.def + (st.spAtk || 0) + (st.spDef || 0) + st.spd;
     
     document.getElementById('statsTotal').textContent = uiText[lang].totalStr + total;
 
@@ -395,7 +391,7 @@ function renderStats() {
             labels: ['HP', 'ATK', 'DEF', 'SP.ATK', 'SP.DEF', 'SPEED'],
             datasets: [{
                 label: 'Stats',
-                data: [st.hp, st.atk, st.def, st.spatk, st.spdef, st.spd],
+                data: [st.hp, st.atk, st.def, st.spAtk, st.spDef, st.spd],
                 backgroundColor: chartFill,
                 borderColor: chartLine,
                 pointBackgroundColor: chartLine,
@@ -409,7 +405,7 @@ function renderStats() {
                     angleLines: { color: textColor, opacity: 0.2 },
                     grid: { color: textColor, opacity: 0.2 },
                     pointLabels: { color: textColor, font: { size: 12, weight: 'bold' } },
-                    ticks: { display: false, min: 0, max: 200 } // Ajuste o max conforme a régua do seu jogo
+                    ticks: { display: false, min: 0, max: 200 }
                 }
             },
             plugins: { legend: { display: false } }
@@ -422,18 +418,16 @@ function renderMoves() {
     const ui = uiText[lang];
     container.innerHTML = "";
 
-    // Assumindo estrutura: currentAnimon.movepool = [{ level: 1, moveId: "tackle" }, ...]
-    const movepool = currentAnimon.movepool || [];
+    // Ajustado para ler de movesList conforme o banco de dados animons.js
+    const movesList = currentAnimon.movesList || [];
 
-    if (movepool.length === 0 || typeof movesData === 'undefined') {
+    if (movesList.length === 0) {
         container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`;
         return;
     }
 
-    // Ordenar por Level Crescente
-    const sortedMoves = [...movepool].sort((a, b) => a.level - b.level);
+    const sortedMoves = [...movesList].sort((a, b) => a.level - b.level);
 
-    // Cabeçalho da Tabela
     const header = document.createElement('div');
     header.className = 'move-item move-header';
     header.innerHTML = `
@@ -444,20 +438,18 @@ function renderMoves() {
     `;
     container.appendChild(header);
 
-    // Linhas
     sortedMoves.forEach(m => {
-        // Busca o move no banco geral (movesData assumido de moves.js)
-        const moveInfo = movesData.find(md => md.id === m.moveId);
-        if (!moveInfo) return;
-
-        const moveName = moveInfo.name && moveInfo.name[lang] ? moveInfo.name[lang] : moveInfo.id;
+        // Busca info adicional no movesData (de database/moves.js) baseado no nome do move
+        let moveInfo = (typeof movesData !== 'undefined') ? movesData.find(md => md.name.pt === m.name || md.name.en === m.name) : null;
+        
+        const moveDisplayName = (moveInfo && moveInfo.name[lang]) ? moveInfo.name[lang] : m.name;
         const row = document.createElement('div');
         row.className = 'move-item';
         row.innerHTML = `
             <span>${m.level}</span>
-            <span class="move-name">${moveName}</span>
-            <span class="move-type">${moveInfo.type || '-'}</span>
-            <span class="move-cat">${moveInfo.category || '-'}</span>
+            <span class="move-name">${moveDisplayName}</span>
+            <span class="move-type">${(moveInfo && moveInfo.type) ? moveInfo.type : '-'}</span>
+            <span class="move-cat">${(moveInfo && moveInfo.category) ? moveInfo.category : '-'}</span>
         `;
         container.appendChild(row);
     });
@@ -471,8 +463,10 @@ function renderTypeChart() {
     weakContainer.innerHTML = "";
     resContainer.innerHTML = "";
 
-    // Assumindo currentAnimon.types = ["Fire", "Fighting"] e objeto global typechartData exportado em typechart.js
-    const types = currentAnimon.types || [];
+    // Ajustado para lidar com campo "type" (string) ou "types" (array)
+    let types = [];
+    if (currentAnimon.type) types.push(currentAnimon.type);
+    if (currentAnimon.types) types = currentAnimon.types;
 
     if (types.length === 0 || typeof typechartData === 'undefined') {
         weakContainer.innerHTML = `<p>${ui.notDef}</p>`;
@@ -480,12 +474,9 @@ function renderTypeChart() {
         return;
     }
 
-    // Lógica Genérica de Cálculo (Adapte se a estrutura do seu typechart.js for invertida)
-    // Assume-se: typechartData[Defensor][Atacante] = Multiplicador (ex: 2.0, 0.5, 0)
     let multipliers = {};
     const allTypes = Object.keys(typechartData);
-    
-    allTypes.forEach(t => multipliers[t] = 1); // Inicia tudo neutro (1x)
+    allTypes.forEach(t => multipliers[t] = 1);
 
     types.forEach(defType => {
         if(typechartData[defType]) {
@@ -499,9 +490,8 @@ function renderTypeChart() {
 
     let hasWeak = false, hasResist = false;
 
-    // Distribuir nos containers
     Object.entries(multipliers).forEach(([type, mult]) => {
-        if (mult === 1) return; // Dano Neutro
+        if (mult === 1) return;
 
         const badge = document.createElement('div');
         badge.className = 'type-badge';
@@ -520,25 +510,15 @@ function renderTypeChart() {
     if (!hasResist) resContainer.innerHTML = `<p>-</p>`;
 }
 
-/**
- * NAVEGAÇÃO ENTRE ABAS
- */
 function switchTab(tabId) {
-    // Remove classe active de todos os botões e conteúdos
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-    // Adiciona active no alvo
     document.getElementById(tabId).classList.add('active');
     
-    // Atualiza botão clicado
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
 }
 
-/**
- * BOTÃO DE IDIOMA
- */
 document.getElementById('langBtn').onclick = () => {
     lang = lang === "pt" ? "en" : "pt";
     localStorage.setItem("siteLang", lang);
