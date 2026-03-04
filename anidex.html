@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Anime - Anidex</title>
+
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js" defer></script>
+
+    <style>
+        /* --- Variáveis e Temas (Mantendo o padrão do items.html) --- */
+        :root {
+            --bg: #f2f4f7;
+            --card: #ffffff;
+            --text: #111;
+            --border: #ccc;
+            --hover: #f1f1f1;
+            --lang-btn: #ffffff;
+            --lang-btn-bg: #444;
+            --accent-blue: #007bff;
+
+            /* Cores dos Elementos */
+            --color-fire: #ff4422; --color-water: #3399ff; --color-grass: #77cc55;
+            --color-electric: #ffcc33; --color-ice: #66ccff; --color-fighting: #bb5544;
+            --color-poison: #aa5599; --color-ground: #ddbb55; --color-flying: #8899ff;
+            --color-psychic: #ff5599; --color-bug: #aabb22; --color-rock: #bbaa66;
+            --color-ghost: #6666bb; --color-dragon: #7766ee; --color-dark: #775544;
+            --color-steel: #aaaabb; --color-fairy: #ee99ee; --color-neutral: #aaaa99;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f1217;
+                --card: #181c24;
+                --text: #ffffff;
+                --border: #2a2f3a;
+                --hover: #232836;
+                --lang-btn: #111;
+                --lang-btn-bg: #ffffff;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* --- Header --- */
+        .header { position: relative; text-align: center; margin-bottom: 30px; }
+        .logo { width: 220px; max-width: 60vw; }
+        .page-title { margin-top: 15px; font-size: 24px; }
+
+        /* --- Filtros --- */
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .filters input, .select-btn {
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            outline: none;
+        }
+
+        /* --- Selects Customizados --- */
+        .custom-select { position: relative; width: 100%; max-width: 260px; }
+        .select-btn {
+            width: 100%; display: flex; align-items: center; justify-content: flex-start;
+            gap: 8px; cursor: pointer; box-sizing: border-box; border: 2px solid var(--border);
+        }
+        .select-list {
+            display: none; position: absolute; top: 105%; left: 0; width: 100%;
+            background: var(--card); border-radius: 12px; list-style: none;
+            padding: 6px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-sizing: border-box; max-height: 300px; overflow-y: auto;
+        }
+        .select-list li {
+            padding: 10px 12px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; font-weight: bold;
+            border-left: 4px solid transparent;
+        }
+        .select-list li:hover { background: var(--hover); }
+
+        /* --- Lista de Animons --- */
+        .animon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .animon-card {
+            background: var(--card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .animon-card:hover { transform: translateY(-3px); }
+
+        .card-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .animon-sprite { width: 64px; height: 64px; object-fit: contain; }
+        .animon-info h3 { margin: 0; font-size: 18px; }
+        
+        /* Badges de Elementos */
+        .element-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #fff;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        /* --- Container Expandido --- */
+        .details-container {
+            display: none;
+            padding: 15px;
+            background: rgba(0,0,0,0.03);
+            border-top: 1px solid var(--border);
+            position: relative;
+        }
+        .animon-card.active .details-container { display: flex; gap: 15px; }
+
+        .stats-grid { flex: 1; }
+        .stat-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 3px; }
+        .stat-row.total { font-weight: bold; border-top: 1px solid var(--border); margin-top: 5px; padding-top: 5px; }
+
+        .moves-list { flex: 1; font-size: 12px; }
+        .moves-list h4 { margin: 0 0 5px 0; font-size: 13px; }
+        .move-item { display: flex; justify-content: space-between; color: #777; }
+
+        /* Botão de Link */
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-blue);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-decoration: none;
+            align-self: center;
+            transition: background 0.2s;
+        }
+        .link-btn:hover { background: #0056b3; }
+
+        /* --- Toggle Linguagem --- */
+        .lang-toggle {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%); z-index: 10;
+        }
+        .lang-toggle button {
+            background: var(--lang-btn-bg); color: var(--lang-btn);
+            padding: 10px 20px; border-radius: 30px; border: none;
+            cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Cores Dinâmicas para a borda do card baseada no elemento */
+        .border-fire { border-color: var(--color-fire); }
+        .border-water { border-color: var(--color-water); }
+        .border-grass { border-color: var(--color-grass); }
+        /* Adicionar para todos os elementos conforme necessário... */
+
+        @media (max-width: 600px) {
+            .details-container { flex-direction: column; }
+            .link-btn { align-self: flex-end; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
+    <h1 id="title" class="page-title"></h1>
+</header>
+
+<main>
+    <div class="filters">
+        <input id="searchInput" type="text">
+
+        <div class="custom-select" id="elementSelect">
+            <div class="select-btn" id="elementBtn"></div>
+            <ul class="select-list" id="elementList"></ul>
+        </div>
+
+        <div class="custom-select" id="statusSelect">
+            <div class="select-btn" id="statusBtn"></div>
+            <ul class="select-list" id="statusList"></ul>
+        </div>
+    </div>
+
+    <div class="animon-list" id="animonList"></div>
+</main>
+
+<div class="lang-toggle">
+    <button id="langBtn"></button>
+</div>
+
+<script src="database/animons.js"></script>
+
+<script>
+/**
+ * CONFIGURAÇÕES E ESTADO
+ */
+let lang = localStorage.getItem("siteLang") || "pt";
+let selectedElement = "";
+let selectedSort = "id"; // Padrão: ID
+
+const uiText = {
+    pt: {
+        title: "Anidex Animons", search: "Pesquisar por nome...",
+        allElements: "Todos os Elementos", sortLabel: "Ordenar por...",
+        total: "TOTAL", lv: "Nível", btn: "🇧🇷 PT"
+    },
+    en: {
+        title: "Anidex Animons", search: "Search by name...",
+        allElements: "All Elements", sortLabel: "Sort by...",
+        total: "TOTAL", lv: "Level", btn: "🇺🇸 EN"
+    }
+};
+
+const elementKeys = [
+    "fire", "water", "grass", "electric", "ice", "fighting", "poison", 
+    "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", 
+    "steel", "dark", "fairy", "neutral"
+];
+
+const statsKeys = ["hp", "atk", "def", "spatk", "spdef", "spd", "total"];
+
+const statLabels = {
+    pt: { hp: "HP", atk: "ATK", def: "DEF", spatk: "SP.ATK", spdef: "SP.DEF", spd: "SPD", total: "TOTAL" },
+    en: { hp: "HP", atk: "ATK", def: "DEF", spatk: "SP.ATK", spdef: "SP.DEF", spd: "SPD", total: "TOTAL" }
+};
+
+/**
+ * CORE FUNCTIONS
+ */
+
+function render() {
+    const searchVal = searchInput.value.toLowerCase();
+    const listEl = document.getElementById("animonList");
+    listEl.innerHTML = "";
+
+    const filtered = animons
+        .filter(ani => {
+            const nameMatch = ani[lang].name.toLowerCase().includes(searchVal);
+            const elementMatch = !selectedElement || ani.element === selectedElement;
+            return nameMatch && elementMatch;
+        })
+        .sort((a, b) => {
+            if (selectedSort === "id") return a.id - b.id;
+            if (selectedSort === "total") {
+                const totalA = Object.values(a.stats).reduce((x, y) => x + y, 0);
+                const totalB = Object.values(b.stats).reduce((x, y) => x + y, 0);
+                return totalB - totalA;
+            }
+            return b.stats[selectedSort] - a.stats[selectedSort];
+        });
+
+    filtered.forEach(ani => {
+        const data = ani[lang];
+        const stats = ani.stats;
+        const total = Object.values(stats).reduce((a, b) => a + b, 0);
+        
+        const card = document.createElement("div");
+        card.className = `animon-card border-${ani.element}`;
+        
+        card.innerHTML = `
+            <div class="card-header">
+                <img src="assets/sprites/${ani.id}.png" class="animon-sprite" onerror="this.src='assets/sem_icone.png'">
+                <div class="animon-info">
+                    <h3>#${String(ani.id).padStart(3, '0')} ${data.name}</h3>
+                    <span class="element-badge" style="background-color: var(--color-${ani.element})">
+                        ${ani.element.toUpperCase()}
+                    </span>
+                </div>
+            </div>
+            <div class="details-container">
+                <div class="stats-grid">
+                    ${statsKeys.filter(k => k !== 'total').map(k => `
+                        <div class="stat-row"><span>${statLabels[lang][k]}</span> <span>${stats[k]}</span></div>
+                    `).join('')}
+                    <div class="stat-row total"><span>${uiText[lang].total}</span> <span>${total}</span></div>
+                </div>
+                <div class="moves-list">
+                    <h4>Moves</h4>
+                    ${ani.moves.slice(0, 4).map(m => `
+                        <div class="move-item"><span>${m.name}</span> <span>Lvl ${m.level}</span></div>
+                    `).join('')}
+                </div>
+                <a href="pagina-animon.html?id=${ani.id}" class="link-btn">➔</a>
+            </div>
+        `;
+
+        card.onclick = () => {
+            const isActive = card.classList.contains("active");
+            document.querySelectorAll(".animon-card").forEach(c => c.classList.remove("active"));
+            if (!isActive) card.classList.add("active");
+        };
+
+        listEl.appendChild(card);
+    });
+}
+
+/**
+ * UI BUILDERS (Igual ao items.html)
+ */
+
+function updateLang() {
+    const ui = uiText[lang];
+    document.getElementById("title").textContent = ui.title;
+    document.getElementById("searchInput").placeholder = ui.search;
+    document.getElementById("langBtn").textContent = ui.btn;
+
+    buildElementMenu();
+    buildStatusMenu();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+function buildElementMenu() {
+    const list = document.getElementById("elementList");
+    list.innerHTML = `<li data-value="">${uiText[lang].allElements}</li>`;
+    elementKeys.forEach(key => {
+        const li = document.createElement("li");
+        li.dataset.value = key;
+        li.innerHTML = `<span style="width:12px; height:12px; background:var(--color-${key}); border-radius:50%"></span> ${key.toUpperCase()}`;
+        li.onclick = () => selectElement(key);
+        list.appendChild(li);
+    });
+    list.firstChild.onclick = () => selectElement("");
+}
+
+function buildStatusMenu() {
+    const list = document.getElementById("statusList");
+    list.innerHTML = `<li data-value="id">ID (Padrão)</li>`;
+    statsKeys.forEach(k => {
+        const li = document.createElement("li");
+        li.textContent = statLabels[lang][k];
+        li.onclick = () => selectSort(k);
+        list.appendChild(li);
+    });
+}
+
+function updateFilterButtonsDisplay() {
+    const eBtn = document.getElementById("elementBtn");
+    const sBtn = document.getElementById("statusBtn");
+
+    eBtn.textContent = selectedElement ? selectedElement.toUpperCase() : uiText[lang].allElements;
+    sBtn.textContent = selectedSort === "id" ? uiText[lang].sortLabel : statLabels[lang][selectedSort];
+}
+
+function selectElement(val) {
+    selectedElement = val;
+    closeAllSelects();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+function selectSort(val) {
+    selectedSort = val;
+    closeAllSelects();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+/**
+ * EVENTOS
+ */
+
+function closeAllSelects() {
+    document.getElementById("elementList").style.display = "none";
+    document.getElementById("statusList").style.display = "none";
+}
+
+document.getElementById("langBtn").onclick = () => {
+    lang = lang === "pt" ? "en" : "pt";
+    localStorage.setItem("siteLang", lang);
+    updateLang();
+};
+
+document.getElementById("elementBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("elementList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.getElementById("statusBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("statusList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.addEventListener("click", (e) => {
+    if (!e.target.closest('.custom-select')) closeAllSelects();
+});
+
+document.getElementById("searchInput").addEventListener("input", render);
+
+// Inicialização
+updateLang();
+</script>
+
+</body>
+</html>
