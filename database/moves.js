@@ -1,4 +1,43 @@
 const moves = {
+  "False Courage": {
+    name: "False Courage",
+    desc_pt: "Reúna sua determinação para não ser afetado por [007]dormência[000], [008]paralisia[000] ou recuar por 3 turnos.",
+    desc_en: "Gather your resolve to not be affected by [007]sleep[000], [008]paralyze[000], or flinch for 3 turns.",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+  },
+  "Shark Tile Fist": {
+    name: "Shark Tile Fist",
+    type: "water",
+    attack: "physical",
+    accuracy: 100,
+  },
+  "Brick Fist": {
+    name: "Brick Fist",
+    desc_pt: "Um soco pesado e reto que ignora qualquer aumento no atributo DEF do alvo.",
+    desc_en: "A heavy straight fist that ignores any increases to a target DEF stat.",
+    type: "fighting",
+    attack: "physical",
+    power: 60,
+    accuracy: 100,
+  },
+  "Shark Throw": {
+    name: "Shark Throw",
+    type: "water",
+    attack: "special",
+    accuracy: 100,
+  },
+  "Water Spear": {
+    name: "Water Spear",
+    desc_pt: "Flechas de água capazes de perfurar múltiplos inimigos, com uma chance de acerto crítico 4 vezes maior.",
+    desc_en: "Arrows of water that can pierce multiple enemies, having a increased 4X critical chance.",
+    type: "water",
+    attack: "special",
+    power: 50,
+    accuracy: 100,
+  },
   "Sharp Claw": {
     name: "Sharp Claw",
     desc_pt: "Arranhe seu oponente com garras afiadas.",
