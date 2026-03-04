@@ -51,10 +51,10 @@
             padding-bottom: 80px; /* Espaço pro botão de idioma */
         }
 
-        /* AJUSTE CABEÇALHO: Logo à direita */
+        /* AJUSTE CABEÇALHO: Padrão centralizado no PC */
         .header { 
             display: flex; 
-            justify-content: flex-end; 
+            justify-content: center; 
             max-width: 1200px; 
             margin: 0 auto 30px; 
         }
@@ -194,7 +194,6 @@
         .move-item span { text-align: center; }
         .move-item .move-name { text-align: left; }
 
-        /* Estilo dos ícones dos moves */
         .move-icon {
             width: 32px;
             height: 32px;
@@ -203,7 +202,7 @@
             pointer-events: none;
         }
 
-        /* ESTILO BALÃO (IGUAL TEAM-BUILDER) */
+        /* ESTILO BALÃO */
         .move-balloon { 
             position: absolute; 
             bottom: 110%; 
@@ -225,22 +224,27 @@
         @keyframes fadeInBalloon { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
         /* --- Fraquezas e Resistências --- */
+        .type-section { margin-bottom: 20px; }
+        .type-section-title { font-size: 14px; font-weight: bold; margin-bottom: 8px; opacity: 0.8; }
         .type-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-            margin-bottom: 25px;
+            gap: 8px;
         }
         .type-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: bold;
             background: var(--bg);
             border: 1px solid var(--border);
+            min-width: 100px;
         }
-        .dmg-multiplier { margin-left: 5px; opacity: 0.8; }
+        .type-badge img { width: 20px; height: 20px; object-fit: contain; }
+        .dmg-multiplier { margin-left: auto; font-size: 11px; color: var(--primary); }
         .sec-title { border-bottom: 2px solid var(--border); padding-bottom: 5px; margin-bottom: 15px; }
 
         /* --- Toggle Linguagem --- */
@@ -264,7 +268,9 @@
 
         /* --- Responsividade --- */
         @media (max-width: 768px) {
-            .header { justify-content: center; }
+            /* Mobile: Logo à direita igual team-builder */
+            .header { justify-content: flex-end; } 
+            
             .top-section { 
                 flex-direction: row; 
                 align-items: center; 
@@ -325,11 +331,7 @@
     </div>
 
     <div id="tab-weak" class="tab-content">
-        <h3 class="sec-title" id="lblWeak"></h3>
-        <div class="type-grid" id="weaknessContainer"></div>
-
-        <h3 class="sec-title" id="lblResist"></h3>
-        <div class="type-grid" id="resistanceContainer"></div>
+        <div id="typeChartContent"></div>
     </div>
 
     <div id="tab-loc" class="tab-content">
@@ -356,29 +358,39 @@ let openedMoveBalloon = null;
 
 const uiText = {
     pt: {
-        btnInfo: "Informações", btnMoves: "Moves", btnWeak: "Fraquezas", btnLoc: "Localização",
+        btnInfo: "Informações", btnMoves: "Moves", btnWeak: "Tabela de Tipos", btnLoc: "Localização",
         noDesc: "Ainda não possui descrição.",
         noMoves: "Ainda não possui movimentos.",
         notDef: "Ainda não definido.",
         notAvail: "Ainda não disponível.",
-        lblWeak: "Fraquezas", lblResist: "Resistências",
         lvl: "Nvl", name: "Nome", type: "Tipo", cat: "Categoria",
-        btn: "🇧🇷 PT", totalStr: "TOTAL: ", moveEmpty: "Nenhum"
+        btn: "🇧🇷 PT", totalStr: "TOTAL: ", moveEmpty: "Nenhum",
+        weak4: "Fraqueza Extrema (x4)",
+        weak2: "Fraqueza (x2)",
+        normal: "Dano Normal (x1)",
+        res05: "Resistência (x0.5)",
+        res025: "Super Resistência (x0.25)",
+        imm0: "Imune (x0)"
     },
     en: {
-        btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
+        btnInfo: "Information", btnMoves: "Moves", btnWeak: "Type Chart", btnLoc: "Location",
         noDesc: "No description available yet.",
         noMoves: "No moves available yet.",
         notDef: "Not defined yet.",
         notAvail: "Not available yet.",
-        lblWeak: "Weaknesses", lblResist: "Resistances",
         lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
-        btn: "🇺🇸 EN", totalStr: "TOTAL: ", moveEmpty: "None"
+        btn: "🇺🇸 EN", totalStr: "TOTAL: ", moveEmpty: "None",
+        weak4: "Extreme Weakness (x4)",
+        weak2: "Weakness (x2)",
+        normal: "Normal Damage (x1)",
+        res05: "Resistance (x0.5)",
+        res025: "Super Resistance (x0.25)",
+        imm0: "Immune (x0)"
     }
 };
 
 /**
- * FUNÇÕES DE PARSE (IGUAL TEAM-BUILDER)
+ * FUNÇÕES DE PARSE
  */
 function parseColoredText(text) {
   if (!text) return "";
@@ -425,7 +437,7 @@ function getMoveInfo(moveInput) {
 }
 
 /**
- * INICIALIZAÇÃO E LEITURA DA URL
+ * INICIALIZAÇÃO
  */
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -457,8 +469,6 @@ function updateLang() {
     document.getElementById('btnMoves').textContent = ui.btnMoves;
     document.getElementById('btnWeak').textContent = ui.btnWeak;
     document.getElementById('btnLoc').textContent = ui.btnLoc;
-    document.getElementById('lblWeak').textContent = ui.lblWeak;
-    document.getElementById('lblResist').textContent = ui.lblResist;
     document.getElementById('locText').textContent = ui.notAvail;
 
     const descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
@@ -536,13 +546,13 @@ function renderMoves() {
 
     sortedMoves.forEach(m => {
         const minfo = getMoveInfo(m.name);
-        
+
         const row = document.createElement('div');
         row.className = 'move-item';
         row.dataset.power = minfo.power;
         row.dataset.acc = minfo.accuracy;
         row.dataset.desc = minfo.desc;
-        
+
         row.innerHTML = `
             <span>${m.level}</span>
             <span class="move-name">${minfo.name}</span>
@@ -559,9 +569,6 @@ function renderMoves() {
     });
 }
 
-/**
- * LÓGICA DO BALÃO (IGUAL TEAM-BUILDER)
- */
 function toggleMoveBalloon(moveDiv) {
     if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
 
@@ -592,49 +599,93 @@ function toggleMoveBalloon(moveDiv) {
 
 function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
 
+/**
+ * LÓGICA TYPE CHART ATUALIZADA
+ */
 function renderTypeChart() {
-    const weakContainer = document.getElementById('weaknessContainer');
-    const resContainer = document.getElementById('resistanceContainer');
+    const container = document.getElementById('typeChartContent');
     const ui = uiText[lang];
+    container.innerHTML = "";
 
-    weakContainer.innerHTML = "";
-    resContainer.innerHTML = "";
+    // Identifica tipos do animon atual
+    let defenderTypes = [];
+    if (currentAnimon.type) defenderTypes.push(currentAnimon.type);
+    if (currentAnimon.types) defenderTypes = currentAnimon.types;
 
-    let types = [];
-    if (currentAnimon.type) types.push(currentAnimon.type);
-    if (currentAnimon.types) types = currentAnimon.types;
-
-    if (types.length === 0 || typeof typechartData === 'undefined') {
-        weakContainer.innerHTML = `<p>${ui.notDef}</p>`;
-        resContainer.innerHTML = `<p>${ui.notDef}</p>`;
+    // Se não houver dados da chart ou tipos, aborta
+    if (defenderTypes.length === 0 || typeof chart === 'undefined') {
+        container.innerHTML = `<p>${ui.notDef}</p>`;
         return;
     }
 
-    let multipliers = {};
-    const allTypes = Object.keys(typechartData);
-    allTypes.forEach(t => multipliers[t] = 1);
+    const attackers = Object.keys(chart);
+    const multipliers = {};
 
-    types.forEach(defType => {
-        if(typechartData[defType]) {
-            allTypes.forEach(atkType => {
-                if(typechartData[defType][atkType] !== undefined) multipliers[atkType] *= typechartData[defType][atkType];
+    // Calcula multiplicador de defesa para cada tipo de ataque possível
+    attackers.forEach(atkType => {
+        let m = 1;
+        defenderTypes.forEach(defType => {
+            // Acessa chart[Atacante][Defensor]
+            if (chart[atkType] && chart[atkType][defType] !== undefined) {
+                m *= chart[atkType][defType];
+            }
+        });
+        multipliers[atkType] = m;
+    });
+
+    // Agrupa por valor
+    const groups = {
+        x4: [], x2: [], x1: [], x05: [], x025: [], x0: []
+    };
+
+    Object.entries(multipliers).forEach(([type, val]) => {
+        if (val === 4) groups.x4.push(type);
+        else if (val === 2) groups.x2.push(type);
+        else if (val === 1) groups.x1.push(type);
+        else if (val === 0.5) groups.x05.push(type);
+        else if (val === 0.25) groups.x025.push(type);
+        else if (val === 0) groups.x0.push(type);
+    });
+
+    // Ordem de exibição solicitada
+    const order = [
+        { key: 'x4', label: ui.weak4, val: '4x' },
+        { key: 'x2', label: ui.weak2, val: '2x' },
+        { key: 'x1', label: ui.normal, val: '1x' },
+        { key: 'x05', label: ui.res05, val: '0.5x' },
+        { key: 'x025', label: ui.res025, val: '0.25x' },
+        { key: 'x0', label: ui.imm0, val: '0x' }
+    ];
+
+    order.forEach(group => {
+        if (groups[group.key].length > 0) {
+            const section = document.createElement('div');
+            section.className = 'type-section';
+            
+            const title = document.createElement('div');
+            title.className = 'type-section-title';
+            title.textContent = group.label;
+            section.appendChild(title);
+
+            const grid = document.createElement('div');
+            grid.className = 'type-grid';
+
+            groups[group.key].forEach(typeName => {
+                const badge = document.createElement('div');
+                badge.className = 'type-badge';
+                const iconPath = `assets/${typeName.toLowerCase()}_element.png`;
+                badge.innerHTML = `
+                    <img src="${iconPath}" onerror="this.src='assets/neutral_element.png'">
+                    <span>${typeName}</span>
+                    <span class="dmg-multiplier">${group.val}</span>
+                `;
+                grid.appendChild(badge);
             });
+
+            section.appendChild(grid);
+            container.appendChild(section);
         }
     });
-
-    let hasWeak = false, hasResist = false;
-    Object.entries(multipliers).forEach(([type, mult]) => {
-        if (mult === 1) return;
-        const badge = document.createElement('div');
-        badge.className = 'type-badge';
-        badge.innerHTML = `${type} <span class="dmg-multiplier">x${mult}</span>`;
-
-        if (mult > 1) { weakContainer.appendChild(badge); hasWeak = true; }
-        else if (mult < 1) { resContainer.appendChild(badge); hasResist = true; }
-    });
-
-    if (!hasWeak) weakContainer.innerHTML = `<p>-</p>`;
-    if (!hasResist) resContainer.innerHTML = `<p>-</p>`;
 }
 
 function switchTab(tabId) {
