@@ -554,7 +554,7 @@ function renderMoves() {
         row.dataset.desc = minfo.desc;
 
         row.innerHTML = `
-            <span>${m.level}</span>
+            <span style="color: #bbb;">lvl ${m.level}</span>
             <span class="move-name">${minfo.name}</span>
             <img src="assets/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/neutral_element.png'">
             <img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">
@@ -609,8 +609,11 @@ function renderTypeChart() {
 
     // Identifica tipos do animon atual
     let defenderTypes = [];
-    if (currentAnimon.type) defenderTypes.push(currentAnimon.type);
-    if (currentAnimon.types) defenderTypes = currentAnimon.types;
+    if (currentAnimon.types && Array.isArray(currentAnimon.types)) {
+        defenderTypes = currentAnimon.types;
+    } else if (currentAnimon.type) {
+        defenderTypes = [currentAnimon.type];
+    }
 
     // Se não houver dados da chart ou tipos, aborta
     if (defenderTypes.length === 0 || typeof chart === 'undefined') {
@@ -621,11 +624,10 @@ function renderTypeChart() {
     const attackers = Object.keys(chart);
     const multipliers = {};
 
-    // Calcula multiplicador de defesa para cada tipo de ataque possível
+    // Calcula multiplicador de defesa para cada tipo de ataque possível (Suporta 2 elementos)
     attackers.forEach(atkType => {
         let m = 1;
         defenderTypes.forEach(defType => {
-            // Acessa chart[Atacante][Defensor]
             if (chart[atkType] && chart[atkType][defType] !== undefined) {
                 m *= chart[atkType][defType];
             }
