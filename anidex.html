@@ -19,7 +19,7 @@
             --lang-btn: #ffffff;
             --lang-btn-bg: #444;
             --accent-blue: #007bff;
-            
+
             /* Cores dos Elementos (Baseadas no trainer.html) */
             --element-neutral: #e6e5e3;
             --element-fighting: #e5901b;
@@ -251,7 +251,7 @@
         .element-inner {
             position: relative;
             width: 22px; height: 22px;
-            border-radius: 5px;
+            border-radius: 50%;
             border: 1.5px solid var(--el-color);
             display: flex; align-items: center; justify-content: center;
         }
@@ -430,10 +430,14 @@ function render() {
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
             const idMatch = ani.id.toString().includes(searchVal);
             
+            // Nova lógica para pesquisar no objeto anime (nome do personagem e nome do anime)
+            const animeCharMatch = ani.anime && ani.anime.name.toLowerCase().includes(searchVal);
+            const animeNameMatch = ani.anime && ani.anime.anime.toLowerCase().includes(searchVal);
+
             const types = Array.isArray(ani.type) ? ani.type.map(t => t.toLowerCase()) : [ani.type.toLowerCase()];
             const elementMatch = !selectedElement || types.includes(selectedElement.toLowerCase());
-            
-            return (nameMatch || idMatch) && elementMatch;
+
+            return (nameMatch || idMatch || animeCharMatch || animeNameMatch) && elementMatch;
         })
         .sort((a, b) => {
             let valA, valB;
@@ -453,7 +457,7 @@ function render() {
     filtered.forEach(ani => {
         const stats = ani.stats;
         const total = Object.values(stats).reduce((a, b) => a + b, 0);
-        
+
         const typesArray = Array.isArray(ani.type) ? ani.type : [ani.type];
         const elementsHtml = typesArray.map(t => {
             const lowT = t.toLowerCase();
@@ -468,7 +472,7 @@ function render() {
 
         const card = document.createElement("div");
         card.className = `animon-card`;
-        
+
         if (activeAnimonId === ani.id) card.classList.add("active");
 
         card.innerHTML = `
@@ -588,7 +592,7 @@ function updateFilterButtonsDisplay() {
     } else {
         eBtn.innerHTML = `<span>${uiText[lang].allElements}</span> <span style="font-size:10px;">▼</span>`;
     }
-    
+
     const sortDisplayText = selectedSort === "id" ? statLabels[lang].id : (statLabels[lang][selectedSort] || "TOTAL");
     sBtn.innerHTML = `<span>${selectedSort === "id" ? uiText[lang].sortLabel : sortDisplayText}</span> <span style="font-size:10px;">▼</span>`;
 }
