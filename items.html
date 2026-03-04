@@ -95,6 +95,7 @@
             gap: 8px;
             cursor: pointer;
             box-sizing: border-box;
+            border: 2px solid var(--border); /* Borda base levemente mais grossa */
         }
         .select-list {
             display: none;
@@ -118,6 +119,9 @@
             align-items: center;
             gap: 8px;
             font-weight: bold;
+            margin-bottom: 2px;
+            border: 1px solid transparent;
+            border-left: 4px solid transparent; /* Espaço para a borda de raridade */
         }
         .select-list li:hover { background: var(--hover); }
 
@@ -144,18 +148,17 @@
         }
         .item img { width: 48px; height: 48px; object-fit: contain; }
 
-        /* --- Classes de Raridade --- */
-        .comum { border-color: var(--color-comum); }
-        .incomum { border-color: var(--color-incomum); }
-        .raro { border-color: var(--color-raro); }
-        .epico { border-color: var(--color-epico); }
-        .lendario { border-color: var(--color-lendario); }
+        /* --- Classes de Raridade (Bordas Aplicadas em Itens e Menus) --- */
+        .comum, .r-comum { border-color: var(--color-comum) !important; }
+        .incomum, .r-incomum { border-color: var(--color-incomum) !important; }
+        .raro, .r-raro { border-color: var(--color-raro) !important; }
+        .epico, .r-epico { border-color: var(--color-epico) !important; }
+        .lendario, .r-lendario { border-color: var(--color-lendario) !important; }
 
-        .r-comum { background: #616161 !important; color: white; }
-        .r-incomum { background: var(--color-incomum) !important; color: white; }
-        .r-raro { background: var(--color-raro) !important; color: white; }
-        .r-epico { background: var(--color-epico) !important; color: white; }
-        .r-lendario { background: var(--color-lendario) !important; color: white; }
+        /* Estilo específico para destacar a borda esquerda nos itens do menu flutuante */
+        .select-list li[class^="r-"], .select-list li[class*=" r-"] {
+            border-left-width: 6px !important;
+        }
 
         /* --- Modal --- */
         .modal-bg {
@@ -412,7 +415,6 @@ function buildCategoryMenu() {
         li.onclick = () => selectCategory(key);
         list.appendChild(li);
     });
-    // Adicionar clique no "Todos"
     list.firstChild.onclick = () => selectCategory("");
 }
 
@@ -434,14 +436,12 @@ function updateFilterButtonsDisplay() {
     const cBtn = document.getElementById("categoryBtn");
     const rBtn = document.getElementById("rarityBtn");
 
-    // Update Category Button
     if (selectedCategory) {
         cBtn.innerHTML = `<img src="${categoryIcons[selectedCategory]}" class="category-icon"> ${categoryLabels[lang][selectedCategory]}`;
     } else {
         cBtn.textContent = uiText[lang].allCat;
     }
 
-    // Update Rarity Button
     rBtn.textContent = selectedRarity ? rarityLabels[lang][selectedRarity] : uiText[lang].allRare;
     rBtn.className = "select-btn" + (selectedRarity ? ` r-${selectedRarity}` : "");
 }
@@ -469,19 +469,15 @@ function closeAllSelects() {
     document.getElementById("rarityList").style.display = "none";
 }
 
-// Alternar Linguagem
 document.getElementById("langBtn").onclick = () => {
     const scrollPos = window.scrollY;
     lang = lang === "pt" ? "en" : "pt";
     localStorage.setItem("siteLang", lang);
-    
     if (typeof updateMenuLang === "function") updateMenuLang();
-    
     updateLang();
     window.scrollTo(0, scrollPos);
 };
 
-// Controles de Dropdown
 document.getElementById("categoryBtn").onclick = (e) => {
     e.stopPropagation();
     const list = document.getElementById("categoryList");
@@ -498,22 +494,16 @@ document.getElementById("rarityBtn").onclick = (e) => {
     list.style.display = isVisible ? "none" : "block";
 };
 
-// Fechar ao clicar fora
 document.addEventListener("click", (e) => {
     if (!e.target.closest('.custom-select')) closeAllSelects();
 });
 
-// Fechar Modal
 document.getElementById("modalBg").onclick = closeModal;
 document.getElementById("modal").onclick = (e) => e.stopPropagation();
-
-// Input de busca
 document.getElementById("searchInput").addEventListener("input", render);
 
-// Inicialização
 updateLang();
 if (typeof updateMenuLang === "function") updateMenuLang();
-
 </script>
 
 </body>
