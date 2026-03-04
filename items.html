@@ -1,668 +1,518 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Anime - Items</title>
+    
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js" defer></script>
 
-<link rel="stylesheet" href="menu.css">
-<script src="menu.js" defer></script>
+    <style>
+        /* --- Variáveis e Temas --- */
+        :root {
+            --bg: #f2f4f7;
+            --card: #ffffff;
+            --text: #111;
+            --border: #ccc;
+            --hover: #f1f1f1;
+            --lang-btn: #ffffff;
+            --lang-btn-bg: #444;
 
-<title>Pocket Anime - Items</title>
+            /* Cores de Raridade */
+            --color-comum: #9e9e9e;
+            --color-incomum: #2e7d32;
+            --color-raro: #0d47a1;
+            --color-epico: #6a1b9a;
+            --color-lendario: #f9a825;
+            --color-default: #2b2b2b;
+        }
 
-<style>
-body{
-  font-family:Arial,sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  padding:20px;
-  margin:0;
-}
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f1217;
+                --card: #181c24;
+                --text: #ffffff;
+                --border: #2a2f3a;
+                --hover: #232836;
+                --lang-btn: #111;
+                --lang-btn-bg: #ffffff;
+            }
+        }
 
-/* Modo claro */
-:root{
-  --bg: #f2f4f7;
-  --card: #ffffff;
-  --text: #111;
-  --border: #ccc;
-  --hover: #f1f1f1;
+        /* --- Geral --- */
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            margin: 0;
+            line-height: 1.5;
+        }
 
-  --lang-btn: #ffffff;
-  --lang-btn-bg: #444;
-}
+        .category-icon { width: 18px; height: 18px; }
 
-/* Modo escuro */
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg: #0f1217;
-    --card: #181c24;
-    --text: #ffffff;
-    --border: #2a2f3a;
-    --hover: #232836;
+        /* --- Header --- */
+        .header {
+            position: relative;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo { width: 220px; max-width: 60vw; }
+        .page-title { margin-top: 15px; font-size: 24px; }
 
-    --lang-btn: #111;
-    --lang-btn-bg: #ffffff;
-  }
-}
+        /* --- Filtros --- */
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .filters input, .select-btn {
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            outline: none;
+        }
 
-.category-icon{
-  width:18px;
-  height:18px;
-}
+        /* --- Selects Customizados --- */
+        .custom-select {
+            position: relative;
+            width: 100%;
+            max-width: 260px;
+        }
+        .select-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .select-list {
+            display: none;
+            position: absolute;
+            top: 105%;
+            left: 0;
+            width: 100%;
+            background: var(--card);
+            border-radius: 12px;
+            list-style: none;
+            padding: 6px;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+        .select-list li {
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+        .select-list li:hover { background: var(--hover); }
 
-/* HEADER */
-.header{
-  position:relative;
-  text-align:center;
-  margin-bottom:30px;
-}
-.logo{
-  width:220px;
-  max-width:60vw}
-.page-title{
-  margin-top:15px;
-  font-size:24px}
+        /* --- Lista de Itens --- */
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 15px;
+        }
+        .item {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+        .item img { width: 48px; height: 48px; object-fit: contain; }
 
-/* MOBILE */
-@media (max-width:768px){
-  .header{
-    text-align:left;
-    padding-top:10px}
-  .logo{
-    position:absolute;
-    top:0;
-    right:0;
-    width:160px}
-  .page-title{
-    text-align:center;
-    margin-top:70px}
-}
+        /* --- Classes de Raridade --- */
+        .comum { border-color: var(--color-comum); }
+        .incomum { border-color: var(--color-incomum); }
+        .raro { border-color: var(--color-raro); }
+        .epico { border-color: var(--color-epico); }
+        .lendario { border-color: var(--color-lendario); }
 
-/* FILTERS */
-.filters{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  align-items:stretch;
-  flex-wrap:wrap;
-  margin-bottom:25px;
-}
-.filters input,.filters select{
-  padding:10px 12px;
-  border-radius:10px;
-  font-size:14px;
-  font-weight:bold;
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
+        .r-comum { background: #616161 !important; color: white; }
+        .r-incomum { background: var(--color-incomum) !important; color: white; }
+        .r-raro { background: var(--color-raro) !important; color: white; }
+        .r-epico { background: var(--color-epico) !important; color: white; }
+        .r-lendario { background: var(--color-lendario) !important; color: white; }
 
-/* CATEGORY FILTER */
-.category-filter{
-  background: var(--card);
-}
+        /* --- Modal --- */
+        .modal-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: var(--card);
+            width: 90%;
+            max-width: 460px;
+            border-radius: 14px;
+            padding: 20px;
+            border: 4px solid;
+        }
+        .modal h2 { text-align: center; margin-top: 0; }
+        .section { margin-bottom: 15px; }
+        .section-title { font-weight: bold; margin-bottom: 4px; }
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--border);
+            margin-top: 2px;
+        }
 
-/* RARITY COLORS */
-.rarity-default{background:#2b2b2b}
-.rarity-comum{background:#616161}
-.rarity-incomum{background:#2e7d32}
-.rarity-raro{background:#0d47a1}
-.rarity-epico{background:#6a1b9a}
-.rarity-lendario{background:#f9a825}
+        /* --- Toggle Linguagem --- */
+        .lang-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .lang-toggle button {
+            background: var(--lang-btn-bg);
+            color: var(--lang-btn);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
 
-/* ITEM LIST */
-.item-list{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-  gap:15px;
-}
-.item{
-  background: var(--card);
-  color: var(--text);
-  border-radius:12px;
-  padding:12px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  cursor:pointer;
-  border:3px solid transparent;
-  transition:.15s;
-}
-.item:hover{
-  transform:translateY(-4px);
-  box-shadow:0 6px 15px rgba(0,0,0,.15);
-}
-.item img{width:48px;height:48px}
-
-.comum{border-color:#9e9e9e}
-.incomum{border-color:#2e7d32}
-.raro{border-color:#0d47a1}
-.epico{border-color:#6a1b9a}
-.lendario{border-color:#f9a825}
-
-/* MODAL */
-.modal-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:30;
-}
-.modal{
-  background: var(--card);
-  color: var(--text);
-  width:90%;
-  max-width:460px;
-  border-radius:14px;
-  padding:18px;
-  border:4px solid;
-}
-.modal.comum{border-color:#9e9e9e}
-.modal.incomum{border-color:#2e7d32}
-.modal.raro{border-color:#0d47a1}
-.modal.epico{border-color:#6a1b9a}
-.modal.lendario{border-color:#f9a825}
-
-.modal h2{
-  text-align:center;
-  margin-bottom:15px;
-}
-
-.section{
-  margin-bottom:12px;
-}
-.section-title{
-  font-weight:bold;
-  color: var(--text);
-  margin-bottom:4px;
-  position:relative;
-}
-.section-title::after{
-  content:"———————————————";
-  display:block;
-  color: var(--border);
-  font-size:12px;
-}
-
-/* LANG */
-.lang-toggle{
-  position:fixed;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-}
-.lang-toggle button{
-  background: var(--lang-btn-bg);
-  color: var(--lang-btn);
-  padding:8px 14px;
-  border-radius:20px;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-/* CUSTOM SELECT */
-.custom-select{
-  position:relative;
-  width:100%;
-  max-width:260px;
-}
-
-.select-btn{
-  background: var(--card);
-  color: var(--text);
-  width:100%;
-  box-sizing:border-box;
-  border: 1px solid var(--border);
-  padding:12px 14px;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:bold;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:8px;
-}
-
-.select-list{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:0;
-  width:100%;
-  margin-top:6px;
-  box-sizing:border-box;
-  background: var(--card);
-  border-radius:12px;
-  list-style:none;
-  padding:6px;
-  z-index:100;
-}
-
-.select-list li{
-  padding:10px 12px;
-  border-radius:8px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color: var(--text);
-  font-weight:bold;
-}
-
-.select-list li:hover{
-  background: var(--hover);
-}
-
-/* RARITY COLORS */
-.r-comum{background:#616161}
-.r-incomum{background:#2e7d32}
-.r-raro{background:#0d47a1}
-.r-epico{background:#6a1b9a}
-.r-lendario{background:#f9a825}
-
-@media (max-width: 600px){
-  .filters{
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Barra de pesquisa */
-  .filters input{
-    width: 80%;
-    max-width: 260px;
-  }
-
-  /* Botões de filtro */
-  .custom-select{
-    width: 80%;
-    max-width: 260px;
-  }
-}
-
-</style>
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .header { text-align: left; padding-top: 10px; }
+            .logo { position: absolute; top: 0; right: 0; width: 140px; }
+            .page-title { text-align: center; margin-top: 70px; }
+            .filters { flex-direction: column; align-items: center; }
+            .filters input, .custom-select { width: 90%; max-width: 300px; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="header">
-  <img src="assets/Pocket-Anime-logo.png" class="logo">
-  <h1 id="title" class="page-title"></h1>
-</div>
+<header class="header">
+    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
+    <h1 id="title" class="page-title"></h1>
+</header>
 
-<div class="filters">
-  <input id="searchInput" type="text">
-<div class="custom-select" id="categorySelect">
-  <div class="select-btn" id="categoryBtn"></div>
-  <ul class="select-list" id="categoryList"></ul>
-</div>
+<main>
+    <div class="filters">
+        <input id="searchInput" type="text">
+        
+        <div class="custom-select" id="categorySelect">
+            <div class="select-btn" id="categoryBtn"></div>
+            <ul class="select-list" id="categoryList"></ul>
+        </div>
 
-<div class="custom-select" id="raritySelect">
-  <div class="select-btn" id="rarityBtn"></div>
-  <ul class="select-list" id="rarityList"></ul>
- </div>
-</div>
+        <div class="custom-select" id="raritySelect">
+            <div class="select-btn" id="rarityBtn"></div>
+            <ul class="select-list" id="rarityList"></ul>
+        </div>
+    </div>
 
-<div class="item-list" id="itemList"></div>
+    <div class="item-list" id="itemList"></div>
+</main>
 
-<div class="modal-bg" id="modalBg" onclick="closeModal()">
-  <div class="modal" id="modal" onclick="event.stopPropagation()">
-    <h2 id="mName"></h2>
+<div class="modal-bg" id="modalBg">
+    <div class="modal" id="modal">
+        <h2 id="mName"></h2>
 
-    <div class="section">
-  <div class="section-title" id="lblDesc"></div>
-  <div id="mDesc"></div>
-</div>
+        <div class="section">
+            <div class="section-title" id="lblDesc"></div>
+            <div id="mDesc"></div>
+        </div>
 
-   <div class="section" id="noteSection" style="display:none;">
-  <div class="section-title" id="lblNote"></div>
-  <div id="mNote"></div>
-</div>
+        <div class="section" id="noteSection">
+            <div class="section-title" id="lblNote"></div>
+            <div id="mNote"></div>
+        </div>
 
-   <div class="section">
-  <div class="section-title" id="lblDrop"></div>
-  <div id="mDrop"></div>
-</div>
+        <div class="section">
+            <div class="section-title" id="lblDrop"></div>
+            <div id="mDrop"></div>
+        </div>
 
-   <div class="section">
-  <div class="section-title" id="lblCat"></div>
-  <div id="mCat"></div>
-</div>
-  </div>
+        <div class="section">
+            <div class="section-title" id="lblCat"></div>
+            <div id="mCat"></div>
+        </div>
+    </div>
 </div>
 
 <div class="lang-toggle">
-  <button id="langBtn"></button>
+    <button id="langBtn"></button>
 </div>
 
 <script src="database/items-data.js"></script>
 
 <script>
-
-let lang=localStorage.getItem("siteLang")||"pt";
-const rarityOrder={comum:1,incomum:2,raro:3,epico:4,lendario:5};
-
-const uiText={
- pt:{
-  title:"Lista de Itens",
-  search:"Pesquisar item...",
-  allCat:"Todas as categorias",
-  allRare:"Todas raridades",
-  cats:[
-   "Item de Evolução","Item de Batalha","Item Chave",
-   "Item de Status","Item Médico","Item Diverso","Item de Captura","Scroll de Habilidade"
-  ],
-  rares:["Comum","Incomum","Raro","Épico","Lendário"],
-  close:"Fechar",
-  desc:"Descrição",
-  note:"Nota",
-  drop:"Onde Obter",
-  cat:"Categoria",
-  btn:"🇧🇷 PT"
- },
- en:{
-  title:"Item List",
-  search:"Search item...",
-  allCat:"All categories",
-  allRare:"All rarities",
-  cats:[
-   "Evolution Item","Battle Item","Key Item",
-   "Status Item","Medical Item","Miscellaneous Item","Capture Item","Skill Scroll" 
-  ],
-  rares:["Common","Uncommon","Rare","Epic","Legendary"],
-  close:"Close",
-  desc:"Description",
-  note:"Note",
-  drop:"How to obtain",
-  cat:"Category",
-  btn:"🇺🇸 EN"
- }
-};
-
-const categoryKeys = [
-  "evolution","battle","key","status","medical","misc","capture","scroll"
-];
-
-const categoryLabels = {
-  pt: {
-    evolution:"Item de Evolução",
-    battle:"Item de Batalha",
-    key:"Item Chave",
-    status:"Item de Status",
-    medical:"Item Médico",
-    misc:"Item Diverso",
-    capture:"Item de Captura",
-    scroll:"Scroll de Habilidade"
-  },
-  en: {
-    evolution:"Evolution Item",
-    battle:"Battle Item",
-    key:"Key Item",
-    status:"Status Item",
-    medical:"Medical Item",
-    misc:"Miscellaneous Item",
-    capture:"Capture Item",
-    scroll:"Skill Scroll"
-  }
-};
-
-const categoryIcons = {
-  all: "assets/icons_categories/all_categories_icon.png",
-  evolution: "assets/icons_categories/evolution_item_icon.png",
-  battle: "assets/icons_categories/battle_item_icon.png",
-  key: "assets/icons_categories/key_item_icon.png",
-  status: "assets/icons_categories/status_item_icon.png",
-  medical: "assets/icons_categories/medical_item_icon.png",
-  misc: "assets/icons_categories/miscellaneous_item_icon.png",
-  capture: "assets/icons_categories/capture_item_icon.png",
-  scroll: "assets/icons_categories/skill_scroll_icon.png"
-};
-
-const rarityLabels = {
-  pt: {
-    comum: "Comum",
-    incomum: "Incomum",
-    raro: "Raro",
-    epico: "Épico",
-    lendario: "Lendário"
-  },
-  en: {
-    comum: "Common",
-    incomum: "Uncommon",
-    raro: "Rare",
-    epico: "Epic",
-    lendario: "Legendary"
-  }
-};
-
-function render(){
- const s=searchInput.value.toLowerCase();
- const c = selectedCategory;
- const r = selectedRarity;
- itemList.innerHTML="";
- items.slice().sort((a, b) => {
-  const rDiff = rarityOrder[a.rarity] - rarityOrder[b.rarity];
-  if (rDiff !== 0) return rDiff;
-
-  return a[lang].name.localeCompare(b[lang].name);
-})
- .forEach(i=>{
-  const d=i[lang];
-  if(s && !d.name.toLowerCase().includes(s))return;
-  if(c && i.pt.cat !== c) return;
-  if(r && i.rarity!==r)return;
-  const div=document.createElement("div");
-  div.className=`item ${i.rarity}`;
-  const iconSrc = i.icon ? `assets/${i.icon}` : "assets/sem_icone.png";
-
-div.innerHTML = `
-  <img src="${iconSrc}" alt="${d.name}">
-  <strong>${d.name}</strong>
-`;
-  div.onclick=()=>openModal(i);
-  itemList.appendChild(div);
- });
-}
-
-function openModal(i){
-  const d = i[lang];
-
-  modal.className = `modal ${i.rarity}`;
-  mName.textContent = d.name;
-  mDesc.textContent = d.desc;
-  mDrop.textContent = d.drop;
-  mCat.textContent = categoryLabels[lang][i.pt.cat];
-
-  // NOTE
-  if(d.note){
-    mNote.textContent = d.note;
-    noteSection.style.display = "block";
-  }else{
-    mNote.textContent = "";
-    noteSection.style.display = "none";
-  }
-
-  modalBg.style.display = "flex";
-}
-function closeModal(){modalBg.style.display="none"}
-
-function updateLang(){
-  title.textContent = uiText[lang].title;
-  searchInput.placeholder = uiText[lang].search;
-  lblDesc.textContent = uiText[lang].desc;
-  lblNote.textContent = uiText[lang].note;
-  lblDrop.textContent = uiText[lang].drop;
-  lblCat.textContent = uiText[lang].cat;
-  langBtn.textContent = uiText[lang].btn;
-
-  buildCategoryMenu();
-  buildRarityMenu();
-
-const text = selectedCategory
-  ? categoryLabels[lang][selectedCategory]
-  : uiText[lang].allCat;
-
-if (selectedCategory) {
-  categoryBtn.innerHTML = `
-    <img src="${categoryIcons[selectedCategory]}" class="category-icon">
-    ${text}
-  `;
-} else {
-  categoryBtn.textContent = text; // sem ícone
-}
-
-rarityBtn.textContent = selectedRarity
-  ? rarityLabels[lang][selectedRarity]
-  : uiText[lang].allRare;
-
-rarityBtn.className = "select-btn";
-if (selectedRarity) rarityBtn.classList.add("r-" + selectedRarity);
-
-  render();
-}
-
-langBtn.onclick = () => {
-  const scrollPos = window.scrollY;
-  const searchValue = searchInput.value;
-  const cat = selectedCategory;
-  const rar = selectedRarity;
-
-  lang = lang === "pt" ? "en" : "pt";
-  localStorage.setItem("siteLang", lang);
-
-  if (typeof updateMenuLang === "function") {
-    updateMenuLang();
-  }
-
-  updateLang();
-
-  searchInput.value = searchValue;
-  selectedCategory = cat;
-  selectedRarity = rar;
-
-if (cat) {
-  categoryBtn.innerHTML = `
-    <img src="${categoryIcons[cat]}" class="category-icon">
-    ${categoryLabels[lang][cat]}
-  `;
-} else {
-  categoryBtn.textContent = uiText[lang].allCat;
-}
-  rarityBtn.textContent = rar ? rarityLabels[lang][rar] : uiText[lang].allRare;
-  rarityBtn.className = "select-btn" + (rar ? " r-" + rar : "");
-
-  render();
-  window.scrollTo(0, scrollPos);
-};
-
+/** * CONFIGURAÇÕES E ESTADO 
+ */
+let lang = localStorage.getItem("siteLang") || "pt";
 let selectedCategory = "";
 let selectedRarity = "";
 
-function buildCategoryMenu(){
-  categoryList.innerHTML = `
-  <li onclick="selectCategory('')">
-    ${uiText[lang].allCat}
-  </li>
-`;
+const rarityOrder = { comum: 1, incomum: 2, raro: 3, epico: 4, lendario: 5 };
 
-  categoryKeys.forEach(key=>{
-    categoryList.innerHTML += `
-      <li onclick="selectCategory('${key}')">
-        <img src="${categoryIcons[key]}" class="category-icon">
-        ${categoryLabels[lang][key]}
-      </li>
-    `;
-  });
-}
-
-function buildRarityMenu(){
-  rarityList.innerHTML = `<li onclick="selectRarity('')">${uiText[lang].allRare}</li>`;
-  Object.keys(rarityOrder).forEach(r=>{
-    rarityList.innerHTML += `
-      <li class="r-${r}" onclick="selectRarity('${r}')">
-  ${rarityLabels[lang][r]}
-</li>
-    `;
-  });
-}
-
-function selectCategory(value){
-  selectedCategory = value;
-
-  const text = value ? categoryLabels[lang][value] : uiText[lang].allCat;
-
-  if (value) {
-    categoryBtn.innerHTML = `
-      <img src="${categoryIcons[value]}" class="category-icon">
-      ${text}
-    `;
-  } else {
-    categoryBtn.textContent = text;
-  }
-
-  categoryList.style.display = "none";
-  render();
-}
-
-function selectRarity(value){
-  selectedRarity = value;
-
-  rarityBtn.textContent = value
-    ? rarityLabels[lang][value]
-    : uiText[lang].allRare;
-
-  rarityBtn.className = "select-btn";
-  if (value) rarityBtn.classList.add("r-" + value);
-
-  rarityList.style.display = "none";
-  render();
-}
-
-categoryBtn.onclick = () => {
-  categoryList.style.display =
-    categoryList.style.display === "block" ? "none" : "block";
+const uiText = {
+    pt: {
+        title: "Lista de Itens", search: "Pesquisar item...",
+        allCat: "Todas as categorias", allRare: "Todas raridades",
+        desc: "Descrição", note: "Nota", drop: "Onde Obter", cat: "Categoria", btn: "🇧🇷 PT"
+    },
+    en: {
+        title: "Item List", search: "Search item...",
+        allCat: "All categories", allRare: "All rarities",
+        desc: "Description", note: "Note", drop: "How to obtain", cat: "Category", btn: "🇺🇸 EN"
+    }
 };
 
-rarityBtn.onclick = () => {
-  rarityList.style.display =
-    rarityList.style.display === "block" ? "none" : "block";
+const categoryKeys = ["evolution", "battle", "key", "status", "medical", "misc", "capture", "scroll"];
+
+const categoryLabels = {
+    pt: { evolution: "Item de Evolução", battle: "Item de Batalha", key: "Item Chave", status: "Item de Status", medical: "Item Médico", misc: "Item Diverso", capture: "Item de Captura", scroll: "Scroll de Habilidade" },
+    en: { evolution: "Evolution Item", battle: "Battle Item", key: "Key Item", status: "Status Item", medical: "Medical Item", misc: "Miscellaneous Item", capture: "Capture Item", scroll: "Skill Scroll" }
 };
 
-document.addEventListener("click", e=>{
-  if(!categorySelect.contains(e.target)) categoryList.style.display="none";
-  if(!raritySelect.contains(e.target)) rarityList.style.display="none";
+const categoryIcons = {
+    all: "assets/icons_categories/all_categories_icon.png",
+    evolution: "assets/icons_categories/evolution_item_icon.png",
+    battle: "assets/icons_categories/battle_item_icon.png",
+    key: "assets/icons_categories/key_item_icon.png",
+    status: "assets/icons_categories/status_item_icon.png",
+    medical: "assets/icons_categories/medical_item_icon.png",
+    misc: "assets/icons_categories/miscellaneous_item_icon.png",
+    capture: "assets/icons_categories/capture_item_icon.png",
+    scroll: "assets/icons_categories/skill_scroll_icon.png"
+};
+
+const rarityLabels = {
+    pt: { comum: "Comum", incomum: "Incomum", raro: "Raro", epico: "Épico", lendario: "Lendário" },
+    en: { comum: "Common", incomum: "Uncommon", raro: "Rare", epico: "Epic", lendario: "Legendary" }
+};
+
+/**
+ * CORE FUNCTIONS
+ */
+
+function render() {
+    const searchVal = searchInput.value.toLowerCase();
+    const listEl = document.getElementById("itemList");
+    listEl.innerHTML = "";
+
+    const filteredItems = items
+        .filter(item => {
+            const matchesSearch = !searchVal || item[lang].name.toLowerCase().includes(searchVal);
+            const matchesCat = !selectedCategory || item.pt.cat === selectedCategory;
+            const matchesRarity = !selectedRarity || item.rarity === selectedRarity;
+            return matchesSearch && matchesCat && matchesRarity;
+        })
+        .sort((a, b) => {
+            const rDiff = rarityOrder[a.rarity] - rarityOrder[b.rarity];
+            return rDiff !== 0 ? rDiff : a[lang].name.localeCompare(b[lang].name);
+        });
+
+    filteredItems.forEach(item => {
+        const data = item[lang];
+        const div = document.createElement("div");
+        div.className = `item ${item.rarity}`;
+        const iconSrc = item.icon ? `assets/${item.icon}` : "assets/sem_icone.png";
+
+        div.innerHTML = `
+            <img src="${iconSrc}" alt="${data.name}">
+            <strong>${data.name}</strong>
+        `;
+        div.onclick = () => openModal(item);
+        listEl.appendChild(div);
+    });
+}
+
+function openModal(item) {
+    const data = item[lang];
+    const modal = document.getElementById("modal");
+    
+    modal.className = `modal ${item.rarity}`;
+    document.getElementById("mName").textContent = data.name;
+    document.getElementById("mDesc").textContent = data.desc;
+    document.getElementById("mDrop").textContent = data.drop;
+    document.getElementById("mCat").textContent = categoryLabels[lang][item.pt.cat];
+
+    const noteSec = document.getElementById("noteSection");
+    if (data.note) {
+        document.getElementById("mNote").textContent = data.note;
+        noteSec.style.display = "block";
+    } else {
+        noteSec.style.display = "none";
+    }
+
+    document.getElementById("modalBg").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modalBg").style.display = "none";
+}
+
+/**
+ * UI BUILDERS
+ */
+
+function updateLang() {
+    const ui = uiText[lang];
+    document.getElementById("title").textContent = ui.title;
+    document.getElementById("searchInput").placeholder = ui.search;
+    document.getElementById("lblDesc").textContent = ui.desc;
+    document.getElementById("lblNote").textContent = ui.note;
+    document.getElementById("lblDrop").textContent = ui.drop;
+    document.getElementById("lblCat").textContent = ui.cat;
+    document.getElementById("langBtn").textContent = ui.btn;
+
+    buildCategoryMenu();
+    buildRarityMenu();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+function buildCategoryMenu() {
+    const list = document.getElementById("categoryList");
+    list.innerHTML = `<li data-value="">${uiText[lang].allCat}</li>`;
+
+    categoryKeys.forEach(key => {
+        const li = document.createElement("li");
+        li.dataset.value = key;
+        li.innerHTML = `<img src="${categoryIcons[key]}" class="category-icon"> ${categoryLabels[lang][key]}`;
+        li.onclick = () => selectCategory(key);
+        list.appendChild(li);
+    });
+    // Adicionar clique no "Todos"
+    list.firstChild.onclick = () => selectCategory("");
+}
+
+function buildRarityMenu() {
+    const list = document.getElementById("rarityList");
+    list.innerHTML = `<li data-value="">${uiText[lang].allRare}</li>`;
+
+    Object.keys(rarityOrder).forEach(r => {
+        const li = document.createElement("li");
+        li.className = `r-${r}`;
+        li.textContent = rarityLabels[lang][r];
+        li.onclick = () => selectRarity(r);
+        list.appendChild(li);
+    });
+    list.firstChild.onclick = () => selectRarity("");
+}
+
+function updateFilterButtonsDisplay() {
+    const cBtn = document.getElementById("categoryBtn");
+    const rBtn = document.getElementById("rarityBtn");
+
+    // Update Category Button
+    if (selectedCategory) {
+        cBtn.innerHTML = `<img src="${categoryIcons[selectedCategory]}" class="category-icon"> ${categoryLabels[lang][selectedCategory]}`;
+    } else {
+        cBtn.textContent = uiText[lang].allCat;
+    }
+
+    // Update Rarity Button
+    rBtn.textContent = selectedRarity ? rarityLabels[lang][selectedRarity] : uiText[lang].allRare;
+    rBtn.className = "select-btn" + (selectedRarity ? ` r-${selectedRarity}` : "");
+}
+
+function selectCategory(val) {
+    selectedCategory = val;
+    closeAllSelects();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+function selectRarity(val) {
+    selectedRarity = val;
+    closeAllSelects();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+/**
+ * EVENTOS
+ */
+
+function closeAllSelects() {
+    document.getElementById("categoryList").style.display = "none";
+    document.getElementById("rarityList").style.display = "none";
+}
+
+// Alternar Linguagem
+document.getElementById("langBtn").onclick = () => {
+    const scrollPos = window.scrollY;
+    lang = lang === "pt" ? "en" : "pt";
+    localStorage.setItem("siteLang", lang);
+    
+    if (typeof updateMenuLang === "function") updateMenuLang();
+    
+    updateLang();
+    window.scrollTo(0, scrollPos);
+};
+
+// Controles de Dropdown
+document.getElementById("categoryBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("categoryList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.getElementById("rarityBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("rarityList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+// Fechar ao clicar fora
+document.addEventListener("click", (e) => {
+    if (!e.target.closest('.custom-select')) closeAllSelects();
 });
 
+// Fechar Modal
+document.getElementById("modalBg").onclick = closeModal;
+document.getElementById("modal").onclick = (e) => e.stopPropagation();
+
+// Input de busca
+document.getElementById("searchInput").addEventListener("input", render);
+
+// Inicialização
 updateLang();
-
-searchInput.addEventListener("input", () => {
-  render();
-});
-
-function closeAllSelects(){
-  categoryList.style.display = "none";
-  rarityList.style.display = "none";
-}
-
-categoryBtn.onclick = (e) => {
-  e.stopPropagation();
-  const open = categoryList.style.display === "block";
-  closeAllSelects();
-  categoryList.style.display = open ? "none" : "block";
-};
-
-rarityBtn.onclick = (e) => {
-  e.stopPropagation();
-  const open = rarityList.style.display === "block";
-  closeAllSelects();
-  rarityList.style.display = open ? "none" : "block";
-};
-
-document.addEventListener("click", closeAllSelects);
-
-localStorage.setItem("siteLang", lang);
-updateMenuLang();
+if (typeof updateMenuLang === "function") updateMenuLang();
 
 </script>
 
