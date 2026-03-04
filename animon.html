@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Anime - Animon Details</title>
+
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js" defer></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* --- Variáveis e Temas (Igual ao items.html) --- */
+        :root {
+            --bg: #f2f4f7;
+            --card: #ffffff;
+            --text: #111;
+            --border: #ccc;
+            --hover: #f1f1f1;
+            --lang-btn: #ffffff;
+            --lang-btn-bg: #444;
+            --primary: #0d47a1;
+            --chart-fill: rgba(13, 71, 161, 0.4);
+            --chart-line: rgba(13, 71, 161, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f1217;
+                --card: #181c24;
+                --text: #ffffff;
+                --border: #2a2f3a;
+                --hover: #232836;
+                --lang-btn: #111;
+                --lang-btn-bg: #ffffff;
+                --primary: #64b5f6;
+                --chart-fill: rgba(100, 181, 246, 0.4);
+                --chart-line: rgba(100, 181, 246, 1);
+            }
+        }
+
+        /* --- Geral --- */
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            margin: 0;
+            line-height: 1.5;
+            padding-bottom: 80px; /* Espaço pro botão de idioma */
+        }
+
+        .header { text-align: center; margin-bottom: 30px; }
+        .logo { width: 220px; max-width: 60vw; }
+        .page-title { margin-top: 15px; font-size: 28px; text-transform: capitalize; }
+
+        /* --- Layout Superior (Sprite + Descrição) --- */
+        .top-section {
+            display: flex;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            align-items: stretch;
+        }
+        .sprite-frame {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            box-sizing: border-box;
+        }
+        .sprite-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+        .desc-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        /* --- Abas / Botões --- */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tab-btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 120px;
+        }
+        .tab-btn:hover { background: var(--hover); }
+        .tab-btn.active {
+            background: var(--lang-btn-bg);
+            color: var(--lang-btn);
+            border-color: var(--lang-btn-bg);
+        }
+
+        /* --- Conteúdo das Abas --- */
+        .tab-content {
+            display: none;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideFadeIn 0.3s ease-out forwards;
+            box-sizing: border-box;
+        }
+        .tab-content.active { display: block; }
+
+        @keyframes slideFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Status Chart --- */
+        .chart-wrapper {
+            max-width: 350px;
+            margin: 0 auto;
+        }
+        .stats-total {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: var(--primary);
+        }
+
+        /* --- Lista de Moves --- */
+        .move-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .move-item {
+            display: grid;
+            grid-template-columns: 60px 1fr 100px 100px;
+            gap: 10px;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: 8px;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .move-header { background: var(--border); }
+        .move-item span { text-align: center; }
+        .move-item .move-name { text-align: left; }
+
+        /* --- Fraquezas e Resistências --- */
+        .type-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+        .type-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+        .dmg-multiplier { margin-left: 5px; opacity: 0.8; }
+        .sec-title { border-bottom: 2px solid var(--border); padding-bottom: 5px; margin-bottom: 15px; }
+
+        /* --- Toggle Linguagem --- */
+        .lang-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .lang-toggle button {
+            background: var(--lang-btn-bg);
+            color: var(--lang-btn);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .top-section { flex-direction: column; align-items: center; }
+            .sprite-frame { width: 50%; height: auto; aspect-ratio: 1/1; }
+            .desc-box { width: 100%; text-align: center; min-height: auto; box-sizing: border-box;}
+            .move-item {
+                grid-template-columns: 40px 1fr;
+                grid-template-rows: auto auto;
+            }
+            .move-item .move-type { grid-column: 1 / 2; }
+            .move-item .move-cat { grid-column: 2 / 3; text-align: left; }
+            .move-header { display: none; } /* Oculta cabeçalho no mobile para melhor leitura em card */
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
+    <h1 id="pageTitle" class="page-title">Carregando...</h1>
+</header>
+
+<main>
+    <div class="top-section">
+        <div class="sprite-frame">
+            <img id="animonSprite" src="" alt="Sprite">
+        </div>
+        <div class="desc-box" id="animonDesc"></div>
+    </div>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="switchTab('tab-info')" id="btnInfo">Info</button>
+        <button class="tab-btn" onclick="switchTab('tab-moves')" id="btnMoves">Moves</button>
+        <button class="tab-btn" onclick="switchTab('tab-weak')" id="btnWeak">Fraquezas</button>
+        <button class="tab-btn" onclick="switchTab('tab-loc')" id="btnLoc">Localização</button>
+    </div>
+
+    <div id="tab-info" class="tab-content active">
+        <div class="chart-wrapper">
+            <canvas id="statsChart"></canvas>
+        </div>
+        <div class="stats-total" id="statsTotal"></div>
+    </div>
+
+    <div id="tab-moves" class="tab-content">
+        <div class="move-list" id="movesContainer"></div>
+    </div>
+
+    <div id="tab-weak" class="tab-content">
+        <h3 class="sec-title" id="lblWeak"></h3>
+        <div class="type-grid" id="weaknessContainer"></div>
+
+        <h3 class="sec-title" id="lblResist"></h3>
+        <div class="type-grid" id="resistanceContainer"></div>
+    </div>
+
+    <div id="tab-loc" class="tab-content">
+        <p id="locText" style="text-align: center; font-weight: bold;"></p>
+    </div>
+</main>
+
+<div class="lang-toggle">
+    <button id="langBtn"></button>
+</div>
+
+<script src="database/animons.js"></script>
+<script src="database/moves.js"></script>
+<script src="database/typechart.js"></script>
+
+<script>
+/**
+ * CONFIGURAÇÕES INICIAIS E ESTADO
+ */
+let lang = localStorage.getItem("siteLang") || "pt";
+let currentAnimon = null;
+let radarChart = null;
+
+const uiText = {
+    pt: {
+        btnInfo: "Informações", btnMoves: "Moves", btnWeak: "Fraquezas", btnLoc: "Localização",
+        noDesc: "Ainda não possui descrição.",
+        noMoves: "Ainda não possui movimentos.",
+        notDef: "Ainda não definido.",
+        notAvail: "Ainda não disponível.",
+        lblWeak: "Fraquezas", lblResist: "Resistências",
+        lvl: "Nvl", name: "Nome", type: "Tipo", cat: "Categoria",
+        btn: "🇧🇷 PT", totalStr: "TOTAL: "
+    },
+    en: {
+        btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
+        noDesc: "No description available yet.",
+        noMoves: "No moves available yet.",
+        notDef: "Not defined yet.",
+        notAvail: "Not available yet.",
+        lblWeak: "Weaknesses", lblResist: "Resistances",
+        lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
+        btn: "🇺🇸 EN", totalStr: "TOTAL: "
+    }
+};
+
+/**
+ * INICIALIZAÇÃO E LEITURA DA URL
+ */
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idParam = urlParams.get('id');
+
+    // Assumindo que o animons.js expõe uma array chamada 'animons'
+    if (idParam && typeof animons !== 'undefined') {
+        currentAnimon = animons.find(a => a.id == idParam || a.name.toLowerCase() === idParam.toLowerCase());
+    }
+
+    if (!currentAnimon) {
+        document.getElementById('pageTitle').textContent = "Animon não encontrado / Not found";
+        return;
+    }
+
+    // Carrega o sprite (Adapte a extensão/pasta conforme o seu padrão)
+    const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
+    document.getElementById('animonSprite').src = spriteSrc;
+    // Fallback de imagem
+    document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
+
+    updateLang();
+};
+
+/**
+ * ATUALIZAÇÃO DA INTERFACE (MUDANÇA DE IDIOMA E DADOS)
+ */
+function updateLang() {
+    if (!currentAnimon) return;
+
+    const ui = uiText[lang];
+    
+    // Header e Botões
+    document.getElementById('pageTitle').textContent = currentAnimon.name;
+    document.getElementById('langBtn').textContent = ui.btn;
+    document.getElementById('btnInfo').textContent = ui.btnInfo;
+    document.getElementById('btnMoves').textContent = ui.btnMoves;
+    document.getElementById('btnWeak').textContent = ui.btnWeak;
+    document.getElementById('btnLoc').textContent = ui.btnLoc;
+    document.getElementById('lblWeak').textContent = ui.lblWeak;
+    document.getElementById('lblResist').textContent = ui.lblResist;
+    document.getElementById('locText').textContent = ui.notAvail;
+
+    // Descrição
+    const descText = currentAnimon.desc && currentAnimon.desc[lang] ? currentAnimon.desc[lang] : ui.noDesc;
+    document.getElementById('animonDesc').innerHTML = `<i>"${descText}"</i>`;
+
+    renderStats();
+    renderMoves();
+    renderTypeChart();
+}
+
+/**
+ * RENDERIZAR ESTRUTURAS (Stats, Moves, Types)
+ */
+function renderStats() {
+    // Exemplo de estrutura esperada: currentAnimon.stats = { hp: 50, atk: 60, def: 40, spatk: 60, spdef: 40, spd: 70 }
+    const st = currentAnimon.stats || { hp:0, atk:0, def:0, spatk:0, spdef:0, spd:0 };
+    const total = st.hp + st.atk + st.def + st.spatk + st.spdef + st.spd;
+    
+    document.getElementById('statsTotal').textContent = uiText[lang].totalStr + total;
+
+    const rootStyle = getComputedStyle(document.documentElement);
+    const textColor = rootStyle.getPropertyValue('--text').trim() || '#111';
+    const chartFill = rootStyle.getPropertyValue('--chart-fill').trim() || 'rgba(13, 71, 161, 0.4)';
+    const chartLine = rootStyle.getPropertyValue('--chart-line').trim() || '#0d47a1';
+
+    const ctx = document.getElementById('statsChart').getContext('2d');
+    
+    if (radarChart) radarChart.destroy();
+
+    radarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['HP', 'ATK', 'DEF', 'SP.ATK', 'SP.DEF', 'SPEED'],
+            datasets: [{
+                label: 'Stats',
+                data: [st.hp, st.atk, st.def, st.spatk, st.spdef, st.spd],
+                backgroundColor: chartFill,
+                borderColor: chartLine,
+                pointBackgroundColor: chartLine,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                r: {
+                    angleLines: { color: textColor, opacity: 0.2 },
+                    grid: { color: textColor, opacity: 0.2 },
+                    pointLabels: { color: textColor, font: { size: 12, weight: 'bold' } },
+                    ticks: { display: false, min: 0, max: 200 } // Ajuste o max conforme a régua do seu jogo
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+}
+
+function renderMoves() {
+    const container = document.getElementById('movesContainer');
+    const ui = uiText[lang];
+    container.innerHTML = "";
+
+    // Assumindo estrutura: currentAnimon.movepool = [{ level: 1, moveId: "tackle" }, ...]
+    const movepool = currentAnimon.movepool || [];
+
+    if (movepool.length === 0 || typeof movesData === 'undefined') {
+        container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`;
+        return;
+    }
+
+    // Ordenar por Level Crescente
+    const sortedMoves = [...movepool].sort((a, b) => a.level - b.level);
+
+    // Cabeçalho da Tabela
+    const header = document.createElement('div');
+    header.className = 'move-item move-header';
+    header.innerHTML = `
+        <span>${ui.lvl}</span>
+        <span class="move-name">${ui.name}</span>
+        <span>${ui.type}</span>
+        <span>${ui.cat}</span>
+    `;
+    container.appendChild(header);
+
+    // Linhas
+    sortedMoves.forEach(m => {
+        // Busca o move no banco geral (movesData assumido de moves.js)
+        const moveInfo = movesData.find(md => md.id === m.moveId);
+        if (!moveInfo) return;
+
+        const moveName = moveInfo.name && moveInfo.name[lang] ? moveInfo.name[lang] : moveInfo.id;
+        const row = document.createElement('div');
+        row.className = 'move-item';
+        row.innerHTML = `
+            <span>${m.level}</span>
+            <span class="move-name">${moveName}</span>
+            <span class="move-type">${moveInfo.type || '-'}</span>
+            <span class="move-cat">${moveInfo.category || '-'}</span>
+        `;
+        container.appendChild(row);
+    });
+}
+
+function renderTypeChart() {
+    const weakContainer = document.getElementById('weaknessContainer');
+    const resContainer = document.getElementById('resistanceContainer');
+    const ui = uiText[lang];
+
+    weakContainer.innerHTML = "";
+    resContainer.innerHTML = "";
+
+    // Assumindo currentAnimon.types = ["Fire", "Fighting"] e objeto global typechartData exportado em typechart.js
+    const types = currentAnimon.types || [];
+
+    if (types.length === 0 || typeof typechartData === 'undefined') {
+        weakContainer.innerHTML = `<p>${ui.notDef}</p>`;
+        resContainer.innerHTML = `<p>${ui.notDef}</p>`;
+        return;
+    }
+
+    // Lógica Genérica de Cálculo (Adapte se a estrutura do seu typechart.js for invertida)
+    // Assume-se: typechartData[Defensor][Atacante] = Multiplicador (ex: 2.0, 0.5, 0)
+    let multipliers = {};
+    const allTypes = Object.keys(typechartData);
+    
+    allTypes.forEach(t => multipliers[t] = 1); // Inicia tudo neutro (1x)
+
+    types.forEach(defType => {
+        if(typechartData[defType]) {
+            allTypes.forEach(atkType => {
+                if(typechartData[defType][atkType] !== undefined) {
+                    multipliers[atkType] *= typechartData[defType][atkType];
+                }
+            });
+        }
+    });
+
+    let hasWeak = false, hasResist = false;
+
+    // Distribuir nos containers
+    Object.entries(multipliers).forEach(([type, mult]) => {
+        if (mult === 1) return; // Dano Neutro
+
+        const badge = document.createElement('div');
+        badge.className = 'type-badge';
+        badge.innerHTML = `${type} <span class="dmg-multiplier">x${mult}</span>`;
+
+        if (mult > 1) {
+            weakContainer.appendChild(badge);
+            hasWeak = true;
+        } else if (mult < 1) {
+            resContainer.appendChild(badge);
+            hasResist = true;
+        }
+    });
+
+    if (!hasWeak) weakContainer.innerHTML = `<p>-</p>`;
+    if (!hasResist) resContainer.innerHTML = `<p>-</p>`;
+}
+
+/**
+ * NAVEGAÇÃO ENTRE ABAS
+ */
+function switchTab(tabId) {
+    // Remove classe active de todos os botões e conteúdos
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+    // Adiciona active no alvo
+    document.getElementById(tabId).classList.add('active');
+    
+    // Atualiza botão clicado
+    const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
+    document.getElementById(btnMap[tabId]).classList.add('active');
+}
+
+/**
+ * BOTÃO DE IDIOMA
+ */
+document.getElementById('langBtn').onclick = () => {
+    lang = lang === "pt" ? "en" : "pt";
+    localStorage.setItem("siteLang", lang);
+    if (typeof updateMenuLang === "function") updateMenuLang();
+    updateLang();
+};
+</script>
+
+</body>
+</html>
