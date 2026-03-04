@@ -233,9 +233,14 @@
             justify-content: center;
             color: var(--text);
             opacity: 0.5;
-            transition: 0.3s;
         }
-        .animon-card.active .arrow-column { transform: rotate(180deg); }
+        /* Ajuste da Rotação: Gira o SVG e não a coluna inteira */
+        .arrow-column svg {
+            transition: transform 0.3s ease;
+        }
+        .animon-card.active .arrow-column svg { 
+            transform: rotate(180deg); 
+        }
 
         /* --- Ícones de Elementos --- */
         .animon-elements { display: flex; gap: 4px; }
@@ -429,7 +434,7 @@ function render() {
         .filter(ani => {
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
             const idMatch = ani.id.toString().includes(searchVal);
-            
+
             // Nova lógica para pesquisar no objeto anime (nome do personagem e nome do anime)
             const animeCharMatch = ani.anime && ani.anime.name.toLowerCase().includes(searchVal);
             const animeNameMatch = ani.anime && ani.anime.anime.toLowerCase().includes(searchVal);
