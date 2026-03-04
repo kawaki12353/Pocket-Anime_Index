@@ -555,7 +555,7 @@ function buildElementMenu() {
 function buildStatusMenu() {
     const list = document.getElementById("statusList");
     const liId = document.createElement("li");
-    liId.textContent = "ID (Padrão)";
+    liId.textContent = statLabels[lang].id;
     liId.onclick = () => selectSort("id");
     list.innerHTML = "";
     list.appendChild(liId);
@@ -589,7 +589,7 @@ function updateFilterButtonsDisplay() {
         eBtn.innerHTML = `<span>${uiText[lang].allElements}</span> <span style="font-size:10px;">▼</span>`;
     }
     
-    const sortDisplayText = selectedSort === "id" ? "ID" : (statLabels[lang][selectedSort] || "TOTAL");
+    const sortDisplayText = selectedSort === "id" ? statLabels[lang].id : (statLabels[lang][selectedSort] || "TOTAL");
     sBtn.innerHTML = `<span>${selectedSort === "id" ? uiText[lang].sortLabel : sortDisplayText}</span> <span style="font-size:10px;">▼</span>`;
 }
 
