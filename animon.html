@@ -601,22 +601,24 @@ function toggleMoveBalloon(moveDiv) {
 function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
 
 /**
- * LÓGICA TYPE CHART ATUALIZADA
+ * LÓGICA TYPE CHART ATUALIZADA - CORRIGIDA PARA 1 OU 2 ELEMENTOS
  */
 function renderTypeChart() {
     const container = document.getElementById('typeChartContent');
     const ui = uiText[lang];
     container.innerHTML = "";
 
-    // Identifica tipos do animon atual
+    if (typeof chart === 'undefined' || !currentAnimon) return;
+
+    // Identifica tipos do animon atual de forma resiliente
     let defenderTypes = [];
     if (currentAnimon.types && Array.isArray(currentAnimon.types)) {
-        defenderTypes = currentAnimon.types.map(t => t.toLowerCase().trim());
+        defenderTypes = currentAnimon.types.filter(t => t).map(t => t.toLowerCase().trim());
     } else if (currentAnimon.type) {
         defenderTypes = [currentAnimon.type.toLowerCase().trim()];
     }
 
-    if (defenderTypes.length === 0 || typeof chart === 'undefined') {
+    if (defenderTypes.length === 0) {
         container.innerHTML = `<p>${ui.notDef}</p>`;
         return;
     }
@@ -624,35 +626,36 @@ function renderTypeChart() {
     const attackers = Object.keys(chart);
     const multipliers = {};
 
-    // Calcula multiplicador para cada tipo de ataque
     attackers.forEach(atkType => {
-        let m = 1;
+        let m = 1.0;
         const lowAtk = atkType.toLowerCase().trim();
         
-        defenderTypes.forEach(defType => {
-            // Busca o valor no chart ignorando case
-            const chartAtk = chart[atkType] || chart[Object.keys(chart).find(k => k.toLowerCase() === lowAtk)];
-            if (chartAtk) {
-                const chartVal = chartAtk[defType] || chartAtk[Object.keys(chartAtk).find(k => k.toLowerCase() === defType)];
-                if (chartVal !== undefined) {
+        // Acessa o objeto do atacante na tabela (ignora case)
+        const chartAtk = chart[atkType] || chart[Object.keys(chart).find(k => k.toLowerCase() === lowAtk)];
+        
+        if (chartAtk) {
+            defenderTypes.forEach(defType => {
+                // Procura o valor de dano contra o tipo defensor específico
+                const defKey = Object.keys(chartAtk).find(k => k.toLowerCase().trim() === defType);
+                const chartVal = defKey !== undefined ? chartAtk[defKey] : 1.0;
+                
+                if (typeof chartVal === 'number') {
                     m *= chartVal;
                 }
-            }
-        });
+            });
+        }
         multipliers[atkType] = m;
     });
 
-    // Agrupa por valor final
-    const groups = {
-        x4: [], x2: [], x1: [], x05: [], x025: [], x0: []
-    };
+    // Agrupa por valor final usando faixas para evitar erros de precisão decimal
+    const groups = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
 
     Object.entries(multipliers).forEach(([type, val]) => {
-        if (val >= 4) groups.x4.push(type);
-        else if (val >= 2) groups.x2.push(type);
-        else if (val === 1) groups.x1.push(type);
-        else if (val === 0.5) groups.x05.push(type);
-        else if (val > 0 && val <= 0.25) groups.x025.push(type);
+        if (val >= 3.0) groups.x4.push(type);
+        else if (val >= 1.5 && val < 3.0) groups.x2.push(type);
+        else if (val > 0.8 && val < 1.2) groups.x1.push(type); // Dano 1x
+        else if (val > 0.3 && val <= 0.7) groups.x05.push(type);
+        else if (val > 0 && val <= 0.3) groups.x025.push(type);
         else if (val === 0) groups.x0.push(type);
     });
 
