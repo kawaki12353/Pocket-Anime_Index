@@ -91,7 +91,7 @@
             display: flex;
             gap: 12px;
             justify-content: center;
-            align-items: stretch;
+            align-items: center;
             flex-wrap: wrap;
             margin-bottom: 25px;
             max-width: 1200px;
@@ -107,6 +107,38 @@
             color: var(--text);
             border: 1px solid var(--border);
             outline: none;
+        }
+
+        /* --- Seletor de Ordem (Bolinhas) --- */
+        .order-toggle {
+            display: flex;
+            gap: 10px;
+            background: var(--card);
+            padding: 5px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            align-items: center;
+        }
+        .order-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .order-option input { display: none; }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: inline-block;
+            position: relative;
+        }
+        .order-option input:checked + .dot {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
         }
 
         /* --- Selects Customizados --- */
@@ -317,6 +349,19 @@
             <div class="select-btn" id="statusBtn"></div>
             <ul class="select-list" id="statusList"></ul>
         </div>
+
+        <div class="order-toggle">
+            <label class="order-option">
+                <input type="radio" name="sortDir" value="asc" checked onchange="setSortOrder('asc')">
+                <span class="dot"></span>
+                <span id="labelAsc">Crescente</span>
+            </label>
+            <label class="order-option">
+                <input type="radio" name="sortDir" value="desc" onchange="setSortOrder('desc')">
+                <span class="dot"></span>
+                <span id="labelDesc">Decrescente</span>
+            </label>
+        </div>
     </div>
 
     <div class="animon-list" id="animonList"></div>
@@ -332,17 +377,20 @@
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedElement = "";
 let selectedSort = "id"; 
+let sortOrder = "asc"; // Nova variável para controle de ordem
 
 const uiText = {
     pt: {
         title: "Anidex Animons", search: "Pesquisar por nome...",
         allElements: "Todos os Elementos", sortLabel: "Ordenar por...",
-        total: "TOTAL", lv: "Nível", btn: "🇧🇷 PT", details: "Sobre o Animon"
+        total: "TOTAL", lv: "Nível", btn: "🇧🇷 PT", details: "Sobre o Animon",
+        asc: "Crescente", desc: "Decrescente"
     },
     en: {
         title: "Anidex Animons", search: "Search by name...",
         allElements: "All Elements", sortLabel: "Sort by...",
-        total: "TOTAL", lv: "Level", btn: "🇺🇸 EN", details: "About Animon"
+        total: "TOTAL", lv: "Level", btn: "🇺🇸 EN", details: "About Animon",
+        asc: "Ascending", desc: "Descending"
     }
 };
 
@@ -375,13 +423,20 @@ function render() {
             return nameMatch && elementMatch;
         })
         .sort((a, b) => {
-            if (selectedSort === "id") return a.id - b.id;
-            if (selectedSort === "total") {
-                const totalA = Object.values(a.stats).reduce((x, y) => x + y, 0);
-                const totalB = Object.values(b.stats).reduce((x, y) => x + y, 0);
-                return totalB - totalA;
+            let valA, valB;
+
+            if (selectedSort === "id") {
+                valA = parseInt(a.id);
+                valB = parseInt(b.id);
+            } else if (selectedSort === "total") {
+                valA = Object.values(a.stats).reduce((x, y) => x + y, 0);
+                valB = Object.values(b.stats).reduce((x, y) => x + y, 0);
+            } else {
+                valA = a.stats[selectedSort];
+                valB = b.stats[selectedSort];
             }
-            return b.stats[selectedSort] - a.stats[selectedSort];
+
+            return sortOrder === "asc" ? valA - valB : valB - valA;
         });
 
     filtered.forEach(ani => {
@@ -455,6 +510,8 @@ function updateLang() {
     document.getElementById("title").textContent = ui.title;
     document.getElementById("searchInput").placeholder = ui.search;
     document.getElementById("langBtn").textContent = ui.btn;
+    document.getElementById("labelAsc").textContent = ui.asc;
+    document.getElementById("labelDesc").textContent = ui.desc;
 
     buildElementMenu();
     buildStatusMenu();
@@ -480,7 +537,14 @@ function buildElementMenu() {
 
 function buildStatusMenu() {
     const list = document.getElementById("statusList");
-    list.innerHTML = `<li data-value="id">ID (Padrão)</li>`;
+    
+    // CORREÇÃO DO BUG: Adicionado onclick para a opção de ID
+    const liId = document.createElement("li");
+    liId.textContent = "ID (Padrão)";
+    liId.onclick = () => selectSort("id");
+    list.innerHTML = "";
+    list.appendChild(liId);
+
     statsKeys.forEach(k => {
         const li = document.createElement("li");
         li.textContent = statLabels[lang][k];
@@ -511,6 +575,11 @@ function updateFilterButtonsDisplay() {
     
     const sortDisplayText = selectedSort === "id" ? "ID" : (statLabels[lang][selectedSort] || "TOTAL");
     sBtn.innerHTML = `<span>${selectedSort === "id" ? uiText[lang].sortLabel : sortDisplayText}</span> <span style="font-size:10px;">▼</span>`;
+}
+
+function setSortOrder(order) {
+    sortOrder = order;
+    render();
 }
 
 function selectElement(val) {
