@@ -145,7 +145,7 @@
 
         /* --- Status Chart --- */
         .chart-wrapper {
-            max-width: 350px;
+            max-width: 280px; /* Reduzido conforme pedido */
             margin: 0 auto;
         }
         .stats-total {
@@ -358,7 +358,8 @@ function updateLang() {
     document.getElementById('lblResist').textContent = ui.lblResist;
     document.getElementById('locText').textContent = ui.notAvail;
 
-    const descText = currentAnimon.desc && currentAnimon.desc[lang] ? currentAnimon.desc[lang] : ui.noDesc;
+    // Se o objeto anime/desc existir, usa ele. Caso contrário busca desc_pt/desc_en
+    const descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     document.getElementById('animonDesc').innerHTML = `<i>"${descText}"</i>`;
 
     renderStats();
@@ -370,7 +371,6 @@ function updateLang() {
  * RENDERIZAR ESTRUTURAS
  */
 function renderStats() {
-    // Ajustado para spAtk e spDef conforme o banco de dados animons.js
     const st = currentAnimon.stats || { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
     const total = st.hp + st.atk + st.def + (st.spAtk || 0) + (st.spDef || 0) + st.spd;
     
@@ -388,9 +388,16 @@ function renderStats() {
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['HP', 'ATK', 'DEF', 'SP.ATK', 'SP.DEF', 'SPEED'],
+            // Valores exibidos diretamente no rótulo conforme solicitado
+            labels: [
+                `HP: ${st.hp}`, 
+                `ATK: ${st.atk}`, 
+                `DEF: ${st.def}`, 
+                `SP.ATK: ${st.spAtk}`, 
+                `SP.DEF: ${st.spDef}`, 
+                `SPD: ${st.spd}`
+            ],
             datasets: [{
-                label: 'Stats',
                 data: [st.hp, st.atk, st.def, st.spAtk, st.spDef, st.spd],
                 backgroundColor: chartFill,
                 borderColor: chartLine,
@@ -400,15 +407,23 @@ function renderStats() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             scales: {
                 r: {
                     angleLines: { color: textColor, opacity: 0.2 },
                     grid: { color: textColor, opacity: 0.2 },
-                    pointLabels: { color: textColor, font: { size: 12, weight: 'bold' } },
+                    pointLabels: { 
+                        color: textColor, 
+                        font: { size: 11, weight: 'bold' },
+                        padding: 10
+                    },
                     ticks: { display: false, min: 0, max: 200 }
                 }
             },
-            plugins: { legend: { display: false } }
+            plugins: { 
+                legend: { display: false },
+                tooltip: { enabled: false } // Desativa o popup ao clicar/hover
+            }
         }
     });
 }
@@ -418,7 +433,6 @@ function renderMoves() {
     const ui = uiText[lang];
     container.innerHTML = "";
 
-    // Ajustado para ler de movesList conforme o banco de dados animons.js
     const movesList = currentAnimon.movesList || [];
 
     if (movesList.length === 0) {
@@ -439,17 +453,20 @@ function renderMoves() {
     container.appendChild(header);
 
     sortedMoves.forEach(m => {
-        // Busca info adicional no movesData (de database/moves.js) baseado no nome do move
-        let moveInfo = (typeof movesData !== 'undefined') ? movesData.find(md => md.name.pt === m.name || md.name.en === m.name) : null;
+        // Detecta o const moves do database/moves.js (acessando pelo nome da chave)
+        let moveInfo = (typeof moves !== 'undefined') ? moves[m.name] : null;
         
-        const moveDisplayName = (moveInfo && moveInfo.name[lang]) ? moveInfo.name[lang] : m.name;
+        // Se moveInfo existir, usa o type e attack dele
+        const moveType = (moveInfo && moveInfo.type) ? moveInfo.type : '-';
+        const moveCat = (moveInfo && moveInfo.attack) ? moveInfo.attack : '-';
+        
         const row = document.createElement('div');
         row.className = 'move-item';
         row.innerHTML = `
             <span>${m.level}</span>
-            <span class="move-name">${moveDisplayName}</span>
-            <span class="move-type">${(moveInfo && moveInfo.type) ? moveInfo.type : '-'}</span>
-            <span class="move-cat">${(moveInfo && moveInfo.category) ? moveInfo.category : '-'}</span>
+            <span class="move-name">${m.name}</span>
+            <span class="move-type">${moveType}</span>
+            <span class="move-cat">${moveCat}</span>
         `;
         container.appendChild(row);
     });
@@ -463,7 +480,6 @@ function renderTypeChart() {
     weakContainer.innerHTML = "";
     resContainer.innerHTML = "";
 
-    // Ajustado para lidar com campo "type" (string) ou "types" (array)
     let types = [];
     if (currentAnimon.type) types.push(currentAnimon.type);
     if (currentAnimon.types) types = currentAnimon.types;
