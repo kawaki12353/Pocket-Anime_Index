@@ -1,4 +1,13 @@
 const moves = {
+  "Lightning Spread": {
+    name: "Lightning Spread",
+    desc_pt: "Libera um choque elétrico que ignora precisão e esquiva.",
+    desc_en: "Release an electric shock that ignores accuracy and evasion.",
+    type: "lightning",
+    attack: "special",
+    power: 65,
+    accuracy: 100,
+  },
   "False Courage": {
     name: "False Courage",
     desc_pt: "Reúna sua determinação para não ser afetado por [007]dormência[000], [008]paralisia[000] ou recuar por 3 turnos.",
