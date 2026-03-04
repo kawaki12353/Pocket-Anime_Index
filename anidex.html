@@ -50,23 +50,33 @@
             line-height: 1.5;
         }
 
-        /* --- Header --- */
-        .header { 
-            position: relative; 
-            text-align: left; 
-            margin-bottom: 50px; 
-            min-height: 80px;
+        /* --- HEADER (Igual ao maps.html) --- */
+        .header {
             display: flex;
+            flex-direction: column;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            gap: 12px;
         }
-        .logo { 
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 180px; 
-            max-width: 40vw; 
+
+        .header-top {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
-        .page-title { margin: 0; font-size: 28px; }
+
+        .logo {
+            width: 260px;
+        }
+
+        .map-title {
+            flex: 1;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: bold;
+        }
 
         /* --- Filtros --- */
         .filters {
@@ -76,6 +86,9 @@
             align-items: stretch;
             flex-wrap: wrap;
             margin-bottom: 25px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .filters input, .select-btn {
             padding: 10px 12px;
@@ -92,7 +105,7 @@
         .custom-select { position: relative; width: 100%; max-width: 260px; }
         .select-btn {
             width: 100%; display: flex; align-items: center; justify-content: flex-start;
-            gap: 8px; cursor: pointer; box-sizing: border-box; border: 2px solid var(--border);
+            gap: 8px; cursor: pointer; box-sizing: border-box; border: 1px solid var(--border);
         }
         .select-list {
             display: none; position: absolute; top: 105%; left: 0; width: 100%;
@@ -109,34 +122,38 @@
 
         /* --- Lista de Animons --- */
         .animon-list {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 12px;
         }
+
+        /* --- ESTILO EXPANDÍVEL (Igual ao maps.html) --- */
         .animon-card {
             background: var(--card);
-            border-radius: 15px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
             overflow: hidden;
-            border: none; /* Ajuste: Sem borda */
             transition: transform 0.2s;
-            cursor: pointer;
         }
-        .animon-card:hover { transform: translateY(-3px); }
 
         .card-header {
-            padding: 15px;
+            padding: 14px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 15px;
+            font-weight: bold;
         }
-        
-        /* Ajuste: Estilo do ID à esquerda */
+        .card-header:hover { background: var(--hover); }
+
         .animon-id {
             font-weight: bold;
             font-size: 18px;
             color: var(--text);
             opacity: 0.6;
-            min-width: 50px;
+            min-width: 40px;
         }
 
         .animon-info h3 { margin: 0; font-size: 18px; flex: 1; }
@@ -154,24 +171,28 @@
             font-weight: bold;
             width: fit-content;
         }
-        .element-icon {
-            width: 14px;
-            height: 14px;
-            object-fit: contain;
+        .element-icon { width: 14px; height: 14px; object-fit: contain; }
+
+        /* CONTEÚDO EXPANSÍVEL */
+        .details-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: rgba(0,0,0,0.02);
         }
 
-        /* --- Container Expandido --- */
-        .details-container {
-            display: none;
+        .details-content {
             padding: 15px;
-            background: rgba(0,0,0,0.03);
-            border-top: 1px solid var(--border);
-            flex-direction: column; /* Ajuste: Layout em coluna para comportar a linha de status */
+            display: flex;
+            flex-direction: column;
             gap: 15px;
         }
-        .animon-card.active .details-container { display: flex; }
 
-        /* Ajuste: Status em mini containers em LINHA */
+        .animon-card.active .details-container {
+            max-height: 1000px;
+        }
+
+        /* Status grid */
         .stats-grid { 
             display: flex; 
             flex-wrap: wrap; 
@@ -193,10 +214,6 @@
         .stat-mini-card .stat-val { font-size: 13px; font-weight: bold; }
         .stat-mini-card.total-box { background: var(--accent-blue); color: white; border: none; }
 
-        .moves-list { font-size: 12px; }
-        .moves-list h4 { margin: 0 0 5px 0; font-size: 13px; }
-        .move-item { display: flex; justify-content: space-between; color: #777; margin-bottom: 2px; }
-
         .link-btn {
             display: flex;
             align-items: center;
@@ -204,38 +221,41 @@
             background: var(--accent-blue);
             color: white;
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border-radius: 8px;
             text-decoration: none;
             transition: background 0.2s;
             font-weight: bold;
-            margin-top: 5px;
+            box-sizing: border-box;
         }
         .link-btn:hover { background: #0056b3; }
 
         .lang-toggle {
-            position: fixed; bottom: 20px; left: 50%;
+            position: fixed; bottom: 10px; left: 50%;
             transform: translateX(-50%); z-index: 10;
         }
         .lang-toggle button {
             background: var(--lang-btn-bg); color: var(--lang-btn);
-            padding: 10px 20px; border-radius: 30px; border: none;
-            cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            padding: 8px 14px; border-radius: 20px; border: none;
+            cursor: pointer; font-weight: bold;
         }
 
-        @media (max-width: 600px) {
-            .header { margin-bottom: 20px; }
-            .logo { width: 120px; }
+        @media (max-width: 768px) {
+            .header-top { justify-content: center; }
+            .logo { width: 150px; }
+            .animon-list { max-width: 420px; }
         }
     </style>
 </head>
 
 <body>
 
-<header class="header">
-    <h1 id="title" class="page-title"></h1>
-    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
-</header>
+<div class="header">
+    <div class="header-top">
+        <img src="assets/Pocket-Anime-logo.png" class="logo">
+    </div>
+    <h2 class="map-title" id="title"></h2>
+</div>
 
 <main>
     <div class="filters">
@@ -297,7 +317,7 @@ function render() {
     const listEl = document.getElementById("animonList");
     listEl.innerHTML = "";
 
-    // Filtra e ordena todos os animons sem limite de quantidade
+    // Filtra e ordena todos os animons
     const filtered = animons
         .filter(ani => {
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
@@ -320,11 +340,11 @@ function render() {
         const typeLower = ani.type.toLowerCase();
 
         const card = document.createElement("div");
-        card.className = `animon-card`; // Removido borda dinâmica
+        card.className = `animon-card`;
 
         card.innerHTML = `
             <div class="card-header">
-                <div class="animon-id">#${String(ani.id).padStart(3, '0')}</div>
+                <div class="animon-id">#${ani.id}</div>
                 <div class="animon-info">
                     <h3>${ani.name}</h3>
                     <span class="element-badge" style="background-color: var(--color-${typeLower})">
@@ -334,29 +354,26 @@ function render() {
                 </div>
             </div>
             <div class="details-container">
-                <div class="stats-grid">
-                    ${statsKeys.map(k => `
-                        <div class="stat-mini-card">
-                            <span class="stat-name">${statLabels[lang][k]}</span>
-                            <span class="stat-val">${stats[k]}</span>
+                <div class="details-content">
+                    <div class="stats-grid">
+                        ${statsKeys.map(k => `
+                            <div class="stat-mini-card">
+                                <span class="stat-name">${statLabels[lang][k]}</span>
+                                <span class="stat-val">${stats[k]}</span>
+                            </div>
+                        `).join('')}
+                        <div class="stat-mini-card total-box">
+                            <span class="stat-name">${uiText[lang].total}</span>
+                            <span class="stat-val">${total}</span>
                         </div>
-                    `).join('')}
-                    <div class="stat-mini-card total-box">
-                        <span class="stat-name">${uiText[lang].total}</span>
-                        <span class="stat-val">${total}</span>
                     </div>
+                    <a href="pagina-animon.html?id=${ani.id}" class="link-btn">Ver Detalhes ➔</a>
                 </div>
-                <div class="moves-list">
-                    <h4>Moves</h4>
-                    ${ani.movesList.slice(0, 4).map(m => `
-                        <div class="move-item"><span>${m.name}</span> <span>Lvl ${m.level}</span></div>
-                    `).join('')}
-                </div>
-                <a href="pagina-animon.html?id=${ani.id}" class="link-btn">Ver Detalhes ➔</a>
             </div>
         `;
 
-        card.onclick = () => {
+        // Lógica de expansão literal do maps.html
+        card.querySelector(".card-header").onclick = () => {
             const isActive = card.classList.contains("active");
             document.querySelectorAll(".animon-card").forEach(c => c.classList.remove("active"));
             if (!isActive) card.classList.add("active");
@@ -403,7 +420,6 @@ function buildStatusMenu() {
         li.onclick = () => selectSort(k);
         list.appendChild(li);
     });
-    // Adicionar Total na ordenação
     const liTotal = document.createElement("li");
     liTotal.textContent = statLabels[lang].total;
     liTotal.onclick = () => selectSort("total");
