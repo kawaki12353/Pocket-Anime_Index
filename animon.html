@@ -610,12 +610,14 @@ function renderTypeChart() {
 
     if (typeof chart === 'undefined' || !currentAnimon) return;
 
-    // 1. Identifica tipos do animon atual
+    // 1. Identifica tipos do animon atual (Suporta String única ou Array de 2 elementos)
     let defenderTypes = [];
-    if (currentAnimon.types && Array.isArray(currentAnimon.types)) {
-        defenderTypes = currentAnimon.types.filter(t => t).map(t => t.toLowerCase().trim());
-    } else if (currentAnimon.type) {
-        defenderTypes = [currentAnimon.type.toLowerCase().trim()];
+    let rawType = currentAnimon.type || currentAnimon.types;
+
+    if (Array.isArray(rawType)) {
+        defenderTypes = rawType.filter(t => t).map(t => t.toLowerCase().trim());
+    } else if (rawType) {
+        defenderTypes = [rawType.toLowerCase().trim()];
     }
 
     if (defenderTypes.length === 0) {
