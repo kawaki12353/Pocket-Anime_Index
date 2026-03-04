@@ -271,7 +271,7 @@
             /* Mobile: Logo à direita igual team-builder */
             .header-top { justify-content: flex-end; }
             .logo { width: 150px; }
-            
+
             .top-section { 
                 flex-direction: row; 
                 align-items: center; 
@@ -611,12 +611,11 @@ function renderTypeChart() {
     // Identifica tipos do animon atual
     let defenderTypes = [];
     if (currentAnimon.types && Array.isArray(currentAnimon.types)) {
-        defenderTypes = currentAnimon.types;
+        defenderTypes = currentAnimon.types.map(t => t.toLowerCase().trim());
     } else if (currentAnimon.type) {
-        defenderTypes = [currentAnimon.type];
+        defenderTypes = [currentAnimon.type.toLowerCase().trim()];
     }
 
-    // Se não houver dados da chart ou tipos, aborta
     if (defenderTypes.length === 0 || typeof chart === 'undefined') {
         container.innerHTML = `<p>${ui.notDef}</p>`;
         return;
@@ -625,32 +624,38 @@ function renderTypeChart() {
     const attackers = Object.keys(chart);
     const multipliers = {};
 
-    // Calcula multiplicador de defesa para cada tipo de ataque possível (Suporta 2 elementos)
+    // Calcula multiplicador para cada tipo de ataque
     attackers.forEach(atkType => {
         let m = 1;
+        const lowAtk = atkType.toLowerCase().trim();
+        
         defenderTypes.forEach(defType => {
-            if (chart[atkType] && chart[atkType][defType] !== undefined) {
-                m *= chart[atkType][defType];
+            // Busca o valor no chart ignorando case
+            const chartAtk = chart[atkType] || chart[Object.keys(chart).find(k => k.toLowerCase() === lowAtk)];
+            if (chartAtk) {
+                const chartVal = chartAtk[defType] || chartAtk[Object.keys(chartAtk).find(k => k.toLowerCase() === defType)];
+                if (chartVal !== undefined) {
+                    m *= chartVal;
+                }
             }
         });
         multipliers[atkType] = m;
     });
 
-    // Agrupa por valor
+    // Agrupa por valor final
     const groups = {
         x4: [], x2: [], x1: [], x05: [], x025: [], x0: []
     };
 
     Object.entries(multipliers).forEach(([type, val]) => {
-        if (val === 4) groups.x4.push(type);
-        else if (val === 2) groups.x2.push(type);
+        if (val >= 4) groups.x4.push(type);
+        else if (val >= 2) groups.x2.push(type);
         else if (val === 1) groups.x1.push(type);
         else if (val === 0.5) groups.x05.push(type);
-        else if (val === 0.25) groups.x025.push(type);
+        else if (val > 0 && val <= 0.25) groups.x025.push(type);
         else if (val === 0) groups.x0.push(type);
     });
 
-    // Ordem de exibição solicitada
     const order = [
         { key: 'x4', label: ui.weak4, val: '4x' },
         { key: 'x2', label: ui.weak2, val: '2x' },
@@ -664,7 +669,7 @@ function renderTypeChart() {
         if (groups[group.key].length > 0) {
             const section = document.createElement('div');
             section.className = 'type-section';
-            
+
             const title = document.createElement('div');
             title.className = 'type-section-title';
             title.textContent = group.label;
@@ -679,7 +684,7 @@ function renderTypeChart() {
                 const iconPath = `assets/${typeName.toLowerCase()}_element.png`;
                 badge.innerHTML = `
                     <img src="${iconPath}" onerror="this.src='assets/neutral_element.png'">
-                    <span>${typeName}</span>
+                    <span style="text-transform: capitalize;">${typeName}</span>
                     <span class="dmg-multiplier">${group.val}</span>
                 `;
                 grid.appendChild(badge);
