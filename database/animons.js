@@ -1,5 +1,6 @@
 const animons = [
   { id: 1, name: "Ruffy", type: "Fighting", sprite: "assets/animons-icon/ruffy.png", stats: { hp: 46, atk: 65, def: 55, spAtk: 35, spDef: 44, spd: 55 },
+    anime: { name: "Luffy", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Punch" },
       { level: 1, name: "Rubber Balloon" },
@@ -13,6 +14,7 @@ const animons = [
     ]
   },
   { id: 1.01, name: "TS Ruffy", type: "Fighting", sprite: "assets/animons-icon/ts_ruffy.png", stats: { hp: 62, atk: 93, def: 70, spAtk: 25, spDef: 52, spd: 75 },
+    anime: [{ name: "Luffy", anime:"One Piece" }],
     movesList: [
       { level: 1, name: "Punch" },
       { level: 1, name: "Rubber Balloon" },
