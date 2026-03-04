@@ -50,10 +50,23 @@
             line-height: 1.5;
         }
 
-        /* --- Header --- */
-        .header { position: relative; text-align: center; margin-bottom: 30px; }
-        .logo { width: 220px; max-width: 60vw; }
-        .page-title { margin-top: 15px; font-size: 24px; }
+        /* --- Alteração 1: Header com Logo no canto superior direito --- */
+        .header { 
+            position: relative; 
+            text-align: left; 
+            margin-bottom: 50px; 
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        .logo { 
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 180px; 
+            max-width: 40vw; 
+        }
+        .page-title { margin: 0; font-size: 28px; }
 
         /* --- Filtros --- */
         .filters {
@@ -118,17 +131,24 @@
         }
         .animon-sprite { width: 64px; height: 64px; object-fit: contain; }
         .animon-info h3 { margin: 0; font-size: 18px; }
-        
-        /* Badges de Elementos */
+
+        /* Badges de Elementos com Ícone */
         .element-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 8px;
+            border-radius: 6px;
             font-size: 11px;
             text-transform: uppercase;
             color: #fff;
             margin-top: 5px;
             font-weight: bold;
+        }
+        .element-icon {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
         }
 
         /* --- Container Expandido --- */
@@ -180,11 +200,14 @@
         .border-fire { border-color: var(--color-fire); }
         .border-water { border-color: var(--color-water); }
         .border-grass { border-color: var(--color-grass); }
-        /* Adicionar para todos os elementos conforme necessário... */
+        .border-fighting { border-color: var(--color-fighting); }
+        /* Adicionar para todos os outros elementos conforme a necessidade */
 
         @media (max-width: 600px) {
             .details-container { flex-direction: column; }
             .link-btn { align-self: flex-end; }
+            .header { margin-bottom: 20px; }
+            .logo { width: 120px; }
         }
     </style>
 </head>
@@ -192,8 +215,8 @@
 <body>
 
 <header class="header">
-    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
     <h1 id="title" class="page-title"></h1>
+    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
 </header>
 
 <main>
@@ -223,10 +246,11 @@
 <script>
 /**
  * CONFIGURAÇÕES E ESTADO
+ * Alteração 3: Adaptado para a nova estrutura de dados (stats camelCase e sem nesting de linguagem no objeto root)
  */
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedElement = "";
-let selectedSort = "id"; // Padrão: ID
+let selectedSort = "id"; 
 
 const uiText = {
     pt: {
@@ -247,11 +271,12 @@ const elementKeys = [
     "steel", "dark", "fairy", "neutral"
 ];
 
-const statsKeys = ["hp", "atk", "def", "spatk", "spdef", "spd", "total"];
+// Chaves ajustadas para o exemplo fornecido: hp, atk, def, spAtk, spDef, spd
+const statsKeys = ["hp", "atk", "def", "spAtk", "spDef", "spd", "total"];
 
 const statLabels = {
-    pt: { hp: "HP", atk: "ATK", def: "DEF", spatk: "SP.ATK", spdef: "SP.DEF", spd: "SPD", total: "TOTAL" },
-    en: { hp: "HP", atk: "ATK", def: "DEF", spatk: "SP.ATK", spdef: "SP.DEF", spd: "SPD", total: "TOTAL" }
+    pt: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" },
+    en: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" }
 };
 
 /**
@@ -265,8 +290,9 @@ function render() {
 
     const filtered = animons
         .filter(ani => {
-            const nameMatch = ani[lang].name.toLowerCase().includes(searchVal);
-            const elementMatch = !selectedElement || ani.element === selectedElement;
+            // Alteração 3: Acesso direto ao ani.name e ani.type
+            const nameMatch = ani.name.toLowerCase().includes(searchVal);
+            const elementMatch = !selectedElement || ani.type.toLowerCase() === selectedElement.toLowerCase();
             return nameMatch && elementMatch;
         })
         .sort((a, b) => {
@@ -280,20 +306,21 @@ function render() {
         });
 
     filtered.forEach(ani => {
-        const data = ani[lang];
         const stats = ani.stats;
         const total = Object.values(stats).reduce((a, b) => a + b, 0);
-        
+        const typeLower = ani.type.toLowerCase();
+
         const card = document.createElement("div");
-        card.className = `animon-card border-${ani.element}`;
-        
+        card.className = `animon-card border-${typeLower}`;
+
         card.innerHTML = `
             <div class="card-header">
-                <img src="assets/sprites/${ani.id}.png" class="animon-sprite" onerror="this.src='assets/sem_icone.png'">
+                <img src="${ani.sprite}" class="animon-sprite" onerror="this.src='assets/sem_icone.png'">
                 <div class="animon-info">
-                    <h3>#${String(ani.id).padStart(3, '0')} ${data.name}</h3>
-                    <span class="element-badge" style="background-color: var(--color-${ani.element})">
-                        ${ani.element.toUpperCase()}
+                    <h3>#${String(ani.id).padStart(3, '0')} ${ani.name}</h3>
+                    <span class="element-badge" style="background-color: var(--color-${typeLower})">
+                        <img src="assets/${typeLower}_element.png" class="element-icon" onerror="this.style.display='none'">
+                        ${ani.type.toUpperCase()}
                     </span>
                 </div>
             </div>
@@ -306,7 +333,7 @@ function render() {
                 </div>
                 <div class="moves-list">
                     <h4>Moves</h4>
-                    ${ani.moves.slice(0, 4).map(m => `
+                    ${ani.movesList.slice(0, 4).map(m => `
                         <div class="move-item"><span>${m.name}</span> <span>Lvl ${m.level}</span></div>
                     `).join('')}
                 </div>
@@ -325,7 +352,7 @@ function render() {
 }
 
 /**
- * UI BUILDERS (Igual ao items.html)
+ * UI BUILDERS
  */
 
 function updateLang() {
@@ -346,7 +373,11 @@ function buildElementMenu() {
     elementKeys.forEach(key => {
         const li = document.createElement("li");
         li.dataset.value = key;
-        li.innerHTML = `<span style="width:12px; height:12px; background:var(--color-${key}); border-radius:50%"></span> ${key.toUpperCase()}`;
+        // Alteração 2: Ícone do elemento no menu de seleção
+        li.innerHTML = `
+            <img src="assets/${key}_element.png" style="width:16px; height:16px;" onerror="this.style.display='none'"> 
+            ${key.toUpperCase()}
+        `;
         li.onclick = () => selectElement(key);
         list.appendChild(li);
     });
