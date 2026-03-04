@@ -161,9 +161,9 @@
 
         /* --- Lista de Animons --- */
         .animon-list {
-            max-width: 800px;
+            max-width: 800px; /* Reduzido de 1200px para 800px para PC */
             margin: 0 auto;
-            display: flex; /* Alterado para flex para ficarem um em cima do outro */
+            display: flex; 
             flex-direction: column;
             gap: 12px;
         }
@@ -193,7 +193,7 @@
             align-items: center;
             gap: 12px;
             flex: 1;
-            min-width: 0; /* Permite que o flex-item encolha para o ellipsis funcionar */
+            min-width: 0; 
         }
 
         /* Lado Direito: Elementos e Seta */
@@ -221,7 +221,7 @@
             font-size: 16px; 
             white-space: nowrap; 
             overflow: hidden; 
-            text-overflow: ellipsis; /* Adicionado limite com reticências */
+            text-overflow: ellipsis; 
         }
 
         /* Coluna da Seta */
@@ -335,6 +335,7 @@
         @media (max-width: 768px) {
             .header-top { justify-content: flex-end; }
             .logo { width: 150px; }
+            .animon-list, .filters, .header { max-width: 100%; } /* Garante adaptação total no mobile */
         }
     </style>
 </head>
@@ -426,7 +427,6 @@ function render() {
 
     const filtered = animons
         .filter(ani => {
-            // Busca por nome ou por ID
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
             const idMatch = ani.id.toString().includes(searchVal);
             
@@ -469,7 +469,6 @@ function render() {
         const card = document.createElement("div");
         card.className = `animon-card`;
         
-        // Verifica se este Animon deve estar aberto
         if (activeAnimonId === ani.id) card.classList.add("active");
 
         card.innerHTML = `
@@ -503,7 +502,7 @@ function render() {
                             <span class="stat-val">${total}</span>
                         </div>
                     </div>
-                    <a href="pagina-animon.html?id=${ani.id}" class="link-btn">${uiText[lang].details} ➔</a>
+                    <a href="animon.html?id=${ani.id}" class="link-btn">${uiText[lang].details} ➔</a>
                 </div>
             </div>
         `;
@@ -578,7 +577,6 @@ function updateFilterButtonsDisplay() {
     const sBtn = document.getElementById("statusBtn");
 
     if (selectedElement) {
-        // Agora mostra capitalizado (Ex: Fire)
         const capitalized = selectedElement.charAt(0).toUpperCase() + selectedElement.slice(1);
         eBtn.innerHTML = `
             <div style="display:flex; align-items:center; gap:8px;">
