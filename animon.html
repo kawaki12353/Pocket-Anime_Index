@@ -601,7 +601,7 @@ function toggleMoveBalloon(moveDiv) {
 function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
 
 /**
- * LÓGICA TYPE CHART ATUALIZADA - CORRIGIDA PARA 1 OU 2 ELEMENTOS
+ * LÓGICA TYPE CHART REFEITA
  */
 function renderTypeChart() {
     const container = document.getElementById('typeChartContent');
@@ -610,7 +610,7 @@ function renderTypeChart() {
 
     if (typeof chart === 'undefined' || !currentAnimon) return;
 
-    // Identifica tipos do animon atual de forma resiliente
+    // 1. Identifica tipos do animon atual (suporta array 'types' ou string 'type')
     let defenderTypes = [];
     if (currentAnimon.types && Array.isArray(currentAnimon.types)) {
         defenderTypes = currentAnimon.types.filter(t => t).map(t => t.toLowerCase().trim());
@@ -623,42 +623,37 @@ function renderTypeChart() {
         return;
     }
 
-    const attackers = Object.keys(chart);
+    // 2. Calcula multiplicadores para cada tipo atacante da typechart
+    const allAttackTypes = Object.keys(chart);
     const multipliers = {};
 
-    attackers.forEach(atkType => {
-        let m = 1.0;
-        const lowAtk = atkType.toLowerCase().trim();
-        
-        // Acessa o objeto do atacante na tabela (ignora case)
-        const chartAtk = chart[atkType] || chart[Object.keys(chart).find(k => k.toLowerCase() === lowAtk)];
-        
-        if (chartAtk) {
-            defenderTypes.forEach(defType => {
-                // Procura o valor de dano contra o tipo defensor específico
-                const defKey = Object.keys(chartAtk).find(k => k.toLowerCase().trim() === defType);
-                const chartVal = defKey !== undefined ? chartAtk[defKey] : 1.0;
-                
-                if (typeof chartVal === 'number') {
-                    m *= chartVal;
-                }
-            });
-        }
-        multipliers[atkType] = m;
+    allAttackTypes.forEach(atkType => {
+        let totalMult = 1.0;
+        const atkData = chart[atkType];
+
+        defenderTypes.forEach(defType => {
+            // Procura o valor no objeto do atacante ignorando Case
+            const matchKey = Object.keys(atkData).find(k => k.toLowerCase() === defType);
+            if (matchKey) {
+                totalMult *= atkData[matchKey];
+            }
+        });
+        multipliers[atkType] = totalMult;
     });
 
-    // Agrupa por valor final usando faixas para evitar erros de precisão decimal
+    // 3. Agrupa por valor
     const groups = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
 
     Object.entries(multipliers).forEach(([type, val]) => {
-        if (val >= 3.0) groups.x4.push(type);
-        else if (val >= 1.5 && val < 3.0) groups.x2.push(type);
-        else if (val > 0.8 && val < 1.2) groups.x1.push(type); // Dano 1x
+        if (val >= 3.5) groups.x4.push(type);
+        else if (val >= 1.5 && val < 3.5) groups.x2.push(type);
+        else if (val > 0.8 && val < 1.2) groups.x1.push(type);
         else if (val > 0.3 && val <= 0.7) groups.x05.push(type);
         else if (val > 0 && val <= 0.3) groups.x025.push(type);
         else if (val === 0) groups.x0.push(type);
     });
 
+    // 4. Renderiza as seções
     const order = [
         { key: 'x4', label: ui.weak4, val: '4x' },
         { key: 'x2', label: ui.weak2, val: '2x' },
@@ -684,9 +679,10 @@ function renderTypeChart() {
             groups[group.key].forEach(typeName => {
                 const badge = document.createElement('div');
                 badge.className = 'type-badge';
-                const iconPath = `assets/${typeName.toLowerCase()}_element.png`;
+                // Caminho dos ícones baseado no nome do tipo em minúsculo
+                const lowName = typeName.toLowerCase();
                 badge.innerHTML = `
-                    <img src="${iconPath}" onerror="this.src='assets/neutral_element.png'">
+                    <img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">
                     <span style="text-transform: capitalize;">${typeName}</span>
                     <span class="dmg-multiplier">${group.val}</span>
                 `;
