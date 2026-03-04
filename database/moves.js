@@ -25,8 +25,11 @@ const moves = {
   },
   "Shark Throw": {
     name: "Shark Throw",
+    desc_pt: "Arremesse um alvo de um redemoinho. Isso diminui a prioridade dele e o força a recuar.",
+    desc_en: "Throw a target from a whirlpool. This has decreased priority and forces them to retreat.",
     type: "water",
     attack: "special",
+    power: 30,
     accuracy: 100,
   },
   "Water Spear": {
