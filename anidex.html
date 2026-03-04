@@ -254,7 +254,7 @@
 
         .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
         .stat-mini-card {
-            background: var(--card);
+            background: rgba(150, 150, 150, 0.1);
             padding: 5px 10px;
             border-radius: 8px;
             border: 1px solid var(--border);
@@ -263,10 +263,11 @@
             align-items: center;
             min-width: 55px;
             flex: 1;
+            color: var(--text);
         }
         .stat-mini-card .stat-name { font-size: 10px; font-weight: bold; opacity: 0.7; }
         .stat-mini-card .stat-val { font-size: 13px; font-weight: bold; }
-        .stat-mini-card.total-box { background: var(--accent-blue); color: white; border: none; }
+        .stat-mini-card.total-box { background: rgba(150, 150, 150, 0.15); border: 1px solid var(--border); }
 
         .link-btn {
             display: flex; align-items: center; justify-content: center;
@@ -336,12 +337,12 @@ const uiText = {
     pt: {
         title: "Anidex Animons", search: "Pesquisar por nome...",
         allElements: "Todos os Elementos", sortLabel: "Ordenar por...",
-        total: "TOT", lv: "Nível", btn: "🇧🇷 PT"
+        total: "TOTAL", lv: "Nível", btn: "🇧🇷 PT", details: "Sobre o Animon"
     },
     en: {
         title: "Anidex Animons", search: "Search by name...",
         allElements: "All Elements", sortLabel: "Sort by...",
-        total: "TOT", lv: "Level", btn: "🇺🇸 EN"
+        total: "TOTAL", lv: "Level", btn: "🇺🇸 EN", details: "About Animon"
     }
 };
 
@@ -354,8 +355,8 @@ const elementKeys = [
 const statsKeys = ["hp", "atk", "def", "spAtk", "spDef", "spd"];
 
 const statLabels = {
-    pt: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "S.ATK", spDef: "S.DEF", spd: "SPD", total: "TOT" },
-    en: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "S.ATK", spDef: "S.DEF", spd: "SPD", total: "TOT" }
+    pt: { id: "ID", hp: "HP", atk: "ATK", def: "DEF", spAtk: "S.ATK", spDef: "S.DEF", spd: "SPD", total: "TOTAL" },
+    en: { id: "ID", hp: "HP", atk: "ATK", def: "DEF", spAtk: "S.ATK", spDef: "S.DEF", spd: "SPD", total: "TOTAL" }
 };
 
 function render() {
@@ -434,7 +435,7 @@ function render() {
                             <span class="stat-val">${total}</span>
                         </div>
                     </div>
-                    <a href="pagina-animon.html?id=${ani.id}" class="link-btn">Ver Detalhes ➔</a>
+                    <a href="pagina-animon.html?id=${ani.id}" class="link-btn">${uiText[lang].details} ➔</a>
                 </div>
             </div>
         `;
@@ -468,11 +469,7 @@ function buildElementMenu() {
         const li = document.createElement("li");
         li.dataset.value = key;
         li.innerHTML = `
-            <div class="element-wrapper element-${key}" style="width:24px; height:24px;">
-                <div class="element-inner" style="width:16px; height:16px; border-width:1px;">
-                    <img src="assets/${key}_element.png" style="width:20px; height:20px;">
-                </div>
-            </div>
+            <img src="assets/${key}_element.png" style="width:24px; height:24px; object-fit:contain;">
             ${key.charAt(0).toUpperCase() + key.slice(1)}
         `;
         li.onclick = () => selectElement(key);
@@ -503,11 +500,7 @@ function updateFilterButtonsDisplay() {
     if (selectedElement) {
         eBtn.innerHTML = `
             <div style="display:flex; align-items:center; gap:8px;">
-                <div class="element-wrapper element-${selectedElement}" style="width:22px; height:22px;">
-                    <div class="element-inner" style="width:14px; height:14px; border-width:1px;">
-                        <img src="assets/${selectedElement}_element.png" style="width:18px; height:18px;">
-                    </div>
-                </div>
+                <img src="assets/${selectedElement}_element.png" style="width:22px; height:22px; object-fit:contain;">
                 ${selectedElement.toUpperCase()}
             </div>
             <span style="font-size:10px;">▼</span>
@@ -516,7 +509,8 @@ function updateFilterButtonsDisplay() {
         eBtn.innerHTML = `<span>${uiText[lang].allElements}</span> <span style="font-size:10px;">▼</span>`;
     }
     
-    sBtn.innerHTML = `<span>${selectedSort === "id" ? uiText[lang].sortLabel : statLabels[lang][selectedSort] || "TOTAL"}</span> <span style="font-size:10px;">▼</span>`;
+    const sortDisplayText = selectedSort === "id" ? "ID" : (statLabels[lang][selectedSort] || "TOTAL");
+    sBtn.innerHTML = `<span>${selectedSort === "id" ? uiText[lang].sortLabel : sortDisplayText}</span> <span style="font-size:10px;">▼</span>`;
 }
 
 function selectElement(val) {
