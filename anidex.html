@@ -9,7 +9,7 @@
     <script src="menu.js" defer></script>
 
     <style>
-        /* --- Variáveis e Temas (Mantendo o padrão do items.html) --- */
+        /* --- Variáveis e Temas --- */
         :root {
             --bg: #f2f4f7;
             --card: #ffffff;
@@ -50,7 +50,7 @@
             line-height: 1.5;
         }
 
-        /* --- Alteração 1: Header com Logo no canto superior direito --- */
+        /* --- Header --- */
         .header { 
             position: relative; 
             text-align: left; 
@@ -110,14 +110,14 @@
         /* --- Lista de Animons --- */
         .animon-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
         .animon-card {
             background: var(--card);
             border-radius: 15px;
             overflow: hidden;
-            border: 2px solid var(--border);
+            border: none; /* Ajuste: Sem borda */
             transition: transform 0.2s;
             cursor: pointer;
         }
@@ -129,10 +129,18 @@
             align-items: center;
             gap: 15px;
         }
-        .animon-sprite { width: 64px; height: 64px; object-fit: contain; }
-        .animon-info h3 { margin: 0; font-size: 18px; }
+        
+        /* Ajuste: Estilo do ID à esquerda */
+        .animon-id {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--text);
+            opacity: 0.6;
+            min-width: 50px;
+        }
 
-        /* Badges de Elementos com Ícone */
+        .animon-info h3 { margin: 0; font-size: 18px; flex: 1; }
+
         .element-badge {
             display: flex;
             align-items: center;
@@ -144,6 +152,7 @@
             color: #fff;
             margin-top: 5px;
             font-weight: bold;
+            width: fit-content;
         }
         .element-icon {
             width: 14px;
@@ -157,35 +166,53 @@
             padding: 15px;
             background: rgba(0,0,0,0.03);
             border-top: 1px solid var(--border);
-            position: relative;
+            flex-direction: column; /* Ajuste: Layout em coluna para comportar a linha de status */
+            gap: 15px;
         }
-        .animon-card.active .details-container { display: flex; gap: 15px; }
+        .animon-card.active .details-container { display: flex; }
 
-        .stats-grid { flex: 1; }
-        .stat-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 3px; }
-        .stat-row.total { font-weight: bold; border-top: 1px solid var(--border); margin-top: 5px; padding-top: 5px; }
+        /* Ajuste: Status em mini containers em LINHA */
+        .stats-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 8px; 
+            width: 100%;
+        }
+        .stat-mini-card {
+            background: var(--card);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 55px;
+            flex: 1;
+        }
+        .stat-mini-card .stat-name { font-size: 10px; font-weight: bold; opacity: 0.7; }
+        .stat-mini-card .stat-val { font-size: 13px; font-weight: bold; }
+        .stat-mini-card.total-box { background: var(--accent-blue); color: white; border: none; }
 
-        .moves-list { flex: 1; font-size: 12px; }
+        .moves-list { font-size: 12px; }
         .moves-list h4 { margin: 0 0 5px 0; font-size: 13px; }
-        .move-item { display: flex; justify-content: space-between; color: #777; }
+        .move-item { display: flex; justify-content: space-between; color: #777; margin-bottom: 2px; }
 
-        /* Botão de Link */
         .link-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--accent-blue);
             color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
             text-decoration: none;
-            align-self: center;
             transition: background 0.2s;
+            font-weight: bold;
+            margin-top: 5px;
         }
         .link-btn:hover { background: #0056b3; }
 
-        /* --- Toggle Linguagem --- */
         .lang-toggle {
             position: fixed; bottom: 20px; left: 50%;
             transform: translateX(-50%); z-index: 10;
@@ -196,16 +223,7 @@
             cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* Cores Dinâmicas para a borda do card baseada no elemento */
-        .border-fire { border-color: var(--color-fire); }
-        .border-water { border-color: var(--color-water); }
-        .border-grass { border-color: var(--color-grass); }
-        .border-fighting { border-color: var(--color-fighting); }
-        /* Adicionar para todos os outros elementos conforme a necessidade */
-
         @media (max-width: 600px) {
-            .details-container { flex-direction: column; }
-            .link-btn { align-self: flex-end; }
             .header { margin-bottom: 20px; }
             .logo { width: 120px; }
         }
@@ -244,10 +262,6 @@
 <script src="database/animons.js"></script>
 
 <script>
-/**
- * CONFIGURAÇÕES E ESTADO
- * Alteração 3: Adaptado para a nova estrutura de dados (stats camelCase e sem nesting de linguagem no objeto root)
- */
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedElement = "";
 let selectedSort = "id"; 
@@ -256,12 +270,12 @@ const uiText = {
     pt: {
         title: "Anidex Animons", search: "Pesquisar por nome...",
         allElements: "Todos os Elementos", sortLabel: "Ordenar por...",
-        total: "TOTAL", lv: "Nível", btn: "🇧🇷 PT"
+        total: "TOT", lv: "Nível", btn: "🇧🇷 PT"
     },
     en: {
         title: "Anidex Animons", search: "Search by name...",
         allElements: "All Elements", sortLabel: "Sort by...",
-        total: "TOTAL", lv: "Level", btn: "🇺🇸 EN"
+        total: "TOT", lv: "Level", btn: "🇺🇸 EN"
     }
 };
 
@@ -271,26 +285,21 @@ const elementKeys = [
     "steel", "dark", "fairy", "neutral"
 ];
 
-// Chaves ajustadas para o exemplo fornecido: hp, atk, def, spAtk, spDef, spd
-const statsKeys = ["hp", "atk", "def", "spAtk", "spDef", "spd", "total"];
+const statsKeys = ["hp", "atk", "def", "spAtk", "spDef", "spd"];
 
 const statLabels = {
-    pt: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" },
-    en: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" }
+    pt: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "S.ATK", spDef: "S.DEF", spd: "SPD", total: "TOT" },
+    en: { hp: "HP", atk: "ATK", def: "DEF", spAtk: "S.ATK", spDef: "S.DEF", spd: "SPD", total: "TOT" }
 };
-
-/**
- * CORE FUNCTIONS
- */
 
 function render() {
     const searchVal = searchInput.value.toLowerCase();
     const listEl = document.getElementById("animonList");
     listEl.innerHTML = "";
 
+    // Filtra e ordena todos os animons sem limite de quantidade
     const filtered = animons
         .filter(ani => {
-            // Alteração 3: Acesso direto ao ani.name e ani.type
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
             const elementMatch = !selectedElement || ani.type.toLowerCase() === selectedElement.toLowerCase();
             return nameMatch && elementMatch;
@@ -311,13 +320,13 @@ function render() {
         const typeLower = ani.type.toLowerCase();
 
         const card = document.createElement("div");
-        card.className = `animon-card border-${typeLower}`;
+        card.className = `animon-card`; // Removido borda dinâmica
 
         card.innerHTML = `
             <div class="card-header">
-                <img src="${ani.sprite}" class="animon-sprite" onerror="this.src='assets/sem_icone.png'">
+                <div class="animon-id">#${String(ani.id).padStart(3, '0')}</div>
                 <div class="animon-info">
-                    <h3>#${String(ani.id).padStart(3, '0')} ${ani.name}</h3>
+                    <h3>${ani.name}</h3>
                     <span class="element-badge" style="background-color: var(--color-${typeLower})">
                         <img src="assets/${typeLower}_element.png" class="element-icon" onerror="this.style.display='none'">
                         ${ani.type.toUpperCase()}
@@ -326,10 +335,16 @@ function render() {
             </div>
             <div class="details-container">
                 <div class="stats-grid">
-                    ${statsKeys.filter(k => k !== 'total').map(k => `
-                        <div class="stat-row"><span>${statLabels[lang][k]}</span> <span>${stats[k]}</span></div>
+                    ${statsKeys.map(k => `
+                        <div class="stat-mini-card">
+                            <span class="stat-name">${statLabels[lang][k]}</span>
+                            <span class="stat-val">${stats[k]}</span>
+                        </div>
                     `).join('')}
-                    <div class="stat-row total"><span>${uiText[lang].total}</span> <span>${total}</span></div>
+                    <div class="stat-mini-card total-box">
+                        <span class="stat-name">${uiText[lang].total}</span>
+                        <span class="stat-val">${total}</span>
+                    </div>
                 </div>
                 <div class="moves-list">
                     <h4>Moves</h4>
@@ -337,7 +352,7 @@ function render() {
                         <div class="move-item"><span>${m.name}</span> <span>Lvl ${m.level}</span></div>
                     `).join('')}
                 </div>
-                <a href="pagina-animon.html?id=${ani.id}" class="link-btn">➔</a>
+                <a href="pagina-animon.html?id=${ani.id}" class="link-btn">Ver Detalhes ➔</a>
             </div>
         `;
 
@@ -350,10 +365,6 @@ function render() {
         listEl.appendChild(card);
     });
 }
-
-/**
- * UI BUILDERS
- */
 
 function updateLang() {
     const ui = uiText[lang];
@@ -373,7 +384,6 @@ function buildElementMenu() {
     elementKeys.forEach(key => {
         const li = document.createElement("li");
         li.dataset.value = key;
-        // Alteração 2: Ícone do elemento no menu de seleção
         li.innerHTML = `
             <img src="assets/${key}_element.png" style="width:16px; height:16px;" onerror="this.style.display='none'"> 
             ${key.toUpperCase()}
@@ -393,6 +403,11 @@ function buildStatusMenu() {
         li.onclick = () => selectSort(k);
         list.appendChild(li);
     });
+    // Adicionar Total na ordenação
+    const liTotal = document.createElement("li");
+    liTotal.textContent = statLabels[lang].total;
+    liTotal.onclick = () => selectSort("total");
+    list.appendChild(liTotal);
 }
 
 function updateFilterButtonsDisplay() {
@@ -400,7 +415,7 @@ function updateFilterButtonsDisplay() {
     const sBtn = document.getElementById("statusBtn");
 
     eBtn.textContent = selectedElement ? selectedElement.toUpperCase() : uiText[lang].allElements;
-    sBtn.textContent = selectedSort === "id" ? uiText[lang].sortLabel : statLabels[lang][selectedSort];
+    sBtn.textContent = selectedSort === "id" ? uiText[lang].sortLabel : statLabels[lang][selectedSort] || "TOTAL";
 }
 
 function selectElement(val) {
@@ -416,10 +431,6 @@ function selectSort(val) {
     updateFilterButtonsDisplay();
     render();
 }
-
-/**
- * EVENTOS
- */
 
 function closeAllSelects() {
     document.getElementById("elementList").style.display = "none";
@@ -454,7 +465,6 @@ document.addEventListener("click", (e) => {
 
 document.getElementById("searchInput").addEventListener("input", render);
 
-// Inicialização
 updateLang();
 </script>
 
