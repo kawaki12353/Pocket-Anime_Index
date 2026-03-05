@@ -333,6 +333,7 @@ const animons = [
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 } },
   { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 },
     anime: { name: "Imperfect Cell", anime:"Dragon Ball" },
+    evolution: ["Imperfect Warrior Bug", "Perfect Warrior Bug"],
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -349,6 +350,7 @@ const animons = [
     desc_pt: "Eu sou perfeito!",
     desc_en: "I am perfect!",
     anime: { name: "Perfect Cell", anime:"Dragon Ball" },
+    evolution: ["Imperfect Warrior Bug", "Perfect Warrior Bug"],
     movesList: [
       { level: 1, name: "Afterimage" }, 
       { level: 1, name: "Energy Blast" },
