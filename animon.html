@@ -152,7 +152,7 @@
             min-width: 120px;
         }
         .tab-btn:hover { background: var(--hover); }
-        
+
         /* Modificado: Cor de seleção mais escura em vez de branco */
         .tab-btn.active {
             background: var(--border);
@@ -509,16 +509,23 @@ function updateLang() {
     document.getElementById('btnWeak').textContent = ui.btnWeak;
     document.getElementById('btnLoc').textContent = ui.btnLoc;
     document.getElementById('locText').textContent = ui.notAvail;
-    
+
     // Novas Traduções
     document.getElementById('labelTraits').textContent = ui.traits;
-    
+
     // Atualizar título da aba ativa
     const activeTab = document.querySelector('.tab-content.active').id;
     updateTabTitle(activeTab);
 
-    const descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
-    document.getElementById('animonDesc').innerHTML = `<i>"${descText}"</i>`;
+    // AJUSTE REALIZADO AQUI:
+    // 1. Pegamos o texto
+    let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
+    
+    // 2. Removemos as aspas do texto caso você as tenha colocado no animons.js para evitar duplicação
+    descText = descText.replace(/^"|"$/g, ''); 
+
+    // 3. Renderizamos SEM as aspas extras no template, deixando o texto limpo
+    document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
 
     renderStats();
     renderMoves();
@@ -757,7 +764,7 @@ function switchTab(tabId) {
     document.getElementById(tabId).classList.add('active');
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
-    
+
     // Atualiza o título acima do container
     updateTabTitle(tabId);
 }
