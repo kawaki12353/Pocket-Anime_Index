@@ -29,7 +29,7 @@ const animons = [
   },
   { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 },
     anime: { name: "Majin Boo", anime:"Dragon Ball" },
-     movesList: [
+    movesList: [
       { level: 1, name: "Energy Blast" }, 
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Psychic Blast" },
@@ -83,7 +83,7 @@ const animons = [
     ]
   },
   { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 },
-  movesList: [
+    movesList: [
       { level: 1, name: "Spiritual Pressure"}, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
@@ -96,7 +96,7 @@ const animons = [
     ] 
   },
   { id: 4.01, name: "Release Isamu", type: ["Dark", "Soul"], sprite: "assets/animons-icon/release_isamu.png", stats: { hp: 58, atk: 87, def: 52, spAtk: 80, spDef: 47, spd: 97 },
-   movesList: [
+    movesList: [
       { level: 1, name: "Spiritual Pressure" }, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
@@ -109,7 +109,7 @@ const animons = [
     ] 
   },  
   { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 },
-   movesList: [
+    movesList: [
       { level: 1, name: "Cut Down"}, 
       { level: 1, name: "Plunder" },
       { level: 1, name: "Sword Slash" },
@@ -164,7 +164,7 @@ const animons = [
   },
   { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 },
     anime: { name: "Koby", anime:"One Piece" },
-     movesList: [
+    movesList: [
       { level: 1, name: "Mop Attack"}, 
       { level: 1, name: "Taunt" },
       { level: 5, name: "Rifle Shot" },
@@ -188,7 +188,7 @@ const animons = [
     ]
   },
   { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw" },
       { level: 5, name: "Quick Attack" },
@@ -198,7 +198,7 @@ const animons = [
    ]
   },
   { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 },
-      movesList: [
+    movesList: [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw" },
       { level: 5, name: "Quick Attack" },
@@ -208,7 +208,7 @@ const animons = [
    ]
   },
   { id: 9, name: "Joyful", type: ["Wind", "Beast"], sprite: "assets/animons-icon/joyful.png", stats: { hp: 35, atk: 25, def: 35, spAtk: 50, spDef: 35, spd: 70 },
-     movesList: [
+    movesList: [
       { level: 10, name: "Charm"}, 
       { level: 15, name: "Swift Wind" },
       { level: 20, name: "Quick Assist" },
@@ -221,7 +221,7 @@ const animons = [
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 } },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 } },
   { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
       { level: 5, name: "Aerial Combo" },
@@ -232,7 +232,7 @@ const animons = [
     ]
   },
   { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
       { level: 5, name: "Aerial Combo" },
@@ -249,7 +249,7 @@ const animons = [
   { id: 17, name: "Green Head", type: "Neutral", sprite: "assets/animons-icon/green_head.png", stats: { hp: 40, atk: 20, def: 39, spAtk: 30, spDef: 25, spd: 65 } },
   { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 },
     anime: { name: "Zoro", anime:"One Piece" },
-     movesList: [
+    movesList: [
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
@@ -263,7 +263,7 @@ const animons = [
   },
   { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 },
     anime: { name: "Zoro", anime:"One Piece" },
-     movesList: [
+    movesList: [
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
@@ -295,6 +295,7 @@ const animons = [
   { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 } },
   { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 } },
   { id: 26.01, name: "Super Vegetable", type: "Fighting", sprite: "assets/animons-icon/super_vegetable.png", stats: { hp: 67, atk: 72, def: 58, spAtk: 90, spDef: 57, spd: 90 },
+    anime: { name: "Vegeta", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
       { level: 1, name: "Energy Charge" },
@@ -308,7 +309,8 @@ const animons = [
   { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 } },
   { id: 27.01, name: "Adult Gocu", type: "Fighting", sprite: "assets/animons-icon/adult_gocu.png", stats: { hp: 55, atk: 80, def: 50, spAtk: 71, spDef: 45, spd: 80 } },
   { id: 27.02, name: "Super Gocu", type: "Fighting", sprite: "assets/animons-icon/super_gocu.png", stats: { hp: 63, atk: 93, def: 54, spAtk: 82, spDef: 51, spd: 90 },
-     movesList: [
+    anime: { name: "Goku", anime:"Dragon Ball" },
+    movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Punch" },
       { level: 1, name: "Vanishing Blow" },
@@ -326,7 +328,8 @@ const animons = [
   { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 } },
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 } },
   { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 },
-     movesList: [
+    anime: { name: "Imperfect Cell", anime:"Dragon Ball" },
+    movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Energy Shell" },
@@ -339,7 +342,8 @@ const animons = [
     ]
   },
   { id: 32.01, name: "Perfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/perfect_warrior_bug.png", stats: { hp: 67, atk: 84, def: 57, spAtk: 95, spDef: 57, spd: 107 },
-     movesList: [
+    anime: { name: "Perfect Cell", anime:"Dragon Ball" },
+    movesList: [
       { level: 1, name: "Afterimage" }, 
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -354,7 +358,7 @@ const animons = [
   },
   { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 } },
   { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Fighting Spirit" }, 
       { level: 1, name: "Kunai Barrage" },
       { level: 9, name: "Afterimage" },
@@ -422,7 +426,7 @@ const animons = [
   { id: 47, name: "Hired Assassin", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/hired_assassin.png", stats: { hp: 50, atk: 65, def: 50, spAtk: 63, spDef: 43, spd: 80 } },
   { id: 48, name: "Hired Spy", type: "Dark", sprite: "assets/animons-icon/hired_spy.png", stats: { hp: 50, atk: 52, def: 53, spAtk: 60, spDef: 51, spd: 74 } },
   { id: 49, name: "Little Cow", type: "Lightning", sprite: "assets/animons-icon/little_cow.png", stats: { hp: 40, atk: 35, def: 30, spAtk: 60, spDef: 35, spd: 50 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Junk Toss" }, 
       { level: 1, name: "Taunt" },
       { level: 5, name: "Rifle Shot" },
@@ -434,7 +438,7 @@ const animons = [
     ]
   },
   { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Junk Toss" }, 
       { level: 1, name: "Taunt" },
       { level: 5, name: "Rifle Shot" },
@@ -461,6 +465,7 @@ const animons = [
   { id: 60.01, name: "Fire King", type: "Fire", sprite: "assets/animons-icon/fire_king.png", stats: { hp: 63, atk: 70, def: 54, spAtk: 60, spDef: 44, spd: 76 } },
   { id: 73, name: "Fedora", type: ["Earth", "Dark"], sprite: "assets/animons-icon/fedora.png", stats: { hp: 65, atk: 56, def: 110, spAtk: 70, spDef: 85, spd: 60 } },
   { id: 74, name: "Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/brorok.png", stats: { hp: 49, atk: 80, def: 50, spAtk: 70, spDef: 45, spd: 85 },
+    anime: { name: "Broly", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -473,6 +478,7 @@ const animons = [
     ]
   },
   { id: 74.01, name: "Full Power Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/full_power_brorok.png", stats: { hp: 66, atk: 90, def: 66, spAtk: 105, spDef: 66, spd: 93 },
+    anime: { name: "Broly", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
