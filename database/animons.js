@@ -69,6 +69,7 @@ const animons = [
     ]
   },
   { id: 3.01, name: "TS Saskeh", type: ["Fire", "Lightning"], sprite: "assets/animons-icon/ts_saskeh.png", stats: { hp: 58, atk: 75, def: 53, spAtk: 87, spDef: 55, spd: 70 },
+    anime: { name: "Sasuke", anime:"Naruto" },
     movesList: [
       { level: 0, name: "Lightning Spread" },
       { level: 1, name: "Energy Charge" },
@@ -222,6 +223,7 @@ const animons = [
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 } },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 } },
   { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 },
+    anime: { name: "Naruto", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -233,6 +235,7 @@ const animons = [
     ]
   },
   { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
+    anime: { name: "Naruto", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -359,6 +362,7 @@ const animons = [
   },
   { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 } },
   { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 },
+    anime: { name: "Rock Lee", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -370,6 +374,7 @@ const animons = [
     ]
   }, 
   { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 }, 
+    anime: { name: "Gaara", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -382,6 +387,7 @@ const animons = [
     ] 
   },
   { id: 34.01, name: "Tanuki Ganra", type: ["Earth", "Demon"], sprite: "assets/animons-icon/tanuki_ganra.png", stats: { hp: 65, atk: 46, def: 94, spAtk: 81, spDef: 65, spd: 48 },
+    anime: { name: "Gaara", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
