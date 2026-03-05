@@ -106,6 +106,27 @@
             text-transform: capitalize;
         }
 
+        /* Estilo dos Títulos das Seções */
+        .section-label {
+            max-width: 800px;
+            margin: 20px auto 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text);
+            padding-left: 5px;
+        }
+
+        /* Container de Habilidades (Vazio por enquanto) */
+        .traits-container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            min-height: 50px;
+        }
+
         /* --- Abas / Botões --- */
         .tabs-container {
             display: flex;
@@ -131,10 +152,12 @@
             min-width: 120px;
         }
         .tab-btn:hover { background: var(--hover); }
+        
+        /* Modificado: Cor de seleção mais escura em vez de branco */
         .tab-btn.active {
-            background: var(--lang-btn-bg);
-            color: var(--lang-btn);
-            border-color: var(--lang-btn-bg);
+            background: var(--border);
+            color: var(--text);
+            border-color: var(--primary);
         }
 
         /* --- Conteúdo das Abas --- */
@@ -268,8 +291,8 @@
 
         /* --- Responsividade --- */
         @media (max-width: 768px) {
-            /* Mobile: Logo à direita igual team-builder */
-            .header-top { justify-content: flex-end; }
+            /* Mobile: Logo à direita */
+            .header { justify-content: flex-end; }
             .logo { width: 150px; }
 
             .top-section { 
@@ -313,12 +336,17 @@
         </div>
     </div>
 
+    <div class="section-label" id="labelTraits">Habilidades</div>
+    <div class="traits-container"></div>
+
     <div class="tabs-container">
         <button class="tab-btn active" onclick="switchTab('tab-info')" id="btnInfo">Info</button>
         <button class="tab-btn" onclick="switchTab('tab-moves')" id="btnMoves">Moves</button>
         <button class="tab-btn" onclick="switchTab('tab-weak')" id="btnWeak">Fraquezas</button>
         <button class="tab-btn" onclick="switchTab('tab-loc')" id="btnLoc">Localização</button>
     </div>
+
+    <div class="section-label" id="tabTitleDisplay">Status</div>
 
     <div id="tab-info" class="tab-content active">
         <div class="chart-wrapper">
@@ -371,7 +399,12 @@ const uiText = {
         normal: "Dano Normal (x1)",
         res05: "Resistência (x0.5)",
         res025: "Super Resistência (x0.25)",
-        imm0: "Imune (x0)"
+        imm0: "Imune (x0)",
+        // Novos textos
+        traits: "Habilidades",
+        status: "Status",
+        attacks: "Ataques",
+        typeChart: "Tabela de Tipo"
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
@@ -386,7 +419,12 @@ const uiText = {
         normal: "Normal Damage (x1)",
         res05: "Resistance (x0.5)",
         res025: "Super Resistance (x0.25)",
-        imm0: "Immune (x0)"
+        imm0: "Immune (x0)",
+        // Novos textos
+        traits: "Traits",
+        status: "Status",
+        attacks: "Attacks",
+        typeChart: "Type Chart"
     }
 };
 
@@ -471,6 +509,13 @@ function updateLang() {
     document.getElementById('btnWeak').textContent = ui.btnWeak;
     document.getElementById('btnLoc').textContent = ui.btnLoc;
     document.getElementById('locText').textContent = ui.notAvail;
+    
+    // Novas Traduções
+    document.getElementById('labelTraits').textContent = ui.traits;
+    
+    // Atualizar título da aba ativa
+    const activeTab = document.querySelector('.tab-content.active').id;
+    updateTabTitle(activeTab);
 
     const descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     document.getElementById('animonDesc').innerHTML = `<i>"${descText}"</i>`;
@@ -697,12 +742,24 @@ function renderTypeChart() {
     });
 }
 
+function updateTabTitle(tabId) {
+    const ui = uiText[lang];
+    const display = document.getElementById('tabTitleDisplay');
+    if (tabId === 'tab-info') display.textContent = ui.status;
+    else if (tabId === 'tab-moves') display.textContent = ui.attacks;
+    else if (tabId === 'tab-weak') display.textContent = ui.typeChart;
+    else if (tabId === 'tab-loc') display.textContent = ui.btnLoc;
+}
+
 function switchTab(tabId) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
+    
+    // Atualiza o título acima do container
+    updateTabTitle(tabId);
 }
 
 document.getElementById('langBtn').onclick = () => {
