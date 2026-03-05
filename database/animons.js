@@ -57,6 +57,7 @@ const animons = [
     ]
   },
   { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 },
+    anime: { name: "Sasuke", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" },
