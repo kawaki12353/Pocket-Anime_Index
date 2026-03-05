@@ -242,9 +242,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Impede quebra de linha */
             gap: 15px;
+            overflow-x: auto; /* Permite rolagem horizontal no mobile */
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
         }
+        
+        /* Esconde barra de rolagem mas mantém funcionalidade */
+        .evo-wrapper::-webkit-scrollbar { height: 4px; }
+        .evo-wrapper::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
         .evo-card {
             display: flex;
             flex-direction: column;
@@ -252,11 +260,12 @@
             text-decoration: none;
             color: inherit;
             transition: transform 0.2s;
-            width: 100px;
+            min-width: 100px; /* Garante largura mínima */
+            flex-shrink: 0;
         }
         .evo-card.clickable:hover { transform: scale(1.05); }
         .evo-card.current { opacity: 1; pointer-events: none; filter: drop-shadow(0 0 5px var(--primary)); }
-        
+
         .evo-mini-frame {
             width: 80px;
             height: 80px;
@@ -275,7 +284,7 @@
         .evo-types-row { display: flex; gap: 4px; justify-content: center; }
         .evo-type-icon { width: 18px; height: 18px; }
 
-        .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; }
+        .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; flex-shrink: 0; }
 
         /* --- Tipos --- */
         .type-section { margin-bottom: 20px; }
@@ -316,8 +325,8 @@
             .desc-box { font-size: 14px; padding: 10px; }
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
             .move-icon { width: 24px; height: 24px; }
-            .evo-wrapper { gap: 10px; }
-            .evo-card { width: 85px; }
+            .evo-wrapper { gap: 10px; justify-content: flex-start; padding-left: 10px; padding-right: 10px; }
+            .evo-card { width: 85px; min-width: 85px; }
             .evo-mini-frame { width: 70px; height: 70px; }
             .evo-arrow { font-size: 18px; }
         }
@@ -485,7 +494,26 @@ window.onload = () => {
     const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
     document.getElementById('animonSprite').src = spriteSrc;
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
+    
+    // Restaurar Aba e Scroll
+    const savedTab = sessionStorage.getItem('lastTab');
+    if (savedTab) switchTab(savedTab);
+    
     updateLang();
+
+    // Restaurar Scroll após renderizar tudo
+    setTimeout(() => {
+        const scrollPos = sessionStorage.getItem('scrollPos');
+        if (scrollPos) {
+            window.scrollTo(0, parseInt(scrollPos));
+            sessionStorage.removeItem('scrollPos');
+        }
+    }, 100);
+};
+
+// Salvar scroll antes de sair da página
+window.onbeforeunload = () => {
+    sessionStorage.setItem('scrollPos', window.scrollY);
 };
 
 function updateLang() {
@@ -606,15 +634,15 @@ function toggleMoveBalloon(moveDiv) {
         </div>
     `;
     balloon.innerHTML = contentHtml;
-    
+
     // Anexa ao body para não ser cortado
     document.body.appendChild(balloon);
-    
+
     // Posicionamento dinâmico
     const rect = moveDiv.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
     balloon.style.top = (rect.top - 5) + "px";
-    
+
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
@@ -690,7 +718,7 @@ function renderEvolutions() {
 
     // Detectar Base ID (ex: "84" de "84.01")
     const baseId = currentAnimon.id.toString().split('.')[0];
-    
+
     // Filtrar a família e ordenar
     const family = animons.filter(a => {
         const aId = a.id.toString();
@@ -720,7 +748,7 @@ function renderEvolutions() {
         if (!isCurrent) card.href = `animon.html?id=${member.id}`;
 
         const sprite = member.sprite || `assets/sprites/${member.id}.png`;
-        
+
         // Elementos do membro
         let typesHtml = "";
         let rawType = member.type || member.types || ["neutral"];
@@ -758,6 +786,9 @@ function switchTab(tabId) {
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
     updateTabTitle(tabId);
+    
+    // Salvar aba atual
+    sessionStorage.setItem('lastTab', tabId);
 }
 
 document.getElementById('langBtn').onclick = () => {
