@@ -248,7 +248,7 @@
             padding-bottom: 10px;
             -webkit-overflow-scrolling: touch;
         }
-        
+
         /* Esconde barra de rolagem mas mantém funcionalidade */
         .evo-wrapper::-webkit-scrollbar { height: 4px; }
         .evo-wrapper::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
@@ -491,24 +491,43 @@ window.onload = () => {
         document.body.innerHTML = "<h1 style='text-align:center; margin-top:50px;'>Animon não encontrado</h1>";
         return;
     }
+
+    // --- Lógica de Persistência Condicional ---
+    const currentIdStr = currentAnimon.id.toString();
+    const currentBaseId = currentIdStr.split('.')[0];
+    const lastIdStr = sessionStorage.getItem('lastAnimonId');
+    const lastBaseId = lastIdStr ? lastIdStr.split('.')[0] : null;
+
+    // Só é "mesma família" se o Base ID (antes do ponto) for igual
+    const isSameFamily = (lastBaseId === currentBaseId);
+
     const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
     document.getElementById('animonSprite').src = spriteSrc;
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
-    
-    // Restaurar Aba e Scroll
-    const savedTab = sessionStorage.getItem('lastTab');
-    if (savedTab) switchTab(savedTab);
-    
-    updateLang();
 
-    // Restaurar Scroll após renderizar tudo
-    setTimeout(() => {
-        const scrollPos = sessionStorage.getItem('scrollPos');
-        if (scrollPos) {
-            window.scrollTo(0, parseInt(scrollPos));
-            sessionStorage.removeItem('scrollPos');
-        }
-    }, 100);
+    if (isSameFamily) {
+        // Restaurar Aba e Scroll apenas se for evolução/unevo
+        const savedTab = sessionStorage.getItem('lastTab');
+        if (savedTab) switchTab(savedTab);
+
+        setTimeout(() => {
+            const scrollPos = sessionStorage.getItem('scrollPos');
+            if (scrollPos) {
+                window.scrollTo(0, parseInt(scrollPos));
+                sessionStorage.removeItem('scrollPos');
+            }
+        }, 100);
+    } else {
+        // Caso contrário, garante que começa no topo e na aba Info
+        sessionStorage.removeItem('lastTab');
+        sessionStorage.removeItem('scrollPos');
+        // O HTML já inicia com a aba info ativa por padrão
+    }
+
+    // Salva o ID atual para a próxima navegação
+    sessionStorage.setItem('lastAnimonId', currentIdStr);
+
+    updateLang();
 };
 
 // Salvar scroll antes de sair da página
@@ -734,7 +753,6 @@ function renderEvolutions() {
     wrapper.className = 'evo-wrapper';
 
     family.forEach((member, index) => {
-        // Se não for o primeiro, coloca uma seta
         if (index > 0) {
             const arrow = document.createElement('div');
             arrow.className = 'evo-arrow';
@@ -749,7 +767,6 @@ function renderEvolutions() {
 
         const sprite = member.sprite || `assets/sprites/${member.id}.png`;
 
-        // Elementos do membro
         let typesHtml = "";
         let rawType = member.type || member.types || ["neutral"];
         let typesArr = Array.isArray(rawType) ? rawType : [rawType];
@@ -786,7 +803,7 @@ function switchTab(tabId) {
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
     updateTabTitle(tabId);
-    
+
     // Salvar aba atual
     sessionStorage.setItem('lastTab', tabId);
 }
