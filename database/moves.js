@@ -412,6 +412,8 @@ const moves = {
   },
   "Afterimage": {
     name: "Afterimage",
+    desc_pt: "Movimente-se rapidamente e produza um pós-imagem, aumenta o [002]SPD [+2][000].",
+    desc_en: "Move fast and produce  an afterimage, increases [002]SPD [+2][000].",
     type: "neutral",
     attack: "status",
     power: 0,
