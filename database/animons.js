@@ -346,6 +346,8 @@ const animons = [
     ]
   },
   { id: 32.01, name: "Perfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/perfect_warrior_bug.png", stats: { hp: 67, atk: 84, def: 57, spAtk: 95, spDef: 57, spd: 107 },
+    desc_pt: "Eu sou perfeito!",
+    desc_en: "I am perfect!",
     anime: { name: "Perfect Cell", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Afterimage" }, 
