@@ -116,15 +116,16 @@
             padding-left: 5px;
         }
 
-        /* Container de Habilidades (Vazio por enquanto) */
+        /* Container de Habilidades (Ajustado para igualar aos outros) */
         .traits-container {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
+            padding: 25px;
             max-width: 800px;
             margin: 0 auto 30px;
             min-height: 50px;
+            box-sizing: border-box;
         }
 
         /* --- Abas / Botões --- */
@@ -137,6 +138,7 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            box-sizing: border-box;
         }
         .tab-btn {
             padding: 12px 20px;
@@ -221,7 +223,7 @@
             transition: background 0.2s;
         }
         .move-item:hover:not(.move-header) { background: var(--border); }
-        
+
         .move-header { 
             background: var(--border); 
             cursor: default;
@@ -399,6 +401,9 @@
     <div id="tab-loc" class="tab-content">
         <p id="locText" style="text-align: center; font-weight: bold;"></p>
     </div>
+
+    <div class="section-label">Grade Evolutiva</div>
+    <div class="traits-container"></div>
 </main>
 
 <div class="lang-toggle">
@@ -585,9 +590,10 @@ function renderStats() {
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: [`HP: ${st.hp}`, `ATK: ${st.atk}`, `DEF: ${st.def}`, `SP.ATK: ${st.spAtk}`, `SP.DEF: ${st.spDef}`, `SPD: ${st.spd}`],
+            // Ordem Ajustada: HP, ATK, DEF, SPEED, SP.DEF, SP.ATK
+            labels: [`HP: ${st.hp}`, `ATK: ${st.atk}`, `DEF: ${st.def}`, `SPEED: ${st.spd}`, `SP.DEF: ${st.spDef}`, `SP.ATK: ${st.spAtk}`],
             datasets: [{
-                data: [st.hp, st.atk, st.def, st.spAtk, st.spDef, st.spd],
+                data: [st.hp, st.atk, st.def, st.spd, st.spDef, st.spAtk],
                 backgroundColor: chartFill,
                 borderColor: chartLine,
                 pointBackgroundColor: chartLine,
