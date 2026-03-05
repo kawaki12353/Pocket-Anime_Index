@@ -28,6 +28,7 @@ const animons = [
     ]
   },
   { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 },
+    anime: { name: "Majin Boo", anime:"Dragon Ball" },
      movesList: [
       { level: 1, name: "Energy Blast" }, 
       { level: 1, name: "Energy Charge" },
@@ -40,6 +41,7 @@ const animons = [
     ]
   },
   { id: 2.01, name: "Super Bojin", type: "Psychic", sprite: "assets/animons-icon/super_bojin.png", stats: { hp: 80, atk: 39, def: 67, spAtk: 90, spDef: 49, spd: 63 },
+    anime: { name: "Super Boo", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -133,6 +135,7 @@ const animons = [
     ]
   },
   { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 },
+    anime: { name: "Marine", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
       { level: 1, name: "Sword Slash" },
@@ -146,6 +149,7 @@ const animons = [
     ]
   },
   { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 },
+    anime: { name: "Marine Captain", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
       { level: 1, name: "Sword Slash" },
@@ -159,6 +163,7 @@ const animons = [
     ]
   },
   { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 },
+    anime: { name: "Koby", anime:"One Piece" },
      movesList: [
       { level: 1, name: "Mop Attack"}, 
       { level: 1, name: "Taunt" },
@@ -171,6 +176,7 @@ const animons = [
     ]
   },
   { id: 7.01, name: "Lt. Hero", type: "Water", sprite: "assets/lt_hero.png", stats: { hp: 56, atk: 51, def: 39, spAtk: 41, spDef: 45, spd: 74 },
+    anime: { name: "Koby", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop Attack"}, 
       { level: 1, name: "Mop the floor" },
@@ -242,6 +248,7 @@ const animons = [
   { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 } },
   { id: 17, name: "Green Head", type: "Neutral", sprite: "assets/animons-icon/green_head.png", stats: { hp: 40, atk: 20, def: 39, spAtk: 30, spDef: 25, spd: 65 } },
   { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 },
+    anime: { name: "Zoro", anime:"One Piece" },
      movesList: [
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
@@ -255,6 +262,7 @@ const animons = [
     ]
   },
   { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 },
+    anime: { name: "Zoro", anime:"One Piece" },
      movesList: [
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
@@ -384,6 +392,7 @@ const animons = [
   { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 } },
   { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 } },
   { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 },
+    anime: { name: "Jinbe", anime:"One Piece" },
     movesList: [
       { level: 1, name: "False Courage" },
       { level: 1, name: "Punch" },
@@ -395,6 +404,7 @@ const animons = [
     ]
   },
   { id: 42.01, name: "Karate Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/karate_whale_shark.png", stats: { hp: 75, atk: 95, def: 62, spAtk: 60, spDef: 51, spd: 62 },
+    anime: { name: "Jinbe", anime:"One Piece" },
     movesList: [
       { level: 1, name: "False Courage" },
       { level: 1, name: "Punch" },
@@ -479,6 +489,7 @@ const animons = [
   { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 } },
   { id: 79.01, name: "Super Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/super_bald_warrior.png", stats: { hp: 72, atk: 95, def: 62, spAtk: 78, spDef: 47, spd: 81 } },
   { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 },
+    anime: { name: "Crocodile", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Menacing Aura" },
       { level: 1, name: "Sharp Claw" },
