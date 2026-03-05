@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* --- Variáveis e Temas (Igual ao items.html) --- */
+        /* --- Variáveis e Temas --- */
         :root {
             --bg: #f2f4f7;
             --card: #ffffff;
@@ -48,10 +48,9 @@
             padding: 20px;
             margin: 0;
             line-height: 1.5;
-            padding-bottom: 80px; /* Espaço pro botão de idioma */
+            padding-bottom: 80px;
         }
 
-        /* AJUSTE CABEÇALHO: Padrão centralizado no PC */
         .header { 
             display: flex; 
             justify-content: center; 
@@ -60,7 +59,6 @@
         }
         .logo { width: 220px; max-width: 60vw; }
 
-        /* --- Layout Superior (Sprite + Descrição) --- */
         .top-section {
             display: flex;
             gap: 20px;
@@ -106,7 +104,6 @@
             text-transform: capitalize;
         }
 
-        /* Estilo dos Títulos das Seções */
         .section-label {
             max-width: 800px;
             margin: 20px auto 10px;
@@ -116,7 +113,6 @@
             padding-left: 5px;
         }
 
-        /* Container de Habilidades (Ajustado para igualar aos outros) */
         .traits-container {
             background: var(--card);
             border: 1px solid var(--border);
@@ -128,7 +124,6 @@
             box-sizing: border-box;
         }
 
-        /* --- Abas / Botões --- */
         .tabs-container {
             display: flex;
             gap: 10px;
@@ -155,14 +150,12 @@
         }
         .tab-btn:hover { background: var(--hover); }
 
-        /* Modificado: Cor de seleção mais escura em vez de branco */
         .tab-btn.active {
             background: var(--border);
             color: var(--text);
             border-color: var(--primary);
         }
 
-        /* --- Conteúdo das Abas --- */
         .tab-content {
             display: none;
             background: var(--card);
@@ -176,11 +169,13 @@
         }
         .tab-content.active { display: block; }
 
-        /* Ajuste específico para aba de Moves */
+        /* Ajuste: Para o balão não ser cortado, removemos overflow hidden e usamos padding estratégico */
         #tab-moves {
             height: 400px;
             overflow-y: auto;
-            padding: 0; /* Removido padding para o header colar perfeitamente */
+            overflow-x: visible; /* Permite o balão "sair" pros lados se necessário */
+            padding: 0;
+            position: relative;
         }
 
         @keyframes slideFadeIn {
@@ -188,7 +183,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Status Chart --- */
         .chart-wrapper {
             max-width: 280px; 
             margin: 0 auto;
@@ -201,15 +195,16 @@
             color: var(--primary);
         }
 
-        /* --- Lista de Moves --- */
         .move-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            padding: 0 25px 25px 25px; /* Padding movido para a lista interna */
+            padding: 0 25px 25px 25px;
+            /* Adicionado padding no topo para o primeiro item não ter o balão cortado pelo header sticky */
+            padding-top: 10px; 
         }
         .move-item {
-            position: relative; /* Necessário para o balão ancorar */
+            position: relative;
             display: grid;
             grid-template-columns: 60px 1fr 60px 60px; 
             gap: 10px;
@@ -230,8 +225,8 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            border-radius: 11px 11px 0 0; /* Arredondado em cima */
-            margin: 0 -25px 10px -25px; /* Compensa o padding do container pai */
+            border-radius: 11px 11px 0 0;
+            margin: 0 -25px 10px -25px;
             width: calc(100% + 50px);
             box-sizing: border-box;
         }
@@ -247,35 +242,60 @@
             pointer-events: none;
         }
 
-        /* ESTILO BALÃO */
+        /* AJUSTE BALÃO: Z-index alto e posicionamento relativo ao item */
         .move-balloon { 
             position: absolute; 
-            bottom: 110%; 
+            bottom: 105%; 
             left: 50%; 
             transform: translateX(-50%); 
             background: var(--card); 
-            border: 1px solid var(--border); 
+            border: 2px solid var(--primary); 
             border-radius: 10px; 
             padding: 10px 14px; 
             font-size: 13px; 
             text-align: left; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25); 
-            z-index: 100; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
+            z-index: 9999; 
             animation: fadeInBalloon 0.2s ease; 
-            white-space: nowrap; 
+            white-space: normal; /* Permite quebra de linha para não esticar demais */
+            width: 240px;
             color: var(--text); 
             cursor: default;
+            pointer-events: none;
         }
         @keyframes fadeInBalloon { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-        /* --- Fraquezas e Resistências --- */
+        /* --- Grade Evolutiva --- */
+        .evolution-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .evo-card {
+            text-align: center;
+            padding: 10px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+            width: 110px;
+            transition: transform 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .evo-card:hover { transform: scale(1.05); border-color: var(--primary); }
+        .evo-img { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
+        .evo-name { font-size: 12px; font-weight: bold; margin: 5px 0; text-transform: capitalize; display: block; }
+        .evo-types { display: flex; justify-content: center; gap: 4px; }
+        .evo-types img { width: 18px; height: 18px; }
+        .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; }
+
+        /* --- Fraquezas --- */
         .type-section { margin-bottom: 20px; }
         .type-section-title { font-size: 14px; font-weight: bold; margin-bottom: 8px; opacity: 0.8; }
-        .type-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        .type-grid { display: flex; flex-wrap: wrap; gap: 8px; }
         .type-badge {
             display: flex;
             align-items: center;
@@ -290,9 +310,7 @@
         }
         .type-badge img { width: 20px; height: 20px; object-fit: contain; }
         .dmg-multiplier { margin-left: auto; font-size: 11px; color: var(--primary); }
-        .sec-title { border-bottom: 2px solid var(--border); padding-bottom: 5px; margin-bottom: 15px; }
 
-        /* --- Toggle Linguagem --- */
         .lang-toggle {
             position: fixed;
             bottom: 20px;
@@ -311,46 +329,15 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* --- Responsividade --- */
         @media (max-width: 768px) {
-            /* Mobile: Logo à direita */
             .header { justify-content: flex-end; }
             .logo { width: 150px; }
-
-            .top-section { 
-                flex-direction: row; 
-                align-items: center; 
-                gap: 10px;
-            }
-            .sprite-frame { 
-                width: 120px; 
-                height: 120px; 
-            }
-            .desc-box { 
-                width: 100%; 
-                text-align: left; 
-                min-height: 120px; 
-                box-sizing: border-box;
-                padding: 10px;
-                font-size: 14px;
-            }
-            .move-list {
-                padding: 0 10px 10px 10px; /* Reduzido para mobile */
-            }
-            .move-header {
-                margin: 0 -10px 10px -10px;
-                width: calc(100% + 20px);
-            }
-            .move-item {
-                grid-template-columns: 45px 1fr 48px 48px; /* Ajustada larguras das colunas */
-                font-size: 11px;
-                padding: 8px 4px;
-                gap: 4px;
-            }
-            .move-icon {
-                width: 24px;
-                height: 24px;
-            }
+            .top-section { flex-direction: row; align-items: center; gap: 10px; }
+            .sprite-frame { width: 120px; height: 120px; }
+            .desc-box { width: 100%; font-size: 14px; padding: 10px; }
+            .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
+            .evo-arrow { transform: rotate(90deg); margin: 5px 0; }
+            .evolution-row { flex-direction: column; }
         }
     </style>
 </head>
@@ -372,7 +359,7 @@
     </div>
 
     <div class="section-label" id="labelTraits">Habilidades</div>
-    <div class="traits-container"></div>
+    <div class="traits-container" id="traitsList"></div>
 
     <div class="tabs-container">
         <button class="tab-btn active" onclick="switchTab('tab-info')" id="btnInfo">Info</button>
@@ -402,8 +389,8 @@
         <p id="locText" style="text-align: center; font-weight: bold;"></p>
     </div>
 
-    <div class="section-label">Grade Evolutiva</div>
-    <div class="traits-container"></div>
+    <div class="section-label" id="labelEvo">Grade Evolutiva</div>
+    <div class="traits-container" id="evoContainer"></div>
 </main>
 
 <div class="lang-toggle">
@@ -415,9 +402,6 @@
 <script src="database/typechart.js"></script>
 
 <script>
-/**
- * CONFIGURAÇÕES INICIAIS E ESTADO
- */
 let lang = localStorage.getItem("siteLang") || "pt";
 let currentAnimon = null;
 let radarChart = null;
@@ -426,49 +410,24 @@ let openedMoveBalloon = null;
 const uiText = {
     pt: {
         btnInfo: "Informações", btnMoves: "Moves", btnWeak: "Fraquezas", btnLoc: "Localização",
-        noDesc: "Ainda não possui descrição.",
-        noMoves: "Ainda não possui movimentos.",
-        notDef: "Ainda não definido.",
-        notAvail: "Ainda não disponível.",
+        noDesc: "Ainda não possui descrição.", noMoves: "Ainda não possui movimentos.",
         lvl: "Nvl", name: "Nome", type: "Tipo", cat: "Categoria",
-        btn: "🇧🇷 PT", totalStr: "TOTAL: ", moveEmpty: "Nenhum",
-        weak4: "Fraqueza Extrema (x4)",
-        weak2: "Fraqueza (x2)",
-        normal: "Dano Normal (x1)",
-        res05: "Resistência (x0.5)",
-        res025: "Super Resistência (x0.25)",
-        imm0: "Imune (x0)",
-        // Novos textos
-        traits: "Habilidades",
-        status: "Status",
-        attacks: "Ataques",
-        typeChart: "Tabela de Tipo"
+        btn: "🇧🇷 PT", totalStr: "TOTAL: ", traits: "Habilidades",
+        status: "Status", attacks: "Ataques", typeChart: "Tabela de Tipo",
+        evoTitle: "Grade Evolutiva", notAvail: "Ainda não disponível.",
+        notDef: "Não definido."
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
-        noDesc: "No description available yet.",
-        noMoves: "No moves available yet.",
-        notDef: "Not defined yet.",
-        notAvail: "Not available yet.",
+        noDesc: "No description available yet.", noMoves: "No moves available yet.",
         lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
-        btn: "🇺🇸 EN", totalStr: "TOTAL: ", moveEmpty: "None",
-        weak4: "Extreme Weakness (x4)",
-        weak2: "Weakness (x2)",
-        normal: "Normal Damage (x1)",
-        res05: "Resistance (x0.5)",
-        res025: "Super Resistance (x0.25)",
-        imm0: "Immune (x0)",
-        // Novos textos
-        traits: "Traits",
-        status: "Status",
-        attacks: "Attacks",
-        typeChart: "Type Chart"
+        btn: "🇺🇸 EN", totalStr: "TOTAL: ", traits: "Traits",
+        status: "Status", attacks: "Attacks", typeChart: "Type Chart",
+        evoTitle: "Evolution Grade", notAvail: "Not available yet.",
+        notDef: "Not defined."
     }
 };
 
-/**
- * FUNÇÕES DE PARSE
- */
 function parseColoredText(text) {
   if (!text) return "";
   const colorMap = {
@@ -478,8 +437,7 @@ function parseColoredText(text) {
   let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
     if (code === "000") return "</span>";
     const color = colorMap[code];
-    if (color) return `</span><span style="color: ${color}; font-weight: bold;">`;
-    return match;
+    return color ? `</span><span style="color: ${color}; font-weight: bold;">` : match;
   });
   return `<span>${formatted}</span>`;
 }
@@ -488,131 +446,126 @@ function getMoveInfo(moveInput) {
     if (!moveInput) return null;
     let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || "Unknown");
     let moveData = null;
-
     if (typeof moves !== "undefined") {
-        if (Array.isArray(moves)) {
-            moveData = moves.find(m => (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()));
-        } else {
-            const exactKey = Object.keys(moves).find(k => k.toLowerCase().trim() === finalName.toLowerCase());
+        if (Array.isArray(moves)) moveData = moves.find(m => m.name && m.name.toLowerCase() === finalName.toLowerCase());
+        else {
+            const exactKey = Object.keys(moves).find(k => k.toLowerCase() === finalName.toLowerCase());
             if (exactKey) moveData = moves[exactKey];
         }
     }
-
     if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-", desc: "" };
-
-    const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
-    const attackValue = moveData.attack || "physical";
-
     return {
         name: moveData.name || finalName,
-        typeStr: String(typeValue).toLowerCase().trim(),
-        attackStr: String(attackValue).toLowerCase().trim(),
-        power: (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") ? moveData.power : "-",
-        accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-",
+        typeStr: String(Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral")).toLowerCase().trim(),
+        attackStr: String(moveData.attack || "physical").toLowerCase().trim(),
+        power: moveData.power || "-",
+        accuracy: moveData.accuracy || "-",
         desc: moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc || ""
     };
 }
 
-/**
- * INICIALIZAÇÃO
- */
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get('id');
-
     if (idParam && typeof animons !== 'undefined') {
-        currentAnimon = animons.find(a => a.id == idParam || a.name.toLowerCase() === idParam.toLowerCase());
+        currentAnimon = animons.find(a => String(a.id) === String(idParam) || a.name.toLowerCase() === idParam.toLowerCase());
     }
-
     if (!currentAnimon) {
         document.body.innerHTML = "<h1 style='text-align:center; margin-top:50px;'>Animon não encontrado</h1>";
         return;
     }
-
-    const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
-    document.getElementById('animonSprite').src = spriteSrc;
+    document.getElementById('animonSprite').src = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
-
     updateLang();
 };
 
 function updateLang() {
     if (!currentAnimon) return;
     const ui = uiText[lang];
-
     document.getElementById('nameInside').textContent = currentAnimon.name;
     document.getElementById('langBtn').textContent = ui.btn;
     document.getElementById('btnInfo').textContent = ui.btnInfo;
     document.getElementById('btnMoves').textContent = ui.btnMoves;
     document.getElementById('btnWeak').textContent = ui.btnWeak;
     document.getElementById('btnLoc').textContent = ui.btnLoc;
+    document.getElementById('labelTraits').textContent = ui.traits;
+    document.getElementById('labelEvo').textContent = ui.evoTitle;
     document.getElementById('locText').textContent = ui.notAvail;
 
-    // Novas Traduções
-    document.getElementById('labelTraits').textContent = ui.traits;
-
-    // Atualizar título da aba ativa
-    const activeTab = document.querySelector('.tab-content.active').id;
-    updateTabTitle(activeTab);
-
-    // AJUSTE REALIZADO AQUI:
-    // 1. Pegamos o texto
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
+    document.getElementById('animonDesc').innerHTML = `<i>${descText.replace(/^"|"$/g, '')}</i>`;
 
-    // 2. Removemos as aspas do texto caso você as tenha colocado no animons.js para evitar duplicação
-    descText = descText.replace(/^"|"$/g, ''); 
-
-    // 3. Renderizamos SEM as aspas extras no template, deixando o texto limpo
-    document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
-
+    updateTabTitle(document.querySelector('.tab-content.active').id);
     renderStats();
     renderMoves();
     renderTypeChart();
+    renderEvolutions();
 }
 
-/**
- * RENDERIZAR ESTRUTURAS
- */
+function renderEvolutions() {
+    const container = document.getElementById('evoContainer');
+    container.innerHTML = "";
+    
+    // Lógica de Detecção por ID (ex: 84 -> 84.01 -> 84.01.01)
+    const baseId = String(currentAnimon.id).split('.')[0];
+    const lineage = animons.filter(a => String(a.id).startsWith(baseId)).sort((a,b) => String(a.id).length - String(b.id).length || String(a.id).localeCompare(String(a.id)));
+
+    const row = document.createElement('div');
+    row.className = 'evolution-row';
+
+    lineage.forEach((ani, index) => {
+        // Card do Animon
+        const card = document.createElement('a');
+        card.href = `details.html?id=${ani.id}`;
+        card.className = 'evo-card';
+        
+        let typesHtml = "";
+        const tList = Array.isArray(ani.type) ? ani.type : [ani.type];
+        tList.forEach(t => {
+            if(t) typesHtml += `<img src="assets/${String(t).toLowerCase()}_element.png" onerror="this.src='assets/neutral_element.png'">`;
+        });
+
+        card.innerHTML = `
+            <img src="${ani.sprite || 'assets/sprites/'+ani.id+'.png'}" class="evo-img" onerror="this.src='assets/sem_icone.png'">
+            <span class="evo-name">${ani.name}</span>
+            <div class="evo-types">${typesHtml}</div>
+        `;
+
+        row.appendChild(card);
+
+        // Adiciona seta se não for o último
+        if (index < lineage.length - 1) {
+            const arrow = document.createElement('div');
+            arrow.className = 'evo-arrow';
+            arrow.innerHTML = '➜';
+            row.appendChild(arrow);
+        }
+    });
+
+    container.appendChild(row);
+}
+
 function renderStats() {
     const st = currentAnimon.stats || { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
     const total = st.hp + st.atk + st.def + (st.spAtk || 0) + (st.spDef || 0) + st.spd;
-
     document.getElementById('statsTotal').textContent = uiText[lang].totalStr + total;
-
-    const rootStyle = getComputedStyle(document.documentElement);
-    const textColor = rootStyle.getPropertyValue('--text').trim() || '#111';
-    const chartFill = rootStyle.getPropertyValue('--chart-fill').trim() || 'rgba(13, 71, 161, 0.4)';
-    const chartLine = rootStyle.getPropertyValue('--chart-line').trim() || '#0d47a1';
-
+    const root = getComputedStyle(document.documentElement);
     const ctx = document.getElementById('statsChart').getContext('2d');
     if (radarChart) radarChart.destroy();
-
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            // Ordem Ajustada: HP, ATK, DEF, SPEED, SP.DEF, SP.ATK
             labels: [`HP: ${st.hp}`, `ATK: ${st.atk}`, `DEF: ${st.def}`, `SPEED: ${st.spd}`, `SP.DEF: ${st.spDef}`, `SP.ATK: ${st.spAtk}`],
             datasets: [{
                 data: [st.hp, st.atk, st.def, st.spd, st.spDef, st.spAtk],
-                backgroundColor: chartFill,
-                borderColor: chartLine,
-                pointBackgroundColor: chartLine,
+                backgroundColor: root.getPropertyValue('--chart-fill'),
+                borderColor: root.getPropertyValue('--chart-line'),
+                pointBackgroundColor: root.getPropertyValue('--chart-line'),
                 borderWidth: 2
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            scales: {
-                r: {
-                    angleLines: { color: textColor, opacity: 0.2 },
-                    grid: { color: textColor, opacity: 0.2 },
-                    pointLabels: { color: textColor, font: { size: 11, weight: 'bold' }, padding: 10 },
-                    ticks: { display: false },
-                    suggestedMin: 0,
-                    suggestedMax: 160
-                }
-            },
+            scales: { r: { angleLines: { color: root.getPropertyValue('--text'), opacity: 0.2 }, grid: { color: root.getPropertyValue('--text'), opacity: 0.2 }, pointLabels: { color: root.getPropertyValue('--text'), font: { size: 11, weight: 'bold' } }, ticks: { display: false }, suggestedMin: 0, suggestedMax: 160 } },
             plugins: { legend: { display: false }, tooltip: { enabled: false } }
         }
     });
@@ -622,168 +575,86 @@ function renderMoves() {
     const container = document.getElementById('movesContainer');
     const ui = uiText[lang];
     container.innerHTML = "";
-
     const movesList = currentAnimon.movesList || [];
-    if (movesList.length === 0) {
-        container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`;
-        return;
-    }
-
-    const sortedMoves = [...movesList].sort((a, b) => a.level - b.level);
+    if (movesList.length === 0) { container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`; return; }
 
     const header = document.createElement('div');
     header.className = 'move-item move-header';
     header.innerHTML = `<span>${ui.lvl}</span><span class="move-name">${ui.name}</span><span>${ui.type}</span><span>${ui.cat}</span>`;
     container.appendChild(header);
 
-    sortedMoves.forEach(m => {
+    [...movesList].sort((a, b) => a.level - b.level).forEach(m => {
         const minfo = getMoveInfo(m.name);
-
         const row = document.createElement('div');
         row.className = 'move-item';
-        row.dataset.power = minfo.power;
-        row.dataset.acc = minfo.accuracy;
-        row.dataset.desc = minfo.desc;
-
         row.innerHTML = `
             <span style="color: #bbb;">lvl ${m.level}</span>
             <span class="move-name">${minfo.name}</span>
             <img src="assets/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/neutral_element.png'">
             <img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">
         `;
-
-        row.onclick = (e) => {
-            e.stopPropagation();
-            toggleMoveBalloon(row);
-        };
-
+        row.onclick = (e) => { e.stopPropagation(); toggleMoveBalloon(row, minfo); };
         container.appendChild(row);
     });
 }
 
-function toggleMoveBalloon(moveDiv) {
+function toggleMoveBalloon(moveDiv, minfo) {
     if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
-
-    const power = moveDiv.dataset.power;
-    const acc = moveDiv.dataset.acc;
-    const desc = moveDiv.dataset.desc;
-
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-
-    let contentHtml = "";
-    if (desc && desc !== "undefined" && desc !== "") {
-        contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parseColoredText(desc)}</div>`;
-    }
-    contentHtml += `
-        <div style="text-align: center; border-top: 1px solid var(--border); pt: 5px;">
-          <span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; 
-          <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span>
+    balloon.innerHTML = `
+        <div style="margin-bottom: 8px; text-align: justify;">${parseColoredText(minfo.desc)}</div>
+        <div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px; font-size: 11px;">
+          <span style="color: #ee5047;"><b>Power:</b> ${minfo.power}</span> | 
+          <span style="color: #fde4a1;"><b>Acc:</b> ${minfo.accuracy}</span>
         </div>
     `;
-
-    balloon.innerHTML = contentHtml;
     moveDiv.appendChild(balloon);
     openedMoveBalloon = balloon;
-
-    setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
+    setTimeout(() => document.addEventListener("click", () => { if(openedMoveBalloon){openedMoveBalloon.remove(); openedMoveBalloon=null;} }, { once: true }), 0);
 }
 
-function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
-
-/**
- * LÓGICA TYPE CHART REFEITA
- */
 function renderTypeChart() {
     const container = document.getElementById('typeChartContent');
-    const ui = uiText[lang];
     container.innerHTML = "";
-
     if (typeof chart === 'undefined' || !currentAnimon) return;
+    let defTypes = Array.isArray(currentAnimon.type || currentAnimon.types) ? (currentAnimon.type || currentAnimon.types) : [currentAnimon.type];
+    defTypes = defTypes.filter(t => t).map(t => t.toLowerCase().trim());
 
-    // 1. Identifica tipos do animon atual (Suporta String única ou Array de 2 elementos)
-    let defenderTypes = [];
-    let rawType = currentAnimon.type || currentAnimon.types;
-
-    if (Array.isArray(rawType)) {
-        defenderTypes = rawType.filter(t => t).map(t => t.toLowerCase().trim());
-    } else if (rawType) {
-        defenderTypes = [rawType.toLowerCase().trim()];
-    }
-
-    if (defenderTypes.length === 0) {
-        container.innerHTML = `<p>${ui.notDef}</p>`;
-        return;
-    }
-
-    // 2. Calcula multiplicadores para cada tipo atacante da typechart
-    const allAttackTypes = Object.keys(chart);
-    const multipliers = {};
-
-    allAttackTypes.forEach(atkType => {
-        let totalMult = 1.0;
-        const atkData = chart[atkType];
-
-        // Para cada tipo do defensor, verifica se o atacante atual tem modificador contra ele
-        defenderTypes.forEach(defType => {
-            // Procura a chave no objeto interno ignorando Case (ex: "Earth" no database vs "earth" do animon)
-            const matchKey = Object.keys(atkData).find(k => k.toLowerCase() === defType);
-            if (matchKey) {
-                totalMult *= atkData[matchKey];
-            }
-        });
-        multipliers[atkType] = totalMult;
-    });
-
-    // 3. Agrupa por valor (Suporta dual type: 2x2=4x, 0.5x0.5=0.25x)
     const groups = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
-
-    Object.entries(multipliers).forEach(([type, val]) => {
-        if (val >= 3.5) groups.x4.push(type);
-        else if (val >= 1.5 && val < 3.5) groups.x2.push(type);
-        else if (val > 0.8 && val < 1.2) groups.x1.push(type);
-        else if (val > 0.3 && val <= 0.7) groups.x05.push(type);
-        else if (val > 0 && val <= 0.3) groups.x025.push(type);
-        else if (val === 0) groups.x0.push(type);
+    Object.keys(chart).forEach(atkType => {
+        let mult = 1.0;
+        defTypes.forEach(defType => {
+            const match = Object.keys(chart[atkType]).find(k => k.toLowerCase() === defType);
+            if (match) mult *= chart[atkType][match];
+        });
+        if (mult >= 3.5) groups.x4.push(atkType);
+        else if (mult >= 1.5) groups.x2.push(atkType);
+        else if (mult > 0.8 && mult < 1.2) groups.x1.push(atkType);
+        else if (mult > 0.3) groups.x05.push(atkType);
+        else if (mult > 0) groups.x025.push(atkType);
+        else groups.x0.push(atkType);
     });
 
-    // 4. Renderiza as seções
+    const ui = uiText[lang];
     const order = [
-        { key: 'x4', label: ui.weak4, val: '4x' },
-        { key: 'x2', label: ui.weak2, val: '2x' },
-        { key: 'x1', label: ui.normal, val: '1x' },
-        { key: 'x05', label: ui.res05, val: '0.5x' },
-        { key: 'x025', label: ui.res025, val: '0.25x' },
-        { key: 'x0', label: ui.imm0, val: '0x' }
+        { key: 'x4', label: "Extrema (x4)", val: '4x' }, { key: 'x2', label: "Fraco (x2)", val: '2x' },
+        { key: 'x05', label: "Resiste (x0.5)", val: '0.5x' }, { key: 'x025', label: "Super Resiste (x0.25)", val: '0.25x' },
+        { key: 'x0', label: "Imune (x0)", val: '0x' }
     ];
 
-    order.forEach(group => {
-        if (groups[group.key].length > 0) {
-            const section = document.createElement('div');
-            section.className = 'type-section';
-
-            const title = document.createElement('div');
-            title.className = 'type-section-title';
-            title.textContent = group.label;
-            section.appendChild(title);
-
+    order.forEach(g => {
+        if (groups[g.key].length > 0) {
+            const div = document.createElement('div');
+            div.className = 'type-section';
+            div.innerHTML = `<div class="type-section-title">${g.label}</div>`;
             const grid = document.createElement('div');
             grid.className = 'type-grid';
-
-            groups[group.key].forEach(typeName => {
-                const badge = document.createElement('div');
-                badge.className = 'type-badge';
-                const lowName = typeName.toLowerCase();
-                badge.innerHTML = `
-                    <img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">
-                    <span style="text-transform: capitalize;">${typeName}</span>
-                    <span class="dmg-multiplier">${group.val}</span>
-                `;
-                grid.appendChild(badge);
+            groups[g.key].forEach(t => {
+                grid.innerHTML += `<div class="type-badge"><img src="assets/${t.toLowerCase()}_element.png" onerror="this.src='assets/neutral_element.png'"><span>${t}</span><span class="dmg-multiplier">${g.val}</span></div>`;
             });
-
-            section.appendChild(grid);
-            container.appendChild(section);
+            div.appendChild(grid);
+            container.appendChild(div);
         }
     });
 }
@@ -791,27 +662,22 @@ function renderTypeChart() {
 function updateTabTitle(tabId) {
     const ui = uiText[lang];
     const display = document.getElementById('tabTitleDisplay');
-    if (tabId === 'tab-info') display.textContent = ui.status;
-    else if (tabId === 'tab-moves') display.textContent = ui.attacks;
-    else if (tabId === 'tab-weak') display.textContent = ui.typeChart;
-    else if (tabId === 'tab-loc') display.textContent = ui.btnLoc;
+    const map = { 'tab-info': ui.status, 'tab-moves': ui.attacks, 'tab-weak': ui.typeChart, 'tab-loc': ui.btnLoc };
+    display.textContent = map[tabId] || "";
 }
 
 function switchTab(tabId) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
-
-    // Atualiza o título acima do container
     updateTabTitle(tabId);
 }
 
 document.getElementById('langBtn').onclick = () => {
     lang = lang === "pt" ? "en" : "pt";
     localStorage.setItem("siteLang", lang);
-    if (typeof updateMenuLang === "function") updateMenuLang();
     updateLang();
 };
 </script>
