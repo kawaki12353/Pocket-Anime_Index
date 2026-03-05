@@ -178,7 +178,7 @@
         #tab-moves {
             height: 400px;
             overflow-y: auto;
-            padding-top: 0; /* Para a barra fixa encostar no topo */
+            padding: 0; /* Removido padding para o header colar perfeitamente */
         }
 
         @keyframes slideFadeIn {
@@ -204,7 +204,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            padding-top: 10px;
+            padding: 0 25px 25px 25px; /* Padding movido para a lista interna */
         }
         .move-item {
             position: relative; /* Necessário para o balão ancorar */
@@ -228,7 +228,10 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            border-radius: 0 0 8px 8px;
+            border-radius: 11px 11px 0 0; /* Arredondado em cima */
+            margin: 0 -25px 10px -25px; /* Compensa o padding do container pai */
+            width: calc(100% + 50px);
+            box-sizing: border-box;
         }
 
         .move-item span { text-align: center; }
@@ -329,11 +332,18 @@
                 padding: 10px;
                 font-size: 14px;
             }
+            .move-list {
+                padding: 0 10px 10px 10px; /* Reduzido para mobile */
+            }
+            .move-header {
+                margin: 0 -10px 10px -10px;
+                width: calc(100% + 20px);
+            }
             .move-item {
-                grid-template-columns: 40px 1fr 40px 40px;
-                font-size: 11px; /* Fonte menor para caber tudo */
-                padding: 8px 5px;
-                gap: 5px;
+                grid-template-columns: 45px 1fr 48px 48px; /* Ajustada larguras das colunas */
+                font-size: 11px;
+                padding: 8px 4px;
+                gap: 4px;
             }
             .move-icon {
                 width: 24px;
