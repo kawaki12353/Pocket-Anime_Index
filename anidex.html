@@ -447,8 +447,8 @@ function render() {
         .sort((a, b) => {
             let valA, valB;
             if (selectedSort === "id") {
-                valA = parseInt(a.id);
-                valB = parseInt(b.id);
+                valA = parseFloat(a.id);
+                valB = parseFloat(b.id);
             } else if (selectedSort === "total") {
                 valA = Object.values(a.stats).reduce((x, y) => x + y, 0);
                 valB = Object.values(b.stats).reduce((x, y) => x + y, 0);
