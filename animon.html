@@ -48,7 +48,7 @@
             padding: 20px;
             margin: 0;
             line-height: 1.5;
-            padding-bottom: 80px;
+            padding-bottom: 80px; 
         }
 
         .header { 
@@ -133,7 +133,6 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            box-sizing: border-box;
         }
         .tab-btn {
             padding: 12px 20px;
@@ -149,7 +148,6 @@
             min-width: 120px;
         }
         .tab-btn:hover { background: var(--hover); }
-
         .tab-btn.active {
             background: var(--border);
             color: var(--text);
@@ -169,13 +167,10 @@
         }
         .tab-content.active { display: block; }
 
-        /* Ajuste: Para o balão não ser cortado, removemos overflow hidden e usamos padding estratégico */
         #tab-moves {
             height: 400px;
             overflow-y: auto;
-            overflow-x: visible; /* Permite o balão "sair" pros lados se necessário */
             padding: 0;
-            position: relative;
         }
 
         @keyframes slideFadeIn {
@@ -183,28 +178,16 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .chart-wrapper {
-            max-width: 280px; 
-            margin: 0 auto;
-        }
-        .stats-total {
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 15px;
-            color: var(--primary);
-        }
+        .chart-wrapper { max-width: 280px; margin: 0 auto; }
+        .stats-total { text-align: center; font-size: 18px; font-weight: bold; margin-top: 15px; color: var(--primary); }
 
         .move-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
             padding: 0 25px 25px 25px;
-            /* Adicionado padding no topo para o primeiro item não ter o balão cortado pelo header sticky */
-            padding-top: 10px; 
         }
         .move-item {
-            position: relative;
             display: grid;
             grid-template-columns: 60px 1fr 60px 60px; 
             gap: 10px;
@@ -234,39 +217,28 @@
         .move-item span { text-align: center; }
         .move-item .move-name { text-align: left; }
 
-        .move-icon {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            margin: 0 auto;
-            pointer-events: none;
-        }
+        .move-icon { width: 32px; height: 32px; object-fit: contain; margin: 0 auto; pointer-events: none; }
 
-        /* AJUSTE BALÃO: Z-index alto e posicionamento relativo ao item */
+        /* AJUSTE BALÃO FIXO */
         .move-balloon { 
-            position: absolute; 
-            bottom: 105%; 
-            left: 50%; 
-            transform: translateX(-50%); 
+            position: fixed; 
             background: var(--card); 
-            border: 2px solid var(--primary); 
+            border: 1px solid var(--border); 
             border-radius: 10px; 
             padding: 10px 14px; 
             font-size: 13px; 
             text-align: left; 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
             z-index: 9999; 
-            animation: fadeInBalloon 0.2s ease; 
-            white-space: normal; /* Permite quebra de linha para não esticar demais */
-            width: 240px;
-            color: var(--text); 
-            cursor: default;
             pointer-events: none;
+            color: var(--text); 
+            transform: translate(-50%, -110%);
+            animation: fadeInBalloon 0.2s ease;
         }
-        @keyframes fadeInBalloon { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes fadeInBalloon { from { opacity: 0; margin-top: 10px; } to { opacity: 1; margin-top: 0; } }
 
-        /* --- Grade Evolutiva --- */
-        .evolution-row {
+        /* --- Grade Evolutiva CSS --- */
+        .evo-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -274,25 +246,38 @@
             gap: 15px;
         }
         .evo-card {
-            text-align: center;
-            padding: 10px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg);
-            width: 110px;
-            transition: transform 0.2s;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-decoration: none;
             color: inherit;
+            transition: transform 0.2s;
+            width: 100px;
         }
-        .evo-card:hover { transform: scale(1.05); border-color: var(--primary); }
-        .evo-img { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
-        .evo-name { font-size: 12px; font-weight: bold; margin: 5px 0; text-transform: capitalize; display: block; }
-        .evo-types { display: flex; justify-content: center; gap: 4px; }
-        .evo-types img { width: 18px; height: 18px; }
+        .evo-card.clickable:hover { transform: scale(1.05); }
+        .evo-card.current { opacity: 1; pointer-events: none; filter: drop-shadow(0 0 5px var(--primary)); }
+        
+        .evo-mini-frame {
+            width: 80px;
+            height: 80px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+        .evo-mini-frame img { width: 90%; height: 90%; object-fit: contain; image-rendering: pixelated; }
+        .evo-card.current .evo-mini-frame { border-color: var(--primary); background: var(--hover); }
+
+        .evo-name-tag { font-size: 12px; font-weight: bold; text-align: center; margin-bottom: 4px; text-transform: capitalize; }
+        .evo-types-row { display: flex; gap: 4px; justify-content: center; }
+        .evo-type-icon { width: 18px; height: 18px; }
+
         .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; }
 
-        /* --- Fraquezas --- */
+        /* --- Tipos --- */
         .type-section { margin-bottom: 20px; }
         .type-section-title { font-size: 14px; font-weight: bold; margin-bottom: 8px; opacity: 0.8; }
         .type-grid { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -311,13 +296,7 @@
         .type-badge img { width: 20px; height: 20px; object-fit: contain; }
         .dmg-multiplier { margin-left: auto; font-size: 11px; color: var(--primary); }
 
-        .lang-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
+        .lang-toggle { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; }
         .lang-toggle button {
             background: var(--lang-btn-bg);
             color: var(--lang-btn);
@@ -332,12 +311,15 @@
         @media (max-width: 768px) {
             .header { justify-content: flex-end; }
             .logo { width: 150px; }
-            .top-section { flex-direction: row; align-items: center; gap: 10px; }
+            .top-section { gap: 10px; }
             .sprite-frame { width: 120px; height: 120px; }
-            .desc-box { width: 100%; font-size: 14px; padding: 10px; }
+            .desc-box { font-size: 14px; padding: 10px; }
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
-            .evo-arrow { transform: rotate(90deg); margin: 5px 0; }
-            .evolution-row { flex-direction: column; }
+            .move-icon { width: 24px; height: 24px; }
+            .evo-wrapper { gap: 10px; }
+            .evo-card { width: 85px; }
+            .evo-mini-frame { width: 70px; height: 70px; }
+            .evo-arrow { font-size: 18px; }
         }
     </style>
 </head>
@@ -359,7 +341,7 @@
     </div>
 
     <div class="section-label" id="labelTraits">Habilidades</div>
-    <div class="traits-container" id="traitsList"></div>
+    <div class="traits-container"></div>
 
     <div class="tabs-container">
         <button class="tab-btn active" onclick="switchTab('tab-info')" id="btnInfo">Info</button>
@@ -410,21 +392,43 @@ let openedMoveBalloon = null;
 const uiText = {
     pt: {
         btnInfo: "Informações", btnMoves: "Moves", btnWeak: "Fraquezas", btnLoc: "Localização",
-        noDesc: "Ainda não possui descrição.", noMoves: "Ainda não possui movimentos.",
+        noDesc: "Ainda não possui descrição.",
+        noMoves: "Ainda não possui movimentos.",
+        notDef: "Ainda não definido.",
+        notAvail: "Ainda não disponível.",
         lvl: "Nvl", name: "Nome", type: "Tipo", cat: "Categoria",
-        btn: "🇧🇷 PT", totalStr: "TOTAL: ", traits: "Habilidades",
-        status: "Status", attacks: "Ataques", typeChart: "Tabela de Tipo",
-        evoTitle: "Grade Evolutiva", notAvail: "Ainda não disponível.",
-        notDef: "Não definido."
+        btn: "🇧🇷 PT", totalStr: "TOTAL: ", moveEmpty: "Nenhum",
+        weak4: "Fraqueza Extrema (x4)",
+        weak2: "Fraqueza (x2)",
+        normal: "Dano Normal (x1)",
+        res05: "Resistência (x0.5)",
+        res025: "Super Resistência (x0.25)",
+        imm0: "Imune (x0)",
+        traits: "Habilidades",
+        status: "Status",
+        attacks: "Ataques",
+        typeChart: "Tabela de Tipo",
+        evoTitle: "Grade Evolutiva"
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
-        noDesc: "No description available yet.", noMoves: "No moves available yet.",
+        noDesc: "No description available yet.",
+        noMoves: "No moves available yet.",
+        notDef: "Not defined yet.",
+        notAvail: "Not available yet.",
         lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
-        btn: "🇺🇸 EN", totalStr: "TOTAL: ", traits: "Traits",
-        status: "Status", attacks: "Attacks", typeChart: "Type Chart",
-        evoTitle: "Evolution Grade", notAvail: "Not available yet.",
-        notDef: "Not defined."
+        btn: "🇺🇸 EN", totalStr: "TOTAL: ", moveEmpty: "None",
+        weak4: "Extreme Weakness (x4)",
+        weak2: "Weakness (x2)",
+        normal: "Normal Damage (x1)",
+        res05: "Resistance (x0.5)",
+        res025: "Super Resistance (x0.25)",
+        imm0: "Immune (x0)",
+        traits: "Traits",
+        status: "Status",
+        attacks: "Attacks",
+        typeChart: "Type Chart",
+        evoTitle: "Evolution Grade"
     }
 };
 
@@ -437,7 +441,8 @@ function parseColoredText(text) {
   let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
     if (code === "000") return "</span>";
     const color = colorMap[code];
-    return color ? `</span><span style="color: ${color}; font-weight: bold;">` : match;
+    if (color) return `</span><span style="color: ${color}; font-weight: bold;">`;
+    return match;
   });
   return `<span>${formatted}</span>`;
 }
@@ -447,19 +452,22 @@ function getMoveInfo(moveInput) {
     let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || "Unknown");
     let moveData = null;
     if (typeof moves !== "undefined") {
-        if (Array.isArray(moves)) moveData = moves.find(m => m.name && m.name.toLowerCase() === finalName.toLowerCase());
-        else {
-            const exactKey = Object.keys(moves).find(k => k.toLowerCase() === finalName.toLowerCase());
+        if (Array.isArray(moves)) {
+            moveData = moves.find(m => (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()));
+        } else {
+            const exactKey = Object.keys(moves).find(k => k.toLowerCase().trim() === finalName.toLowerCase());
             if (exactKey) moveData = moves[exactKey];
         }
     }
     if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-", desc: "" };
+    const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
+    const attackValue = moveData.attack || "physical";
     return {
         name: moveData.name || finalName,
-        typeStr: String(Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral")).toLowerCase().trim(),
-        attackStr: String(moveData.attack || "physical").toLowerCase().trim(),
-        power: moveData.power || "-",
-        accuracy: moveData.accuracy || "-",
+        typeStr: String(typeValue).toLowerCase().trim(),
+        attackStr: String(attackValue).toLowerCase().trim(),
+        power: (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") ? moveData.power : "-",
+        accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-",
         desc: moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc || ""
     };
 }
@@ -468,13 +476,14 @@ window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get('id');
     if (idParam && typeof animons !== 'undefined') {
-        currentAnimon = animons.find(a => String(a.id) === String(idParam) || a.name.toLowerCase() === idParam.toLowerCase());
+        currentAnimon = animons.find(a => a.id == idParam || a.name.toLowerCase() === idParam.toLowerCase());
     }
     if (!currentAnimon) {
         document.body.innerHTML = "<h1 style='text-align:center; margin-top:50px;'>Animon não encontrado</h1>";
         return;
     }
-    document.getElementById('animonSprite').src = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
+    const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
+    document.getElementById('animonSprite').src = spriteSrc;
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
     updateLang();
 };
@@ -488,68 +497,31 @@ function updateLang() {
     document.getElementById('btnMoves').textContent = ui.btnMoves;
     document.getElementById('btnWeak').textContent = ui.btnWeak;
     document.getElementById('btnLoc').textContent = ui.btnLoc;
+    document.getElementById('locText').textContent = ui.notAvail;
     document.getElementById('labelTraits').textContent = ui.traits;
     document.getElementById('labelEvo').textContent = ui.evoTitle;
-    document.getElementById('locText').textContent = ui.notAvail;
+
+    const activeTab = document.querySelector('.tab-content.active').id;
+    updateTabTitle(activeTab);
 
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
-    document.getElementById('animonDesc').innerHTML = `<i>${descText.replace(/^"|"$/g, '')}</i>`;
+    descText = descText.replace(/^"|"$/g, ''); 
+    document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
 
-    updateTabTitle(document.querySelector('.tab-content.active').id);
     renderStats();
     renderMoves();
     renderTypeChart();
     renderEvolutions();
 }
 
-function renderEvolutions() {
-    const container = document.getElementById('evoContainer');
-    container.innerHTML = "";
-    
-    // Lógica de Detecção por ID (ex: 84 -> 84.01 -> 84.01.01)
-    const baseId = String(currentAnimon.id).split('.')[0];
-    const lineage = animons.filter(a => String(a.id).startsWith(baseId)).sort((a,b) => String(a.id).length - String(b.id).length || String(a.id).localeCompare(String(a.id)));
-
-    const row = document.createElement('div');
-    row.className = 'evolution-row';
-
-    lineage.forEach((ani, index) => {
-        // Card do Animon
-        const card = document.createElement('a');
-        card.href = `details.html?id=${ani.id}`;
-        card.className = 'evo-card';
-        
-        let typesHtml = "";
-        const tList = Array.isArray(ani.type) ? ani.type : [ani.type];
-        tList.forEach(t => {
-            if(t) typesHtml += `<img src="assets/${String(t).toLowerCase()}_element.png" onerror="this.src='assets/neutral_element.png'">`;
-        });
-
-        card.innerHTML = `
-            <img src="${ani.sprite || 'assets/sprites/'+ani.id+'.png'}" class="evo-img" onerror="this.src='assets/sem_icone.png'">
-            <span class="evo-name">${ani.name}</span>
-            <div class="evo-types">${typesHtml}</div>
-        `;
-
-        row.appendChild(card);
-
-        // Adiciona seta se não for o último
-        if (index < lineage.length - 1) {
-            const arrow = document.createElement('div');
-            arrow.className = 'evo-arrow';
-            arrow.innerHTML = '➜';
-            row.appendChild(arrow);
-        }
-    });
-
-    container.appendChild(row);
-}
-
 function renderStats() {
     const st = currentAnimon.stats || { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
     const total = st.hp + st.atk + st.def + (st.spAtk || 0) + (st.spDef || 0) + st.spd;
     document.getElementById('statsTotal').textContent = uiText[lang].totalStr + total;
-    const root = getComputedStyle(document.documentElement);
+    const rootStyle = getComputedStyle(document.documentElement);
+    const textColor = rootStyle.getPropertyValue('--text').trim() || '#111';
+    const chartFill = rootStyle.getPropertyValue('--chart-fill').trim() || 'rgba(13, 71, 161, 0.4)';
+    const chartLine = rootStyle.getPropertyValue('--chart-line').trim() || '#0d47a1';
     const ctx = document.getElementById('statsChart').getContext('2d');
     if (radarChart) radarChart.destroy();
     radarChart = new Chart(ctx, {
@@ -558,14 +530,25 @@ function renderStats() {
             labels: [`HP: ${st.hp}`, `ATK: ${st.atk}`, `DEF: ${st.def}`, `SPEED: ${st.spd}`, `SP.DEF: ${st.spDef}`, `SP.ATK: ${st.spAtk}`],
             datasets: [{
                 data: [st.hp, st.atk, st.def, st.spd, st.spDef, st.spAtk],
-                backgroundColor: root.getPropertyValue('--chart-fill'),
-                borderColor: root.getPropertyValue('--chart-line'),
-                pointBackgroundColor: root.getPropertyValue('--chart-line'),
+                backgroundColor: chartFill,
+                borderColor: chartLine,
+                pointBackgroundColor: chartLine,
                 borderWidth: 2
             }]
         },
         options: {
-            scales: { r: { angleLines: { color: root.getPropertyValue('--text'), opacity: 0.2 }, grid: { color: root.getPropertyValue('--text'), opacity: 0.2 }, pointLabels: { color: root.getPropertyValue('--text'), font: { size: 11, weight: 'bold' } }, ticks: { display: false }, suggestedMin: 0, suggestedMax: 160 } },
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                r: {
+                    angleLines: { color: textColor, opacity: 0.2 },
+                    grid: { color: textColor, opacity: 0.2 },
+                    pointLabels: { color: textColor, font: { size: 11, weight: 'bold' }, padding: 10 },
+                    ticks: { display: false },
+                    suggestedMin: 0,
+                    suggestedMax: 160
+                }
+            },
             plugins: { legend: { display: false }, tooltip: { enabled: false } }
         }
     });
@@ -576,99 +559,201 @@ function renderMoves() {
     const ui = uiText[lang];
     container.innerHTML = "";
     const movesList = currentAnimon.movesList || [];
-    if (movesList.length === 0) { container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`; return; }
-
+    if (movesList.length === 0) {
+        container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`;
+        return;
+    }
+    const sortedMoves = [...movesList].sort((a, b) => a.level - b.level);
     const header = document.createElement('div');
     header.className = 'move-item move-header';
     header.innerHTML = `<span>${ui.lvl}</span><span class="move-name">${ui.name}</span><span>${ui.type}</span><span>${ui.cat}</span>`;
     container.appendChild(header);
-
-    [...movesList].sort((a, b) => a.level - b.level).forEach(m => {
+    sortedMoves.forEach(m => {
         const minfo = getMoveInfo(m.name);
         const row = document.createElement('div');
         row.className = 'move-item';
+        row.dataset.power = minfo.power;
+        row.dataset.acc = minfo.accuracy;
+        row.dataset.desc = minfo.desc;
         row.innerHTML = `
             <span style="color: #bbb;">lvl ${m.level}</span>
             <span class="move-name">${minfo.name}</span>
             <img src="assets/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/neutral_element.png'">
             <img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">
         `;
-        row.onclick = (e) => { e.stopPropagation(); toggleMoveBalloon(row, minfo); };
+        row.onclick = (e) => { e.stopPropagation(); toggleMoveBalloon(row); };
         container.appendChild(row);
     });
 }
 
-function toggleMoveBalloon(moveDiv, minfo) {
+function toggleMoveBalloon(moveDiv) {
     if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
+    const power = moveDiv.dataset.power;
+    const acc = moveDiv.dataset.acc;
+    const desc = moveDiv.dataset.desc;
+
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-    balloon.innerHTML = `
-        <div style="margin-bottom: 8px; text-align: justify;">${parseColoredText(minfo.desc)}</div>
-        <div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px; font-size: 11px;">
-          <span style="color: #ee5047;"><b>Power:</b> ${minfo.power}</span> | 
-          <span style="color: #fde4a1;"><b>Acc:</b> ${minfo.accuracy}</span>
+
+    let contentHtml = "";
+    if (desc && desc !== "undefined" && desc !== "") {
+        contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parseColoredText(desc)}</div>`;
+    }
+    contentHtml += `
+        <div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;">
+          <span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; 
+          <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span>
         </div>
     `;
-    moveDiv.appendChild(balloon);
+    balloon.innerHTML = contentHtml;
+    
+    // Anexa ao body para não ser cortado
+    document.body.appendChild(balloon);
+    
+    // Posicionamento dinâmico
+    const rect = moveDiv.getBoundingClientRect();
+    balloon.style.left = (rect.left + rect.width / 2) + "px";
+    balloon.style.top = (rect.top - 5) + "px";
+    
     openedMoveBalloon = balloon;
-    setTimeout(() => document.addEventListener("click", () => { if(openedMoveBalloon){openedMoveBalloon.remove(); openedMoveBalloon=null;} }, { once: true }), 0);
+    setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
+
+function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
 
 function renderTypeChart() {
     const container = document.getElementById('typeChartContent');
+    const ui = uiText[lang];
     container.innerHTML = "";
     if (typeof chart === 'undefined' || !currentAnimon) return;
-    let defTypes = Array.isArray(currentAnimon.type || currentAnimon.types) ? (currentAnimon.type || currentAnimon.types) : [currentAnimon.type];
-    defTypes = defTypes.filter(t => t).map(t => t.toLowerCase().trim());
-
-    const groups = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
-    Object.keys(chart).forEach(atkType => {
-        let mult = 1.0;
-        defTypes.forEach(defType => {
-            const match = Object.keys(chart[atkType]).find(k => k.toLowerCase() === defType);
-            if (match) mult *= chart[atkType][match];
+    let defenderTypes = [];
+    let rawType = currentAnimon.type || currentAnimon.types;
+    if (Array.isArray(rawType)) defenderTypes = rawType.filter(t => t).map(t => t.toLowerCase().trim());
+    else if (rawType) defenderTypes = [rawType.toLowerCase().trim()];
+    if (defenderTypes.length === 0) { container.innerHTML = `<p>${ui.notDef}</p>`; return; }
+    const allAttackTypes = Object.keys(chart);
+    const multipliers = {};
+    allAttackTypes.forEach(atkType => {
+        let totalMult = 1.0;
+        const atkData = chart[atkType];
+        defenderTypes.forEach(defType => {
+            const matchKey = Object.keys(atkData).find(k => k.toLowerCase() === defType);
+            if (matchKey) totalMult *= atkData[matchKey];
         });
-        if (mult >= 3.5) groups.x4.push(atkType);
-        else if (mult >= 1.5) groups.x2.push(atkType);
-        else if (mult > 0.8 && mult < 1.2) groups.x1.push(atkType);
-        else if (mult > 0.3) groups.x05.push(atkType);
-        else if (mult > 0) groups.x025.push(atkType);
-        else groups.x0.push(atkType);
+        multipliers[atkType] = totalMult;
     });
-
-    const ui = uiText[lang];
+    const groups = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
+    Object.entries(multipliers).forEach(([type, val]) => {
+        if (val >= 3.5) groups.x4.push(type);
+        else if (val >= 1.5 && val < 3.5) groups.x2.push(type);
+        else if (val > 0.8 && val < 1.2) groups.x1.push(type);
+        else if (val > 0.3 && val <= 0.7) groups.x05.push(type);
+        else if (val > 0 && val <= 0.3) groups.x025.push(type);
+        else if (val === 0) groups.x0.push(type);
+    });
     const order = [
-        { key: 'x4', label: "Extrema (x4)", val: '4x' }, { key: 'x2', label: "Fraco (x2)", val: '2x' },
-        { key: 'x05', label: "Resiste (x0.5)", val: '0.5x' }, { key: 'x025', label: "Super Resiste (x0.25)", val: '0.25x' },
-        { key: 'x0', label: "Imune (x0)", val: '0x' }
+        { key: 'x4', label: ui.weak4, val: '4x' }, { key: 'x2', label: ui.weak2, val: '2x' },
+        { key: 'x1', label: ui.normal, val: '1x' }, { key: 'x05', label: ui.res05, val: '0.5x' },
+        { key: 'x025', label: ui.res025, val: '0.25x' }, { key: 'x0', label: ui.imm0, val: '0x' }
     ];
-
-    order.forEach(g => {
-        if (groups[g.key].length > 0) {
-            const div = document.createElement('div');
-            div.className = 'type-section';
-            div.innerHTML = `<div class="type-section-title">${g.label}</div>`;
+    order.forEach(group => {
+        if (groups[group.key].length > 0) {
+            const section = document.createElement('div');
+            section.className = 'type-section';
+            const title = document.createElement('div');
+            title.className = 'type-section-title';
+            title.textContent = group.label;
+            section.appendChild(title);
             const grid = document.createElement('div');
             grid.className = 'type-grid';
-            groups[g.key].forEach(t => {
-                grid.innerHTML += `<div class="type-badge"><img src="assets/${t.toLowerCase()}_element.png" onerror="this.src='assets/neutral_element.png'"><span>${t}</span><span class="dmg-multiplier">${g.val}</span></div>`;
+            groups[group.key].forEach(typeName => {
+                const badge = document.createElement('div');
+                badge.className = 'type-badge';
+                const lowName = typeName.toLowerCase();
+                badge.innerHTML = `
+                    <img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">
+                    <span style="text-transform: capitalize;">${typeName}</span>
+                    <span class="dmg-multiplier">${group.val}</span>
+                `;
+                grid.appendChild(badge);
             });
-            div.appendChild(grid);
-            container.appendChild(div);
+            section.appendChild(grid);
+            container.appendChild(section);
         }
     });
+}
+
+function renderEvolutions() {
+    const container = document.getElementById('evoContainer');
+    container.innerHTML = "";
+    if (typeof animons === 'undefined') return;
+
+    // Detectar Base ID (ex: "84" de "84.01")
+    const baseId = currentAnimon.id.toString().split('.')[0];
+    
+    // Filtrar a família e ordenar
+    const family = animons.filter(a => {
+        const aId = a.id.toString();
+        return aId === baseId || aId.startsWith(baseId + ".");
+    }).sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+
+    if (family.length <= 1) {
+        container.innerHTML = `<p style="text-align:center; opacity:0.6;">${lang === 'pt' ? 'Não possui evoluções.' : 'No evolutions available.'}</p>`;
+        return;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'evo-wrapper';
+
+    family.forEach((member, index) => {
+        // Se não for o primeiro, coloca uma seta
+        if (index > 0) {
+            const arrow = document.createElement('div');
+            arrow.className = 'evo-arrow';
+            arrow.innerHTML = '→';
+            wrapper.appendChild(arrow);
+        }
+
+        const isCurrent = member.id.toString() === currentAnimon.id.toString();
+        const card = document.createElement(isCurrent ? 'div' : 'a');
+        card.className = `evo-card ${isCurrent ? 'current' : 'clickable'}`;
+        if (!isCurrent) card.href = `animon.html?id=${member.id}`;
+
+        const sprite = member.sprite || `assets/sprites/${member.id}.png`;
+        
+        // Elementos do membro
+        let typesHtml = "";
+        let rawType = member.type || member.types || ["neutral"];
+        let typesArr = Array.isArray(rawType) ? rawType : [rawType];
+        typesArr.forEach(t => {
+            typesHtml += `<img src="assets/${t.toLowerCase().trim()}_element.png" class="evo-type-icon" onerror="this.src='assets/neutral_element.png'">`;
+        });
+
+        card.innerHTML = `
+            <div class="evo-mini-frame">
+                <img src="${sprite}" onerror="this.src='assets/sem_icone.png'">
+            </div>
+            <div class="evo-name-tag">${member.name}</div>
+            <div class="evo-types-row">${typesHtml}</div>
+        `;
+        wrapper.appendChild(card);
+    });
+
+    container.appendChild(wrapper);
 }
 
 function updateTabTitle(tabId) {
     const ui = uiText[lang];
     const display = document.getElementById('tabTitleDisplay');
-    const map = { 'tab-info': ui.status, 'tab-moves': ui.attacks, 'tab-weak': ui.typeChart, 'tab-loc': ui.btnLoc };
-    display.textContent = map[tabId] || "";
+    if (tabId === 'tab-info') display.textContent = ui.status;
+    else if (tabId === 'tab-moves') display.textContent = ui.attacks;
+    else if (tabId === 'tab-weak') display.textContent = ui.typeChart;
+    else if (tabId === 'tab-loc') display.textContent = ui.btnLoc;
 }
 
 function switchTab(tabId) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
