@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pocket Anime - Items</title>
-    
+
     <link rel="stylesheet" href="menu.css">
     <script src="menu.js" defer></script>
 
@@ -128,7 +128,7 @@
         /* --- Lista de Itens --- */
         .item-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            grid-template-columns: repeat(3, 1fr); /* 3 Colunas no Desktop */
             gap: 15px;
         }
         .item {
@@ -216,6 +216,7 @@
             .page-title { text-align: center; margin-top: 70px; }
             .filters { flex-direction: column; align-items: center; }
             .filters input, .custom-select { width: 90%; max-width: 300px; }
+            .item-list { grid-template-columns: 1fr; } /* 1 Coluna no Mobile */
         }
     </style>
 </head>
@@ -230,7 +231,7 @@
 <main>
     <div class="filters">
         <input id="searchInput" type="text">
-        
+
         <div class="custom-select" id="categorySelect">
             <div class="select-btn" id="categoryBtn"></div>
             <ul class="select-list" id="categoryList"></ul>
@@ -362,7 +363,7 @@ function render() {
 function openModal(item) {
     const data = item[lang];
     const modal = document.getElementById("modal");
-    
+
     modal.className = `modal ${item.rarity}`;
     document.getElementById("mName").textContent = data.name;
     document.getElementById("mDesc").textContent = data.desc;
