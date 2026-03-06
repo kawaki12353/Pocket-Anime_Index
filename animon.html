@@ -23,6 +23,8 @@
             --primary: #0d47a1;
             --chart-fill: rgba(13, 71, 161, 0.4);
             --chart-line: rgba(13, 71, 161, 1);
+            /* Cor específica para as Traits */
+            --trait-color: #2c3e50;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -37,6 +39,7 @@
                 --primary: #64b5f6;
                 --chart-fill: rgba(100, 181, 246, 0.4);
                 --chart-line: rgba(100, 181, 246, 1);
+                --trait-color: #34495e;
             }
         }
 
@@ -124,25 +127,33 @@
             box-sizing: border-box;
         }
 
-        /* --- Novo Design de Habilidades (Baseado na Imagem) --- */
+        /* --- Novo Design de Habilidades (Ajustado) --- */
         .trait-list-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+        }
+
+        /* Organização em linhas de até 3 no PC */
+        @media (min-width: 769px) {
+            .trait-list-wrapper {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         .trait-button {
             display: flex;
             align-items: stretch;
             background: var(--card);
-            border: 2px solid var(--primary);
-            border-radius: 15px;
+            border: 1.5px solid var(--trait-color);
+            border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.1s;
             text-decoration: none;
             color: inherit;
-            min-height: 48px;
+            min-height: 34px; /* Menor */
         }
 
         .trait-button:hover {
@@ -151,15 +162,15 @@
         }
 
         .trait-chance-tag {
-            background: var(--primary);
+            background: var(--trait-color);
             color: white;
-            padding: 0 15px;
+            padding: 0 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 14px;
-            min-width: 70px;
+            font-size: 11px;
+            min-width: 45px;
             text-align: center;
         }
 
@@ -168,22 +179,22 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 10px;
             font-weight: 500;
-            font-size: 16px;
+            font-size: 13px; /* Menor */
         }
 
         .trait-info-icon-ui {
-            width: 22px;
-            height: 22px;
-            border: 2px solid var(--primary);
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid var(--trait-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 10px;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--trait-color);
             opacity: 0.8;
         }
 
