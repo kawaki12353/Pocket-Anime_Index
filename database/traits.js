@@ -22,7 +22,7 @@ const traits = {
     "Perfect": {
         chance: "5%",
         desc_pt: "Se não for atingido por um golpe super efetivo, cure 1/12 do HP naquele turno. Se for atingido por um golpe físico, ganhe [002]SPD[+1][000] uma vez por batalha.",
-        desc_en: "If not hit by a super-effective move, heal 1/12 that turn. If hit by a physical move, gain [002]SPD[+1][002] once per battle."
+        desc_en: "If not hit by a super-effective move, heal 1/12 that turn. If hit by a physical move, gain [002]SPD[+1][000] once per battle."
     },
     "Reincarnation": {
         chance: "10%",
