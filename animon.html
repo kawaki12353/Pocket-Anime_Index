@@ -106,7 +106,6 @@
             display: flex;
             flex-direction: column; 
             justify-content: center;
-            align-items: flex-start; /* GARANTE ALINHAMENTO À ESQUERDA */
             font-size: 16px;
         }
         #nameInside {
@@ -115,13 +114,6 @@
             margin-bottom: 8px;
             color: var(--primary);
             text-transform: capitalize;
-            text-align: left;
-            width: 100%;
-        }
-        
-        #animonDesc {
-            text-align: left;
-            width: 100%;
         }
 
         /* Container para os elementos abaixo da descrição */
@@ -129,12 +121,13 @@
             display: flex;
             gap: 8px;
             margin-top: 12px;
-            justify-content: flex-start;
-            width: 100%;
+            flex-wrap: wrap;
         }
         .desc-types-container .type-badge {
-            width: 68px; /* Reduzido em 35% de 105px */
+            width: auto; /* Largura automática adaptável ao conteúdo */
+            min-width: 0; /* Remove restrições de largura mínima se houver */
             justify-content: center;
+            padding: 6px 12px; /* Ajuste fino no padding lateral */
         }
 
         .section-label {
@@ -392,8 +385,6 @@
         .evo-types-row { display: flex; gap: 4px; justify-content: center; }
         .evo-type-icon { width: 18px; height: 18px; }
 
-        .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; flex-shrink: 0; }
-
         /* --- Tipos --- */
         .type-section { margin-bottom: 20px; }
         .type-section-title { font-size: 14px; font-weight: bold; margin-bottom: 8px; opacity: 0.8; }
@@ -413,6 +404,8 @@
         }
         .type-badge img { width: 20px; height: 20px; object-fit: contain; }
         .dmg-multiplier { margin-left: auto; font-size: 11px; color: var(--primary); }
+
+        .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; flex-shrink: 0; }
 
         .lang-toggle { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; }
         .lang-toggle button {
@@ -480,7 +473,7 @@
             .logo { width: 150px; }
             .top-section { gap: 10px; }
             .sprite-frame { width: 120px; height: 120px; }
-            .desc-box { font-size: 14px; padding: 10px; align-items: flex-start; }
+            .desc-box { font-size: 14px; padding: 10px; }
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
             .move-header { padding-left: 29px; padding-right: 29px; } /* 25px container + 4px item padding */
             .move-icon { width: 24px; height: 24px; }
