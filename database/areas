@@ -1,6 +1,0 @@
-const areas = {
-    "0006": {
-        image: "",
-        desc_pt: "Área do Bandit King",
-        desc_en: " Bandit King Area"
-    }
