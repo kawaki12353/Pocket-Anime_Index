@@ -395,6 +395,51 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        /* --- Localizações --- */
+        .location-container {
+            position: relative;
+            text-align: center;
+        }
+        .location-region {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+        .location-desc {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .location-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            border: 2px solid var(--border);
+            display: block;
+            margin: 0 auto;
+        }
+        .location-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background: var(--primary);
+        }
+
         @media (max-width: 768px) {
             #traitsContainer {
                 height: 198px; /* Altura fixa para mostrar 3 traits inteiras e a metade da 4ª */
@@ -460,7 +505,7 @@
     </div>
 
     <div id="tab-loc" class="tab-content">
-        <p id="locText" style="text-align: center; font-weight: bold;"></p>
+        <div id="locationContent"></div>
     </div>
 
     <div class="section-label" id="labelEvo">Grade Evolutiva</div>
@@ -475,12 +520,14 @@
 <script src="database/moves.js"></script>
 <script src="database/traits.js"></script>
 <script src="database/typechart.js"></script>
+<script src="database/areas.js"></script>
 
 <script>
 let lang = localStorage.getItem("siteLang") || "pt";
 let currentAnimon = null;
 let radarChart = null;
 let openedMoveBalloon = null;
+let currentLocIndex = 0;
 
 const uiText = {
     pt: {
@@ -630,7 +677,6 @@ function updateLang() {
     document.getElementById('btnMoves').textContent = ui.btnMoves;
     document.getElementById('btnWeak').textContent = ui.btnWeak;
     document.getElementById('btnLoc').textContent = ui.btnLoc;
-    document.getElementById('locText').textContent = ui.notAvail;
     document.getElementById('labelTraits').textContent = ui.traits;
     document.getElementById('labelEvo').textContent = ui.evoTitle;
 
@@ -646,6 +692,7 @@ function updateLang() {
     renderMoves();
     renderTypeChart();
     renderEvolutions();
+    renderLocations();
 }
 
 function renderStats() {
@@ -952,6 +999,54 @@ function renderEvolutions() {
     });
 
     container.appendChild(wrapper);
+}
+
+function renderLocations() {
+    const container = document.getElementById('locationContent');
+    container.innerHTML = "";
+    if (!currentAnimon || !currentAnimon.areas || currentAnimon.areas.length === 0) {
+        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`;
+        return;
+    }
+
+    const areaIds = currentAnimon.areas;
+    const areaDataList = areaIds.map(id => areas[id]).filter(data => data);
+
+    if (areaDataList.length === 0) {
+        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`;
+        return;
+    }
+
+    currentLocIndex = 0;
+
+    const locWrapper = document.createElement('div');
+    locWrapper.className = 'location-container';
+    locWrapper.id = 'locWrapper';
+
+    const updateLocUI = (index) => {
+        const area = areaDataList[index];
+        const desc = lang === 'pt' ? area.desc_pt : area.desc_en;
+        locWrapper.innerHTML = `
+            <div class="location-region">${area.region}</div>
+            <div class="location-desc">${desc}</div>
+            <img src="${area.file}" class="location-image" onerror="this.src='assets/sem_icone.png'">
+        `;
+
+        if (areaDataList.length > 1) {
+            const dotsRow = document.createElement('div');
+            dotsRow.className = 'location-dots';
+            areaDataList.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = `dot ${i === index ? 'active' : ''}`;
+                dot.onclick = () => updateLocUI(i);
+                dotsRow.appendChild(dot);
+            });
+            locWrapper.appendChild(dotsRow);
+        }
+    };
+
+    updateLocUI(currentLocIndex);
+    container.appendChild(locWrapper);
 }
 
 function updateTabTitle(tabId) {
