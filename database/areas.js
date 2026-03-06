@@ -5,4 +5,4 @@ const areas = {
         desc_pt: "Área do Bandit King",
         desc_en: "Bandit King Area"
     }
-}
+};
