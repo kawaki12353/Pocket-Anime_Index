@@ -346,7 +346,14 @@ const animons = [
       { level: 24, name: "Limb Regrowth" }
     ]
   },
-  { id: 32.01, name: "Perfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/perfect_warrior_bug.png", stats: { hp: 67, atk: 84, def: 57, spAtk: 95, spDef: 57, spd: 107 }, traits: ["Consume", "Fast Step", "Copycat", "Confident", "Perfect", "Reincarnation"],
+  { id: 32.01, name: "Perfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/perfect_warrior_bug.png", stats: { hp: 67, atk: 84, def: 57, spAtk: 95, spDef: 57, spd: 107 },
+    traits: [
+      { name: "Consume", chance: "20%" },
+      { name: "Fast Step", chance: "20%" },
+      { name: "Copycat", chance: "20%" },
+      { name: "Confident", chance: "100%" },
+      { name: "Perfect", chance: "5%" },
+      { name: "Reincarnation", chance: "10%" }],
     desc_pt: "Eu sou perfeito!",
     desc_en: "I am perfect!",
     anime: { name: "Perfect Cell", anime:"Dragon Ball" },
