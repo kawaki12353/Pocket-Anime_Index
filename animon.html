@@ -81,6 +81,15 @@
             width: 200px;
             height: 200px;
             box-sizing: border-box;
+            position: relative; /* Adicionado para posicionar o ID */
+        }
+        .sprite-id {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            opacity: 0.5;
         }
         .sprite-frame img {
             width: 100%;
@@ -105,6 +114,17 @@
             margin-bottom: 8px;
             color: var(--primary);
             text-transform: capitalize;
+        }
+
+        /* Container para os elementos abaixo da descrição */
+        .desc-types-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .desc-types-container .type-badge {
+            width: 105px; /* Largura fixa solicitada */
+            justify-content: center;
         }
 
         .section-label {
@@ -297,9 +317,9 @@
 
         .move-icon { width: 32px; height: 32px; object-fit: contain; margin: 0 auto; pointer-events: none; }
 
-        /* AJUSTE BALÃO FIXO */
+        /* AJUSTE BALÃO - Alterado para position: absolute para corrigir bug de scroll */
         .move-balloon { 
-            position: fixed; 
+            position: absolute; 
             background: var(--card); 
             border: 1px solid var(--border); 
             border-radius: 10px; 
@@ -470,10 +490,13 @@
 <main>
     <div class="top-section">
         <div class="sprite-frame">
+            <div id="animonIdDisplay" class="sprite-id"></div>
             <img id="animonSprite" src="" alt="Sprite">
         </div>
         <div class="desc-box">
-            <div id="nameInside"></div> <div id="animonDesc"></div>
+            <div id="nameInside"></div> 
+            <div id="animonDesc"></div>
+            <div id="descTypes" class="desc-types-container"></div>
         </div>
     </div>
 
@@ -637,6 +660,9 @@ window.onload = () => {
     // Só mantém estado se for da mesma família E estiver vindo da própria página de detalhes
     const isSameFamily = (lastBaseId === currentBaseId) && cameFromSelf;
 
+    // Adiciona o ID no canto superior esquerdo
+    document.getElementById('animonIdDisplay').textContent = '#' + currentAnimon.id;
+
     const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
     document.getElementById('animonSprite').src = spriteSrc;
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
@@ -688,12 +714,33 @@ function updateLang() {
     descText = descText.replace(/^"|"$/g, ''); 
     document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
 
+    // Renderiza os tipos abaixo da descrição
+    renderDescTypes();
+
     renderStats();
     renderTraits();
     renderMoves();
     renderTypeChart();
     renderEvolutions();
     renderLocations();
+}
+
+function renderDescTypes() {
+    const container = document.getElementById('descTypes');
+    container.innerHTML = "";
+    let rawType = currentAnimon.type || currentAnimon.types || ["neutral"];
+    let typesArr = Array.isArray(rawType) ? rawType : [rawType];
+
+    typesArr.forEach(t => {
+        const badge = document.createElement('div');
+        badge.className = 'type-badge';
+        const lowName = t.toLowerCase().trim();
+        badge.innerHTML = `
+            <img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">
+            <span style="text-transform: capitalize;">${t}</span>
+        `;
+        container.appendChild(badge);
+    });
 }
 
 function renderStats() {
@@ -844,7 +891,8 @@ function showGeneralBalloon(element, text) {
     document.body.appendChild(balloon);
     const rect = element.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
-    balloon.style.top = (rect.top - 5) + "px";
+    // Ajuste para acompanhar o scroll da página
+    balloon.style.top = (rect.top + window.scrollY - 5) + "px";
 
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
@@ -875,7 +923,8 @@ function toggleMoveBalloon(moveDiv) {
 
     const rect = moveDiv.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
-    balloon.style.top = (rect.top - 5) + "px";
+    // Ajuste para acompanhar o scroll da página
+    balloon.style.top = (rect.top + window.scrollY - 5) + "px";
 
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
