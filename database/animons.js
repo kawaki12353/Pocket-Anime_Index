@@ -234,7 +234,7 @@ const animons = [
       { level: 24, name: "Wind Shuriken" }
     ]
   },
-  { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
+  { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 }, areas: ["0006"],
     traits: [
       { name: "Fox Spirit", chance: "5%" },
       { name: "Ninjutsu Mastery", chance: "75%" },
