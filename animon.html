@@ -123,9 +123,11 @@
             margin-top: 12px;
         }
         .desc-types-container .type-badge {
-            width: 73.5px; /* Largura reduzida em 30% (105px -> 73.5px) */
+            width: 63px; /* Reduzido em 40% (de 105px para 63px) */
+            min-width: 63px; /* Sobrescreve o min-width global */
             justify-content: center;
-            padding: 6px 4px; /* Ajuste leve no padding para comportar o conteúdo menor */
+            padding-left: 0;
+            padding-right: 0;
         }
 
         .section-label {
