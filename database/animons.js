@@ -223,6 +223,8 @@ const animons = [
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 } },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 } },
   { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 }, areas: ["0006"],
+    traits: [
+      { name: "Ninjutsu Mastery", chance: "75%" }],
     anime: { name: "Naruto", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
