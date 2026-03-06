@@ -396,6 +396,10 @@
         }
 
         @media (max-width: 768px) {
+            #traitsContainer {
+                height: 198px; /* Altura fixa para mostrar 3 traits inteiras e a metade da 4ª */
+                overflow-y: auto;
+            }
             .header { justify-content: flex-end; }
             .logo { width: 150px; }
             .top-section { gap: 10px; }
@@ -688,9 +692,9 @@ function renderTraits() {
     const container = document.getElementById('traitsContainer');
     const ui = uiText[lang];
     container.innerHTML = "";
-    
+
     const traitsList = currentAnimon.traits || [];
-    
+
     if (traitsList.length === 0) {
         const emptyMsg = document.createElement('div');
         emptyMsg.style.textAlign = 'center';
@@ -708,7 +712,7 @@ function renderTraits() {
     traitsList.forEach(tName => {
         let tInfo = "";
         let tChance = "??%"; // Valor padrão caso não ache
-        
+
         if (typeof traits !== 'undefined') {
             const data = (Array.isArray(traits)) ? traits.find(x => x.name === tName) : traits[tName];
             if (data) {
@@ -727,11 +731,11 @@ function renderTraits() {
                 <div class="trait-info-icon-ui">i</div>
             </div>
         `;
-        
+
         btn.onclick = (e) => { e.stopPropagation(); showGeneralBalloon(btn, tInfo); };
         listWrapper.appendChild(btn);
     });
-    
+
     container.appendChild(listWrapper);
 }
 
@@ -769,10 +773,10 @@ function renderMoves() {
 
 function showGeneralBalloon(element, text) {
     if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
-    
+
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-    
+
     if (text && text !== "") {
         balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
     } else {
@@ -786,7 +790,7 @@ function showGeneralBalloon(element, text) {
     const rect = element.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
     balloon.style.top = (rect.top - 5) + "px";
-    
+
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
