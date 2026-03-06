@@ -235,6 +235,10 @@ const animons = [
     ]
   },
   { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
+    traits: [
+      { name: "Fox Spirit", chance: "5%" },
+      { name: "Ninjutsu Mastery", chance: "75%" },
+      { name: "Wind Affinity", chance: "75%" }],
     anime: { name: "Naruto", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
