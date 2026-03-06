@@ -122,7 +122,23 @@
             margin: 0 auto 30px;
             min-height: 50px;
             box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
+
+        /* Badge de Habilidade */
+        .trait-badge {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .trait-badge:hover { background: var(--border); }
 
         .tabs-container {
             display: flex;
@@ -202,6 +218,7 @@
         }
         .move-item:hover:not(.move-header) { background: var(--border); }
 
+        /* AJUSTE DE ALINHAMENTO DO CABEÇALHO */
         .move-header { 
             background: var(--border); 
             cursor: default;
@@ -212,6 +229,7 @@
             margin: 0 -25px 10px -25px;
             width: calc(100% + 50px);
             box-sizing: border-box;
+            padding: 12px 37px; /* 12px do item + 25px do container padding */
         }
 
         .move-item span { text-align: center; }
@@ -242,14 +260,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-wrap: nowrap; /* Impede quebra de linha */
+            flex-wrap: nowrap; 
             gap: 15px;
-            overflow-x: auto; /* Permite rolagem horizontal no mobile */
+            overflow-x: auto; 
             padding-bottom: 10px;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Esconde barra de rolagem mas mantém funcionalidade */
         .evo-wrapper::-webkit-scrollbar { height: 4px; }
         .evo-wrapper::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
@@ -260,7 +277,7 @@
             text-decoration: none;
             color: inherit;
             transition: transform 0.2s;
-            min-width: 100px; /* Garante largura mínima */
+            min-width: 100px; 
             flex-shrink: 0;
         }
         .evo-card.clickable:hover { transform: scale(1.05); }
@@ -324,6 +341,7 @@
             .sprite-frame { width: 120px; height: 120px; }
             .desc-box { font-size: 14px; padding: 10px; }
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
+            .move-header { padding: 8px 29px; } /* Ajuste mobile */
             .move-icon { width: 24px; height: 24px; }
             .evo-wrapper { gap: 10px; justify-content: flex-start; padding-left: 10px; padding-right: 10px; }
             .evo-card { width: 85px; min-width: 85px; }
@@ -350,7 +368,7 @@
     </div>
 
     <div class="section-label" id="labelTraits">Habilidades</div>
-    <div class="traits-container"></div>
+    <div class="traits-container" id="traitsDisplay"></div>
 
     <div class="tabs-container">
         <button class="tab-btn active" onclick="switchTab('tab-info')" id="btnInfo">Info</button>
@@ -381,7 +399,7 @@
     </div>
 
     <div class="section-label" id="labelEvo">Grade Evolutiva</div>
-    <div class="traits-container" id="evoContainer"></div>
+    <div class="traits-container" id="evoContainer" style="display: block;"></div>
 </main>
 
 <div class="lang-toggle">
@@ -391,6 +409,7 @@
 <script src="database/animons.js"></script>
 <script src="database/moves.js"></script>
 <script src="database/typechart.js"></script>
+<script src="database/traits.js"></script>
 
 <script>
 let lang = localStorage.getItem("siteLang") || "pt";
@@ -403,6 +422,7 @@ const uiText = {
         btnInfo: "Informações", btnMoves: "Moves", btnWeak: "Fraquezas", btnLoc: "Localização",
         noDesc: "Ainda não possui descrição.",
         noMoves: "Ainda não possui movimentos.",
+        noTraits: "Sem habilidades ainda",
         notDef: "Ainda não definido.",
         notAvail: "Ainda não disponível.",
         lvl: "Nvl", name: "Nome", type: "Tipo", cat: "Categoria",
@@ -423,6 +443,7 @@ const uiText = {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
         noDesc: "No description available yet.",
         noMoves: "No moves available yet.",
+        noTraits: "No traits yet",
         notDef: "Not defined yet.",
         notAvail: "Not available yet.",
         lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
@@ -492,13 +513,11 @@ window.onload = () => {
         return;
     }
 
-    // --- Lógica de Persistência Condicional ---
     const currentIdStr = currentAnimon.id.toString();
     const currentBaseId = currentIdStr.split('.')[0];
     const lastIdStr = sessionStorage.getItem('lastAnimonId');
     const lastBaseId = lastIdStr ? lastIdStr.split('.')[0] : null;
 
-    // Só é "mesma família" se o Base ID (antes do ponto) for igual
     const isSameFamily = (lastBaseId === currentBaseId);
 
     const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
@@ -506,7 +525,6 @@ window.onload = () => {
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
 
     if (isSameFamily) {
-        // Restaurar Aba e Scroll apenas se for evolução/unevo
         const savedTab = sessionStorage.getItem('lastTab');
         if (savedTab) switchTab(savedTab);
 
@@ -518,19 +536,15 @@ window.onload = () => {
             }
         }, 100);
     } else {
-        // Caso contrário, garante que começa no topo e na aba Info
         sessionStorage.removeItem('lastTab');
         sessionStorage.removeItem('scrollPos');
-        // O HTML já inicia com a aba info ativa por padrão
     }
 
-    // Salva o ID atual para a próxima navegação
     sessionStorage.setItem('lastAnimonId', currentIdStr);
 
     updateLang();
 };
 
-// Salvar scroll antes de sair da página
 window.onbeforeunload = () => {
     sessionStorage.setItem('scrollPos', window.scrollY);
 };
@@ -556,9 +570,58 @@ function updateLang() {
     document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
 
     renderStats();
+    renderTraits();
     renderMoves();
     renderTypeChart();
     renderEvolutions();
+}
+
+function renderTraits() {
+    const container = document.getElementById('traitsDisplay');
+    const ui = uiText[lang];
+    container.innerHTML = "";
+    
+    const animonTraits = currentAnimon.traits || [];
+    
+    if (animonTraits.length === 0) {
+        container.innerHTML = `<span style="opacity:0.6;">${ui.noTraits}</span>`;
+        return;
+    }
+
+    animonTraits.forEach(traitName => {
+        const badge = document.createElement('div');
+        badge.className = 'trait-badge';
+        badge.textContent = traitName;
+        
+        // Buscar info no traits.js (assumindo que o objeto se chama 'traits')
+        let traitInfo = "";
+        if (typeof traits !== 'undefined' && traits[traitName]) {
+            traitInfo = traits[traitName][`desc_${lang}`] || traits[traitName].desc_pt || traits[traitName].desc || "";
+        }
+
+        badge.onclick = (e) => {
+            e.stopPropagation();
+            showTraitBalloon(badge, traitInfo);
+        };
+        container.appendChild(badge);
+    });
+}
+
+function showTraitBalloon(element, text) {
+    if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
+    
+    const balloon = document.createElement("div");
+    balloon.className = "move-balloon";
+    balloon.innerHTML = `<div style="white-space: normal; max-width: 200px; text-align: justify;">${parseColoredText(text || "")}</div>`;
+    
+    document.body.appendChild(balloon);
+    
+    const rect = element.getBoundingClientRect();
+    balloon.style.left = (rect.left + rect.width / 2) + "px";
+    balloon.style.top = (rect.top - 5) + "px";
+    
+    openedMoveBalloon = balloon;
+    setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
 
 function renderStats() {
@@ -654,10 +717,8 @@ function toggleMoveBalloon(moveDiv) {
     `;
     balloon.innerHTML = contentHtml;
 
-    // Anexa ao body para não ser cortado
     document.body.appendChild(balloon);
 
-    // Posicionamento dinâmico
     const rect = moveDiv.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
     balloon.style.top = (rect.top - 5) + "px";
@@ -735,10 +796,8 @@ function renderEvolutions() {
     container.innerHTML = "";
     if (typeof animons === 'undefined') return;
 
-    // Detectar Base ID (ex: "84" de "84.01")
     const baseId = currentAnimon.id.toString().split('.')[0];
 
-    // Filtrar a família e ordenar
     const family = animons.filter(a => {
         const aId = a.id.toString();
         return aId === baseId || aId.startsWith(baseId + ".");
@@ -804,7 +863,6 @@ function switchTab(tabId) {
     document.getElementById(btnMap[tabId]).classList.add('active');
     updateTabTitle(tabId);
 
-    // Salvar aba atual
     sessionStorage.setItem('lastTab', tabId);
 }
 
