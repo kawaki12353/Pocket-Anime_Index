@@ -16,7 +16,7 @@ const traits = {
         desc_en: "Consecutive turns landing attacks increase [002]ATK [+1][000] or [002]SP.ATK [+1][000], up to a maximum of +3. This increases to +2 per turn against Saijan-attribute animon."
     },
     "Fox Spirit": {
-        desc_pt: "Quando a vida estiver abaixo de 40%, entre em fúria, ganhe [002]ATQ [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, recupere 10% da vida por 3 turnos.",
+        desc_pt: "Quando a vida estiver abaixo de 40%, entre em fúria, ganhe [002]ATK [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, recupere 10% da vida por 3 turnos.",
         desc_en: "When below 40% HP, go berserk, gain [002]ATK [+2][000], [002]SP.ATK [+2][000] and [002]SPD [+2][000], and you are berserk. After transforming, heal 10% HP for 3 turns."
     },
     "Ninjutsu Mastery": {
