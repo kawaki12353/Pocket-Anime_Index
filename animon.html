@@ -693,7 +693,7 @@ function renderTraits() {
     const ui = uiText[lang];
     container.innerHTML = "";
 
-    const traitsList = currentAnimon.traits || [];
+    let traitsList = currentAnimon.traits || [];
 
     if (traitsList.length === 0) {
         const emptyMsg = document.createElement('div');
@@ -706,19 +706,26 @@ function renderTraits() {
         return;
     }
 
+    // Organizar do maior % para o menor
+    const sortedTraits = [...traitsList].sort((a, b) => {
+        const percA = parseInt(a.chance) || 0;
+        const percB = parseInt(b.chance) || 0;
+        return percB - percA;
+    });
+
     const listWrapper = document.createElement('div');
     listWrapper.className = 'trait-list-wrapper';
 
-    traitsList.forEach(tName => {
+    sortedTraits.forEach(traitObj => {
+        const tName = traitObj.name;
+        const tChance = traitObj.chance;
         let tInfo = "";
-        let tChance = "??%"; // Valor padrão caso não ache
 
+        // Busca apenas as descrições no traits.js
         if (typeof traits !== 'undefined') {
             const data = (Array.isArray(traits)) ? traits.find(x => x.name === tName) : traits[tName];
             if (data) {
                 tInfo = data[`desc_${lang}`] || data.desc_pt || data.desc || "";
-                // Busca a porcentagem no traits.js (assumindo que o campo chama-se 'chance')
-                if (data.chance) tChance = data.chance;
             }
         }
 
