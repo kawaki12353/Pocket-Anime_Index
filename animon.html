@@ -625,21 +625,23 @@ window.onload = () => {
         return;
     }
 
-    // --- Lógica de Persistência Condicional ---
+    // --- Lógica de Persistência Condicional Melhorada ---
     const currentIdStr = currentAnimon.id.toString();
     const currentBaseId = currentIdStr.split('.')[0];
     const lastIdStr = sessionStorage.getItem('lastAnimonId');
     const lastBaseId = lastIdStr ? lastIdStr.split('.')[0] : null;
 
-    // Só é "mesma família" se o Base ID (antes do ponto) for igual
-    const isSameFamily = (lastBaseId === currentBaseId);
+    // Verifica se veio de uma página interna (link de evolução)
+    const cameFromSelf = document.referrer.includes("animon.html");
+
+    // Só mantém estado se for da mesma família E estiver vindo da própria página de detalhes
+    const isSameFamily = (lastBaseId === currentBaseId) && cameFromSelf;
 
     const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
     document.getElementById('animonSprite').src = spriteSrc;
     document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
 
     if (isSameFamily) {
-        // Restaurar Aba e Scroll apenas se for evolução/unevo
         const savedTab = sessionStorage.getItem('lastTab');
         if (savedTab) switchTab(savedTab);
 
@@ -651,13 +653,12 @@ window.onload = () => {
             }
         }, 100);
     } else {
-        // Caso contrário, garante que começa no topo e na aba Info
+        // Se saiu totalmente ou mudou de família, limpa tudo para resetar
         sessionStorage.removeItem('lastTab');
         sessionStorage.removeItem('scrollPos');
-        // O HTML já inicia com a aba info ativa por padrão
+        window.scrollTo(0, 0);
     }
 
-    // Salva o ID atual para a próxima navegação
     sessionStorage.setItem('lastAnimonId', currentIdStr);
 
     updateLang();
