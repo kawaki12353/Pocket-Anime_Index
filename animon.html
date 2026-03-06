@@ -124,20 +124,70 @@
             box-sizing: border-box;
         }
 
-        /* Estilo das Habilidades */
-        .trait-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
+        /* --- Novo Design de Habilidades (Baseado na Imagem) --- */
+        .trait-list-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trait-button {
+            display: flex;
+            align-items: stretch;
+            background: var(--card);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.1s;
+            text-decoration: none;
+            color: inherit;
+            min-height: 48px;
+        }
+
+        .trait-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .trait-chance-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .trait-name-section {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .trait-info-icon-ui {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 14px;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin: 5px;
+            color: var(--primary);
+            opacity: 0.8;
         }
-        .trait-badge:hover { background: var(--border); color: var(--primary); }
+
+        /* --- Fim do Design Habilidades --- */
 
         .tabs-container {
             display: flex;
@@ -641,29 +691,37 @@ function renderTraits() {
         return;
     }
 
-    const flex = document.createElement('div');
-    flex.style.display = 'flex';
-    flex.style.flexWrap = 'wrap';
-    flex.style.gap = '10px';
-    flex.style.justifyContent = 'center';
+    const listWrapper = document.createElement('div');
+    listWrapper.className = 'trait-list-wrapper';
 
     traitsList.forEach(tName => {
-        const badge = document.createElement('div');
-        badge.className = 'trait-badge';
-        badge.textContent = tName;
-        
         let tInfo = "";
+        let tChance = "??%"; // Valor padrão caso não ache
+        
         if (typeof traits !== 'undefined') {
             const data = (Array.isArray(traits)) ? traits.find(x => x.name === tName) : traits[tName];
             if (data) {
                 tInfo = data[`desc_${lang}`] || data.desc_pt || data.desc || "";
+                // Busca a porcentagem no traits.js (assumindo que o campo chama-se 'chance')
+                if (data.chance) tChance = data.chance;
             }
         }
+
+        const btn = document.createElement('div');
+        btn.className = 'trait-button';
+        btn.innerHTML = `
+            <div class="trait-chance-tag">${tChance}</div>
+            <div class="trait-name-section">
+                <span>${tName}</span>
+                <div class="trait-info-icon-ui">i</div>
+            </div>
+        `;
         
-        badge.onclick = (e) => { e.stopPropagation(); showGeneralBalloon(badge, tInfo); };
-        flex.appendChild(badge);
+        btn.onclick = (e) => { e.stopPropagation(); showGeneralBalloon(btn, tInfo); };
+        listWrapper.appendChild(btn);
     });
-    container.appendChild(flex);
+    
+    container.appendChild(listWrapper);
 }
 
 function renderMoves() {
