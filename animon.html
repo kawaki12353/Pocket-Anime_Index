@@ -637,7 +637,8 @@ const uiText = {
         attacks: "Ataques",
         typeChart: "Tabela de Tipo",
         evoTitle: "Grade Evolutiva",
-        readMore: "Ver mais"
+        readMore: "Ver mais",
+        readLess: "Ver menos"
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
@@ -659,7 +660,8 @@ const uiText = {
         attacks: "Attacks",
         typeChart: "Type Chart",
         evoTitle: "Evolution Grade",
-        readMore: "See more"
+        readMore: "See more",
+        readLess: "See less"
     }
 };
 
@@ -804,7 +806,7 @@ function expandDescription() {
     const ui = uiText[lang];
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     descText = descText.replace(/^"|"$/g, ''); 
-    document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
+    document.getElementById('animonDesc').innerHTML = `<i>${descText}<span class="read-more-link" onclick="renderDescription()">${ui.readLess}</span></i>`;
 }
 
 function renderDescTypes() {
