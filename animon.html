@@ -126,6 +126,15 @@
             text-transform: capitalize;
         }
 
+        /* Estilo do link Ver Mais */
+        .read-more-link {
+            color: #4db8ff;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 4px;
+        }
+
         /* Container para os elementos abaixo da descrição (Estilo Team-Builder) */
         .desc-types-container {
             display: flex;
@@ -483,7 +492,7 @@
             display: block;
             margin: 0 auto;
         }
-        .location-dots {
+        .location-image-dots {
             display: flex;
             justify-content: center;
             gap: 8px;
@@ -597,6 +606,7 @@ let currentAnimon = null;
 let radarChart = null;
 let openedMoveBalloon = null;
 let currentLocIndex = 0;
+let balloonAnchor = null; // Elemento que abriu o balão
 
 const uiText = {
     pt: {
@@ -618,7 +628,8 @@ const uiText = {
         status: "Status",
         attacks: "Ataques",
         typeChart: "Tabela de Tipo",
-        evoTitle: "Grade Evolutiva"
+        evoTitle: "Grade Evolutiva",
+        readMore: "Ver mais"
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
@@ -639,7 +650,8 @@ const uiText = {
         status: "Status",
         attacks: "Attacks",
         typeChart: "Type Chart",
-        evoTitle: "Evolution Grade"
+        evoTitle: "Evolution Grade",
+        readMore: "See more"
     }
 };
 
@@ -728,6 +740,11 @@ window.onload = () => {
     sessionStorage.setItem('lastAnimonId', currentIdStr);
 
     updateLang();
+
+    // Listeners para fechar/mover balão no scroll dos painéis
+    document.getElementById('traitsContainer').addEventListener('scroll', updateBalloonPosition);
+    document.getElementById('tab-moves').addEventListener('scroll', updateBalloonPosition);
+    window.addEventListener('scroll', updateBalloonPosition);
 };
 
 window.onbeforeunload = () => {
@@ -749,10 +766,7 @@ function updateLang() {
     const activeTab = document.querySelector('.tab-content.active').id;
     updateTabTitle(activeTab);
 
-    let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
-    descText = descText.replace(/^"|"$/g, ''); 
-    document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
-
+    renderDescription();
     renderDescTypes();
     renderStats();
     renderTraits();
@@ -760,6 +774,29 @@ function updateLang() {
     renderTypeChart();
     renderEvolutions();
     renderLocations();
+}
+
+function renderDescription() {
+    const ui = uiText[lang];
+    let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
+    descText = descText.replace(/^"|"$/g, ''); 
+
+    const isMobile = window.innerWidth <= 768;
+    const limit = 125; 
+
+    if (isMobile && descText.length > limit) {
+        const truncated = descText.substring(0, limit) + "...";
+        document.getElementById('animonDesc').innerHTML = `<i>${truncated}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
+    } else {
+        document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
+    }
+}
+
+function expandDescription() {
+    const ui = uiText[lang];
+    let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
+    descText = descText.replace(/^"|"$/g, ''); 
+    document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
 }
 
 function renderDescTypes() {
@@ -897,6 +934,8 @@ function showGeneralBalloon(element, text) {
     if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
     else { balloon.style.display = "none"; }
     document.body.appendChild(balloon);
+    
+    balloonAnchor = element;
     const rect = element.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
     balloon.style.top = (rect.bottom + window.scrollY + 8) + "px"; 
@@ -916,6 +955,8 @@ function toggleMoveBalloon(moveDiv) {
     contentHtml += `<div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
     balloon.innerHTML = contentHtml;
     document.body.appendChild(balloon);
+    
+    balloonAnchor = moveDiv;
     const rect = moveDiv.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
     balloon.style.top = (rect.bottom + window.scrollY + 8) + "px"; 
@@ -923,7 +964,28 @@ function toggleMoveBalloon(moveDiv) {
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
 
-function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
+function updateBalloonPosition() {
+    if (!openedMoveBalloon || !balloonAnchor) return;
+    
+    const rect = balloonAnchor.getBoundingClientRect();
+    const parentContainer = balloonAnchor.closest('.tab-content, .traits-container');
+    
+    // Verifica se o item ainda está visível dentro do container scrollable
+    if (parentContainer) {
+        const parentRect = parentContainer.getBoundingClientRect();
+        const buffer = 10;
+        if (rect.bottom < parentRect.top + buffer || rect.top > parentRect.bottom - buffer) {
+            closeMoveBalloonOnce();
+            return;
+        }
+    }
+
+    // Atualiza posição do balão conforme o scroll
+    openedMoveBalloon.style.left = (rect.left + rect.width / 2) + "px";
+    openedMoveBalloon.style.top = (rect.bottom + window.scrollY + 8) + "px";
+}
+
+function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; balloonAnchor = null; } }
 
 function renderTypeChart() {
     const container = document.getElementById('typeChartContent');
@@ -1021,7 +1083,7 @@ function renderLocations() {
         locWrapper.innerHTML = `<div class="location-region">${area.region}</div><div class="location-desc">${desc}</div><img src="${area.file}" class="location-image" onerror="this.src='assets/sem_icone.png'">`;
         if (areaDataList.length > 1) {
             const dotsRow = document.createElement('div');
-            dotsRow.className = 'location-dots';
+            dotsRow.className = 'location-image-dots';
             areaDataList.forEach((_, i) => { const dot = document.createElement('div'); dot.className = `dot ${i === index ? 'active' : ''}`; dot.onclick = () => updateLocUI(i); dotsRow.appendChild(dot); });
             locWrapper.appendChild(dotsRow);
         }
@@ -1040,6 +1102,7 @@ function updateTabTitle(tabId) {
 }
 
 function switchTab(tabId) {
+    closeMoveBalloonOnce(); // Fecha balões ao trocar de aba
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
