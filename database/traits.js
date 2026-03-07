@@ -1,4 +1,8 @@
 const traits = {
+    "Scaredy Cat": {
+        desc_pt: "Recue se sua vida cair abaixo de 40%.",
+        desc_en: "Retreat if you drop below 40% HP."
+    },
     "Lightning Affinity": {
         desc_pt: "Ao usar um movimento do tipo Lightning, há 25% de chance de aumentar seu dano em 1.2x.",
         desc_en: "When using a Lightning-Type move have a 25% to increase its damage 1.2X."
