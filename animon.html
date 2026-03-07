@@ -357,22 +357,47 @@
 
         .move-icon { width: 32px; height: 32px; object-fit: contain; margin: 0 auto; pointer-events: none; }
 
+        /* --- Balão idêntico ao Team Builder --- */
         .move-balloon { 
             position: absolute; 
             background: var(--card); 
-            border: 1px solid var(--border); 
-            border-radius: 10px; 
+            border: 1.5px solid var(--border); 
+            border-radius: 8px; 
             padding: 10px 14px; 
             font-size: 13px; 
             text-align: left; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
             z-index: 9999; 
             pointer-events: none;
             color: var(--text); 
-            transform: translate(-50%, -110%);
-            animation: fadeInBalloon 0.2s ease;
+            transform: translate(-50%, calc(-100% - 12px));
+            animation: fadeInBalloon 0.15s ease-out;
         }
-        @keyframes fadeInBalloon { from { opacity: 0; margin-top: 10px; } to { opacity: 1; margin-top: 0; } }
+
+        .move-balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: var(--border) transparent transparent transparent;
+        }
+
+        .move-balloon::before {
+            content: "";
+            position: absolute;
+            bottom: -13px;
+            left: 50%;
+            margin-left: -7px;
+            border-width: 7px;
+            border-style: solid;
+            border-color: var(--card) transparent transparent transparent;
+            z-index: 1;
+        }
+
+        @keyframes fadeInBalloon { from { opacity: 0; transform: translate(-50%, calc(-100% - 2px)); } to { opacity: 1; transform: translate(-50%, calc(-100% - 12px)); } }
 
         /* --- Grade Evolutiva CSS --- */
         .evo-wrapper {
@@ -500,6 +525,11 @@
         }
 
         @media (max-width: 768px) {
+            /* Diminuindo elementos abaixo da descrição no mobile */
+            .element-wrapper { width: 34px; height: 34px; }
+            .element-inner { width: 22px; height: 22px; border-width: 1.5px; }
+            .element-inner img { width: 30px; height: 30px; }
+
             #traitsContainer {
                 height: 198px; 
                 overflow-y: auto;
@@ -755,7 +785,6 @@ function updateLang() {
     renderLocations();
 }
 
-/* FUNÇÃO ATUALIZADA: SISTEMA DE DUPLA MOLDURA LITERAL DO TEAM BUILDER */
 function renderDescTypes() {
     const container = document.getElementById('descTypes');
     container.innerHTML = "";
