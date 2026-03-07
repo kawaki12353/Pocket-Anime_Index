@@ -76,6 +76,14 @@ const animons = [
     ]
   },
   { id: 3.01, name: "TS Saskeh", type: ["Fire", "Lightning"], sprite: "assets/animons-icon/ts_saskeh.png", stats: { hp: 58, atk: 75, def: 53, spAtk: 87, spDef: 55, spd: 70 },
+    traits: [
+      { name: "Ninjutsu Mastery", chance: "100%" },
+      { name: "Lightning Affinity", chance: "50%" },
+      { name: "Fire Affinity", chance: "50%" },
+      { name: "Vengeful Eyes", chance: "10%" },
+      { name: "Eternal Eyes", chance: "5%" }],
+    desc_pt: "Eu sou um vingador. Cortei todos os meus laços, eles só te enfraquecem.",
+    desc_en: "I am an avenger. I have cut all my ties, they only make you weak.",
     anime: { name: "Sasuke", anime:"Naruto" },
     movesList: [
       { level: 0, name: "Lightning Spread" },
