@@ -216,7 +216,6 @@
             text-decoration: none;
             color: inherit;
             min-height: 34px; 
-            position: relative; /* Adicionado para o balão ancorar */
         }
 
         .trait-button:hover {
@@ -336,7 +335,7 @@
             font-size: 14px;
             cursor: pointer;
             transition: background 0.2s;
-            position: relative; /* Adicionado para o balão ancorar */
+            position: relative;
         }
         .move-item:hover:not(.move-header) { background: var(--border); }
 
@@ -374,12 +373,15 @@
             text-align: left; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.25); 
             z-index: 9999; 
-            animation: fadeIn 0.2s ease; 
+            animation: fadeInBalloon 0.2s ease; 
             white-space: nowrap; 
             color: var(--text); 
             pointer-events: none;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes fadeInBalloon { 
+            from { opacity: 0; transform: translate(-50%, 10px); } 
+            to { opacity: 1; transform: translate(-50%, 0); } 
+        }
 
         /* --- Grade Evolutiva CSS --- */
         .evo-wrapper {
@@ -449,16 +451,16 @@
         .type-badge img { width: 20px; height: 20px; object-fit: contain; }
         .dmg-multiplier { margin-left: auto; font-size: 11px; color: var(--primary); }
 
-        /* --- TRADUÇÃO (ESTILO TEAM BUILDER) --- */
-        .lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 999; }
-        .lang-toggle button { 
-            padding: 8px 14px; 
-            border-radius: 20px; 
-            border: none; 
-            font-weight: bold; 
-            cursor: pointer; 
-            background: var(--lang-btn-bg); 
-            color: var(--lang-btn); 
+        /* --- BOTÃO DE LÍNGUA ATUALIZADO (Estilo Team-Builder) --- */
+        .lang-toggle { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; }
+        .lang-toggle button {
+            background: var(--lang-btn-bg);
+            color: var(--lang-btn);
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
@@ -898,12 +900,10 @@ function renderMoves() {
 
 function showGeneralBalloon(element, text) {
     if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
-    if (!text || text === "") return;
-
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-    balloon.innerHTML = `<div style="white-space: normal; max-width: 200px; text-align: justify;">${parseColoredText(text)}</div>`;
-    
+    if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
+    else { balloon.style.display = "none"; }
     element.appendChild(balloon);
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
@@ -914,25 +914,14 @@ function toggleMoveBalloon(moveDiv) {
     const power = moveDiv.dataset.power;
     const acc = moveDiv.dataset.acc;
     const desc = moveDiv.dataset.desc;
-
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-
     let contentHtml = "";
-    if (desc && desc !== "undefined" && desc !== "") {
-        contentHtml += `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${parseColoredText(desc)}</div>`;
-    }
-    contentHtml += `
-        <div style="text-align: center;">
-            <span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; 
-            <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span>
-        </div>
-    `;
-
+    if (desc && desc !== "undefined" && desc !== "") contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parseColoredText(desc)}</div>`;
+    contentHtml += `<div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
     balloon.innerHTML = contentHtml;
     moveDiv.appendChild(balloon);
     openedMoveBalloon = balloon;
-
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
 
