@@ -353,6 +353,10 @@ const animons = [
   { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 } },
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 } },
   { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 },
+    traits: [
+      { name: "Scaredy Cat", chance: "50%" },
+      { name: "Consume", chance: "20%" },
+      { name: "Copycat", chance: "20%" }],
     anime: { name: "Imperfect Cell", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
