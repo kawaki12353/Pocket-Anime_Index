@@ -128,8 +128,11 @@
         /* --- Lista de Itens --- */
         .item-list {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Colunas no Desktop */
+            /* Define um tamanho fixo de 280px para cada item e preenche a tela conforme o espaço disponível */
+            grid-template-columns: repeat(auto-fill, 280px); 
             gap: 15px;
+            /* Centraliza os itens na tela caso sobre espaço nas laterais */
+            justify-content: center; 
         }
         .item {
             background: var(--card);
@@ -216,7 +219,8 @@
             .page-title { text-align: center; margin-top: 70px; }
             .filters { flex-direction: column; align-items: center; }
             .filters input, .custom-select { width: 90%; max-width: 300px; }
-            .item-list { grid-template-columns: 1fr; } /* 1 Coluna no Mobile */
+            /* No Mobile, mantemos 100% da largura disponível para evitar quebras */
+            .item-list { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
