@@ -339,7 +339,6 @@ const animons = [
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 } },
   { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 },
     anime: { name: "Imperfect Cell", anime:"Dragon Ball" },
-    evolution: ["Imperfect Warrior Bug", "Perfect Warrior Bug"],
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -489,6 +488,13 @@ const animons = [
   { id: 60.01, name: "Fire King", type: "Fire", sprite: "assets/animons-icon/fire_king.png", stats: { hp: 63, atk: 70, def: 54, spAtk: 60, spDef: 44, spd: 76 } },
   { id: 73, name: "Fedora", type: ["Earth", "Dark"], sprite: "assets/animons-icon/fedora.png", stats: { hp: 65, atk: 56, def: 110, spAtk: 70, spDef: 85, spd: 60 } },
   { id: 74, name: "Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/brorok.png", stats: { hp: 49, atk: 80, def: 50, spAtk: 70, spDef: 45, spd: 85 },
+    traits: [
+      { name: "Sadist", chance: "50%" },
+      { name: "Fearsome", chance: "100%" },
+      { name: "Major Threat", chance: "100%" },
+      { name: "Legendary Warrior", chance: "100%" }],
+    desc_pt: "Meu poder está aumentando... transbordando...!",
+    desc_en: "My power it's rising... overflowing...!",
     anime: { name: "Broly", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
@@ -503,6 +509,13 @@ const animons = [
   },
   { id: 74.01, name: "Full Power Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/full_power_brorok.png", stats: { hp: 66, atk: 90, def: 66, spAtk: 105, spDef: 66, spd: 93 },
     anime: { name: "Broly", anime:"Dragon Ball" },
+    traits: [
+      { name: "Sadist", chance: "50%" },
+      { name: "Fearsome", chance: "100%" },
+      { name: "Major Threat", chance: "100%" },
+      { name: "Legendary Warrior", chance: "100%" }],
+    desc_pt: "Meu poder é máximo!",
+    desc_en: "My power is maximum!",
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
