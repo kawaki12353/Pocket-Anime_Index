@@ -121,13 +121,29 @@
             display: flex;
             gap: 8px;
             margin-top: 12px;
-            flex-wrap: wrap;
         }
-        .desc-types-container .type-badge {
-            width: auto; /* Largura automática adaptável ao conteúdo */
-            min-width: 0; /* Remove restrições de largura mínima se houver */
+        
+        /* Ajuste: Estilo moldura Team-builder para os tipos */
+        .desc-types-container .type-icon-frame {
+            width: 36px;
+            height: 36px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            padding: 6px 12px; /* Ajuste fino no padding lateral */
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .desc-types-container .type-icon-frame:hover {
+            transform: scale(1.1);
+            background: var(--hover);
+        }
+        .desc-types-container .type-icon-frame img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
 
         .section-label {
@@ -385,6 +401,8 @@
         .evo-types-row { display: flex; gap: 4px; justify-content: center; }
         .evo-type-icon { width: 18px; height: 18px; }
 
+        .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; flex-shrink: 0; }
+
         /* --- Tipos --- */
         .type-section { margin-bottom: 20px; }
         .type-section-title { font-size: 14px; font-weight: bold; margin-bottom: 8px; opacity: 0.8; }
@@ -404,8 +422,6 @@
         }
         .type-badge img { width: 20px; height: 20px; object-fit: contain; }
         .dmg-multiplier { margin-left: auto; font-size: 11px; color: var(--primary); }
-
-        .evo-arrow { font-size: 24px; color: var(--border); font-weight: bold; flex-shrink: 0; }
 
         .lang-toggle { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; }
         .lang-toggle button {
@@ -736,14 +752,19 @@ function renderDescTypes() {
     let typesArr = Array.isArray(rawType) ? rawType : [rawType];
 
     typesArr.forEach(t => {
-        const badge = document.createElement('div');
-        badge.className = 'type-badge';
+        const frame = document.createElement('div');
+        frame.className = 'type-icon-frame';
         const lowName = t.toLowerCase().trim();
-        badge.innerHTML = `
-            <img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">
-            <span style="text-transform: capitalize;">${t}</span>
-        `;
-        container.appendChild(badge);
+        
+        frame.innerHTML = `<img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">`;
+        
+        // Clique para mostrar o nome em um balão
+        frame.onclick = (e) => {
+            e.stopPropagation();
+            showGeneralBalloon(frame, `<span style="text-transform: capitalize; font-weight: bold;">${t}</span>`);
+        };
+        
+        container.appendChild(frame);
     });
 }
 
