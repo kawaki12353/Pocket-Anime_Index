@@ -70,6 +70,10 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 30px;
+  /* Limita a largura para alinhar com os resultados */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* CUSTOM SELECT */
@@ -149,17 +153,23 @@ body {
   padding: 15px;
   margin-bottom: 20px;
   color: var(--text);
+  /* Impede que o container de cada categoria estique na tela toda do PC */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section h2 {
   font-size: 18px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 /* GRID */
 .badges {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 120px);
+  /* Define um tamanho fixo para os itens de tipo (105px) e centraliza */
+  grid-template-columns: repeat(auto-fill, 105px);
   gap: 10px;
   justify-content: center;
 }
@@ -176,6 +186,8 @@ body {
   font-weight: bold;
   font-size: 13px;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .badge img {
