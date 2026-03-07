@@ -16,11 +16,11 @@ const traits = {
         desc_en: "Consecutive turns landing attacks increase [002]ATK [+1][000] or [002]SP.ATK [+1][000], up to a maximum of +3. This increases to +2 per turn against Saijan-attribute animon."
     },
     "Fox Spirit": {
-        desc_pt: "Quando a vida estiver abaixo de 40%, entre em fúria, ganhe [002]ATK [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, recupere 10% da vida por 3 turnos.",
-        desc_en: "When below 40% HP, go berserk, gain [002]ATK [+2][000], [002]SP.ATK [+2][000] and [002]SPD [+2][000], and you are berserk. After transforming, heal 10% HP for 3 turns."
+        desc_pt: "Quando a vida estiver abaixo de 40%, entre em fúria, ganhe [002]ATK [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, [002]recupere 10%[000] da vida por 3 turnos.",
+        desc_en: "When below 40% HP, go berserk, gain [002]ATK [+2][000], [002]SP.ATK [+2][000] and [002]SPD [+2][000], and you are berserk. After transforming, [002]heal 10%[000] HP for 3 turns."
     },
     "Ninjutsu Mastery": {
-        desc_pt: "Usar habilidades do atributo chakra causa 1.2x mais dano.",
+        desc_pt: "Usar habilidades do atributo chakra causa 1.2x à mais de dano.",
         desc_en: "Using chakra-attribute skills will have an increased 1.2x damage."
     },
     "Wind Affinity": {
@@ -28,8 +28,8 @@ const traits = {
         desc_en: "When using a Wind-Type move have a 25% chance to increase its damage 1.2x."
     },
     "Consume": {
-        desc_pt: "Após derrotar um inimigo, você recupera 30% do seu HP máximo.",
-        desc_en: "After defeating an enemy restore 30% of your maximum HP."
+        desc_pt: "Após derrotar um inimigo, você [002]recupera 30%[000] do seu HP máximo.",
+        desc_en: "After defeating an enemy [002]restore 30%[000] of your maximum HP."
     },
     "Fast Step": {
         desc_pt: "Ganhe [002]SPD[+1][000] ao entrar em batalha contra inimigos mais rápidos.",
@@ -44,11 +44,11 @@ const traits = {
         desc_en: "When an opponent has one of their stats lowered, increase your [002]SPD[+1][002]."
     },
     "Perfect": {
-        desc_pt: "Se não for atingido por um golpe super efetivo, cure 1/12 do HP naquele turno. Se for atingido por um golpe físico, ganhe [002]SPD[+1][000] uma vez por batalha.",
-        desc_en: "If not hit by a super-effective move, heal 1/12 that turn. If hit by a physical move, gain [002]SPD[+1][000] once per battle."
+        desc_pt: "Se não for atingido por um golpe super efetivo, [002]cure 1/12[000] do HP naquele turno. Se for atingido por um golpe físico, ganhe [002]SPD[+1][000] uma vez por batalha.",
+        desc_en: "If not hit by a super-effective move, [002]heal 1/12[000] that turn. If hit by a physical move, gain [002]SPD[+1][000] once per battle."
     },
     "Reincarnation": {
-        desc_pt: "Se estiver afetado por uma condição de status ao final do turno, há 1/4 de chance de recuperar 1/12 do HP e remover todas as condições de status.",
-        desc_en: "If afflicted by a status condition at the end of a turn, there is a 1/4 chance to recover 1/12th HP and remove all status conditions."
+        desc_pt: "Se estiver afetado por uma condição de status ao final do turno, há 1/4 de chance de [002]recuperar 1/12[000] do HP e remover todas as condições de status.",
+        desc_en: "If afflicted by a status condition at the end of a turn, there is a 1/4 chance to [002]recover 1/12th[000] HP and remove all status conditions."
     }
 };
