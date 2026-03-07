@@ -43,6 +43,16 @@
             }
         }
 
+        /* Cores dos Elementos (Importadas do Team Builder) */
+        .element-neutral   { --element-color: #e6e5e3; } .element-fighting  { --element-color: #e5901b; }
+        .element-fire      { --element-color: #e60000; } .element-water     { --element-color: #00b0e6; }
+        .element-nature    { --element-color: #24e30c; } .element-earth     { --element-color: #8a5e39; }
+        .element-wind      { --element-color: #59e657; } .element-ice       { --element-color: #00ffe1; }
+        .element-lightning { --element-color: #ffe100; } .element-soul      { --element-color: #89a2e6; }
+        .element-psychic   { --element-color: #e66ae0; } .element-poison    { --element-color: #ac8fff; }
+        .element-light     { --element-color: #decc7c; } .element-dark      { --element-color: #262626; }
+        .element-demon     { --element-color: #b00000; } .element-beast     { --element-color: #aa6272; }
+
         /* --- Geral --- */
         body {
             font-family: Arial, sans-serif;
@@ -81,7 +91,7 @@
             width: 200px;
             height: 200px;
             box-sizing: border-box;
-            position: relative; /* Adicionado para posicionar o ID */
+            position: relative; 
         }
         .sprite-id {
             position: absolute;
@@ -116,34 +126,48 @@
             text-transform: capitalize;
         }
 
-        /* Container para os elementos abaixo da descrição */
+        /* Container para os elementos abaixo da descrição (Estilo Team-Builder) */
         .desc-types-container {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             margin-top: 12px;
+            justify-content: flex-start;
         }
-        
-        /* Ajuste: Estilo moldura Team-builder para os tipos */
-        .desc-types-container .type-icon-frame {
-            width: 36px;
-            height: 36px;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+
+        .element-wrapper { 
+            position: relative; 
+            cursor: pointer; 
+            width: 42px; 
+            height: 42px; 
+            background: #191919; 
+            border-radius: 8px; 
+            flex-shrink: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
             transition: transform 0.1s;
         }
-        .desc-types-container .type-icon-frame:hover {
-            transform: scale(1.1);
-            background: var(--hover);
+        .element-wrapper:hover { transform: scale(1.1); }
+        
+        .element-inner { 
+            position: relative; 
+            width: 28px; 
+            height: 28px; 
+            border-radius: 8px; 
+            border: 2px solid var(--element-color); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
         }
-        .desc-types-container .type-icon-frame img {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
+        
+        .element-inner img { 
+            position: absolute; 
+            width: 38px; 
+            height: 38px; 
+            object-fit: contain; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
         }
 
         .section-label {
@@ -166,14 +190,13 @@
             box-sizing: border-box;
         }
 
-        /* --- Novo Design de Habilidades (Ajustado) --- */
+        /* --- Design de Habilidades --- */
         .trait-list-wrapper {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        /* Organização em linhas de até 3 no PC */
         @media (min-width: 769px) {
             .trait-list-wrapper {
                 display: grid;
@@ -192,7 +215,7 @@
             transition: transform 0.1s;
             text-decoration: none;
             color: inherit;
-            min-height: 34px; /* Menor */
+            min-height: 34px; 
         }
 
         .trait-button:hover {
@@ -220,7 +243,7 @@
             justify-content: space-between;
             padding: 0 10px;
             font-weight: 500;
-            font-size: 13px; /* Menor */
+            font-size: 13px;
         }
 
         .trait-info-icon-ui {
@@ -236,8 +259,6 @@
             color: var(--trait-color);
             opacity: 0.8;
         }
-
-        /* --- Fim do Design Habilidades --- */
 
         .tabs-container {
             display: flex;
@@ -327,7 +348,7 @@
             margin: 0 -25px 10px -25px;
             width: calc(100% + 50px);
             box-sizing: border-box;
-            padding-left: 37px; /* Compensação: 25px container + 12px item padding */
+            padding-left: 37px; 
             padding-right: 37px;
         }
 
@@ -336,7 +357,6 @@
 
         .move-icon { width: 32px; height: 32px; object-fit: contain; margin: 0 auto; pointer-events: none; }
 
-        /* AJUSTE BALÃO - Alterado para position: absolute para corrigir bug de scroll */
         .move-balloon { 
             position: absolute; 
             background: var(--card); 
@@ -359,14 +379,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-wrap: nowrap; /* Impede quebra de linha */
+            flex-wrap: nowrap; 
             gap: 15px;
-            overflow-x: auto; /* Permite rolagem horizontal no mobile */
+            overflow-x: auto; 
             padding-bottom: 10px;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Esconde barra de rolagem mas mantém funcionalidade */
         .evo-wrapper::-webkit-scrollbar { height: 4px; }
         .evo-wrapper::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
@@ -377,7 +396,7 @@
             text-decoration: none;
             color: inherit;
             transition: transform 0.2s;
-            min-width: 100px; /* Garante largura mínima */
+            min-width: 100px; 
             flex-shrink: 0;
         }
         .evo-card.clickable:hover { transform: scale(1.05); }
@@ -482,7 +501,7 @@
 
         @media (max-width: 768px) {
             #traitsContainer {
-                height: 198px; /* Altura fixa para mostrar 3 traits inteiras e a metade da 4ª */
+                height: 198px; 
                 overflow-y: auto;
             }
             .header { justify-content: flex-end; }
@@ -491,7 +510,7 @@
             .sprite-frame { width: 120px; height: 120px; }
             .desc-box { font-size: 14px; padding: 10px; }
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
-            .move-header { padding-left: 29px; padding-right: 29px; } /* 25px container + 4px item padding */
+            .move-header { padding-left: 29px; padding-right: 29px; } 
             .move-icon { width: 24px; height: 24px; }
             .evo-wrapper { gap: 10px; justify-content: flex-start; padding-left: 10px; padding-right: 10px; }
             .evo-card { width: 85px; min-width: 85px; }
@@ -668,19 +687,14 @@ window.onload = () => {
         return;
     }
 
-    // --- Lógica de Persistência Condicional Melhorada ---
     const currentIdStr = currentAnimon.id.toString();
     const currentBaseId = currentIdStr.split('.')[0];
     const lastIdStr = sessionStorage.getItem('lastAnimonId');
     const lastBaseId = lastIdStr ? lastIdStr.split('.')[0] : null;
 
-    // Verifica se veio de uma página interna (link de evolução)
     const cameFromSelf = document.referrer.includes("animon.html");
-
-    // Só mantém estado se for da mesma família E estiver vindo da própria página de detalhes
     const isSameFamily = (lastBaseId === currentBaseId) && cameFromSelf;
 
-    // Adiciona o ID no canto superior esquerdo
     document.getElementById('animonIdDisplay').textContent = '#' + currentAnimon.id;
 
     const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
@@ -699,7 +713,6 @@ window.onload = () => {
             }
         }, 100);
     } else {
-        // Se saiu totalmente ou mudou de família, limpa tudo para resetar
         sessionStorage.removeItem('lastTab');
         sessionStorage.removeItem('scrollPos');
         window.scrollTo(0, 0);
@@ -710,7 +723,6 @@ window.onload = () => {
     updateLang();
 };
 
-// Salvar scroll antes de sair da página
 window.onbeforeunload = () => {
     sessionStorage.setItem('scrollPos', window.scrollY);
 };
@@ -734,9 +746,7 @@ function updateLang() {
     descText = descText.replace(/^"|"$/g, ''); 
     document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
 
-    // Renderiza os tipos abaixo da descrição
     renderDescTypes();
-
     renderStats();
     renderTraits();
     renderMoves();
@@ -745,6 +755,7 @@ function updateLang() {
     renderLocations();
 }
 
+/* FUNÇÃO ATUALIZADA: SISTEMA DE DUPLA MOLDURA LITERAL DO TEAM BUILDER */
 function renderDescTypes() {
     const container = document.getElementById('descTypes');
     container.innerHTML = "";
@@ -752,19 +763,22 @@ function renderDescTypes() {
     let typesArr = Array.isArray(rawType) ? rawType : [rawType];
 
     typesArr.forEach(t => {
-        const frame = document.createElement('div');
-        frame.className = 'type-icon-frame';
-        const lowName = t.toLowerCase().trim();
+        const tStr = String(t).toLowerCase().trim();
+        const wrapper = document.createElement('div');
+        wrapper.className = `element-wrapper element-${tStr}`;
         
-        frame.innerHTML = `<img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">`;
+        wrapper.innerHTML = `
+            <div class="element-inner">
+                <img src="assets/${tStr}_element.png" alt="${t}" onerror="this.src='assets/neutral_element.png'">
+            </div>
+        `;
         
-        // Clique para mostrar o nome em um balão
-        frame.onclick = (e) => {
+        wrapper.onclick = (e) => {
             e.stopPropagation();
-            showGeneralBalloon(frame, `<span style="text-transform: capitalize; font-weight: bold;">${t}</span>`);
+            showGeneralBalloon(wrapper, `<span style="text-transform: capitalize; font-weight: bold;">${t}</span>`);
         };
         
-        container.appendChild(frame);
+        container.appendChild(wrapper);
     });
 }
 
@@ -812,9 +826,7 @@ function renderTraits() {
     const container = document.getElementById('traitsContainer');
     const ui = uiText[lang];
     container.innerHTML = "";
-
     let traitsList = currentAnimon.traits || [];
-
     if (traitsList.length === 0) {
         const emptyMsg = document.createElement('div');
         emptyMsg.style.textAlign = 'center';
@@ -825,44 +837,23 @@ function renderTraits() {
         container.appendChild(emptyMsg);
         return;
     }
-
-    // Organizar do maior % para o menor
-    const sortedTraits = [...traitsList].sort((a, b) => {
-        const percA = parseInt(a.chance) || 0;
-        const percB = parseInt(b.chance) || 0;
-        return percB - percA;
-    });
-
+    const sortedTraits = [...traitsList].sort((a, b) => (parseInt(b.chance) || 0) - (parseInt(a.chance) || 0));
     const listWrapper = document.createElement('div');
     listWrapper.className = 'trait-list-wrapper';
-
     sortedTraits.forEach(traitObj => {
         const tName = traitObj.name;
         const tChance = traitObj.chance;
         let tInfo = "";
-
-        // Busca apenas as descrições no traits.js
         if (typeof traits !== 'undefined') {
             const data = (Array.isArray(traits)) ? traits.find(x => x.name === tName) : traits[tName];
-            if (data) {
-                tInfo = data[`desc_${lang}`] || data.desc_pt || data.desc || "";
-            }
+            if (data) tInfo = data[`desc_${lang}`] || data.desc_pt || data.desc || "";
         }
-
         const btn = document.createElement('div');
         btn.className = 'trait-button';
-        btn.innerHTML = `
-            <div class="trait-chance-tag">${tChance}</div>
-            <div class="trait-name-section">
-                <span>${tName}</span>
-                <div class="trait-info-icon-ui">i</div>
-            </div>
-        `;
-
+        btn.innerHTML = `<div class="trait-chance-tag">${tChance}</div><div class="trait-name-section"><span>${tName}</span><div class="trait-info-icon-ui">i</div></div>`;
         btn.onclick = (e) => { e.stopPropagation(); showGeneralBalloon(btn, tInfo); };
         listWrapper.appendChild(btn);
     });
-
     container.appendChild(listWrapper);
 }
 
@@ -887,12 +878,7 @@ function renderMoves() {
         row.dataset.power = minfo.power;
         row.dataset.acc = minfo.accuracy;
         row.dataset.desc = minfo.desc;
-        row.innerHTML = `
-            <span style="color: #bbb;">lvl ${m.level}</span>
-            <span class="move-name">${minfo.name}</span>
-            <img src="assets/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/neutral_element.png'">
-            <img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">
-        `;
+        row.innerHTML = `<span style="color: #bbb;">lvl ${m.level}</span><span class="move-name">${minfo.name}</span><img src="assets/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">`;
         row.onclick = (e) => { e.stopPropagation(); toggleMoveBalloon(row); };
         container.appendChild(row);
     });
@@ -900,25 +886,14 @@ function renderMoves() {
 
 function showGeneralBalloon(element, text) {
     if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
-
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-
-    if (text && text !== "") {
-        balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
-    } else {
-        balloon.innerHTML = "";
-        balloon.style.padding = "0";
-        balloon.style.border = "none";
-        balloon.style.boxShadow = "none";
-    }
-
+    if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
+    else { balloon.style.display = "none"; }
     document.body.appendChild(balloon);
     const rect = element.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
-    // Ajuste para acompanhar o scroll da página
     balloon.style.top = (rect.top + window.scrollY - 5) + "px";
-
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
@@ -928,29 +903,16 @@ function toggleMoveBalloon(moveDiv) {
     const power = moveDiv.dataset.power;
     const acc = moveDiv.dataset.acc;
     const desc = moveDiv.dataset.desc;
-
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-
     let contentHtml = "";
-    if (desc && desc !== "undefined" && desc !== "") {
-        contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parseColoredText(desc)}</div>`;
-    }
-    contentHtml += `
-        <div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;">
-          <span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; 
-          <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span>
-        </div>
-    `;
+    if (desc && desc !== "undefined" && desc !== "") contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parseColoredText(desc)}</div>`;
+    contentHtml += `<div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
     balloon.innerHTML = contentHtml;
-
     document.body.appendChild(balloon);
-
     const rect = moveDiv.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
-    // Ajuste para acompanhar o scroll da página
     balloon.style.top = (rect.top + window.scrollY - 5) + "px";
-
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
@@ -987,11 +949,7 @@ function renderTypeChart() {
         else if (val > 0 && val <= 0.3) groups.x025.push(type);
         else if (val === 0) groups.x0.push(type);
     });
-    const order = [
-        { key: 'x4', label: ui.weak4, val: '4x' }, { key: 'x2', label: ui.weak2, val: '2x' },
-        { key: 'x1', label: ui.normal, val: '1x' }, { key: 'x05', label: ui.res05, val: '0.5x' },
-        { key: 'x025', label: ui.res025, val: '0.25x' }, { key: 'x0', label: ui.imm0, val: '0x' }
-    ];
+    const order = [{ key: 'x4', label: ui.weak4, val: '4x' }, { key: 'x2', label: ui.weak2, val: '2x' }, { key: 'x1', label: ui.normal, val: '1x' }, { key: 'x05', label: ui.res05, val: '0.5x' }, { key: 'x025', label: ui.res025, val: '0.25x' }, { key: 'x0', label: ui.imm0, val: '0x' }];
     order.forEach(group => {
         if (groups[group.key].length > 0) {
             const section = document.createElement('div');
@@ -1006,11 +964,7 @@ function renderTypeChart() {
                 const badge = document.createElement('div');
                 badge.className = 'type-badge';
                 const lowName = typeName.toLowerCase();
-                badge.innerHTML = `
-                    <img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'">
-                    <span style="text-transform: capitalize;">${typeName}</span>
-                    <span class="dmg-multiplier">${group.val}</span>
-                `;
+                badge.innerHTML = `<img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'"><span style="text-transform: capitalize;">${typeName}</span><span class="dmg-multiplier">${group.val}</span>`;
                 grid.appendChild(badge);
             });
             section.appendChild(grid);
@@ -1023,103 +977,49 @@ function renderEvolutions() {
     const container = document.getElementById('evoContainer');
     container.innerHTML = "";
     if (typeof animons === 'undefined') return;
-
-    // Detectar Base ID (ex: "84" de "84.01")
     const baseId = currentAnimon.id.toString().split('.')[0];
-
-    // Filtrar a família e ordenar
-    const family = animons.filter(a => {
-        const aId = a.id.toString();
-        return aId === baseId || aId.startsWith(baseId + ".");
-    }).sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
-
-    if (family.length <= 1) {
-        container.innerHTML = `<p style="text-align:center; opacity:0.6;">${lang === 'pt' ? 'Não possui evoluções.' : 'No evolutions available.'}</p>`;
-        return;
-    }
-
+    const family = animons.filter(a => { const aId = a.id.toString(); return aId === baseId || aId.startsWith(baseId + "."); }).sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+    if (family.length <= 1) { container.innerHTML = `<p style="text-align:center; opacity:0.6;">${lang === 'pt' ? 'Não possui evoluções.' : 'No evolutions available.'}</p>`; return; }
     const wrapper = document.createElement('div');
     wrapper.className = 'evo-wrapper';
-
     family.forEach((member, index) => {
-        if (index > 0) {
-            const arrow = document.createElement('div');
-            arrow.className = 'evo-arrow';
-            arrow.innerHTML = '→';
-            wrapper.appendChild(arrow);
-        }
-
+        if (index > 0) { const arrow = document.createElement('div'); arrow.className = 'evo-arrow'; arrow.innerHTML = '→'; wrapper.appendChild(arrow); }
         const isCurrent = member.id.toString() === currentAnimon.id.toString();
         const card = document.createElement(isCurrent ? 'div' : 'a');
         card.className = `evo-card ${isCurrent ? 'current' : 'clickable'}`;
         if (!isCurrent) card.href = `animon.html?id=${member.id}`;
-
         const sprite = member.sprite || `assets/sprites/${member.id}.png`;
-
         let typesHtml = "";
         let rawType = member.type || member.types || ["neutral"];
         let typesArr = Array.isArray(rawType) ? rawType : [rawType];
-        typesArr.forEach(t => {
-            typesHtml += `<img src="assets/${t.toLowerCase().trim()}_element.png" class="evo-type-icon" onerror="this.src='assets/neutral_element.png'">`;
-        });
-
-        card.innerHTML = `
-            <div class="evo-mini-frame">
-                <img src="${sprite}" onerror="this.src='assets/sem_icone.png'">
-            </div>
-            <div class="evo-name-tag">${member.name}</div>
-            <div class="evo-types-row">${typesHtml}</div>
-        `;
+        typesArr.forEach(t => { typesHtml += `<img src="assets/${t.toLowerCase().trim()}_element.png" class="evo-type-icon" onerror="this.src='assets/neutral_element.png'">`; });
+        card.innerHTML = `<div class="evo-mini-frame"><img src="${sprite}" onerror="this.src='assets/sem_icone.png'"></div><div class="evo-name-tag">${member.name}</div><div class="evo-types-row">${typesHtml}</div>`;
         wrapper.appendChild(card);
     });
-
     container.appendChild(wrapper);
 }
 
 function renderLocations() {
     const container = document.getElementById('locationContent');
     container.innerHTML = "";
-    if (!currentAnimon || !currentAnimon.areas || currentAnimon.areas.length === 0) {
-        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`;
-        return;
-    }
-
+    if (!currentAnimon || !currentAnimon.areas || currentAnimon.areas.length === 0) { container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; return; }
     const areaIds = currentAnimon.areas;
     const areaDataList = areaIds.map(id => areas[id]).filter(data => data);
-
-    if (areaDataList.length === 0) {
-        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`;
-        return;
-    }
-
+    if (areaDataList.length === 0) { container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; return; }
     currentLocIndex = 0;
-
     const locWrapper = document.createElement('div');
     locWrapper.className = 'location-container';
-    locWrapper.id = 'locWrapper';
-
     const updateLocUI = (index) => {
         const area = areaDataList[index];
         const desc = lang === 'pt' ? area.desc_pt : area.desc_en;
-        locWrapper.innerHTML = `
-            <div class="location-region">${area.region}</div>
-            <div class="location-desc">${desc}</div>
-            <img src="${area.file}" class="location-image" onerror="this.src='assets/sem_icone.png'">
-        `;
-
+        locWrapper.innerHTML = `<div class="location-region">${area.region}</div><div class="location-desc">${desc}</div><img src="${area.file}" class="location-image" onerror="this.src='assets/sem_icone.png'">`;
         if (areaDataList.length > 1) {
             const dotsRow = document.createElement('div');
             dotsRow.className = 'location-dots';
-            areaDataList.forEach((_, i) => {
-                const dot = document.createElement('div');
-                dot.className = `dot ${i === index ? 'active' : ''}`;
-                dot.onclick = () => updateLocUI(i);
-                dotsRow.appendChild(dot);
-            });
+            areaDataList.forEach((_, i) => { const dot = document.createElement('div'); dot.className = `dot ${i === index ? 'active' : ''}`; dot.onclick = () => updateLocUI(i); dotsRow.appendChild(dot); });
             locWrapper.appendChild(dotsRow);
         }
     };
-
     updateLocUI(currentLocIndex);
     container.appendChild(locWrapper);
 }
@@ -1140,16 +1040,10 @@ function switchTab(tabId) {
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
     document.getElementById(btnMap[tabId]).classList.add('active');
     updateTabTitle(tabId);
-
-    // Salvar aba atual
     sessionStorage.setItem('lastTab', tabId);
 }
 
-document.getElementById('langBtn').onclick = () => {
-    lang = lang === "pt" ? "en" : "pt";
-    localStorage.setItem("siteLang", lang);
-    updateLang();
-};
+document.getElementById('langBtn').onclick = () => { lang = lang === "pt" ? "en" : "pt"; localStorage.setItem("siteLang", lang); updateLang(); };
 </script>
 
 </body>
