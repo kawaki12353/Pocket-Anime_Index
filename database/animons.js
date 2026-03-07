@@ -58,9 +58,9 @@ const animons = [
   },
   { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 },
     traits: [
-      { name: "Ninjutsu Mastery", chance: "50%" },
-      { name: "Lightning Affinity", chance: "100%" },
-      { name: "Fire Affinity", chance: "10%" },
+      { name: "Ninjutsu Mastery", chance: "100%" },
+      { name: "Lightning Affinity", chance: "50%" },
+      { name: "Fire Affinity", chance: "50%" },
       { name: "Vengeful Eyes", chance: "5" }],
     desc_pt: "Não tenho interesse em fazer amigos. Meu único objetivo é fazer com que certo homem pague pelo que fez ao nosso clã.",
     desc_en: "I have no interest in making friends. My only goal is to make a certain man pay for what he did to our clan.",
