@@ -335,7 +335,6 @@
             font-size: 14px;
             cursor: pointer;
             transition: background 0.2s;
-            position: relative;
         }
         .move-item:hover:not(.move-header) { background: var(--border); }
 
@@ -361,10 +360,6 @@
         /* --- BALÃOZINHO ATUALIZADO (Estilo Team-Builder) --- */
         .move-balloon { 
             position: absolute; 
-            bottom: 100%; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            margin-bottom: 8px; 
             background: var(--card); 
             border: 1px solid var(--border); 
             border-radius: 10px; 
@@ -373,15 +368,12 @@
             text-align: left; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.25); 
             z-index: 9999; 
-            animation: fadeInBalloon 0.2s ease; 
-            white-space: nowrap; 
-            color: var(--text); 
             pointer-events: none;
+            color: var(--text); 
+            transform: translateX(-50%);
+            animation: fadeIn 0.2s ease;
         }
-        @keyframes fadeInBalloon { 
-            from { opacity: 0; transform: translate(-50%, 10px); } 
-            to { opacity: 1; transform: translate(-50%, 0); } 
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
         /* --- Grade Evolutiva CSS --- */
         .evo-wrapper {
@@ -451,16 +443,16 @@
         .type-badge img { width: 20px; height: 20px; object-fit: contain; }
         .dmg-multiplier { margin-left: auto; font-size: 11px; color: var(--primary); }
 
-        /* --- BOTÃO DE LÍNGUA ATUALIZADO (Estilo Team-Builder) --- */
-        .lang-toggle { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; }
+        /* --- BOTÃO DE TRADUÇÃO (Estilo Team-Builder) --- */
+        .lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 1000; }
         .lang-toggle button {
-            background: var(--lang-btn-bg);
-            color: var(--lang-btn);
             padding: 8px 14px;
             border-radius: 20px;
             border: none;
-            cursor: pointer;
             font-weight: bold;
+            cursor: pointer;
+            background: var(--lang-btn-bg);
+            color: var(--lang-btn);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
@@ -636,7 +628,7 @@ const uiText = {
         notDef: "Not defined yet.",
         notAvail: "It is not yet capturable.",
         lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
-        btn: "🇺🇸 EN", totalStr: "TOTAL: ", moveEmpty: "None",
+        btn: "🇺🇸 EN", totalStr: "Total: ", moveEmpty: "None",
         weak4: "Extreme Weakness (x4)",
         weak2: "Weakness (x2)",
         normal: "Normal Damage (x1)",
@@ -904,7 +896,10 @@ function showGeneralBalloon(element, text) {
     balloon.className = "move-balloon";
     if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
     else { balloon.style.display = "none"; }
-    element.appendChild(balloon);
+    document.body.appendChild(balloon);
+    const rect = element.getBoundingClientRect();
+    balloon.style.left = (rect.left + rect.width / 2) + "px";
+    balloon.style.top = (rect.bottom + window.scrollY + 8) + "px"; 
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
@@ -920,7 +915,10 @@ function toggleMoveBalloon(moveDiv) {
     if (desc && desc !== "undefined" && desc !== "") contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parseColoredText(desc)}</div>`;
     contentHtml += `<div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
     balloon.innerHTML = contentHtml;
-    moveDiv.appendChild(balloon);
+    document.body.appendChild(balloon);
+    const rect = moveDiv.getBoundingClientRect();
+    balloon.style.left = (rect.left + rect.width / 2) + "px";
+    balloon.style.top = (rect.bottom + window.scrollY + 8) + "px"; 
     openedMoveBalloon = balloon;
     setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
 }
