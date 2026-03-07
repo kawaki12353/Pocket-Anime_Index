@@ -1,19 +1,19 @@
 const traits = {
     "Lightning Affinity": {
-    desc_pt: "Ao usar um movimento do tipo Lightning, há 25% de chance de aumentar seu dano em 1.2x.",
-    desc_en: "When using a Lightning-Type move have a 25% to increase its damage 1.2X."
+        desc_pt: "Ao usar um movimento do tipo Lightning, há 25% de chance de aumentar seu dano em 1.2x.",
+        desc_en: "When using a Lightning-Type move have a 25% to increase its damage 1.2X."
     },
     "Fire Affinity": {
-    desc_pt: "Ao usar um movimento do tipo Fire, há 25% de chance de aumentar seu dano em 1.2x.",
-    desc_en: "When using a Fire-Type move have a 25% to increase its damage 1.2X."
+        desc_pt: "Ao usar um movimento do tipo Fire, há 25% de chance de aumentar seu dano em 1.2x.",
+        desc_en: "When using a Fire-Type move have a 25% to increase its damage 1.2X."
     },
     "Vengeful Eyes": {
-    desc_pt: "Aumenta a [002]Accuracy [+1][000] e a [002]Evasão [+1][000] ao ser invocado.",
-    desc_en: "Increases [002]Accuracy [+1][000] and [002]Evasion [+1][000] on summon."
+        desc_pt: "Aumenta a [002]Accuracy [+1][000] e a [002]Evasão [+1][000] ao ser invocado.",
+        desc_en: "Increases [002]Accuracy [+1][000] and [002]Evasion [+1][000] on summon."
     },
     "Eternal Eyes": {
-    desc_pt: "Ao conjurar Chama Negra em um alvo, inflija ruína por 4 turnos. Aumenta a [002]Accuracy [+1][000] e a [002]Evasão [+1][000] ao ser invocado",
-    desc_en: "If casting Black Flame on a target, inflict doom for 4 turns. Increases [002]Accuracy [+1][000] and [002]Evasion [+1][000] on summon."
+        desc_pt: "Ao conjurar Chama Negra em um alvo, inflija ruína por 4 turnos. Aumenta a [002]Accuracy [+1][000] e a [002]Evasão [+1][000] ao ser invocado",
+        desc_en: "If casting Black Flame on a target, inflict doom for 4 turns. Increases [002]Accuracy [+1][000] and [002]Evasion [+1][000] on summon."
     },
     "Sadist": {
         desc_pt: "Causa 1.2x de dano ao atacar um alvo com uma condição de status.",
