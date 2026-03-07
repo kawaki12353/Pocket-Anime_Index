@@ -61,7 +61,7 @@ const animons = [
       { name: "Ninjutsu Mastery", chance: "100%" },
       { name: "Lightning Affinity", chance: "50%" },
       { name: "Fire Affinity", chance: "50%" },
-      { name: "Vengeful Eyes", chance: "5" }],
+      { name: "Vengeful Eyes", chance: "5%" }],
     desc_pt: "Não tenho interesse em fazer amigos. Meu único objetivo é fazer com que certo homem pague pelo que fez ao nosso clã.",
     desc_en: "I have no interest in making friends. My only goal is to make a certain man pay for what he did to our clan.",
     anime: { name: "Sasuke", anime:"Naruto" },
