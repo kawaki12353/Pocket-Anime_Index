@@ -118,10 +118,19 @@
             justify-content: center;
             font-size: 16px;
         }
+        
+        /* Container para alinhar nome e ícones */
+        .name-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
         #nameInside {
             font-weight: bold;
             font-size: 1.2em;
-            margin-bottom: 8px;
             color: var(--primary);
             text-transform: capitalize;
         }
@@ -135,44 +144,45 @@
             margin-left: 4px;
         }
 
-        /* Container para os elementos abaixo da descrição (Estilo Team-Builder) */
+        /* Container para os elementos (Ajustado para o lado do nome) */
         .desc-types-container {
             display: flex;
             gap: 6px;
-            margin-top: 12px;
             justify-content: flex-start;
+            align-items: center;
         }
 
-        .element-wrapper { 
+        /* Tamanho reduzido para acompanhar o nome */
+        .desc-types-container .element-wrapper { 
             position: relative; 
             cursor: pointer; 
-            width: 42px; 
-            height: 42px; 
+            width: 26px; 
+            height: 26px; 
             background: #191919; 
-            border-radius: 8px; 
+            border-radius: 6px; 
             flex-shrink: 0; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             transition: transform 0.1s;
         }
-        .element-wrapper:hover { transform: scale(1.1); }
+        .desc-types-container .element-wrapper:hover { transform: scale(1.1); }
 
-        .element-inner { 
+        .desc-types-container .element-inner { 
             position: relative; 
-            width: 28px; 
-            height: 28px; 
-            border-radius: 8px; 
-            border: 2px solid var(--element-color); 
+            width: 18px; 
+            height: 18px; 
+            border-radius: 5px; 
+            border: 1.5px solid var(--element-color); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
         }
 
-        .element-inner img { 
+        .desc-types-container .element-inner img { 
             position: absolute; 
-            width: 38px; 
-            height: 38px; 
+            width: 24px; 
+            height: 24px; 
             object-fit: contain; 
             top: 50%; 
             left: 50%; 
@@ -520,11 +530,7 @@
             .top-section { gap: 10px; }
             .sprite-frame { width: 120px; height: 120px; }
             .desc-box { font-size: 14px; padding: 10px; }
-            /* Ajuste de tamanho dos elementos na descrição para mobile */
-            .element-wrapper { width: 34px; height: 34px; }
-            .element-inner { width: 22px; height: 22px; }
-            .element-inner img { width: 30px; height: 30px; }
-
+            
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
             .move-header { padding-left: 29px; padding-right: 29px; } 
             .move-icon { width: 24px; height: 24px; }
@@ -549,9 +555,11 @@
             <img id="animonSprite" src="" alt="Sprite">
         </div>
         <div class="desc-box">
-            <div id="nameInside"></div> 
+            <div class="name-row">
+                <div id="nameInside"></div> 
+                <div id="descTypes" class="desc-types-container"></div>
+            </div>
             <div id="animonDesc"></div>
-            <div id="descTypes" class="desc-types-container"></div>
         </div>
     </div>
 
@@ -782,7 +790,7 @@ function renderDescription() {
     descText = descText.replace(/^"|"$/g, ''); 
 
     const isMobile = window.innerWidth <= 768;
-    const limit = 76; 
+    const limit = 76; // Alterado para 76 conforme solicitado
 
     if (isMobile && descText.length > limit) {
         const truncated = descText.substring(0, limit) + "...";
