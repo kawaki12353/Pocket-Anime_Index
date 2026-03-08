@@ -1,5 +1,11 @@
 const animons = [
   { id: 1, name: "Ruffy", type: "Fighting", sprite: "assets/animons-icon/ruffy.png", stats: { hp: 46, atk: 65, def: 55, spAtk: 35, spDef: 44, spd: 55 }, areas: ["0000"],
+    traits: [
+      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Adventurous Spirit", chance: "75%" },
+      { name: "Shock Immunity", chance: "50%" }],
+    desc_pt: "Eu vou ser o Rei dos Piratas!",
+    desc_en: "I'm gonna be King of the Pirates!",
     anime: { name: "Luffy", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Punch" },
@@ -14,6 +20,13 @@ const animons = [
     ]
   },
   { id: 1.01, name: "TS Ruffy", type: "Fighting", sprite: "assets/animons-icon/ts_ruffy.png", stats: { hp: 62, atk: 93, def: 70, spAtk: 25, spDef: 52, spd: 75 },
+    traits: [
+      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Adventurous Spirit", chance: "75%" },
+      { name: "Shock Immunity", chance: "50%" },
+      { name: "Rubber Resilience", chance: "5%" }],
+    desc_pt: "A pessoa mais livre do mundo é o Rei dos Piratas.",
+    desc_en: "The most free person in the world is the King of the Pirates.",
     anime: { name: "Luffy", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Punch" },
