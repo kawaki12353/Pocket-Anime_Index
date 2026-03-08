@@ -118,7 +118,7 @@
             justify-content: center;
             font-size: 16px;
         }
-        
+
         /* Container para alinhar nome e ícones */
         .name-row {
             display: flex;
@@ -521,6 +521,18 @@
         }
 
         @media (max-width: 768px) {
+            /* --- Alteração Solicitada: Posicionamento dos Elementos no Mobile --- */
+            .top-section { position: relative; }
+            .desc-types-container {
+                position: absolute;
+                top: 8px;
+                left: 88px; /* Posiciona no canto superior direito da moldura de 120px */
+                flex-direction: column; /* Empilha um em cima do outro */
+                gap: 4px;
+                z-index: 10;
+            }
+            /* ------------------------------------------------------------------ */
+
             #traitsContainer {
                 height: 198px; 
                 overflow-y: auto;
@@ -530,7 +542,7 @@
             .top-section { gap: 10px; }
             .sprite-frame { width: 120px; height: 120px; }
             .desc-box { font-size: 14px; padding: 10px; }
-            
+
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
             .move-header { padding-left: 29px; padding-right: 29px; } 
             .move-icon { width: 24px; height: 24px; }
@@ -944,7 +956,7 @@ function showGeneralBalloon(element, text) {
     if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
     else { balloon.style.display = "none"; }
     document.body.appendChild(balloon);
-    
+
     balloonAnchor = element;
     const rect = element.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
@@ -965,7 +977,7 @@ function toggleMoveBalloon(moveDiv) {
     contentHtml += `<div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
     balloon.innerHTML = contentHtml;
     document.body.appendChild(balloon);
-    
+
     balloonAnchor = moveDiv;
     const rect = moveDiv.getBoundingClientRect();
     balloon.style.left = (rect.left + rect.width / 2) + "px";
@@ -976,10 +988,10 @@ function toggleMoveBalloon(moveDiv) {
 
 function updateBalloonPosition() {
     if (!openedMoveBalloon || !balloonAnchor) return;
-    
+
     const rect = balloonAnchor.getBoundingClientRect();
     const parentContainer = balloonAnchor.closest('.tab-content, .traits-container');
-    
+
     // Verifica se o item ainda está visível dentro do container scrollable
     if (parentContainer) {
         const parentRect = parentContainer.getBoundingClientRect();
