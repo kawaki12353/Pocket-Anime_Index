@@ -7,6 +7,7 @@ const areas = {
     },
     "0000": {
         file: "assets/areas/0000.png",
+        region: "Sunburst Valley",
         desc_pt: "Animon Inicial",
         desc_en: "Starter Animon"
     }
