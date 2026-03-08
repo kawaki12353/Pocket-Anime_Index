@@ -493,6 +493,8 @@ const moves = {
   },
   "Smoke Screen": {
     name: "Smoke Screen",
+    desc_pt: "Lance uma bomba de fumaça, aumente a [002]Evasão [+1][000].",
+    desc_en: "Throw a smokebomb, increase [002]Evasion [+1][000].",
     type: "neutral",
     attack: "status",
     power: 0,
