@@ -11,7 +11,7 @@ const traits = {
         desc_pt: "Imunidade a todos os golpes do tipo Lightning e à [008]paralisia[000].",
         desc_en: "Immunity to all Lightning-type moves and being [008]paralyzed[000]."
     },
-    "Rubber Resilience ": {
+    "Rubber Resilience": {
         desc_pt: "Imunidade a golpes do tipo Lightning e recebe 10% à menos de dano de ataques físicos.",
         desc_en: "Immunity to lightning-type moves and take 10% less damage from physical-attacks"
     },
