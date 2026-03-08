@@ -68,8 +68,8 @@ const traits = {
         desc_en: "After defeating an enemy [002]restore 30%[000] of your maximum HP."
     },
     "Fast Step": {
-        desc_pt: "Ganhe [002]SPD[+1][000] ao entrar em batalha contra inimigos mais rápidos.",
-        desc_en: "Gain [002]SPD[+1][000] when entering battle against faster enemies."
+        desc_pt: "Ganhe [002]SPD [+1][000] ao entrar em batalha contra inimigos mais rápidos.",
+        desc_en: "Gain [002]SPD [+1][000] when entering battle against faster enemies."
     },
     "Copycat": {
         desc_pt: "Usar o mesmo golpe que um alvo usou em você faz com que cause 25% a mais de dano.",
