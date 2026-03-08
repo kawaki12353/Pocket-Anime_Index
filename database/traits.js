@@ -92,12 +92,12 @@ const traits = {
         desc_en: "Using the same move a target has used on you makes it deal 25% more damage."
     },
     "Confident": {
-        desc_pt: "Quando um oponente tiver um de seus status reduzido, aumente seu [002]SPD[+1][000].",
-        desc_en: "When an opponent has one of their stats lowered, increase your [002]SPD[+1][002]."
+        desc_pt: "Quando um oponente tiver um de seus status reduzido, aumente seu [002]SPD [+1][000].",
+        desc_en: "When an opponent has one of their stats lowered, increase your [002]SPD [+1][002]."
     },
     "Perfect": {
-        desc_pt: "Se não for atingido por um golpe super efetivo, [002]cure 1/12[000] do HP naquele turno. Se for atingido por um golpe físico, ganhe [002]SPD[+1][000] uma vez por batalha.",
-        desc_en: "If not hit by a super-effective move, [002]heal 1/12[000] that turn. If hit by a physical move, gain [002]SPD[+1][000] once per battle."
+        desc_pt: "Se não for atingido por um golpe super efetivo, [002]cure 1/12[000] do HP naquele turno. Se for atingido por um golpe físico, ganhe [002]SPD [+1][000] uma vez por batalha.",
+        desc_en: "If not hit by a super-effective move, [002]heal 1/12[000] that turn. If hit by a physical move, gain [002]SPD [+1][000] once per battle."
     },
     "Reincarnation": {
         desc_pt: "Se estiver afetado por uma condição de status ao final do turno, há 1/4 de chance de [002]recuperar 1/12[000] do HP e remover todas as condições de status.",
