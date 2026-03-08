@@ -685,6 +685,8 @@ const moves = {
   },
   "Limb Regrowth": {
     name: "Limb Regrowth",
+    desc_pt: "[002]Recupera 30%[000] da sua vida e remove o veneno. Falha se você estiver com a vida cheia.",
+    desc_en: "[002]Heal 30%[000] of your HP and remove poison. Fails if you are full health.",
     type: "nature",
     attack: "status",
     power: 0,
