@@ -1,4 +1,20 @@
 const traits = {
+    "Exorcist": {
+        desc_pt: "Ataques contra criaturas do tipo Soul e do tipo Demon causam 20% a mais de dano.",
+        desc_en: "Attacks against Soul-types and Demon-types have 20% increased damage."
+    },
+    "Inner Focus": {
+        desc_pt: "Quando reduzido à metade do HP, aumenta a [002]Accuracy [+2][000].",
+        desc_en: "When lowered to half HP increase [002]Accuracy [+2][000]."
+    },
+    "Battle Adaptability": {
+        desc_pt: "Tem 15% de chance de aumentar [002]DEF [+1][000] e [002]SP.DEF [+1][000] após sobreviver a um ataque.",
+        desc_en: "Has a 15% chance of increasing [002]DEF [+1][000] and [002]SP.DEF [+1][000] after surviving an attack."
+    },
+    "Number One": {
+        desc_pt: "Quando a vida estiver abaixo da metade, receba um bônus de dano de 1,5x para habilidades únicas.",
+        desc_en: "When below half HP gain 1.5x damage boost to Unique abilities."
+    },
     "Scaredy Cat": {
         desc_pt: "Recue se sua vida cair abaixo de 40%.",
         desc_en: "Retreat if you drop below 40% HP."
