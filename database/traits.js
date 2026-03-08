@@ -13,7 +13,7 @@ const traits = {
     },
     "Rubber Resilience": {
         desc_pt: "Imunidade a golpes do tipo Lightning e recebe 10% à menos de dano de ataques físicos.",
-        desc_en: "Immunity to lightning-type moves and take 10% less damage from physical-attacks"
+        desc_en: "Immunity to lightning-type moves and take 10% less damage from physical-attacks."
     },
     "Exorcist": {
         desc_pt: "Ataques contra criaturas do tipo Soul e do tipo Demon causam 20% a mais de dano.",
