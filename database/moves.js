@@ -502,6 +502,8 @@ const moves = {
   },
   "Clone Barrage": {
     name: "Clone Barrage",
+    desc_pt: "Derrube seu oponente com um ataque aéreo. Causa o dobro de dano se o alvo estiver NO AR.",
+    desc_en: "Bring your opponent crashing down with an aerial assault. Does double the damage if the target is AIRBORNE.",
     type: "neutral",
     attack: "physical",
     power: 45,
@@ -509,6 +511,8 @@ const moves = {
   },
   "Aerial Combo": {
     name: "Aerial Combo",
+    desc_pt: "Derrube seu oponente com um ataque aéreo. Causa o dobro de dano se o alvo estiver NO AR.",
+    desc_en: "Bring your opponent crashing down with an aerial assault. Does double the damage if the target is AIRBORNE.",
     type: "neutral",
     attack: "physical",
     power: 45,
