@@ -100,6 +100,15 @@ const animons = [
     ]
   },
   { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 },
+    traits: [
+      { name: "Exorcist", chance: "100%" },
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Battle Adaptability", chance: "50%" },
+      { name: "Fast Step", chance: "20%" },
+      { name: "Number One", chance: "5%" }],
+    desc_pt: "Se eu não empunhar esta espada, não poderei proteger as pessoas de quem gosto!",
+    desc_en: "If I don't take up this sword, I can't protect the people I care about!",
+    anime: { name: "Ichigo Kurosaki", anime:"Bleach" },
     movesList: [
       { level: 1, name: "Spiritual Pressure"}, 
       { level: 1, name: "Sword Slash" },
@@ -113,6 +122,15 @@ const animons = [
     ] 
   },
   { id: 4.01, name: "Release Isamu", type: ["Dark", "Soul"], sprite: "assets/animons-icon/release_isamu.png", stats: { hp: 58, atk: 87, def: 52, spAtk: 80, spDef: 47, spd: 97 },
+    traits: [
+      { name: "Exorcist", chance: "100%" },
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Battle Adaptability", chance: "50%" },
+      { name: "Fast Step", chance: "20%" },
+      { name: "Number One", chance: "5%" }],
+    desc_pt: "Meu estilo de desembainhar a espada não se baseia em truques vistosos. Trata-se de terminar as lutas rapidamente.",
+    desc_en: "My sword release isn't about flashy tricks. It's about ending fights fast.",
+    anime: { name: "Ichigo Kurosaki", anime:"Bleach" },
     movesList: [
       { level: 1, name: "Spiritual Pressure" }, 
       { level: 1, name: "Sword Slash" },
