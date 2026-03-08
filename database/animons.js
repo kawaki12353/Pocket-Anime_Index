@@ -357,6 +357,8 @@ const animons = [
       { name: "Scaredy Cat", chance: "50%" },
       { name: "Consume", chance: "20%" },
       { name: "Copycat", chance: "20%" }],
+    desc_pt: "Preciso me alimentar para que minha forma amadureça...",
+    desc_en: "I need to feed for my form to mature...",
     anime: { name: "Imperfect Cell", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
