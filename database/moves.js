@@ -663,6 +663,8 @@ const moves = {
   },
   "Drain Life": {
     name: "Drain Life",
+    desc_pt: "Roube energia de um alvo agarrando-o, o que [002]cura 60%[000] do dano causado.",
+    desc_en: "Steal energy from a target by grabbing them which [002]heals for 60%[000] of the damage dealt.",
     type: "psychic",
     attack: "physical",
     power: 60,
@@ -686,6 +688,8 @@ const moves = {
   },
   "Demon Elbow": {
     name: "Demon Elbow",
+    desc_pt: "Passe sorrateiramente por um alvo que esteja se preparando para atacar e acerte-o com uma cotovelada devastadora. Falha se o alvo não tiver usado uma habilidade ativa.",
+    desc_en: "Sneak past a target preparing an attack and hit them with a punishing elbow. Fails if the target did not use an active skill.",
     type: "demon",
     attack: "physical",
     power: 70,
