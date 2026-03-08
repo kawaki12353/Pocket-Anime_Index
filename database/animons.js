@@ -513,7 +513,7 @@ const animons = [
       { name: "Sadist", chance: "50%" },
       { name: "Fearsome", chance: "100%" },
       { name: "Major Threat", chance: "100%" },
-      { name: "Legendary Warrior", chance: "100%" }],
+      { name: "Legendary Warrior", chance: "5%" }],
     desc_pt: "Meu poder está aumentando... transbordando...!",
     desc_en: "My power it's rising... overflowing...!",
     anime: { name: "Broly", anime:"Dragon Ball" },
@@ -533,7 +533,7 @@ const animons = [
     traits: [
       { name: "Sadist", chance: "50%" },
       { name: "Fearsome", chance: "100%" },
-      { name: "Major Threat", chance: "100%" },
+      { name: "Major Threat", chance: "5%" },
       { name: "Legendary Warrior", chance: "100%" }],
     desc_pt: "Meu poder é máximo!",
     desc_en: "My power is maximum!",
