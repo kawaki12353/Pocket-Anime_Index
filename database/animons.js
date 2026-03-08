@@ -188,7 +188,7 @@ const animons = [
       { level: 5, name: "Bounty Hunt" },
       { level: 10, name: "Quick Assist" },
       { level: 16, name: "Wave Kick" },
-      { level: 20, name: "After Image" },    
+      { level: 20, name: "Afterimage" },    
       { level: 24, name: "Armament" }
     ]
   },
