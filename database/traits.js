@@ -1,4 +1,20 @@
 const traits = {
+    "Pirates Resolve": {
+        desc_pt: "Aumenta os atributos de [002]Ataque[000] e [002]Defesa[000] do personagem em [002][+1][000] estágio quando seu HP cai abaixo de 50%.",
+        desc_en: "Increases the character's [002]Attack[000] and [002]Defense[000] Stats by [002][+1][000] stage when their HP falls below 50%."
+    },
+    "Adventurous Spirit": {
+        desc_pt: "Aumenta a [002]SPD [+1][000] ao entrar em batalha contra um oponente de nível superior.",
+        desc_en: "Increase [002]SPD [+1][000] when entering battle against a higher-leveled opponent."
+    },
+    "Shock Immunity": {
+        desc_pt: "Imunidade a todos os golpes do tipo Lightning e à [008]paralisia[000].",
+        desc_en: "Immunity to all Lightning-type moves and being [008]paralyzed[000]."
+    },
+    "Rubber Resilience ": {
+        desc_pt: "Imunidade a golpes do tipo Lightning e recebe 10% à menos de dano de ataques físicos.",
+        desc_en: "Immunity to lightning-type moves and take 10% less damage from physical-attacks"
+    },
     "Exorcist": {
         desc_pt: "Ataques contra criaturas do tipo Soul e do tipo Demon causam 20% a mais de dano.",
         desc_en: "Attacks against Soul-types and Demon-types have 20% increased damage."
