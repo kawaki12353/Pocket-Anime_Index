@@ -804,7 +804,7 @@ function renderDescription() {
     descText = descText.replace(/^"|"$/g, ''); 
 
     const isMobile = window.innerWidth <= 768;
-    const limit = 76; // Alterado para 76 conforme solicitado
+    const limit = 70; // Alterado para 70 conforme solicitado
 
     if (isMobile && descText.length > limit) {
         const truncated = descText.substring(0, limit) + "...";
