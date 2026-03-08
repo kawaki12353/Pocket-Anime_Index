@@ -1,5 +1,5 @@
 const animons = [
-  { id: 1, name: "Ruffy", type: "Fighting", sprite: "assets/animons-icon/ruffy.png", stats: { hp: 46, atk: 65, def: 55, spAtk: 35, spDef: 44, spd: 55 },
+  { id: 1, name: "Ruffy", type: "Fighting", sprite: "assets/animons-icon/ruffy.png", stats: { hp: 46, atk: 65, def: 55, spAtk: 35, spDef: 44, spd: 55 }, areas: ["0000"],
     anime: { name: "Luffy", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Punch" },
@@ -27,7 +27,7 @@ const animons = [
       { level: 24, name: "Headbutt" }
     ]
   },
-  { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 },
+  { id: 2, name: "Mystic Bojin", type: "Psychic", sprite: "assets/animons-icon/mystic_bojin.png", stats: { hp: 62, atk: 33, def: 52, spAtk: 70, spDef: 46, spd: 45 }, areas: ["0000"],
     anime: { name: "Majin Boo", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
@@ -56,7 +56,7 @@ const animons = [
       { level: 21, name: "Demon Elbow" }
     ]
   },
-  { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 },
+  { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 }, areas: ["0000"],
     traits: [
       { name: "Ninjutsu Mastery", chance: "100%" },
       { name: "Lightning Affinity", chance: "50%" },
@@ -99,7 +99,7 @@ const animons = [
       { level: 24, name: "Heavenly Flame" }
     ]
   },
-  { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 },
+  { id: 4, name: "Isamu", type: "Neutral", sprite: "assets/animons-icon/isamu.png", stats: { hp: 45, atk: 54, def: 35, spAtk: 50, spDef: 45, spd: 71 }, areas: ["0000"],
     traits: [
       { name: "Exorcist", chance: "100%" },
       { name: "Inner Focus", chance: "100%" },
