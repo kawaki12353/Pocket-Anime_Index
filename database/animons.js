@@ -228,7 +228,7 @@ const animons = [
       { level: 24, name: "Justice Cannon" }
     ]
   },
-  { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 },
+  { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 }, areas: ["0001", "0003", "0005"],
     anime: { name: "Koby", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop Attack"}, 
@@ -253,7 +253,7 @@ const animons = [
       { level: 24, name: "Armament" }
     ]
   },
-  { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 },
+  { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 }, areas: ["0002", "0009"],
     movesList: [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw" },
