@@ -1,4 +1,20 @@
 const traits = {
+    "Primal Power": {
+        desc_pt: "Quando a saúde estiver abaixo de 50%, entre em fúria ganhando [002]DEF [+1][000], [002]SP.DEF [+1][000], [002]ATK [+1][000], [002]SP.ATK [+1][000].",
+        desc_en: "When below 50% health, go berserk gaining [002]DEF [+1][000], [002]SP.DEF [+1][000], [002]ATK [+1][000], [002]SP.ATK [+1][000]."
+    },
+    "Elastic Body": {
+        desc_pt: "Aumenta a [002]evasão[000] na Invocação em [002][+1][000] estágio, tornando mais difícil para os oponentes acertarem ataques.",
+        desc_en: "Increases [002]evasion[000] on Summon by [002][+1][000] stage, making it harder for opponents to land attacks."
+    },
+    "Regenerative Aura": {
+        desc_pt: "[002]Regenera 1/16 [6,25%][000] de HP no final de cada rodada.",
+        desc_en: "[002]Regenerate 1/16th [6.25%][000] HP at the end of every round."
+    },
+    "Mystic Absorption": {
+        desc_pt: "Ao derrotar um alvo, você ganha o bônus de atributo mais alto dele.",
+        desc_en: "When defeating a target gain their highest stat bonus."
+    },
     "Pirates Resolve": {
         desc_pt: "Aumenta os atributos de [002]Ataque[000] e [002]Defesa[000] do personagem em [002][+1][000] estágio quando seu HP cai abaixo de 50%.",
         desc_en: "Increases the character's [002]Attack[000] and [002]Defense[000] Stats by [002][+1][000] stage when their HP falls below 50%."
