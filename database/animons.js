@@ -200,7 +200,7 @@ const animons = [
       { level: 20, name: "Coated Blade" }
     ]
   },
-  { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 },
+  { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 }, areas: ["0001", "0002", "0003", "0004", "0005", "0007", "0008", "0009"],
     anime: { name: "Marine", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
