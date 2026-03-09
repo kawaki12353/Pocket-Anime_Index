@@ -502,17 +502,17 @@ const moves = {
   },
   "Clone Barrage": {
     name: "Clone Barrage",
-    desc_pt: "Derrube seu oponente com um ataque aéreo. Causa o dobro de dano se o alvo estiver NO AR.",
-    desc_en: "Bring your opponent crashing down with an aerial assault. Does double the damage if the target is AIRBORNE.",
+    desc_pt: "Atacar um alvo com um grupo de clones.",
+    desc_en: "Assault a target with a gang of duplicates.",
     type: "neutral",
     attack: "physical",
-    power: 45,
+    power: 65,
     accuracy: 100,
   },
   "Aerial Combo": {
     name: "Aerial Combo",
-    desc_pt: "Derrube seu oponente com um ataque aéreo. Causa o dobro de dano se o alvo estiver NO AR.",
-    desc_en: "Bring your opponent crashing down with an aerial assault. Does double the damage if the target is AIRBORNE.",
+    desc_pt: "Derrube seu oponente com um ataque aéreo. Causa o dobro de dano se o alvo estiver no ar.",
+    desc_en: "Bring your opponent crashing down with an aerial assault. Does double the damage if the target is airborne.",
     type: "neutral",
     attack: "physical",
     power: 45,
@@ -607,7 +607,7 @@ const moves = {
     power: 0,
     accuracy: 60,
   },
-  "Phoenix Fire Bomb": {
+  "Pheonix Fire Bomb": {
     name: "Phoenix Fire Bomb",
     desc_pt: "Bolas de fogo consecutivas com 20% de chance de [003]queimar[000] o alvo.",
     desc_en: "Consecutive fireballs with a 20% chance to [003]burn[000] a target.",
@@ -672,9 +672,11 @@ const moves = {
   },
   "Vanishing Blow": {
     name: "Vanishing Blow",
-    type: "neutral",
+    desc_pt: "Desapareça e ataque seu oponente com prioridade aumentada.",
+    desc_en: "Vanish and strike your opponent with increased priority.",
+    type: "fighting",
     attack: "physical",
-    power: 45,
+    power: 35,
     accuracy: 100,
   },
   "Solar Flare": {
