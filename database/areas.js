@@ -9,7 +9,7 @@ const areas = {
         file: "assets/areas/0005.png",
         region: "Sunburst Forest",
         desc_pt: "Área do Treinador Molly",
-        desc_en: "Trainer Molly's Patch"
+        desc_en: "Trainer Molly Patch"
     },
     "0004": {
         file: "assets/areas/0004.png",
