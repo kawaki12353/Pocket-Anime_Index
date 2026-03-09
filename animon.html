@@ -479,6 +479,12 @@
         .location-container {
             position: relative;
             text-align: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: pan-y;
+        }
+        .location-container:active {
+            cursor: grabbing;
         }
         .location-region {
             position: absolute;
@@ -501,6 +507,7 @@
             border: 2px solid var(--border);
             display: block;
             margin: 0 auto;
+            pointer-events: none; /* Evita que o navegador tente arrastar o arquivo de imagem */
         }
         .location-image-dots {
             display: flex;
@@ -1096,17 +1103,48 @@ function renderLocations() {
     const areaIds = currentAnimon.areas;
     const areaDataList = areaIds.map(id => areas[id]).filter(data => data);
     if (areaDataList.length === 0) { container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; return; }
+    
     currentLocIndex = 0;
     const locWrapper = document.createElement('div');
     locWrapper.className = 'location-container';
+
+    // --- Lógica de Swipe/Arrastar Adicionada ---
+    let startX = 0;
+    locWrapper.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive: true});
+    locWrapper.addEventListener('touchend', e => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0 && currentLocIndex < areaDataList.length - 1) updateLocUI(currentLocIndex + 1);
+            else if (diff < 0 && currentLocIndex > 0) updateLocUI(currentLocIndex - 1);
+        }
+    }, {passive: true});
+
+    locWrapper.addEventListener('mousedown', e => startX = e.clientX);
+    locWrapper.addEventListener('mouseup', e => {
+        const endX = e.clientX;
+        const diff = startX - endX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0 && currentLocIndex < areaDataList.length - 1) updateLocUI(currentLocIndex + 1);
+            else if (diff < 0 && currentLocIndex > 0) updateLocUI(currentLocIndex - 1);
+        }
+    });
+    // -------------------------------------------
+
     const updateLocUI = (index) => {
+        currentLocIndex = index; // Atualiza o índice global para o swipe saber onde está
         const area = areaDataList[index];
         const desc = lang === 'pt' ? area.desc_pt : area.desc_en;
         locWrapper.innerHTML = `<div class="location-region">${area.region}</div><div class="location-desc">${desc}</div><img src="${area.file}" class="location-image" onerror="this.src='assets/sem_icone.png'">`;
         if (areaDataList.length > 1) {
             const dotsRow = document.createElement('div');
             dotsRow.className = 'location-image-dots';
-            areaDataList.forEach((_, i) => { const dot = document.createElement('div'); dot.className = `dot ${i === index ? 'active' : ''}`; dot.onclick = () => updateLocUI(i); dotsRow.appendChild(dot); });
+            areaDataList.forEach((_, i) => { 
+                const dot = document.createElement('div'); 
+                dot.className = `dot ${i === index ? 'active' : ''}`; 
+                dot.onclick = () => updateLocUI(i); 
+                dotsRow.appendChild(dot); 
+            });
             locWrapper.appendChild(dotsRow);
         }
     };
