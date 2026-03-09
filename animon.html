@@ -475,31 +475,50 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* --- Localizações --- */
+        /* --- Localizações (Carrossel Atualizado) --- */
         .location-container {
             position: relative;
             text-align: center;
+            overflow: hidden; /* Essencial para o carrossel */
+            width: 100%;
+        }
+        
+        .location-viewport {
+            width: 100%;
+            overflow: hidden;
             cursor: grab;
+        }
+        
+        .location-viewport:active { cursor: grabbing; }
+
+        .location-track {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .location-slide {
+            min-width: 100%;
+            flex-shrink: 0;
             user-select: none;
-            touch-action: pan-y;
+            padding: 0 5px;
+            box-sizing: border-box;
         }
-        .location-container:active {
-            cursor: grabbing;
-        }
+
         .location-region {
-            position: absolute;
-            top: -15px;
-            left: 0;
             font-size: 12px;
             font-weight: bold;
             opacity: 0.7;
             text-transform: uppercase;
+            margin-bottom: 5px;
         }
+        
         .location-desc {
             font-weight: bold;
             margin-bottom: 10px;
             font-size: 16px;
         }
+        
         .location-image {
             width: 100%;
             max-width: 600px;
@@ -507,14 +526,16 @@
             border: 2px solid var(--border);
             display: block;
             margin: 0 auto;
-            pointer-events: none; /* Evita que o navegador tente arrastar o arquivo de imagem */
+            pointer-events: none;
         }
+
         .location-image-dots {
             display: flex;
             justify-content: center;
             gap: 8px;
             margin-top: 15px;
         }
+        
         .dot {
             width: 12px;
             height: 12px;
@@ -523,6 +544,7 @@
             cursor: pointer;
             transition: background 0.3s;
         }
+        
         .dot.active {
             background: var(--primary);
         }
@@ -1099,56 +1121,116 @@ function renderEvolutions() {
 function renderLocations() {
     const container = document.getElementById('locationContent');
     container.innerHTML = "";
-    if (!currentAnimon || !currentAnimon.areas || currentAnimon.areas.length === 0) { container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; return; }
+    if (!currentAnimon || !currentAnimon.areas || currentAnimon.areas.length === 0) { 
+        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; 
+        return; 
+    }
     const areaIds = currentAnimon.areas;
     const areaDataList = areaIds.map(id => areas[id]).filter(data => data);
-    if (areaDataList.length === 0) { container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; return; }
+    if (areaDataList.length === 0) { 
+        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; 
+        return; 
+    }
     
     currentLocIndex = 0;
     const locWrapper = document.createElement('div');
     locWrapper.className = 'location-container';
 
-    // --- Lógica de Swipe/Arrastar Adicionada ---
-    let startX = 0;
-    locWrapper.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive: true});
-    locWrapper.addEventListener('touchend', e => {
-        const endX = e.changedTouches[0].clientX;
-        const diff = startX - endX;
-        if (Math.abs(diff) > 50) {
-            if (diff > 0 && currentLocIndex < areaDataList.length - 1) updateLocUI(currentLocIndex + 1);
-            else if (diff < 0 && currentLocIndex > 0) updateLocUI(currentLocIndex - 1);
-        }
-    }, {passive: true});
+    // Criação do Viewport e Trilho (Track)
+    const viewport = document.createElement('div');
+    viewport.className = 'location-viewport';
+    
+    const track = document.createElement('div');
+    track.className = 'location-track';
 
-    locWrapper.addEventListener('mousedown', e => startX = e.clientX);
-    locWrapper.addEventListener('mouseup', e => {
-        const endX = e.clientX;
-        const diff = startX - endX;
-        if (Math.abs(diff) > 50) {
-            if (diff > 0 && currentLocIndex < areaDataList.length - 1) updateLocUI(currentLocIndex + 1);
-            else if (diff < 0 && currentLocIndex > 0) updateLocUI(currentLocIndex - 1);
-        }
-    });
-    // -------------------------------------------
-
-    const updateLocUI = (index) => {
-        currentLocIndex = index; // Atualiza o índice global para o swipe saber onde está
-        const area = areaDataList[index];
+    // Pré-renderização de todos os slides
+    areaDataList.forEach(area => {
+        const slide = document.createElement('div');
+        slide.className = 'location-slide';
         const desc = lang === 'pt' ? area.desc_pt : area.desc_en;
-        locWrapper.innerHTML = `<div class="location-region">${area.region}</div><div class="location-desc">${desc}</div><img src="${area.file}" class="location-image" onerror="this.src='assets/sem_icone.png'">`;
-        if (areaDataList.length > 1) {
-            const dotsRow = document.createElement('div');
-            dotsRow.className = 'location-image-dots';
-            areaDataList.forEach((_, i) => { 
-                const dot = document.createElement('div'); 
-                dot.className = `dot ${i === index ? 'active' : ''}`; 
-                dot.onclick = () => updateLocUI(i); 
-                dotsRow.appendChild(dot); 
-            });
-            locWrapper.appendChild(dotsRow);
+        slide.innerHTML = `
+            <div class="location-region">${area.region}</div>
+            <div class="location-desc">${desc}</div>
+            <img src="${area.file}" class="location-image" onerror="this.src='assets/sem_icone.png'">
+        `;
+        track.appendChild(slide);
+    });
+
+    viewport.appendChild(track);
+    locWrapper.appendChild(viewport);
+
+    // Dots (Pontinhos)
+    const dotsRow = document.createElement('div');
+    dotsRow.className = 'location-image-dots';
+    if (areaDataList.length > 1) {
+        areaDataList.forEach((_, i) => { 
+            const dot = document.createElement('div'); 
+            dot.className = `dot ${i === 0 ? 'active' : ''}`; 
+            dot.onclick = () => moveToSlide(i); 
+            dotsRow.appendChild(dot); 
+        });
+    }
+    locWrapper.appendChild(dotsRow);
+
+    // Lógica de Movimentação e Loop
+    function moveToSlide(index) {
+        // Lógica de Loop Infinito
+        if (index >= areaDataList.length) index = 0;
+        else if (index < 0) index = areaDataList.length - 1;
+
+        currentLocIndex = index;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        
+        // Atualiza Dots
+        const allDots = dotsRow.querySelectorAll('.dot');
+        allDots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    // Lógica de Swipe/Arrastar Suave
+    let startX = 0;
+    let isDragging = false;
+    let currentPos = 0;
+
+    const dragStart = (e) => {
+        isDragging = true;
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        track.style.transition = 'none'; // Desativa transição durante o arraste manual
+    };
+
+    const dragMove = (e) => {
+        if (!isDragging) return;
+        const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const walk = x - startX;
+        // Permite ver o arraste em tempo real
+        const baseTranslate = -(currentLocIndex * 100);
+        const percentMove = (walk / viewport.offsetWidth) * 100;
+        track.style.transform = `translateX(${baseTranslate + percentMove}%)`;
+    };
+
+    const dragEnd = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.transition = ''; // Restaura transição suave
+        const x = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+        const diff = startX - x;
+
+        if (Math.abs(diff) > 50) { // Sensibilidade do swipe
+            if (diff > 0) moveToSlide(currentLocIndex + 1);
+            else moveToSlide(currentLocIndex - 1);
+        } else {
+            moveToSlide(currentLocIndex); // Volta para a posição original se não arrastou o suficiente
         }
     };
-    updateLocUI(currentLocIndex);
+
+    viewport.addEventListener('mousedown', dragStart);
+    viewport.addEventListener('mousemove', dragMove);
+    window.addEventListener('mouseup', dragEnd);
+    viewport.addEventListener('mouseleave', () => { if(isDragging) dragEnd({clientX: startX}); }); // Caso saia do elemento
+
+    viewport.addEventListener('touchstart', dragStart, {passive: true});
+    viewport.addEventListener('touchmove', dragMove, {passive: true});
+    viewport.addEventListener('touchend', dragEnd, {passive: true});
+
     container.appendChild(locWrapper);
 }
 
