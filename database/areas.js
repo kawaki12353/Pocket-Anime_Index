@@ -1,4 +1,22 @@
 const areas = {
+    "0009": {
+        file: "assets/areas/0009.png",
+        region: "Sunburst Forest",
+        desc_pt: "Área do Rival",
+        desc_en: "Rival Patch"
+    },
+    "0008": {
+        file: "assets/areas/0008.png",
+        region: "Sunburst Forest",
+        desc_pt: "Área da Treinadora Jess",
+        desc_en: "Trainer Jess Patch"
+    },
+    "0007": {
+        file: "assets/areas/0007.png",
+        region: "Sunburst Forest",
+        desc_pt: "Área do Okubo Shichiro",
+        desc_en: "Okubo Shichiro Patch"
+    },
     "0006": {
         file: "assets/areas/0006.png",
         region: "Sunburst Forest",
