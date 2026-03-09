@@ -273,8 +273,11 @@ const animons = [
       { level: 23, name: "Ripping Claw" }
    ]
   },
-  { id: 9, name: "Joyful", type: ["Wind", "Beast"], sprite: "assets/animons-icon/joyful.png", stats: { hp: 35, atk: 25, def: 35, spAtk: 50, spDef: 35, spd: 70 },
+  { id: 9, name: "Joyful", type: ["Wind", "Beast"], sprite: "assets/animons-icon/joyful.png", stats: { hp: 35, atk: 25, def: 35, spAtk: 50, spDef: 35, spd: 70 }, areas: ["0001", "0004", "0005"],
     movesList: [
+      { level: 1, name: "Growl"}, 
+      { level: 1, name: "Sharp Claw"}, 
+      { level: 5, name: "Quick Attack"}, 
       { level: 10, name: "Charm"}, 
       { level: 15, name: "Swift Wind" },
       { level: 20, name: "Quick Assist" },
