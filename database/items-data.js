@@ -194,8 +194,8 @@ const items=[
  en:{name:"Dashfruit",desc:"Zesty and light — one bite and you're already moving!",note:"Increases SPD TV by 10",drop:"Phase Shop",cat:"status"}
 },
 {rarity:"incomum",
- pt:{name:"Demon Shuriken",desc:"[Sem Descrição ainda]",drop:"Loja em Capsule City",cat:"battle"},
- en:{name:"Demon Shuriken",desc:"[No description yet]",drop:"Shop in Capsule City",cat:"battle"}
+ pt:{name:"Demon Shuriken",desc:"Uma ferramenta ninja rara, conhecida por sua lâmina afiada e durabilidade. A Shuriken Demoníaca aprimora a eficácia das ferramentas ninja!",drop:"Loja em Capsule City",cat:"battle"},
+ en:{name:"Demon Shuriken",desc:"A rare ninja tool, known for its sharpness and durability. The Demon Shuriken enhances the effectiveness of Ninja tools!",drop:"Shop in Capsule City",cat:"battle"}
 },
 {rarity:"incomum",
  pt:{name:"Dinosaur Hide",desc:"Um couro grosso e resistente deixado por um dinossauro poderoso.",drop:"Derrotando o Animon Dinossaur",cat:"misc"},
