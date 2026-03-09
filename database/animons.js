@@ -174,7 +174,7 @@ const animons = [
       { level: 32, name: "Cut Down" }
     ] 
   },  
-  { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 },
+  { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 }, areas: ["0001", "0002", "0003", "0004", "0005", "0007", "0009"],
     movesList: [
       { level: 1, name: "Cut Down"}, 
       { level: 1, name: "Plunder" },
