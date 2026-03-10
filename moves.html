@@ -103,7 +103,7 @@
             width: 100%; display: flex; align-items: center; justify-content: space-between;
             gap: 8px; cursor: pointer; box-sizing: border-box;
         }
-        
+
         /* Ajuste de Alinhamento solicitado: Ícone à esquerda do nome no botão */
         .select-btn span {
             display: flex;
@@ -159,9 +159,20 @@
         .move-stats {
             display: flex;
             gap: 20px;
-            color: #9ca3af;
+            color: var(--text);
             font-size: 16px;
             font-weight: 500;
+            text-align: center;
+        }
+
+        /* Estilo das siglas superiores (PWR, ACC, PP) */
+        .stat-label {
+            font-size: 10px;
+            color: #555;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1px;
+            font-weight: bold;
         }
 
         .move-tags {
@@ -230,7 +241,7 @@
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex; flex-direction: column; gap: 20px;
         }
-        
+
         /* Ativação do Modal */
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-overlay.active .modal-content { transform: translateY(0); }
@@ -239,6 +250,7 @@
             font-size: 15px; line-height: 1.6;
             color: var(--text-secondary); border-top: 1px solid var(--border);
             padding-top: 15px;
+            text-align: justify;
         }
 
         @media (min-width: 769px) {
@@ -322,7 +334,9 @@ const uiText = {
         search: "Pesquisar Move...",
         tipoLabel: "Tipo",
         physical: "Physical", special: "Special", status: "Status",
-        btn: "🇧🇷 PT"
+        btn: "🇧🇷 PT",
+        pwr: "PWR", acc: "ACC", pp: "PP",
+        descLabel: "Descrição"
     },
     en: {
         title: "Moves Database",
@@ -331,7 +345,9 @@ const uiText = {
         search: "Search Move...",
         tipoLabel: "Type",
         physical: "Physical", special: "Special", status: "Status",
-        btn: "🇺🇸 EN"
+        btn: "🇺🇸 EN",
+        pwr: "PWR", acc: "ACC", pp: "PP",
+        descLabel: "Description"
     }
 };
 
@@ -341,6 +357,22 @@ const catKeys = ["physical", "special", "status"];
 function capitalize(str) {
     if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+// Sistema de Cores (igual ao animon.html)
+function parseColoredText(text) {
+  if (!text) return "";
+  const colorMap = {
+    "001": "#ff4d4d", "002": "#2ecc71", "003": "#f39c12", "004": "#95a5a6",
+    "005": "#a93226", "006": "#d2b4de", "007": "#1a5276", "008": "#ffe100", "000": "inherit"
+  };
+  let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
+    if (code === "000") return "</span>";
+    const color = colorMap[code];
+    if (color) return `</span><span style="color: ${color}; font-weight: bold;">`;
+    return match;
+  });
+  return `<span>${formatted}</span>`;
 }
 
 function render() {
@@ -365,9 +397,9 @@ function render() {
             <div class="move-header">
                 <div class="move-name">${m.name}</div>
                 <div class="move-stats">
-                    <span>${m.power || '--'}</span>
-                    <span>${m.accuracy || '--'}</span>
-                    <span>${m.pp || '--'}</span>
+                    <div><span class="stat-label">${uiText[lang].pwr}</span><span>${m.power || '--'}</span></div>
+                    <div><span class="stat-label">${uiText[lang].acc}</span><span>${m.accuracy || '--'}</span></div>
+                    <div><span class="stat-label">${uiText[lang].pp}</span><span>${m.pp || '--'}</span></div>
                 </div>
             </div>
             <div class="move-tags">
@@ -398,9 +430,9 @@ function openModal(move) {
         <div class="move-header">
             <div class="move-name" style="font-size:24px">${move.name}</div>
             <div class="move-stats">
-                <span>Pwr: ${move.power || '--'}</span>
-                <span>Acc: ${move.accuracy || '--'}</span>
-                <span>PP: ${move.pp || '--'}</span>
+                <div><span class="stat-label">${uiText[lang].pwr}</span><span>${move.power || '--'}</span></div>
+                <div><span class="stat-label">${uiText[lang].acc}</span><span>${move.accuracy || '--'}</span></div>
+                <div><span class="stat-label">${uiText[lang].pp}</span><span>${move.pp || '--'}</span></div>
             </div>
         </div>
         <div class="move-tags">
@@ -414,7 +446,13 @@ function openModal(move) {
         </div>
     `;
 
-    descContainer.textContent = lang === 'pt' ? move.desc_pt : move.desc_en;
+    // Adiciona título "Descrição" e aplica sistema de cores
+    const descRaw = lang === 'pt' ? move.desc_pt : move.desc_en;
+    descContainer.innerHTML = `
+        <div class="stat-label" style="text-align:left; margin-bottom:8px;">${uiText[lang].descLabel}</div>
+        ${parseColoredText(descRaw)}
+    `;
+
     modal.classList.add("active");
 }
 
