@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Anime - Moves</title>
+
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js" defer></script>
+
+    <style>
+        /* --- Variáveis e Temas --- */
+        :root {
+            --bg: #f2f4f7;
+            --card: #ffffff;
+            --text: #111;
+            --text-secondary: #707a8a;
+            --border: #e1e4e8;
+            --hover: #f8f9fa;
+            --accent-blue: #007bff;
+            
+            /* Cores de Categorias */
+            --cat-physical: #c93e2b;
+            --cat-special: #2d5a9c;
+            --cat-status: #707a8a;
+
+            /* Cores dos Tipos (Sincronizadas com o seu sistema) */
+            --element-neutral: #e6e5e3; --element-fighting: #e5901b;
+            --element-fire: #e60000;    --element-water: #00b0e6;
+            --element-nature: #24e30c;  --element-earth: #8a5e39;
+            --element-wind: #59e657;    --element-ice: #00ffe1;
+            --element-lightning: #ffe100; --element-soul: #89a2e6;
+            --element-psychic: #e66ae0; --element-poison: #ac8fff;
+            --element-light: #decc7c;   --element-dark: #262626;
+            --element-demon: #b00000;   --element-beast: #aa6272;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f1217;
+                --card: #181c24;
+                --text: #ffffff;
+                --text-secondary: #9ca3af;
+                --border: #2a2f3a;
+                --hover: #232836;
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        .logo { width: 220px; margin-bottom: 10px; }
+        .map-title { font-size: 22px; font-weight: bold; margin-bottom: 20px; }
+
+        /* --- FILTROS --- */
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .filters input, .select-btn {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            outline: none;
+            min-width: 150px;
+        }
+
+        /* --- CUSTOM SELECTS --- */
+        .custom-select { position: relative; }
+        .select-list {
+            display: none; position: absolute; top: 105%; left: 0; width: 100%;
+            background: var(--card); border-radius: 12px; list-style: none;
+            padding: 6px; z-index: 100; box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 1px solid var(--border); max-height: 250px; overflow-y: auto;
+        }
+        .select-list li {
+            padding: 10px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 13px;
+        }
+        .select-list li:hover { background: var(--hover); }
+
+        /* --- LISTA DE MOVES --- */
+        .moves-list {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* --- CARD DE MOVE (ESTILO IMAGEM) --- */
+        .move-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            position: relative;
+        }
+        .move-card:active { transform: scale(0.98); }
+
+        .move-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .move-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #4a628a; /* Cor azulada da imagem */
+        }
+        .move-stats {
+            display: flex;
+            gap: 20px;
+            color: #9ca3af;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .move-tags {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Badge do Tipo */
+        .type-badge {
+            display: flex;
+            align-items: center;
+            background: var(--type-color);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 34px;
+            flex: 1;
+        }
+        .type-label {
+            background: rgba(0,0,0,0.15);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .type-name {
+            flex: 1;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        /* Badge da Categoria */
+        .category-badge {
+            padding: 0 15px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 13px;
+            background: var(--cat-color);
+            min-width: 80px;
+        }
+
+        .info-icon {
+            color: var(--border);
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000;
+            display: none; justify-content: center; align-items: flex-end;
+        }
+        .modal-content {
+            background: var(--card);
+            width: 100%;
+            height: 65%;
+            border-radius: 20px 20px 0 0;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+
+        .modal-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        /* Ajustes para PC */
+        @media (min-width: 769px) {
+            .modal-overlay { align-items: center; }
+            .modal-content {
+                width: 450px;
+                height: auto;
+                border-radius: 20px;
+                transform: scale(0.9);
+                opacity: 0;
+                transition: all 0.2s;
+            }
+            .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        }
+
+        .lang-toggle {
+            position: fixed; bottom: 20px; right: 20px; z-index: 10;
+        }
+        .lang-toggle button {
+            background: var(--text); color: var(--card);
+            padding: 10px 18px; border-radius: 25px; border: none;
+            cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="assets/Pocket-Anime-logo.png" class="logo">
+    <div class="map-title" id="pageTitle">Moves Database</div>
+</div>
+
+<main>
+    <div class="filters">
+        <input id="searchInput" type="text" placeholder="Pesquisar Move...">
+
+        <div class="custom-select">
+            <div class="select-btn" id="typeBtn">Todos os Tipos ▼</div>
+            <ul class="select-list" id="typeList"></ul>
+        </div>
+
+        <div class="custom-select">
+            <div class="select-btn" id="catBtn">Categorias ▼</div>
+            <ul class="select-list" id="catList"></ul>
+        </div>
+    </div>
+
+    <div class="moves-list" id="movesList"></div>
+</main>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div id="modalData"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+    </div>
+</div>
+
+<div class="lang-toggle">
+    <button id="langBtn">🇧🇷 PT</button>
+</div>
+
+<script src="database/moves.js"></script>
+
+<script>
+let lang = localStorage.getItem("siteLang") || "pt";
+let selectedType = "";
+let selectedCat = "";
+
+const uiText = {
+    pt: {
+        allTypes: "Todos os Tipos",
+        allCats: "Categorias",
+        search: "Pesquisar Move...",
+        tipoLabel: "Tipo",
+        physical: "PHYSICAL", special: "SPECIAL", status: "STATUS"
+    },
+    en: {
+        allTypes: "All Types",
+        allCats: "Categories",
+        search: "Search Move...",
+        tipoLabel: "Type",
+        physical: "PHYSICAL", special: "SPECIAL", status: "STATUS"
+    }
+};
+
+const typeKeys = ["neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"];
+const catKeys = ["physical", "special", "status"];
+
+function render() {
+    const searchVal = document.getElementById("searchInput").value.toLowerCase();
+    const listEl = document.getElementById("movesList");
+    listEl.innerHTML = "";
+
+    const filtered = moves.filter(m => {
+        const nameMatch = m.name.toLowerCase().includes(searchVal);
+        const typeMatch = !selectedType || m.type.toLowerCase() === selectedType;
+        const catMatch = !selectedCat || m.category.toLowerCase() === selectedCat;
+        return nameMatch && typeMatch && catMatch;
+    });
+
+    filtered.forEach(m => {
+        const card = document.createElement("div");
+        card.className = "move-card";
+        card.innerHTML = `
+            <div class="move-header">
+                <div class="move-name">${m.name}</div>
+                <div class="move-stats">
+                    <span>${m.power || '--'}</span>
+                    <span>${m.accuracy || '--'}</span>
+                    <span>${m.pp || '--'}</span>
+                </div>
+            </div>
+            <div class="move-tags">
+                <div class="type-badge" style="--type-color: var(--element-${m.type.toLowerCase()})">
+                    <div class="type-label">${uiText[lang].tipoLabel}</div>
+                    <div class="type-name">${m.type.toUpperCase()}</div>
+                </div>
+                <div class="category-badge" style="--cat-color: var(--cat-${m.category.toLowerCase()})">
+                    ${uiText[lang][m.category.toLowerCase()]}
+                </div>
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+            </div>
+        `;
+        card.onclick = () => openModal(m);
+        listEl.appendChild(card);
+    });
+}
+
+function openModal(move) {
+    const modal = document.getElementById("modalOverlay");
+    const dataContainer = document.getElementById("modalData");
+    const descContainer = document.getElementById("modalDesc");
+
+    // Clona a parte visual do card para o topo do modal
+    dataContainer.innerHTML = `
+        <div class="move-header">
+            <div class="move-name" style="font-size:24px">${move.name}</div>
+            <div class="move-stats">
+                <span>Pwr: ${move.power || '--'}</span>
+                <span>Acc: ${move.accuracy || '--'}</span>
+                <span>PP: ${move.pp || '--'}</span>
+            </div>
+        </div>
+        <div class="move-tags">
+            <div class="type-badge" style="--type-color: var(--element-${move.type.toLowerCase()})">
+                <div class="type-label">${uiText[lang].tipoLabel}</div>
+                <div class="type-name">${move.type.toUpperCase()}</div>
+            </div>
+            <div class="category-badge" style="--cat-color: var(--cat-${move.category.toLowerCase()})">
+                ${uiText[lang][move.category.toLowerCase()]}
+            </div>
+        </div>
+    `;
+    
+    descContainer.textContent = lang === 'pt' ? move.desc_pt : move.desc_en;
+    
+    modal.classList.add("active");
+}
+
+function closeModal() {
+    document.getElementById("modalOverlay").classList.remove("active");
+}
+
+function buildMenus() {
+    // Menu de Tipos
+    const tList = document.getElementById("typeList");
+    tList.innerHTML = `<li onclick="selectType('')">${uiText[lang].allTypes}</li>`;
+    typeKeys.forEach(t => {
+        const li = document.createElement("li");
+        li.innerHTML = `<img src="assets/${t}_element.png" width="20"> ${t.charAt(0).toUpperCase() + t.slice(1)}`;
+        li.onclick = () => selectType(t);
+        tList.appendChild(li);
+    });
+
+    // Menu de Categorias
+    const cList = document.getElementById("catList");
+    cList.innerHTML = `<li onclick="selectCat('')">${uiText[lang].allCats}</li>`;
+    catKeys.forEach(c => {
+        const li = document.createElement("li");
+        li.textContent = uiText[lang][c];
+        li.onclick = () => selectCat(c);
+        cList.appendChild(li);
+    });
+}
+
+function selectType(t) {
+    selectedType = t;
+    document.getElementById("typeBtn").textContent = t ? t.toUpperCase() : uiText[lang].allTypes;
+    closeAllSelects();
+    render();
+}
+
+function selectCat(c) {
+    selectedCat = c;
+    document.getElementById("catBtn").textContent = c ? uiText[lang][c] : uiText[lang].allCats;
+    closeAllSelects();
+    render();
+}
+
+function closeAllSelects() {
+    document.querySelectorAll(".select-list").forEach(l => l.style.display = "none");
+}
+
+// Toggle de Dropdowns
+document.getElementById("typeBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("typeList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.getElementById("catBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("catList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.addEventListener("click", closeAllSelects);
+
+document.getElementById("langBtn").onclick = () => {
+    lang = lang === "pt" ? "en" : "pt";
+    localStorage.setItem("siteLang", lang);
+    document.getElementById("langBtn").textContent = lang === "pt" ? "🇧🇷 PT" : "🇺🇸 EN";
+    updateUI();
+};
+
+function updateUI() {
+    document.getElementById("searchInput").placeholder = uiText[lang].search;
+    buildMenus();
+    render();
+}
+
+document.getElementById("searchInput").oninput = render;
+
+// Init
+updateUI();
+</script>
+
+</body>
+</html>
