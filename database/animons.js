@@ -284,7 +284,7 @@ const animons = [
       { level: 22, name: "Blitz" }
    ]
   }, 
-  { id: 10, name: "Teen Wolfman", type: "Fighting", sprite: "assets/animons-icon/teen_wolfman.png", stats: { hp: 35, atk: 53, def: 35, spAtk: 49, spDef: 30, spd: 51 },
+  { id: 10, name: "Teen Wolfman", type: "Fighting", sprite: "assets/animons-icon/teen_wolfman.png", stats: { hp: 35, atk: 53, def: 35, spAtk: 49, spDef: 30, spd: 51 }, areas: ["0002", "0003", "0009"],
     anime: { name: "Yamcha", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Fighting Spirit" },
