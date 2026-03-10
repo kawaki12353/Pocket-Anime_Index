@@ -146,6 +146,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 60,
+    pp: 8,
   },
   "Fire Zone": {
     name: "Fire Zone",
@@ -296,6 +297,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 55,
+    pp: 10,
   },
   "Lightning Strike": {
     name: "Lightning Strike",
@@ -730,6 +732,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 80,
+    pp: 8,
   },
   "Psychic Blast": {
     name: "Psychic Blast",
