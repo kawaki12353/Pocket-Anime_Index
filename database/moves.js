@@ -7,6 +7,7 @@ const moves = {
     attack: "special",
     power: 65,
     accuracy: 100,
+    pp: 15,
   },
   "False Courage": {
     name: "False Courage",
