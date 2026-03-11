@@ -17,12 +17,14 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 10,
   },
   "Shark Tile Fist": {
     name: "Shark Tile Fist",
     type: "water",
     attack: "physical",
     accuracy: 100,
+    pp: 12,
   },
   "Brick Fist": {
     name: "Brick Fist",
@@ -32,6 +34,7 @@ const moves = {
     attack: "physical",
     power: 60,
     accuracy: 100,
+    pp: 15,
   },
   "Shark Throw": {
     name: "Shark Throw",
@@ -41,6 +44,7 @@ const moves = {
     attack: "special",
     power: 30,
     accuracy: 100,
+    pp: 10,
   },
   "Water Spear": {
     name: "Water Spear",
@@ -50,6 +54,7 @@ const moves = {
     attack: "special",
     power: 50,
     accuracy: 100,
+    pp: 15,
   },
   "Sharp Claw": {
     name: "Sharp Claw",
@@ -761,6 +766,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 15,
   },
   "Punch": {
     name: "Punch",
@@ -770,6 +776,7 @@ const moves = {
     attack: "physical",
     power: 35,
     accuracy: 100,
+    pp: 25,
   },
   "Rapid Punches": {
     name: "Rapid Punches",
@@ -779,6 +786,7 @@ const moves = {
     attack: "physical",
     power: 35,
     accuracy: 100,
+    pp: 16,
   },
   "Rubber Pistol": {
     name: "Rubber Pistol",
@@ -788,6 +796,7 @@ const moves = {
     attack: "physical",
     power: 35,
     accuracy: 100,
+    pp: 15,
   },
   "Fighting Spirit": {
     name: "Fighting Spirit",
@@ -806,6 +815,7 @@ const moves = {
     attack: "physical",
     power: 65,
     accuracy: 90,
+    pp: 12,
   },
   "Phase Two": {
     name: "Phase Two",
@@ -815,7 +825,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
-    pp: 2,
+    pp: 3,
     moveTrigger: [{ move:"Armament", trade:"Red Talon" }, { move:"Bazooka", trade:"Jet Bullet"}],
   },
   "Headbutt": {
@@ -831,6 +841,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 15,
   },
   "Energy Blast": {
     name: "Energy Blast",
