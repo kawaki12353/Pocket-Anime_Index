@@ -826,7 +826,7 @@ const moves = {
     power: 0,
     accuracy: 100,
     pp: 3,
-    moveTrigger: [{ move:"Armament", trade:"Red Talon" }, { move:"Bazooka", trade:"Jet Bullet"}],
+    moveTrigger: [{ move:"Armament", trade:"Red Talon" }, { move:"Bazooka", trade:"Jet Bullet" }, { move:"Rubber Pistol", trade:"Jet Pistol" }],
   },
   "Headbutt": {
     name: "Headbutt",
