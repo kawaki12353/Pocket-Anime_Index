@@ -453,6 +453,7 @@ const moves = {
     attack: "physical",
     power: 70,
     accuracy: 100,
+    pp: 16,
   },
   "Substitution": {
     name: "Substitution",
