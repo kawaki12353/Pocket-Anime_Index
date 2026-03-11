@@ -443,6 +443,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 0,
+    pp: 10,
   },
   "Sand Arm": {
     name: "Sand Arm",
@@ -841,6 +842,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Bazooka": {
     name: "Bazooka",
