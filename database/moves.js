@@ -64,6 +64,7 @@ const moves = {
     attack: "physical",
     power: 35,
     accuracy: 100,
+    pp: 25,
   },
   "Coated Blade": {
     name: "Coated Blade",
@@ -73,6 +74,7 @@ const moves = {
     attack: "physical",
     power: 60,
     accuracy: 100,
+    pp: 15,
   },
   "Desert Espada": {
     name: "Desert Espada",
@@ -82,6 +84,7 @@ const moves = {
     attack: "special",
     power: 60,
     accuracy: 100,
+    pp: 15,
   },
   "Crush": {
     name: "Crush",
@@ -146,6 +149,7 @@ const moves = {
     attack: "special",
     power: 40,
     accuracy: 100,
+    pp: 25,
   },
   "Explosion": {
     name: "Explosion",
@@ -201,6 +205,7 @@ const moves = {
     attack: "special",
     power: 60,
     accuracy: 100,
+    pp: 15,
   },
   "Dexterity": {
     name: "Dexterity",
@@ -465,6 +470,7 @@ const moves = {
     attack: "special",
     power: 65,
     accuracy: 100,
+    pp: 15,
   },
   "Sand Burial": {
     name: "Sand Burial",
@@ -492,6 +498,7 @@ const moves = {
     attack: "special",
     power: 45,
     accuracy: 100,
+    pp: 10,
   },
   "Wind Shuriken": {
     name: "Wind Shuriken",
@@ -581,6 +588,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 0,
+    pp: 15,
   },
   "Moon Fang Slash": {
     name: "Moon Fang Slash",
@@ -590,6 +598,7 @@ const moves = {
     attack: "special",
     power: 65,
     accuracy: 100,
+    pp: 12,
   },
   "Moon Fang Barrage": {
     name: "Moon Fang Barrage",
@@ -599,6 +608,7 @@ const moves = {
     attack: "physical",
     power: 55,
     accuracy: 100,
+    pp: 15,
   },
   "Menacing Aura": {
     name: "Menacing Aura",
@@ -608,6 +618,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Cut Down": {
     name: "Cut Down",
@@ -617,6 +628,7 @@ const moves = {
     attack: "physical",
     power: 40,
     accuracy: 100,
+    pp: 15,
   },
   "Heavenly Flame": {
     name: "Heavenly Flame",
@@ -635,6 +647,7 @@ const moves = {
     attack: "physical",
     power: 70,
     accuracy: 100,
+    pp: 15,
   },
   "Vengeful Illusion": {
     name: "Vengeful Illusion",
@@ -644,6 +657,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 70,
+    pp: 5,
   },
   "Electric Strike": {
     name: "Electric Strike",
@@ -653,6 +667,7 @@ const moves = {
     attack: "physical",
     power: 60,
     accuracy: 90,
+    pp: 15,
   },
   "Tiger's Barrage": {
     name: "Tiger's Barrage",
@@ -662,6 +677,7 @@ const moves = {
     attack: "physical",
     power: 45,
     accuracy: 100,
+    pp: 10,
   },
   "Fireball": {
     name: "Fireball",
@@ -671,6 +687,7 @@ const moves = {
     attack: "special",
     power: 50,
     accuracy: 100,
+    pp: 15,
   },
   "Kunai Barrage": {
     name: "Kunai Barrage",
@@ -680,6 +697,7 @@ const moves = {
     attack: "physical",
     power: 45,
     accuracy: 100,
+    pp: 25,
   },
   "Drain Life": {
     name: "Drain Life",
@@ -689,6 +707,7 @@ const moves = {
     attack: "physical",
     power: 60,
     accuracy: 80,
+    pp: 12,
   },
   "Vanishing Blow": {
     name: "Vanishing Blow",
@@ -725,6 +744,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 0,
+    pp: 8,
   },
   "Angry Explosion": {
     name: "Angry Explosion",
@@ -734,6 +754,7 @@ const moves = {
     attack: "special",
     power: 50,
     accuracy: 100,
+    pp: 12,
   },
   "Rest": {
     name: "Rest",
@@ -760,6 +781,7 @@ const moves = {
     attack: "special",
     power: 40,
     accuracy: 100,
+    pp: 20,
   },
   "Energy Charge": {
     name: "Energy Charge",
@@ -769,6 +791,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 0,
+    pp: 20,
   },
   "Rubber Balloon": {
     name: "Rubber Balloon",
@@ -863,5 +886,6 @@ const moves = {
     attack: "special",
     power: 25,
     accuracy: 100,
+    pp: 25,
   }
 };
