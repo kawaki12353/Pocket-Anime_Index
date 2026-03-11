@@ -128,6 +128,7 @@ const moves = {
     attack: "physical",
     power: 60,
     accuracy: 100,
+    pp: 15,
   },
   "Red Talon": {
     name: "Red Talon",
@@ -135,6 +136,7 @@ const moves = {
     attack: "physical",
     power: 65,
     accuracy: 100,
+    pp: 10,
   },
   "Mystic Shot": {
     name: "Mystic Shot",
