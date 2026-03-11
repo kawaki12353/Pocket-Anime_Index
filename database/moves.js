@@ -462,6 +462,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 5,
   },
   "Sand Bomb": {
     name: "Sand Bomb",
@@ -481,6 +482,7 @@ const moves = {
     attack: "special",
     power: 60,
     accuracy: 70,
+    pp: 12,
   },
   "Sand Storm": {
     name: "Sand Storm",
@@ -490,6 +492,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 16,
   },
   "Sand Tsunami": {
     name: "Sand Tsunami",
