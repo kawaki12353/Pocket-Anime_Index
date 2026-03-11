@@ -736,6 +736,7 @@ const moves = {
     attack: "physical",
     power: 70,
     accuracy: 0,
+    pp: 15,
   },
   "Limb Regrowth": {
     name: "Limb Regrowth",
@@ -763,6 +764,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 0,
+    pp: 5,
   },
   "Candy Beam": {
     name: "Candy Beam",
