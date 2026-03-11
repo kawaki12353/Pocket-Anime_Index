@@ -240,6 +240,7 @@
             box-sizing: border-box; position: relative;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex; flex-direction: column; gap: 20px;
+            overflow-y: auto;
         }
 
         /* Ativação do Modal */
@@ -256,11 +257,66 @@
         @media (min-width: 769px) {
             .modal-overlay { align-items: center; }
             .modal-content {
-                width: 450px; height: auto; border-radius: 20px;
+                width: 600px; /* Aumentado conforme solicitado */
+                height: auto; max-height: 80vh; border-radius: 20px;
                 transform: translateY(20px); opacity: 0; transition: all 0.3s;
             }
             .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
         }
+
+        /* --- Estilo Botão Animon Move --- */
+        .find-animon-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: opacity 0.2s;
+        }
+        .find-animon-btn:hover { opacity: 0.9; }
+
+        /* --- Modal Secundário (Animons que aprendem) --- */
+        .secondary-modal-content {
+            background: var(--card);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .close-animon-list {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none; /* Só aparece no Mobile */
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .animon-modal-full {
+                height: 100% !important;
+                border-radius: 0 !important;
+            }
+            .close-animon-list { display: block; }
+        }
+
+        .animon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .animon-item img { width: 40px; height: 40px; object-fit: contain; }
+        .animon-item-info { flex: 1; }
+        .animon-item-name { font-weight: bold; }
+        .animon-item-level { font-size: 12px; color: var(--text-secondary); }
 
         .lang-toggle {
             position: fixed; bottom: 10px; left: 50%;
@@ -312,6 +368,15 @@
     <div class="modal-content" onclick="event.stopPropagation()">
         <div id="modalData"></div>
         <div class="modal-desc" id="modalDesc"></div>
+        <button id="findAnimonBtn" class="find-animon-btn"></button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="animonModalOverlay" onclick="closeAnimonModal()" style="z-index: 1100;">
+    <div class="modal-content secondary-modal-content animon-modal-full" onclick="event.stopPropagation()">
+        <span class="close-animon-list" onclick="closeAnimonModal()">✕</span>
+        <h3 id="animonModalTitle" style="margin-top: 10px; text-align: center;"></h3>
+        <div id="animonListContainer" style="overflow-y: auto; flex: 1;"></div>
     </div>
 </div>
 
@@ -320,8 +385,7 @@
 </div>
 
 <script src="database/moves.js"></script>
-
-<script>
+<script src="database/animon.js"></script> <script>
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedType = "";
 let selectedCat = "";
@@ -336,7 +400,9 @@ const uiText = {
         physical: "Physical", special: "Special", status: "Status",
         btn: "🇧🇷 PT",
         pwr: "PWR", acc: "ACC", pp: "PP",
-        descLabel: "Descrição"
+        descLabel: "Descrição",
+        btnFind: "Animon que aprende esses Moves",
+        listHeader: "Animons que aprendem "
     },
     en: {
         title: "Moves Database",
@@ -347,7 +413,9 @@ const uiText = {
         physical: "Physical", special: "Special", status: "Status",
         btn: "🇺🇸 EN",
         pwr: "PWR", acc: "ACC", pp: "PP",
-        descLabel: "Description"
+        descLabel: "Description",
+        btnFind: "Animons that learn these Moves",
+        listHeader: "Animons that learn "
     }
 };
 
@@ -424,6 +492,7 @@ function openModal(move) {
     const modal = document.getElementById("modalOverlay");
     const dataContainer = document.getElementById("modalData");
     const descContainer = document.getElementById("modalDesc");
+    const findBtn = document.getElementById("findAnimonBtn");
     const cat = move.attack.toLowerCase();
 
     dataContainer.innerHTML = `
@@ -446,18 +515,59 @@ function openModal(move) {
         </div>
     `;
 
-    // Adiciona título "Descrição" e aplica sistema de cores
     const descRaw = lang === 'pt' ? move.desc_pt : move.desc_en;
     descContainer.innerHTML = `
         <div class="stat-label" style="text-align:left; margin-bottom:8px;">${uiText[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
     `;
 
+    findBtn.textContent = uiText[lang].btnFind;
+    findBtn.onclick = () => openAnimonListModal(move.name);
+
     modal.classList.add("active");
 }
 
 function closeModal() {
     document.getElementById("modalOverlay").classList.remove("active");
+}
+
+/* --- Funções para o Segundo Modal (Animons) --- */
+function openAnimonListModal(moveName) {
+    const overlay = document.getElementById("animonModalOverlay");
+    const title = document.getElementById("animonModalTitle");
+    const container = document.getElementById("animonListContainer");
+
+    title.textContent = uiText[lang].listHeader + moveName;
+    container.innerHTML = "";
+
+    // Filtra animons da database global 'animons'
+    const results = animons.filter(a => 
+        a.movesList && a.movesList.some(m => m.name === moveName)
+    );
+
+    if (results.length === 0) {
+        container.innerHTML = `<p style="text-align:center; padding: 20px;">None found.</p>`;
+    } else {
+        results.forEach(a => {
+            const moveInfo = a.movesList.find(m => m.name === moveName);
+            const item = document.createElement("div");
+            item.className = "animon-item";
+            item.innerHTML = `
+                <img src="${a.sprite}" onerror="this.src='assets/placeholder.png'">
+                <div class="animon-item-info">
+                    <div class="animon-item-name">${a.name}</div>
+                    <div class="animon-item-level">Level: ${moveInfo.level}</div>
+                </div>
+            `;
+            container.appendChild(item);
+        });
+    }
+
+    overlay.classList.add("active");
+}
+
+function closeAnimonModal() {
+    document.getElementById("animonModalOverlay").classList.remove("active");
 }
 
 function buildMenus() {
