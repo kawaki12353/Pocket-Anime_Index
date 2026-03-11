@@ -280,6 +280,42 @@
         }
         .find-animon-btn:hover { opacity: 0.9; }
 
+        /* --- Upgrade Skills Styling --- */
+        .upgrade-section {
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+        .upgrade-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .mini-move-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--hover);
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 10px;
+            min-width: 0;
+        }
+        .mini-move-name {
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0 5px;
+        }
+        .mini-icon { width: 18px; height: 18px; object-fit: contain; }
+        .mini-icon-cat { filter: grayscale(0.5); opacity: 0.8; }
+        .arrow-right { color: var(--text-secondary); font-weight: bold; }
+
         /* --- Modal Secundário (Animons que aprendem) --- */
         .secondary-modal-content {
             background: var(--card);
@@ -369,6 +405,7 @@
     <div class="modal-content" onclick="event.stopPropagation()">
         <div id="modalData"></div>
         <div class="modal-desc" id="modalDesc"></div>
+        <div id="upgradeContainer"></div>
         <button id="findAnimonBtn" class="find-animon-btn"></button>
     </div>
 </div>
@@ -386,7 +423,7 @@
 </div>
 
 <script src="database/moves.js"></script>
-<script src="database/animon.js"></script> <script>
+<script src="database/animons.js"></script> <script>
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedType = "";
 let selectedCat = "";
@@ -402,6 +439,7 @@ const uiText = {
         btn: "🇧🇷 PT",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Descrição",
+        upgradeLabel: "Ataque Evoluído",
         btnFind: "Animon que aprende esses Moves",
         listHeader: "Animons que aprendem "
     },
@@ -415,6 +453,7 @@ const uiText = {
         btn: "🇺🇸 EN",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Description",
+        upgradeLabel: "Upgrade Skill",
         btnFind: "Animons that learn these Moves",
         listHeader: "Animons that learn "
     }
@@ -489,10 +528,28 @@ function render() {
     });
 }
 
+// Helper para renderizar os mini containers de move
+function renderMiniMove(moveName) {
+    const moveData = Object.values(moves).find(m => m.name === moveName);
+    if (!moveData) return `<div class="mini-move-container">?</div>`;
+    
+    const typeImg = `assets/${moveData.type.toLowerCase()}_element.png`;
+    const catImg = `assets/${moveData.attack.toLowerCase()}.png`;
+
+    return `
+        <div class="mini-move-container">
+            <img src="${typeImg}" class="mini-icon">
+            <span class="mini-move-name">${moveData.name}</span>
+            <img src="${catImg}" class="mini-icon mini-icon-cat">
+        </div>
+    `;
+}
+
 function openModal(move) {
     const modal = document.getElementById("modalOverlay");
     const dataContainer = document.getElementById("modalData");
     const descContainer = document.getElementById("modalDesc");
+    const upgradeContainer = document.getElementById("upgradeContainer");
     const findBtn = document.getElementById("findAnimonBtn");
     const cat = move.attack.toLowerCase();
 
@@ -521,6 +578,25 @@ function openModal(move) {
         <div class="stat-label" style="text-align:left; margin-bottom:8px;">${uiText[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
     `;
+
+    // Lógica de Upgrades (Ataque Evoluído)
+    upgradeContainer.innerHTML = "";
+    if (move.moveTrigger && move.moveTrigger.length > 0) {
+        let html = `<div class="upgrade-section">
+            <div class="stat-label" style="text-align:left; margin-bottom:10px;">${uiText[lang].upgradeLabel}</div>`;
+        
+        move.moveTrigger.forEach(t => {
+            html += `
+                <div class="upgrade-row">
+                    ${renderMiniMove(t.move)}
+                    <span class="arrow-right">➜</span>
+                    ${renderMiniMove(t.trade)}
+                </div>
+            `;
+        });
+        html += `</div>`;
+        upgradeContainer.innerHTML = html;
+    }
 
     findBtn.textContent = uiText[lang].btnFind;
     findBtn.onclick = () => openAnimonListModal(move.name);
