@@ -162,6 +162,7 @@ const moves = {
     attack: "special",
     power: 300,
     accuracy: 100,
+    pp: 1,
   },
   "Charm": {
     name: "Charm",
@@ -181,6 +182,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 10,
   },
   "Fortune": {
     name: "Fortune",
@@ -190,6 +192,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Wide Explosion": {
     name: "Wide Explosion",
@@ -199,6 +202,7 @@ const moves = {
     attack: "special",
     power: 40,
     accuracy: 100,
+    pp: 12,
   },
   "Lightning Spear": {
     name: "Lightning Spear",
@@ -218,6 +222,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Slashgiri": {
     name: "Slashgiri",
@@ -227,6 +232,7 @@ const moves = {
     attack: "physical",
     power: 65,
     accuracy: 100,
+    pp: 15,
   },
   "108 Hawk": {
     name: "108 Hawk",
@@ -236,6 +242,7 @@ const moves = {
     attack: "special",
     power: 70,
     accuracy: 100,
+    pp: 12, 
   },
   "5000 Worlds": {
     name: "5000 Worlds",
@@ -245,6 +252,7 @@ const moves = {
     attack: "physical",
     power: 90,
     accuracy: 80,
+    pp: 10,
   },
   "Sinister Presence": {
     name: "Sinister Presence",
@@ -254,12 +262,14 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Tiger Song": {
     name: "Tiger Song",
     type: "wind",
     attack: "physical",
     accuracy: 100,
+    pp: 5,
   },
   "Junk Toss": {
     name: "Junk Toss",
@@ -269,6 +279,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 15,
   },
   "Taunt": {
     name: "Taunt",
@@ -278,6 +289,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 16,
   },
   "Rifle Shot": {
     name: "Rifle Shot",
@@ -287,6 +299,7 @@ const moves = {
     attack: "special",
     power: 40,
     accuracy: 100,
+    pp: 20,
   },
   "Missile Barrage": {
     name: "Missile Barrage",
@@ -296,6 +309,7 @@ const moves = {
     attack: "special",
     power: 50,
     accuracy: 100,
+    pp: 15,
   },
   "Thunder Set": {
     name: "Thunder Set",
@@ -305,6 +319,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 12,
   },
   "Electric Horn Angle": {
     name: "Electric Horn Angle",
@@ -314,6 +329,7 @@ const moves = {
     attack: "physical",
     power: 60,
     accuracy: 100,
+    pp: 15,
   },
   "Discharge": {
     name: "Discharge",
@@ -333,6 +349,7 @@ const moves = {
     attack: "special",
     power: 60.5,
     accuracy: 75,
+    pp: 15,
   },
   "Precise Energy Beam": {
     name: "Precise Energy Beam",
@@ -342,6 +359,7 @@ const moves = {
     attack: "special",
     power: 150,
     accuracy: 100,
+    pp: 8,
   },
   "Energy Shell": {
     name: "Energy Shell",
@@ -351,13 +369,15 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 8,
   },
-  "Galaxy Cannon": {
-    name: "Galaxy Cannon",
+  "Galaxy Wave": {
+    name: "Galaxy Wave",
     type: "fighting",
     attack: "special",
     power: 75,
     accuracy: 100,
+    pp: 15,
   },
   "Galaxy Burst": {
     name: "Galaxy Burst",
@@ -365,6 +385,7 @@ const moves = {
     attack: "physical",
     power: 70,
     accuracy: 100,
+    pp: 10,
   },
   "Energy Beam": {
     name: "Energy Beam",
@@ -372,6 +393,7 @@ const moves = {
     attack: "special",
     power: 60,
     accuracy: 100,
+    pp: 15,
   },
   "Dirty Fireworks": {
     name: "Dirty Fireworks",
@@ -379,6 +401,7 @@ const moves = {
     attack: "physical",
     power: 55,
     accuracy: 100,
+    pp: 15,
   },
   "Divine Bomb": {
     name: "Divine Bomb",
@@ -386,6 +409,7 @@ const moves = {
     attack: "special",
     power: 250,
     accuracy: 100,
+    pp: 5,
   },
   "Meteor Combo": {
     name: "Meteor Combo",
@@ -393,6 +417,7 @@ const moves = {
     attack: "physical",
     power: 75,
     accuracy: 100,
+    pp: 7,
   },
   "Super Energy Wave": {
     name: "Super Energy Wave",
@@ -400,6 +425,7 @@ const moves = {
     attack: "special",
     power: 60,
     accuracy: 100,
+    pp: 10,
   },
   "Cyclone Throw": {
     name: "Cyclone Throw",
@@ -409,6 +435,7 @@ const moves = {
     attack: "physical",
     power: 30,
     accuracy: 100,
+    pp: 12,
   },
   "Energy Wave": {
     name: "Energy Wave",
@@ -416,6 +443,7 @@ const moves = {
     attack: "special",
     power: 40,
     accuracy: 100,
+    pp: 20,
   },
   "Guzzle": {
     name: "Guzzle",
@@ -423,6 +451,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Reverse Lily": {
     name: "Reverse Lily",
@@ -430,6 +459,7 @@ const moves = {
     attack: "physical",
     power: 100,
     accuracy: 100,
+    pp: 5,
   },
   "Dive Kick": {
     name: "Dive Kick",
@@ -437,6 +467,7 @@ const moves = {
     attack: "physical",
     power: 50,
     accuracy: 85,
+    pp: 15,
   },
   "Afterimage": {
     name: "Afterimage",
@@ -516,6 +547,7 @@ const moves = {
     attack: "physical",
     power: 70,
     accuracy: 100,
+    pp: 15,
   },
   "Wind Palm": {
     name: "Wind Palm",
@@ -525,6 +557,7 @@ const moves = {
     attack: "physical",
     power: 60,
     accuracy: 80,
+    pp: 15,
   },
   "Smoke Screen": {
     name: "Smoke Screen",
@@ -534,6 +567,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Clone Barrage": {
     name: "Clone Barrage",
@@ -543,6 +577,7 @@ const moves = {
     attack: "physical",
     power: 65,
     accuracy: 100,
+    pp: 15,
   },
   "Aerial Combo": {
     name: "Aerial Combo",
@@ -552,6 +587,7 @@ const moves = {
     attack: "physical",
     power: 45,
     accuracy: 100,
+    pp: 15,
   },
   "Plunder": {
     name: "Plunder",
@@ -559,6 +595,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Spiritual Pressure": {
     name: "Spiritual Pressure",
@@ -568,6 +605,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 20,
   },
   "Sword Slash": {
     name: "Sword Slash",
@@ -575,6 +613,7 @@ const moves = {
     attack: "physical",
     power: 30,
     accuracy: 100,
+    pp: 25,
   },
   "Blade Surge": {
     name: "Blade Surge",
@@ -582,6 +621,7 @@ const moves = {
     attack: "physical",
     power: 40,
     accuracy: 100,
+    pp: 20,
   },
   "Sword Slam": {
     name: "Sword Slam",
@@ -589,6 +629,7 @@ const moves = {
     attack: "physical",
     power: 40,
     accuracy: 100,
+    pp: 15,
   },
   "Lunge": {
     name: "Lunge",
@@ -646,6 +687,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 60,
+    pp: 8,
   },
   "Pheonix Fire Bomb": {
     name: "Pheonix Fire Bomb",
@@ -725,6 +767,7 @@ const moves = {
     attack: "physical",
     power: 35,
     accuracy: 100,
+    pp: 15,
   },
   "Solar Flare": {
     name: "Solar Flare",
@@ -734,6 +777,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 8,
   },
   "Demon Elbow": {
     name: "Demon Elbow",
