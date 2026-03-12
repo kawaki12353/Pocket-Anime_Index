@@ -423,7 +423,8 @@
 </div>
 
 <script src="database/moves.js"></script>
-<script src="database/animons.js"></script> <script>
+<script src="database/animons.js"></script> 
+<script>
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedType = "";
 let selectedCat = "";
@@ -460,7 +461,7 @@ const uiText = {
 };
 
 const typeKeys = ["neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"];
-const categoryKeys = ["physical", "special", "status", "transformation"];
+const catKeys = ["physical", "special", "status", "transformation"];
 
 function capitalize(str) {
     if (!str) return "";
@@ -505,8 +506,8 @@ function render() {
             <div class="move-header">
                 <div class="move-name">${m.name}</div>
                 <div class="move-stats">
-                    <div><span class="stat-label">${uiText[lang].pwr}</span><span>${m.power || '??'}</span></div>
-                    <div><span class="stat-label">${uiText[lang].acc}</span><span>${m.accuracy || '??'}</span></div>
+                    <div><span class="stat-label">${uiText[lang].pwr}</span><span>${'power' in m ? (m.power || '--') : '??'}</span></div>
+                    <div><span class="stat-label">${uiText[lang].acc}</span><span>${'accuracy' in m ? (m.accuracy || '--') : '??'}</span></div>
                     <div><span class="stat-label">${uiText[lang].pp}</span><span>${m.pp || '--'}</span></div>
                 </div>
             </div>
@@ -557,8 +558,8 @@ function openModal(move) {
         <div class="move-header">
             <div class="move-name" style="font-size:24px">${move.name}</div>
             <div class="move-stats">
-                <div><span class="stat-label">${uiText[lang].pwr}</span><span>${move.power || '??'}</span></div>
-                <div><span class="stat-label">${uiText[lang].acc}</span><span>${move.accuracy || '??'}</span></div>
+                <div><span class="stat-label">${uiText[lang].pwr}</span><span>${'power' in move ? (move.power || '--') : '??'}</span></div>
+                <div><span class="stat-label">${uiText[lang].acc}</span><span>${'accuracy' in move ? (move.accuracy || '--') : '??'}</span></div>
                 <div><span class="stat-label">${uiText[lang].pp}</span><span>${move.pp || '--'}</span></div>
             </div>
         </div>
@@ -573,9 +574,9 @@ function openModal(move) {
         </div>
     `;
 
-    let descRaw = lang === 'pt' ? move.desc_pt : move.desc_en;
-    if (!descRaw) descRaw = "??";
-
+    const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
+    const descRaw = descKey in move ? move[descKey] : '??';
+    
     descContainer.innerHTML = `
         <div class="stat-label" style="text-align:left; margin-bottom:8px;">${uiText[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
@@ -661,7 +662,7 @@ function buildMenus() {
 
     const cList = document.getElementById("catList");
     cList.innerHTML = `<li onclick="selectCat('')">${uiText[lang].allCats}</li>`;
-    categoryKeys.forEach(c => {
+    catKeys.forEach(c => {
         const li = document.createElement("li");
         li.innerHTML = `<img src="assets/${c}.png" width="20" onerror="this.style.display='none'"> ${uiText[lang][c]}`;
         li.onclick = () => selectCat(c);
