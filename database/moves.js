@@ -154,6 +154,16 @@ const moves = {
     accuracy: 100,
     pp: 25,
   },
+  "Eureka": {
+    name: "Eureka",
+    desc_pt: "O usuário tem um momento de verdadeira inspiração aumentando seu [002]SP.ATK [+1][000] e [002]SP.DEF [+1][000].",
+    desc_en: "The user has a moment of true inspiration raising their [002]SP.ATK [+1][000] and [002]SP.DEF [+1][000].",
+    type: "neutral",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+    pp: 15,
+  },
   "Explosion": {
     name: "Explosion",
     desc_pt: "Recite um encantamento por 2 turnos, libere uma explosão de magia arcana que atinja múltiplos alvos. Em seguida, fique incapacitado por 2 turnos.",
