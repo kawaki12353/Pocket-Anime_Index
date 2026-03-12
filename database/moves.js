@@ -94,6 +94,7 @@ const moves = {
     attack: "physical",
     power: 30,
     accuracy: 100,
+    pp: 16,
   },
   "Fury": {
     name: "Fury",
@@ -103,6 +104,7 @@ const moves = {
     attack: "status",
     power: 0,
     accuracy: 100,
+    pp: 15,
   },
   "Z Bomb": {
     name: "Z Bomb",
@@ -112,6 +114,7 @@ const moves = {
     attack: "special",
     power: 140,
     accuracy: 100,
+    pp: 6,
   },
   "Jet Pistol": {
     name: "Jet Pistol",
@@ -875,6 +878,7 @@ const moves = {
     name: "Headbutt",
     type: "neutral",
     attack: "physical",
+    pp: 16,
   },
   "Armament": {
     name: "Armament",
