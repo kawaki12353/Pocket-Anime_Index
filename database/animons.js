@@ -382,6 +382,7 @@ const animons = [
       { level: 1, name: "Energy Shell" },
       { level: 1, name: "Mystic Shot" },
       { level: 5, name: "Junk Toss" },
+      { level: 7, name: "Eureka" },
       { level: 12, name: "Explosion" },
       { level: 15, name: "Charm" },
       { level: 18, name: "Fire Zone" },
