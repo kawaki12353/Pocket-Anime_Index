@@ -410,18 +410,33 @@
         }
       }
 
-      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-", desc: "", raw: null };
+      // Caso o move não exista no banco de dados
+      if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "??", accuracy: "??", desc: "??", raw: null };
 
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
       const attackValue = moveData.attack || "physical";
+
+      // Lógica solicitada para Power e Accuracy
+      const getStatValue = (key) => {
+        if (!(key in moveData)) return "??"; // Não encontrou no database
+        const val = moveData[key];
+        if (val === undefined || val === null || val === "") return "--"; // Caso vazio
+        return val;
+      };
+
+      // Lógica solicitada para Descrição (desc_pt ou desc_en)
+      const langKey = `desc_${lang}`;
+      const finalDesc = (langKey in moveData && moveData[langKey] !== "" && moveData[langKey] !== null) 
+                        ? moveData[langKey] 
+                        : "??";
 
       return {
         name: moveData.name || finalName,
         typeStr: String(typeValue).toLowerCase().trim(),
         attackStr: String(attackValue).toLowerCase().trim(),
-        power: (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") ? moveData.power : "-",
-        accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-",
-        desc: moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc || "",
+        power: getStatValue('power'),
+        accuracy: getStatValue('accuracy'),
+        desc: finalDesc,
         raw: moveData
       };
     }
@@ -460,12 +475,12 @@
           const movesHtml = [0, 1, 2, 3].map(mIndex => {
             const minfo = getMoveInfo(displayMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
-            
+
             // Verificamos se o move ORIGINAL deste slot tem moveTrigger para decidir a borda
             const originalMoveInfo = getMoveInfo(originalMoves[mIndex]);
             const hasTrigger = originalMoveInfo && originalMoveInfo.raw && originalMoveInfo.raw.moveTrigger;
             const isActiveTrigger = hasTrigger && (triggerIdx === mIndex);
-            
+
             return `
               <div class="mini-move ${isActiveTrigger ? 'active-trigger' : ''}" 
                    style="position:relative; cursor:pointer;" 
@@ -532,14 +547,14 @@
         } else {
           animon.activeTriggerIndex = moveIdx;
         }
-        
+
         // Atualiza o time (isso destrói o moveDiv atual)
         renderTeam();
 
         // Após renderizar, buscamos o NOVO elemento que foi criado no mesmo lugar
         const updatedSlot = DOM.grid.children[animonIdx];
         const newMoveDiv = updatedSlot.querySelectorAll('.mini-move')[moveIdx];
-        
+
         // Abre o balão no novo elemento
         if (newMoveDiv) {
           toggleMoveBalloon(newMoveDiv);
