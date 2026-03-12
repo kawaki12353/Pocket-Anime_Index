@@ -460,7 +460,7 @@ const uiText = {
 };
 
 const typeKeys = ["neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"];
-const catKeys = ["physical", "special", "status", "transformation"];
+constLogic = ["physical", "special", "status", "transformation"];
 
 function capitalize(str) {
     if (!str) return "";
@@ -505,8 +505,8 @@ function render() {
             <div class="move-header">
                 <div class="move-name">${m.name}</div>
                 <div class="move-stats">
-                    <div><span class="stat-label">${uiText[lang].pwr}</span><span>${m.power || '--'}</span></div>
-                    <div><span class="stat-label">${uiText[lang].acc}</span><span>${m.accuracy || '--'}</span></div>
+                    <div><span class="stat-label">${uiText[lang].pwr}</span><span>${m.power === 0 ? '--' : (m.power || '??')}</span></div>
+                    <div><span class="stat-label">${uiText[lang].acc}</span><span>${m.accuracy === 0 ? '--' : (m.accuracy || '??')}</span></div>
                     <div><span class="stat-label">${uiText[lang].pp}</span><span>${m.pp || '--'}</span></div>
                 </div>
             </div>
@@ -532,7 +532,7 @@ function render() {
 function renderMiniMove(moveName) {
     const moveData = Object.values(moves).find(m => m.name === moveName);
     if (!moveData) return `<div class="mini-move-container">?</div>`;
-    
+
     const typeImg = `assets/${moveData.type.toLowerCase()}_element.png`;
     const catImg = `assets/${moveData.attack.toLowerCase()}.png`;
 
@@ -557,8 +557,8 @@ function openModal(move) {
         <div class="move-header">
             <div class="move-name" style="font-size:24px">${move.name}</div>
             <div class="move-stats">
-                <div><span class="stat-label">${uiText[lang].pwr}</span><span>${move.power || '--'}</span></div>
-                <div><span class="stat-label">${uiText[lang].acc}</span><span>${move.accuracy || '--'}</span></div>
+                <div><span class="stat-label">${uiText[lang].pwr}</span><span>${move.power === 0 ? '--' : (move.power || '??')}</span></div>
+                <div><span class="stat-label">${uiText[lang].acc}</span><span>${move.accuracy === 0 ? '--' : (move.accuracy || '??')}</span></div>
                 <div><span class="stat-label">${uiText[lang].pp}</span><span>${move.pp || '--'}</span></div>
             </div>
         </div>
@@ -573,7 +573,7 @@ function openModal(move) {
         </div>
     `;
 
-    const descRaw = lang === 'pt' ? move.desc_pt : move.desc_en;
+    const descRaw = (lang === 'pt' ? move.desc_pt : move.desc_en) || '??';
     descContainer.innerHTML = `
         <div class="stat-label" style="text-align:left; margin-bottom:8px;">${uiText[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
@@ -584,7 +584,7 @@ function openModal(move) {
     if (move.moveTrigger && move.moveTrigger.length > 0) {
         let html = `<div class="upgrade-section">
             <div class="stat-label" style="text-align:left; margin-bottom:10px;">${uiText[lang].upgradeLabel}</div>`;
-        
+
         move.moveTrigger.forEach(t => {
             html += `
                 <div class="upgrade-row">
