@@ -400,7 +400,7 @@ const animons = [
       { level: 1, name: "Energy Charge" },
       { level: 7, name: "Dirty Fireworks" },
       { level: 12, name: "Energy Beam" },
-      { level: 18, name: "Galaxy Cannon" },
+      { level: 18, name: "Galaxy Wave" },
       { level: 20, name: "Galaxy Burst" },
       { level: 24, name: "Dive Kick" }
      ]
