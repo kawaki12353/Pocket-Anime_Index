@@ -645,7 +645,7 @@ const moves = {
     accuracy: 60,
   },
   "Pheonix Fire Bomb": {
-    name: "Phoenix Fire Bomb",
+    name: "Pheonix Fire Bomb",
     desc_pt: "Bolas de fogo consecutivas com 20% de chance de [003]queimar[000] o alvo.",
     desc_en: "Consecutive fireballs with a 20% chance to [003]burn[000] a target.",
     type: "fire",
