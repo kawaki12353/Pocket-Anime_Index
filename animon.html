@@ -482,13 +482,13 @@
             overflow: hidden; /* Essencial para o carrossel */
             width: 100%;
         }
-        
+
         .location-viewport {
             width: 100%;
             overflow: hidden;
             cursor: grab;
         }
-        
+
         .location-viewport:active { cursor: grabbing; }
 
         .location-track {
@@ -512,13 +512,13 @@
             text-transform: uppercase;
             margin-bottom: 5px;
         }
-        
+
         .location-desc {
             font-weight: bold;
             margin-bottom: 10px;
             font-size: 16px;
         }
-        
+
         .location-image {
             width: 100%;
             max-width: 600px;
@@ -535,7 +535,7 @@
             gap: 8px;
             margin-top: 15px;
         }
-        
+
         .dot {
             width: 12px;
             height: 12px;
@@ -544,7 +544,7 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        
+
         .dot.active {
             background: var(--primary);
         }
@@ -736,16 +736,33 @@ function getMoveInfo(moveInput) {
             if (exactKey) moveData = moves[exactKey];
         }
     }
-    if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "-", accuracy: "-", desc: "" };
+    
+    // Se não encontrou o moveData, retorna tudo como "??"
+    if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "??", accuracy: "??", desc: "??" };
+
     const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
     const attackValue = moveData.attack || "physical";
+
+    // Lógica para Power e Accuracy: se for 0 exibe "--", se não existir ou estiver vazio exibe "??"
+    const finalPower = (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") 
+                        ? (moveData.power === 0 || moveData.power === "0" ? "--" : moveData.power) 
+                        : "??";
+
+    const finalAccuracy = (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") 
+                        ? (moveData.accuracy === 0 || moveData.accuracy === "0" ? "--" : moveData.accuracy) 
+                        : "??";
+
+    // Lógica para Descrição: se não existir ou for vazia, exibe "??"
+    const rawDesc = moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc;
+    const finalDesc = (rawDesc && rawDesc !== "") ? rawDesc : "??";
+
     return {
         name: moveData.name || finalName,
         typeStr: String(typeValue).toLowerCase().trim(),
         attackStr: String(attackValue).toLowerCase().trim(),
-        power: (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") ? moveData.power : "-",
-        accuracy: (moveData.accuracy !== undefined && moveData.accuracy !== null && moveData.accuracy !== "") ? moveData.accuracy : "-",
-        desc: moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc || ""
+        power: finalPower,
+        accuracy: finalAccuracy,
+        desc: finalDesc
     };
 }
 
@@ -1134,7 +1151,7 @@ function renderLocations() {
         container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; 
         return; 
     }
-    
+
     currentLocIndex = 0;
     const locWrapper = document.createElement('div');
     locWrapper.className = 'location-container';
@@ -1142,7 +1159,7 @@ function renderLocations() {
     // Criação do Viewport e Trilho (Track)
     const viewport = document.createElement('div');
     viewport.className = 'location-viewport';
-    
+
     const track = document.createElement('div');
     track.className = 'location-track';
 
@@ -1183,7 +1200,7 @@ function renderLocations() {
 
         currentLocIndex = index;
         track.style.transform = `translateX(-${index * 100}%)`;
-        
+
         // Atualiza Dots
         const allDots = dotsRow.querySelectorAll('.dot');
         allDots.forEach((d, i) => d.classList.toggle('active', i === index));
