@@ -324,6 +324,13 @@
             gap: 15px;
         }
 
+        /* Container do Título solicitado */
+        .modal-title-container {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 5px;
+        }
+
         .close-animon-list {
             position: absolute;
             top: 15px;
@@ -413,7 +420,9 @@
 <div class="modal-overlay" id="animonModalOverlay" onclick="closeAnimonModal()" style="z-index: 1100;">
     <div class="modal-content secondary-modal-content animon-modal-full" onclick="event.stopPropagation()">
         <span class="close-animon-list" onclick="closeAnimonModal()">✕</span>
-        <h3 id="animonModalTitle" style="margin-top: 10px; text-align: center;"></h3>
+        <div class="modal-title-container">
+            <h3 id="animonModalTitle" style="margin-top: 10px; text-align: center;"></h3>
+        </div>
         <div id="animonListContainer" style="overflow-y: auto; flex: 1;"></div>
     </div>
 </div>
@@ -490,6 +499,9 @@ function render() {
     listEl.innerHTML = "";
 
     const movesArray = Object.values(moves);
+
+    // ALTERAÇÃO: Ordem alfabética aplicada aqui
+    movesArray.sort((a, b) => a.name.localeCompare(b.name));
 
     const filtered = movesArray.filter(m => {
         const nameMatch = m.name.toLowerCase().includes(searchVal);
@@ -576,7 +588,7 @@ function openModal(move) {
 
     const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
     const descRaw = descKey in move ? move[descKey] : '??';
-    
+
     descContainer.innerHTML = `
         <div class="stat-label" style="text-align:left; margin-bottom:8px;">${uiText[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
