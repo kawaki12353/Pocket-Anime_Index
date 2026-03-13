@@ -1,4 +1,14 @@
 const moves = {
+  "Double Shot": {
+    name: "Double Shot",
+    desc_pt: "Atire no alvo uma vez; se acertar, há 50% de chance de realizar um segundo disparo com metade do dano.",
+    desc_en: "Shoot a target once, if successful, 50% chance to follow up with a second shot at half damage.",
+    type: "dark",
+    attack: "special",
+    power: 50,
+    accuracy: 100,
+    pp: 15,
+  },
   "Lightning Spread": {
     name: "Lightning Spread",
     desc_pt: "Libera um choque elétrico que ignora precisão e esquiva.",
