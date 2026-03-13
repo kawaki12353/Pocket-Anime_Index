@@ -555,7 +555,7 @@
             align-items: center;
             justify-content: space-between;
             background: var(--card);
-            border: 0.5px solid #FE01FA; /* Borda fina da cor da letra */
+            border: 1px solid #FE01FA; /* Borda da mesma cor das letras */
             border-radius: 10px;
             padding: 12px 15px;
             margin: 15px auto 0;
@@ -597,19 +597,23 @@
         /* PC Style - Ajustado para não bugar */
         @media (min-width: 769px) {
             .event-banner-btn {
-                width: 65%; /* Largura reduzida no PC */
+                max-width: 400px; /* Reduzida largura do botão no PC */
+            }
+            .event-modal-overlay {
+                transition: none !important; /* Retirado animação e delay no PC */
             }
             .event-modal-content {
                 width: 450px;
                 max-height: 85vh;
                 top: 50%; left: 50%;
-                transform: translate(-50%, -50%); 
+                transform: translate(-50%, -40%); /* Inicial levemente abaixo */
                 border-radius: 15px;
                 opacity: 0;
                 visibility: hidden;
-                transition: none; /* Retirado animação no PC */
+                transition: none !important; /* Retirado animação e delay no PC */
             }
             .event-modal-content.open {
+                transform: translate(-50%, -50%);
                 opacity: 1;
                 visibility: visible;
             }
@@ -658,7 +662,7 @@
         /* Ajuste da Imagem do Evento (Maior e Arredondada igual Localizações) */
         .event-modal-sprite { 
             width: 100%;
-            max-width: 397px; /* Diminuído em 3px */
+            max-width: 350px; /* Diminuída um pouquinho a largura da imagem */
             height: auto;
             aspect-ratio: 16 / 9;
             object-fit: cover;
