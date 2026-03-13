@@ -315,6 +315,7 @@ const animons = [
     traits: [
       { name: "Ninjutsu Mastery", chance: "50%" }],
     anime: { name: "Naruto", anime:"Naruto" },
+    event: "Shinobi",
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
