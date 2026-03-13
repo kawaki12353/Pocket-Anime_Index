@@ -314,6 +314,8 @@ const animons = [
   { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 }, areas: ["0006"],
     traits: [
       { name: "Ninjutsu Mastery", chance: "50%" }],
+    desc_pt: "Um dia eu vou me tornar Hokage, e todos vão me reconhecer!",
+    desc_en: "Someday I’ll become Hokage, and everyone will acknowledge me!",
     anime: { name: "Naruto", anime:"Naruto" },
     event: "Shinobi",
     movesList: [
@@ -330,6 +332,8 @@ const animons = [
       { name: "Fox Spirit", chance: "5%" },
       { name: "Ninjutsu Mastery", chance: "75%" },
       { name: "Wind Affinity", chance: "75%" }],
+    desc_pt: "Eu nunca volto atrás na minha palavra. Esse é o meu jeito ninja!",
+    desc_en: "I never go back on my word. That's my ninja way!",
     anime: { name: "Naruto", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
