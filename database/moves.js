@@ -473,7 +473,7 @@ const moves = {
   },
   "Guzzle": {
     name: "Guzzle",
-    desc_pt: "O animon começa a terminar uma bebida! Ganhe dois estágios [002][+2][000] de [002]ATK[000] e ganhe o efeito [002]Confusão[000].",
+    desc_pt: "O animon começa a terminar uma bebida! Ganhe dois estágios [002][+2][000] de [002]ATK[000] e ganhe o efeito [004]Confusão[000].",
     desc_en: "The animon begins to finish a drink! Gain two stages [002][+2][000] of [002]ATK[000] and gain the [004]Confuse[000] effect.",
     type: "neutral",
     attack: "status",
