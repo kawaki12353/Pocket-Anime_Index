@@ -555,7 +555,7 @@
             align-items: center;
             justify-content: space-between;
             background: var(--card);
-            border: 1px solid #FE01FA; /* Borda da mesma cor das letras */
+            border: 0.5px solid #FE01FA; /* Borda fina da cor da letra */
             border-radius: 10px;
             padding: 12px 15px;
             margin: 15px auto 0;
@@ -596,24 +596,23 @@
 
         /* PC Style - Ajustado para não bugar */
         @media (min-width: 769px) {
-            .event-banner-btn {
-                max-width: 400px; /* Reduzida largura do botão no PC */
-            }
             .event-modal-overlay {
-                transition: none !important; /* Retirado animação e delay no PC */
+                transition: none !important; /* Sem animação/delay no PC */
+            }
+            .event-banner-btn {
+                max-width: 450px; /* Largura reduzida no PC */
             }
             .event-modal-content {
                 width: 450px;
                 max-height: 85vh;
                 top: 50%; left: 50%;
-                transform: translate(-50%, -40%); /* Inicial levemente abaixo */
+                transform: translate(-50%, -50%); 
                 border-radius: 15px;
                 opacity: 0;
                 visibility: hidden;
-                transition: none !important; /* Retirado animação e delay no PC */
+                transition: none !important; /* Sem animação/delay no PC */
             }
             .event-modal-content.open {
-                transform: translate(-50%, -50%);
                 opacity: 1;
                 visibility: visible;
             }
@@ -662,7 +661,7 @@
         /* Ajuste da Imagem do Evento (Maior e Arredondada igual Localizações) */
         .event-modal-sprite { 
             width: 100%;
-            max-width: 350px; /* Diminuída um pouquinho a largura da imagem */
+            max-width: 400px; /* Maior que antes */
             height: auto;
             aspect-ratio: 16 / 9;
             object-fit: cover;
@@ -872,7 +871,7 @@ function openEventModal(eventKey) {
     modal.innerHTML = `
         <div class="event-modal-title">${ev.name}</div>
         <img src="${ev.sprite}" class="event-modal-sprite" onerror="this.src='assets/sem_icone.png'">
-        <div class="event-modal-desc">${ev[`desc_${lang}`] || ev.desc_pt}</div>
+        <div class="event-modal-desc">${parseColoredText(ev[`desc_${lang}`] || ev.desc_pt)}</div>
         ${animonsHtml}
     `;
 
