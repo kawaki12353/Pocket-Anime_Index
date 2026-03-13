@@ -321,8 +321,7 @@ const animons = [
       { level: 5, name: "Aerial Combo" },
       { level: 11, name: "Clone Barrage" },
       { level: 14, name: "Smoke Screen" },
-      { level: 19, name: "Wind Palm" },
-      { level: 24, name: "Wind Shuriken" }
+      { level: 19, name: "Wind Palm" }
     ]
   },
   { id: 13.01, name: "TS Ramen", type: ["Wind", "Demon"], sprite: "assets/animons-icon/ts_ramen.png", stats: { hp: 54, atk: 88, def: 48, spAtk: 54, spDef: 48, spd: 80 },
