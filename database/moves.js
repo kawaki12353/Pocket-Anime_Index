@@ -68,7 +68,7 @@ const moves = {
   },
   "Coated Blade": {
     name: "Coated Blade",
-    desc_pt: "Lâmina que secreta um veneno letal com 30% de chance de [006]envenenar[000] por 5 turnos. [006]Envenena[000] instantaneamente se o alvo estiver [005]ferido[000].",
+    desc_pt: "Uma Lâmina que esconde um veneno letal com 30% de chance de [006]envenenar[000] por 5 turnos. [006]Envenena[000] instantaneamente se o alvo estiver [005]ferido[000].",
     desc_en: "Blade secreting a lethal poison with a 30% chance to [006]poison[000] for 5 turns. Instantly [006]poisons[000] if target is [005]wounded[000].",
     type: "poison",
     attack: "physical",
