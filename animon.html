@@ -549,29 +549,89 @@
             background: var(--primary);
         }
 
+        /* --- ESTILOS DO EVENTO (NOVO) --- */
+        .event-banner-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 15px auto 0;
+            cursor: pointer;
+            max-width: 600px;
+            width: 90%;
+            color: #FE01FA;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .event-banner-btn:hover { background: var(--hover); }
+
+        .event-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10001;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .event-modal-overlay.active { display: block; opacity: 1; }
+
+        .event-modal-content {
+            background: var(--card);
+            position: fixed;
+            z-index: 10002;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* PC Style */
+        @media (min-width: 769px) {
+            .event-modal-content {
+                width: 400px;
+                max-height: 80%;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 15px;
+            }
+        }
+
+        /* Mobile Style */
         @media (max-width: 768px) {
-            /* --- Alteração Solicitada: Posicionamento dos Elementos no Mobile --- */
+            .event-modal-content {
+                width: 100%;
+                height: 65%;
+                bottom: 0; left: 0;
+                transform: translateY(100%);
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                border-radius: 20px 20px 0 0;
+            }
+            .event-modal-content.open { transform: translateY(0); }
+
+            /* --- Ajustes Mobile Existentes --- */
             .top-section { position: relative; }
             .desc-types-container {
                 position: absolute;
                 top: 8px;
-                left: 88px; /* Posiciona no canto superior direito da moldura de 120px */
-                flex-direction: column; /* Empilha um em cima do outro */
+                left: 88px;
+                flex-direction: column;
                 gap: 4px;
                 z-index: 10;
             }
-            /* ------------------------------------------------------------------ */
-
-            #traitsContainer {
-                height: 198px; 
-                overflow-y: auto;
-            }
+            #traitsContainer { height: 198px; overflow-y: auto; }
             .header { justify-content: flex-end; }
             .logo { width: 150px; }
             .top-section { gap: 10px; }
             .sprite-frame { width: 120px; height: 120px; }
             .desc-box { font-size: 14px; padding: 10px; }
-
             .move-item { grid-template-columns: 45px 1fr 48px 48px; font-size: 11px; padding: 8px 4px; gap: 4px; }
             .move-header { padding-left: 29px; padding-right: 29px; } 
             .move-icon { width: 24px; height: 24px; }
@@ -579,10 +639,15 @@
             .evo-card { width: 85px; min-width: 85px; }
             .evo-mini-frame { width: 70px; height: 70px; }
             .evo-arrow { font-size: 18px; }
-
-            /* AJUSTE SOLICITADO: Imagens das Localizações no Mobile */
             .location-image { max-width: 280px; }
         }
+
+        .event-modal-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); }
+        .event-modal-sprite { width: 120px; height: 120px; object-fit: contain; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; background: var(--bg); }
+        .event-modal-desc { text-align: center; font-size: 14px; line-height: 1.4; margin-bottom: 20px; width: 100%; }
+        .event-modal-list { width: 100%; text-align: left; background: var(--bg); border-radius: 8px; padding: 10px; box-sizing: border-box; }
+        .event-modal-list h4 { margin: 0 0 8px 0; font-size: 13px; opacity: 0.7; }
+        .event-modal-list ul { margin: 0; padding-left: 20px; font-size: 14px; }
     </style>
 </head>
 
@@ -646,8 +711,11 @@
     <button id="langBtn"></button>
 </div>
 
+<div id="eventOverlay" class="event-modal-overlay" onclick="closeEventModal()"></div>
+<div id="eventModal" class="event-modal-content"></div>
+
 <script src="database/animons.js"></script>
-<script src="database/moves.js"></script>
+<script src="database/events.js"></script> <script src="database/moves.js"></script>
 <script src="database/traits.js"></script>
 <script src="database/typechart.js"></script>
 <script src="database/areas.js"></script>
@@ -682,7 +750,8 @@ const uiText = {
         typeChart: "Tabela de Tipo",
         evoTitle: "Grade Evolutiva",
         readMore: "Ver mais",
-        readLess: "Ver menos"
+        readLess: "Ver menos",
+        animonsInEvent: "Animons neste evento:"
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
@@ -705,9 +774,46 @@ const uiText = {
         typeChart: "Type Chart",
         evoTitle: "Evolution Grade",
         readMore: "See more",
-        readLess: "See less"
+        readLess: "See less",
+        animonsInEvent: "Animons in this event:"
     }
 };
+
+// --- FUNÇÕES DE EVENTO ---
+function openEventModal(eventKey) {
+    if (!events || !events[eventKey]) return;
+    const ev = events[eventKey];
+    const modal = document.getElementById('eventModal');
+    const overlay = document.getElementById('eventOverlay');
+    const ui = uiText[lang];
+
+    let animonsHtml = "";
+    if (ev.animon && ev.animon.length > 0) {
+        animonsHtml = `
+            <div class="event-modal-list">
+                <h4>${ui.animonsInEvent}</h4>
+                <ul>${ev.animon.map(a => `<li>${a}</li>`).join('')}</ul>
+            </div>
+        `;
+    }
+
+    modal.innerHTML = `
+        <div class="event-modal-title">${ev.name}</div>
+        <img src="${ev.sprite}" class="event-modal-sprite" onerror="this.src='assets/sem_icone.png'">
+        <div class="event-modal-desc">${ev[`desc_${lang}`] || ev.desc_pt}</div>
+        ${animonsHtml}
+    `;
+
+    overlay.classList.add('active');
+    setTimeout(() => modal.classList.add('open'), 10);
+}
+
+function closeEventModal() {
+    const modal = document.getElementById('eventModal');
+    const overlay = document.getElementById('eventOverlay');
+    modal.classList.remove('open');
+    setTimeout(() => overlay.classList.remove('active'), 300);
+}
 
 function parseColoredText(text) {
   if (!text) return "";
@@ -736,14 +842,12 @@ function getMoveInfo(moveInput) {
             if (exactKey) moveData = moves[exactKey];
         }
     }
-    
-    // Se não encontrou o moveData, retorna tudo como "??"
+
     if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "??", accuracy: "??", desc: "??" };
 
     const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
     const attackValue = moveData.attack || "physical";
 
-    // Lógica para Power e Accuracy: se for 0 exibe "--", se não existir ou estiver vazio exibe "??"
     const finalPower = (moveData.power !== undefined && moveData.power !== null && moveData.power !== "") 
                         ? (moveData.power === 0 || moveData.power === "0" ? "--" : moveData.power) 
                         : "??";
@@ -752,7 +856,6 @@ function getMoveInfo(moveInput) {
                         ? (moveData.accuracy === 0 || moveData.accuracy === "0" ? "--" : moveData.accuracy) 
                         : "??";
 
-    // Lógica para Descrição: se não existir ou for vazia, exibe "??"
     const rawDesc = moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc;
     const finalDesc = (rawDesc && rawDesc !== "") ? rawDesc : "??";
 
@@ -812,7 +915,6 @@ window.onload = () => {
 
     updateLang();
 
-    // Listeners para fechar/mover balão no scroll dos painéis
     document.getElementById('traitsContainer').addEventListener('scroll', updateBalloonPosition);
     document.getElementById('tab-moves').addEventListener('scroll', updateBalloonPosition);
     window.addEventListener('scroll', updateBalloonPosition);
@@ -853,7 +955,7 @@ function renderDescription() {
     descText = descText.replace(/^"|"$/g, ''); 
 
     const isMobile = window.innerWidth <= 768;
-    const limit = 70; // Alterado para 70 conforme solicitado
+    const limit = 70; 
 
     if (isMobile && descText.length > limit) {
         const truncated = descText.substring(0, limit) + "...";
@@ -1037,11 +1139,8 @@ function toggleMoveBalloon(moveDiv) {
 
 function updateBalloonPosition() {
     if (!openedMoveBalloon || !balloonAnchor) return;
-
     const rect = balloonAnchor.getBoundingClientRect();
     const parentContainer = balloonAnchor.closest('.tab-content, .traits-container');
-
-    // Verifica se o item ainda está visível dentro do container scrollable
     if (parentContainer) {
         const parentRect = parentContainer.getBoundingClientRect();
         const buffer = 10;
@@ -1050,8 +1149,6 @@ function updateBalloonPosition() {
             return;
         }
     }
-
-    // Atualiza posição do balão conforme o scroll
     openedMoveBalloon.style.left = (rect.left + rect.width / 2) + "px";
     openedMoveBalloon.style.top = (rect.bottom + window.scrollY + 8) + "px";
 }
@@ -1156,14 +1253,12 @@ function renderLocations() {
     const locWrapper = document.createElement('div');
     locWrapper.className = 'location-container';
 
-    // Criação do Viewport e Trilho (Track)
     const viewport = document.createElement('div');
     viewport.className = 'location-viewport';
 
     const track = document.createElement('div');
     track.className = 'location-track';
 
-    // Pré-renderização de todos os slides
     areaDataList.forEach(area => {
         const slide = document.createElement('div');
         slide.className = 'location-slide';
@@ -1179,7 +1274,6 @@ function renderLocations() {
     viewport.appendChild(track);
     locWrapper.appendChild(viewport);
 
-    // Dots (Pontinhos)
     const dotsRow = document.createElement('div');
     dotsRow.className = 'location-image-dots';
     if (areaDataList.length > 1) {
@@ -1192,66 +1286,37 @@ function renderLocations() {
     }
     locWrapper.appendChild(dotsRow);
 
-    // Lógica de Movimentação e Loop
     function moveToSlide(index) {
-        // Lógica de Loop Infinito
         if (index >= areaDataList.length) index = 0;
         else if (index < 0) index = areaDataList.length - 1;
-
         currentLocIndex = index;
         track.style.transform = `translateX(-${index * 100}%)`;
-
-        // Atualiza Dots
         const allDots = dotsRow.querySelectorAll('.dot');
         allDots.forEach((d, i) => d.classList.toggle('active', i === index));
     }
 
-    // Lógica de Swipe/Arrastar Suave
     let startX = 0;
     let isDragging = false;
-    let currentPos = 0;
+    const dragStart = (e) => { isDragging = true; startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; track.style.transition = 'none'; };
+    const dragMove = (e) => { if (!isDragging) return; const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; const walk = x - startX; const baseTranslate = -(currentLocIndex * 100); const percentMove = (walk / viewport.offsetWidth) * 100; track.style.transform = `translateX(${baseTranslate + percentMove}%)`; };
+    const dragEnd = (e) => { if (!isDragging) return; isDragging = false; track.style.transition = ''; const x = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX; const diff = startX - x; if (Math.abs(diff) > 50) { if (diff > 0) moveToSlide(currentLocIndex + 1); else moveToSlide(currentLocIndex - 1); } else { moveToSlide(currentLocIndex); } };
 
-    const dragStart = (e) => {
-        isDragging = true;
-        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        track.style.transition = 'none'; // Desativa transição durante o arraste manual
-    };
-
-    const dragMove = (e) => {
-        if (!isDragging) return;
-        const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        const walk = x - startX;
-        // Permite ver o arraste em tempo real
-        const baseTranslate = -(currentLocIndex * 100);
-        const percentMove = (walk / viewport.offsetWidth) * 100;
-        track.style.transform = `translateX(${baseTranslate + percentMove}%)`;
-    };
-
-    const dragEnd = (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        track.style.transition = ''; // Restaura transição suave
-        const x = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
-        const diff = startX - x;
-
-        if (Math.abs(diff) > 50) { // Sensibilidade do swipe
-            if (diff > 0) moveToSlide(currentLocIndex + 1);
-            else moveToSlide(currentLocIndex - 1);
-        } else {
-            moveToSlide(currentLocIndex); // Volta para a posição original se não arrastou o suficiente
-        }
-    };
-
-    viewport.addEventListener('mousedown', dragStart);
-    viewport.addEventListener('mousemove', dragMove);
-    window.addEventListener('mouseup', dragEnd);
-    viewport.addEventListener('mouseleave', () => { if(isDragging) dragEnd({clientX: startX}); }); // Caso saia do elemento
-
-    viewport.addEventListener('touchstart', dragStart, {passive: true});
-    viewport.addEventListener('touchmove', dragMove, {passive: true});
-    viewport.addEventListener('touchend', dragEnd, {passive: true});
+    viewport.addEventListener('mousedown', dragStart); viewport.addEventListener('mousemove', dragMove); window.addEventListener('mouseup', dragEnd);
+    viewport.addEventListener('touchstart', dragStart, {passive: true}); viewport.addEventListener('touchmove', dragMove, {passive: true}); viewport.addEventListener('touchend', dragEnd, {passive: true});
 
     container.appendChild(locWrapper);
+
+    // --- DETECÇÃO E RENDERIZAÇÃO DO BANNER DE EVENTO ---
+    if (currentAnimon.event && typeof events !== 'undefined') {
+        const eventData = events[currentAnimon.event];
+        if (eventData) {
+            const eventBtn = document.createElement('div');
+            eventBtn.className = 'event-banner-btn';
+            eventBtn.innerHTML = `<span>${eventData.chat}</span><span style="font-size: 18px;">ⓘ</span>`;
+            eventBtn.onclick = () => openEventModal(currentAnimon.event);
+            container.appendChild(eventBtn);
+        }
+    }
 }
 
 function updateTabTitle(tabId) {
@@ -1264,7 +1329,7 @@ function updateTabTitle(tabId) {
 }
 
 function switchTab(tabId) {
-    closeMoveBalloonOnce(); // Fecha balões ao trocar de aba
+    closeMoveBalloonOnce(); 
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
