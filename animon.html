@@ -558,7 +558,7 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 12px 15px;
-            margin: 15px auto 0;
+            margin: 0 auto 15px; /* Ajustado margem */
             cursor: pointer;
             max-width: 600px;
             width: 90%;
@@ -781,8 +781,11 @@ const uiText = {
 
 // --- FUNÇÕES DE EVENTO ---
 function openEventModal(eventKey) {
-    if (!events || !events[eventKey]) return;
-    const ev = events[eventKey];
+    if (!events) return;
+    // Suporte para encontrar evento se database/events for Objeto ou Array
+    const ev = Array.isArray(events) ? events.find(e => e.id === eventKey) : events[eventKey];
+    if (!ev) return;
+
     const modal = document.getElementById('eventModal');
     const overlay = document.getElementById('eventOverlay');
     const ui = uiText[lang];
@@ -1238,14 +1241,41 @@ function renderEvolutions() {
 function renderLocations() {
     const container = document.getElementById('locationContent');
     container.innerHTML = "";
-    if (!currentAnimon || !currentAnimon.areas || currentAnimon.areas.length === 0) { 
-        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; 
+    if (!currentAnimon) return;
+
+    // --- DETECÇÃO E RENDERIZAÇÃO DO BANNER DE EVENTO (CORRIGIDO) ---
+    if (currentAnimon.event && typeof events !== 'undefined') {
+        const evKey = currentAnimon.event;
+        const eventData = Array.isArray(events) ? events.find(e => e.id === evKey) : events[evKey];
+        
+        if (eventData) {
+            const eventBtn = document.createElement('div');
+            eventBtn.className = 'event-banner-btn';
+            eventBtn.innerHTML = `<span>${eventData.chat}</span><span style="font-size: 18px;">ⓘ</span>`;
+            eventBtn.onclick = () => openEventModal(evKey);
+            container.appendChild(eventBtn);
+        }
+    }
+
+    // Verificação de áreas normal (abaixo do evento para não bloquear o banner)
+    if (!currentAnimon.areas || currentAnimon.areas.length === 0) { 
+        const noAvail = document.createElement('p');
+        noAvail.style.textAlign = 'center';
+        noAvail.style.fontWeight = 'bold';
+        noAvail.textContent = uiText[lang].notAvail;
+        container.appendChild(noAvail);
         return; 
     }
+
     const areaIds = currentAnimon.areas;
     const areaDataList = areaIds.map(id => areas[id]).filter(data => data);
+    
     if (areaDataList.length === 0) { 
-        container.innerHTML = `<p style="text-align: center; font-weight: bold;">${uiText[lang].notAvail}</p>`; 
+        const noAvail = document.createElement('p');
+        noAvail.style.textAlign = 'center';
+        noAvail.style.fontWeight = 'bold';
+        noAvail.textContent = uiText[lang].notAvail;
+        container.appendChild(noAvail);
         return; 
     }
 
@@ -1305,18 +1335,6 @@ function renderLocations() {
     viewport.addEventListener('touchstart', dragStart, {passive: true}); viewport.addEventListener('touchmove', dragMove, {passive: true}); viewport.addEventListener('touchend', dragEnd, {passive: true});
 
     container.appendChild(locWrapper);
-
-    // --- DETECÇÃO E RENDERIZAÇÃO DO BANNER DE EVENTO ---
-    if (currentAnimon.event && typeof events !== 'undefined') {
-        const eventData = events[currentAnimon.event];
-        if (eventData) {
-            const eventBtn = document.createElement('div');
-            eventBtn.className = 'event-banner-btn';
-            eventBtn.innerHTML = `<span>${eventData.chat}</span><span style="font-size: 18px;">ⓘ</span>`;
-            eventBtn.onclick = () => openEventModal(currentAnimon.event);
-            container.appendChild(eventBtn);
-        }
-    }
 }
 
 function updateTabTitle(tabId) {
