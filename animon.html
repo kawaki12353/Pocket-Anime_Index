@@ -657,11 +657,11 @@
         }
 
         .event-modal-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); text-align: center; }
-        
+
         /* Ajuste da Imagem do Evento (Maior e Arredondada igual Localizações) */
         .event-modal-sprite { 
             width: 100%;
-            max-width: 400px; /* Maior que antes */
+            max-width: 350px; /* Largura reduzida para diminuir a moldura */
             height: auto;
             aspect-ratio: 16 / 9;
             object-fit: cover;
@@ -672,11 +672,11 @@
         }
 
         .event-modal-desc { text-align: center; font-size: 14px; line-height: 1.4; margin-bottom: 20px; width: 100%; }
-        
+
         /* Estilos da Lista de Animons com Sprite e Type */
         .event-modal-list { width: 100%; text-align: left; background: var(--bg); border-radius: 8px; padding: 10px; box-sizing: border-box; }
         .event-modal-list h4 { margin: 0 0 10px 0; font-size: 13px; opacity: 0.7; }
-        
+
         .event-animon-item {
             display: flex;
             align-items: center;
@@ -837,7 +837,7 @@ function openEventModal(eventKey) {
     let animonsHtml = "";
     if (ev.animon && ev.animon.length > 0) {
         animonsHtml = `<div class="event-modal-list"><h4>${ui.animonsInEvent}</h4>`;
-        
+
         ev.animon.forEach(name => {
             // Busca os dados do animon no database/animons.js pelo nome
             const data = animons.find(a => a.name.toLowerCase() === name.toLowerCase());
@@ -845,7 +845,7 @@ function openEventModal(eventKey) {
                 const sprite = data.sprite || `assets/sprites/${data.id}.png`;
                 let typesHtml = "";
                 let typesArr = Array.isArray(data.type) ? data.type : (data.types || [data.type]);
-                
+
                 typesArr.forEach(t => {
                     typesHtml += `<img src="assets/${t.toLowerCase().trim()}_element.png" class="event-animon-type-icon" onerror="this.src='assets/neutral_element.png'">`;
                 });
@@ -864,7 +864,7 @@ function openEventModal(eventKey) {
                 animonsHtml += `<div class="event-animon-item"><span class="event-animon-name">${name}</span></div>`;
             }
         });
-        
+
         animonsHtml += `</div>`;
     }
 
