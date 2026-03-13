@@ -9,4 +9,4 @@ const events = {
     accuracy: 100,
     pp: 15,
   },
-}
+};
