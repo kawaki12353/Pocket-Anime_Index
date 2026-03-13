@@ -549,7 +549,7 @@
             background: var(--primary);
         }
 
-        /* --- ESTILOS DO EVENTO (NOVO) --- */
+        /* --- ESTILOS DO EVENTO --- */
         .event-banner-btn {
             display: flex;
             align-items: center;
@@ -558,7 +558,7 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 12px 15px;
-            margin: 0 auto 15px; /* Ajustado margem */
+            margin: 15px auto 0; /* Margem superior para separar da Área */
             cursor: pointer;
             max-width: 600px;
             width: 90%;
@@ -643,7 +643,14 @@
         }
 
         .event-modal-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); }
-        .event-modal-sprite { width: 120px; height: 120px; object-fit: contain; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; background: var(--bg); }
+        /* Sprite do Evento: Removido moldura e fundo, cantos arredondados mantidos */
+        .event-modal-sprite { 
+            width: 120px; 
+            height: 120px; 
+            object-fit: contain; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+        }
         .event-modal-desc { text-align: center; font-size: 14px; line-height: 1.4; margin-bottom: 20px; width: 100%; }
         .event-modal-list { width: 100%; text-align: left; background: var(--bg); border-radius: 8px; padding: 10px; box-sizing: border-box; }
         .event-modal-list h4 { margin: 0 0 8px 0; font-size: 13px; opacity: 0.7; }
@@ -782,7 +789,6 @@ const uiText = {
 // --- FUNÇÕES DE EVENTO ---
 function openEventModal(eventKey) {
     if (!events) return;
-    // Suporte para encontrar evento se database/events for Objeto ou Array
     const ev = Array.isArray(events) ? events.find(e => e.id === eventKey) : events[eventKey];
     if (!ev) return;
 
@@ -1243,27 +1249,27 @@ function renderLocations() {
     container.innerHTML = "";
     if (!currentAnimon) return;
 
-    // --- DETECÇÃO E RENDERIZAÇÃO DO BANNER DE EVENTO (CORRIGIDO) ---
+    // --- ARMAZENAMENTO DO BOTÃO DE EVENTO PARA RENDERIZAR NO FINAL ---
+    let eventBtn = null;
     if (currentAnimon.event && typeof events !== 'undefined') {
         const evKey = currentAnimon.event;
         const eventData = Array.isArray(events) ? events.find(e => e.id === evKey) : events[evKey];
-        
         if (eventData) {
-            const eventBtn = document.createElement('div');
+            eventBtn = document.createElement('div');
             eventBtn.className = 'event-banner-btn';
             eventBtn.innerHTML = `<span>${eventData.chat}</span><span style="font-size: 18px;">ⓘ</span>`;
             eventBtn.onclick = () => openEventModal(evKey);
-            container.appendChild(eventBtn);
         }
     }
 
-    // Verificação de áreas normal (abaixo do evento para não bloquear o banner)
     if (!currentAnimon.areas || currentAnimon.areas.length === 0) { 
         const noAvail = document.createElement('p');
         noAvail.style.textAlign = 'center';
         noAvail.style.fontWeight = 'bold';
         noAvail.textContent = uiText[lang].notAvail;
         container.appendChild(noAvail);
+        // Se não tiver área mas tiver evento, renderiza o botão aqui
+        if (eventBtn) container.appendChild(eventBtn);
         return; 
     }
 
@@ -1276,6 +1282,7 @@ function renderLocations() {
         noAvail.style.fontWeight = 'bold';
         noAvail.textContent = uiText[lang].notAvail;
         container.appendChild(noAvail);
+        if (eventBtn) container.appendChild(eventBtn);
         return; 
     }
 
@@ -1334,7 +1341,13 @@ function renderLocations() {
     viewport.addEventListener('mousedown', dragStart); viewport.addEventListener('mousemove', dragMove); window.addEventListener('mouseup', dragEnd);
     viewport.addEventListener('touchstart', dragStart, {passive: true}); viewport.addEventListener('touchmove', dragMove, {passive: true}); viewport.addEventListener('touchend', dragEnd, {passive: true});
 
+    // Adiciona o mapa primeiro
     container.appendChild(locWrapper);
+
+    // --- AGORA ADICIONA O BOTÃO EMBAIXO DA ÁREA ---
+    if (eventBtn) {
+        container.appendChild(eventBtn);
+    }
 }
 
 function updateTabTitle(tabId) {
