@@ -558,7 +558,7 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 12px 15px;
-            margin: 15px auto 0; /* Margem superior para separar da Área */
+            margin: 15px auto 0;
             cursor: pointer;
             max-width: 600px;
             width: 90%;
@@ -576,7 +576,7 @@
             z-index: 10001;
             display: none;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s ease;
         }
         .event-modal-overlay.active { display: block; opacity: 1; }
 
@@ -591,16 +591,25 @@
             flex-direction: column;
             align-items: center;
             box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
         }
 
-        /* PC Style */
+        /* PC Style - Ajustado para não bugar */
         @media (min-width: 769px) {
             .event-modal-content {
-                width: 400px;
-                max-height: 80%;
+                width: 450px;
+                max-height: 85vh;
                 top: 50%; left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%, -40%); /* Inicial levemente abaixo */
                 border-radius: 15px;
+                opacity: 0;
+                visibility: hidden;
+                transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+            }
+            .event-modal-content.open {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+                visibility: visible;
             }
         }
 
@@ -642,19 +651,43 @@
             .location-image { max-width: 280px; }
         }
 
-        .event-modal-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); }
-        /* Sprite do Evento: Removido moldura e fundo, cantos arredondados mantidos */
+        .event-modal-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); text-align: center; }
+        
+        /* Ajuste da Imagem do Evento (Maior e Arredondada igual Localizações) */
         .event-modal-sprite { 
-            width: 120px; 
-            height: 120px; 
-            object-fit: contain; 
+            width: 100%;
+            max-width: 400px; /* Maior que antes */
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
             border-radius: 15px; 
+            border: 2px solid var(--border);
             margin-bottom: 15px; 
+            display: block;
         }
+
         .event-modal-desc { text-align: center; font-size: 14px; line-height: 1.4; margin-bottom: 20px; width: 100%; }
+        
+        /* Estilos da Lista de Animons com Sprite e Type */
         .event-modal-list { width: 100%; text-align: left; background: var(--bg); border-radius: 8px; padding: 10px; box-sizing: border-box; }
-        .event-modal-list h4 { margin: 0 0 8px 0; font-size: 13px; opacity: 0.7; }
-        .event-modal-list ul { margin: 0; padding-left: 20px; font-size: 14px; }
+        .event-modal-list h4 { margin: 0 0 10px 0; font-size: 13px; opacity: 0.7; }
+        
+        .event-animon-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+        .event-animon-left { display: flex; align-items: center; gap: 10px; }
+        .event-animon-sprite { width: 32px; height: 32px; object-fit: contain; image-rendering: pixelated; }
+        .event-animon-name { font-weight: bold; font-size: 14px; text-transform: capitalize; }
+        .event-animon-types { display: flex; gap: 4px; }
+        .event-animon-type-icon { width: 20px; height: 20px; }
+
     </style>
 </head>
 
@@ -786,7 +819,7 @@ const uiText = {
     }
 };
 
-// --- FUNÇÕES DE EVENTO ---
+// --- FUNÇÕES DE EVENTO ATUALIZADAS ---
 function openEventModal(eventKey) {
     if (!events) return;
     const ev = Array.isArray(events) ? events.find(e => e.id === eventKey) : events[eventKey];
@@ -798,12 +831,36 @@ function openEventModal(eventKey) {
 
     let animonsHtml = "";
     if (ev.animon && ev.animon.length > 0) {
-        animonsHtml = `
-            <div class="event-modal-list">
-                <h4>${ui.animonsInEvent}</h4>
-                <ul>${ev.animon.map(a => `<li>${a}</li>`).join('')}</ul>
-            </div>
-        `;
+        animonsHtml = `<div class="event-modal-list"><h4>${ui.animonsInEvent}</h4>`;
+        
+        ev.animon.forEach(name => {
+            // Busca os dados do animon no database/animons.js pelo nome
+            const data = animons.find(a => a.name.toLowerCase() === name.toLowerCase());
+            if (data) {
+                const sprite = data.sprite || `assets/sprites/${data.id}.png`;
+                let typesHtml = "";
+                let typesArr = Array.isArray(data.type) ? data.type : (data.types || [data.type]);
+                
+                typesArr.forEach(t => {
+                    typesHtml += `<img src="assets/${t.toLowerCase().trim()}_element.png" class="event-animon-type-icon" onerror="this.src='assets/neutral_element.png'">`;
+                });
+
+                animonsHtml += `
+                    <div class="event-animon-item">
+                        <div class="event-animon-left">
+                            <img src="${sprite}" class="event-animon-sprite" onerror="this.src='assets/sem_icone.png'">
+                            <span class="event-animon-name">${data.name}</span>
+                        </div>
+                        <div class="event-animon-types">${typesHtml}</div>
+                    </div>
+                `;
+            } else {
+                // Caso não ache no database, mostra apenas o nome
+                animonsHtml += `<div class="event-animon-item"><span class="event-animon-name">${name}</span></div>`;
+            }
+        });
+        
+        animonsHtml += `</div>`;
     }
 
     modal.innerHTML = `
@@ -1268,14 +1325,13 @@ function renderLocations() {
         noAvail.style.fontWeight = 'bold';
         noAvail.textContent = uiText[lang].notAvail;
         container.appendChild(noAvail);
-        // Se não tiver área mas tiver evento, renderiza o botão aqui
         if (eventBtn) container.appendChild(eventBtn);
         return; 
     }
 
     const areaIds = currentAnimon.areas;
     const areaDataList = areaIds.map(id => areas[id]).filter(data => data);
-    
+
     if (areaDataList.length === 0) { 
         const noAvail = document.createElement('p');
         noAvail.style.textAlign = 'center';
@@ -1341,10 +1397,8 @@ function renderLocations() {
     viewport.addEventListener('mousedown', dragStart); viewport.addEventListener('mousemove', dragMove); window.addEventListener('mouseup', dragEnd);
     viewport.addEventListener('touchstart', dragStart, {passive: true}); viewport.addEventListener('touchmove', dragMove, {passive: true}); viewport.addEventListener('touchend', dragEnd, {passive: true});
 
-    // Adiciona o mapa primeiro
     container.appendChild(locWrapper);
 
-    // --- AGORA ADICIONA O BOTÃO EMBAIXO DA ÁREA ---
     if (eventBtn) {
         container.appendChild(eventBtn);
     }
