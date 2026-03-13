@@ -383,6 +383,8 @@ const moves = {
   },
   "Galaxy Wave": {
     name: "Galaxy Wave",
+    desc_pt: "Recue e libere uma onda de energia roxa. Se estiver com menos da metade da vida, causa 20 de dano base adicional.",
+    desc_en: "Rear back and release a purple energy wave. If below half health, this does 20 more base damage.",
     type: "fighting",
     attack: "special",
     power: 75,
@@ -391,6 +393,8 @@ const moves = {
   },
   "Galaxy Burst": {
     name: "Galaxy Burst",
+    desc_pt: "Libera uma rajada de energia que danifica todas as unidades em campo.",
+    desc_en: "Release a burst of energy that damages all units on the field.",
     type: "fighting",
     attack: "physical",
     power: 70,
@@ -399,6 +403,8 @@ const moves = {
   },
   "Energy Beam": {
     name: "Energy Beam",
+    desc_pt: "Uma onda de energia.",
+    desc_en: "An energy wave.",
     type: "neutral",
     attack: "special",
     power: 60,
@@ -407,6 +413,8 @@ const moves = {
   },
   "Dirty Fireworks": {
     name: "Dirty Fireworks",
+    desc_pt: "Lance um ataque contra um alvo e o atinja com uma explosão de ki. Isso executa aqueles que estiverem com menos de 10% de HP.",
+    desc_en: "Launch a target and blast them with a ki explosion. This executes those left below 10% HP.",
     type: "fighting",
     attack: "physical",
     power: 55,
@@ -415,6 +423,8 @@ const moves = {
   },
   "Divine Bomb": {
     name: "Divine Bomb",
+    desc_pt: "Reúna energia da vida ao seu redor por 3 turnos e, em seguida, libere-a na forma de uma bomba gigantesca.",
+    desc_en: "Gather energy from life around you for 3 turns, then release it in the form of a massive bomb.",
     type: "light",
     attack: "special",
     power: 250,
@@ -423,6 +433,8 @@ const moves = {
   },
   "Meteor Combo": {
     name: "Meteor Combo",
+    desc_pt: "Uma combinação feroz de artes marciais.",
+    desc_en: "A fierce martial art combination.",
     type: "fighting",
     attack: "physical",
     power: 75,
@@ -431,6 +443,8 @@ const moves = {
   },
   "Super Energy Wave": {
     name: "Super Energy Wave",
+    desc_pt: "A versão aprimorada da icônica técnica da Escola da Tartaruga.",
+    desc_en: "The upgraded version of the iconic turtle-school technique.",
     type: "fighting",
     attack: "special",
     power: 60,
@@ -449,6 +463,8 @@ const moves = {
   },
   "Energy Wave": {
     name: "Energy Wave",
+    desc_pt: "Uma onda de energia ensinada por uma sábia tartaruga-eremita.",
+    desc_en: "An energy wave taught by a wise turtle-hermit.",
     type: "fighting",
     attack: "special",
     power: 40,
@@ -457,6 +473,8 @@ const moves = {
   },
   "Guzzle": {
     name: "Guzzle",
+    desc_pt: "O animon começa a terminar uma bebida! Ganhe dois estágios [002][+2][000] de [002]ATK[000] e ganhe o efeito [002]Confusão[000].",
+    desc_en: "The animon begins to finish a drink! Gain two stages [002][+2][000] of [002]ATK[000] and gain the [004]Confuse[000] effect.",
     type: "neutral",
     attack: "status",
     power: 0,
@@ -465,6 +483,8 @@ const moves = {
   },
   "Reverse Lily": {
     name: "Reverse Lily",
+    desc_pt: "Uma arte marcial proibida que não toca o chão até o último golpe. Sofre dano de recuo equivalente a 25% do dano causado.",
+    desc_en: "A forbidden martial art that does not touch the ground until the last blow Take recoil damage for 25% of the damage dealt.",
     type: "fighting",
     attack: "physical",
     power: 100,
@@ -473,6 +493,8 @@ const moves = {
   },
   "Dive Kick": {
     name: "Dive Kick",
+    desc_pt: "Pule e chute seu oponente com 3x de chance de acerto crítico; se errar, sofra 1/8 do dano máximo da sua vida.",
+    desc_en: "Jump and kick your opponent with a x3 chance to critically strike, if you miss take 1/8th max health damage.",
     type: "fighting",
     attack: "physical",
     power: 50,
@@ -601,7 +623,9 @@ const moves = {
   },
   "Plunder": {
     name: "Plunder",
-    type: "neutral",
+    desc_pt: "Rouba um item do alvo. Falha se o usuário já possuir um item ou se o alvo não possuir nenhum item.",
+    desc_en: "Steal an item from the target. Fails if the user already has an item or the target has no item.",
+    type: "dark",
     attack: "status",
     power: 0,
     accuracy: 100,
@@ -619,6 +643,8 @@ const moves = {
   },
   "Sword Slash": {
     name: "Sword Slash",
+    desc_pt: "Ataque seu inimigo.",
+    desc_en: "Slash your enemy.",
     type: "neutral",
     attack: "physical",
     power: 30,
@@ -627,6 +653,8 @@ const moves = {
   },
   "Blade Surge": {
     name: "Blade Surge",
+    desc_pt: "Executa uma série rápida de golpes de espada!",
+    desc_en: "Performs a swift series of sword strikes!",
     type: "neutral",
     attack: "physical",
     power: 40,
@@ -635,6 +663,8 @@ const moves = {
   },
   "Sword Slam": {
     name: "Sword Slam",
+    desc_pt: "Golpeie o alvo com sua lâmina, tendo 15% de chance de fazê-lo recuar.",
+    desc_en: "Slam your blade into a target having a 15% chance to make them flinch.",
     type: "neutral",
     attack: "physical",
     power: 40,
