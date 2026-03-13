@@ -1,12 +1,10 @@
 const events = {
-  "Lightning Spread": {
-    name: "Lightning Spread",
-    desc_pt: "Libera um choque elétrico que ignora precisão e esquiva.",
-    desc_en: "Release an electric shock that ignores accuracy and evasion.",
-    type: "lightning",
-    attack: "special",
-    power: 65,
-    accuracy: 100,
-    pp: 15,
+  "Shinobi": {
+    name: "Shinobi",
+    chat: "Shinobi are arriving infront of the Forest of Doom!",
+    desc_pt: "Aumenta a chance de aparecer o Ramen na Área do Bandit King.",
+    desc_en: "It increases the chance of Ramen appearing in the Bandit King Patch.",
+    sprite: "assets/events/shinobi.png",
+    animon: 65,
   },
 };
