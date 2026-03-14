@@ -231,7 +231,8 @@ const animons = [
   { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 }, areas: ["0001", "0003", "0005"],
     anime: { name: "Koby", anime:"One Piece" },
     movesList: [
-      { level: 1, name: "Mop Attack"}, 
+      { level: 1, name: "Mop the floor" },
+      { level: 1, name: "Mop Attack" },
       { level: 1, name: "Taunt" },
       { level: 5, name: "Rifle Shot" },
       { level: 5, name: "Bounty Hunt" },
@@ -244,8 +245,8 @@ const animons = [
   { id: 7.01, name: "Lt. Hero", type: "Water", sprite: "assets/lt_hero.png", stats: { hp: 56, atk: 51, def: 39, spAtk: 41, spDef: 45, spd: 74 },
     anime: { name: "Koby", anime:"One Piece" },
     movesList: [
-      { level: 1, name: "Mop Attack"}, 
       { level: 1, name: "Mop the floor" },
+      { level: 1, name: "Mop Attack"}, 
       { level: 5, name: "Taunt" },
       { level: 10, name: "Quick Assist" },
       { level: 16, name: "Wave Kick" },
