@@ -1,4 +1,22 @@
 const moves = {
+  "Solar Energy Wave": {
+    name: "Solar Energy Wave",
+    desc_pt: "Reúna sua energia máxima, aumentando seu [002]SP.DEF [+1][000], e dispare um feixe de energia capaz de destruir um sistema solar inteiro.",
+    desc_en: "Gather your peak energy increasing your [002]SP.DEF [+1][000] and shoot a beam of energy capable of destroying an entire solar system.",
+    type: "psychic",
+    attack: "special",
+    power: 80,
+    accuracy: 90,
+    pp: 10,
+  },
+  "Blitz": {
+    name: "Blitz",
+    type: "lightning",
+    attack: "status",
+    power: 0,
+    accuracy: 0,
+    pp: 15,
+  },
   "Double Shot": {
     name: "Double Shot",
     desc_pt: "Atire no alvo uma vez; se acertar, há 50% de chance de realizar um segundo disparo com metade do dano.",
