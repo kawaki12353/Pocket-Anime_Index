@@ -464,6 +464,7 @@ const animons = [
     anime: { name: "Perfect Cell", anime:"Dragon Ball" },
     evolution: ["Imperfect Warrior Bug", "Perfect Warrior Bug"],
     movesList: [
+      { level: 1, name: "Blitz" },
       { level: 1, name: "Afterimage" }, 
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -473,7 +474,8 @@ const animons = [
       { level: 12, name: "Drain Life" },
       { level: 17, name: "Super Energy Wave" },
       { level: 22, name: "Precise Energy Beam" },
-      { level: 24, name: "Limb Regrowth" }
+      { level: 24, name: "Limb Regrowth" },
+      { level: 24, name: "Solar Energy Wave" }
     ]
   },
   { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 } },
