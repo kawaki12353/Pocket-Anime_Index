@@ -308,9 +308,39 @@ const animons = [
       { level: 24, name: "Spirit Ball" }
     ]
   },
-  { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 } },
-  { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 } },
-  { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 } },
+  { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 }
+    movesList: [
+      { level: 1, name: "Sling Shot" },
+      { level: 1, name: "Taunt" },
+      { level: 4, name: "Spikes" },
+      { level: 10, name: "Fire Star" },
+      { level: 14, name: "Gas Bomb" },
+      { level: 18, name: "Impact Dial" },
+      { level: 23, name: "Golden Pound" }
+    ]  
+  },
+  { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 }
+     movesList: [
+      { level: 1, name: "Sling Shot" },
+      { level: 1, name: "Taunt" },
+      { level: 4, name: "Spikes" },
+      { level: 10, name: "Fire Star" },
+      { level: 14, name: "Gas Bomb" },
+      { level: 18, name: "Impact Dial" },
+      { level: 23, name: "5 Ton Hammer" }
+    ]  
+  },
+  { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 }
+     movesList: [
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Kunai Barrage" },
+      { level: 6, name: "Fireball" },
+      { level: 12, name: "Explosive Kunai" },
+      { level: 16, name: "Substitution" },
+      { level: 20, name: "Pheonix Fire Bomb" },
+      { level: 24, name: "Cut Down" }
+    ]  
+  },
   { id: 13, name: "Ramen", type: "Wind", sprite: "assets/animons-icon/ramen.png", stats: { hp: 45, atk: 75, def: 40, spAtk: 48, spDef: 40, spd: 65 }, areas: ["0006"],
     traits: [
       { name: "Ninjutsu Mastery", chance: "50%" }],
@@ -345,12 +375,55 @@ const animons = [
       { level: 24, name: "Wind Shuriken" }
     ]
   },
-  { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 } },
-  { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 } },
-  { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 } },
-  { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 } },
+  { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 }
+     movesList: [
+      { level: 1, name: "Growl" },
+      { level: 1, name: "Sharp Claw" },
+      { level: 6, name: "Sudden Impact" },
+      { level: 11, name: "Crush" },
+      { level: 17, name: "Bite" },
+      { level: 23, name: "Savage Fang" }
+    ]  
+  },
+  { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 }
+    movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Limb Regrowth" },
+      { level: 6, name: "Dark Shocker" },
+      { level: 9, name: "Energy Beam" },
+      { level: 12, name: "Precise Energy Beam" },
+      { level: 17, name: "Energy Vortex" },
+      { level: 21, name: "Demon Elbow" },
+      { level: 23, name: "Light Grenade" }
+    ]  
+  },
+  { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 }
+     movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Limb Regrowth" },
+      { level: 6, name: "Dark Shocker" },
+      { level: 9, name: "Energy Beam" },
+      { level: 12, name: "Precise Energy Beam" },
+      { level: 17, name: "Energy Vortex" },
+      { level: 21, name: "Demon Elbow" },
+      { level: 23, name: "Light Grenade" }
+    ]  
+  },
+  { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 }
+     movesList: [
+      { level: 1, name: "Growl" },
+      { level: 1, name: "Sinister Presence" },
+      { level: 1, name: "Sword Slash" },
+      { level: 6, name: "Sword Slam" },
+      { level: 8, name: "Blade Surge" },
+      { level: 12, name: "Soul Reaver" },
+      { level: 21, name: "Wind Scar" },
+      { level: 23, name: "Crimson Blades" },
+      { level: 24, name: "Fury" }
+    ]  
+  },
   { id: 17, name: "Green Head", type: "Neutral", sprite: "assets/animons-icon/green_head.png", stats: { hp: 40, atk: 20, def: 39, spAtk: 30, spDef: 25, spd: 65 } },
-  { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 },
+  { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 },},
     anime: { name: "Zoro", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Dexterity" }, 
