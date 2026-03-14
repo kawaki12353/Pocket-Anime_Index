@@ -1,4 +1,14 @@
 const moves = {
+  "Swift Wind": {
+    name: "Swift Wind",
+    desc_pt: "Rajada rápida de vento com baixo dano e maior prioridade.",
+    desc_en: "Quick blast of wind with low damage and higher priority.",
+    type: "wind",
+    attack: "special",
+    power: 30,
+    accuracy: 100,
+    pp: 15,
+  },
   "Growl": {
     name: "Growl",
     desc_pt: "Um rosnado ameaçador que reduz o [001]ATK [-1][000] de um alvo.",
