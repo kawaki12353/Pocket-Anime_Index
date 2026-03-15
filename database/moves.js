@@ -1,4 +1,14 @@
 const moves = {
+  "Explosive Kunai": {
+    name: "Explosive Kunai",
+    desc_pt: "Arremessa várias kunais que atingem inimigos adjacentes, com uma chance de [15%] de [003]queimá-los[000].",
+    desc_en: "Throw multiple kunai that hit adjacent enemies, with a chance [15%] to [003]Burn[000] them.",
+    type: "fire",
+    attack: "physical",
+    power: 55,
+    accuracy: 100,
+    pp: 15,
+  },
   "Sling Shot": {
     name: "Sling Shot",
     desc_pt: "Dispare com seu estilingue!",
