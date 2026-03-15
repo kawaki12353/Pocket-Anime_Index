@@ -1,4 +1,24 @@
 const moves = {
+  "Wolf Attack": {
+    name: "Wolf Attack",
+    desc_pt: "A arte marcial secreta do Wolfman: liberte o lobo que há em você e ataque seu oponente com uma série de golpes.",
+    desc_en: "Wolfman's secret martial art, let loose your inner wolf and go wild on your opponent with a series of strikes.",
+    type: "fighting",
+    attack: "physical",
+    power: 40,
+    accuracy: 100,
+    pp: 20,
+  },
+  "Spirit Ball": {
+    name: "Spirit Ball",
+    desc_pt: "O usuário controla uma esfera de energia espiritual para aprisionar seu oponente por dois turnos.",
+    desc_en: "The user controls a ball of spiritual energy to trap their opponent for two turns.",
+    type: "fighting",
+    attack: "special",
+    power: 60,
+    accuracy: 85,
+    pp: 15,
+  },
   "Swift Wind": {
     name: "Swift Wind",
     desc_pt: "Rajada rápida de vento com baixo dano e maior prioridade.",
