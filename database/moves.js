@@ -1,4 +1,14 @@
 const moves = {
+  "Sudden Impact": {
+    name: "Sudden Impact",
+    desc_pt: "Ataque em Múltiplos Alvos - Quebre o chão sob seus pés para ter 20% de chance de fazer vários alvos recuarem.",
+    desc_en: "Multi Target-Shatter the ground under your feet for a 20% chance to make multiple targets flinch.",
+    type: "beast",
+    attack: "physical",
+    power: 30,
+    accuracy: 100,
+    pp: 16,
+  },
   "Explosive Kunai": {
     name: "Explosive Kunai",
     desc_pt: "Arremessa várias kunais que atingem inimigos adjacentes, com uma chance de [15%] de [003]queimá-los[000].",
