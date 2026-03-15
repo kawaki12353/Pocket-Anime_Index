@@ -1,4 +1,14 @@
 const moves = {
+  "Beast Bomb": {
+    name: "Beast Bomb",
+    desc_pt: "O chakra bestial concentrado em uma explosão, que reduz sua [001]SP.DEF [-1][000]. O usuário sofre 25% de dano se errar.",
+    desc_en: "Bestial chakra collected into a concentrated blast, lowers your [001]SP.DEF [-1][000]. User takes 25% damage if they miss.",
+    type: "demon",
+    attack: "special",
+    power: 150,
+    accuracy: 85,
+    pp: 5,
+  },
   "Sudden Impact": {
     name: "Sudden Impact",
     desc_pt: "Ataque em Múltiplos Alvos - Quebre o chão sob seus pés para ter 20% de chance de fazer vários alvos recuarem.",
