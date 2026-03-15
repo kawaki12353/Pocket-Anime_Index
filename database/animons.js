@@ -310,6 +310,7 @@ const animons = [
     ]
   },
   { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 },
+    anime: { name: "Usopp", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Sling Shot" },
       { level: 1, name: "Taunt" },
@@ -321,7 +322,8 @@ const animons = [
     ]  
   },
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 },
-     movesList: [
+    anime: { name: "Usopp", anime:"One Piece" },
+    movesList: [
       { level: 1, name: "Sling Shot" },
       { level: 1, name: "Taunt" },
       { level: 4, name: "Spikes" },
@@ -332,7 +334,7 @@ const animons = [
     ]  
   },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" },
       { level: 6, name: "Fireball" },
@@ -377,7 +379,7 @@ const animons = [
     ]
   },
   { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Growl" },
       { level: 1, name: "Sharp Claw" },
       { level: 6, name: "Sudden Impact" },
@@ -399,7 +401,7 @@ const animons = [
     ]  
   },
   { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Limb Regrowth" },
       { level: 6, name: "Dark Shocker" },
@@ -411,7 +413,7 @@ const animons = [
     ]  
   },
   { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 },
-     movesList: [
+    movesList: [
       { level: 1, name: "Growl" },
       { level: 1, name: "Sinister Presence" },
       { level: 1, name: "Sword Slash" },
