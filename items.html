@@ -51,7 +51,6 @@
             line-height: 1.5;
         }
 
-        /* Ajuste: flex-shrink para o ícone não amassar e vertical-align */
         .category-icon { 
             width: 18px; 
             height: 18px; 
@@ -86,7 +85,7 @@
             margin-top: 0;
         }
 
-        /* --- Filtros (IGUAL AO ANIDEX) --- */
+        /* --- Filtros --- */
         .filters {
             display: flex;
             gap: 12px;
@@ -115,7 +114,7 @@
             width: 100%;
             max-width: 200px;
         }
-        
+
         .select-btn {
             width: 100%;
             display: flex;
@@ -124,10 +123,9 @@
             gap: 8px;
             cursor: pointer;
             box-sizing: border-box;
-            overflow: hidden; /* Garante que o conteúdo não vaze */
+            overflow: hidden;
         }
 
-        /* AJUSTE: Container interno para alinhar ícone e texto com reticências */
         .select-btn > span:first-child {
             display: flex;
             align-items: center;
@@ -153,6 +151,7 @@
             box-sizing: border-box;
             max-height: 300px;
             overflow-y: auto;
+            border: 1px solid var(--border);
         }
         .select-list li {
             padding: 10px 12px;
@@ -202,27 +201,30 @@
             border-left-width: 6px !important;
         }
 
-        /* --- Modal --- */
+        /* --- MODAL (SISTEMA MOVES.HTML) --- */
         .modal-bg {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000;
+            display: flex; justify-content: center; align-items: flex-end;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .modal {
-            background: var(--card);
-            width: 90%;
-            max-width: 460px;
-            border-radius: 14px;
-            padding: 20px;
-            border: 4px solid;
+            background: var(--card); width: 100%; height: 65%;
+            border-radius: 20px 20px 0 0; padding: 25px;
+            box-sizing: border-box; position: relative;
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex; flex-direction: column; gap: 20px;
+            overflow-y: auto;
+            border-top: 4px solid; /* Mantém indicação de raridade no mobile no topo */
         }
+
+        /* Ativação do Modal */
+        .modal-bg.active { opacity: 1; visibility: visible; }
+        .modal-bg.active .modal { transform: translateY(0); }
+
         .modal h2 { text-align: center; margin-top: 0; }
         .section { margin-bottom: 15px; }
-        .section-title { font-weight: bold; margin-bottom: 4px; }
+        .section-title { font-weight: bold; margin-bottom: 4px; color: var(--text-secondary); }
         .section-title::after {
             content: "";
             display: block;
@@ -230,6 +232,16 @@
             height: 1px;
             background: var(--border);
             margin-top: 2px;
+        }
+
+        @media (min-width: 769px) {
+            .modal-bg { align-items: center; }
+            .modal {
+                width: 90%; max-width: 460px; height: auto; max-height: 80vh; 
+                border-radius: 14px; border: 4px solid;
+                transform: translateY(20px); opacity: 0; transition: all 0.3s;
+            }
+            .modal-bg.active .modal { transform: translateY(0); opacity: 1; }
         }
 
         /* --- Toggle Linguagem --- */
@@ -285,8 +297,8 @@
     <div class="item-list" id="itemList"></div>
 </main>
 
-<div class="modal-bg" id="modalBg">
-    <div class="modal" id="modal">
+<div class="modal-bg" id="modalBg" onclick="closeModal()">
+    <div class="modal" id="modal" onclick="event.stopPropagation()">
         <h2 id="mName"></h2>
 
         <div class="section">
@@ -318,8 +330,6 @@
 <script src="database/items-data.js"></script>
 
 <script>
-/** * CONFIGURAÇÕES E ESTADO 
- */
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedCategory = "";
 let selectedRarity = "";
@@ -363,12 +373,8 @@ const rarityLabels = {
     en: { comum: "Common", incomum: "Uncommon", raro: "Rare", epico: "Epic", lendario: "Legendary" }
 };
 
-/**
- * CORE FUNCTIONS
- */
-
 function render() {
-    const searchVal = searchInput.value.toLowerCase();
+    const searchVal = document.getElementById("searchInput").value.toLowerCase();
     const listEl = document.getElementById("itemList");
     listEl.innerHTML = "";
 
@@ -402,6 +408,7 @@ function render() {
 function openModal(item) {
     const data = item[lang];
     const modal = document.getElementById("modal");
+    const modalBg = document.getElementById("modalBg");
 
     modal.className = `modal ${item.rarity}`;
     document.getElementById("mName").textContent = data.name;
@@ -417,16 +424,12 @@ function openModal(item) {
         noteSec.style.display = "none";
     }
 
-    document.getElementById("modalBg").style.display = "flex";
+    modalBg.classList.add("active");
 }
 
 function closeModal() {
-    document.getElementById("modalBg").style.display = "none";
+    document.getElementById("modalBg").classList.remove("active");
 }
-
-/**
- * UI BUILDERS
- */
 
 function updateLang() {
     const ui = uiText[lang];
@@ -505,10 +508,6 @@ function selectRarity(val) {
     render();
 }
 
-/**
- * EVENTOS
- */
-
 function closeAllSelects() {
     document.getElementById("categoryList").style.display = "none";
     document.getElementById("rarityList").style.display = "none";
@@ -518,7 +517,6 @@ document.getElementById("langBtn").onclick = () => {
     const scrollPos = window.scrollY;
     lang = lang === "pt" ? "en" : "pt";
     localStorage.setItem("siteLang", lang);
-    if (typeof updateMenuLang === "function") updateMenuLang();
     updateLang();
     window.scrollTo(0, scrollPos);
 };
@@ -543,12 +541,9 @@ document.addEventListener("click", (e) => {
     if (!e.target.closest('.custom-select')) closeAllSelects();
 });
 
-document.getElementById("modalBg").onclick = closeModal;
-document.getElementById("modal").onclick = (e) => e.stopPropagation();
 document.getElementById("searchInput").addEventListener("input", render);
 
 updateLang();
-if (typeof updateMenuLang === "function") updateMenuLang();
 </script>
 
 </body>
