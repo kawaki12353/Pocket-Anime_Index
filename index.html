@@ -1,418 +1,239 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="menu.css">
-<script src="menu.js" defer></script>
+    <title>Pocket Anime - Index</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kawaki12353.github.io/Pocket-Anime_Index/index.html">
+    <meta property="og:title" content="Pocket Anime Index">
+    <meta property="og:description" content="The ultimate unofficial database for Pocket Anime! Explore the complete Anidex, weakness calculator, detailed maps, and everything you need to master your journey.">
+    <meta property="og:image" content="https://kawaki12353.github.io/Pocket-Anime_Index/assets/embed_index.png">
+    <meta name="twitter:card" content="summary_large_image">
 
-<title>Pocket Anime - Index</title>
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js" defer></script>
 
-<style>
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  display:flex;
-  flex-direction: column;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-}
+    <style>
+        :root {
+            /* Cores e Variáveis */
+            --bg-light: #f2f4f7;
+            --card-light: #ffffff;
+            --text-light: #111;
+            --lang-btn-light: #ffffff;
+            --lang-btn-bg-light: #444;
 
-:root{
-  --action-width: 260px;
-}
+            --bg-dark: #0f1217;
+            --card-dark: #181c24;
+            --text-dark: #ffffff;
+            --lang-btn-dark: #111;
+            --lang-btn-bg-dark: #ffffff;
 
-/* CONTAINER */
-.container{
-  background: var(--card);
-  color: var(--text);
-  border-radius:16px;
-  padding:30px 25px;
-  max-width:420px;
-  width:100%;
-  text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-}
+            --action-width: 260px;
+            
+            /* Temas dinâmicos */
+            --bg: var(--bg-light);
+            --card: var(--card-light);
+            --text: var(--text-light);
+            --lang-btn: var(--lang-btn-light);
+            --lang-btn-bg: var(--lang-btn-bg-light);
+        }
 
-/* CONTAINER DE CRÉDITOS */
-.credits-container{
-  background: var(--card);
-  color: var(--text);
-  border-radius:16px;
-  padding:20px 25px;
-  max-width:420px;
-  width:100%;
-  text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-  margin-top:20px;
-}
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: var(--bg-dark);
+                --card: var(--card-dark);
+                --text: var(--text-dark);
+                --lang-btn: var(--lang-btn-dark);
+                --lang-btn-bg: var(--lang-btn-bg-dark);
+            }
+        }
 
-.credits-container h2{
-  margin:0 0 12px;
-  font-size:20px;
-}
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background 0.3s ease;
+        }
 
-.credits-container p{
-  margin:6px 0;
-  font-size:14px;
-  color: var(--text);
-}
+        /* CONTAINER PRINCIPAL */
+        .container, .credits-container {
+            background: var(--card);
+            color: var(--text);
+            border-radius: 16px;
+            padding: 30px 25px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,.15);
+            transition: background 0.3s ease;
+        }
 
-/* LOGO */
-.logo{
-  width:240px;
-  max-width:70%;
-}
+        .credits-container {
+            margin-top: 20px;
+            padding: 20px 25px;
+        }
 
-/* TEXTOS */
-h1{
-  margin:20px 0 10px;
-}
+        /* ELEMENTOS INTERNOS */
+        .logo {
+            width: 240px;
+            max-width: 75%;
+            margin-bottom: 10px;
+        }
 
-p{
-  color: var(--text);
-  font-size:15px;
-}
+        h1 { margin: 20px 0 10px; }
+        p { font-size: 15px; line-height: 1.6; }
+        #subDescription { margin-top: 6px; font-size: 14px; opacity: 0.85; }
 
-/* LANGUAGE BUTTON */
-.lang-toggle{
-  position:fixed;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-}
+        .credits-container h2 { margin: 0 0 12px; font-size: 20px; }
+        .credits-container p { margin: 6px 0; font-size: 14px; }
 
-.lang-toggle button{
-  background: var(--lang-btn-bg);
-  color: var(--lang-btn);
-  padding:8px 14px;
-  border-radius:20px;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  font-size:15px;
-}
+        /* BOTÃO DISCORD */
+        .discord-btn {
+            margin: 25px auto 0;
+            display: block;
+            width: var(--action-width);
+            max-width: 90%;
+            text-decoration: none;
+        }
 
-/* DISCORD BUTTON */
-.discord-btn{
-  margin:20px auto 0;
-  display:block;
-  width: var(--action-width);
-  max-width:90%;
-}
+        .discord-img {
+            width: 100%;
+            border-radius: 12px;
+            transition: transform 0.25s ease;
+        }
 
-.discord-img{
-  width:100%;
-  border-radius:12px;
-  transition:0.25s ease;
-}
+        .discord-btn:hover .discord-img {
+            transform: scale(1.04);
+        }
 
-/* Zoom */
-@media (hover: hover) {
-  .discord-btn:hover .discord-img{
-    transform: scale(1.04);
-  }
-}
+        /* IDIOMA */
+        .lang-toggle {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-/* MOBILE */
-@media (max-width: 480px) {
+        .lang-toggle button {
+            background: var(--lang-btn-bg);
+            color: var(--lang-btn);
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
 
-  body{
-    padding: 20px 12px;
-    justify-content: flex-start;
-  }
-
-  /* DOC + WIKI MOBILE */
-  .extra-buttons{
-    width: 100%;
-  }
-
-  .container,
-  .credits-container{
-  width: 92%;
-  max-width: 92%;
-  padding: 24px 18px;
-  border-radius: 14px;
-}
-
-  /* LOGO */
-  .logo{
-    width: 200px;
-    max-width: 85%;
-  }
-
-  h1{
-    font-size: 22px;
-  }
-
-  p{
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  /* BOTÕES */
-  .btn{
-    width: 90%;
-    padding: 15px 0;
-    font-size: 15px;
-  }
-
-  .btn + .btn{
-    margin-top: 14px;
-  }
-
-  /* DISCORD */
-  .discord-btn{
-  width: var(--action-width);
-  max-width: 90%;
-  margin: 22px auto 0;
-  }
-
-  .discord-img{
-    border-radius: 14px;
-  }
-
-  /* CRÉDITOS */
-  .credits-container{
-    margin-top: 26px;
-  }
-
-  .credits-container h2{
-    font-size: 18px;
-  }
-
-  .credits-container p{
-    font-size: 13px;
-  }
-
-  /* BOTÃO DE IDIOMA */
-  .lang-toggle{
-    bottom: 12px;
-  }
-}
-
-/* WIKI + DOC */
-.extra-buttons{
-  margin: 14px auto 0;
-  display: flex;
-  gap: 12px;
-  width: var(--action-width);
-  max-width: 90%;
-}
-
-.extra-btn{
-  flex: 1;
-}
-
-.extra-btn img{
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  transition: transform .25s ease;
-}
-
-/* Hover desktop */
-@media (hover: hover){
-  .extra-btn:hover img{
-    transform: scale(1.04);
-  }
-}
-
-/* Modo claro */
-:root{
-  --bg: #f2f4f7;
-  --card: #ffffff;
-  --text: #111;
-  --border: #ccc;
-  --hover: #f1f1f1;
-
-  --lang-btn: #ffffff;
-  --lang-btn-bg: #444;
-}
-
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg: #0f1217;
-    --card: #181c24;
-    --text: #ffffff;
-    --border: #2a2f3a;
-    --hover: #232836;
-
-    --lang-btn: #111;
-    --lang-btn-bg: #ffffff;
-  }
-}
-
-#subDescription{
-  margin-top: 6px;
-  font-size: 14px;
-  opacity: 0.85;
-}
-
-</style>
+        /* MOBILE */
+        @media (max-width: 480px) {
+            body { padding: 20px 0; justify-content: flex-start; }
+            .container, .credits-container { width: 85%; padding: 24px 20px; }
+            h1 { font-size: 22px; }
+            .logo { width: 200px; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
-  <img src="assets/Pocket-Anime-logo.png" class="logo">
+    <main class="container">
+        <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Pocket Anime Logo">
 
-  <p id="description"></p>
-  <p id="subDescription"></p>
+        <p id="description"></p>
+        <p id="subDescription"></p>
 
-  <!-- DISCORD BUTTON -->
-<a href="https://discord.gg/pocketanime" target="_blank" class="discord-btn">
-  <img
-    src="assets/discordofficial_botton.png"
-    data-hover="assets/discordofficial_botton_on.png"
-    class="discord-img"
-    alt="Official Discord">
-</a>
+        <a href="https://discord.gg/pocketanime" target="_blank" class="discord-btn">
+            <img 
+                src="assets/discordofficial_botton.png" 
+                data-hover="assets/discordofficial_botton_on.png" 
+                class="discord-img" 
+                alt="Official Discord">
+        </a>
+    </main>
 
-<!-- WIKI + DOC BUTTONS -->
-<div class="extra-buttons">
+    <footer class="credits-container">
+        <h2 id="creditsTitle"></h2>
+        <p><strong id="creditsCreatorLabel"></strong><br><span id="creditsCreatorText"></span></p>
+        <p><strong id="creditsToolsLabel"></strong><br><span id="creditsToolsText"></span></p>
+    </footer>
 
-  <!-- DOC -->
-<a href="#" class="extra-btn" id="docLink">
-    <img
-      id="docImg"
-      src="assets/doc_botton1.png"
-      alt="Documentation">
-  </a>
+    <div class="lang-toggle">
+        <button id="langBtn"></button>
+    </div>
 
-  <!-- WIKI -->
-  <a href="https://pocketanime.fandom.com/wiki/PocketAnime_Wiki" class="extra-btn">
-    <img
-      src="assets/wiki_botton.png"
-      alt="Wiki">
-  </a>
-</div>
+    <script>
+        const preloadDiscord = new Image();
+        preloadDiscord.src = "assets/discordofficial_botton_on.png";
 
-</div>
+        const texts = {
+            pt: {
+                description: "Site criado com o objetivo de ajudar a todos que gostam de Pocket Anime. Clique nas 3 barrinhas do canto esquerdo superior para selecionar uma das funcionalidades do Site.",
+                subDescription: "Abaixo está o Discord Oficial do Pocket Anime.",
+                langBtn: "🇧🇷 PT",
+                creditsTitle: "Créditos",
+                creditsCreatorLabel: "Criador:",
+                creditsCreatorText: "Kawakizin – Discord (Kawaki1963)",
+                creditsToolsLabel: "Ferramentas de auxílio:",
+                creditsToolsText: "IA • ibisPaint • Canva"
+            },
+            en: {
+                description: "Site created to help everyone who enjoys Pocket Anime. Click on the three bars in the upper left corner to select one of the Site's features.",
+                subDescription: "Below is the official Pocket Anime Discord server.",
+                langBtn: "🇺🇸 EN",
+                creditsTitle: "Credits",
+                creditsCreatorLabel: "Creator:",
+                creditsCreatorText: "Kawakizin – Discord (Kawaki1963)",
+                creditsToolsLabel: "Support tools:",
+                creditsToolsText: "AI • ibisPaint • Canva"
+            }
+        };
 
-<div class="credits-container">
-  <h2 id="creditsTitle"></h2>
+        let lang = localStorage.getItem("siteLang") || "pt";
 
-  <p>
-    <strong id="creditsCreatorLabel"></strong><br>
-    <span id="creditsCreatorText"></span>
-  </p>
+        function updateLang() {
+            const t = texts[lang];
+            document.getElementById("description").textContent = t.description;
+            document.getElementById("subDescription").textContent = t.subDescription;
+            document.getElementById("langBtn").textContent = t.langBtn;
+            document.getElementById("creditsTitle").textContent = t.creditsTitle;
+            document.getElementById("creditsCreatorLabel").textContent = t.creditsCreatorLabel;
+            document.getElementById("creditsCreatorText").textContent = t.creditsCreatorText;
+            document.getElementById("creditsToolsLabel").textContent = t.creditsToolsLabel;
+            document.getElementById("creditsToolsText").textContent = t.creditsToolsText;
+        }
 
-  <p>
-    <strong id="creditsToolsLabel"></strong><br>
-    <span id="creditsToolsText"></span>
-  </p>
-</div>
+        document.getElementById("langBtn").onclick = () => {
+            lang = lang === "pt" ? "en" : "pt";
+            localStorage.setItem("siteLang", lang);
+            updateLang();
+            if (typeof updateMenuLang === "function") updateMenuLang();
+        };
 
-<div class="lang-toggle">
-  <button id="langBtn"></button>
-</div>
+        // Lógica de Hover do Botão Discord
+        const discordImg = document.querySelector(".discord-img");
+        const originalSrc = discordImg.src;
+        const hoverSrc = discordImg.dataset.hover;
 
-<script>
-const preloadDiscord = new Image();
-preloadDiscord.src = "assets/discordofficial_botton_on.png";
+        const setDiscordImg = (src) => { discordImg.src = src; };
 
-/* TEXTOS DO SITE */
-const texts = {
-  pt: {
-    title: "Pocket Anime",
-    description:
-      "Site criado com o objetivo de ajudar a todos que gostam de Pocket Anime. Clique nas 3 barrinhas do canto esquerdo superior para selecionar uma das funcionalidades do Site.",
-    subDescription:"Abaixo está o Discord Oficial do Pocket Anime, o Documento com a lista de todos os Animon e àreas de onde pegar, e a Wiki. (Não existe Wiki Oficial ainda.)",
-    langBtn: "🇧🇷 PT",
+        discordImg.addEventListener("mouseenter", () => setDiscordImg(hoverSrc));
+        discordImg.addEventListener("mouseleave", () => setDiscordImg(originalSrc));
+        discordImg.addEventListener("touchstart", () => setDiscordImg(hoverSrc));
+        discordImg.addEventListener("touchend", () => setDiscordImg(originalSrc));
 
-    creditsTitle: "Créditos",
-    creditsCreatorLabel: "Criador:",
-    creditsCreatorText: "Kawakizin – Discord (Kawaki1963)",
-    creditsToolsLabel: "Ferramentas de auxílio:",
-    creditsToolsText: "IA • ibisPaint • Canva"
-  },
-
-  en: {
-    title: "Pocket Anime",
-    description:
-      "Site created to help everyone who enjoys Pocket Anime. Click on the three bars in the upper left corner to select one of the Site's features.",
-    subDescription:"Below is the official Pocket Anime Discord server, the Mastersheet (a document with various information about the game), and the Wiki. (There is no official Wiki yet.)",
-    langBtn: "🇺🇸 EN",
-
-    creditsTitle: "Credits",
-    creditsCreatorLabel: "Creator:",
-    creditsCreatorText: "Kawakizin – Discord (Kawaki1963)",
-    creditsToolsLabel: "Support tools:",
-    creditsToolsText: "AI • ibisPaint • Canva"
-  }
-};
-
-/* CARREGA IDIOMA SALVO */
-let lang = localStorage.getItem("siteLang") || "pt";
-
-/* APLICA IDIOMA */
-function updateLang(){
-  document.getElementById("description").textContent = texts[lang].description;
-  document.getElementById("subDescription").textContent = texts[lang].subDescription;
-  document.getElementById("langBtn").textContent = texts[lang].langBtn;
-
-  // CRÉDITOS
-  document.getElementById("creditsTitle").textContent = texts[lang].creditsTitle;
-  document.getElementById("creditsCreatorLabel").textContent = texts[lang].creditsCreatorLabel;
-  document.getElementById("creditsCreatorText").textContent = texts[lang].creditsCreatorText;
-  document.getElementById("creditsToolsLabel").textContent = texts[lang].creditsToolsLabel;
-  document.getElementById("creditsToolsText").textContent = texts[lang].creditsToolsText;
-
-// BOTÃO DOC
-  const docImg = document.getElementById("docImg");
-  const docLink = document.getElementById("docLink");
-
-  if (lang === "pt") {
-    docImg.src = "assets/doc_botton1.png";
-    docLink.href = "https://docs.google.com/spreadsheets/d/1ny5ffBE45StnPxDY4ZlDzOBTZV4-W2r62rjl1QRfRDE/edit?usp=drivesdk";   // LINK EM PORTUGUÊS
-  } else {
-    docImg.src = "assets/doc_botton2.png";
-    docLink.href = "https://docs.google.com/spreadsheets/d/1j8D2Lv-iq5BFg0vUTjokfoSepDwSeEY1S5Vtj31r64s/edit?usp=drivesdk";   // LINK EM INGLÊS
-  }
-}
-
-/* BOTÃO DE TROCA DE IDIOMA */
-document.getElementById("langBtn").onclick = () => {
-  lang = lang === "pt" ? "en" : "pt";
-  localStorage.setItem("siteLang", lang);
-  updateLang();
-
-if (typeof updateMenuLang === "function") {
-    updateMenuLang();
-  }
-};
-
-/* INIT */
-updateLang();
-
-const discordImg = document.querySelector(".discord-img");
-const originalSrc = discordImg.src;
-const hoverSrc = discordImg.dataset.hover;
-
-// Desktop
-discordImg.addEventListener("mouseenter", () => {
-  discordImg.src = hoverSrc;
-});
-
-discordImg.addEventListener("mouseleave", () => {
-  discordImg.src = originalSrc;
-});
-
-// Mobile
-discordImg.addEventListener("touchstart", () => {
-  discordImg.src = hoverSrc;
-});
-
-discordImg.addEventListener("touchend", () => {
-  discordImg.src = originalSrc;
-});
-
-</script>
+        // Inicialização
+        updateLang();
+    </script>
 
 </body>
 </html>
