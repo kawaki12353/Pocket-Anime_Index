@@ -651,8 +651,28 @@ const animons = [
     ]
   },
   { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 } },
-  { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 } },
-  { id: 52.01, name: "Demon Ice Sculpture", type: ["Ice", "Demon"], sprite: "assets/animons-icon/demon_ice_sculpture.png", stats: { hp: 62, atk: 65, def: 53, spAtk: 83, spDef: 50, spd: 71 } },
+  { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 },
+    anime: { name: "Gray Fullbuster", anime:"Fairy Tail" },
+    movesList: [
+      { level: 1, name: "Cold Snap" },
+      { level: 1, name: "Punch" },
+      { level: 6, name: "Ice Spikes" },
+      { level: 10, name: "Ice Clone" },
+      { level: 16, name: "Ice Lance" },
+      { level: 20, name: "Glacial Blade" }
+    ]
+  },
+  { id: 52.01, name: "Demon Ice Sculpture", type: ["Ice", "Demon"], sprite: "assets/animons-icon/demon_ice_sculpture.png", stats: { hp: 62, atk: 65, def: 53, spAtk: 83, spDef: 50, spd: 71 },
+    anime: { name: "Gray Fullbuster", anime:"Fairy Tail" },
+    movesList: [
+      { level: 1, name: "Cold Snap" },
+      { level: 1, name: "Punch" },
+      { level: 6, name: "Ice Spikes" },
+      { level: 10, name: "Ice Clone" },
+      { level: 16, name: "Ice Lance" },
+      { level: 20, name: "Glacial Blade" }
+    ]
+  },
   { id: 53, name: "Gokidaru", type: "Fire", sprite: "assets/animons-icon/gokidaru.png", stats: { hp: 60, atk: 65, def: 40, spAtk: 53, spDef: 44, spd: 60 } },
   { id: 53.01, name: "Storm Gokidaru", type: ["Fire", "Wind"], sprite: "assets/animons-icon/storm_gokidaru.png", stats: { hp: 66, atk: 79, def: 46, spAtk: 77, spDef: 45, spd: 63 } },
   { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 } },
