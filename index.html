@@ -21,21 +21,27 @@
             --bg-light: #f2f4f7;
             --card-light: #ffffff;
             --text-light: #111;
+            --border-light: #ccc;
+            --hover-light: #f1f1f1;
             --lang-btn-light: #ffffff;
             --lang-btn-bg-light: #444;
 
             --bg-dark: #0f1217;
             --card-dark: #181c24;
             --text-dark: #ffffff;
+            --border-dark: #2a2f3a;
+            --hover-dark: #232836;
             --lang-btn-dark: #111;
             --lang-btn-bg-dark: #ffffff;
 
             --action-width: 260px;
-            
+
             /* Temas dinâmicos */
             --bg: var(--bg-light);
             --card: var(--card-light);
             --text: var(--text-light);
+            --border: var(--border-light);
+            --hover: var(--hover-light);
             --lang-btn: var(--lang-btn-light);
             --lang-btn-bg: var(--lang-btn-bg-light);
         }
@@ -45,6 +51,8 @@
                 --bg: var(--bg-dark);
                 --card: var(--card-dark);
                 --text: var(--text-dark);
+                --border: var(--border-dark);
+                --hover: var(--hover-dark);
                 --lang-btn: var(--lang-btn-dark);
                 --lang-btn-bg: var(--lang-btn-bg-dark);
             }
@@ -61,10 +69,11 @@
             align-items: center;
             min-height: 100vh;
             transition: background 0.3s ease;
+            padding: 40px 0; /* Aumentado para acomodar FAQ */
         }
 
         /* CONTAINER PRINCIPAL */
-        .container, .credits-container {
+        .container, .credits-container, .faq-container {
             background: var(--card);
             color: var(--text);
             border-radius: 16px;
@@ -76,10 +85,48 @@
             transition: background 0.3s ease;
         }
 
-        .credits-container {
+        .credits-container, .faq-container {
             margin-top: 20px;
             padding: 20px 25px;
         }
+
+        /* FAQ STYLE (Igual maps.html) */
+        .faq-container { text-align: left; }
+        .faq-title { text-align: center; margin-bottom: 15px; font-size: 20px; }
+        
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .faq-header {
+            padding: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            background: var(--card);
+            transition: background 0.2s;
+        }
+
+        .faq-header:hover { background: var(--hover); }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: var(--bg);
+        }
+
+        .faq-content p {
+            padding: 12px;
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .faq-item.active .faq-content { max-height: 300px; }
 
         /* ELEMENTOS INTERNOS */
         .logo {
@@ -120,6 +167,7 @@
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
+            z-index: 100;
         }
 
         .lang-toggle button {
@@ -137,7 +185,7 @@
         /* MOBILE */
         @media (max-width: 480px) {
             body { padding: 20px 0; justify-content: flex-start; }
-            .container, .credits-container { width: 85%; padding: 24px 20px; }
+            .container, .credits-container, .faq-container { width: 85%; padding: 24px 20px; }
             h1 { font-size: 22px; }
             .logo { width: 200px; }
         }
@@ -161,9 +209,15 @@
         </a>
     </main>
 
+    <section class="faq-container">
+        <h2 class="faq-title">FAQ</h2>
+        <div id="faqList"></div>
+    </section>
+
     <footer class="credits-container">
         <h2 id="creditsTitle"></h2>
         <p><strong id="creditsCreatorLabel"></strong><br><span id="creditsCreatorText"></span></p>
+        <p><strong id="creditsHelpersLabel"></strong><br><span id="creditsHelpersText"></span></p>
         <p><strong id="creditsToolsLabel"></strong><br><span id="creditsToolsText"></span></p>
     </footer>
 
@@ -183,8 +237,19 @@
                 creditsTitle: "Créditos",
                 creditsCreatorLabel: "Criador:",
                 creditsCreatorText: "Kawakizin – Discord (Kawaki1963)",
+                creditsHelpersLabel: "Ajudantes:",
+                creditsHelpersText: "Kyodaina - Discord (kyodaina0)",
                 creditsToolsLabel: "Ferramentas de auxílio:",
-                creditsToolsText: "IA • ibisPaint • Canva"
+                creditsToolsText: "IA • ibisPaint • Canva",
+                faq: [
+                    { h: "📘 - O que é este Site?", c: "Este Site não-oficial foi criado para ajudar os jogadores de Pocket Anime, reunindo informações sobre a Anidex, Itens, e muitas outras coisas para Ajudar a Comunidade." },
+                    { h: "📖 - O que encontro na Anidex?", c: "Na Anidex você encontrará: Nome do Animon (em que você pode pesquisar pelo Nome original, nome do anime ou pelo ID), Elementos e o Status, e dentro de cada página de Animon pode ver os Moves e outras coisas." },
+                    { h: "📍 - Onde vejo os spawns dos Animons?", c: "Os spawns estão indicados em cada Animon, na parte de Localizações, onde lá mostra se ele é apenas obtivel via Evento, ou se poder ter ou não um Evento que aumente a Chance de ele surgir." },
+                    { h: "🎯 - Todos os Animons podem ser capturados?", c: "Não, alguns personagens só podem ser obtidos via eventos, desbloqueados por evolução, NPCs ou Requisitos/Summon." },
+                    { h: "🔄 - O guia será atualizado?", c: "Sim, o guia é atualizado sempre que o Pocket Anime receber uma atualização ou alteração. A data da última alteração estará visível na Update Log nas 3 Barrinhas." },
+                    { h: "❓ - O que significa não achar um Animon?", c: "Isso pode significar que: Ou o personagem ainda não foi adicionado ao jogo, ou a Anidex do Site ainda será atualizado em breve caso o jogo tenha atualizado. Mais provável que não esteja no jogo ainda." },
+                    { h: "🛠️ - Como posso ajudar?", c: "Você pode nos ajudar encontrando erros, sugerindo algo ou com informações que estejam faltando/incorretas, entrando no discord oficial do Pocket Anime e me informar por ele." }
+                ]
             },
             en: {
                 description: "Site created to help everyone who enjoys Pocket Anime. Click on the three bars in the upper left corner to select one of the Site's features.",
@@ -193,12 +258,42 @@
                 creditsTitle: "Credits",
                 creditsCreatorLabel: "Creator:",
                 creditsCreatorText: "Kawakizin – Discord (Kawaki1963)",
+                creditsHelpersLabel: "Helpers:",
+                creditsHelpersText: "Kyodaina - Discord (kyodaina0)",
                 creditsToolsLabel: "Support tools:",
-                creditsToolsText: "AI • ibisPaint • Canva"
+                creditsToolsText: "AI • ibisPaint • Canva",
+                faq: [
+                    { h: "📘 - What is this Site?", c: "This unofficial site was created to help Pocket Anime players, gathering information about Anidex, Items, and many other things to help the community." },
+                    { h: "📖 - What do I find in Anidex?", c: "In Anidex you will find: Animon Name (searchable by original name, anime name, or ID), Elements, and Stats. Inside each Animon page, you can see Moves and more." },
+                    { h: "📍 - Where can I see Animon spawns?", c: "Spawns are indicated on each Animon page under 'Locations', showing if it's event-only or if there's an active event increasing its spawn rate." },
+                    { h: "🎯 - Can all Animons be captured?", c: "No, some characters can only be obtained via events, evolution unlocks, NPCs, or specific Requirements/Summoning." },
+                    { h: "🔄 - Will the guide be updated?", c: "Yes, the guide is updated whenever Pocket Anime receives an update or change. The date of the last change is visible in the Update Log in the menu." },
+                    { h: "❓ - What if I can't find an Animon?", c: "This could mean: Either the character hasn't been added to the game yet, or the site's Anidex is pending an update. Most likely, it's not in the game yet." },
+                    { h: "🛠️ - How can I help?", c: "You can help us by finding errors, suggesting improvements, or reporting missing/incorrect info via the official Pocket Anime Discord." }
+                ]
             }
         };
 
         let lang = localStorage.getItem("siteLang") || "pt";
+
+        function renderFAQ() {
+            const faqList = document.getElementById("faqList");
+            faqList.innerHTML = "";
+            texts[lang].faq.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "faq-item";
+                div.innerHTML = `
+                    <div class="faq-header">${item.h}</div>
+                    <div class="faq-content"><p>${item.c}</p></div>
+                `;
+                div.querySelector(".faq-header").onclick = () => {
+                    const isActive = div.classList.contains("active");
+                    document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("active"));
+                    if (!isActive) div.classList.add("active");
+                };
+                faqList.appendChild(div);
+            });
+        }
 
         function updateLang() {
             const t = texts[lang];
@@ -208,8 +303,11 @@
             document.getElementById("creditsTitle").textContent = t.creditsTitle;
             document.getElementById("creditsCreatorLabel").textContent = t.creditsCreatorLabel;
             document.getElementById("creditsCreatorText").textContent = t.creditsCreatorText;
+            document.getElementById("creditsHelpersLabel").textContent = t.creditsHelpersLabel;
+            document.getElementById("creditsHelpersText").textContent = t.creditsHelpersText;
             document.getElementById("creditsToolsLabel").textContent = t.creditsToolsLabel;
             document.getElementById("creditsToolsText").textContent = t.creditsToolsText;
+            renderFAQ();
         }
 
         document.getElementById("langBtn").onclick = () => {
