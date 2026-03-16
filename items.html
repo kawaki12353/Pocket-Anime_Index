@@ -51,7 +51,13 @@
             line-height: 1.5;
         }
 
-        .category-icon { width: 18px; height: 18px; }
+        /* Ajuste: flex-shrink para o ícone não amassar e vertical-align */
+        .category-icon { 
+            width: 18px; 
+            height: 18px; 
+            flex-shrink: 0; 
+            display: block;
+        }
 
         /* --- HEADER (IGUAL AO ANIDEX) --- */
         .header {
@@ -107,17 +113,31 @@
         .custom-select {
             position: relative;
             width: 100%;
-            max-width: 200px; /* Ajustado para 200px conforme anidex */
+            max-width: 200px;
         }
+        
         .select-btn {
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Ajustado para afastar a seta/texto */
+            justify-content: space-between;
             gap: 8px;
             cursor: pointer;
             box-sizing: border-box;
+            overflow: hidden; /* Garante que o conteúdo não vaze */
         }
+
+        /* AJUSTE: Container interno para alinhar ícone e texto com reticências */
+        .select-btn > span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+        }
+
         .select-list {
             display: none;
             position: absolute;
@@ -223,19 +243,16 @@
             cursor: pointer; font-weight: bold;
         }
 
-        /* --- Responsividade (IGUAL AO ANIDEX) --- */
+        /* --- Responsividade --- */
         @media (max-width: 768px) {
             .header-top { justify-content: flex-end; }
             .logo { width: 150px; }
             .item-list, .filters, .header { max-width: 100%; }
 
-            /* Ajustes de largura solicitados */
             #categorySelect { max-width: 52%; }
             #raritySelect { max-width: 44%; }
-            
+
             #searchInput { width: 100%; }
-            
-            /* Mantém a lista de itens em 1 coluna no mobile */
             .item-list { grid-template-columns: 1fr; } 
         }
     </style>
@@ -470,7 +487,7 @@ function updateFilterButtonsDisplay() {
     } else {
         rBtn.innerHTML = `<span>${uiText[lang].allRare}</span> <span style="font-size:10px;">▼</span>`;
     }
-    
+
     rBtn.className = "select-btn" + (selectedRarity ? ` r-${selectedRarity}` : "");
 }
 
