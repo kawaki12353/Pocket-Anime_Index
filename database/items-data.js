@@ -39,7 +39,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Battle Claw",desc:"Uma garra poderosa, afiada e resistente, simbolizando força bruta e proeza em combate.",drop:"Derrotando Animons do tipo Fighting.",cat:"evolution"},
- en:{name:"Battle Claw",desc:"A powerful claw, sharp and tough, symbolizing raw strength and combat prowess.",drop:"Defeating Fighting-type Animons.",cat:"evolution"}
+ en:{name:"Battle Claw",desc:"A powerful claw, sharp and tough, symbolizing raw strength and combat prowess.",drop:"Defeating Fighting-type Animons.",cat:"evolution"},
+ icon:"battle_claw.png"
 },
 {rarity:"incomum",
  pt:{name:"Breeze Feather",desc:"Uma pena leve e delicada que balança com a mais suave das brisas.",drop:"Derrotando Animons do tipo Wind.",cat:"evolution"},
