@@ -805,7 +805,7 @@ const uiText = {
         noTraits: "No traits yet",
         notDef: "Not defined yet.",
         notAvail: "It is not yet capturable.",
-        lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
+        lvl: "Lvl", name: "Name", type: "Type", Carney: "Category",
         btn: "🇺🇸 EN", totalStr: "Total: ", moveEmpty: "None",
         weak4: "Extreme Weakness (x4)",
         weak2: "Weakness (x2)",
@@ -890,7 +890,8 @@ function parseColoredText(text) {
   if (!text) return "";
   const colorMap = {
     "001": "#ff4d4d", "002": "#2ecc71", "003": "#f39c12", "004": "#95a5a6",
-    "005": "#a93226", "006": "#d2b4de", "007": "#1a5276", "008": "#ffe100", "000": "inherit"
+    "005": "#a93226", "006": "#d2b4de", "007": "#1a5276", "008": "#ffe100", 
+    "009": "#4db8ff", "000": "inherit"
   };
   let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
     if (code === "000") return "</span>";
