@@ -1,4 +1,8 @@
 const items=[
+{rarity:"epico",
+ pt:{name:"Celestial Key",desc:"Uma chave dourada que brilha com luz celestial, desbloqueando poderes inimagináveis.",drop:"Derrotando Animons do tipo Light.",cat:"evolution"},
+ en:{name:"Celestial Key",desc:"A golden key that shimmers with heavenly light, unlocking untold powers.",drop:"Defeating Light-type Animons.",cat:"evolution"},
+},
 {rarity:"incomum",
  pt:{name:"Bandit Cutlass",desc:"A Bandit Cutlass! Aumenta o atributo de ATAQUE do Animon que estiver equipado durante a batalha!",drop:"Derrotando o Animon Bandit.",cat:"battle"},
  en:{name:"Bandit Cutlass",desc:"The Bandit Cutlass! Increases the ATK stat of the Animon equipping it during battle!",drop:"Defeating the Bandit Animon.",cat:"battle"},
