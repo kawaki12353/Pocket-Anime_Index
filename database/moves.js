@@ -1,4 +1,43 @@
 const moves = {
+  "Cold Snap": {
+    name: "Cold Snap",
+    type: "ice",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+    pp: 20,
+  },
+  "Ice Spikes": {
+    name: "Ice Spikes",
+    type: "ice",
+    attack: "special",
+    accuracy: 100,
+    pp: 15,
+  },
+  "Ice Clone": {
+    name: "Ice Clone",
+    type: "ice",
+    attack: "status",
+    accuracy: 100,
+    pp: 5,
+  },
+  "Ice Lance": {
+    name: "Ice Lance",
+    type: "ice",
+    attack: "special",
+    accuracy: 100,
+    pp: 12,
+  },
+  "Glacial Blade": {
+    name: "Glacial Blade",
+    desc_pt: "Forme uma espada de gelo para atacar seu oponente com 3x de chance de acerto crítico e 10% de chance de [009]congelá-lo[000] por 3 turnos.",
+    desc_en: "Form a sword of ice to slash your opponent with an 3X critical strike chance and 10% chance of [009]freezing[000] for 3 turns.",
+    type: "ice",
+    attack: "physical",
+    power: 60,
+    accuracy: 100,
+    pp: 10,
+  },
   "Soul Reaver": {
     name: "Soul Reaver",
     desc_pt: "Ceife seus oponentes com garras cruéis, drenando sua energia, com baixa chance de infligir [005]Ferimento[000] ao acertar.",
