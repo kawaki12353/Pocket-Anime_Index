@@ -144,3 +144,9 @@ body.dark {
   .menu-links a.active, .menu-nav-fixed a.active { background: #3a4050; }
   .menu-scrollable-section::-webkit-scrollbar-thumb { background: #444; }
 }
+
+/* Bloqueia a rolagem do site ao abrir o menu */
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
