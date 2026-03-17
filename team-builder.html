@@ -172,8 +172,24 @@
        ========================================= */
     .fab-add { position: fixed; right: 20px; bottom: 80px; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 32px; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); box-shadow: 0 6px 18px rgba(0,0,0,0.3); transition: 0.2s; z-index: 999; }
     .fab-add:hover { transform: scale(1.08); }
-    .lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); }
-    .lang-toggle button { padding: 8px 14px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); }
+    
+    /* IDIOMA (IGUAL AO INDEX.HTML) */
+    .lang-toggle {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+    .lang-toggle button {
+        background: var(--text);
+        color: var(--card);
+        padding: 8px 14px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
 
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; }
     .modal { background: var(--card); width: 600px; height: 600px; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; overflow: visible; }
@@ -290,8 +306,8 @@
        1. ESTADO E VARIÁVEIS GERAIS
        ========================================= */
     const texts = {
-      pt: { btn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!" },
-      en: { btn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", moveEmpty: "None", remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!" }
+      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!" },
+      en: { langBtn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", moveEmpty: "None", remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
@@ -813,14 +829,15 @@
        6. EVENT LISTENERS E I18N
        ========================================= */
     function updateLangUI() {
-      document.getElementById("mapTitle").textContent = texts[lang].title;
-      DOM.shareBtn.textContent = texts[lang].share;
-      DOM.exportBtn.textContent = texts[lang].export;
-      DOM.langBtn.textContent = texts[lang].btn;
-      document.getElementById("modalTitle").textContent = texts[lang].modalTitle;
-      document.getElementById("editModalTitle").textContent = texts[lang].editTitle;
-      DOM.searchInput.placeholder = texts[lang].search;
-      document.getElementById("statsTitle").textContent = texts[lang].totalStats;
+      const t = texts[lang];
+      document.getElementById("mapTitle").textContent = t.title;
+      DOM.shareBtn.textContent = t.share;
+      DOM.exportBtn.textContent = t.export;
+      DOM.langBtn.textContent = t.langBtn;
+      document.getElementById("modalTitle").textContent = t.modalTitle;
+      document.getElementById("editModalTitle").textContent = t.editTitle;
+      DOM.searchInput.placeholder = t.search;
+      document.getElementById("statsTitle").textContent = t.totalStats;
     }
 
     DOM.langBtn.onclick = () => {
@@ -828,6 +845,7 @@
       localStorage.setItem("siteLang", lang);
       updateLangUI();
       renderTeam();
+      if (typeof updateMenuLang === "function") updateMenuLang();
     };
 
     DOM.addAnimonBtn.onclick = () => {
