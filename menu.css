@@ -38,21 +38,29 @@ body.dark {
   pointer-events: auto;
 }
 
-/* MENU LATERAL - ESTRUTURA PRINCIPAL */
+/* MENU LATERAL - AJUSTADO PARA TAMANHO FIXO */
 .side-menu {
   position: fixed;
   top: 0;
   left: 0;
+  
+  /* TRAVA DE TAMANHO: Garante que ele tenha sempre 260px */
   width: 260px;
-  height: 100%;
+  min-width: 260px; 
+  max-width: 260px;
+  
+  height: 100vh; /* Usa a altura da tela inteira */
   background: #fff;
   box-shadow: 4px 0 20px rgba(0,0,0,.25);
   transform: translateX(-100%);
   transition: .3s;
   z-index: 1002;
   display: flex;
-  flex-direction: column; /* Organiza topo e lista em coluna */
-  overflow: hidden; /* Garante que o scroll aconteça apenas dentro da div correta */
+  flex-direction: column;
+  
+  /* Impede que o conteúdo interno ou bordas estiquem a largura */
+  overflow: hidden; 
+  box-sizing: border-box; 
 }
 
 .side-menu.active {
@@ -63,8 +71,9 @@ body.dark {
 .menu-fixed-section {
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 0 20px; /* Padding apenas no topo e laterais */
-  flex-shrink: 0; /* Impede que esta parte diminua */
+  padding: 20px 20px 0 20px;
+  flex-shrink: 0; /* Impede que esta parte "esmague" se a tela for pequena */
+  box-sizing: border-box;
 }
 
 .close-menu {
@@ -77,9 +86,11 @@ body.dark {
 }
 
 .menu-logo {
-  width: 180px;
+  width: 100%; /* Faz a logo respeitar a largura do menu */
+  max-width: 180px; /* Mas não deixa ela ficar gigante */
   margin: 10px auto 20px;
   display: block;
+  object-fit: contain; /* Garante que a imagem não distorça */
 }
 
 .menu-nav-fixed {
@@ -89,12 +100,13 @@ body.dark {
 
 /* SEÇÃO ROLÁVEL (Lista de Links) */
 .menu-scrollable-section {
-  flex-grow: 1; /* Ocupa todo o espaço restante */
-  overflow-y: auto; /* Ativa o scroll vertical */
-  padding: 0 20px 20px 20px; /* Padding lateral e inferior */
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0 20px 20px 20px;
+  box-sizing: border-box; /* Mantém o padding dentro dos 260px */
 }
 
-/* Customização básica do Scrollbar */
+/* Customização do Scrollbar */
 .menu-scrollable-section::-webkit-scrollbar {
   width: 5px;
 }
@@ -117,8 +129,12 @@ body.dark {
   text-decoration: none;
   color: #111;
   font-weight: bold;
-  display: block; /* Garante que o link ocupe a largura toda */
+  display: block;
   transition: background 0.2s;
+  box-sizing: border-box;
+  white-space: nowrap; /* Impede que o texto quebre linha e estique o menu */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adiciona "..." se o texto for maior que o menu */
 }
 
 .menu-links a.active, .menu-nav-fixed a.active {
