@@ -749,6 +749,8 @@ function updateUI() {
     buildMenus();
     updateFilterButtonsDisplay();
     render();
+    // ESSA É A LINHA QUE RESOLVE: Chama a função de tradução do menu.js se ela existir
+    if (typeof updateMenu === 'function') updateMenu();
 }
 
 document.getElementById("searchInput").oninput = render;
