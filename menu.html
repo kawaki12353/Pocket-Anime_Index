@@ -1,16 +1,20 @@
-<button class="menu-btn" id="openMenu">☰</button>
+<button class="menu-btn" id="openMenu" aria-label="Abrir Menu">☰</button>
 
 <div class="menu-overlay" id="menuOverlay"></div>
 
 <aside class="side-menu" id="sideMenu">
 
   <div class="menu-fixed-section">
-    <button class="close-menu" id="closeMenu">✕</button>
-    <img src="assets/Pocket-Anime-logo.png" class="menu-logo" alt="Pocket Anime">
+    <button class="close-menu" id="closeMenu" aria-label="Fechar Menu">✕</button>
+    
+    <a href="index.html" class="menu-logo-link">
+      <img src="assets/Pocket-Anime-logo.png" class="menu-logo" alt="Pocket Anime Logo">
+    </a>
 
     <nav class="menu-nav-fixed">
       <a href="index.html" id="menuHome">🏠 Início</a>
     </nav>
+    
     <div class="menu-divider"></div>
   </div>
 
@@ -30,4 +34,5 @@
       <a href="update-log.html" id="menuUpdate">📝 Update Log</a>
     </nav>
   </div>
+  
 </aside>
