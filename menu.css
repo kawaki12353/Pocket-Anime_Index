@@ -38,7 +38,7 @@ body.dark {
   pointer-events: auto;
 }
 
-/* MENU LATERAL - ESTRUTURA TRAVADA */
+/* MENU LATERAL - TRAVADO EM 260PX */
 .side-menu {
   position: fixed;
   top: 0;
@@ -62,7 +62,7 @@ body.dark {
   transform: translateX(0);
 }
 
-/* SEÇÃO FIXA */
+/* SEÇÃO FIXA (Logo e Botão X) */
 .menu-fixed-section {
   display: flex;
   flex-direction: column;
@@ -110,7 +110,7 @@ body.dark {
   border-radius: 10px;
 }
 
-/* BOTÕES - AJUSTADOS PARA TAMANHO FIXO E TEXTO ADAPTÁVEL */
+/* LINKS E BOTÕES COM TAMANHO FIXO */
 .menu-links {
   display: flex;
   flex-direction: column;
@@ -118,28 +118,31 @@ body.dark {
 }
 
 .menu-links a, .menu-nav-fixed a {
-  /* Tamanho fixo do botão */
+  /* Tamanho Fixo do Botão */
   height: 48px; 
   width: 100%;
   
-  /* Alinhamento centralizado do texto */
+  /* Alinhamento do Texto */
   display: flex;
   align-items: center;
   padding: 0 16px; 
   
+  /* Estilo Visual */
   background: #f2f4f7;
   border-radius: 12px;
   text-decoration: none;
   color: #111;
-  font-weight: bold;
   transition: background 0.2s;
   box-sizing: border-box;
-  
-  /* Tratamento do texto para não esticar o botão */
-  font-size: 14px; /* Tamanho base ideal */
+
+  /* Letras com Tamanho Fixo */
+  font-size: 16px; 
+  font-weight: bold;
+
+  /* Adaptação do texto: Se for grande demais, coloca "..." */
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Se o texto for gigante, ele coloca "..." */
+  text-overflow: ellipsis;
 }
 
 .menu-links a.active, .menu-nav-fixed a.active {
