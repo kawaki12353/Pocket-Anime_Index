@@ -336,16 +336,16 @@ let selectedRarity = "";
 
 const rarityOrder = { comum: 1, incomum: 2, raro: 3, epico: 4, lendario: 5 };
 
-const uiText = {
+const texts = {
     pt: {
         title: "Lista de Itens", search: "Pesquisar item...",
         allCat: "Todas as categorias", allRare: "Todas raridades",
-        desc: "Descrição", note: "Nota", drop: "Onde Obter", cat: "Categoria", btn: "🇧🇷 PT"
+        desc: "Descrição", note: "Nota", drop: "Onde Obter", cat: "Categoria", langBtn: "🇧🇷 PT"
     },
     en: {
         title: "Item List", search: "Search item...",
         allCat: "All categories", allRare: "All rarities",
-        desc: "Description", note: "Note", drop: "How to obtain", cat: "Category", btn: "🇺🇸 EN"
+        desc: "Description", note: "Note", drop: "How to obtain", cat: "Category", langBtn: "🇺🇸 EN"
     }
 };
 
@@ -432,14 +432,14 @@ function closeModal() {
 }
 
 function updateLang() {
-    const ui = uiText[lang];
-    document.getElementById("title").textContent = ui.title;
-    document.getElementById("searchInput").placeholder = ui.search;
-    document.getElementById("lblDesc").textContent = ui.desc;
-    document.getElementById("lblNote").textContent = ui.note;
-    document.getElementById("lblDrop").textContent = ui.drop;
-    document.getElementById("lblCat").textContent = ui.cat;
-    document.getElementById("langBtn").textContent = ui.btn;
+    const t = texts[lang];
+    document.getElementById("title").textContent = t.title;
+    document.getElementById("searchInput").placeholder = t.search;
+    document.getElementById("lblDesc").textContent = t.desc;
+    document.getElementById("lblNote").textContent = t.note;
+    document.getElementById("lblDrop").textContent = t.drop;
+    document.getElementById("lblCat").textContent = t.cat;
+    document.getElementById("langBtn").textContent = t.langBtn;
 
     buildCategoryMenu();
     buildRarityMenu();
@@ -449,7 +449,7 @@ function updateLang() {
 
 function buildCategoryMenu() {
     const list = document.getElementById("categoryList");
-    list.innerHTML = `<li data-value="">${uiText[lang].allCat}</li>`;
+    list.innerHTML = `<li data-value="">${texts[lang].allCat}</li>`;
 
     categoryKeys.forEach(key => {
         const li = document.createElement("li");
@@ -463,7 +463,7 @@ function buildCategoryMenu() {
 
 function buildRarityMenu() {
     const list = document.getElementById("rarityList");
-    list.innerHTML = `<li data-value="">${uiText[lang].allRare}</li>`;
+    list.innerHTML = `<li data-value="">${texts[lang].allRare}</li>`;
 
     Object.keys(rarityOrder).forEach(r => {
         const li = document.createElement("li");
@@ -482,13 +482,13 @@ function updateFilterButtonsDisplay() {
     if (selectedCategory) {
         cBtn.innerHTML = `<span><img src="${categoryIcons[selectedCategory]}" class="category-icon"> ${categoryLabels[lang][selectedCategory]}</span> <span style="font-size:10px;">▼</span>`;
     } else {
-        cBtn.innerHTML = `<span>${uiText[lang].allCat}</span> <span style="font-size:10px;">▼</span>`;
+        cBtn.innerHTML = `<span>${texts[lang].allCat}</span> <span style="font-size:10px;">▼</span>`;
     }
 
     if (selectedRarity) {
         rBtn.innerHTML = `<span>${rarityLabels[lang][selectedRarity]}</span> <span style="font-size:10px;">▼</span>`;
     } else {
-        rBtn.innerHTML = `<span>${uiText[lang].allRare}</span> <span style="font-size:10px;">▼</span>`;
+        rBtn.innerHTML = `<span>${texts[lang].allRare}</span> <span style="font-size:10px;">▼</span>`;
     }
 
     rBtn.className = "select-btn" + (selectedRarity ? ` r-${selectedRarity}` : "");
@@ -514,11 +514,10 @@ function closeAllSelects() {
 }
 
 document.getElementById("langBtn").onclick = () => {
-    const scrollPos = window.scrollY;
     lang = lang === "pt" ? "en" : "pt";
     localStorage.setItem("siteLang", lang);
     updateLang();
-    window.scrollTo(0, scrollPos);
+    if (typeof updateMenuLang === "function") updateMenuLang();
 };
 
 document.getElementById("categoryBtn").onclick = (e) => {
