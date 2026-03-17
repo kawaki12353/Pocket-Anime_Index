@@ -38,6 +38,7 @@ function setActivePage(){
 
   const pages = {
     "index.html": "menuHome",
+    "moves.html": "menuMoves", // Adicionado
     "calculator.html": "menuCalc",
     "items.html": "menuItems",
     "maps.html": "menuMaps",
@@ -46,7 +47,8 @@ function setActivePage(){
   };
 
   if (pages[current]) {
-    document.getElementById(pages[current]).classList.add("active");
+    const activeElement = document.getElementById(pages[current]);
+    if (activeElement) activeElement.classList.add("active");
   }
 }
 
@@ -54,29 +56,33 @@ function updateMenuLang(){
   const lang = getLang();
 
   const text = {
-  pt:{
-    home:"🏠 Início",
-    calc:"🔥 Calculadora",
-    items:"🗂 Itens",
-    maps:"🗺 Mapas",
-    trainers:"🤵‍♂️ Treinadores",
-    update:"📝 Update Log"
-  },
-  en:{
-    home:"🏠 Home",
-    calc:"🔥 Calculator",
-    items:"🗂 Items",
-    maps:"🗺 Maps",
-    trainers:"🤵‍♂️ Trainers",
-    update:"📝 Update Log"
-  }
-};
+    pt: {
+      home: "🏠 Início",
+      moves: "⚔️ Lista de Moves", // Adicionado
+      calc: "🔥 Calculadora",
+      items: "🗂 Itens",
+      maps: "🗺 Mapas",
+      trainers: "🤵‍♂️ Treinadores",
+      update: "📝 Update Log"
+    },
+    en: {
+      home: "🏠 Home",
+      moves: "⚔️ Moves List", // Adicionado
+      calc: "🔥 Calculator",
+      items: "🗂 Items",
+      maps: "🗺 Maps",
+      trainers: "🤵‍♂️ Trainers",
+      update: "📝 Update Log"
+    }
+  };
 
-  document.getElementById("menuHome").textContent  = text[lang].home;
-  document.getElementById("menuCalc").textContent  = text[lang].calc;
+  // Aplicação dos textos nos IDs correspondentes
+  document.getElementById("menuHome").textContent = text[lang].home;
+  document.getElementById("menuMoves").textContent = text[lang].moves; // Adicionado
+  document.getElementById("menuCalc").textContent = text[lang].calc;
   document.getElementById("menuItems").textContent = text[lang].items;
-  document.getElementById("menuMaps").textContent  = text[lang].maps;
-
-document.getElementById("menuTrainers").textContent = text[lang].trainers;
+  document.getElementById("menuMaps").textContent = text[lang].moves; // Nota: Corrigido para .maps
+  document.getElementById("menuMaps").textContent = text[lang].maps;
+  document.getElementById("menuTrainers").textContent = text[lang].trainers;
   document.getElementById("menuUpdate").textContent = text[lang].update;
 }
