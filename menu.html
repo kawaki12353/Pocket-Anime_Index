@@ -1,30 +1,34 @@
-<!-- BOTÃO MENU -->
 <button class="menu-btn" id="openMenu">☰</button>
 
-<!-- OVERLAY -->
 <div class="menu-overlay" id="menuOverlay"></div>
 
-<!-- MENU LATERAL -->
 <aside class="side-menu" id="sideMenu">
-  <button class="close-menu" id="closeMenu">✕</button>
-
-  <img src="assets/Pocket-Anime-logo.png" class="menu-logo" alt="Pocket Anime">
-
-  <nav class="menu-links">
-    <a href="index.html" id="menuHome"></a>
+  
+  <div class="menu-fixed-section">
+    <button class="close-menu" id="closeMenu">✕</button>
+    <img src="assets/Pocket-Anime-logo.png" class="menu-logo" alt="Pocket Anime">
     
+    <nav class="menu-nav-fixed">
+      <a href="index.html" id="menuHome"></a>
+    </nav>
     <div class="menu-divider"></div>
-    
-    <a href="calculator.html" id="menuCalc"></a>
-    <a href="items.html" id="menuItems"></a>
+  </div>
 
-    <div class="menu-divider"></div>
+  <div class="menu-scrollable-section">
+    <nav class="menu-links">
+      <a href="moves.html" id="menuMoves"></a>
+      
+      <a href="calculator.html" id="menuCalc"></a>
+      <a href="items.html" id="menuItems"></a>
 
-    <a href="maps.html" id="menuMaps"></a>
-    <a href="trainer.html" id="menuTrainers"></a>
+      <div class="menu-divider"></div>
 
-    <div class="menu-divider"></div>
+      <a href="maps.html" id="menuMaps"></a>
+      <a href="trainer.html" id="menuTrainers"></a>
 
-    <a href="update-log.html" id="menuUpdate"></a>
-  </nav>
+      <div class="menu-divider"></div>
+
+      <a href="update-log.html" id="menuUpdate"></a>
+    </nav>
+  </div>
 </aside>
