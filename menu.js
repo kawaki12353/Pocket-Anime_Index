@@ -15,25 +15,26 @@ function initMenu(){
   const sideMenu  = document.getElementById("sideMenu");
   const overlay   = document.getElementById("menuOverlay");
 
-  function closeSideMenu(){
-    sideMenu.classList.remove("active");
-    overlay.classList.remove("active");
-    // Libera a rolagem da página ao fechar
-    document.body.classList.remove("no-scroll");
+  // Verifica se os elementos existem antes de atribuir eventos
+  if (openMenu && closeMenu && sideMenu && overlay) {
+    function closeSideMenu(){
+      sideMenu.classList.remove("active");
+      overlay.classList.remove("active");
+      document.body.classList.remove("no-scroll");
+    }
+
+    openMenu.onclick = () => {
+      sideMenu.classList.add("active");
+      overlay.classList.add("active");
+      document.body.classList.add("no-scroll");
+    };
+
+    closeMenu.onclick = closeSideMenu;
+    overlay.onclick   = closeSideMenu;
   }
 
-  openMenu.onclick = () => {
-    sideMenu.classList.add("active");
-    overlay.classList.add("active");
-    // Trava a rolagem da página ao abrir
-    document.body.classList.add("no-scroll");
-  };
-
-  closeMenu.onclick = closeSideMenu;
-  overlay.onclick   = closeSideMenu;
-
   setActivePage();
-  updateMenuLang();
+  updateMenuLang(); // Traduz assim que carrega
 }
 
 /* MARCA PÁGINA ATUAL */
@@ -56,7 +57,8 @@ function setActivePage(){
   }
 }
 
-function updateMenuLang(){
+// Tornamos a função global para que o botão de tradução da sua página possa chamá-la
+window.updateMenuLang = function() {
   const lang = getLang();
 
   const text = {
@@ -80,12 +82,28 @@ function updateMenuLang(){
     }
   };
 
-  // Aplicação dos textos nos IDs correspondentes
-  document.getElementById("menuHome").textContent = text[lang].home;
-  document.getElementById("menuMoves").textContent = text[lang].moves;
-  document.getElementById("menuCalc").textContent = text[lang].calc;
-  document.getElementById("menuItems").textContent = text[lang].items;
-  document.getElementById("menuMaps").textContent = text[lang].maps;
-  document.getElementById("menuTrainers").textContent = text[lang].trainers;
-  document.getElementById("menuUpdate").textContent = text[lang].update;
+  const mapping = {
+    "menuHome": "home",
+    "menuMoves": "moves",
+    "menuCalc": "calc",
+    "menuItems": "items",
+    "menuMaps": "maps",
+    "menuTrainers": "trainers",
+    "menuUpdate": "update"
+  };
+
+  // Loop inteligente para traduzir apenas o que existe na tela
+  for (let id in mapping) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.textContent = text[lang][mapping[id]];
+    }
+  }
 }
+
+// Escuta mudanças no localStorage (útil se a tradução vier de outra aba ou script)
+window.addEventListener('storage', (e) => {
+  if (e.key === 'siteLang') {
+    window.updateMenuLang();
+  }
+});
