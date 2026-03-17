@@ -110,22 +110,22 @@ body.dark {
   border-radius: 10px;
 }
 
-/* LINKS E BOTÕES COM TAMANHO FIXO */
+/* LINKS E BOTÕES COM TAMANHO FIXO (Ajustado para Mobile) */
 .menu-links {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px; /* Reduzido de 12px para 10px para ficar mais agrupado */
 }
 
 .menu-links a, .menu-nav-fixed a {
-  /* Tamanho Fixo do Botão */
-  height: 48px; 
+  /* Tamanho Fixo do Botão (Mais compacto) */
+  height: 42px; /* Reduzido de 48px para 42px */
   width: 100%;
   
   /* Alinhamento do Texto */
   display: flex;
   align-items: center;
-  padding: 0 16px; 
+  padding: 0 14px; /* Leve redução no padding lateral */
   
   /* Estilo Visual */
   background: #f2f4f7;
@@ -135,8 +135,8 @@ body.dark {
   transition: background 0.2s;
   box-sizing: border-box;
 
-  /* Letras com Tamanho Fixo */
-  font-size: 16px; 
+  /* Letras com Tamanho Fixo (Proporcional ao novo botão) */
+  font-size: 15px; /* Reduzido de 16px para 15px */
   font-weight: bold;
 
   /* Adaptação do texto: Se for grande demais, coloca "..." */
