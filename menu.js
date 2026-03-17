@@ -1,28 +1,34 @@
+/* CARREGAMENTO DO MENU */
 fetch("menu.html")
   .then(res => res.text())
   .then(html => {
+    // "afterbegin" garante que o menu seja o primeiro elemento do body,
+    // evitando que herde larguras de containers de conteúdo da página.
     document.body.insertAdjacentHTML("afterbegin", html);
     initMenu();
-  });
+  })
+  .catch(err => console.error("Erro ao carregar o menu:", err));
 
-function getLang(){
+function getLang() {
   return localStorage.getItem("siteLang") || "pt";
 }
 
-function initMenu(){
+function initMenu() {
   const openMenu  = document.getElementById("openMenu");
   const closeMenu = document.getElementById("closeMenu");
   const sideMenu  = document.getElementById("sideMenu");
   const overlay   = document.getElementById("menuOverlay");
 
-  // Verifica se os elementos existem antes de atribuir eventos
   if (openMenu && closeMenu && sideMenu && overlay) {
-    function closeSideMenu(){
+    
+    // Função para fechar o menu e liberar o scroll
+    const closeSideMenu = () => {
       sideMenu.classList.remove("active");
       overlay.classList.remove("active");
       document.body.classList.remove("no-scroll");
-    }
+    };
 
+    // Função para abrir o menu e travar o scroll
     openMenu.onclick = () => {
       sideMenu.classList.add("active");
       overlay.classList.add("active");
@@ -31,14 +37,20 @@ function initMenu(){
 
     closeMenu.onclick = closeSideMenu;
     overlay.onclick   = closeSideMenu;
+
+    // Fecha o menu se a tecla Esc for pressionada
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") closeSideMenu();
+    });
   }
 
   setActivePage();
-  updateMenuLang(); // Traduz assim que carrega
+  window.updateMenuLang(); // Traduz assim que carrega
 }
 
 /* MARCA PÁGINA ATUAL */
-function setActivePage(){
+function setActivePage() {
+  // Pega o nome do arquivo atual (ex: index.html)
   const current = location.pathname.split("/").pop() || "index.html";
 
   const pages = {
@@ -51,13 +63,16 @@ function setActivePage(){
     "update-log.html": "menuUpdate"
   };
 
+  // Remove classes active antigas (prevenção)
+  document.querySelectorAll(".side-menu a").forEach(link => link.classList.remove("active"));
+
   if (pages[current]) {
     const activeElement = document.getElementById(pages[current]);
     if (activeElement) activeElement.classList.add("active");
   }
 }
 
-// Tornamos a função global para que o botão de tradução da sua página possa chamá-la
+/* TRADUÇÃO DO MENU */
 window.updateMenuLang = function() {
   const lang = getLang();
 
@@ -92,16 +107,16 @@ window.updateMenuLang = function() {
     "menuUpdate": "update"
   };
 
-  // Loop inteligente para traduzir apenas o que existe na tela
   for (let id in mapping) {
     const element = document.getElementById(id);
     if (element) {
-      element.textContent = text[lang][mapping[id]];
+      // Usamos innerHTML caso você queira manter os emojis ou tags
+      element.innerHTML = text[lang][mapping[id]];
     }
   }
-}
+};
 
-// Escuta mudanças no localStorage (útil se a tradução vier de outra aba ou script)
+// Escuta mudanças no localStorage para trocar o idioma em tempo real
 window.addEventListener('storage', (e) => {
   if (e.key === 'siteLang') {
     window.updateMenuLang();
