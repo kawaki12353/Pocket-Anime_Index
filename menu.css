@@ -1,121 +1,4 @@
-:root {
-  --border: #2a2a2a;
-}
-
-body.dark {
-  --border: #ffffff30;
-}
-
-/* BOTÃO DE ABRIR */
-.menu-btn {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  z-index: 1001;
-  background: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-size: 22px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,.2);
-}
-
-/* OVERLAY */
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.35);
-  backdrop-filter: blur(4px);
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s;
-  z-index: 1000;
-}
-
-.menu-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* MENU LATERAL - AJUSTADO PARA TAMANHO FIXO */
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  
-  /* TRAVA DE TAMANHO: Garante que ele tenha sempre 260px */
-  width: 260px;
-  min-width: 260px; 
-  max-width: 260px;
-  
-  height: 100vh; /* Usa a altura da tela inteira */
-  background: #fff;
-  box-shadow: 4px 0 20px rgba(0,0,0,.25);
-  transform: translateX(-100%);
-  transition: .3s;
-  z-index: 1002;
-  display: flex;
-  flex-direction: column;
-  
-  /* Impede que o conteúdo interno ou bordas estiquem a largura */
-  overflow: hidden; 
-  box-sizing: border-box; 
-}
-
-.side-menu.active {
-  transform: translateX(0);
-}
-
-/* SEÇÃO FIXA (Logo, X e Início) */
-.menu-fixed-section {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 20px 0 20px;
-  flex-shrink: 0; /* Impede que esta parte "esmague" se a tela for pequena */
-  box-sizing: border-box;
-}
-
-.close-menu {
-  align-self: flex-end;
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  margin-bottom: -10px;
-}
-
-.menu-logo {
-  width: 100%; /* Faz a logo respeitar a largura do menu */
-  max-width: 180px; /* Mas não deixa ela ficar gigante */
-  margin: 10px auto 20px;
-  display: block;
-  object-fit: contain; /* Garante que a imagem não distorça */
-}
-
-.menu-nav-fixed {
-  display: flex;
-  flex-direction: column;
-}
-
-/* SEÇÃO ROLÁVEL (Lista de Links) */
-.menu-scrollable-section {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 0 20px 20px 20px;
-  box-sizing: border-box; /* Mantém o padding dentro dos 260px */
-}
-
-/* Customização do Scrollbar */
-.menu-scrollable-section::-webkit-scrollbar {
-  width: 5px;
-}
-.menu-scrollable-section::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-}
-
-/* LINKS E ESTILOS */
+/* LINKS E ESTILOS - BOTÕES COM TAMANHO FIXO E TEXTO ADAPTÁVEL */
 .menu-links {
   display: flex;
   flex-direction: column;
@@ -123,46 +6,42 @@ body.dark {
 }
 
 .menu-links a, .menu-nav-fixed a {
-  padding: 12px 16px;
+  /* 1. Tamanho Fixo: Ocupa toda a largura disponível menos o padding do pai */
+  width: 100%; 
+  min-height: 48px; /* Altura mínima fixa para manter um padrão visual */
+  
+  /* 2. Alinhamento Interno */
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: flex-start;
+  padding: 10px 14px;
+  
+  /* 3. Estética */
   background: #f2f4f7;
   border-radius: 12px;
   text-decoration: none;
   color: #111;
   font-weight: bold;
-  display: block;
-  transition: background 0.2s;
+  transition: all 0.2s ease-in-out;
   box-sizing: border-box;
-  white-space: nowrap; /* Impede que o texto quebre linha e estique o menu */
+  
+  /* 4. Adaptação do Texto */
+  font-size: 14px; /* Tamanho de fonte levemente menor para caber melhor */
+  line-height: 1.2;
+  word-wrap: break-word; /* Quebra a palavra se for muito grande */
+  white-space: normal;  /* Permite que o texto pule linha se não couber */
   overflow: hidden;
-  text-overflow: ellipsis; /* Adiciona "..." se o texto for maior que o menu */
+}
+
+/* Efeito de Hover para melhorar a sensação de botão */
+.menu-links a:hover, .menu-nav-fixed a:hover {
+  background: #e8eaed;
+  transform: translateX(4px); /* Pequeno deslocamento lateral */
 }
 
 .menu-links a.active, .menu-nav-fixed a.active {
   background: #d0d4dc;
   pointer-events: none;
   opacity: .8;
-}
-
-.menu-divider {
-  width: 100%;
-  height: 1px;
-  background: var(--border);
-  margin: 10px 0;
-  opacity: 0.7;
-}
-
-/* DARK MODE */
-@media (prefers-color-scheme: dark) {
-  .side-menu { background: #1a1d23; }
-  .menu-btn { background: #1a1d23; color: #fff; }
-  .close-menu { color: #fff; }
-  .menu-links a, .menu-nav-fixed a { background: #2a2f3a; color: #fff; }
-  .menu-links a.active, .menu-nav-fixed a.active { background: #3a4050; }
-  .menu-scrollable-section::-webkit-scrollbar-thumb { background: #444; }
-}
-
-/* Bloqueia a rolagem do site ao abrir o menu */
-body.no-scroll {
-  overflow: hidden;
-  height: 100vh;
+  border-left: 4px solid #111; /* Indicador visual de página ativa */
 }
