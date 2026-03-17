@@ -20,7 +20,7 @@ function initMenu() {
   const overlay   = document.getElementById("menuOverlay");
 
   if (openMenu && closeMenu && sideMenu && overlay) {
-    
+
     // Função para fechar o menu e liberar o scroll
     const closeSideMenu = () => {
       sideMenu.classList.remove("active");
@@ -53,6 +53,7 @@ function setActivePage() {
   // Pega o nome do arquivo atual (ex: index.html)
   const current = location.pathname.split("/").pop() || "index.html";
 
+  // Mapeamento dos IDs dos links (o logotipo não entra aqui pois não é mais um link)
   const pages = {
     "index.html": "menuHome",
     "moves.html": "menuMoves",
@@ -63,7 +64,7 @@ function setActivePage() {
     "update-log.html": "menuUpdate"
   };
 
-  // Remove classes active antigas (prevenção)
+  // Remove classes active de todos os links para evitar duplicidade
   document.querySelectorAll(".side-menu a").forEach(link => link.classList.remove("active"));
 
   if (pages[current]) {
@@ -110,7 +111,7 @@ window.updateMenuLang = function() {
   for (let id in mapping) {
     const element = document.getElementById(id);
     if (element) {
-      // Usamos innerHTML caso você queira manter os emojis ou tags
+      // Mantém a estrutura de ícones e texto baseada no idioma selecionado
       element.innerHTML = text[lang][mapping[id]];
     }
   }
