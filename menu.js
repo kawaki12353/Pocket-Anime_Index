@@ -18,11 +18,15 @@ function initMenu(){
   function closeSideMenu(){
     sideMenu.classList.remove("active");
     overlay.classList.remove("active");
+    // Libera a rolagem da página ao fechar
+    document.body.classList.remove("no-scroll");
   }
 
   openMenu.onclick = () => {
     sideMenu.classList.add("active");
     overlay.classList.add("active");
+    // Trava a rolagem da página ao abrir
+    document.body.classList.add("no-scroll");
   };
 
   closeMenu.onclick = closeSideMenu;
@@ -38,7 +42,7 @@ function setActivePage(){
 
   const pages = {
     "index.html": "menuHome",
-    "moves.html": "menuMoves", // Adicionado
+    "moves.html": "menuMoves",
     "calculator.html": "menuCalc",
     "items.html": "menuItems",
     "maps.html": "menuMaps",
@@ -58,7 +62,7 @@ function updateMenuLang(){
   const text = {
     pt: {
       home: "🏠 Início",
-      moves: "⚔️ Lista de Moves", // Adicionado
+      moves: "⚔️ Lista de Moves",
       calc: "🔥 Calculadora",
       items: "🗂 Itens",
       maps: "🗺 Mapas",
@@ -67,7 +71,7 @@ function updateMenuLang(){
     },
     en: {
       home: "🏠 Home",
-      moves: "⚔️ Moves List", // Adicionado
+      moves: "⚔️ Moves List",
       calc: "🔥 Calculator",
       items: "🗂 Items",
       maps: "🗺 Maps",
@@ -78,10 +82,9 @@ function updateMenuLang(){
 
   // Aplicação dos textos nos IDs correspondentes
   document.getElementById("menuHome").textContent = text[lang].home;
-  document.getElementById("menuMoves").textContent = text[lang].moves; // Adicionado
+  document.getElementById("menuMoves").textContent = text[lang].moves;
   document.getElementById("menuCalc").textContent = text[lang].calc;
   document.getElementById("menuItems").textContent = text[lang].items;
-  document.getElementById("menuMaps").textContent = text[lang].moves; // Nota: Corrigido para .maps
   document.getElementById("menuMaps").textContent = text[lang].maps;
   document.getElementById("menuTrainers").textContent = text[lang].trainers;
   document.getElementById("menuUpdate").textContent = text[lang].update;
