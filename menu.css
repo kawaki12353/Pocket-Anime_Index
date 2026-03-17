@@ -80,12 +80,21 @@ body.dark {
   margin-bottom: -10px;
 }
 
+/* CONTAINER DO LOGOTIPO (ESTÁTICO) */
+.menu-logo-container {
+  display: block;
+  width: 100%;
+  pointer-events: none; /* Desabilita interações de clique */
+  user-select: none;    /* Impede que o usuário selecione a imagem */
+}
+
 .menu-logo {
   width: 100%;
   max-width: 180px;
   margin: 10px auto 20px;
   display: block;
   object-fit: contain;
+  cursor: default; /* Cursor de seta padrão, não de "mãozinha" */
 }
 
 .menu-nav-fixed {
@@ -110,39 +119,34 @@ body.dark {
   border-radius: 10px;
 }
 
-/* LINKS E BOTÕES COM TAMANHO FIXO (Ajustado para Mobile) */
+/* LINKS E BOTÕES COM TAMANHO FIXO */
 .menu-links {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Reduzido de 12px para 10px para ficar mais agrupado */
+  gap: 10px; 
 }
 
 .menu-links a, .menu-nav-fixed a {
-  /* Tamanho Fixo do Botão (Mais compacto) */
-  height: 42px; /* Reduzido de 48px para 42px */
+  height: 42px; 
   width: 100%;
-  
-  /* Alinhamento do Texto */
   display: flex;
   align-items: center;
-  padding: 0 14px; /* Leve redução no padding lateral */
-  
-  /* Estilo Visual */
+  padding: 0 14px; 
   background: #f2f4f7;
   border-radius: 12px;
   text-decoration: none;
   color: #111;
   transition: background 0.2s;
   box-sizing: border-box;
-
-  /* Letras com Tamanho Fixo (Proporcional ao novo botão) */
-  font-size: 15px; /* Reduzido de 16px para 15px */
+  font-size: 15px; 
   font-weight: bold;
-
-  /* Adaptação do texto: Se for grande demais, coloca "..." */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.menu-links a:hover, .menu-nav-fixed a:hover {
+  background: #e5e8eb;
 }
 
 .menu-links a.active, .menu-nav-fixed a.active {
@@ -165,6 +169,7 @@ body.dark {
   .menu-btn { background: #1a1d23; color: #fff; }
   .close-menu { color: #fff; }
   .menu-links a, .menu-nav-fixed a { background: #2a2f3a; color: #fff; }
+  .menu-links a:hover, .menu-nav-fixed a:hover { background: #353b48; }
   .menu-links a.active, .menu-nav-fixed a.active { background: #3a4050; }
   .menu-scrollable-section::-webkit-scrollbar-thumb { background: #444; }
 }
