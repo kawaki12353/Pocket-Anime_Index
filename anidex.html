@@ -327,14 +327,23 @@
         }
         .link-btn:hover { background: #0056b3; }
 
+        /* IDIOMA (IGUAL AO INDEX.HTML) */
         .lang-toggle {
-            position: fixed; bottom: 10px; left: 50%;
-            transform: translateX(-50%); z-index: 10;
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
         }
+
         .lang-toggle button {
-            background: var(--lang-btn-bg); color: var(--lang-btn);
-            padding: 8px 14px; border-radius: 20px; border: none;
-            cursor: pointer; font-weight: bold;
+            background: var(--text);
+            color: var(--card);
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
@@ -630,10 +639,12 @@ function closeAllSelects() {
     document.getElementById("statusList").style.display = "none";
 }
 
+// LOGICA DE TRADUÇÃO IGUAL AO INDEX.HTML
 document.getElementById("langBtn").onclick = () => {
     lang = lang === "pt" ? "en" : "pt";
     localStorage.setItem("siteLang", lang);
     updateLang();
+    if (typeof updateMenuLang === "function") updateMenuLang();
 };
 
 document.getElementById("elementBtn").onclick = (e) => {
