@@ -241,7 +241,10 @@ const updateLogs = {
 };
 
 function formatDate(dateStr) {
-  const d = new Date(dateStr);
+  // Dividimos a string da data para evitar o fuso horário UTC
+  const [year, month, day] = dateStr.split('-');
+  const d = new Date(year, month - 1, day); 
+  
   return d.toLocaleDateString(
     lang === "pt" ? "pt-BR" : "en-US",
     { day: "2-digit", month: "short", year: "numeric" }
