@@ -438,7 +438,7 @@ let lang = localStorage.getItem("siteLang") || "pt";
 let selectedType = "";
 let selectedCat = "";
 
-const uiText = {
+const texts = {
     pt: {
         title: "Moves Database",
         allTypes: "Todos os Tipos",
@@ -446,7 +446,7 @@ const uiText = {
         search: "Pesquisar Move...",
         tipoLabel: "Tipo",
         physical: "Physical", special: "Special", status: "Status", transformation: "Transformation",
-        btn: "🇧🇷 PT",
+        langBtn: "🇧🇷 PT",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Descrição",
         upgradeLabel: "Ataque Evoluído",
@@ -460,7 +460,7 @@ const uiText = {
         search: "Search Move...",
         tipoLabel: "Type",
         physical: "Physical", special: "Special", status: "Status", transformation: "Transformation",
-        btn: "🇺🇸 EN",
+        langBtn: "🇺🇸 EN",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Description",
         upgradeLabel: "Upgrade Skill",
@@ -519,18 +519,18 @@ function render() {
             <div class="move-header">
                 <div class="move-name">${m.name}</div>
                 <div class="move-stats">
-                    <div><span class="stat-label">${uiText[lang].pwr}</span><span>${'power' in m ? (m.power || '--') : '??'}</span></div>
-                    <div><span class="stat-label">${uiText[lang].acc}</span><span>${'accuracy' in m ? (m.accuracy || '--') : '??'}</span></div>
-                    <div><span class="stat-label">${uiText[lang].pp}</span><span>${m.pp || '--'}</span></div>
+                    <div><span class="stat-label">${texts[lang].pwr}</span><span>${'power' in m ? (m.power || '--') : '??'}</span></div>
+                    <div><span class="stat-label">${texts[lang].acc}</span><span>${'accuracy' in m ? (m.accuracy || '--') : '??'}</span></div>
+                    <div><span class="stat-label">${texts[lang].pp}</span><span>${m.pp || '--'}</span></div>
                 </div>
             </div>
             <div class="move-tags">
                 <div class="type-badge" style="--type-color: var(--element-${m.type.toLowerCase()})">
-                    <div class="type-label">${uiText[lang].tipoLabel}</div>
+                    <div class="type-label">${texts[lang].tipoLabel}</div>
                     <div class="type-name">${m.type}</div>
                 </div>
                 <div class="category-badge" style="--cat-color: var(--cat-${cat})">
-                    ${uiText[lang][cat]}
+                    ${texts[lang][cat]}
                 </div>
                 <div class="info-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -571,18 +571,18 @@ function openModal(move) {
         <div class="move-header">
             <div class="move-name" style="font-size:24px">${move.name}</div>
             <div class="move-stats">
-                <div><span class="stat-label">${uiText[lang].pwr}</span><span>${'power' in move ? (move.power || '--') : '??'}</span></div>
-                <div><span class="stat-label">${uiText[lang].acc}</span><span>${'accuracy' in move ? (move.accuracy || '--') : '??'}</span></div>
-                <div><span class="stat-label">${uiText[lang].pp}</span><span>${move.pp || '--'}</span></div>
+                <div><span class="stat-label">${texts[lang].pwr}</span><span>${'power' in move ? (move.power || '--') : '??'}</span></div>
+                <div><span class="stat-label">${texts[lang].acc}</span><span>${'accuracy' in move ? (move.accuracy || '--') : '??'}</span></div>
+                <div><span class="stat-label">${texts[lang].pp}</span><span>${move.pp || '--'}</span></div>
             </div>
         </div>
         <div class="move-tags">
             <div class="type-badge" style="--type-color: var(--element-${move.type.toLowerCase()})">
-                <div class="type-label">${uiText[lang].tipoLabel}</div>
+                <div class="type-label">${texts[lang].tipoLabel}</div>
                 <div class="type-name">${move.type}</div>
             </div>
             <div class="category-badge" style="--cat-color: var(--cat-${cat})">
-                ${uiText[lang][cat]}
+                ${texts[lang][cat]}
             </div>
         </div>
     `;
@@ -591,7 +591,7 @@ function openModal(move) {
     const descRaw = descKey in move ? move[descKey] : '??';
 
     descContainer.innerHTML = `
-        <div class="stat-label" style="text-align:left; margin-bottom:8px;">${uiText[lang].descLabel}</div>
+        <div class="stat-label" style="text-align:left; margin-bottom:8px;">${texts[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
     `;
 
@@ -599,7 +599,7 @@ function openModal(move) {
     upgradeContainer.innerHTML = "";
     if (move.moveTrigger && move.moveTrigger.length > 0) {
         let html = `<div class="upgrade-section">
-            <div class="stat-label" style="text-align:left; margin-bottom:10px;">${uiText[lang].upgradeLabel}</div>`;
+            <div class="stat-label" style="text-align:left; margin-bottom:10px;">${texts[lang].upgradeLabel}</div>`;
 
         move.moveTrigger.forEach(t => {
             html += `
@@ -614,7 +614,7 @@ function openModal(move) {
         upgradeContainer.innerHTML = html;
     }
 
-    findBtn.textContent = uiText[lang].btnFind;
+    findBtn.textContent = texts[lang].btnFind;
     findBtn.onclick = () => openAnimonListModal(move.name);
 
     modal.classList.add("active");
@@ -630,7 +630,7 @@ function openAnimonListModal(moveName) {
     const title = document.getElementById("animonModalTitle");
     const container = document.getElementById("animonListContainer");
 
-    title.textContent = uiText[lang].listHeader + moveName;
+    title.textContent = texts[lang].listHeader + moveName;
     container.innerHTML = "";
 
     // Filtra animons da database global 'animons'
@@ -665,7 +665,7 @@ function closeAnimonModal() {
 
 function buildMenus() {
     const tList = document.getElementById("typeList");
-    tList.innerHTML = `<li onclick="selectType('')">${uiText[lang].allTypes}</li>`;
+    tList.innerHTML = `<li onclick="selectType('')">${texts[lang].allTypes}</li>`;
     typeKeys.forEach(t => {
         const li = document.createElement("li");
         li.innerHTML = `<img src="assets/${t}_element.png" width="20"> ${capitalize(t)}`;
@@ -674,10 +674,10 @@ function buildMenus() {
     });
 
     const cList = document.getElementById("catList");
-    cList.innerHTML = `<li onclick="selectCat('')">${uiText[lang].allCats}</li>`;
+    cList.innerHTML = `<li onclick="selectCat('')">${texts[lang].allCats}</li>`;
     catKeys.forEach(c => {
         const li = document.createElement("li");
-        li.innerHTML = `<img src="assets/${c}.png" width="20" onerror="this.style.display='none'"> ${uiText[lang][c]}`;
+        li.innerHTML = `<img src="assets/${c}.png" width="20" onerror="this.style.display='none'"> ${texts[lang][c]}`;
         li.onclick = () => selectCat(c);
         cList.appendChild(li);
     });
@@ -704,13 +704,13 @@ function updateFilterButtonsDisplay() {
     if (selectedType) {
         tBtn.innerHTML = `<span><img src="assets/${selectedType}_element.png" width="18"> ${capitalize(selectedType)}</span> <span>▼</span>`;
     } else {
-        tBtn.innerHTML = `<span>${uiText[lang].allTypes}</span> <span>▼</span>`;
+        tBtn.innerHTML = `<span>${texts[lang].allTypes}</span> <span>▼</span>`;
     }
 
     if (selectedCat) {
-        cBtn.innerHTML = `<span><img src="assets/${selectedCat}.png" width="18" onerror="this.style.display='none'"> ${uiText[lang][selectedCat]}</span> <span>▼</span>`;
+        cBtn.innerHTML = `<span><img src="assets/${selectedCat}.png" width="18" onerror="this.style.display='none'"> ${texts[lang][selectedCat]}</span> <span>▼</span>`;
     } else {
-        cBtn.innerHTML = `<span>${uiText[lang].allCats}</span> <span>▼</span>`;
+        cBtn.innerHTML = `<span>${texts[lang].allCats}</span> <span>▼</span>`;
     }
 }
 
@@ -736,24 +736,29 @@ document.getElementById("catBtn").onclick = (e) => {
 
 document.addEventListener("click", closeAllSelects);
 
-document.getElementById("langBtn").onclick = () => {
-    lang = lang === "pt" ? "en" : "pt";
-    localStorage.setItem("siteLang", lang);
-    updateUI();
-};
-
-function updateUI() {
-    document.getElementById("pageTitle").textContent = uiText[lang].title;
-    document.getElementById("searchInput").placeholder = uiText[lang].search;
-    document.getElementById("langBtn").textContent = uiText[lang].btn;
+// --- SISTEMA DE TRADUÇÃO (IGUAL AO INDEX.HTML) ---
+function updateLang() {
+    const t = texts[lang];
+    document.getElementById("pageTitle").textContent = t.title;
+    document.getElementById("searchInput").placeholder = t.search;
+    document.getElementById("langBtn").textContent = t.langBtn;
+    
     buildMenus();
     updateFilterButtonsDisplay();
     render();
 }
 
+document.getElementById("langBtn").onclick = () => {
+    lang = lang === "pt" ? "en" : "pt";
+    localStorage.setItem("siteLang", lang);
+    updateLang();
+    if (typeof updateMenuLang === "function") updateMenuLang();
+};
+
 document.getElementById("searchInput").oninput = render;
 
-updateUI();
+// Inicialização
+updateLang();
 </script>
 
 </body>
