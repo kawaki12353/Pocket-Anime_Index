@@ -333,7 +333,7 @@ const animons = [
       { level: 23, name: "Golden Pound" }
     ]  
   },
-  { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 },
+  { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 }, areas: ["0006"],
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" },
