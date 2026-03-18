@@ -362,8 +362,8 @@ const moves = {
     desc_en: "Gather your peak energy increasing your [002]SP.DEF [+1][000] and shoot a beam of energy capable of destroying an entire solar system.",
     type: "psychic",
     attack: "special",
-    power: 80,
-    accuracy: 90,
+    power: 70,
+    accuracy: 100,
     pp: 10,
   },
   "Blitz": {
