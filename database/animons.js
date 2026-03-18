@@ -454,8 +454,26 @@ const animons = [
       { level: 29, name: "Tiger Song" }
     ]
   },
-  { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 } },
-  { id: 20, name: "Wuno", type: "Wind", sprite: "assets/animons-icon/wuno.png", stats: { hp: 50, atk: 37, def: 47, spAtk: 80, spDef: 65, spd: 75 } },
+  { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 },
+    movesList: [
+      { level: 1, name: "Axe Attack" },
+      { level: 1, name: "Rally" },
+      { level: 6, name: "Axe Slam" },
+      { level: 12, name: "Axe Splitter" },
+      { level: 16, name: "Bounty Hunt" },
+      { level: 22, name: "Cleave" }
+    ]
+  },
+  { id: 20, name: "Wuno", type: "Wind", sprite: "assets/animons-icon/wuno.png", stats: { hp: 50, atk: 37, def: 47, spAtk: 80, spDef: 65, spd: 75 },
+    movesList: [
+      { level: 1, name: "Energy Shell" },
+      { level: 1, name: "Mystic Shot" },
+      { level: 6, name: "Swift Wind" },
+      { level: 10, name: "Storm Tower" },
+      { level: 16, name: "Wind Dagger" },
+      { level: 22, name: "Twin Tornado" }
+    ]
+  },
   { id: 21, name: "Laxon", type: "Lightning", sprite: "assets/animons-icon/laxon.png", stats: { hp: 64, atk: 70, def: 45, spAtk: 74, spDef: 54, spd: 74 } },
   { id: 22, name: "Rie", type: ["Fire", "Psychic"], sprite: "assets/animons-icon/rie.png", stats: { hp: 54, atk: 25, def: 38, spAtk: 100, spDef: 40, spd: 60 },
     movesList: [
