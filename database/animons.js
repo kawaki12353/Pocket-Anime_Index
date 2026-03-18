@@ -310,7 +310,7 @@ const animons = [
     ]
   },
   { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 },
-    anime: { name: "Usopp", anime:"One Piece" },
+    anime: { name: "Usopp", anime:"One Piece" }, areas: ["0005"],
     movesList: [
       { level: 1, name: "Sling Shot" },
       { level: 1, name: "Taunt" },
