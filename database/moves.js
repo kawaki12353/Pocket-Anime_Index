@@ -1,8 +1,8 @@
 const moves = {
   "Searing Slices": {
     name: "Searing Slices",
-    desc_pt: "Balance sua adaga para criar rajadas de chamas quentes com uma chance crítica aumentada em x4 e 20% de chance de causar queimaduras.",
-    desc_en: "Swing your dagger to create hot lashes of flame having an increased x4 critical change and 20% chance to burn.",
+    desc_pt: "Balance sua adaga para criar rajadas de chamas quentes com uma chance crítica aumentada em x4 e 20% de chance de causar [003]queimaduras[000].",
+    desc_en: "Swing your dagger to create hot lashes of flame having an increased x4 critical change and 20% chance to [003]burn[000].",
     type: "fire",
     attack: "physical",
     power: 50,
