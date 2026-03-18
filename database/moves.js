@@ -40,8 +40,8 @@ const moves = {
   },
   "Soul Reaver": {
     name: "Soul Reaver",
-    desc_pt: "Ceife seus oponentes com garras cruéis, drenando sua energia, com baixa chance de infligir [005]Ferimento[000] ao acertar.",
-    desc_en: "Reap your opponents with vicious claws taking their energy, low chance to inflict [005]Wounded[000] on hit.",
+    desc_pt: "Use suas garras demoníacas com 10% de chance de reduzir a [001]DEF [-1][000] do alvo e [005]feri-lo[000].",
+    desc_en: "Use your demon claws with a 10% chance to lower target [001]DEF [-1][000] and [005]wound[000] them.",
     type: "demon",
     attack: "physical",
     power: 55,
@@ -60,8 +60,8 @@ const moves = {
   },
   "Crimson Blades": {
     name: "Crimson Blades",
-    desc_pt: "Transforme seu sangue em lâminas afiadas para atacar um alvo.",
-    desc_en: "Manifest your blood into sharp blades to attack a target.",
+    desc_pt: "Manifeste seu sangue em lâminas afiadas para atacar com 10% de chance de [005]ferir[000] e reduzir a [001]SP.DEF [-1][000] do oponente.",
+    desc_en: "Manifest your blood into sharp blades to attack 10% to [005]wound[000] and lower their [001]SP.DEF [-1][000].",
     type: "demon",
     attack: "special",
     power: 55,
