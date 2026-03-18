@@ -783,6 +783,7 @@ const animons = [
   { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 },
     anime: { name: "Tashigi", anime:"One Piece" },
     movesList: [
+      { level: 1, name: "Bounty Hunt" },
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
       { level: 8, name: "Dexterity" },
