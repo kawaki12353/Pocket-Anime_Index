@@ -412,7 +412,7 @@ const animons = [
       { level: 23, name: "Light Grenade" }
     ]  
   },
-  { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 },
+  { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 }, areas: ["0009"],
     movesList: [
       { level: 1, name: "Growl" },
       { level: 1, name: "Sinister Presence" },
@@ -454,7 +454,7 @@ const animons = [
       { level: 29, name: "Tiger Song" }
     ]
   },
-  { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 },
+  { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 }, areas: ["0008"],
     movesList: [
       { level: 1, name: "Axe Attack" },
       { level: 1, name: "Rally" },
@@ -780,7 +780,7 @@ const animons = [
       { level: 23, name: "Desert Espada" }
     ]
   },
-  { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 },
+  { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 }, areas: ["0008"],
     anime: { name: "Tashigi", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Bounty Hunt" },
