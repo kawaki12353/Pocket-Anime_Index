@@ -780,7 +780,17 @@ const animons = [
       { level: 23, name: "Desert Espada" }
     ]
   },
-  { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 } },
+  { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 },
+    movesList: [
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Blade Surge" },
+      { level: 8, name: "Dexterity" },
+      { level: 12, name: "Lunge" },
+      { level: 15, name: "Armament" },
+      { level: 19, name: "Calm Water Slash" },
+      { level: 22, name: "False Courage" }
+    ]
+  },
   { id: 84, name: "Water Chimera", type: ["Water", "Beast"], sprite: "assets/animons-icon/water_chimera.png", stats: { hp: 75, atk: 75, def: 50, spAtk: 67, spDef: 54, spd: 75 } },
   { id: 84.01, name: "Mutated Water Chimera", type: ["Water", "Beast"], sprite: "assets/animons-icon/mutated_water_chimera.png", stats: { hp: 100, atk: 90, def: 70, spAtk: 77, spDef: 64, spd: 81 } }
 ];
