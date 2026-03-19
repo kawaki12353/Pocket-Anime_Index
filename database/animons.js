@@ -141,12 +141,13 @@ const animons = [
     desc_en: "If I don't take up this sword, I can't protect the people I care about!",
     anime: { name: "Ichigo Kurosaki", anime:"Bleach" },
     movesList: [
-      { level: 1, name: "Spiritual Pressure"}, 
+      { level: 1, name: "Spiritual Pressure" }, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
       { level: 10, name: "Sword Slam" },
       { level: 11, name: "Lunge" },
       { level: 16, name: "Moon Fang Slash" },
+      { level: 18, name: "Blitz" },
       { level: 22, name: "Moon Fang Barrage" },
       { level: 26, name: "Menacing Aura" },
       { level: 32, name: "Cut Down" }
@@ -169,6 +170,7 @@ const animons = [
       { level: 10, name: "Sword Slam" },
       { level: 11, name: "Lunge" },
       { level: 16, name: "Moon Fang Slash" },
+      { level: 18, name: "Blitz" },
       { level: 22, name: "Moon Fang Barrage" },
       { level: 26, name: "Menacing Aura" },
       { level: 32, name: "Cut Down" }
@@ -246,7 +248,8 @@ const animons = [
     anime: { name: "Koby", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor" },
-      { level: 1, name: "Mop Attack"}, 
+      { level: 1, name: "Mop Attack"},
+      { level: 1, name: "Blitz" },
       { level: 5, name: "Taunt" },
       { level: 10, name: "Quick Assist" },
       { level: 16, name: "Wave Kick" },
@@ -385,6 +388,8 @@ const animons = [
       { level: 6, name: "Sudden Impact" },
       { level: 11, name: "Crush" },
       { level: 17, name: "Bite" },
+      { level: 19, name: "Ripping Claw" },
+      { level: 21, name: "Menacing Aura" },
       { level: 23, name: "Savage Fang" }
     ]  
   },
@@ -572,7 +577,20 @@ const animons = [
       { level: 24, name: "Solar Energy Wave" }
     ]
   },
-  { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 } },
+  { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 },
+    anime: { name: "Rock Lee", anime:"Naruto" },
+    movesList: [
+      { level: 1, name: "Fighting Spirit" }, 
+      { level: 1, name: "Kunai Barrage" },
+      { level: 9, name: "Afterimage" },
+      { level: 12, name: "Tiger's Barrage" },
+      { level: 15, name: "False Courage" },
+      { level: 15, name: "Dive Kick" },
+      { level: 20, name: "Reverse Lily" },
+      { level: 21, name: "Blitz" },
+      { level: 24, name: "Guzzle" }
+    ]
+  },
   { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 },
     anime: { name: "Rock Lee", anime:"Naruto" },
     movesList: [
@@ -580,8 +598,10 @@ const animons = [
       { level: 1, name: "Kunai Barrage" },
       { level: 9, name: "Afterimage" },
       { level: 12, name: "Tiger's Barrage" },
+      { level: 15, name: "False Courage" },
       { level: 15, name: "Dive Kick" },
       { level: 20, name: "Reverse Lily" },
+      { level: 21, name: "Blitz" },
       { level: 24, name: "Guzzle" }
     ]
   }, 
