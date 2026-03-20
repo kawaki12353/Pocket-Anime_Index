@@ -719,8 +719,8 @@ const animons = [
       { level: 10, name: "Gas Bomb" },
       { level: 13, name: "Trip Wire" },
       { level: 16, name: "Rocket Dynamite" },
-      { level: 19, name: "Storm Flame Arrow" },
-      { level: 21, name: "Missile Barrage" }
+      { level: 21, name: "Missile Barrage" },
+      { level: 22, name: "Storm Flame Arrow" }
     ]
   },
   { id: 53.01, name: "Storm Gokidaru", type: ["Fire", "Wind"], sprite: "assets/animons-icon/storm_gokidaru.png", stats: { hp: 66, atk: 79, def: 46, spAtk: 77, spDef: 45, spd: 63 },
@@ -732,8 +732,8 @@ const animons = [
       { level: 10, name: "Gas Bomb" },
       { level: 13, name: "Trip Wire" },
       { level: 16, name: "Rocket Dynamite" },
-      { level: 19, name: "Storm Flame Arrow" },
       { level: 21, name: "Missile Barrage" },
+      { level: 22, name: "Storm Flame Arrow" },
       { level: 24, name: "Swift Wind" }
     ]
   },
