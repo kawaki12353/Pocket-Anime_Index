@@ -711,8 +711,32 @@ const animons = [
       { level: 20, name: "Glacial Blade" }
     ]
   },
-  { id: 53, name: "Gokidaru", type: "Fire", sprite: "assets/animons-icon/gokidaru.png", stats: { hp: 60, atk: 65, def: 40, spAtk: 53, spDef: 44, spd: 60 } },
-  { id: 53.01, name: "Storm Gokidaru", type: ["Fire", "Wind"], sprite: "assets/animons-icon/storm_gokidaru.png", stats: { hp: 66, atk: 79, def: 46, spAtk: 77, spDef: 45, spd: 63 } },
+  { id: 53, name: "Gokidaru", type: "Fire", sprite: "assets/animons-icon/gokidaru.png", stats: { hp: 60, atk: 65, def: 40, spAtk: 53, spDef: 44, spd: 60 },
+    movesList: [
+      { level: 1, name: "Punch" },
+      { level: 5, name: "Smoke Screen" },
+      { level: 8, name: "Bomb Strike" },
+      { level: 10, name: "Gas Bomb" },
+      { level: 13, name: "Trip Wire" },
+      { level: 16, name: "Rocket Dynamite" },
+      { level: 19, name: "Storm Flame Arrow" },
+      { level: 21, name: "Missile Barrage" }
+    ]
+  },
+  { id: 53.01, name: "Storm Gokidaru", type: ["Fire", "Wind"], sprite: "assets/animons-icon/storm_gokidaru.png", stats: { hp: 66, atk: 79, def: 46, spAtk: 77, spDef: 45, spd: 63 },
+    movesList: [
+      { level: 1, name: "Punch" },
+      { level: 1, name: "Taunt" },
+      { level: 5, name: "Smoke Screen" },
+      { level: 8, name: "Bomb Strike" },
+      { level: 10, name: "Gas Bomb" },
+      { level: 13, name: "Trip Wire" },
+      { level: 16, name: "Rocket Dynamite" },
+      { level: 19, name: "Storm Flame Arrow" },
+      { level: 21, name: "Missile Barrage" },
+      { level: 24, name: "Swift Wind" }
+    ]
+  },
   { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 } },
   { id: 54.01, name: "Hobgoblin", type: "Dark", sprite: "assets/animons-icon/hobgoblin.png", stats: { hp: 57, atk: 82, def: 45, spAtk: 65, spDef: 44, spd: 78 } },
   { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 } },
