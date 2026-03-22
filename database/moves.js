@@ -45,7 +45,7 @@ const moves = {
     attack: "special",
     power: 40,
     accuracy: 100,
-    pp: 12,
+    pp: 20,
   },
   "Splashing Wave": {
     name: "Splashing Wave",
