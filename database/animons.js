@@ -666,8 +666,8 @@ const animons = [
       { level: 1, name: "Mystic Shot" },
       { level: 5, name: "Water Blast" },
       { level: 10, name: "Charm" },
-      { level: 14, name: "Sacred Exorcism" }
-      { level: 18, name: "Healing Wish" }
+      { level: 14, name: "Sacred Exorcism" },
+      { level: 18, name: "Healing Wish" },
       { level: 21, name: "Torrent Crash" }
     ]
   },
