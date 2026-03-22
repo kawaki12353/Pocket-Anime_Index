@@ -1,4 +1,24 @@
 const moves = {
+  "Gideon": {
+    name: "Gideon",
+    desc_pt: "Golpeie Gideon contra o chão, erguendo um platô que cai sobre o alvo, eliminando todos os efeitos de campo.",
+    desc_en: "Slam Gideon into the ground, lifting a plataeu that smashes down on the target removing all field effects.",
+    type: "earth",
+    attack: "physical",
+    power: 60,
+    accuracy: 100,
+    pp: 10,
+  },
+  "Earth Wall": {
+    name: "Earth Wall",
+    desc_pt: "Uma parede que defende sua equipe por 3 turnos. Reduz pela metade o dano de ataques do tipo Fire, Lightning e Poison.",
+    desc_en: "A wall that defends your team for 3 turns. Halves damage from fire, lightning, and poison-type attacks.",
+    type: "earth",
+    attack: "status",
+    power: 0,
+    accuracy: 100,
+    pp: 15,
+  },
   "Storm Flame Arrow": {
     name: "Storm Flame Arrow",
     desc_pt: "Um tiro especial de besta que diminui a [001]DEF [-1][000] e o [001]SP.ATK [-1][000] de alvos com [003]queimadura[000] e tipos fire.",
