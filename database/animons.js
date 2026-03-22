@@ -665,7 +665,10 @@ const animons = [
       { level: 1, name: "Splashing Wave" },
       { level: 1, name: "Mystic Shot" },
       { level: 5, name: "Water Blast" },
-      { level: 10, name: "Charm" }
+      { level: 10, name: "Charm" },
+      { level: 14, name: "Sacred Exorcism" }
+      { level: 18, name: "Healing Wish" }
+      { level: 21, name: "Torrent Crash" }
     ]
   },
   { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 } },
