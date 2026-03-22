@@ -662,7 +662,7 @@ const animons = [
   { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 } },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 },
     movesList: [
-      { level: 1, name: "Splashing Water" },
+      { level: 1, name: "Splashing Wave" },
       { level: 1, name: "Mystic Shot" },
       { level: 5, name: "Water Blast" },
       { level: 10, name: "Charm" }
