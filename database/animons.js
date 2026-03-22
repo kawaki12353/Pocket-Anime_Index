@@ -738,7 +738,16 @@ const animons = [
   },
   { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 } },
   { id: 54.01, name: "Hobgoblin", type: "Dark", sprite: "assets/animons-icon/hobgoblin.png", stats: { hp: 57, atk: 82, def: 45, spAtk: 65, spDef: 44, spd: 78 } },
-  { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 } },
+  { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 },
+    movesList: [
+      { level: 1, name: "Axe Attack" },
+      { level: 1, name: "Earth Wall" },
+      { level: 5, name: "Crush" },
+      { level: 10, name: "Axe Slam" },
+      { level: 14, name: "Iron Body" },
+      { level: 20, name: "Gideon" }
+    ]
+  },
   { id: 56, name: "Chimera", type: "Beast", sprite: "assets/animons-icon/chimera.png", stats: { hp: 50, atk: 65, def: 52, spAtk: 44, spDef: 43, spd: 67 } },
   { id: 56.01, name: "Mutated Chimera", type: "Beast", sprite: "assets/animons-icon/mutated_chimera.png", stats: { hp: 64, atk: 77, def: 58, spAtk: 53, spDef: 48, spd: 79 } },
   { id: 58, name: "Waterfall Samurai", type: ["Water", "Fire"], sprite: "assets/animons-icon/waterfall_samurai.png", stats: { hp: 59, atk: 70, def: 48, spAtk: 44, spDef: 44, spd: 73 } },
