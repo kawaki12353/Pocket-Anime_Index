@@ -496,7 +496,17 @@ const animons = [
   { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 } },
   { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 } },
   { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 } },
-  { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 } },
+  { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 },
+    movesList: [
+      { level: 1, name: "Energy Blast" }, 
+      { level: 1, name: "Energy Charge" },
+      { level: 7, name: "Dirty Fireworks" },
+      { level: 12, name: "Energy Beam" },
+      { level: 18, name: "Galaxy Wave" },
+      { level: 20, name: "Galaxy Burst" },
+      { level: 24, name: "Dive Kick" }
+     ]
+  },
   { id: 26.01, name: "Super Vegetable", type: "Fighting", sprite: "assets/animons-icon/super_vegetable.png", stats: { hp: 67, atk: 72, def: 58, spAtk: 90, spDef: 57, spd: 90 },
     anime: { name: "Vegeta", anime:"Dragon Ball" },
     movesList: [
@@ -509,8 +519,30 @@ const animons = [
       { level: 24, name: "Dive Kick" }
      ]
   },
-  { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 } },
-  { id: 27.01, name: "Adult Gocu", type: "Fighting", sprite: "assets/animons-icon/adult_gocu.png", stats: { hp: 55, atk: 80, def: 50, spAtk: 71, spDef: 45, spd: 80 } },
+  { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 },
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Punch" },
+      { level: 1, name: "Vanishing Blow" },
+      { level: 6, name: "Energy Wave" },
+      { level: 9, name: "Solar Flare" },
+      { level: 11, name: "Cyclone Throw" }
+    ]
+  },
+  { id: 27.01, name: "Adult Gocu", type: "Fighting", sprite: "assets/animons-icon/adult_gocu.png", stats: { hp: 55, atk: 80, def: 50, spAtk: 71, spDef: 45, spd: 80 },
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Punch" },
+      { level: 1, name: "Vanishing Blow" },
+      { level: 6, name: "Energy Wave" },
+      { level: 9, name: "Solar Flare" },
+      { level: 11, name: "Cyclone Throw" },
+      { level: 16, name: "Super Energy Wave" },
+      { level: 20, name: "Meteor Combo" },
+      { level: 21, name: "Afterimage" },
+      { level: 24, name: "Divine Bomb" }
+    ]
+  },
   { id: 27.02, name: "Super Gocu", type: "Fighting", sprite: "assets/animons-icon/super_gocu.png", stats: { hp: 63, atk: 93, def: 54, spAtk: 82, spDef: 51, spd: 90 },
     anime: { name: "Goku", anime:"Dragon Ball" },
     movesList: [
