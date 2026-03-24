@@ -331,9 +331,13 @@
         gap: 8px; 
       }
       .stat-btn { 
-        padding: 10px 5px; 
-        min-height: 60px;
+        padding: 5px; 
+        min-height: 45px;
         border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
       .stat-label { font-size: 10px; }
       .stat-value { font-size: 16px; }
@@ -1072,7 +1076,7 @@
         });
         const link = document.createElement("a"); 
         link.download = `team-pocket-anime.png`; 
-        link.href = canvas.toToDataURL("image/png"); 
+        link.href = canvas.toDataURL("image/png"); 
         link.click();
       } catch (err) {
         console.error("Erro ao exportar:", err);
