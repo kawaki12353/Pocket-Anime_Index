@@ -493,7 +493,19 @@ const animons = [
       { level: 21, name: "Wide Explosion" }
     ]
   },
-  { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 } },
+  { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 },
+    movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 5, name: "Vanishing Blow" },
+      { level: 11, name: "Afterimage" },
+      { level: 11, name: "Energy Beam" },
+      { level: 16, name: "Double Sunday" },
+      { level: 19, name: "False Courage" },
+      { level: 19, name: "Shadow Ambus" },
+      { level: 22, name: "Impale" }
+    ]
+  },
   { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 } },
   { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 } },
   { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 },
