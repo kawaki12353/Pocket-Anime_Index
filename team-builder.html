@@ -278,20 +278,44 @@
       .modal-search input { width: 90%; text-align: center; }
 
       .moves-grid { grid-template-columns: 1fr; gap: 10px; }
-      .analysis { flex-direction: column-reverse; align-items: stretch; }
       
-      .analysis div:first-child { display: flex; flex-direction: row; gap: 8px; width: 100%; justify-content: center; }
+      /* Ajuste Mobile para Container de Análise e Stats */
+      .analysis { 
+        flex-direction: column-reverse; 
+        align-items: center; 
+        text-align: center;
+        padding: 15px;
+      }
+      
+      .analysis div:first-child { 
+        display: flex; 
+        flex-direction: row; 
+        gap: 8px; 
+        width: 100%; 
+        justify-content: center; 
+        margin-top: 15px;
+      }
+      
       .analysis button { width: auto; flex: 1; margin-top: 0; }
 
-      /* Fix literal igual ao PC */
+      /* Fix literal igual ao PC, corrigindo bug de alinhamento */
       .stats-grid { 
         grid-template-columns: repeat(3, 1fr); 
         min-width: unset; 
         width: 100%; 
+        max-width: 320px; /* Garante que o container não estique demais */
         gap: 6px; 
+        margin: 0 auto;
       }
-      .stat-btn { padding: 10px 2px; }
-      .stat-label { font-size: 10px; }
+      .stat-btn { 
+        padding: 8px 2px; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center;
+        min-height: 50px;
+        box-sizing: border-box;
+      }
+      .stat-label { font-size: 10px; margin-bottom: 2px; }
       .stat-value { font-size: 14px; }
     }
   </style>
@@ -312,10 +336,10 @@
       <div class="analysis">
         <div id="teamActions">
           <button id="codeGenBtn" title="Gerar Código">
-            <img src="assets/icons/copy.png" alt="Copiar">
+            <img src="assets/icons/save.png" alt="Copiar">
           </button>
           <button id="codeImportBtn" title="Colocar Código">
-            <img src="assets/icons/save.png" alt="Colar">
+            <img src="assets/icons/copy.png" alt="Colar">
           </button>
           <button id="exportBtn" title="Exportar Imagem">
             <img src="assets/icons/download.png" alt="Download">
@@ -911,7 +935,7 @@
       openedMoveBalloon = balloon;
       setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
     }
-    function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
+    function closeMoveBalloonOnce() { if (openedBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
 
     /* =========================================
        7. EVENT LISTENERS E I18N
