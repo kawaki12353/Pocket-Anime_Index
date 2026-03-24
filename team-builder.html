@@ -863,22 +863,26 @@
        ========================================= */
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
+
+      // Cria Mapas para busca instantânea de IDs por Nome (Alta performance)
+      const traitMap = new Map();
+      if (typeof traits !== 'undefined') {
+        const traitArray = Array.isArray(traits) ? traits : Object.values(traits);
+        traitArray.forEach(t => traitMap.set(t.name, t.id));
+      }
+
+      const moveMap = new Map();
+      if (typeof moves !== 'undefined') {
+        const moveArray = Array.isArray(moves) ? moves : Object.values(moves);
+        moveArray.forEach(m => moveMap.set(m.name, m.id));
+      }
+
       const codeString = team.map(a => {
-        let traitId = "0";
-        if (a.selectedTrait && typeof traits !== 'undefined') {
-          const tData = Array.isArray(traits) ? traits.find(t => t.name === a.selectedTrait) : traits[a.selectedTrait];
-          traitId = tData ? (tData.id || a.selectedTrait) : a.selectedTrait;
-        }
-        const movesPart = a.moves.map(mName => {
-          if (!mName) return "0";
-          if (typeof moves !== 'undefined') {
-            const mData = Array.isArray(moves) ? moves.find(m => m.name === mName) : moves[mName];
-            return mData ? (mData.id || mName) : mName;
-          }
-          return mName;
-        }).join(',');
+        const traitId = traitMap.get(a.selectedTrait) || "0";
+        const movesPart = a.moves.map(mName => moveMap.get(mName) || "0").join(',');
         return `${a.id},${a.level},${traitId},${movesPart}`;
       }).join(';');
+
       const finalCode = btoa(codeString);
       navigator.clipboard.writeText(finalCode);
       showToast(texts[lang].copied);
@@ -888,40 +892,48 @@
       openPrompt((codigo) => {
         if (!codigo) return;
         try {
-          const decoded = atob(codigo);
+          const decoded = atob(codigo.trim());
           const slots = decoded.split(';');
           const newTeam = [];
+
+          // Prepara Mapas reversos para buscar Nome por ID
+          const traitIdMap = new Map();
+          if (typeof traits !== 'undefined') {
+            const traitArray = Array.isArray(traits) ? traits : Object.values(traits);
+            traitArray.forEach(t => traitIdMap.set(String(t.id), t.name));
+          }
+
+          const moveIdMap = new Map();
+          if (typeof moves !== 'undefined') {
+            const moveArray = Array.isArray(moves) ? moves : Object.values(moves);
+            moveArray.forEach(m => moveIdMap.set(String(m.id), m.name));
+          }
+
           slots.forEach(slotStr => {
             const parts = slotStr.split(',');
             if (parts.length < 7) return;
-            const [id, lvl, traitRef, ...movesRefs] = parts;
+            const [id, lvl, traitId, ...moveIds] = parts;
             
             const base = animons.find(a => String(a.id) === String(id));
             if (base) {
               const a = JSON.parse(JSON.stringify(base));
               a.level = parseInt(lvl) || 100;
-              if (traitRef && traitRef !== "0" && typeof traits !== 'undefined') {
-                const tData = Array.isArray(traits) 
-                  ? traits.find(t => String(t.id) === String(traitRef)) 
-                  : Object.keys(traits).find(k => String(traits[k].id) === String(traitRef));
-                a.selectedTrait = (tData && typeof tData === 'object') ? (tData.name || traitRef) : (tData || traitRef);
-              } else { a.selectedTrait = ""; }
-              a.moves = movesRefs.slice(0, 4).map(mRef => {
-                if (!mRef || mRef === "0") return "";
-                if (typeof moves !== 'undefined') {
-                  const mData = Array.isArray(moves) 
-                    ? moves.find(m => String(m.id) === String(mRef)) 
-                    : Object.keys(moves).find(k => String(moves[k].id) === String(mRef));
-                  return (mData && typeof mData === 'object') ? (mData.name || mRef) : (mData || mRef);
-                }
-                return mRef;
-              });
+              a.selectedTrait = traitIdMap.get(String(traitId)) || "";
+              a.moves = moveIds.slice(0, 4).map(mid => moveIdMap.get(String(mid)) || "");
               while(a.moves.length < 4) a.moves.push("");
+              a.activeTriggerIndex = null;
               newTeam.push(a);
             }
           });
-          if (newTeam.length > 0) { team = newTeam.slice(0, 6); saveData(); renderTeam(); }
-        } catch (e) { showToast(texts[lang].invalidCode); }
+
+          if (newTeam.length > 0) { 
+            team = newTeam.slice(0, 6); 
+            saveData(); 
+            renderTeam(); 
+          }
+        } catch (e) { 
+          showToast(texts[lang].invalidCode); 
+        }
       });
     }
 
