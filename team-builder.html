@@ -859,12 +859,11 @@
     }
 
     /* =========================================
-       5. SISTEMA DE CÓDIGO OTIMIZADO (IDs)
+       5. SISTEMA DE CÓDIGO (IDs NUMÉRICOS)
        ========================================= */
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
 
-      // Cria Mapas para busca instantânea de IDs por Nome (Alta performance)
       const traitMap = new Map();
       if (typeof traits !== 'undefined') {
         const traitArray = Array.isArray(traits) ? traits : Object.values(traits);
@@ -877,13 +876,12 @@
         moveArray.forEach(m => moveMap.set(m.name, m.id));
       }
 
-      const codeString = team.map(a => {
+      const finalCode = team.map(a => {
         const traitId = traitMap.get(a.selectedTrait) || "0";
         const movesPart = a.moves.map(mName => moveMap.get(mName) || "0").join(',');
         return `${a.id},${a.level},${traitId},${movesPart}`;
       }).join(';');
 
-      const finalCode = btoa(codeString);
       navigator.clipboard.writeText(finalCode);
       showToast(texts[lang].copied);
     }
@@ -892,11 +890,10 @@
       openPrompt((codigo) => {
         if (!codigo) return;
         try {
-          const decoded = atob(codigo.trim());
+          const decoded = codigo.trim();
           const slots = decoded.split(';');
           const newTeam = [];
 
-          // Prepara Mapas reversos para buscar Nome por ID
           const traitIdMap = new Map();
           if (typeof traits !== 'undefined') {
             const traitArray = Array.isArray(traits) ? traits : Object.values(traits);
