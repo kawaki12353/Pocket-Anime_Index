@@ -168,31 +168,28 @@
     }
 
     /* =========================================
-       6. MODAIS E UI CUSTOMIZADA
+       6. MODAIS E UI CUSTOMIZADA (ATUALIZADOS)
        ========================================= */
     .fab-add { position: fixed; right: 20px; bottom: 80px; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 32px; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); box-shadow: 0 6px 18px rgba(0,0,0,0.3); transition: 0.2s; z-index: 999; }
     .fab-add:hover { transform: scale(1.08); }
-    
-    /* IDIOMA (IGUAL AO INDEX.HTML) */
-    .lang-toggle {
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-    }
-    .lang-toggle button {
-        background: var(--text);
-        color: var(--card);
-        padding: 8px 14px;
-        border-radius: 20px;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-    }
 
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; }
-    .modal { background: var(--card); width: 600px; height: 600px; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; overflow: visible; }
+    .lang-toggle { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 10; }
+    .lang-toggle button { background: var(--text); color: var(--card); padding: 8px 14px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; }
+
+    .modal-overlay { 
+        position: fixed; inset: 0; background: rgba(0,0,0,0.6); 
+        display: flex; align-items: center; justify-content: center; z-index: 1000; 
+        opacity: 0; visibility: hidden; transition: all 0.3s ease;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+
+    .modal { 
+        background: var(--card); width: 600px; height: 600px; border-radius: 16px; padding: 20px; 
+        display: flex; flex-direction: column; overflow: visible;
+        transform: scale(0.9); transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal { transform: scale(1); }
+
     .modal h3 { margin-top: 0; text-align: center; }
 
     .modal-search { margin-bottom: 10px; }
@@ -227,11 +224,24 @@
 
     @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
     @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; } }
+
+    /* ESTILO MOBILE IGUAL AO MOVES.JS */
     @media (max-width: 768px) {
       .header { flex-direction: column; align-items: center; }
       .header-top { justify-content: flex-end; width: 100%; }
       .logo { width: 150px; }
-      .modal { width: 90%; height: 75vh; max-height: 520px; padding: 16px; border-radius: 14px; }
+      
+      .modal-overlay { align-items: flex-end; }
+      .modal { 
+          width: 100%; 
+          height: 65%; 
+          max-height: 65%;
+          border-radius: 20px 20px 0 0; 
+          transform: translateY(100%);
+          transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .modal-overlay.active .modal { transform: translateY(0); }
+
       .moves-grid { grid-template-columns: 1fr; gap: 10px; }
       .analysis { flex-direction: column-reverse; align-items: stretch; }
     }
@@ -327,25 +337,16 @@
     function parseColoredText(text) {
       if (!text) return "";
       const colorMap = {
-        "001": "#ff4d4d", // Vermelho
-        "002": "#2ecc71", // Verde
-        "003": "#f39c12", // Laranja
-        "004": "#95a5a6", // Cinza
-        "005": "#a93226", // Vermelho Escuro
-        "006": "#d2b4de", // Roxo Claro
-        "007": "#1a5276", // Azul Escuro
-        "008": "#ffe100", // Amarelo
-        "009": "#4db8ff", // Azul claro
-        "000": "inherit"  // Reset para cor padrão
+        "001": "#ff4d4d", "002": "#2ecc71", "003": "#f39c12", "004": "#95a5a6",
+        "005": "#a93226", "006": "#d2b4de", "007": "#1a5276", "008": "#ffe100", 
+        "009": "#4db8ff", "000": "inherit"
       };
-
       let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
         if (code === "000") return "</span>";
         const color = colorMap[code];
         if (color) return `</span><span style="color: ${color}; font-weight: bold;">`;
         return match;
       });
-
       return `<span>${formatted}</span>`;
     }
 
@@ -355,7 +356,6 @@
     function init() {
       updateLangUI();
       renderTeam();
-
       DOM.levelInput.addEventListener('input', (e) => { 
         DOM.levelValueDisplay.textContent = e.target.value; 
         autoSaveEditData();
@@ -373,7 +373,6 @@
           document.getElementById('moveSelect2').dataset.value || "",
           document.getElementById('moveSelect3').dataset.value || ""
         ];
-        // Reset trigger if moves change
         team[editSlotIndex].activeTriggerIndex = null;
         saveData();
         renderTeam();
@@ -393,10 +392,8 @@
       </div>`;
     }
 
-    /* Função Auxiliar para resgatar infos de um Move */
     function getMoveInfo(moveInput) {
       if (!moveInput || moveInput === "") return null;
-
       let moveData = null;
       let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || moveInput.id || "Unknown");
 
@@ -410,7 +407,6 @@
           );
         } else if (typeof moves === 'object') {
           const exactKey = Object.keys(moves).find(k => k.toLowerCase().trim() === finalName.toLowerCase());
-
           if (exactKey) {
             moveData = moves[exactKey];
             finalName = moveData.name || exactKey;
@@ -427,25 +423,17 @@
         }
       }
 
-      // Caso o move não exista no banco de dados
       if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "??", accuracy: "??", desc: "??", raw: null };
-
       const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
       const attackValue = moveData.attack || "physical";
-
-      // Lógica solicitada para Power e Accuracy
       const getStatValue = (key) => {
-        if (!(key in moveData)) return "??"; // Não encontrou no database
+        if (!(key in moveData)) return "??";
         const val = moveData[key];
-        if (val === undefined || val === null || val === "") return "--"; // Caso vazio
+        if (val === undefined || val === null || val === "") return "--";
         return val;
       };
-
-      // Lógica solicitada para Descrição (desc_pt ou desc_en)
       const langKey = `desc_${lang}`;
-      const finalDesc = (langKey in moveData && moveData[langKey] !== "" && moveData[langKey] !== null) 
-                        ? moveData[langKey] 
-                        : "??";
+      const finalDesc = (langKey in moveData && moveData[langKey] !== "" && moveData[langKey] !== null) ? moveData[langKey] : "??";
 
       return {
         name: moveData.name || finalName,
@@ -463,12 +451,10 @@
        ========================================= */
     function renderTeam() {
       const activeSlots = Array.from(DOM.grid.children).map(slot => slot.classList.contains('active'));
-
       DOM.grid.innerHTML = "";
       for (let i = 0; i < 6; i++) {
         const div = document.createElement("div");
         div.className = "team-slot";
-
         if (activeSlots[i]) div.classList.add("active");
 
         if (team[i]) {
@@ -476,15 +462,12 @@
           let displayMoves = [...originalMoves];
           const triggerIdx = team[i].activeTriggerIndex;
 
-          // LOGICA DE TRADE (MOVE TRIGGER)
           if (triggerIdx !== null && triggerIdx !== undefined) {
             const triggerMoveData = getMoveInfo(originalMoves[triggerIdx]);
             if (triggerMoveData && triggerMoveData.raw && triggerMoveData.raw.moveTrigger) {
               triggerMoveData.raw.moveTrigger.forEach(t => {
                 const targetIdx = displayMoves.findIndex(m => m && m.toLowerCase().trim() === t.move.toLowerCase().trim());
-                if (targetIdx !== -1) {
-                  displayMoves[targetIdx] = t.trade;
-                }
+                if (targetIdx !== -1) displayMoves[targetIdx] = t.trade;
               });
             }
           }
@@ -492,8 +475,6 @@
           const movesHtml = [0, 1, 2, 3].map(mIndex => {
             const minfo = getMoveInfo(displayMoves[mIndex]);
             if (!minfo) return `<div class="mini-move empty-move">${texts[lang].moveEmpty}</div>`;
-
-            // Verificamos se o move ORIGINAL deste slot tem moveTrigger para decidir a borda
             const originalMoveInfo = getMoveInfo(originalMoves[mIndex]);
             const hasTrigger = originalMoveInfo && originalMoveInfo.raw && originalMoveInfo.raw.moveTrigger;
             const isActiveTrigger = hasTrigger && (triggerIdx === mIndex);
@@ -541,11 +522,7 @@
           const img = div.querySelector(".animon-img");
           if (img) img.addEventListener("click", (e) => { e.stopPropagation(); toggleBalloon(div.querySelector('.slot-main-content'), team[i]); });
         } else {
-          div.innerHTML = `
-           <div class="slot-main-content">
-            <div class="empty-slot">${texts[lang].empty}</div>
-           </div>
-         `;
+          div.innerHTML = `<div class="slot-main-content"><div class="empty-slot">${texts[lang].empty}</div></div>`;
         }
         DOM.grid.appendChild(div);
       }
@@ -554,30 +531,13 @@
 
     function handleMoveClick(animonIdx, moveIdx, moveDiv) {
       const animon = team[animonIdx];
-      const moveName = animon.moves[moveIdx];
-      const minfo = getMoveInfo(moveName);
-
-      // Se o move clicado tiver um gatilho de mudança
+      const minfo = getMoveInfo(animon.moves[moveIdx]);
       if (minfo && minfo.raw && minfo.raw.moveTrigger) {
-        if (animon.activeTriggerIndex === moveIdx) {
-          animon.activeTriggerIndex = null;
-        } else {
-          animon.activeTriggerIndex = moveIdx;
-        }
-
-        // Atualiza o time (isso destrói o moveDiv atual)
+        animon.activeTriggerIndex = (animon.activeTriggerIndex === moveIdx) ? null : moveIdx;
         renderTeam();
-
-        // Após renderizar, buscamos o NOVO elemento que foi criado no mesmo lugar
-        const updatedSlot = DOM.grid.children[animonIdx];
-        const newMoveDiv = updatedSlot.querySelectorAll('.mini-move')[moveIdx];
-
-        // Abre o balão no novo elemento
-        if (newMoveDiv) {
-          toggleMoveBalloon(newMoveDiv);
-        }
+        const newMoveDiv = DOM.grid.children[animonIdx].querySelectorAll('.mini-move')[moveIdx];
+        if (newMoveDiv) toggleMoveBalloon(newMoveDiv);
       } else {
-        // Se não for trigger, apenas abre o balão normalmente no elemento atual
         toggleMoveBalloon(moveDiv);
       }
     }
@@ -590,24 +550,20 @@
 
     function toggleSlotExpand(btn) {
      const slot = btn.closest('.team-slot');
-     if (slot.classList.contains('active')) {
-       slot.classList.remove('active');
-       return;
-     }
-     slot.classList.add('active');
+     slot.classList.toggle('active');
     }
 
     /* =========================================
-       4. MODAL ADICIONAR E MOVES
+       4. MODAL ADICIONAR E MOVES (ATUALIZADO)
        ========================================= */
     function openModal(slotIndex) {
       currentSlot = slotIndex;
       DOM.searchInput.value = "";
       renderAnimonList(typeof animons !== 'undefined' ? animons : []);
-      DOM.modal.style.display = "flex";
+      DOM.modal.classList.add("active");
     }
 
-    function closeModal() { DOM.modal.style.display = "none"; }
+    function closeModal() { DOM.modal.classList.remove("active"); }
 
     function renderAnimonList(list) {
       DOM.animonList.innerHTML = "";
@@ -622,7 +578,7 @@
           team[currentSlot] = JSON.parse(JSON.stringify(a));
           team[currentSlot].level = 100;
           team[currentSlot].moves = ["", "", "", ""];
-          team[currentSlot].activeTriggerIndex = null; // Inicia sem trigger
+          team[currentSlot].activeTriggerIndex = null;
           saveData(); renderTeam(); closeModal();
         };
         DOM.animonList.appendChild(div);
@@ -632,57 +588,26 @@
     function createMoveSelect(containerId, currentMove, availableMoves) {
       const container = document.getElementById(containerId);
       if (!container) return;
-
       const label = texts[lang].moveSelect;
       container.innerHTML = ""; 
 
       const getMoveWithLevelHtml = (moveInput, providedObj = null) => {
         const minfo = getMoveInfo(moveInput);
         if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-
-        let moveObj = providedObj;
-        if (!moveObj) {
-          const inputName = (typeof moveInput === 'object') ? (moveInput.name || moveInput.id) : moveInput;
-          moveObj = availableMoves.find(m => {
-            const mName = (typeof m === 'object') ? (m.name || m.id) : m;
-            return String(mName).toLowerCase().trim() === String(inputName).toLowerCase().trim();
-          });
-        }
-
+        let moveObj = providedObj || availableMoves.find(m => String((typeof m === 'object' ? (m.name || m.id) : m)).toLowerCase().trim() === String((typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput)).toLowerCase().trim());
         const levelSpan = (moveObj && moveObj.level !== undefined) ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
-        const displayName = (moveObj && (moveObj.name || moveObj.id)) || minfo.name;
-
-        return `
-          <div style="display:flex; align-items:center; width:100%;">
-            ${levelSpan}
-            <span class="move-name-txt">${displayName}</span>
-            <div class="move-icons-wrapper">
-              <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
-              <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
-            </div>
-          </div>
-        `;
+        return `<div style="display:flex; align-items:center; width:100%;">${levelSpan}<span class="move-name-txt">${(moveObj && (moveObj.name || moveObj.id)) || minfo.name}</span><div class="move-icons-wrapper"><img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" onerror="this.src='assets/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon-atk" onerror="this.src='assets/physical.png'"></div></div>`;
       };
 
       const renderOptions = () => {
-        const otherSelectedMoves = [0, 1, 2, 3]
-          .map(i => document.getElementById(`moveSelect${i}`))
-          .filter(el => el && el.id !== containerId)
-          .map(el => el.dataset.value)
-          .filter(val => val && val !== "");
-
+        const otherSelectedMoves = [0, 1, 2, 3].map(i => document.getElementById(`moveSelect${i}`)).filter(el => el && el.id !== containerId).map(el => el.dataset.value).filter(v => v);
         let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
-
         availableMoves.forEach(m => {
           const mName = (typeof m === 'object') ? (m.name || m.id) : m;
-          if (!otherSelectedMoves.includes(mName)) {
-            optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m, m)}</div>`;
-          }
+          if (!otherSelectedMoves.includes(mName)) optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m, m)}</div>`;
         });
-
         const optionsMenu = container.querySelector('.select-options');
         optionsMenu.innerHTML = optionsHtml;
-
         optionsMenu.querySelectorAll('.option').forEach(opt => {
           opt.onclick = () => {
             const val = opt.dataset.value;
@@ -694,57 +619,37 @@
         });
       };
 
-      container.innerHTML = `
-        <div class="select-btn">
-          ${currentMove ? getMoveWithLevelHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}
-        </div>
-        <div class="select-options"></div>
-      `;
-
+      container.innerHTML = `<div class="select-btn">${currentMove ? getMoveWithLevelHtml(currentMove) : `<span class="move-name-txt">${label}</span>`}</div><div class="select-options"></div>`;
       const btn = container.querySelector('.select-btn');
       const options = container.querySelector('.select-options');
-
       btn.onclick = (e) => {
         e.stopPropagation();
         document.querySelectorAll('.select-options').forEach(opt => { if (opt !== options) opt.classList.remove('open'); });
         renderOptions();
         options.classList.toggle('open');
       };
-
       container.dataset.value = currentMove || "";
     }
 
     function openEditModal(index) {
       const animon = team[index];
       if (!animon) return; 
-
       editSlotIndex = index;
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
-
       let availableMoves = [];
       if (animon.movesList) {
         availableMoves = Array.isArray(animon.movesList) ? [...animon.movesList] : [animon.movesList];
         availableMoves.sort((a, b) => (parseInt(a.level) || 0) - (parseInt(b.level) || 0));
       }
-
       const currentMoves = Array.isArray(animon.moves) ? animon.moves : ["", "", "", ""];
-
-      for (let i = 0; i < 4; i++) {
-        const selectId = `moveSelect${i}`;
-        const container = document.getElementById(selectId);
-        if (container) {
-          container.dataset.value = ""; 
-          createMoveSelect(selectId, currentMoves[i] || "", availableMoves);
-        }
-      }
-
-      DOM.editModal.style.display = "flex";
+      for (let i = 0; i < 4; i++) createMoveSelect(`moveSelect${i}`, currentMoves[i] || "", availableMoves);
+      DOM.editModal.classList.add("active");
     }
 
     function closeEditModal() { 
       editSlotIndex = null;
-      DOM.editModal.style.display = "none"; 
+      DOM.editModal.classList.remove("active"); 
     }
 
     /* =========================================
@@ -757,15 +662,12 @@
         total.hp += a.stats.hp || 0; total.atk += a.stats.atk || 0; total.def += a.stats.def || 0;
         total.spAtk += a.stats.spAtk || 0; total.spDef += a.stats.spDef || 0; total.spd += a.stats.spd || 0;
       });
-      document.getElementById("statsTotal").innerHTML = Object.entries(total).map(([key, value]) => `
-        <div class="stat-btn"><div class="stat-label">${key.toUpperCase()}</div><div class="stat-value">${value}</div></div>
-      `).join("");
+      document.getElementById("statsTotal").innerHTML = Object.entries(total).map(([key, value]) => `<div class="stat-btn"><div class="stat-label">${key.toUpperCase()}</div><div class="stat-value">${value}</div></div>`).join("");
     }
 
     function getAnimonTypeInfo(animon) {
       const weakness = {}, resist = {}, immune = {};
       const types = Array.isArray(animon.type) ? animon.type : [animon.type];
-
       if (typeof chart !== "undefined") {
         Object.keys(chart).forEach(attackType => {
           let multiplier = 1;
@@ -775,7 +677,6 @@
           else if (multiplier < 1) resist[attackType] = true;
         });
       }
-
       const formatObj = obj => Object.keys(obj).join(", ") || "None";
       let statsHtml = "";
       if (animon.stats) {
@@ -798,29 +699,14 @@
 
     function toggleMoveBalloon(moveDiv) {
       if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
-
-      const power = moveDiv.dataset.power;
-      const acc = moveDiv.dataset.acc;
-      const desc = moveDiv.dataset.desc;
-
+      const power = moveDiv.dataset.power, acc = moveDiv.dataset.acc, desc = moveDiv.dataset.desc;
       const balloon = document.createElement("div");
       balloon.className = "move-balloon";
-
-      let contentHtml = "";
-      if (desc && desc !== "undefined") {
-        contentHtml += `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${parseColoredText(desc)}</div>`;
-      }
-      contentHtml += `
-        <div style="text-align: center;">
-          <span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; 
-          <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span>
-        </div>
-      `;
-
+      let contentHtml = (desc && desc !== "undefined") ? `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${parseColoredText(desc)}</div>` : "";
+      contentHtml += `<div style="text-align: center;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
       balloon.innerHTML = contentHtml;
       moveDiv.appendChild(balloon);
       openedMoveBalloon = balloon;
-
       setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
     }
     function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
@@ -843,8 +729,7 @@
     DOM.langBtn.onclick = () => {
       lang = lang === "pt" ? "en" : "pt";
       localStorage.setItem("siteLang", lang);
-      updateLangUI();
-      renderTeam();
+      updateLangUI(); renderTeam();
       if (typeof updateMenuLang === "function") updateMenuLang();
     };
 
@@ -863,9 +748,7 @@
     DOM.editModal.addEventListener("click", (e) => { if (e.target === DOM.editModal) closeEditModal(); });
 
     document.addEventListener("click", e => {
-      if (!e.target.closest('.custom-select')) {
-        document.querySelectorAll(".select-options").forEach(opt => opt.classList.remove("open"));
-      }
+      if (!e.target.closest('.custom-select')) document.querySelectorAll(".select-options").forEach(opt => opt.classList.remove("open"));
     });
 
     DOM.shareBtn.onclick = () => {
@@ -876,10 +759,13 @@
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
       const bgColor = getComputedStyle(document.body).getPropertyValue('--bg').trim();
+      
+      // Ocultar botões antes de tirar a foto
+      const actionButtons = exportArea.querySelectorAll('.slot-edit, .slot-delete, .slot-expand');
+      actionButtons.forEach(btn => btn.style.display = 'none');
 
       const originalWidth = exportArea.style.width;
       const originalGrid = DOM.grid.style.gridTemplateColumns;
-
       exportArea.style.width = "1000px";
       DOM.grid.style.gridTemplateColumns = "repeat(3, 1fr)";
 
@@ -893,13 +779,8 @@
 
       try {
         const canvas = await html2canvas(exportArea, { 
-          scale: 2, 
-          useCORS: true,
-          backgroundColor: bgColor,
-          logging: false,
-          width: 1000
+          scale: 2, useCORS: true, backgroundColor: bgColor, logging: false, width: 1000
         });
-
         const link = document.createElement("a"); 
         link.download = `team-pocket-anime.png`; 
         link.href = canvas.toDataURL("image/png"); 
@@ -907,13 +788,13 @@
       } catch (err) {
         console.error("Erro ao exportar:", err);
       } finally {
+        // Restaurar botões e layout original
+        actionButtons.forEach(btn => btn.style.display = '');
         exportArea.style.width = originalWidth;
         DOM.grid.style.gridTemplateColumns = originalGrid;
         moveContents.forEach((mc, i) => {
           mc.style.maxHeight = originalMaxHeights[i];
-          if (!mc.closest('.team-slot').classList.contains('active')) {
-             mc.style.borderTop = "none";
-          }
+          if (!mc.closest('.team-slot').classList.contains('active')) mc.style.borderTop = "none";
         });
       }
     };
