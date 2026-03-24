@@ -16,6 +16,7 @@
     :root {
       --bg: #f2f4f7; --card: #ffffff; --text: #111; --border: #ccc;
       --hover: #f1f1f1; --lang-btn: #ffffff; --lang-btn-bg: #444; --right-column: 58px;
+      --accent: #00b0e6;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -65,7 +66,7 @@
     .slot-level { font-size: 14px; opacity: 0.8; }
     
     /* Trait no Canto Inferior Esquerdo */
-    .slot-trait { position: absolute; bottom: 10px; left: 14px; font-size: 11px; font-weight: bold; opacity: 0.7; color: #00b0e6; }
+    .slot-trait { position: absolute; bottom: 10px; left: 14px; font-size: 13px; font-weight: bold; opacity: 0.9; color: var(--accent); }
 
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
 
@@ -119,7 +120,7 @@
       transition: border 0.2s;
     }
     .mini-move.active-trigger {
-      border: 1.5px solid #00b0e6 !important;
+      border: 1.5px solid var(--accent) !important;
     }
     .empty-move { opacity: 0.5; justify-content: center; font-style: italic; }
 
@@ -140,7 +141,25 @@
        5. COMPONENTES: STATUS E ANÁLISE
        ========================================= */
     .analysis { margin-top: 25px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
-    .analysis button { margin-top: 10px; padding: 8px 14px; border-radius: 10px; border: none; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); font-weight:bold; }
+    
+    #teamActions { display: flex; gap: 10px; flex-wrap: wrap; }
+    #teamActions button { 
+      padding: 10px; 
+      border-radius: 12px; 
+      border: none; 
+      cursor: pointer; 
+      background: var(--accent); 
+      color: white; 
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      transition: 0.2s;
+    }
+    #teamActions button:hover { transform: scale(1.05); filter: brightness(1.1); }
+
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; min-width: 260px; }
     .stat-btn { background: var(--hover); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center; font-weight: bold; user-select: none; }
     .stat-label { font-size: 12px; opacity: 0.7; }
@@ -229,7 +248,7 @@
     /* Estilos das Notificações Customizadas */
     .custom-toast { 
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
-      background: var(--card); color: var(--text); border: 2px solid #00b0e6;
+      background: var(--card); color: var(--text); border: 2px solid var(--accent);
       padding: 12px 24px; border-radius: 14px; font-weight: bold; z-index: 10001;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3); opacity: 0; transition: 0.3s; pointer-events: none;
     }
@@ -243,14 +262,15 @@
     .custom-prompt-overlay.active { opacity: 1; visibility: visible; }
     .custom-prompt {
       background: var(--card); padding: 20px; border-radius: 18px; width: 90%; max-width: 400px; text-align: center;
+      transition: transform 0.4s ease;
     }
     .custom-prompt input {
       width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); 
       background: var(--bg); color: var(--text); margin: 15px 0; box-sizing: border-box;
     }
     .custom-prompt .btn-row { display: flex; gap: 10px; justify-content: center; }
-    .custom-prompt button { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
-    .btn-confirm { background: #00b0e6; color: white; }
+    .custom-prompt button { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; min-width: 80px; }
+    .btn-confirm { background: var(--accent); color: white; }
     .btn-cancel { background: var(--hover); color: var(--text); }
 
     @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
@@ -262,31 +282,35 @@
       .header-top { justify-content: flex-end; width: 100%; }
       .logo { width: 150px; }
 
+      /* Ajuste dos Menus Deslizantes (65% da tela) */
       .modal-overlay { align-items: flex-end; }
-      .modal { 
+      .modal, .custom-prompt { 
           width: 100%; height: 65%; max-height: 65%;
           border-radius: 20px 20px 0 0; 
           transform: translateY(100%);
           transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
-      .modal-overlay.active .modal { transform: translateY(0); }
+      .modal-overlay.active .modal, .custom-prompt-overlay.active .custom-prompt { transform: translateY(0); }
+
+      /* Barra de Pesquisar Centralizada e tamanho bom */
+      .modal-search { display: flex; justify-content: center; width: 100%; }
+      .modal-search input { width: 85%; }
 
       .moves-grid { grid-template-columns: 1fr; gap: 10px; }
       .analysis { flex-direction: column-reverse; align-items: stretch; }
       
-      .analysis div:first-child { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-      .analysis button { width: 100%; margin-top: 0; }
+      #teamActions { justify-content: center; margin-top: 15px; }
 
-      /* Fix dos Mini Containers de Status no Mobile */
+      /* Tamanho Fixo dos Mini Containers de Status */
       .stats-grid { 
-        grid-template-columns: repeat(3, 1fr); 
-        min-width: unset; 
-        width: 100%; 
-        gap: 6px; 
+        display: flex;
+        overflow-x: auto;
+        gap: 8px; 
+        padding-bottom: 5px;
       }
-      .stat-btn { padding: 6px 2px; }
+      .stat-btn { flex: 0 0 85px; padding: 10px 5px; }
       .stat-label { font-size: 10px; }
-      .stat-value { font-size: 14px; }
+      .stat-value { font-size: 16px; }
     }
   </style>
 </head>
@@ -305,12 +329,12 @@
       <div class="team-grid" id="teamGrid"></div>
       <div class="analysis">
         <div id="teamActions">
-          <button id="codeGenBtn"></button>
-          <button id="codeImportBtn"></button>
-          <button id="exportBtn"></button>
+          <button id="codeGenBtn" title="Gerar Código">📋</button>
+          <button id="codeImportBtn" title="Colocar Código">📥</button>
+          <button id="exportBtn" title="Exportar Imagem">💾</button>
         </div>
-        <div>
-          <h3 id="statsTitle"></h3>
+        <div style="flex:1">
+          <h3 id="statsTitle" style="margin-top:0"></h3>
           <div id="statsTotal" class="stats-grid"></div>
         </div>
       </div>
@@ -377,8 +401,8 @@
        1. ESTADO E VARIÁVEIS GERAIS
        ========================================= */
     const texts = {
-      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", codeGen: "Gerar Código", codeImport: "Colocar Código", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", traitSelect: "Selecionar Trait", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Código copiado!", full: "Time já está cheio!", importPrompt: "Cole o código da equipe aqui:", invalidCode: "Código de equipe inválido!", cancel: "Cancelar" },
-      en: { langBtn: "🇺🇸 EN", title: "Team Builder", codeGen: "Generate Code", codeImport: "Import Code", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", traitSelect: "Select Trait", moveEmpty: "None", remove: "Remove from Team", copied: "Code copied!", full: "Team is already full!", importPrompt: "Paste the team code here:", invalidCode: "Invalid team code!", cancel: "Cancel" }
+      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", traitSelect: "Selecionar Trait", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Código copiado!", full: "Time já está cheio!", importPrompt: "Cole o código da equipe aqui:", invalidCode: "Código de equipe inválido!", cancel: "Cancelar" },
+      en: { langBtn: "🇺🇸 EN", title: "Team Builder", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", traitSelect: "Select Trait", moveEmpty: "None", remove: "Remove from Team", copied: "Code copied!", full: "Team is already full!", importPrompt: "Paste the team code here:", invalidCode: "Invalid team code!", cancel: "Cancel" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
@@ -910,9 +934,6 @@
     function updateLangUI() {
       const t = texts[lang];
       document.getElementById("mapTitle").textContent = t.title;
-      DOM.codeGenBtn.textContent = t.codeGen;
-      DOM.codeImportBtn.textContent = t.codeImport;
-      DOM.exportBtn.textContent = t.export;
       DOM.langBtn.textContent = t.langBtn;
       document.getElementById("modalTitle").textContent = t.modalTitle;
       document.getElementById("editModalTitle").textContent = t.editTitle;
