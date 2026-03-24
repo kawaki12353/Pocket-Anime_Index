@@ -502,7 +502,7 @@ const animons = [
       { level: 11, name: "Energy Beam" },
       { level: 16, name: "Double Sunday" },
       { level: 19, name: "False Courage" },
-      { level: 19, name: "Shadow Ambus" },
+      { level: 19, name: "Shadow Ambush" },
       { level: 22, name: "Impale" }
     ]
   },
