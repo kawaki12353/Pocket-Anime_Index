@@ -1,11 +1,13 @@
 const moves = {
   "Shadow Ambush": {
+    id: 168,
     name: "Shadow Ambush",
     type: "dark",
     attack: "status",
     pp: 5,
   },
   "Impale": {
+    id: 167,
     name: "Impale",
     desc_pt: "Perfure um alvo com a mão, tendo 50% de chance de [005]ferir[000] por 4 turnos.",
     desc_en: "Stab your hand through a target, having a 50% chance to [005]wound[000] for 4 turns.",
@@ -16,6 +18,7 @@ const moves = {
     pp: 15,
   },
   "Double Sunday": {
+    id: 166,
     name: "Double Sunday",
     desc_pt: "Dispare uma onda de energia de suas mãos.",
     desc_en: "Fire a wave of energy from your hands.",
@@ -26,6 +29,7 @@ const moves = {
     pp: 15,
   },
   "Sacred Exorcism": {
+    id: 165,
     name: "Sacred Exorcism",
     desc_pt: "Exorciza inimigos com uma luz quente.",
     desc_en: "Exorcise enemies with a warm light.",
@@ -36,6 +40,7 @@ const moves = {
     pp: 10,
   },
   "Water Slice": {
+    id: 164,
     name: "Water Slice",
     desc_pt: "Molde a água em uma borda afiada para cortar seu oponente à distância com 3x de chance crítica.",
     desc_en: "Shape water into a sharp edge to cut your opponent from a distance 3X critical toma chanced",
@@ -46,6 +51,7 @@ const moves = {
     pp: 16,
   },
   "Healing Wish": {
+    id: 163,
     name: "Healing Wish",
     desc_pt: "Uma magia de cura que restaura 25% dos pontos de vida totais do alvo.",
     desc_en: "A healing magic that heals a target for 25% of their full HP.",
@@ -56,6 +62,7 @@ const moves = {
     pp: 5,
   },
   "Torrent Crash": {
+    id: 162,
     name: "Torrent Crash",
     desc_pt: "Faça com que uma poderosa coluna de água caia sobre o oponente.",
     desc_en: "Make a powerful column of water rain down on an opponent.",
@@ -66,6 +73,7 @@ const moves = {
     pp: 10,
   },
   "Water Blast": {
+    id: 161,
     name: "Water Blast",
     type: "water",
     attack: "special",
@@ -74,6 +82,7 @@ const moves = {
     pp: 20,
   },
   "Splashing Wave": {
+    id: 160,
     name: "Splashing Wave",
     desc_pt: "Espirre água em todas as direções para remover qualquer [003]queimadura[000] da pele.",
     desc_en: "Splash water in all directions removing any [003]burn[000] status on anyone.",
@@ -84,6 +93,7 @@ const moves = {
     pp: 20,
   },
   "Gideon": {
+    id: 159,
     name: "Gideon",
     desc_pt: "Golpeie Gideon contra o chão, erguendo um platô que cai sobre o alvo, eliminando todos os efeitos de campo.",
     desc_en: "Slam Gideon into the ground, lifting a plataeu that smashes down on the target removing all field effects.",
@@ -94,6 +104,7 @@ const moves = {
     pp: 10,
   },
   "Earth Wall": {
+    id: 158,
     name: "Earth Wall",
     desc_pt: "Uma parede que defende sua equipe por 3 turnos. Reduz pela metade o dano de ataques do tipo Fire, Lightning e Poison.",
     desc_en: "A wall that defends your team for 3 turns. Halves damage from fire, lightning, and poison-type attacks.",
@@ -104,6 +115,7 @@ const moves = {
     pp: 15,
   },
   "Storm Flame Arrow": {
+    id: 157,
     name: "Storm Flame Arrow",
     desc_pt: "Um tiro especial de besta que diminui a [001]DEF [-1][000] e o [001]SP.ATK [-1][000] de alvos com [003]queimadura[000] e tipos fire.",
     desc_en: "A special crossbow shot that lowers the [001]DEF [-1][000] and [001]SP.ATK [-1][000] of targets with [003]burn[000] and fire-types.",
@@ -114,6 +126,7 @@ const moves = {
     pp: 12,
   },
   "Rocket Dynamite": {
+    id: 156,
     name: "Rocket Dynamite",
     desc_pt: "Dinamite genial que pode mudar de trajetória, ignorando precisão e evasão.",
     desc_en: "Genius dynamite that can change trajectory ignoring accuracy and evasion.",
@@ -124,6 +137,7 @@ const moves = {
     pp: 15,
   },
   "Trip Wire": {
+    id: 155,
     name: "Trip Wire",
     desc_pt: "Este usuário coloca um fio de armadilha no local do alvo no campo. Ao ser invocado, os alvos perdem [001]SPD [-1][000].",
     desc_en: "This user place a tripwire on the target field spot. On summon, targets lose [001]SPD [-1][000].",
@@ -134,6 +148,7 @@ const moves = {
     pp: 20,
   },
   "Bomb Strike": {
+    id: 154,
     name: "Bomb Strike",
     desc_pt: "No impacto, há 30% de chance de diminuir a [001]DEF [-1][000].",
     desc_en: "On impact has a 30% chance to lower [001]DEF [-1][000].",
@@ -144,6 +159,7 @@ const moves = {
     pp: 10,
   },
   "Calm Water Slash": {
+    id: 153,
     name: "Calm Water Slash",
     type: "water",
     attack: "physical",
@@ -152,6 +168,7 @@ const moves = {
     pp: 5,
   },
   "Searing Slices": {
+    id: 152,
     name: "Searing Slices",
     desc_pt: "Balance sua adaga para criar rajadas de chamas quentes com uma chance crítica aumentada em x4 e 20% de chance de causar [003]queimaduras[000].",
     desc_en: "Swing your dagger to create hot lashes of flame having an increased x4 critical chance and 20% chance to [003]burn[000].",
@@ -162,6 +179,7 @@ const moves = {
     pp: 15,
   },
   "Flame Dance": {
+    id: 151,
     name: "Flame Dance",
     desc_pt: "Faça o fogo dançar ao seu redor, aumentando [002]ATK [+1][000] e [002]SPD [+1][000].",
     desc_en: "Make fire dance around you raising [002]ATK [+1][000] and [002]SPD [+1][000].",
@@ -172,6 +190,7 @@ const moves = {
     pp: 20,
   },
   "Flame Storm": {
+    id: 150,
     name: "Flame Storm",
     desc_pt: "Prenda o inimigo em uma tempestade flamejante por 4 turnos, [003]queimando-o[000].",
     desc_en: "Trap the enemy in a blazing storm for 4 turns [003]burning[000] them.",
@@ -182,6 +201,7 @@ const moves = {
     pp: 15,
   },
   "Extreme Flame Burst": {
+    id: 149,
     name: "Extreme Flame Burst",
     desc_pt: "Espada de magma com chance de acerto crítico triplicada e 50% de chance de causar [003]queimadura[000] por 2 turnos.",
     desc_en: "Molten sword with 3X crit chance and 50% [003]burn[000] chance for 2 turns.",
@@ -192,6 +212,7 @@ const moves = {
     pp: 5,
   },
   "Storm Tower": {
+    id: 148,
     name: "Storm Tower",
     desc_pt: "Envolva seu oponente em um vórtice de ventos rápidos, prendendo-o por 3 turnos.",
     desc_en: "Surround your opponent in a vortex of fast winds trapping them for 3 turns.",
@@ -202,6 +223,7 @@ const moves = {
     pp: 15,
   },
   "Wind Dagger": {
+    id: 147,
     name: "Wind Dagger",
     desc_pt: "Dispare rajadas de adagas feitas de vento contra seu oponente, com 6x de chance de acerto crítico.",
     desc_en: "Fire rounds of daggers made of wind at your opponent, has 6X critical strike chance.",
@@ -212,6 +234,7 @@ const moves = {
     pp: 16,
   },
   "Twin Tornado": {
+    id: 146,
     name: "Twin Tornado",
     desc_pt: "Invoque dois tornados idênticos para atingir vários alvos antes de se dispersarem.",
     desc_en: "Summon two identical tornados to hit multiple targets before dispersing",
@@ -222,6 +245,7 @@ const moves = {
     pp: 15,
   },
   "Axe Attack": {
+    id: 145,
     name: "Axe Attack",
     desc_pt: "O usuário desfere um golpe rápido com um machado pesado em direção ao alvo.",
     desc_en: "The user quickly swings a heavy axe at the target.",
@@ -232,6 +256,7 @@ const moves = {
     pp: 35,
   },
   "Rally": {
+    id: 144,
     name: "Rally",
     desc_pt: "Inspire seus aliados próximos a ajudar a derrotar o inimigo. Aumenta seu [002]ATK [+1][000] e aliado",
     desc_en: "Inspire your nearby allies to help take down the enemy. Increases both your [002]ATK [+1][000].",
@@ -242,6 +267,7 @@ const moves = {
     pp: 12,
   },
   "Axe Slam": {
+    id: 143,
     name: "Axe Slam",
     desc_pt: "Fenda a terra com 50% de chance de diminuir a [001]SPD [-1][000] do alvo.",
     desc_en: "Cleave the earth with a 50% chance to lower target [001]SPD [-1][000].",
@@ -252,6 +278,7 @@ const moves = {
     pp: 12,
   },
   "Axe Splitter": {
+    id: 142,
     name: "Axe Splitter",
     desc_pt: "Golpeie seu inimigo com seu machado! Com 15% de chance de deixá-lo [005]Ferido[000]!",
     desc_en: "Slash your axe at your enemy! With a 15% chance to make them [005]Wounded[000]!",
@@ -262,6 +289,7 @@ const moves = {
     pp: 15,
   },
   "Cleave": {
+    id: 141,
     name: "Cleave",
     desc_pt: "Divida um alvo ao meio usando um corte com chance crítica triplicada.",
     desc_en: "Bisect a target using a slash with an increased 3X critical chance.",
@@ -272,6 +300,7 @@ const moves = {
     pp: 15,
   },
   "Cold Snap": {
+    id: 140,
     name: "Cold Snap",
     type: "ice",
     attack: "status",
@@ -280,6 +309,7 @@ const moves = {
     pp: 20,
   },
   "Ice Spikes": {
+    id: 139,
     name: "Ice Spikes",
     type: "ice",
     attack: "special",
@@ -287,6 +317,7 @@ const moves = {
     pp: 15,
   },
   "Ice Clone": {
+    id: 138,
     name: "Ice Clone",
     type: "ice",
     attack: "status",
@@ -294,6 +325,7 @@ const moves = {
     pp: 5,
   },
   "Ice Lance": {
+    id: 137,
     name: "Ice Lance",
     type: "ice",
     attack: "special",
@@ -301,6 +333,7 @@ const moves = {
     pp: 12,
   },
   "Glacial Blade": {
+    id: 136,
     name: "Glacial Blade",
     desc_pt: "Forme uma espada de gelo para atacar seu oponente com 3x de chance de acerto crítico e 10% de chance de [009]congelá-lo[000] por 3 turnos.",
     desc_en: "Form a sword of ice to slash your opponent with an 3X critical strike chance and 10% chance of [009]freezing[000] for 3 turns.",
@@ -311,6 +344,7 @@ const moves = {
     pp: 10,
   },
   "Soul Reaver": {
+    id: 135,
     name: "Soul Reaver",
     desc_pt: "Use suas garras demoníacas com 10% de chance de reduzir a [001]DEF [-1][000] do alvo e [005]feri-lo[000].",
     desc_en: "Use your demon claws with a 10% chance to lower target [001]DEF [-1][000] and [005]wound[000] them.",
@@ -321,6 +355,7 @@ const moves = {
     pp: 12,
   },
   "Wind Scar": {
+    id: 134,
     name: "Wind Scar",
     desc_pt: "Um ataque que, segundo rumores, dizimou cem demônios com um único golpe. Causa dano dobrado contra criaturas do tipo Demon.",
     desc_en: "An attack rumored to have cut down a hundred demons in a single stroke. Does 2X damage against demon-types.",
@@ -331,6 +366,7 @@ const moves = {
     pp: 12,
   },
   "Crimson Blades": {
+    id: 133,
     name: "Crimson Blades",
     desc_pt: "Manifeste seu sangue em lâminas afiadas para atacar com 10% de chance de [005]ferir[000] e reduzir a [001]SP.DEF [-1][000] do oponente.",
     desc_en: "Manifest your blood into sharp blades to attack 10% to [005]wound[000] and lower their [001]SP.DEF [-1][000].",
@@ -341,6 +377,7 @@ const moves = {
     pp: 12,
   },
   "Dark Shocker": {
+    id: 132,
     name: "Dark Shocker",
     desc_pt: "Energia elétrica escura com 40% de chance de [008]paralisar[000] um alvo.",
     desc_en: "Dark electrical energy with a 40% chance to [008]paralyze[000] a target.",
@@ -351,6 +388,7 @@ const moves = {
     pp: 15,
   },
   "Energy Vortex": {
+    id: 131,
     name: "Energy Vortex",
     desc_pt: "Envolva seu oponente em um campo de rajadas de ki e concentre-as em seu alvo. Causa 20% mais dano se você for mais rápido.",
     desc_en: "Surround your opponent in a field of ki blast and converge them on your target. Deals 20% more damage if you are faster.",
@@ -361,6 +399,7 @@ const moves = {
     pp: 25,
   },
   "Light Grenade": {
+    id: 130,
     name: "Light Grenade",
     desc_pt: "Uma granada de energia que explode ao contato, causando danos massivos ao alvo.",
     desc_en: "An energy-based grenade that explodes on contact dealing massive damage to a target.",
@@ -371,6 +410,7 @@ const moves = {
     pp: 15,
   },
   "Beast Bomb": {
+    id: 129,
     name: "Beast Bomb",
     desc_pt: "O chakra bestial concentrado em uma explosão, que reduz sua [001]SP.DEF [-1][000]. O usuário sofre 25% de dano se errar.",
     desc_en: "Bestial chakra collected into a concentrated blast, lowers your [001]SP.DEF [-1][000]. User takes 25% damage if they miss.",
@@ -381,6 +421,7 @@ const moves = {
     pp: 5,
   },
   "Sudden Impact": {
+    id: 128,
     name: "Sudden Impact",
     desc_pt: "Ataque em Múltiplos Alvos - Quebre o chão sob seus pés para ter 20% de chance de fazer vários alvos recuarem.",
     desc_en: "Multi Target-Shatter the ground under your feet for a 20% chance to make multiple targets flinch.",
@@ -391,6 +432,7 @@ const moves = {
     pp: 16,
   },
   "Explosive Kunai": {
+    id: 127,
     name: "Explosive Kunai",
     desc_pt: "Arremessa várias kunais que atingem inimigos adjacentes, com uma chance de [15%] de [003]queimá-los[000].",
     desc_en: "Throw multiple kunai that hit adjacent enemies, with a chance [15%] to [003]Burn[000] them.",
@@ -401,6 +443,7 @@ const moves = {
     pp: 15,
   },
   "Sling Shot": {
+    id: 126,
     name: "Sling Shot",
     desc_pt: "Dispare com seu estilingue!",
     desc_en: "Shoot off your Slingshot",
@@ -411,6 +454,7 @@ const moves = {
     pp: 30,
   },
   "Spikes": {
+    id: 125,
     name: "Spikes",
     desc_pt: "Coloque uma armadilha de espinhos embaixo do seu oponente. Ao entrar em campo, os alvos nessa armadilha receberão 1/8 do dano máximo de vida.",
     desc_en: "Place a spike trap underneath your opponent, on switch in, target on that field will take 1/8th max health damage.'s on that field will take 1/8th max health damage.",
@@ -421,6 +465,7 @@ const moves = {
     pp: 20,
   },
   "Fire Star": {
+    id: 124,
     name: "Fire Star",
     desc_pt: "Atordoe seu oponente e olhe para ele com seu estilingue para disparar um projétil incandescente. Alta chance [50%] de causar [003]queimadura[000].",
     desc_en: "Daze your opponent and look into them with your slingshot to shoot a molten shot. High chance [50%] to [003]Burn[000].",
@@ -431,6 +476,7 @@ const moves = {
     pp: 30,
   },
   "Gas Bomb": {
+    id: 123,
     name: "Gas Bomb",
     desc_pt: "Um gás inflamável que causa 1/16 do dano máximo de vida de Animons que não sejam do tipo Poison por 5 turnos. Ele se inflamará no próximo movimento do tipo Fire usado, causando o dobro de dano e [003]queimadura[000].",
     desc_en: "A flammable gas dealing 1/16th max health damage to non-poison types for 5 turns. It will ignite on the next fire-type move used, making it deal 2X damage and [003]burn[000].",
@@ -441,6 +487,7 @@ const moves = {
     pp: 15,
   },
   "Impact Dial": {
+    id: 122,
     name: "Impact Dial",
     desc_pt: "Contra-ataque imediatamente, causando o mesmo dano que você teria sofrido. Falha em usos consecutivos.",
     desc_en: "Immediately counter the attacker, inflicting the same damage you would have taken. Fails on consecutive use.",
@@ -451,6 +498,7 @@ const moves = {
     pp: 5,
   },
   "Golden Pound": {
+    id: 121,
     name: "Golden Pound",
     desc_pt: "Blefe com um martelo apropriado - O alvo se assusta com o choque. Se atingido, ele [007]dormirá[000] por 4 turnos.",
     desc_en: "Bluff with a proper hammer - The target fients from the shock. If hit, [007]sleep[000] them for 4 turns.",
@@ -461,6 +509,7 @@ const moves = {
     pp: 8,
   },
   "Wolf Attack": {
+    id: 120,
     name: "Wolf Attack",
     desc_pt: "A arte marcial secreta do Wolfman: liberte o lobo que há em você e ataque seu oponente com uma série de golpes.",
     desc_en: "Wolfman's secret martial art, let loose your inner wolf and go wild on your opponent with a series of strikes.",
@@ -471,6 +520,7 @@ const moves = {
     pp: 20,
   },
   "Spirit Ball": {
+    id: 119,
     name: "Spirit Ball",
     desc_pt: "O usuário controla uma esfera de energia espiritual para aprisionar seu oponente por dois turnos.",
     desc_en: "The user controls a ball of spiritual energy to trap their opponent for two turns.",
@@ -481,6 +531,7 @@ const moves = {
     pp: 15,
   },
   "Swift Wind": {
+    id: 118,
     name: "Swift Wind",
     desc_pt: "Rajada rápida de vento com baixo dano e maior prioridade.",
     desc_en: "Quick blast of wind with low damage and higher priority.",
@@ -491,6 +542,7 @@ const moves = {
     pp: 15,
   },
   "Growl": {
+    id: 117,
     name: "Growl",
     desc_pt: "Um rosnado ameaçador que reduz o [001]ATK [-1][000] de um alvo.",
     desc_en: "A threatening snarl that lowers the [001]ATK [-1][000] of a target.",
@@ -501,6 +553,7 @@ const moves = {
     pp: 20,
   },
   "Quick Attack": {
+    id: 116,
     name: "Quick Attack",
     desc_pt: "Um ataque rápido com prioridade aumentada.",
     desc_en: "A quick attack with increased priority.",
@@ -511,6 +564,7 @@ const moves = {
     pp: 25,
   },
   "Bite": {
+    id: 115,
     name: "Bite",
     desc_pt: "Crave seus dentes no alvo com 20% de chance de fazê-lo recuar.",
     desc_en: "Sink your teeth into the target with a 20% to make them flinch.",
@@ -521,6 +575,7 @@ const moves = {
     pp: 15,
   },
   "Savage Fang": {
+    id: 114,
     name: "Savage Fang",
     desc_pt: "Mordida para dilacerar um alvo com 15% de chance de reduzir sua [001]DEF [-1][000].",
     desc_en: "Chomp to shred a target having a 15% to lower their [001]DEF [-1][000].",
@@ -531,6 +586,7 @@ const moves = {
     pp: 10,
   },
   "Ripping Claw": {
+    id: 113,
     name: "Ripping Claw",
     desc_pt: "Dilacere um alvo com uma garra cruel, tendo 6 vezes mais chances de acerto crítico e ferindo-o caso o acerto seja crítico.",
     desc_en: "Tear through a target with a vicious claw having a 6X critical strike chance wounding them if it critically strikes.",
@@ -541,6 +597,7 @@ const moves = {
     pp: 10,
   },
   "Mop Attack": {
+    id: 112,
     name: "Mop Attack",
     desc_pt: "Um ataque básico fraco com um suprimento de limpeza comum.",
     desc_en: "A weak basic attack with a common cleaning supply.",
@@ -551,6 +608,7 @@ const moves = {
     pp: 25,
   },
   "Quick Assist": {
+    id: 111,
     name: "Quick Assist",
     desc_pt: "Ajude um Animon a causar 50% à mais de dano em seu próximo movimento!",
     desc_en: "Assist an Animon to make them deal 50% more damage on their next move!",
@@ -561,6 +619,7 @@ const moves = {
     pp: 5,
   },
   "Wave Kick": {
+    id: 110,
     name: "Wave Kick",
     desc_pt: "Um chute tempestuoso cortante com o Dobro de chance de acerto crítico.",
     desc_en: "A slicing tempest kick with 2X chance to critically strike.",
@@ -571,6 +630,7 @@ const moves = {
     pp: 15,
   },
   "Mop the floor": {
+    id: 109,
     name: "Mop the floor",
     desc_pt: "Limpe o chão e aumente a Defesa Especial dos seus Animons!",
     desc_en: "Mop the floor and increase your Animons Special Defense!",
@@ -581,6 +641,7 @@ const moves = {
     pp: 15,
   },
   "Bounty Hunt": {
+    id: 108,
     name: "Bounty Hunt",
     desc_pt: "Perca [001]ATK [-1][000], Coloque uma recompensa pela cabeça do Animon oponente! Eles perdem [001]DEF [-1][000] e Derrotá-los pode reivindicar, dando ao Animon que os matou [002]ATK [+2][000].",
     desc_en: "Lose [001]ATK [-1][000], Place a bounty on the opposing Animon's head! They lose [001]DEF [-1][000] Defeating them claims in, giving the Animon who killed them [002]ATK [+2][000].",
@@ -591,6 +652,7 @@ const moves = {
     pp: 25,
   },
   "Buckshot": {
+    id: 107,
     name: "Buckshot",
     desc_pt: "Dispare uma rajada de munição para atingir vários alvos de uma só vez.",
     desc_en: "Shoot a burst of ammo to hit multiple targets at once.",
@@ -601,6 +663,7 @@ const moves = {
     pp: 15,
   },
   "Aqua Cross": {
+    id: 106,
     name: "Aqua Cross",
     desc_pt: "Um corte cruzado de lâminas aquáticas.",
     desc_en: "A cross slash of aquatic blades.",
@@ -611,6 +674,7 @@ const moves = {
     pp: 15,
   },
   "Iron Body": {
+    id: 105,
     name: "Iron Body",
     desc_pt: "Seu corpo se torna impenetrável, fazendo com que o próximo ataque cause metade do dano e seja incapaz de causar um acerto crítico.",
     desc_en: "Your body bebomes impenetrable making the next attack do halve damage and be unable to critical strike.",
@@ -621,6 +685,7 @@ const moves = {
     pp: 20,
   },
   "Justice Cannon": {
+    id: 104,
     name: "Justice Cannon",
     type: "water",
     attack: "special",
@@ -629,6 +694,7 @@ const moves = {
     pp: 15,
   },
   "Solar Energy Wave": {
+    id: 103,
     name: "Solar Energy Wave",
     desc_pt: "Reúna sua energia máxima, aumentando seu [002]SP.DEF [+1][000], e dispare um feixe de energia capaz de destruir um sistema solar inteiro.",
     desc_en: "Gather your peak energy increasing your [002]SP.DEF [+1][000] and shoot a beam of energy capable of destroying an entire solar system.",
@@ -639,6 +705,7 @@ const moves = {
     pp: 10,
   },
   "Blitz": {
+    id: 102,
     name: "Blitz",
     type: "lightning",
     attack: "status",
@@ -647,6 +714,7 @@ const moves = {
     pp: 15,
   },
   "Double Shot": {
+    id: 101,
     name: "Double Shot",
     desc_pt: "Atire no alvo uma vez; se acertar, há 50% de chance de realizar um segundo disparo com metade do dano.",
     desc_en: "Shoot a target once, if successful, 50% chance to follow up with a second shot at half damage.",
@@ -657,6 +725,7 @@ const moves = {
     pp: 15,
   },
   "Lightning Spread": {
+    id: 100,
     name: "Lightning Spread",
     desc_pt: "Libera um choque elétrico que ignora precisão e esquiva.",
     desc_en: "Release an electric shock that ignores accuracy and evasion.",
@@ -667,6 +736,7 @@ const moves = {
     pp: 15,
   },
   "False Courage": {
+    id: 99,
     name: "False Courage",
     desc_pt: "Reúna sua determinação para não ser afetado por [007]dormência[000], [008]paralisia[000] ou recuar por 3 turnos.",
     desc_en: "Gather your resolve to not be affected by [007]sleep[000], [008]paralyze[000], or flinch for 3 turns.",
@@ -677,6 +747,7 @@ const moves = {
     pp: 10,
   },
   "Shark Tile Fist": {
+    id: 98,
     name: "Shark Tile Fist",
     type: "water",
     attack: "physical",
@@ -684,6 +755,7 @@ const moves = {
     pp: 12,
   },
   "Brick Fist": {
+    id: 97,
     name: "Brick Fist",
     desc_pt: "Um soco pesado e reto que ignora qualquer aumento no atributo DEF do alvo.",
     desc_en: "A heavy straight fist that ignores any increases to a target DEF stat.",
@@ -694,6 +766,7 @@ const moves = {
     pp: 15,
   },
   "Shark Throw": {
+    id: 96,
     name: "Shark Throw",
     desc_pt: "Arremesse um alvo de um redemoinho. Isso diminui a prioridade dele e o força a recuar.",
     desc_en: "Throw a target from a whirlpool. This has decreased priority and forces them to retreat.",
@@ -704,6 +777,7 @@ const moves = {
     pp: 10,
   },
   "Water Spear": {
+    id: 95,
     name: "Water Spear",
     desc_pt: "Flechas de água capazes de perfurar múltiplos inimigos, com uma chance de acerto crítico 4 vezes maior.",
     desc_en: "Arrows of water that can pierce multiple enemies, having a increased 4X critical chance.",
@@ -714,6 +788,7 @@ const moves = {
     pp: 15,
   },
   "Sharp Claw": {
+    id: 94,
     name: "Sharp Claw",
     desc_pt: "Arranhe seu oponente com garras afiadas.",
     desc_en: "Scratch at your opponent with sharp claws.",
@@ -724,6 +799,7 @@ const moves = {
     pp: 25,
   },
   "Coated Blade": {
+    id: 93,
     name: "Coated Blade",
     desc_pt: "Uma Lâmina que esconde um veneno letal com 30% de chance de [006]envenenar[000] por 5 turnos. [006]Envenena[000] instantaneamente se o alvo estiver [005]ferido[000].",
     desc_en: "Blade secreting a lethal poison with a 30% chance to [006]poison[000] for 5 turns. Instantly [006]poisons[000] if target is [005]wounded[000].",
@@ -734,6 +810,7 @@ const moves = {
     pp: 15,
   },
   "Desert Espada": {
+    id: 92,
     name: "Desert Espada",
     desc_pt: "Uma lâmina de areia que irrompe do chão abaixo de você com 30% de chance de reduzir a [001]DEF [-1][000] do inimigo.",
     desc_en: "A blade of sand that erupts from the ground beneath you with a 30% chance to lower enemy [001]SPDEF [-1][000].",
@@ -744,6 +821,7 @@ const moves = {
     pp: 15,
   },
   "Crush": {
+    id: 91,
     name: "Crush",
     desc_pt: "Esmague um alvo sob seus pés e cause mais dano com base na diferença entre sua saúde máxima e a dele.",
     desc_en: "Crush a target under you, deal more damage based on the difference between your max health.",
@@ -754,6 +832,7 @@ const moves = {
     pp: 16,
   },
   "Fury": {
+    id: 90,
     name: "Fury",
     desc_pt: "Fique com raiva, aumentando seu [002]ATK [+2][000], mas você fica mais distraído, perdendo [001]DEF [-1][000] e [001]Evasão [-1][000].",
     desc_en: "Become angry, raising your ATK [+2] but you become more distracted losing [001]DEF [-1][000] and [001]Evasive [-1][000].",
@@ -764,6 +843,7 @@ const moves = {
     pp: 15,
   },
   "Z Bomb": {
+    id: 89,
     name: "Z Bomb",
     desc_pt: "Uma bomba gigante de ki que destrói o campo ao impacto, reduz seu [001]SP.ATK [-3][000] após usá-la.",
     desc_en: "A giant bomb of ki that destroys the field on impact, decrease your [001]SP.ATK [-3][000] after using it.",
@@ -774,6 +854,7 @@ const moves = {
     pp: 6,
   },
   "Jet Pistol": {
+    id: 88,
     name: "Jet Pistol",
     desc_pt: "Uma versão quase instantânea do soco de pistola comum, com velocidade equivalente ao seu alcance.",
     desc_en: "An almost instant version of the regular pistol punch with a speed to match its reach.",
@@ -784,6 +865,7 @@ const moves = {
     pp: 15,
   },
   "Jet Bullet": {
+    id: 87,
     name: "Jet Bullet",
     desc_pt: "Uma versão quase instantânea da habilidade Bazooka, com velocidade equivalente ao seu alcance.",
     desc_en: "An almost instant version of the Bazooka ability with a speed to match its reach.",
@@ -794,6 +876,7 @@ const moves = {
     pp: 15,
   },
   "Red Talon": {
+    id: 86,
     name: "Red Talon",
     type: "fire",
     attack: "physical",
@@ -802,6 +885,7 @@ const moves = {
     pp: 10,
   },
   "Mystic Shot": {
+    id: 85,
     name: "Mystic Shot",
     desc_pt: "Um dardo de energia mística com 10% de chance de reduzir a [001]SP.DEF [-1][000] do alvo.",
     desc_en: "A dart of mystical energy with a 10% chance to lower target [001]SP.DEF [-1][000].",
@@ -812,6 +896,7 @@ const moves = {
     pp: 25,
   },
   "Eureka": {
+    id: 84,
     name: "Eureka",
     desc_pt: "O usuário tem um momento de verdadeira inspiração aumentando seu [002]SP.ATK [+1][000] e [002]SP.DEF [+1][000].",
     desc_en: "The user has a moment of true inspiration raising their [002]SP.ATK [+1][000] and [002]SP.DEF [+1][000].",
@@ -822,6 +907,7 @@ const moves = {
     pp: 15,
   },
   "Explosion": {
+    id: 83,
     name: "Explosion",
     desc_pt: "Recite um encantamento por 2 turnos, libere uma explosão de magia arcana que atinja múltiplos alvos. Em seguida, fique incapacitado por 2 turnos.",
     desc_en: "Chant an incantation for 2 turns, let forth an arch magic explosion to hit multiple targets. Then, get disabled for 2 turns.",
@@ -832,6 +918,7 @@ const moves = {
     pp: 1,
   },
   "Charm": {
+    id: 82,
     name: "Charm",
     desc_pt: "Atraia um alvo com seu olhar, fazendo com que ele erre seus ataques por 3 turnos.",
     desc_en: "Attract a target with your looks, making them miss when they try to hit you for 3 turns.",
@@ -842,6 +929,7 @@ const moves = {
     pp: 8,
   },
   "Fire Zone": {
+    id: 81,
     name: "Fire Zone",
     desc_pt: "Crie uma zona de fogo que fortaleça os movimentos do tipo fogo em [002]1,3x[000] por 3 turnos.",
     desc_en: "Create a zone of fire that empowers fire type moves [002]1.3x[000] for 3 turns.",
@@ -852,6 +940,7 @@ const moves = {
     pp: 10,
   },
   "Fortune": {
+    id: 80,
     name: "Fortune",
     desc_pt: "Uma boa sorte aumenta sua [002]SP.DEF [+1][000] e [002]Evasão [+1][000].",
     desc_en: "A good fortune increases your [002]SP.DEF [+1][000] and [002]Evasive [+1][000].",
@@ -862,6 +951,7 @@ const moves = {
     pp: 20,
   },
   "Wide Explosion": {
+    id: 79,
     name: "Wide Explosion",
     desc_pt: "Uma explosão que se espalha pelo campo, atingindo múltiplos alvos e com 20% de chance de causar [003]queimadura[000].",
     desc_en: "An explosion across the field that hits multiple targets and has a 20% chance to [003]burn[000].",
@@ -872,6 +962,7 @@ const moves = {
     pp: 12,
   },
   "Lightning Spear": {
+    id: 78,
     name: "Lightning Spear",
     desc_pt: "Uma lança crepitante feita para longo alcance com 10% de chance de reduzir a [001]SP.DEF [-1][000] do alvo e [008]paralisá-lo[000].",
     desc_en: "A crackling spear meant for long range with a 10% chance to lower target [001]SPDEF[-1][000] and [008]paralyze[000] them.",
@@ -882,6 +973,7 @@ const moves = {
     pp: 15,
   },
   "Dexterity": {
+    id: 77,
     name: "Dexterity",
     desc_pt: "Exiba sua proficiência com suas armas, aumentando sua [002]ACCURACY [+2][000].",
     desc_en: "Flaunt your proficiency with your weapons, increasing your [002]ACCURACY [+2][000].",
@@ -892,6 +984,7 @@ const moves = {
     pp: 20,
   },
   "Slashgiri": {
+    id: 76,
     name: "Slashgiri",
     desc_pt: "Reúna suas lâminas para atacar seu oponente num instante, com baixa chance de [005]ferir[000] ao acertar.",
     desc_en: "Gather your blades to strike your opponent in a flash, low chance to inflict [005]wounded[000] on hit.",
@@ -902,6 +995,7 @@ const moves = {
     pp: 15,
   },
   "108 Hawk": {
+    id: 75,
     name: "108 Hawk",
     desc_pt: "Um golpe voador em espiral. Causa dano baseado na DEF em vez da SP.DEF.",
     desc_en: "A spiraling flying slash. Deals damage based on DEF instead of SP.DEF.",
@@ -912,6 +1006,7 @@ const moves = {
     pp: 12, 
   },
   "5000 Worlds": {
+    id: 74,
     name: "5000 Worlds",
     desc_pt: "Gire suas lâminas em preparação, depois ataque seu oponente com um golpe mortal.",
     desc_en: "Spin your blades in preparation, then cut your opponent with a deadly attack.",
@@ -922,6 +1017,7 @@ const moves = {
     pp: 10,
   },
   "Sinister Presence": {
+    id: 73,
     name: "Sinister Presence",
     desc_pt: "Uma sensação de pavor toma conta do seu oponente enquanto você está diante dele, fazendo-o temer seus ataques. Diminui a [001]DEF [-1][000] do Oponente.",
     desc_en: "A feeling of dread falls on your opponent as you stand in front of them making them scared of yours attacks. Decreases the opponent's [001]DEF [-1][000].",
@@ -932,6 +1028,7 @@ const moves = {
     pp: 20,
   },
   "Tiger Song": {
+    id: 72,
     name: "Tiger Song",
     type: "wind",
     attack: "physical",
@@ -939,6 +1036,7 @@ const moves = {
     pp: 5,
   },
   "Junk Toss": {
+    id: 71,
     name: "Junk Toss",
     desc_pt: "Arremesse objetos inúteis em um alvo, com a potência dependendo do item arremessado.",
     desc_en: "Throw junk at a target with the power depending on the item thrown.",
@@ -949,6 +1047,7 @@ const moves = {
     pp: 15,
   },
   "Taunt": {
+    id: 70,
     name: "Taunt",
     desc_pt: "Provoque o inimigo! Impede-o de usar golpes de status e o obriga a atacá-lo de frente!",
     desc_en: "Taunt the enemy! Stopping them from using status moves and having to attack you head on!",
@@ -959,6 +1058,7 @@ const moves = {
     pp: 16,
   },
   "Rifle Shot": {
+    id: 69,
     name: "Rifle Shot",
     desc_pt: "Dispare seu rifle.",
     desc_en: "Shoot off your rifle.",
@@ -969,6 +1069,7 @@ const moves = {
     pp: 20,
   },
   "Missile Barrage": {
+    id: 68,
     name: "Missile Barrage",
     desc_pt: "Dispare mísseis de um RPG contra um alvo com 20% de chance de [003]queimá-lo[000].",
     desc_en: "Shoot missiles from a RPG at a target with 20% chance to [003]burn[000] them.",
@@ -979,6 +1080,7 @@ const moves = {
     pp: 15,
   },
   "Thunder Set": {
+    id: 67,
     name: "Thunder Set",
     desc_pt: "Carregue com energia elétrica com 50% de chance de aumentar [002]SP.ATK [+1][000] ou [002][+2][000].",
     desc_en: "Charge with electrical energy with a 50% chance to raise [002]SP.ATK [+1][000] or [002][+2][000].",
@@ -989,6 +1091,7 @@ const moves = {
     pp: 12,
   },
   "Electric Horn Angle": {
+    id: 66,
     name: "Electric Horn Angle",
     desc_pt: "Uma corneta elétrica que causa o [002]dobro do dano base[000] se você tiver Sp.Atk [+3].",
     desc_en: "An electric horn that does [002]double the base damage[000] if you have Sp.Atk [+3].",
@@ -999,6 +1102,7 @@ const moves = {
     pp: 15,
   },
   "Discharge": {
+    id: 65,
     name: "Discharge",
     desc_pt: "Envie raios através do solo para [008]paralisar[000] múltiplos alvos.",
     desc_en: "Send lightning through the ground to [008]paralyze[000] multiple targets.",
@@ -1009,6 +1113,7 @@ const moves = {
     pp: 10,
   },
   "Lightning Strike": {
+    id: 64,
     name: "Lightning Strike",
     desc_pt: "Um relâmpago com 20% de chance de [008]paralisar[000] o alvo.",
     desc_en: "A crash of lightning with a 20% chance to [008]paralyze[000] the target.",
@@ -1019,6 +1124,7 @@ const moves = {
     pp: 15,
   },
   "Precise Energy Beam": {
+    id: 63,
     name: "Precise Energy Beam",
     desc_pt: "Concentre intensamente sua energia na ponta dos dedos, carregando-a por 2 turnos. Em seguida, libere essa energia formando uma poderosa broca.",
     desc_en: "Concentrate your energy intensely at your fingertips, charging it for 2 turns. Then release this energy forming a powerful drill.",
@@ -1029,6 +1135,7 @@ const moves = {
     pp: 8,
   },
   "Energy Shell": {
+    id: 62,
     name: "Energy Shell",
     desc_pt: "Uma barreira que impede o próximo ataque. Ataques Especiais serão anulados, habilidades Físicas causarão metade do dano e o alvo ficará [008]paralisado[000].",
     desc_en: "A barrier that stops the next attack. Special attacks will be negated, physical skills will do halve damage and be [008]paralyzed[000].",
@@ -1039,6 +1146,7 @@ const moves = {
     pp: 8,
   },
   "Galaxy Wave": {
+    id: 61,
     name: "Galaxy Wave",
     desc_pt: "Recue e libere uma onda de energia roxa. Se estiver com menos da metade da vida, causa 20 de dano base adicional.",
     desc_en: "Rear back and release a purple energy wave. If below half health, this does 20 more base damage.",
@@ -1049,6 +1157,7 @@ const moves = {
     pp: 15,
   },
   "Galaxy Burst": {
+    id: 60,
     name: "Galaxy Burst",
     desc_pt: "Libera uma rajada de energia que danifica todas as unidades em campo.",
     desc_en: "Release a burst of energy that damages all units on the field.",
@@ -1059,6 +1168,7 @@ const moves = {
     pp: 10,
   },
   "Energy Beam": {
+    id: 59,
     name: "Energy Beam",
     desc_pt: "Uma onda de energia.",
     desc_en: "An energy wave.",
@@ -1069,6 +1179,7 @@ const moves = {
     pp: 15,
   },
   "Dirty Fireworks": {
+    id: 58,
     name: "Dirty Fireworks",
     desc_pt: "Lance um ataque contra um alvo e o atinja com uma explosão de ki. Isso executa aqueles que estiverem com menos de 10% de HP.",
     desc_en: "Launch a target and blast them with a ki explosion. This executes those left below 10% HP.",
@@ -1079,6 +1190,7 @@ const moves = {
     pp: 15,
   },
   "Divine Bomb": {
+    id: 57,
     name: "Divine Bomb",
     desc_pt: "Reúna energia da vida ao seu redor por 3 turnos e, em seguida, libere-a na forma de uma bomba gigantesca.",
     desc_en: "Gather energy from life around you for 3 turns, then release it in the form of a massive bomb.",
@@ -1089,6 +1201,7 @@ const moves = {
     pp: 5,
   },
   "Meteor Combo": {
+    id: 56,
     name: "Meteor Combo",
     desc_pt: "Uma combinação feroz de artes marciais.",
     desc_en: "A fierce martial art combination.",
@@ -1099,6 +1212,7 @@ const moves = {
     pp: 7,
   },
   "Super Energy Wave": {
+    id: 55,
     name: "Super Energy Wave",
     desc_pt: "A versão aprimorada da icônica técnica da Escola da Tartaruga.",
     desc_en: "The upgraded version of the iconic turtle-school technique.",
@@ -1109,6 +1223,7 @@ const moves = {
     pp: 10,
   },
   "Cyclone Throw": {
+    id: 54,
     name: "Cyclone Throw",
     desc_pt: "Gire o alvo antes de arremessá-lo. Isso diminui a prioridade e o força a recuar.",
     desc_en: "Spin a target around before tossing them. This has decreased priority and forces them to retreat.",
@@ -1119,6 +1234,7 @@ const moves = {
     pp: 12,
   },
   "Energy Wave": {
+    id: 53,
     name: "Energy Wave",
     desc_pt: "Uma onda de energia ensinada por uma sábia tartaruga-eremita.",
     desc_en: "An energy wave taught by a wise turtle-hermit.",
@@ -1129,6 +1245,7 @@ const moves = {
     pp: 20,
   },
   "Guzzle": {
+    id: 52,
     name: "Guzzle",
     desc_pt: "O animon começa a terminar uma bebida! Ganhe dois estágios [002][+2][000] de [002]ATK[000] e ganhe o efeito [004]Confusão[000].",
     desc_en: "The animon begins to finish a drink! Gain two stages [002][+2][000] of [002]ATK[000] and gain the [004]Confuse[000] effect.",
@@ -1139,6 +1256,7 @@ const moves = {
     pp: 20,
   },
   "Reverse Lily": {
+    id: 51,
     name: "Reverse Lily",
     desc_pt: "Uma arte marcial proibida que não toca o chão até o último golpe. Sofre dano de recuo equivalente a 25% do dano causado.",
     desc_en: "A forbidden martial art that does not touch the ground until the last blow Take recoil damage for 25% of the damage dealt.",
@@ -1149,6 +1267,7 @@ const moves = {
     pp: 5,
   },
   "Dive Kick": {
+    id: 50,
     name: "Dive Kick",
     desc_pt: "Pule e chute seu oponente com 3x de chance de acerto crítico; se errar, sofra 1/8 do dano máximo da sua vida.",
     desc_en: "Jump and kick your opponent with a x3 chance to critically strike, if you miss take 1/8th max health damage.",
@@ -1159,6 +1278,7 @@ const moves = {
     pp: 15,
   },
   "Afterimage": {
+    id: 49,
     name: "Afterimage",
     desc_pt: "Movimente-se rapidamente e produza uma pós-imagem, aumenta o [002]SPD [+2][000].",
     desc_en: "Move fast and produce  an afterimage, increases [002]SPD [+2][000].",
@@ -1169,6 +1289,7 @@ const moves = {
     pp: 10,
   },
   "Sand Arm": {
+    id: 48,
     name: "Sand Arm",
     desc_pt: "Um braço de areia demoníaco com 20% de chance de diminuir a [001]SPD [-1][000].",
     desc_en: "A demonic sand arm with 20% chance to lower [001]SPD [-1][000].",
@@ -1179,6 +1300,7 @@ const moves = {
     pp: 16,
   },
   "Substitution": {
+    id: 47,
     name: "Substitution",
     desc_pt: "Troque por um substituto, gaste 20% de HP e o próximo ataque que te atingir errará. Se você não tiver HP suficiente, este movimento falhará.",
     desc_en: "Swap out for a substitute, spend 20% HP and the next attack to hit you will miss. If you don't have enough HP this move will fail.",
@@ -1189,6 +1311,7 @@ const moves = {
     pp: 5,
   },
   "Sand Bomb": {
+    id: 46,
     name: "Sand Bomb",
     desc_pt: "Colete areia para esmagar seu alvo com prioridade reduzida; isso o atingirá ignorando o Accuracy ou a evasão.",
     desc_en: "Collect sand to crush your target with decreased priority, this will hit ignoring accuracy, or evasive.",
@@ -1199,6 +1322,7 @@ const moves = {
     pp: 15,
   },
   "Sand Burial": {
+    id: 45,
     name: "Sand Burial",
     desc_pt: "Esmague o oponente em um caixão de areia que incapacita o alvo por 2 turnos. Falha se o alvo já estiver incapacitado.",
     desc_en: "Crush the opponent in a coffin made of sand that disables the target for 2 turns. Fails if target is already disabled.",
@@ -1209,6 +1333,7 @@ const moves = {
     pp: 12,
   },
   "Sand Storm": {
+    id: 44,
     name: "Sand Storm",
     desc_pt: "Invoca uma tempestade de areia que causa dano equivalente a 1/12 do HP desde que não sejam do tipo Terra por 5 turnos.",
     desc_en: "Summon a sandstorm that deals 1/12th HP damage to non-Earth types for 5 turns.",
@@ -1219,6 +1344,7 @@ const moves = {
     pp: 16,
   },
   "Sand Tsunami": {
+    id: 43,
     name: "Sand Tsunami",
     desc_pt: "Uma onda de areia que atinge inimigos adjacentes, com 80% de chance de reduzir sua [001]SPD [-1][000].",
     desc_en: "A wave of sand thats hits adjacent enemies, and an 80% chance to lower their [001]SPD [-1][000].",
@@ -1229,6 +1355,7 @@ const moves = {
     pp: 10,
   },
   "Wind Shuriken": {
+    id: 42,
     name: "Wind Shuriken",
     desc_pt: "Uma versão arremessável da técnica Wind Palm com 20% de chance de reduzir a [001]DEF [-1][000] do Oponente.",
     desc_en: "A throwable version of the Wind Palm technique with a 20% chance to lower [001]DEF[-1][000] of the opponent.",
@@ -1239,6 +1366,7 @@ const moves = {
     pp: 15,
   },
   "Wind Palm": {
+    id: 41,
     name: "Wind Palm",
     desc_pt: "O usuário carrega uma bola espiral de energia eólica e a empurra contra o oponente, fazendo-o girar no ar.[004](Tem chance de dar Confusão no oponente)[000]",
     desc_en: "The user charges a spiral ball of wind energy and shoves it into the opponent sending them spinning in the air.[004](There's a chance it will confuse the opponent)[000]",
@@ -1249,6 +1377,7 @@ const moves = {
     pp: 15,
   },
   "Smoke Screen": {
+    id: 40,
     name: "Smoke Screen",
     desc_pt: "Lance uma bomba de fumaça, aumente a [002]Evasão [+1][000].",
     desc_en: "Throw a smokebomb, increase [002]Evasion [+1][000].",
@@ -1259,6 +1388,7 @@ const moves = {
     pp: 20,
   },
   "Clone Barrage": {
+    id: 39,
     name: "Clone Barrage",
     desc_pt: "Atacar um alvo com um grupo de clones.",
     desc_en: "Assault a target with a gang of duplicates.",
@@ -1269,6 +1399,7 @@ const moves = {
     pp: 15,
   },
   "Aerial Combo": {
+    id: 38,
     name: "Aerial Combo",
     desc_pt: "Derrube seu oponente com um ataque aéreo. Causa o dobro de dano se o alvo estiver no ar.",
     desc_en: "Bring your opponent crashing down with an aerial assault. Does double the damage if the target is airborne.",
@@ -1279,6 +1410,7 @@ const moves = {
     pp: 15,
   },
   "Plunder": {
+    id: 37,
     name: "Plunder",
     desc_pt: "Rouba um item do alvo. Falha se o usuário já possuir um item ou se o alvo não possuir nenhum item.",
     desc_en: "Steal an item from the target. Fails if the user already has an item or the target has no item.",
@@ -1289,6 +1421,7 @@ const moves = {
     pp: 20,
   },
   "Spiritual Pressure": {
+    id: 36,
     name: "Spiritual Pressure",
     desc_pt: "Exerça sua pressão espiritual, diminuindo o [001]SPD [-1][000] de seus inimigos.",
     desc_en: "Exert your spiritual pressure, lowering your enemies [001]SPD [-1][000].",
@@ -1299,6 +1432,7 @@ const moves = {
     pp: 20,
   },
   "Sword Slash": {
+    id: 35,
     name: "Sword Slash",
     desc_pt: "Ataque seu inimigo.",
     desc_en: "Slash your enemy.",
@@ -1309,6 +1443,7 @@ const moves = {
     pp: 25,
   },
   "Blade Surge": {
+    id: 34,
     name: "Blade Surge",
     desc_pt: "Executa uma série rápida de golpes de espada!",
     desc_en: "Performs a swift series of sword strikes!",
@@ -1319,6 +1454,7 @@ const moves = {
     pp: 20,
   },
   "Sword Slam": {
+    id: 33,
     name: "Sword Slam",
     desc_pt: "Golpeie o alvo com sua lâmina, tendo 15% de chance de fazê-lo recuar.",
     desc_en: "Slam your blade into a target having a 15% chance to make them flinch.",
@@ -1329,6 +1465,7 @@ const moves = {
     pp: 15,
   },
   "Lunge": {
+    id: 32,
     name: "Lunge",
     type: "neutral",
     attack: "status",
@@ -1337,6 +1474,7 @@ const moves = {
     pp: 15,
   },
   "Moon Fang Slash": {
+    id: 31,
     name: "Moon Fang Slash",
     desc_pt: "Libere uma poderosa onda de energia espiritual de sua espada.",
     desc_en: "Unleash a powerful spiritual energy wave from your sword.",
@@ -1347,6 +1485,7 @@ const moves = {
     pp: 12,
   },
   "Moon Fang Barrage": {
+    id: 30,
     name: "Moon Fang Barrage",
     desc_pt: "Golpes rápidos com lâminas de chamas negras. A chance de acerto crítico [002]aumenta em 2x[000] a cada turno em que for usado consecutivamente.",
     desc_en: "Rapidly slash with blades of black flame. Critical chance is [002]increased by 2x[000] each turn it is used consecutively.",
@@ -1357,6 +1496,7 @@ const moves = {
     pp: 15,
   },
   "Menacing Aura": {
+    id: 29,
     name: "Menacing Aura",
     desc_pt: "Uma presença ameaçadora que reduz a [001]DEF [-1][000] e a [001]Evasão [-1][000] do alvo.",
     desc_en: "A menacing presence that lowers the target [001]DEF [-1][000] and [001]Evasion [-1][000].",
@@ -1367,6 +1507,7 @@ const moves = {
     pp: 20,
   },
   "Cut Down": {
+    id: 28,
     name: "Cut Down",
     desc_pt: "Elimine seu alvo. Se ele estiver recuando, isso terá prioridade e causará o dobro de dano.",
     desc_en: "Cut your target down. If they are retreating, this will take priority and deal 2x damage.",
@@ -1377,6 +1518,7 @@ const moves = {
     pp: 15,
   },
   "Heavenly Flame": {
+    id: 27,
     name: "Heavenly Flame",
     desc_pt: "Lançar uma chama eterna pelos olhos [003]queima[000] o alvo, causando dano equivalente a 1/16 da sua vida.",
     desc_en: "Cast a never-ending flame from your eyes [003]burns[000] a target for 1/16th of their health.",
@@ -1387,6 +1529,7 @@ const moves = {
     pp: 8,
   },
   "Pheonix Fire Bomb": {
+    id: 26,
     name: "Pheonix Fire Bomb",
     desc_pt: "Bolas de fogo consecutivas com 20% de chance de [003]queimar[000] o alvo.",
     desc_en: "Consecutive fireballs with a 20% chance to [003]burn[000] a target.",
@@ -1397,6 +1540,7 @@ const moves = {
     pp: 15,
   },
   "Vengeful Illusion": {
+    id: 25,
     name: "Vengeful Illusion",
     desc_pt: "Confunda o alvo com um olhar que distorça sua percepção e seus pensamentos.",
     desc_en: "Confuse the target with a gaze that distorts their perception and thoughts.",
@@ -1407,6 +1551,7 @@ const moves = {
     pp: 5,
   },
   "Electric Strike": {
+    id: 24,
     name: "Electric Strike",
     desc_pt: "Ataque um alvo com um raio na palma da sua mão, com 20% de chance de [008]paralisá-lo[000] por 3 turnos.",
     desc_en: "Strike a target with lightning in the palm of yours with a 20% chance to [008]paralyze[000] them for 3 turns",
@@ -1417,6 +1562,7 @@ const moves = {
     pp: 15,
   },
   "Tiger's Barrage": {
+    id: 23,
     name: "Tiger's Barrage",
     desc_pt: "Uma técnica que envolve uma série rápida e poderosa de chutes e socos, demonstrando a velocidade e precisão excepcionais do usuário.",
     desc_en: "A technique that involves a rapid and powerful series of kicks and punches, showcasing the user's exceptional speed and precision.",
@@ -1427,6 +1573,7 @@ const moves = {
     pp: 10,
   },
   "Fireball": {
+    id: 22,
     name: "Fireball",
     desc_pt: "Projeta uma bola de fogo no oponente, causando dano e com uma baixa chance[004](20%)[000] de [003]queimá-lo[000].",
     desc_en: "Projects a ball of fire at the opponent dealing damage and having a low change[004](20%)[000] to [003]burn[000] them.",
@@ -1437,6 +1584,7 @@ const moves = {
     pp: 15,
   },
   "Kunai Barrage": {
+    id: 21,
     name: "Kunai Barrage",
     desc_pt: "Arremesse várias kunais que atinjam inimigos adjacentes.",
     desc_en: "Throw multiple Kunai that hit adjacent enemies.",
@@ -1447,6 +1595,7 @@ const moves = {
     pp: 25,
   },
   "Drain Life": {
+    id: 20,
     name: "Drain Life",
     desc_pt: "Roube energia de um alvo agarrando-o, o que [002]cura 60%[000] do dano causado.",
     desc_en: "Steal energy from a target by grabbing them which [002]heals for 60%[000] of the damage dealt.",
@@ -1457,6 +1606,7 @@ const moves = {
     pp: 12,
   },
   "Vanishing Blow": {
+    id: 19,
     name: "Vanishing Blow",
     desc_pt: "Desapareça e ataque seu oponente com prioridade aumentada.",
     desc_en: "Vanish and strike your opponent with increased priority.",
@@ -1467,6 +1617,7 @@ const moves = {
     pp: 15,
   },
   "Solar Flare": {
+    id: 18,
     name: "Solar Flare",
     desc_pt: "Uma luz branca ofuscante que reduz a [001]Accuracy [-1][000] e tem 30% de chance de causar hesitação.",
     desc_en: "A blinding white light that lower [001]Accuracy [-1][000] and has a 30% chance to flinch. ",
@@ -1477,6 +1628,7 @@ const moves = {
     pp: 8,
   },
   "Demon Elbow": {
+    id: 17,
     name: "Demon Elbow",
     desc_pt: "Passe sorrateiramente por um alvo que esteja se preparando para atacar e acerte-o com uma cotovelada devastadora. Falha se o alvo não tiver usado uma habilidade ativa.",
     desc_en: "Sneak past a target preparing an attack and hit them with a punishing elbow. Fails if the target did not use an active skill.",
@@ -1487,6 +1639,7 @@ const moves = {
     pp: 15,
   },
   "Limb Regrowth": {
+    id: 16,
     name: "Limb Regrowth",
     desc_pt: "[002]Recupera 30%[000] da sua vida e remove o veneno. Falha se você estiver com a vida cheia.",
     desc_en: "[002]Heal 30%[000] of your HP and remove poison. Fails if you are full health.",
@@ -1497,6 +1650,7 @@ const moves = {
     pp: 8,
   },
   "Angry Explosion": {
+    id: 15,
     name: "Angry Explosion",
     desc_pt: "Libere sua raiva em uma explosão, que dobra de poder se você estiver afetado por uma condição de status.",
     desc_en: "Release your anger in an explosion, doubling in power if you are affected by a status condition.",
@@ -1507,6 +1661,7 @@ const moves = {
     pp: 12,
   },
   "Rest": {
+    id: 14,
     name: "Rest",
     type: "neutral",
     attack: "status",
@@ -1515,6 +1670,7 @@ const moves = {
     pp: 5,
   },
   "Candy Beam": {
+    id: 13,
     name: "Candy Beam",
     desc_pt: "Transforme o inimigo em doce. Ele ficará incapacitado por dois turnos; se o usuário o derrotar, [002]recuperará 20% de HP[000].",
     desc_en: "Turn the enemy into candy. They are disabled for two turns, if the user defeats them [002]heal 20% HP[000].",
@@ -1525,6 +1681,7 @@ const moves = {
     pp: 8,
   },
   "Psychic Blast": {
+    id: 12,
     name: "Psychic Blast",
     desc_pt: "Atire uma pedra no seu inimigo! Use seus poderes psíquicos.",
     desc_en: "Throw a rock at your Enemy! Using your psychic prowess.",
@@ -1535,6 +1692,7 @@ const moves = {
     pp: 20,
   },
   "Energy Charge": {
+    id: 11,
     name: "Energy Charge",
     desc_pt: "Aumenta o [002]SP.ATK [+1][000] ou o [002]ATK [+1][000]. [004](Dependendo de qual for maior)[000]",
     desc_en: "Raises [002]SP.ATK [+1][000] or [002]ATK [+1][000]. [004](Depending on which is higher)[000]",
@@ -1545,6 +1703,7 @@ const moves = {
     pp: 20,
   },
   "Rubber Balloon": {
+    id: 10,
     name: "Rubber Balloon",
     desc_pt: "Infle-se para aumentar a [002]DEF [+1][000].",
     desc_en: "Inflate yourself to increase [002]DEF [+1][000].",
@@ -1555,6 +1714,7 @@ const moves = {
     pp: 15,
   },
   "Punch": {
+    id: 9,
     name: "Punch",
     desc_pt: "Uma técnica básica de combate corpo a corpo que desfere um golpe poderoso e rápido usando o punho.",
     desc_en: "A basic melee combat technique that delivers a powerful and swift strike using one's fist.",
@@ -1565,6 +1725,7 @@ const moves = {
     pp: 25,
   },
   "Rapid Punches": {
+    id: 8,
     name: "Rapid Punches",
     desc_pt: "Aprimore seu oponente com os punhos até conseguir um bom golpe. Aumenta a chance de acerto crítico.",
     desc_en: "Better your opponent with fists until you get a good one in. Increased chance to crit.",
@@ -1575,6 +1736,7 @@ const moves = {
     pp: 16,
   },
   "Rubber Pistol": {
+    id: 7,
     name: "Rubber Pistol",
     desc_pt: "Um soco potente como uma pistola, com um alcance incrível!",
     desc_en: "A pistol-like punch that has insane reach!",
@@ -1585,6 +1747,7 @@ const moves = {
     pp: 15,
   },
   "Fighting Spirit": {
+    id: 6,
     name: "Fighting Spirit",
     desc_pt: "Prepare-se para a luta e concentre sua força interior, aumentando [002]SP.DEF [+1][000] e [002]ATK [+1][000].",
     desc_en: "Ready yourself for the fight and focus your inner strength, increasing [002]SP.DEF [+1][000] and [002]ATK [+1][000].",
@@ -1595,6 +1758,7 @@ const moves = {
     pp: 20,
   },
   "Bazooka": {
+    id: 5,
     name: "Bazooka",
     desc_pt: "Arremesse seu oponente para longe com força, usando as duas palmas das mãos.",
     desc_en: "Blast your opponent away on impact with two forceful palms.",
@@ -1605,6 +1769,7 @@ const moves = {
     pp: 12,
   },
   "Phase Two": {
+    id: 4,
     name: "Phase Two",
     desc_pt: "Prepare-se e aqueça-se para a transformação. Aprimora as técnicas de atributos de borracha.[004](Após selecionar o Phase Two, pode usar outro movimento novamente)[000]",
     desc_en: "Pump up and become hot-blooded to transform. Upgrades rubber-attribute techniques.[004](After selecting Phase Two, you can use another move again)[000]",
@@ -1616,12 +1781,14 @@ const moves = {
     moveTrigger: [{ move:"Armament", trade:"Red Talon" }, { move:"Bazooka", trade:"Jet Bullet" }, { move:"Rubber Pistol", trade:"Jet Pistol" }],
   },
   "Headbutt": {
+    id: 3,
     name: "Headbutt",
     type: "neutral",
     attack: "physical",
     pp: 16,
   },
   "Armament": {
+    id: 2,
     name: "Armament",
     desc_pt: "Vista-se com uma armadura preta para aumentar seu [002]ATK [+1][000] e permitir que você acerte inimigos intangíveis.",
     desc_en: "Coat yourself in a armor black to increase your [002]ATK [+1][000] and allow you to hit intangible enemies.",
@@ -1632,6 +1799,7 @@ const moves = {
     pp: 15,
   },
   "Energy Blast": {
+    id: 1,
     name: "Energy Blast",
     desc_pt: "Dispare uma rajada de energia contra o inimigo, causando dano!",
     desc_en: "Fire a blast of energy at the enemy dealing damage!",
