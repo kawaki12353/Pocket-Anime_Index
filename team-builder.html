@@ -65,7 +65,7 @@
     .slot-level { font-size: 14px; opacity: 0.8; }
     
     /* Trait no Canto Inferior Esquerdo */
-    .slot-trait { position: absolute; bottom: 10px; left: 14px; font-size: 11px; font-weight: bold; opacity: 0.7; color: #00b0e6; text-transform: uppercase; }
+    .slot-trait { position: absolute; bottom: 10px; left: 14px; font-size: 11px; font-weight: bold; opacity: 0.7; color: #00b0e6; }
 
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
 
@@ -172,7 +172,7 @@
     }
 
     /* =========================================
-       6. MODAIS E UI CUSTOMIZADA (ATUALIZADOS)
+       6. MODAIS E UI CUSTOMIZADA
        ========================================= */
     .fab-add { position: fixed; right: 20px; bottom: 80px; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 32px; font-weight: bold; cursor: pointer; background: var(--lang-btn-bg); color: var(--lang-btn); box-shadow: 0 6px 18px rgba(0,0,0,0.3); transition: 0.2s; z-index: 999; }
     .fab-add:hover { transform: scale(1.08); }
@@ -214,11 +214,11 @@
 
     .custom-select { position: relative; width: 100%; }
     .select-btn { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border); color: var(--text); font-weight: bold; height: 44px; box-sizing: border-box;}
-    .select-btn::after { content: "▼"; margin-left: 10px; font-size: 12px; color: var(--text); }
+    .select-btn::after { content: "▼"; margin-left: auto; font-size: 12px; color: var(--text); }
 
     .select-options { position: absolute; top: 110%; left: 0; width: 100%; background: var(--card); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-height: 200px; overflow-y: auto; display: none; z-index: 99; border: 1px solid var(--border); }
     .select-options.open { display: block; }
-    .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; }
+    .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; font-size: 11px; }
     .option:hover { background: var(--hover); }
 
     .move-name-txt { flex: 1; font-size: 11px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -226,10 +226,37 @@
     .move-icon-type { width: 16px; height: 16px; object-fit: contain; }
     .move-icon-atk { width: 16px; height: 16px; object-fit: contain; }
 
+    /* Estilos das Notificações Customizadas */
+    .custom-toast { 
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
+      background: var(--card); color: var(--text); border: 2px solid #00b0e6;
+      padding: 12px 24px; border-radius: 14px; font-weight: bold; z-index: 10001;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3); opacity: 0; transition: 0.3s; pointer-events: none;
+    }
+    .custom-toast.show { opacity: 1; top: 40px; }
+
+    .custom-prompt-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
+      display: flex; align-items: center; justify-content: center; z-index: 10002;
+      opacity: 0; visibility: hidden; transition: 0.3s;
+    }
+    .custom-prompt-overlay.active { opacity: 1; visibility: visible; }
+    .custom-prompt {
+      background: var(--card); padding: 20px; border-radius: 18px; width: 90%; max-width: 400px; text-align: center;
+    }
+    .custom-prompt input {
+      width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); 
+      background: var(--bg); color: var(--text); margin: 15px 0; box-sizing: border-box;
+    }
+    .custom-prompt .btn-row { display: flex; gap: 10px; justify-content: center; }
+    .custom-prompt button { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
+    .btn-confirm { background: #00b0e6; color: white; }
+    .btn-cancel { background: var(--hover); color: var(--text); }
+
     @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+    
     @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; } }
 
-    /* ESTILO MOBILE IGUAL AO MOVES.JS */
     @media (max-width: 768px) {
       .header { flex-direction: column; align-items: center; }
       .header-top { justify-content: flex-end; width: 100%; }
@@ -237,9 +264,7 @@
 
       .modal-overlay { align-items: flex-end; }
       .modal { 
-          width: 100%; 
-          height: 65%; 
-          max-height: 65%;
+          width: 100%; height: 65%; max-height: 65%;
           border-radius: 20px 20px 0 0; 
           transform: translateY(100%);
           transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -249,9 +274,19 @@
       .moves-grid { grid-template-columns: 1fr; gap: 10px; }
       .analysis { flex-direction: column-reverse; align-items: stretch; }
       
-      /* Garantir que os botões de código apareçam no mobile */
       .analysis div:first-child { display: flex; flex-direction: column; gap: 8px; width: 100%; }
       .analysis button { width: 100%; margin-top: 0; }
+
+      /* Fix dos Mini Containers de Status no Mobile */
+      .stats-grid { 
+        grid-template-columns: repeat(3, 1fr); 
+        min-width: unset; 
+        width: 100%; 
+        gap: 6px; 
+      }
+      .stat-btn { padding: 6px 2px; }
+      .stat-label { font-size: 10px; }
+      .stat-value { font-size: 14px; }
     }
   </style>
 </head>
@@ -269,7 +304,7 @@
     <div id="teamExportArea" style="padding: 20px; border-radius: 20px;">
       <div class="team-grid" id="teamGrid"></div>
       <div class="analysis">
-        <div>
+        <div id="teamActions">
           <button id="codeGenBtn"></button>
           <button id="codeImportBtn"></button>
           <button id="exportBtn"></button>
@@ -284,6 +319,19 @@
 
   <div class="lang-toggle">
     <button id="langBtn"></button>
+  </div>
+
+  <div id="customToast" class="custom-toast"></div>
+
+  <div id="promptOverlay" class="custom-prompt-overlay">
+    <div class="custom-prompt">
+      <h3 id="promptTitle"></h3>
+      <input type="text" id="promptInput" spellcheck="false">
+      <div class="btn-row">
+        <button class="btn-cancel" id="promptCancel">Cancelar</button>
+        <button class="btn-confirm" id="promptConfirm">OK</button>
+      </div>
+    </div>
   </div>
 
   <div class="modal-overlay" id="modal">
@@ -322,13 +370,15 @@
   <script src="database/typechart.js"></script>
   <script src="database/moves.js"></script>
   <script src="database/animons.js"></script>
-  <script src="database/traits.js"></script> <script>
+  <script src="database/traits.js"></script> 
+  
+  <script>
     /* =========================================
        1. ESTADO E VARIÁVEIS GERAIS
        ========================================= */
     const texts = {
-      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", codeGen: "Gerar Código", codeImport: "Colocar Código", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", traitSelect: "Selecionar Trait", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Código copiado!", full: "Time já está cheio!", importPrompt: "Cole o código da equipe aqui:", invalidCode: "Código de equipe inválido!" },
-      en: { langBtn: "🇺🇸 EN", title: "Team Builder", codeGen: "Generate Code", codeImport: "Import Code", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", traitSelect: "Select Trait", moveEmpty: "None", remove: "Remove from Team", copied: "Code copied!", full: "Team is already full!", importPrompt: "Paste the team code here:", invalidCode: "Invalid team code!" }
+      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", codeGen: "Gerar Código", codeImport: "Colocar Código", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", traitSelect: "Selecionar Trait", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Código copiado!", full: "Time já está cheio!", importPrompt: "Cole o código da equipe aqui:", invalidCode: "Código de equipe inválido!", cancel: "Cancelar" },
+      en: { langBtn: "🇺🇸 EN", title: "Team Builder", codeGen: "Generate Code", codeImport: "Import Code", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", traitSelect: "Select Trait", moveEmpty: "None", remove: "Remove from Team", copied: "Code copied!", full: "Team is already full!", importPrompt: "Paste the team code here:", invalidCode: "Invalid team code!", cancel: "Cancel" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
@@ -350,12 +400,45 @@
       searchInput: document.getElementById("searchInput"), 
       addAnimonBtn: document.getElementById("addAnimonBtn"), 
       levelInput: document.getElementById("levelInput"), 
-      levelValueDisplay: document.getElementById("levelValueDisplay")
+      levelValueDisplay: document.getElementById("levelValueDisplay"),
+      toast: document.getElementById("customToast"),
+      promptOverlay: document.getElementById("promptOverlay"),
+      promptInput: document.getElementById("promptInput"),
+      promptConfirm: document.getElementById("promptConfirm"),
+      promptCancel: document.getElementById("promptCancel")
     };
 
     /* =========================================
-       FUNÇÃO DE CORES PERSONALIZADAS
+       FUNÇÃO DE NOTIFICAÇÕES PERSONALIZADAS
        ========================================= */
+    function showToast(msg) {
+      DOM.toast.textContent = msg;
+      DOM.toast.classList.add("show");
+      setTimeout(() => DOM.toast.classList.remove("show"), 2500);
+    }
+
+    function openPrompt(callback) {
+      document.getElementById("promptTitle").textContent = texts[lang].importPrompt;
+      DOM.promptInput.value = "";
+      DOM.promptOverlay.classList.add("active");
+      DOM.promptInput.focus();
+
+      const onConfirm = () => {
+        const val = DOM.promptInput.value;
+        DOM.promptOverlay.classList.remove("active");
+        callback(val);
+        DOM.promptConfirm.removeEventListener("click", onConfirm);
+      };
+      
+      const onCancel = () => {
+        DOM.promptOverlay.classList.remove("active");
+        DOM.promptConfirm.removeEventListener("click", onConfirm);
+      };
+
+      DOM.promptConfirm.onclick = onConfirm;
+      DOM.promptCancel.onclick = onCancel;
+    }
+
     function parseColoredText(text) {
       if (!text) return "";
       const colorMap = {
@@ -601,7 +684,7 @@
           team[currentSlot] = JSON.parse(JSON.stringify(a));
           team[currentSlot].level = 100;
           team[currentSlot].moves = ["", "", "", ""];
-          team[currentSlot].selectedTrait = ""; // Inicializa vazio
+          team[currentSlot].selectedTrait = "";
           team[currentSlot].activeTriggerIndex = null;
           saveData(); renderTeam(); closeModal();
         };
@@ -609,7 +692,6 @@
       });
     }
 
-    // Função para criar o seletor de Traits
     function createTraitSelect(containerId, currentTrait, availableTraits) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -619,11 +701,15 @@
       let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
       if (Array.isArray(availableTraits)) {
         availableTraits.forEach(t => {
-          optionsHtml += `<div class="option" data-value="${t.name}"><span>${t.name}</span> <small style="opacity:0.6; margin-left:auto;">${t.chance}</small></div>`;
+          optionsHtml += `<div class="option" data-value="${t.name}"><span class="move-name-txt">${t.name}</span> <small style="opacity:0.6; margin-left:auto;">${t.chance}</small></div>`;
         });
       }
 
-      container.innerHTML = `<div class="select-btn"><span>${currentTrait || label}</span></div><div class="select-options">${optionsHtml}</div>`;
+      container.innerHTML = `
+        <div class="select-btn"><span>${currentTrait || label}</span></div>
+        <div class="select-options">${optionsHtml}</div>
+      `;
+      
       const btn = container.querySelector('.select-btn');
       const options = container.querySelector('.select-options');
       
@@ -698,7 +784,6 @@
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
       
-      // Carregar Traits do database/animons.js
       createTraitSelect("traitSelect", animon.selectedTrait || "", animon.traits || []);
 
       let availableMoves = [];
@@ -717,55 +802,47 @@
     }
 
     /* =========================================
-       5. SISTEMA DE CÓDIGO DETERMINÍSTICO (DNA)
+       5. SISTEMA DE CÓDIGO DETERMINÍSTICO
        ========================================= */
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
-      
-      // Criamos uma string para cada animon e ordenamos para ser determinístico
       const listaStrings = team.map(a => {
         const movesSorted = [...a.moves].sort().join(',');
-        // Estrutura: ID:Level:Trait:Moves
         return `${a.id}:${a.level}:${a.selectedTrait || "None"}:${movesSorted}`;
-      }).sort(); // Ordenar os slots garante que Personagem A+B = Personagem B+A no código
-
+      }).sort();
       const stringFinal = listaStrings.join('|');
       const codigo = btoa(stringFinal);
-      
       navigator.clipboard.writeText(codigo);
-      alert(texts[lang].copied);
+      showToast(texts[lang].copied);
     }
 
     function importarCodigoEquipe() {
-      const codigo = prompt(texts[lang].importPrompt);
-      if (!codigo) return;
-
-      try {
-        const stringDecodificada = atob(codigo);
-        const partesSlots = stringDecodificada.split('|');
-        const novaEquipe = [];
-
-        partesSlots.forEach(slotStr => {
-          const [id, level, trait, movesStr] = slotStr.split(':');
-          const baseAnimon = animons.find(a => String(a.id) === id);
-          
-          if (baseAnimon) {
-            const novoA = JSON.parse(JSON.stringify(baseAnimon));
-            novoA.level = parseInt(level) || 100;
-            novoA.selectedTrait = trait === "None" ? "" : trait;
-            novoA.moves = movesStr.split(',');
-            novaEquipe.push(novoA);
+      openPrompt((codigo) => {
+        if (!codigo) return;
+        try {
+          const stringDecodificada = atob(codigo);
+          const partesSlots = stringDecodificada.split('|');
+          const novaEquipe = [];
+          partesSlots.forEach(slotStr => {
+            const [id, level, trait, movesStr] = slotStr.split(':');
+            const baseAnimon = animons.find(a => String(a.id) === id);
+            if (baseAnimon) {
+              const novoA = JSON.parse(JSON.stringify(baseAnimon));
+              novoA.level = parseInt(level) || 100;
+              novoA.selectedTrait = trait === "None" ? "" : trait;
+              novoA.moves = movesStr.split(',');
+              novaEquipe.push(novoA);
+            }
+          });
+          if (novaEquipe.length > 0) {
+            team = novaEquipe.slice(0, 6);
+            saveData();
+            renderTeam();
           }
-        });
-
-        if (novaEquipe.length > 0) {
-          team = novaEquipe.slice(0, 6);
-          saveData();
-          renderTeam();
+        } catch (e) {
+          showToast(texts[lang].invalidCode);
         }
-      } catch (e) {
-        alert(texts[lang].invalidCode);
-      }
+      });
     }
 
     /* =========================================
@@ -841,6 +918,7 @@
       document.getElementById("editModalTitle").textContent = t.editTitle;
       DOM.searchInput.placeholder = t.search;
       document.getElementById("statsTitle").textContent = t.totalStats;
+      document.getElementById("promptCancel").textContent = t.cancel;
     }
 
     DOM.langBtn.onclick = () => {
@@ -851,7 +929,7 @@
     };
 
     DOM.addAnimonBtn.onclick = () => {
-      if (team.length >= 6) return alert(texts[lang].full);
+      if (team.length >= 6) return showToast(texts[lang].full);
       openModal(team.length);
     };
 
@@ -868,16 +946,19 @@
       if (!e.target.closest('.custom-select')) document.querySelectorAll(".select-options").forEach(opt => opt.classList.remove("open"));
     });
 
-    // Eventos dos novos botões
     DOM.codeGenBtn.onclick = gerarCodigoEquipe;
     DOM.codeImportBtn.onclick = importarCodigoEquipe;
 
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
+      const teamActions = document.getElementById("teamActions");
       const bgColor = getComputedStyle(document.body).getPropertyValue('--bg').trim();
 
       const actionButtons = exportArea.querySelectorAll('.slot-edit, .slot-delete, .slot-expand');
+      
+      // Esconder elementos desnecessários para a imagem
       actionButtons.forEach(btn => btn.style.display = 'none');
+      teamActions.style.visibility = 'hidden';
 
       const originalWidth = exportArea.style.width;
       const originalGrid = DOM.grid.style.gridTemplateColumns;
@@ -903,7 +984,9 @@
       } catch (err) {
         console.error("Erro ao exportar:", err);
       } finally {
+        // Restaurar elementos
         actionButtons.forEach(btn => btn.style.display = '');
+        teamActions.style.visibility = 'visible';
         exportArea.style.width = originalWidth;
         DOM.grid.style.gridTemplateColumns = originalGrid;
         moveContents.forEach((mc, i) => {
