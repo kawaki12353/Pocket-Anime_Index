@@ -870,15 +870,15 @@
           traitId = tData ? (tData.id || a.selectedTrait) : a.selectedTrait;
         }
         const movesPart = a.moves.map(mName => {
-          if (!mName) return "M0";
+          if (!mName) return "0";
           if (typeof moves !== 'undefined') {
             const mData = Array.isArray(moves) ? moves.find(m => m.name === mName) : moves[mName];
-            return `M${mData ? (mData.id || mName) : mName}`;
+            return mData ? (mData.id || mName) : mName;
           }
-          return `M${mName}`;
-        }).join('');
-        return `A${a.id}L${a.level}T${traitId}${movesPart}`;
-      }).join('|');
+          return mName;
+        }).join(',');
+        return `${a.id},${a.level},${traitId},${movesPart}`;
+      }).join(';');
       const finalCode = btoa(codeString);
       navigator.clipboard.writeText(finalCode);
       showToast(texts[lang].copied);
@@ -889,13 +889,12 @@
         if (!codigo) return;
         try {
           const decoded = atob(codigo);
-          const slots = decoded.split('|');
+          const slots = decoded.split(';');
           const newTeam = [];
           slots.forEach(slotStr => {
-            const id = slotStr.match(/A(\d+)/)?.[1];
-            const lvl = slotStr.match(/L(\d+)/)?.[1];
-            const traitRef = slotStr.match(/T([^M]+)/)?.[1];
-            const movesRefs = [...slotStr.matchAll(/M([^ALTM|]+)/g)].map(m => m[1]);
+            const parts = slotStr.split(',');
+            if (parts.length < 7) return;
+            const [id, lvl, traitRef, ...movesRefs] = parts;
             
             const base = animons.find(a => String(a.id) === String(id));
             if (base) {
@@ -907,7 +906,7 @@
                   : Object.keys(traits).find(k => String(traits[k].id) === String(traitRef));
                 a.selectedTrait = (tData && typeof tData === 'object') ? (tData.name || traitRef) : (tData || traitRef);
               } else { a.selectedTrait = ""; }
-              a.moves = movesRefs.map(mRef => {
+              a.moves = movesRefs.slice(0, 4).map(mRef => {
                 if (!mRef || mRef === "0") return "";
                 if (typeof moves !== 'undefined') {
                   const mData = Array.isArray(moves) 
