@@ -63,6 +63,10 @@
     .slot-info { position: absolute; top: 10px; left: 14px; text-align: left; }
     .slot-name { font-weight: bold; font-size: 18px; }
     .slot-level { font-size: 14px; opacity: 0.8; }
+    
+    /* Trait no Canto Inferior Esquerdo */
+    .slot-trait { position: absolute; bottom: 10px; left: 14px; font-size: 11px; font-weight: bold; opacity: 0.7; color: #00b0e6; text-transform: uppercase; }
+
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
 
     .empty-slot { opacity: 0.6; font-weight: bold; min-height: 130px; display: flex; align-items: center; justify-content: center; width: 100%; }
@@ -230,7 +234,7 @@
       .header { flex-direction: column; align-items: center; }
       .header-top { justify-content: flex-end; width: 100%; }
       .logo { width: 150px; }
-      
+
       .modal-overlay { align-items: flex-end; }
       .modal { 
           width: 100%; 
@@ -244,6 +248,10 @@
 
       .moves-grid { grid-template-columns: 1fr; gap: 10px; }
       .analysis { flex-direction: column-reverse; align-items: stretch; }
+      
+      /* Garantir que os botões de código apareçam no mobile */
+      .analysis div:first-child { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+      .analysis button { width: 100%; margin-top: 0; }
     }
   </style>
 </head>
@@ -262,7 +270,8 @@
       <div class="team-grid" id="teamGrid"></div>
       <div class="analysis">
         <div>
-          <button id="shareBtn"></button>
+          <button id="codeGenBtn"></button>
+          <button id="codeImportBtn"></button>
           <button id="exportBtn"></button>
         </div>
         <div>
@@ -295,6 +304,9 @@
           Level: <span id="levelValueDisplay">100</span>
           <input type="range" id="levelInput" min="1" max="100" value="100">
         </div>
+        
+        <div class="custom-select" id="traitSelect"></div>
+
         <div class="moves-grid" id="editMovesGrid">
           <div class="custom-select" id="moveSelect0"></div>
           <div class="custom-select" id="moveSelect1"></div>
@@ -310,14 +322,13 @@
   <script src="database/typechart.js"></script>
   <script src="database/moves.js"></script>
   <script src="database/animons.js"></script>
-
-  <script>
+  <script src="database/traits.js"></script> <script>
     /* =========================================
        1. ESTADO E VARIÁVEIS GERAIS
        ========================================= */
     const texts = {
-      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", share: "Copiar Link", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Link copiado!", full: "Time já está cheio!" },
-      en: { langBtn: "🇺🇸 EN", title: "Team Builder", share: "Copy Link", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", moveEmpty: "None", remove: "Remove from Team", copied: "Link copied!", full: "Team is already full!" }
+      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", codeGen: "Gerar Código", codeImport: "Colocar Código", export: "Exportar Imagem", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", traitSelect: "Selecionar Trait", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Código copiado!", full: "Time já está cheio!", importPrompt: "Cole o código da equipe aqui:", invalidCode: "Código de equipe inválido!" },
+      en: { langBtn: "🇺🇸 EN", title: "Team Builder", codeGen: "Generate Code", codeImport: "Import Code", export: "Export Image", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", traitSelect: "Select Trait", moveEmpty: "None", remove: "Remove from Team", copied: "Code copied!", full: "Team is already full!", importPrompt: "Paste the team code here:", invalidCode: "Invalid team code!" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
@@ -328,7 +339,18 @@
     let openedMoveBalloon = null;
 
     const DOM = {
-      grid: document.getElementById("teamGrid"), shareBtn: document.getElementById("shareBtn"), exportBtn: document.getElementById("exportBtn"), langBtn: document.getElementById("langBtn"), modal: document.getElementById("modal"), editModal: document.getElementById("editModal"), animonList: document.getElementById("animonList"), searchInput: document.getElementById("searchInput"), addAnimonBtn: document.getElementById("addAnimonBtn"), levelInput: document.getElementById("levelInput"), levelValueDisplay: document.getElementById("levelValueDisplay")
+      grid: document.getElementById("teamGrid"), 
+      codeGenBtn: document.getElementById("codeGenBtn"), 
+      codeImportBtn: document.getElementById("codeImportBtn"),
+      exportBtn: document.getElementById("exportBtn"), 
+      langBtn: document.getElementById("langBtn"), 
+      modal: document.getElementById("modal"), 
+      editModal: document.getElementById("editModal"), 
+      animonList: document.getElementById("animonList"), 
+      searchInput: document.getElementById("searchInput"), 
+      addAnimonBtn: document.getElementById("addAnimonBtn"), 
+      levelInput: document.getElementById("levelInput"), 
+      levelValueDisplay: document.getElementById("levelValueDisplay")
     };
 
     /* =========================================
@@ -367,6 +389,7 @@
     function autoSaveEditData() {
       if (editSlotIndex !== null && team[editSlotIndex]) {
         team[editSlotIndex].level = parseInt(DOM.levelInput.value) || 100;
+        team[editSlotIndex].selectedTrait = document.getElementById('traitSelect').dataset.value || "";
         team[editSlotIndex].moves = [
           document.getElementById('moveSelect0').dataset.value || "",
           document.getElementById('moveSelect1').dataset.value || "",
@@ -501,7 +524,7 @@
                 <div class="slot-name">${team[i].name}</div>
                 <div class="slot-level">Lv.${team[i].level || 100}</div>
               </div>
-              <div class="slot-elements">${createElementIcon(team[i].type)}</div>
+              <div class="slot-trait">${team[i].selectedTrait || ""}</div> <div class="slot-elements">${createElementIcon(team[i].type)}</div>
               <div class="slot-center">
                 <img src="${team[i].sprite}" class="animon-img" alt="${team[i].name}">
               </div>
@@ -554,7 +577,7 @@
     }
 
     /* =========================================
-       4. MODAL ADICIONAR E MOVES (ATUALIZADO)
+       4. SISTEMA DE TRAITS E MOVES NO MODAL
        ========================================= */
     function openModal(slotIndex) {
       currentSlot = slotIndex;
@@ -578,11 +601,48 @@
           team[currentSlot] = JSON.parse(JSON.stringify(a));
           team[currentSlot].level = 100;
           team[currentSlot].moves = ["", "", "", ""];
+          team[currentSlot].selectedTrait = ""; // Inicializa vazio
           team[currentSlot].activeTriggerIndex = null;
           saveData(); renderTeam(); closeModal();
         };
         DOM.animonList.appendChild(div);
       });
+    }
+
+    // Função para criar o seletor de Traits
+    function createTraitSelect(containerId, currentTrait, availableTraits) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = "";
+      const label = texts[lang].traitSelect;
+
+      let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
+      if (Array.isArray(availableTraits)) {
+        availableTraits.forEach(t => {
+          optionsHtml += `<div class="option" data-value="${t.name}"><span>${t.name}</span> <small style="opacity:0.6; margin-left:auto;">${t.chance}</small></div>`;
+        });
+      }
+
+      container.innerHTML = `<div class="select-btn"><span>${currentTrait || label}</span></div><div class="select-options">${optionsHtml}</div>`;
+      const btn = container.querySelector('.select-btn');
+      const options = container.querySelector('.select-options');
+      
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.select-options').forEach(opt => { if (opt !== options) opt.classList.remove('open'); });
+        options.classList.toggle('open');
+      };
+
+      options.querySelectorAll('.option').forEach(opt => {
+        opt.onclick = () => {
+          const val = opt.dataset.value;
+          btn.querySelector('span').textContent = val || label;
+          container.dataset.value = val;
+          options.classList.remove('open');
+          autoSaveEditData();
+        };
+      });
+      container.dataset.value = currentTrait || "";
     }
 
     function createMoveSelect(containerId, currentMove, availableMoves) {
@@ -637,6 +697,10 @@
       editSlotIndex = index;
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
+      
+      // Carregar Traits do database/animons.js
+      createTraitSelect("traitSelect", animon.selectedTrait || "", animon.traits || []);
+
       let availableMoves = [];
       if (animon.movesList) {
         availableMoves = Array.isArray(animon.movesList) ? [...animon.movesList] : [animon.movesList];
@@ -653,7 +717,59 @@
     }
 
     /* =========================================
-       5. ANÁLISE E STATUS
+       5. SISTEMA DE CÓDIGO DETERMINÍSTICO (DNA)
+       ========================================= */
+    function gerarCodigoEquipe() {
+      if (team.length === 0) return;
+      
+      // Criamos uma string para cada animon e ordenamos para ser determinístico
+      const listaStrings = team.map(a => {
+        const movesSorted = [...a.moves].sort().join(',');
+        // Estrutura: ID:Level:Trait:Moves
+        return `${a.id}:${a.level}:${a.selectedTrait || "None"}:${movesSorted}`;
+      }).sort(); // Ordenar os slots garante que Personagem A+B = Personagem B+A no código
+
+      const stringFinal = listaStrings.join('|');
+      const codigo = btoa(stringFinal);
+      
+      navigator.clipboard.writeText(codigo);
+      alert(texts[lang].copied);
+    }
+
+    function importarCodigoEquipe() {
+      const codigo = prompt(texts[lang].importPrompt);
+      if (!codigo) return;
+
+      try {
+        const stringDecodificada = atob(codigo);
+        const partesSlots = stringDecodificada.split('|');
+        const novaEquipe = [];
+
+        partesSlots.forEach(slotStr => {
+          const [id, level, trait, movesStr] = slotStr.split(':');
+          const baseAnimon = animons.find(a => String(a.id) === id);
+          
+          if (baseAnimon) {
+            const novoA = JSON.parse(JSON.stringify(baseAnimon));
+            novoA.level = parseInt(level) || 100;
+            novoA.selectedTrait = trait === "None" ? "" : trait;
+            novoA.moves = movesStr.split(',');
+            novaEquipe.push(novoA);
+          }
+        });
+
+        if (novaEquipe.length > 0) {
+          team = novaEquipe.slice(0, 6);
+          saveData();
+          renderTeam();
+        }
+      } catch (e) {
+        alert(texts[lang].invalidCode);
+      }
+    }
+
+    /* =========================================
+       6. ANÁLISE E STATUS
        ========================================= */
     function updateAnalysis() {
       const total = { hp: 0, atk: 0, def: 0, spAtk: 0, spDef: 0, spd: 0 };
@@ -712,12 +828,13 @@
     function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
 
     /* =========================================
-       6. EVENT LISTENERS E I18N
+       7. EVENT LISTENERS E I18N
        ========================================= */
     function updateLangUI() {
       const t = texts[lang];
       document.getElementById("mapTitle").textContent = t.title;
-      DOM.shareBtn.textContent = t.share;
+      DOM.codeGenBtn.textContent = t.codeGen;
+      DOM.codeImportBtn.textContent = t.codeImport;
       DOM.exportBtn.textContent = t.export;
       DOM.langBtn.textContent = t.langBtn;
       document.getElementById("modalTitle").textContent = t.modalTitle;
@@ -751,16 +868,14 @@
       if (!e.target.closest('.custom-select')) document.querySelectorAll(".select-options").forEach(opt => opt.classList.remove("open"));
     });
 
-    DOM.shareBtn.onclick = () => {
-      const url = `${location.origin}${location.pathname}?team=${team.map(a => a.id).join(",")}`;
-      navigator.clipboard.writeText(url); alert(texts[lang].copied);
-    };
+    // Eventos dos novos botões
+    DOM.codeGenBtn.onclick = gerarCodigoEquipe;
+    DOM.codeImportBtn.onclick = importarCodigoEquipe;
 
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
       const bgColor = getComputedStyle(document.body).getPropertyValue('--bg').trim();
-      
-      // Ocultar botões antes de tirar a foto
+
       const actionButtons = exportArea.querySelectorAll('.slot-edit, .slot-delete, .slot-expand');
       actionButtons.forEach(btn => btn.style.display = 'none');
 
@@ -788,7 +903,6 @@
       } catch (err) {
         console.error("Erro ao exportar:", err);
       } finally {
-        // Restaurar botões e layout original
         actionButtons.forEach(btn => btn.style.display = '');
         exportArea.style.width = originalWidth;
         DOM.grid.style.gridTemplateColumns = originalGrid;
