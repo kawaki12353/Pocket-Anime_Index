@@ -864,42 +864,30 @@
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
       
-      const listaStrings = team.map(a => {
-        // Obter ID da Trait
-        let traitId = "None";
+      const codeString = team.map(a => {
+        // Obter ID da Trait de forma curta
+        let traitRef = "0";
         if (a.selectedTrait && typeof traits !== 'undefined') {
-          if (Array.isArray(traits)) {
-            const tData = traits.find(t => t.name === a.selectedTrait);
-            traitId = tData ? tData.id : a.selectedTrait;
-          } else if (traits[a.selectedTrait]) {
-            traitId = traits[a.selectedTrait].id;
-          } else {
-            traitId = a.selectedTrait;
-          }
+          const tData = Array.isArray(traits) ? traits.find(t => t.name === a.selectedTrait) : traits[a.selectedTrait];
+          traitRef = tData ? (tData.id || a.selectedTrait) : a.selectedTrait;
         }
 
-        // Obter IDs dos Moves
-        const movesSorted = [...a.moves].map(mName => {
+        // Obter IDs dos Moves (usando ponto para separar moves, poupando espaço)
+        const movesRefs = a.moves.map(mName => {
           if (!mName) return "0";
           if (typeof moves !== 'undefined') {
-            let mId = mName;
-            if (Array.isArray(moves)) {
-              const mData = moves.find(m => m.name === mName);
-              if (mData) mId = mData.id;
-            } else if (moves[mName]) {
-              mId = moves[mName].id;
-            }
-            return mId;
+            const mData = Array.isArray(moves) ? moves.find(m => m.name === mName) : moves[mName];
+            return mData ? mData.id : mName;
           }
           return mName;
-        }).sort().join(',');
+        }).join('.');
 
-        return `${a.id}:${a.level}:${traitId}:${movesSorted}`;
-      }).sort();
+        // Formato Reduzido: ID:LVL:TRAIT:MOVE.MOVE.MOVE.MOVE
+        return `${a.id}:${a.level}:${traitRef}:${movesRefs}`;
+      }).join('|');
 
-      const stringFinal = listaStrings.join('|');
-      const codigo = btoa(stringFinal);
-      navigator.clipboard.writeText(codigo);
+      const finalCode = btoa(codeString);
+      navigator.clipboard.writeText(finalCode);
       showToast(texts[lang].copied);
     }
 
@@ -907,58 +895,46 @@
       openPrompt((codigo) => {
         if (!codigo) return;
         try {
-          const stringDecodificada = atob(codigo);
-          const partesSlots = stringDecodificada.split('|');
-          const novaEquipe = [];
+          const decoded = atob(codigo);
+          const slots = decoded.split('|');
+          const newTeam = [];
 
-          partesSlots.forEach(slotStr => {
-            const [animonId, level, traitRef, movesStr] = slotStr.split(':');
-            const baseAnimon = animons.find(a => String(a.id) === String(animonId));
+          slots.forEach(slotStr => {
+            const [id, lvl, traitRef, movesRefStr] = slotStr.split(':');
+            const base = animons.find(a => String(a.id) === String(id));
             
-            if (baseAnimon) {
-              const novoA = JSON.parse(JSON.stringify(baseAnimon));
-              novoA.level = parseInt(level) || 100;
+            if (base) {
+              const a = JSON.parse(JSON.stringify(base));
+              a.level = parseInt(lvl) || 100;
 
-              // Resolver Trait por ID
-              if (traitRef === "None" || traitRef === "") {
-                novoA.selectedTrait = "";
+              // Resolver Trait
+              if (traitRef === "0") {
+                a.selectedTrait = "";
               } else if (typeof traits !== 'undefined') {
-                let tName = traitRef;
-                if (Array.isArray(traits)) {
-                  const tData = traits.find(t => String(t.id) === String(traitRef));
-                  if (tData) tName = tData.name;
-                } else {
-                  // Procura a chave (nome) cujo valor tenha o id correspondente
-                  const key = Object.keys(traits).find(k => String(traits[k].id) === String(traitRef));
-                  if (key) tName = key;
-                }
-                novoA.selectedTrait = tName;
+                const tData = Array.isArray(traits) 
+                  ? traits.find(t => String(t.id) === String(traitRef)) 
+                  : Object.keys(traits).find(k => String(traits[k].id) === String(traitRef));
+                a.selectedTrait = (tData && typeof tData === 'object') ? (tData.name || traitRef) : (tData || traitRef);
               }
 
-              // Resolver Moves por ID
-              novoA.moves = movesStr.split(',').map(mRef => {
-                if (mRef === "0" || !mRef) return "";
+              // Resolver Moves
+              a.moves = movesRefStr.split('.').map(mRef => {
+                if (mRef === "0") return "";
                 if (typeof moves !== 'undefined') {
-                  let mName = mRef;
-                  if (Array.isArray(moves)) {
-                    const mData = moves.find(m => String(m.id) === String(mRef));
-                    if (mData) mName = mData.name;
-                  } else {
-                    // Procura a chave (nome) cujo valor tenha o id correspondente
-                    const key = Object.keys(moves).find(k => String(moves[k].id) === String(mRef));
-                    if (key) mName = key;
-                  }
-                  return mName;
+                  const mData = Array.isArray(moves) 
+                    ? moves.find(m => String(m.id) === String(mRef)) 
+                    : Object.keys(moves).find(k => String(moves[k].id) === String(mRef));
+                  return (mData && typeof mData === 'object') ? (mData.name || mRef) : (mData || mRef);
                 }
                 return mRef;
               });
 
-              novaEquipe.push(novoA);
+              newTeam.push(a);
             }
           });
 
-          if (novaEquipe.length > 0) {
-            team = novaEquipe.slice(0, 6);
+          if (newTeam.length > 0) {
+            team = newTeam.slice(0, 6);
             saveData();
             renderTeam();
           }
