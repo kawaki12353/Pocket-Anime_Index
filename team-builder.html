@@ -868,21 +868,28 @@
         // Obter ID da Trait
         let traitId = "None";
         if (a.selectedTrait && typeof traits !== 'undefined') {
-          const tData = traits.find(t => t.name === a.selectedTrait);
-          traitId = tData ? tData.id : a.selectedTrait;
+          if (Array.isArray(traits)) {
+            const tData = traits.find(t => t.name === a.selectedTrait);
+            traitId = tData ? tData.id : a.selectedTrait;
+          } else if (traits[a.selectedTrait]) {
+            traitId = traits[a.selectedTrait].id;
+          } else {
+            traitId = a.selectedTrait;
+          }
         }
 
         // Obter IDs dos Moves
         const movesSorted = [...a.moves].map(mName => {
           if (!mName) return "0";
           if (typeof moves !== 'undefined') {
-            let mData = null;
+            let mId = mName;
             if (Array.isArray(moves)) {
-              mData = moves.find(m => m.name === mName);
-            } else {
-              mData = moves[mName] || Object.values(moves).find(v => v.name === mName);
+              const mData = moves.find(m => m.name === mName);
+              if (mData) mId = mData.id;
+            } else if (moves[mName]) {
+              mId = moves[mName].id;
             }
-            return mData ? mData.id : mName;
+            return mId;
           }
           return mName;
         }).sort().join(',');
@@ -913,24 +920,35 @@
               novoA.level = parseInt(level) || 100;
 
               // Resolver Trait por ID
-              if (traitRef === "None") {
+              if (traitRef === "None" || traitRef === "") {
                 novoA.selectedTrait = "";
               } else if (typeof traits !== 'undefined') {
-                const tData = traits.find(t => String(t.id) === String(traitRef));
-                novoA.selectedTrait = tData ? tData.name : traitRef;
+                let tName = traitRef;
+                if (Array.isArray(traits)) {
+                  const tData = traits.find(t => String(t.id) === String(traitRef));
+                  if (tData) tName = tData.name;
+                } else {
+                  // Procura a chave (nome) cujo valor tenha o id correspondente
+                  const key = Object.keys(traits).find(k => String(traits[k].id) === String(traitRef));
+                  if (key) tName = key;
+                }
+                novoA.selectedTrait = tName;
               }
 
               // Resolver Moves por ID
               novoA.moves = movesStr.split(',').map(mRef => {
                 if (mRef === "0" || !mRef) return "";
                 if (typeof moves !== 'undefined') {
-                  let mData = null;
+                  let mName = mRef;
                   if (Array.isArray(moves)) {
-                    mData = moves.find(m => String(m.id) === String(mRef));
+                    const mData = moves.find(m => String(m.id) === String(mRef));
+                    if (mData) mName = mData.name;
                   } else {
-                    mData = Object.values(moves).find(v => String(v.id) === String(mRef));
+                    // Procura a chave (nome) cujo valor tenha o id correspondente
+                    const key = Object.keys(moves).find(k => String(moves[k].id) === String(mRef));
+                    if (key) mName = key;
                   }
-                  return mData ? mData.name : mRef;
+                  return mName;
                 }
                 return mRef;
               });
