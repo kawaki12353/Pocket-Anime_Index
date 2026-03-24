@@ -166,7 +166,7 @@
     .analysis button:hover { background: var(--bg); filter: brightness(0.9); }
     .analysis button img { width: 22px; height: 22px; object-fit: contain; }
 
-    /* Estilo dos Status */
+    /* Estilo dos Status (Revertido para o anterior) */
     .stats-grid { 
         display: grid; 
         grid-template-columns: repeat(3, 1fr); 
@@ -174,23 +174,21 @@
         width: 100%;
     }
     .stat-btn { 
-        background: var(--bg); 
+        background: var(--hover); 
         border: 1px solid var(--border); 
         border-radius: 12px; 
         padding: 10px; 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        justify-content: center; 
+        text-align: center;
         font-weight: bold; 
         user-select: none; 
     }
-    .stat-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+    .stat-label { font-size: 12px; opacity: 0.7; }
     .stat-value { font-size: 18px; }
 
+    /* Design do Balão (Revertido para o anterior) */
     .animon-balloon { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; width: 260px; font-size: 14px; text-align: left; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 50; animation: fadeIn 0.2s ease; }
     .animon-balloon .stats-grid { gap: 6px; min-width: unset; }
-    .animon-balloon .stat-btn { padding: 4px; border-radius: 6px; }
+    .animon-balloon .stat-btn { padding: 2px; border-radius: 6px; }
     .animon-balloon .stat-label { font-size: 9px; }
     .animon-balloon .stat-value { font-size: 12px; }
 
@@ -1074,7 +1072,7 @@
         });
         const link = document.createElement("a"); 
         link.download = `team-pocket-anime.png`; 
-        link.href = canvas.toDataURL("image/png"); 
+        link.href = canvas.toToDataURL("image/png"); 
         link.click();
       } catch (err) {
         console.error("Erro ao exportar:", err);
