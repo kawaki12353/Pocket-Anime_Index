@@ -139,27 +139,58 @@
     /* =========================================
        5. COMPONENTES: STATUS E ANÁLISE
        ========================================= */
-    .analysis { margin-top: 25px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+    .analysis { 
+        margin-top: 25px; 
+        background: var(--card); 
+        border: 1px solid var(--border); 
+        border-radius: 14px; 
+        padding: 20px; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 20px; 
+    }
     
-    /* Botões com Ícones das Assets */
-    .analysis #teamActions { display: flex; gap: 8px; }
+    .analysis-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    #teamActions { display: flex; gap: 8px; }
     .analysis button { 
-      margin-top: 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; 
+      padding: 10px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; 
       background: var(--hover); display: flex; align-items: center; justify-content: center;
       transition: 0.2s; min-width: 45px; height: 45px;
     }
     .analysis button:hover { background: var(--bg); filter: brightness(0.9); }
     .analysis button img { width: 22px; height: 22px; object-fit: contain; }
 
-    /* Estilo "Literal" dos Status (Mini quadradinhos) */
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; min-width: 260px; }
-    .stat-btn { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center; font-weight: bold; user-select: none; }
-    .stat-label { font-size: 12px; opacity: 0.7; }
+    /* Estilo dos Status */
+    .stats-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 10px; 
+        width: 100%;
+    }
+    .stat-btn { 
+        background: var(--bg); 
+        border: 1px solid var(--border); 
+        border-radius: 12px; 
+        padding: 10px; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        font-weight: bold; 
+        user-select: none; 
+    }
+    .stat-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
     .stat-value { font-size: 18px; }
 
     .animon-balloon { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; width: 260px; font-size: 14px; text-align: left; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 50; animation: fadeIn 0.2s ease; }
     .animon-balloon .stats-grid { gap: 6px; min-width: unset; }
-    .animon-balloon .stat-btn { padding: 2px; border-radius: 6px; }
+    .animon-balloon .stat-btn { padding: 4px; border-radius: 6px; }
     .animon-balloon .stat-label { font-size: 9px; }
     .animon-balloon .stat-value { font-size: 12px; }
 
@@ -281,42 +312,35 @@
       
       /* Ajuste Mobile para Container de Análise e Stats */
       .analysis { 
-        flex-direction: column-reverse; 
+        flex-direction: column; 
         align-items: center; 
-        text-align: center;
         padding: 15px;
       }
       
-      .analysis div:first-child { 
-        display: flex; 
-        flex-direction: row; 
-        gap: 8px; 
+      .analysis-top {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .analysis #teamActions { 
         width: 100%; 
         justify-content: center; 
-        margin-top: 15px;
       }
       
-      .analysis button { width: auto; flex: 1; margin-top: 0; }
+      .analysis button { width: auto; flex: 1; }
 
-      /* Fix literal igual ao PC, corrigindo bug de alinhamento */
+      /* Mini containers idênticos ao PC em Mobile */
       .stats-grid { 
         grid-template-columns: repeat(3, 1fr); 
-        min-width: unset; 
-        width: 100%; 
-        max-width: 320px; /* Garante que o container não estique demais */
-        gap: 6px; 
-        margin: 0 auto;
+        gap: 8px; 
       }
       .stat-btn { 
-        padding: 8px 2px; 
-        display: flex; 
-        flex-direction: column; 
-        justify-content: center;
-        min-height: 50px;
-        box-sizing: border-box;
+        padding: 10px 5px; 
+        min-height: 60px;
+        border-radius: 12px;
       }
-      .stat-label { font-size: 10px; margin-bottom: 2px; }
-      .stat-value { font-size: 14px; }
+      .stat-label { font-size: 10px; }
+      .stat-value { font-size: 16px; }
     }
   </style>
 </head>
@@ -334,21 +358,21 @@
     <div id="teamExportArea" style="padding: 20px; border-radius: 20px;">
       <div class="team-grid" id="teamGrid"></div>
       <div class="analysis">
-        <div id="teamActions">
-          <button id="codeGenBtn" title="Gerar Código">
-            <img src="assets/icons/save.png" alt="Copiar">
-          </button>
-          <button id="codeImportBtn" title="Colocar Código">
-            <img src="assets/icons/copy.png" alt="Colar">
-          </button>
-          <button id="exportBtn" title="Exportar Imagem">
-            <img src="assets/icons/download.png" alt="Download">
-          </button>
+        <div class="analysis-top">
+            <div id="teamActions">
+              <button id="codeGenBtn" title="Gerar Código">
+                <img src="assets/icons/save.png" alt="Copiar">
+              </button>
+              <button id="codeImportBtn" title="Colocar Código">
+                <img src="assets/icons/copy.png" alt="Colar">
+              </button>
+              <button id="exportBtn" title="Exportar Imagem">
+                <img src="assets/icons/download.png" alt="Download">
+              </button>
+            </div>
+            <h3 id="statsTitle" style="margin: 0;"></h3>
         </div>
-        <div>
-          <h3 id="statsTitle"></h3>
-          <div id="statsTotal" class="stats-grid"></div>
-        </div>
+        <div id="statsTotal" class="stats-grid"></div>
       </div>
     </div>
   </main>
@@ -888,7 +912,11 @@
         total.hp += a.stats.hp || 0; total.atk += a.stats.atk || 0; total.def += a.stats.def || 0;
         total.spAtk += a.stats.spAtk || 0; total.spDef += a.stats.spDef || 0; total.spd += a.stats.spd || 0;
       });
-      document.getElementById("statsTotal").innerHTML = Object.entries(total).map(([key, value]) => `<div class="stat-btn"><div class="stat-label">${key.toUpperCase()}</div><div class="stat-value">${value}</div></div>`).join("");
+      document.getElementById("statsTotal").innerHTML = Object.entries(total).map(([key, value]) => `
+        <div class="stat-btn">
+          <div class="stat-label">${key.toUpperCase()}</div>
+          <div class="stat-value">${value}</div>
+        </div>`).join("");
     }
 
     function getAnimonTypeInfo(animon) {
@@ -933,9 +961,17 @@
       balloon.innerHTML = contentHtml;
       moveDiv.appendChild(balloon);
       openedMoveBalloon = balloon;
+      
+      // Ajuste para fechar ao clicar fora
       setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
     }
-    function closeMoveBalloonOnce() { if (openedBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; } }
+    
+    function closeMoveBalloonOnce() { 
+        if (openedMoveBalloon) { 
+            openedMoveBalloon.remove(); 
+            openedMoveBalloon = null; 
+        } 
+    }
 
     /* =========================================
        7. EVENT LISTENERS E I18N
