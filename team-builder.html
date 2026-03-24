@@ -863,29 +863,22 @@
        ========================================= */
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
-      
       const codeString = team.map(a => {
-        // Obter ID da Trait de forma curta
-        let traitRef = "0";
+        let traitId = "0";
         if (a.selectedTrait && typeof traits !== 'undefined') {
           const tData = Array.isArray(traits) ? traits.find(t => t.name === a.selectedTrait) : traits[a.selectedTrait];
-          traitRef = tData ? (tData.id || a.selectedTrait) : a.selectedTrait;
+          traitId = tData ? (tData.id || a.selectedTrait) : a.selectedTrait;
         }
-
-        // Obter IDs dos Moves (usando ponto para separar moves, poupando espaço)
-        const movesRefs = a.moves.map(mName => {
-          if (!mName) return "0";
+        const movesPart = a.moves.map(mName => {
+          if (!mName) return "M0";
           if (typeof moves !== 'undefined') {
             const mData = Array.isArray(moves) ? moves.find(m => m.name === mName) : moves[mName];
-            return mData ? mData.id : mName;
+            return `M${mData ? (mData.id || mName) : mName}`;
           }
-          return mName;
-        }).join('.');
-
-        // Formato Reduzido: ID:LVL:TRAIT:MOVE.MOVE.MOVE.MOVE
-        return `${a.id}:${a.level}:${traitRef}:${movesRefs}`;
+          return `M${mName}`;
+        }).join('');
+        return `A${a.id}L${a.level}T${traitId}${movesPart}`;
       }).join('|');
-
       const finalCode = btoa(codeString);
       navigator.clipboard.writeText(finalCode);
       showToast(texts[lang].copied);
@@ -898,28 +891,24 @@
           const decoded = atob(codigo);
           const slots = decoded.split('|');
           const newTeam = [];
-
           slots.forEach(slotStr => {
-            const [id, lvl, traitRef, movesRefStr] = slotStr.split(':');
-            const base = animons.find(a => String(a.id) === String(id));
+            const id = slotStr.match(/A(\d+)/)?.[1];
+            const lvl = slotStr.match(/L(\d+)/)?.[1];
+            const traitRef = slotStr.match(/T([^M]+)/)?.[1];
+            const movesRefs = [...slotStr.matchAll(/M([^ALTM|]+)/g)].map(m => m[1]);
             
+            const base = animons.find(a => String(a.id) === String(id));
             if (base) {
               const a = JSON.parse(JSON.stringify(base));
               a.level = parseInt(lvl) || 100;
-
-              // Resolver Trait
-              if (traitRef === "0") {
-                a.selectedTrait = "";
-              } else if (typeof traits !== 'undefined') {
+              if (traitRef && traitRef !== "0" && typeof traits !== 'undefined') {
                 const tData = Array.isArray(traits) 
                   ? traits.find(t => String(t.id) === String(traitRef)) 
                   : Object.keys(traits).find(k => String(traits[k].id) === String(traitRef));
                 a.selectedTrait = (tData && typeof tData === 'object') ? (tData.name || traitRef) : (tData || traitRef);
-              }
-
-              // Resolver Moves
-              a.moves = movesRefStr.split('.').map(mRef => {
-                if (mRef === "0") return "";
+              } else { a.selectedTrait = ""; }
+              a.moves = movesRefs.map(mRef => {
+                if (!mRef || mRef === "0") return "";
                 if (typeof moves !== 'undefined') {
                   const mData = Array.isArray(moves) 
                     ? moves.find(m => String(m.id) === String(mRef)) 
@@ -928,19 +917,12 @@
                 }
                 return mRef;
               });
-
+              while(a.moves.length < 4) a.moves.push("");
               newTeam.push(a);
             }
           });
-
-          if (newTeam.length > 0) {
-            team = newTeam.slice(0, 6);
-            saveData();
-            renderTeam();
-          }
-        } catch (e) {
-          showToast(texts[lang].invalidCode);
-        }
+          if (newTeam.length > 0) { team = newTeam.slice(0, 6); saveData(); renderTeam(); }
+        } catch (e) { showToast(texts[lang].invalidCode); }
       });
     }
 
