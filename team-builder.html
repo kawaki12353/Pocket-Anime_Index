@@ -219,8 +219,8 @@
     .modal-overlay.active { opacity: 1; visibility: visible; }
 
     .modal { 
-        background: var(--card); width: 600px; height: 600px; border-radius: 16px; padding: 20px; 
-        display: flex; flex-direction: column; overflow: visible;
+        background: var(--card); width: 600px; max-height: 90vh; border-radius: 16px; padding: 20px; 
+        display: flex; flex-direction: column; overflow-y: auto;
         transform: scale(0.9); transition: transform 0.3s ease;
     }
     .modal-overlay.active .modal { transform: scale(1); }
@@ -236,18 +236,18 @@
     .animon-option img { width: 50px; }
     .animon-id { font-weight: bold; opacity: 0.6; min-width: 50px; }
 
-    .edit-body { display: flex; flex-direction: column; gap: 20px; flex: 1; overflow-y: visible; }
+    .edit-body { display: flex; flex-direction: column; gap: 20px; flex: 1; overflow-y: auto; padding-right: 5px; }
     .level-container { background: var(--bg); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
     .level-container input[type="range"] { width: 100%; margin-top: 10px; cursor: pointer; }
     .level-container span { font-weight: bold; font-size: 18px; color: var(--text); }
 
-    .moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+    .moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; padding-bottom: 20px; }
 
     .custom-select { position: relative; width: 100%; }
     .select-btn { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border); color: var(--text); font-weight: bold; height: 44px; box-sizing: border-box; overflow: hidden;}
     .select-btn::after { content: "▼"; margin-left: auto; font-size: 12px; color: var(--text); flex-shrink: 0; }
 
-    .select-options { position: absolute; top: 110%; left: 0; width: 100%; background: var(--card); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-height: 200px; overflow-y: auto; display: none; z-index: 99; border: 1px solid var(--border); }
+    .select-options { position: absolute; bottom: 110%; left: 0; width: 100%; background: var(--card); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-height: 200px; overflow-y: auto; display: none; z-index: 99; border: 1px solid var(--border); }
     .select-options.open { display: block; }
     .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; font-size: 11px; }
     .option:hover { background: var(--hover); }
@@ -310,7 +310,6 @@
 
       .moves-grid { grid-template-columns: 1fr; gap: 10px; }
       
-      /* Ajuste Mobile para Container de Análise e Stats */
       .analysis { 
         flex-direction: column; 
         align-items: center; 
@@ -329,7 +328,6 @@
       
       .analysis button { width: auto; flex: 1; }
 
-      /* Mini containers idênticos ao PC em Mobile */
       .stats-grid { 
         grid-template-columns: repeat(3, 1fr); 
         gap: 8px; 
@@ -797,7 +795,7 @@
       const getMoveWithLevelHtml = (moveInput, providedObj = null) => {
         const minfo = getMoveInfo(moveInput);
         if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
-        let moveObj = providedObj || availableMoves.find(m => String((typeof m === 'object' ? (m.name || m.id) : m)).toLowerCase().trim() === String((typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput)).toLowerCase().trim());
+        let moveObj = providedObj || (Array.isArray(availableMoves) ? availableMoves.find(m => String((typeof m === 'object' ? (m.name || m.id) : m)).toLowerCase().trim() === String((typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput)).toLowerCase().trim()) : null);
         const levelSpan = (moveObj && moveObj.level !== undefined) ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
         return `<div style="display:flex; align-items:center; width:100%;">${levelSpan}<span class="move-name-txt">${(moveObj && (moveObj.name || moveObj.id)) || minfo.name}</span><div class="move-icons-wrapper"><img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" onerror="this.src='assets/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon-atk" onerror="this.src='assets/physical.png'"></div></div>`;
       };
@@ -805,10 +803,12 @@
       const renderOptions = () => {
         const otherSelectedMoves = [0, 1, 2, 3].map(i => document.getElementById(`moveSelect${i}`)).filter(el => el && el.id !== containerId).map(el => el.dataset.value).filter(v => v);
         let optionsHtml = `<div class="option" data-value=""><span class="move-name-txt">-- ${texts[lang].moveEmpty} --</span></div>`;
-        availableMoves.forEach(m => {
-          const mName = (typeof m === 'object') ? (m.name || m.id) : m;
-          if (!otherSelectedMoves.includes(mName)) optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m, m)}</div>`;
-        });
+        if (Array.isArray(availableMoves)) {
+          availableMoves.forEach(m => {
+            const mName = (typeof m === 'object') ? (m.name || m.id) : m;
+            if (!otherSelectedMoves.includes(mName)) optionsHtml += `<div class="option" data-value="${mName}">${getMoveWithLevelHtml(m, m)}</div>`;
+          });
+        }
         const optionsMenu = container.querySelector('.select-options');
         optionsMenu.innerHTML = optionsHtml;
         optionsMenu.querySelectorAll('.option').forEach(opt => {
@@ -859,14 +859,37 @@
     }
 
     /* =========================================
-       5. SISTEMA DE CÓDIGO DETERMINÍSTICO
+       5. SISTEMA DE CÓDIGO OTIMIZADO (IDs)
        ========================================= */
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
+      
       const listaStrings = team.map(a => {
-        const movesSorted = [...a.moves].sort().join(',');
-        return `${a.id}:${a.level}:${a.selectedTrait || "None"}:${movesSorted}`;
+        // Obter ID da Trait
+        let traitId = "None";
+        if (a.selectedTrait && typeof traits !== 'undefined') {
+          const tData = traits.find(t => t.name === a.selectedTrait);
+          traitId = tData ? tData.id : a.selectedTrait;
+        }
+
+        // Obter IDs dos Moves
+        const movesSorted = [...a.moves].map(mName => {
+          if (!mName) return "0";
+          if (typeof moves !== 'undefined') {
+            let mData = null;
+            if (Array.isArray(moves)) {
+              mData = moves.find(m => m.name === mName);
+            } else {
+              mData = moves[mName] || Object.values(moves).find(v => v.name === mName);
+            }
+            return mData ? mData.id : mName;
+          }
+          return mName;
+        }).sort().join(',');
+
+        return `${a.id}:${a.level}:${traitId}:${movesSorted}`;
       }).sort();
+
       const stringFinal = listaStrings.join('|');
       const codigo = btoa(stringFinal);
       navigator.clipboard.writeText(codigo);
@@ -880,17 +903,42 @@
           const stringDecodificada = atob(codigo);
           const partesSlots = stringDecodificada.split('|');
           const novaEquipe = [];
+
           partesSlots.forEach(slotStr => {
-            const [id, level, trait, movesStr] = slotStr.split(':');
-            const baseAnimon = animons.find(a => String(a.id) === id);
+            const [animonId, level, traitRef, movesStr] = slotStr.split(':');
+            const baseAnimon = animons.find(a => String(a.id) === String(animonId));
+            
             if (baseAnimon) {
               const novoA = JSON.parse(JSON.stringify(baseAnimon));
               novoA.level = parseInt(level) || 100;
-              novoA.selectedTrait = trait === "None" ? "" : trait;
-              novoA.moves = movesStr.split(',');
+
+              // Resolver Trait por ID
+              if (traitRef === "None") {
+                novoA.selectedTrait = "";
+              } else if (typeof traits !== 'undefined') {
+                const tData = traits.find(t => String(t.id) === String(traitRef));
+                novoA.selectedTrait = tData ? tData.name : traitRef;
+              }
+
+              // Resolver Moves por ID
+              novoA.moves = movesStr.split(',').map(mRef => {
+                if (mRef === "0" || !mRef) return "";
+                if (typeof moves !== 'undefined') {
+                  let mData = null;
+                  if (Array.isArray(moves)) {
+                    mData = moves.find(m => String(m.id) === String(mRef));
+                  } else {
+                    mData = Object.values(moves).find(v => String(v.id) === String(mRef));
+                  }
+                  return mData ? mData.name : mRef;
+                }
+                return mRef;
+              });
+
               novaEquipe.push(novoA);
             }
           });
+
           if (novaEquipe.length > 0) {
             team = novaEquipe.slice(0, 6);
             saveData();
@@ -961,8 +1009,6 @@
       balloon.innerHTML = contentHtml;
       moveDiv.appendChild(balloon);
       openedMoveBalloon = balloon;
-      
-      // Ajuste para fechar ao clicar fora
       setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
     }
     
