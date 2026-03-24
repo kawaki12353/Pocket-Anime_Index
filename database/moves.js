@@ -1,4 +1,30 @@
 const moves = {
+  "Shadow Ambush": {
+    name: "Shadow Ambush",
+    type: "dark",
+    attack: "status",
+    pp: 5,
+  },
+  "Impale": {
+    name: "Impale",
+    desc_pt: "Perfure um alvo com a mão, tendo 50% de chance de [005]ferir[000] por 4 turnos.",
+    desc_en: "Stab your hand through a target, having a 50% chance to [005]wound[000] for 4 turns.",
+    type: "dark",
+    attack: "physical",
+    power: 35,
+    accuracy: 100,
+    pp: 15,
+  },
+  "Double Sunday": {
+    name: "Double Sunday",
+    desc_pt: "Dispare uma onda de energia de suas mãos.",
+    desc_en: "Fire a wave of energy from your hands.",
+    type: "dark",
+    attack: "special",
+    power: 60,
+    accuracy: 100,
+    pp: 15,
+  },
   "Sacred Exorcism": {
     name: "Sacred Exorcism",
     desc_pt: "Exorciza inimigos com uma luz quente.",
