@@ -530,16 +530,6 @@ movesList: [
    ]
    },
   { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 },
-    movesList: [
-      { level: 1, name: "Energy Blast" },
-      { level: 1, name: "Energy Charge" },
-      { level: 7, name: "Dirty Fireworks" },
-      { level: 12, name: "Energy Beam" },
-      { level: 18, name: "Galaxy Cannon" },
-      { level: 20, name: "Galaxy Burst" },
-      { level: 24, name: "Dive Kick" }
-      ]
-    },
     anime: { name: "Vegeta", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
