@@ -506,9 +506,40 @@ const animons = [
       { level: 22, name: "Impale" }
     ]
   },
-  { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 } },
-  { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 } },
+  { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 },
+     movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 5, name: "Energy Barrage" },
+      { level: 9, name: "Vanishing Blow" },
+      { level: 11, name: "Afterimage" },
+      { level: 13, name: "Suplex" },
+      { level: 17, name: "Energy Beam" },
+      { level: 21, name: "Fighting Spirit" },
+      { level: 24, name: "Mega Punch" }
+    ]
+  }, 
+  { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 },
+movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 6, name: "Psychic Blast" },
+      { level: 11, name: "Energy Barrage" },
+      { level: 17, name: "Psychic Thread" },
+      { level: 21, name: "False Courage" }
+   ]
+   },
   { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 },
+    movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 7, name: "Dirty Fireworks" },
+      { level: 12, name: "Energy Beam" },
+      { level: 18, name: "Galaxy Cannon" },
+      { level: 20, name: "Galaxy Burst" },
+      { level: 24, name: "Dive Kick" }
+      ]
+    },
     anime: { name: "Vegeta", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
@@ -573,7 +604,17 @@ const animons = [
       { level: 24, name: "Divine Bomb" }
     ]
   },
-  { id: 28, name: "Green Alien", type: "Nature", sprite: "assets/animons-icon/green_alien.png", stats: { hp: 52, atk: 63, def: 43, spAtk: 70, spDef: 39, spd: 75 } },
+  { id: 28, name: "Green Alien", type: "Nature", sprite: "assets/animons-icon/green_alien.png", stats: { hp: 52, atk: 63, def: 43, spAtk: 70, spDef: 39, spd: 75 },
+    movesList: [
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Sharp Claw" },
+      { level: 6, name: "Acid Shot" },
+      { level: 9, name: "Energy Barrage" },
+      { level: 13, name: "Self Destruction" },
+      { level: 18, name: "Dark Shocker" },
+      { level: 21, name: "Taunt" }
+    ]
+   },
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 } },
   { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 } },
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 } },
