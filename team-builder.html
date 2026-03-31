@@ -861,30 +861,8 @@
     }
 
     /* =========================================
-       5. SISTEMA DE CÓDIGO (REFEITO: ALFANUMÉRICO)
+       5. SISTEMA DE CÓDIGO (IDs NUMÉRICOS)
        ========================================= */
-    
-    // Função para formatar a string no estilo XXX-XXXXX-XXXXX-XXXX
-    function formatRedeemCode(rawStr) {
-      let s = rawStr.replace(/[^A-Za-z0-9]/g, ''); // Limpa caracteres não alfanuméricos
-      let result = '';
-      
-      // Padronização solicitada: 3 - 5 - 5 - 4
-      if (s.length >= 3) result += s.substring(0, 3) + "-";
-      if (s.length >= 8) result += s.substring(3, 8) + "-";
-      if (s.length >= 13) result += s.substring(8, 13) + "-";
-      
-      // O restante do código (seja grande ou pequeno)
-      let remainder = s.substring(result.replace(/-/g, '').length);
-      if (remainder.length > 0) {
-        // Divide o resto em blocos de 4 para manter a estética se for muito grande
-        let chunks = remainder.match(/.{1,4}/g);
-        result += chunks.join('-');
-      }
-
-      return result.toUpperCase();
-    }
-
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
 
@@ -900,34 +878,22 @@
         moveArray.forEach(m => moveMap.set(m.name, m.id));
       }
 
-      // Serializa os dados em formato compacto
-      const rawData = team.map(a => {
+      const finalCode = team.map(a => {
         const traitId = traitMap.get(a.selectedTrait) || "0";
-        const movesPart = a.moves.map(mName => moveMap.get(mName) || "0").join('.');
-        return `${a.id}|${a.level}|${traitId}|${movesPart}`;
+        const movesPart = a.moves.map(mName => moveMap.get(mName) || "0").join(',');
+        return `${a.id},${a.level},${traitId},${movesPart}`;
       }).join(';');
 
-      // Converte para Base64 para ficar alfanumérico e suportar IDs grandes
-      const b64 = btoa(rawData).replace(/=/g, ''); 
-      const finalCode = formatRedeemCode(b64);
-
-      navigator.clipboard.writeText(finalCode).then(() => {
-        showToast(texts[lang].copied);
-      });
+      navigator.clipboard.writeText(finalCode);
+      showToast(texts[lang].copied);
     }
 
     function importarCodigoEquipe() {
       openPrompt((codigo) => {
         if (!codigo) return;
         try {
-          // Remove hifens e reconstrói o Base64
-          let cleanCode = codigo.replace(/-/g, '');
-          
-          // Adiciona preenchimento de Base64 se necessário
-          while (cleanCode.length % 4 !== 0) cleanCode += '=';
-          
-          const decodedRaw = atob(cleanCode);
-          const slots = decodedRaw.split(';');
+          const decoded = codigo.trim();
+          const slots = decoded.split(';');
           const newTeam = [];
 
           const traitIdMap = new Map();
@@ -943,11 +909,9 @@
           }
 
           slots.forEach(slotStr => {
-            const parts = slotStr.split('|');
-            if (parts.length < 4) return;
-            
-            const [id, lvl, traitId, movesPart] = parts;
-            const moveIds = movesPart.split('.');
+            const parts = slotStr.split(',');
+            if (parts.length < 7) return;
+            const [id, lvl, traitId, ...moveIds] = parts;
 
             const base = animons.find(a => String(a.id) === String(id));
             if (base) {
@@ -965,8 +929,6 @@
             team = newTeam.slice(0, 6); 
             saveData(); 
             renderTeam(); 
-          } else {
-            throw new Error();
           }
         } catch (e) { 
           showToast(texts[lang].invalidCode); 
