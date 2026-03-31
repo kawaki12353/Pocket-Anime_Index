@@ -64,7 +64,7 @@
     .slot-info { position: absolute; top: 10px; left: 14px; text-align: left; }
     .slot-name { font-weight: bold; font-size: 18px; }
     .slot-level { font-size: 14px; opacity: 0.8; }
-    
+
     .slot-trait { position: absolute; bottom: 10px; left: 14px; font-size: 13px; font-weight: bold; opacity: 0.7; color: #00b0e6; }
 
     .slot-center img { width: 95px; height: 95px; object-fit: contain; cursor: pointer; }
@@ -149,7 +149,7 @@
         flex-direction: column; 
         gap: 20px; 
     }
-    
+
     .analysis-top {
         display: flex;
         justify-content: space-between;
@@ -285,7 +285,7 @@
     .btn-cancel { background: var(--hover); color: var(--text); }
 
     @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
-    
+
     @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; } }
 
     @media (max-width: 768px) {
@@ -307,13 +307,13 @@
       .modal-search input { width: 90%; text-align: center; }
 
       .moves-grid { grid-template-columns: 1fr; gap: 10px; }
-      
+
       .analysis { 
         flex-direction: column; 
         align-items: center; 
         padding: 15px;
       }
-      
+
       .analysis-top {
         flex-direction: column;
         gap: 15px;
@@ -323,7 +323,7 @@
         width: 100%; 
         justify-content: center; 
       }
-      
+
       .analysis button { width: auto; flex: 1; }
 
       .stats-grid { 
@@ -412,7 +412,7 @@
           Level: <span id="levelValueDisplay">100</span>
           <input type="range" id="levelInput" min="1" max="100" value="100">
         </div>
-        
+
         <div class="custom-select" id="traitSelect"></div>
 
         <div class="moves-grid" id="editMovesGrid">
@@ -431,7 +431,7 @@
   <script src="database/moves.js"></script>
   <script src="database/animons.js"></script>
   <script src="database/traits.js"></script> 
-  
+
   <script>
     /* =========================================
        1. ESTADO E VARIÁVEIS GERAIS
@@ -486,7 +486,7 @@
         callback(val);
         DOM.promptConfirm.onclick = null;
       };
-      
+
       const onCancel = () => {
         DOM.promptOverlay.classList.remove("active");
         DOM.promptConfirm.onclick = null;
@@ -766,10 +766,10 @@
         <div class="select-btn"><span>${currentTrait || label}</span></div>
         <div class="select-options">${optionsHtml}</div>
       `;
-      
+
       const btn = container.querySelector('.select-btn');
       const options = container.querySelector('.select-options');
-      
+
       btn.onclick = (e) => {
         e.stopPropagation();
         document.querySelectorAll('.select-options').forEach(opt => { if (opt !== options) opt.classList.remove('open'); });
@@ -842,7 +842,7 @@
       editSlotIndex = index;
       DOM.levelInput.value = animon.level || 100;
       DOM.levelValueDisplay.textContent = DOM.levelInput.value;
-      
+
       createTraitSelect("traitSelect", animon.selectedTrait || "", animon.traits || []);
 
       let availableMoves = [];
@@ -861,8 +861,30 @@
     }
 
     /* =========================================
-       5. SISTEMA DE CÓDIGO (IDs NUMÉRICOS)
+       5. SISTEMA DE CÓDIGO (REFEITO: ALFANUMÉRICO)
        ========================================= */
+    
+    // Função para formatar a string no estilo XXX-XXXXX-XXXXX-XXXX
+    function formatRedeemCode(rawStr) {
+      let s = rawStr.replace(/[^A-Za-z0-9]/g, ''); // Limpa caracteres não alfanuméricos
+      let result = '';
+      
+      // Padronização solicitada: 3 - 5 - 5 - 4
+      if (s.length >= 3) result += s.substring(0, 3) + "-";
+      if (s.length >= 8) result += s.substring(3, 8) + "-";
+      if (s.length >= 13) result += s.substring(8, 13) + "-";
+      
+      // O restante do código (seja grande ou pequeno)
+      let remainder = s.substring(result.replace(/-/g, '').length);
+      if (remainder.length > 0) {
+        // Divide o resto em blocos de 4 para manter a estética se for muito grande
+        let chunks = remainder.match(/.{1,4}/g);
+        result += chunks.join('-');
+      }
+
+      return result.toUpperCase();
+    }
+
     function gerarCodigoEquipe() {
       if (team.length === 0) return;
 
@@ -878,22 +900,34 @@
         moveArray.forEach(m => moveMap.set(m.name, m.id));
       }
 
-      const finalCode = team.map(a => {
+      // Serializa os dados em formato compacto
+      const rawData = team.map(a => {
         const traitId = traitMap.get(a.selectedTrait) || "0";
-        const movesPart = a.moves.map(mName => moveMap.get(mName) || "0").join(',');
-        return `${a.id},${a.level},${traitId},${movesPart}`;
+        const movesPart = a.moves.map(mName => moveMap.get(mName) || "0").join('.');
+        return `${a.id}|${a.level}|${traitId}|${movesPart}`;
       }).join(';');
 
-      navigator.clipboard.writeText(finalCode);
-      showToast(texts[lang].copied);
+      // Converte para Base64 para ficar alfanumérico e suportar IDs grandes
+      const b64 = btoa(rawData).replace(/=/g, ''); 
+      const finalCode = formatRedeemCode(b64);
+
+      navigator.clipboard.writeText(finalCode).then(() => {
+        showToast(texts[lang].copied);
+      });
     }
 
     function importarCodigoEquipe() {
       openPrompt((codigo) => {
         if (!codigo) return;
         try {
-          const decoded = codigo.trim();
-          const slots = decoded.split(';');
+          // Remove hifens e reconstrói o Base64
+          let cleanCode = codigo.replace(/-/g, '');
+          
+          // Adiciona preenchimento de Base64 se necessário
+          while (cleanCode.length % 4 !== 0) cleanCode += '=';
+          
+          const decodedRaw = atob(cleanCode);
+          const slots = decodedRaw.split(';');
           const newTeam = [];
 
           const traitIdMap = new Map();
@@ -909,10 +943,12 @@
           }
 
           slots.forEach(slotStr => {
-            const parts = slotStr.split(',');
-            if (parts.length < 7) return;
-            const [id, lvl, traitId, ...moveIds] = parts;
+            const parts = slotStr.split('|');
+            if (parts.length < 4) return;
             
+            const [id, lvl, traitId, movesPart] = parts;
+            const moveIds = movesPart.split('.');
+
             const base = animons.find(a => String(a.id) === String(id));
             if (base) {
               const a = JSON.parse(JSON.stringify(base));
@@ -929,6 +965,8 @@
             team = newTeam.slice(0, 6); 
             saveData(); 
             renderTeam(); 
+          } else {
+            throw new Error();
           }
         } catch (e) { 
           showToast(texts[lang].invalidCode); 
@@ -997,7 +1035,7 @@
       openedMoveBalloon = balloon;
       setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
     }
-    
+
     function closeMoveBalloonOnce() { 
         if (openedMoveBalloon) { 
             openedMoveBalloon.remove(); 
@@ -1053,7 +1091,7 @@
       const bgColor = getComputedStyle(document.body).getPropertyValue('--bg').trim();
 
       const actionButtons = exportArea.querySelectorAll('.slot-edit, .slot-delete, .slot-expand');
-      
+
       actionButtons.forEach(btn => btn.style.display = 'none');
       teamActions.style.visibility = 'hidden';
 
