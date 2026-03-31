@@ -606,8 +606,28 @@ const animons = [
     ]
   },
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 } },
-  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 } },
-  { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 } },
+  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 }
+    movesList: [
+      { level: 1, name: "Charm" },
+      { level: 1, name: "Junk Toss" },
+      { level: 1, name: "Slap" },
+      { level: 11, name: "Fortune" },
+      { level: 15, name: "Eureka" },
+      { level: 19, name: "Direct Transfer" },
+      { level: 23, name: "Rifle Shot" }
+    ]
+  },
+  { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 }
+      movesList: [
+      { level: 1, name: "Fury" },
+      { level: 1, name: "Punch" },
+      { level: 5, name: "Sudden Impact" },
+      { level: 9, name: "Primal Roar" },
+      { level: 14, name: "Crush" },
+      { level: 20, name: "Primal Fist" },
+      { level: 24, name: "Beast Bomb" }
+    ]
+  },
   { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 },
     traits: [
       { name: "Scaredy Cat", chance: "50%" },
@@ -709,9 +729,41 @@ const animons = [
       { level: 24, name: "Sand Arm" }
     ] 
   },
-  { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 } },
-  { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 } },
-  { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 } },
+  { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 }
+     movesList: [
+      { level: 1, name: "Dexterity" },
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Sword Slam" },
+      { level: 9, name: "Taunt" },
+      { level: 14, name: "Lunge" },
+      { level: 18, name: "Quick Assist" },
+      { level: 24, name: "Cut Down" }
+    ]
+  },
+  { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 }
+    movesList: [
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Kunai Barrage" }, 
+      { level: 6, name: "Poison Needle" },
+      { level: 12, name: "Twin Tornado" },
+      { level: 18, name: "Cyclone Throw" },
+      { level: 19, name: "Lightning Strike" },
+      { level: 23, name: "Limb Regrowth" },
+      { level: 24, name: "Wind Scythe" }
+      ]
+    },
+  { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 }
+    movesList: [
+      { level: 1, name: "Plunder" },
+      { level: 1, name: "Punch" }, 
+      { level: 6, name: "Water Blast" },
+      { level: 10, name: "Water Veil" },
+      { level: 14, name: "Water Spear" },
+      { level: 18, name: "Water Slice" },
+      { level: 21, name: "Bite" },
+      { level: 24, name: "Mega Punch" }
+      ]
+    },
   { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 },
     anime: { name: "Jinbe", anime:"One Piece" },
     movesList: [
@@ -736,7 +788,18 @@ const animons = [
       { level: 23, name: "Water Spear" }
     ]
   },
-  { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 } },
+  { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 }
+    movesList: [
+      { level: 1, name: "Splashing Wave" },
+      { level: 1, name: "Sword Slash" }, 
+      { level: 5, name: "Sword Slam" },
+      { level: 9, name: "Water Lock" },
+      { level: 15, name: "Shark Bomb" },
+      { level: 20, name: "Cut Down" },
+      { level: 21, name: "Sharkskin Strike" },
+      { level: 24, name: "Cleave" }
+      ]
+    },
   { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 } },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 },
     movesList: [
