@@ -799,7 +799,7 @@ const animons = [
       { level: 21, name: "Sharkskin Strike" },
       { level: 24, name: "Cleave" }
       ]
-    },
+  },
   { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 } },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 },
     movesList: [
@@ -812,7 +812,19 @@ const animons = [
       { level: 21, name: "Torrent Crash" }
     ]
   },
-  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 } },
+  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 }
+    movesList: [
+      { level: 1, name: "Bount Hunt" },
+      { level: 1, name: "Punch" }, 
+      { level: 6, name: "Wide Explosion" },
+      { level: 11, name: "Bomb Strike" },
+      { level: 17, name: "Booger Bomb" },
+      { level: 18, name: "Lariat Bomb" },
+      { level: 20, name: "Killer Instinct" },
+      { level: 22, name: "Nuclear Beatdown" },
+      { level: 24, name: "False Courage" }
+    ]
+  },
   { id: 47, name: "Hired Assassin", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/hired_assassin.png", stats: { hp: 50, atk: 65, def: 50, spAtk: 63, spDef: 43, spd: 80 } },
   { id: 48, name: "Hired Spy", type: "Dark", sprite: "assets/animons-icon/hired_spy.png", stats: { hp: 50, atk: 52, def: 53, spAtk: 60, spDef: 51, spd: 74 } },
   { id: 49, name: "Little Cow", type: "Lightning", sprite: "assets/animons-icon/little_cow.png", stats: { hp: 40, atk: 35, def: 30, spAtk: 60, spDef: 35, spd: 50 },
@@ -839,7 +851,15 @@ const animons = [
       { level: 22, name: "Lightning Strike" }
     ]
   },
-  { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 } },
+  { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 }
+    movesList: [
+      { level: 1, name: "Mystic Shot" },
+      { level: 1, name: "Water Veil" },
+      { level: 6, name: "Water Blast" },
+      { level: 12, name: "Water Slice" },
+      { level: 17, name: "Water Lock" }
+   ]
+  },
   { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 },
     anime: { name: "Gray Fullbuster", anime:"Fairy Tail" },
     movesList: [
@@ -887,8 +907,30 @@ const animons = [
       { level: 24, name: "Swift Wind" }
     ]
   },
-  { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 } },
-  { id: 54.01, name: "Hobgoblin", type: "Dark", sprite: "assets/animons-icon/hobgoblin.png", stats: { hp: 57, atk: 82, def: 45, spAtk: 65, spDef: 44, spd: 78 } },
+  { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 }
+    movesList: [
+      { level: 1, name: "Fighting Spirit" }, 
+      { level: 1, name: "Sword Slash" },
+      { level: 6, name: "Blade Surge" },
+      { level: 12, name: "Flare Strike" },
+      { level: 18, name: "Shadow Ambush" },
+      { level: 22, name: "Silhouette" },
+      { level: 28, name: "Cut Down" },
+      { level: 32, name: "Afterimage" }
+    ]
+  },
+  { id: 54.01, name: "Hobgoblin", type: "Dark", sprite: "assets/animons-icon/hobgoblin.png", stats: { hp: 57, atk: 82, def: 45, spAtk: 65, spDef: 44, spd: 78 }
+    movesList: [
+      { level: 1, name: "Fighting Spirit" }, 
+      { level: 1, name: "Sword Slash" },
+      { level: 6, name: "Blade Surge" },
+      { level: 12, name: "Flare Strike" },
+      { level: 18, name: "Shadow Ambush" },
+      { level: 22, name: "Silhouette" },
+      { level: 28, name: "Cut Down" },
+      { level: 32, name: "Afterimage" }
+    ]
+  },
   { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 },
     movesList: [
       { level: 1, name: "Axe Attack" },
@@ -969,7 +1011,19 @@ const animons = [
   },
   { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 } },
   { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
-  { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 } },
+  { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 }
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Punch" },
+      { level: 5, name: "Crush" },
+      { level: 6, name: "Vanishing Blow" },
+      { level: 10, name: "Wide Explosion" },
+      { level: 13, name: "Fighting Spirit" },
+      { level: 15, name: "Energy Beam" },
+      { level: 19, name: "Fury" },
+      { level: 19, name: "Suplex" }
+    ]
+  },
   { id: 79.01, name: "Super Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/super_bald_warrior.png", stats: { hp: 72, atk: 95, def: 62, spAtk: 78, spDef: 47, spd: 81 } },
   { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 },
     anime: { name: "Crocodile", anime:"One Piece" },
