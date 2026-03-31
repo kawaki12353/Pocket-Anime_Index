@@ -606,7 +606,7 @@ const animons = [
     ]
   },
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 } },
-  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 }
+  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 },
     movesList: [
       { level: 1, name: "Charm" },
       { level: 1, name: "Junk Toss" },
@@ -617,7 +617,7 @@ const animons = [
       { level: 23, name: "Rifle Shot" }
     ]
   },
-  { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 }
+  { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 },
       movesList: [
       { level: 1, name: "Fury" },
       { level: 1, name: "Punch" },
@@ -729,7 +729,7 @@ const animons = [
       { level: 24, name: "Sand Arm" }
     ] 
   },
-  { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 }
+  { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 },
      movesList: [
       { level: 1, name: "Dexterity" },
       { level: 1, name: "Sword Slash" },
@@ -740,7 +740,7 @@ const animons = [
       { level: 24, name: "Cut Down" }
     ]
   },
-  { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 }
+  { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 },
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" }, 
@@ -752,7 +752,7 @@ const animons = [
       { level: 24, name: "Wind Scythe" }
       ]
     },
-  { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 }
+  { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 },
     movesList: [
       { level: 1, name: "Plunder" },
       { level: 1, name: "Punch" }, 
@@ -788,7 +788,7 @@ const animons = [
       { level: 23, name: "Water Spear" }
     ]
   },
-  { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 }
+  { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 },
     movesList: [
       { level: 1, name: "Splashing Wave" },
       { level: 1, name: "Sword Slash" }, 
@@ -812,7 +812,7 @@ const animons = [
       { level: 21, name: "Torrent Crash" }
     ]
   },
-  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 }
+  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 },
     movesList: [
       { level: 1, name: "Bount Hunt" },
       { level: 1, name: "Punch" }, 
@@ -851,7 +851,7 @@ const animons = [
       { level: 22, name: "Lightning Strike" }
     ]
   },
-  { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 }
+  { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 },
     movesList: [
       { level: 1, name: "Mystic Shot" },
       { level: 1, name: "Water Veil" },
@@ -907,7 +907,7 @@ const animons = [
       { level: 24, name: "Swift Wind" }
     ]
   },
-  { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 }
+  { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
       { level: 1, name: "Sword Slash" },
@@ -919,7 +919,7 @@ const animons = [
       { level: 32, name: "Afterimage" }
     ]
   },
-  { id: 54.01, name: "Hobgoblin", type: "Dark", sprite: "assets/animons-icon/hobgoblin.png", stats: { hp: 57, atk: 82, def: 45, spAtk: 65, spDef: 44, spd: 78 }
+  { id: 54.01, name: "Hobgoblin", type: "Dark", sprite: "assets/animons-icon/hobgoblin.png", stats: { hp: 57, atk: 82, def: 45, spAtk: 65, spDef: 44, spd: 78 },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
       { level: 1, name: "Sword Slash" },
@@ -1011,7 +1011,7 @@ const animons = [
   },
   { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 } },
   { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
-  { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 }
+  { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Punch" },
@@ -1024,7 +1024,19 @@ const animons = [
       { level: 19, name: "Suplex" }
     ]
   },
-  { id: 79.01, name: "Super Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/super_bald_warrior.png", stats: { hp: 72, atk: 95, def: 62, spAtk: 78, spDef: 47, spd: 81 } },
+  { id: 79.01, name: "Super Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/super_bald_warrior.png", stats: { hp: 72, atk: 95, def: 62, spAtk: 78, spDef: 47, spd: 81 },
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Punch" },
+      { level: 5, name: "Crush" },
+      { level: 6, name: "Vanishing Blow" },
+      { level: 10, name: "Wide Explosion" },
+      { level: 13, name: "Fighting Spirit" },
+      { level: 15, name: "Energy Beam" },
+      { level: 19, name: "Fury" },
+      { level: 19, name: "Suplex" }
+    ]
+  },
   { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 },
     anime: { name: "Crocodile", anime:"One Piece" },
     movesList: [
