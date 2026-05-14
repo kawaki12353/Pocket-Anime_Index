@@ -166,7 +166,7 @@
     .analysis button:hover { background: var(--bg); filter: brightness(0.9); }
     .analysis button img { width: 22px; height: 22px; object-fit: contain; }
 
-    /* Estilo dos Status (Revertido para o anterior) */
+    /* Estilo dos Status */
     .stats-grid { 
         display: grid; 
         grid-template-columns: repeat(3, 1fr); 
@@ -185,7 +185,7 @@
     .stat-label { font-size: 12px; opacity: 0.7; }
     .stat-value { font-size: 18px; }
 
-    /* Design do Balão (Revertido para o anterior) */
+    /* Design do Balão */
     .animon-balloon { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; width: 260px; font-size: 14px; text-align: left; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 50; animation: fadeIn 0.2s ease; }
     .animon-balloon .stats-grid { gap: 6px; min-width: unset; }
     .animon-balloon .stat-btn { padding: 2px; border-radius: 6px; }
@@ -263,27 +263,6 @@
     }
     .custom-toast.show { opacity: 1; top: 40px; }
 
-    .custom-prompt-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
-      display: flex; align-items: center; justify-content: center; z-index: 10002;
-      opacity: 0; visibility: hidden; transition: 0.3s;
-    }
-    .custom-prompt-overlay.active { opacity: 1; visibility: visible; }
-    .custom-prompt {
-      background: var(--card); padding: 20px; border-radius: 18px; width: 90%; max-width: 400px; text-align: center;
-      transform: scale(0.9); transition: transform 0.3s ease;
-    }
-    .custom-prompt-overlay.active .custom-prompt { transform: scale(1); }
-
-    .custom-prompt input {
-      width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); 
-      background: var(--bg); color: var(--text); margin: 15px 0; box-sizing: border-box; text-align: center;
-    }
-    .custom-prompt .btn-row { display: flex; gap: 10px; justify-content: center; }
-    .custom-prompt button { padding: 12px 20px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; flex: 1; }
-    .btn-confirm { background: #00b0e6; color: white; }
-    .btn-cancel { background: var(--hover); color: var(--text); }
-
     @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
     @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; } }
@@ -293,15 +272,15 @@
       .header-top { justify-content: flex-end; width: 100%; }
       .logo { width: 150px; }
 
-      .modal-overlay, .custom-prompt-overlay { align-items: flex-end; }
-      .modal, .custom-prompt { 
+      .modal-overlay { align-items: flex-end; }
+      .modal { 
           width: 100%; height: 65%; max-height: 65%;
           border-radius: 20px 20px 0 0; 
           transform: translateY(100%) !important;
           transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           max-width: unset;
       }
-      .modal-overlay.active .modal, .custom-prompt-overlay.active .custom-prompt { transform: translateY(0) !important; }
+      .modal-overlay.active .modal { transform: translateY(0) !important; }
 
       .modal-search { width: 100%; display: flex; justify-content: center; }
       .modal-search input { width: 90%; text-align: center; }
@@ -360,12 +339,6 @@
       <div class="analysis">
         <div class="analysis-top">
             <div id="teamActions">
-              <button id="codeGenBtn" title="Gerar Código">
-                <img src="assets/icons/save.png" alt="Copiar">
-              </button>
-              <button id="codeImportBtn" title="Colocar Código">
-                <img src="assets/icons/copy.png" alt="Colar">
-              </button>
               <button id="exportBtn" title="Exportar Imagem">
                 <img src="assets/icons/download.png" alt="Download">
               </button>
@@ -382,17 +355,6 @@
   </div>
 
   <div id="customToast" class="custom-toast"></div>
-
-  <div id="promptOverlay" class="custom-prompt-overlay">
-    <div class="custom-prompt">
-      <h3 id="promptTitle"></h3>
-      <input type="text" id="promptInput" spellcheck="false" placeholder="...">
-      <div class="btn-row">
-        <button class="btn-cancel" id="promptCancel">Cancelar</button>
-        <button class="btn-confirm" id="promptConfirm">OK</button>
-      </div>
-    </div>
-  </div>
 
   <div class="modal-overlay" id="modal">
     <div class="modal" onclick="event.stopPropagation()">
@@ -437,8 +399,8 @@
        1. ESTADO E VARIÁVEIS GERAIS
        ========================================= */
     const texts = {
-      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", traitSelect: "Selecionar Trait", moveEmpty: "Nenhum", remove: "Remover do Time", copied: "Código copiado!", full: "Time já está cheio!", importPrompt: "Cole o código da equipe aqui:", invalidCode: "Código de equipe inválido!", cancel: "Cancelar" },
-      en: { langBtn: "🇺🇸 EN", title: "Team Builder", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", traitSelect: "Select Trait", moveEmpty: "None", remove: "Remove from Team", copied: "Code copied!", full: "Team is already full!", importPrompt: "Paste the team code here:", invalidCode: "Invalid team code!", cancel: "Cancel" }
+      pt: { langBtn: "🇧🇷 PT", title: "Team Builder", totalStats: "Status Total", weakTypes: "Fraquezas", resistTypes: "Resistências", immuneTypes: "Imunidades", empty: "Slot Vazio", modalTitle: "Escolha um Animon", search: "Pesquisar Animon...", editTitle: "Editar Animon", moveSelect: "Selecionar Move", traitSelect: "Selecionar Trait", moveEmpty: "Nenhum", remove: "Remover do Time", full: "Time já está cheio!", cancel: "Cancelar" },
+      en: { langBtn: "🇺🇸 EN", title: "Team Builder", totalStats: "Total Stats", weakTypes: "Weaknesses", resistTypes: "Resistances", immuneTypes: "Immunities", empty: "Empty Slot", modalTitle: "Choose an Animon", search: "Search Animon...", editTitle: "Edit Animon", moveSelect: "Select Move", traitSelect: "Select Trait", moveEmpty: "None", remove: "Remove from Team", full: "Team is already full!", cancel: "Cancel" }
     };
 
     let lang = localStorage.getItem("siteLang") || "pt";
@@ -450,8 +412,6 @@
 
     const DOM = {
       grid: document.getElementById("teamGrid"), 
-      codeGenBtn: document.getElementById("codeGenBtn"), 
-      codeImportBtn: document.getElementById("codeImportBtn"),
       exportBtn: document.getElementById("exportBtn"), 
       langBtn: document.getElementById("langBtn"), 
       modal: document.getElementById("modal"), 
@@ -461,39 +421,13 @@
       addAnimonBtn: document.getElementById("addAnimonBtn"), 
       levelInput: document.getElementById("levelInput"), 
       levelValueDisplay: document.getElementById("levelValueDisplay"),
-      toast: document.getElementById("customToast"),
-      promptOverlay: document.getElementById("promptOverlay"),
-      promptInput: document.getElementById("promptInput"),
-      promptConfirm: document.getElementById("promptConfirm"),
-      promptCancel: document.getElementById("promptCancel")
+      toast: document.getElementById("customToast")
     };
 
     function showToast(msg) {
       DOM.toast.textContent = msg;
       DOM.toast.classList.add("show");
       setTimeout(() => DOM.toast.classList.remove("show"), 2500);
-    }
-
-    function openPrompt(callback) {
-      document.getElementById("promptTitle").textContent = texts[lang].importPrompt;
-      DOM.promptInput.value = "";
-      DOM.promptOverlay.classList.add("active");
-      DOM.promptInput.focus();
-
-      const onConfirm = () => {
-        const val = DOM.promptInput.value;
-        DOM.promptOverlay.classList.remove("active");
-        callback(val);
-        DOM.promptConfirm.onclick = null;
-      };
-
-      const onCancel = () => {
-        DOM.promptOverlay.classList.remove("active");
-        DOM.promptConfirm.onclick = null;
-      };
-
-      DOM.promptConfirm.onclick = onConfirm;
-      DOM.promptCancel.onclick = onCancel;
     }
 
     function parseColoredText(text) {
@@ -861,83 +795,7 @@
     }
 
     /* =========================================
-       5. SISTEMA DE CÓDIGO (IDs NUMÉRICOS)
-       ========================================= */
-    function gerarCodigoEquipe() {
-      if (team.length === 0) return;
-
-      const traitMap = new Map();
-      if (typeof traits !== 'undefined') {
-        const traitArray = Array.isArray(traits) ? traits : Object.values(traits);
-        traitArray.forEach(t => traitMap.set(t.name, t.id));
-      }
-
-      const moveMap = new Map();
-      if (typeof moves !== 'undefined') {
-        const moveArray = Array.isArray(moves) ? moves : Object.values(moves);
-        moveArray.forEach(m => moveMap.set(m.name, m.id));
-      }
-
-      const finalCode = team.map(a => {
-        const traitId = traitMap.get(a.selectedTrait) || "0";
-        const movesPart = a.moves.map(mName => moveMap.get(mName) || "0").join(',');
-        return `${a.id},${a.level},${traitId},${movesPart}`;
-      }).join(';');
-
-      navigator.clipboard.writeText(finalCode);
-      showToast(texts[lang].copied);
-    }
-
-    function importarCodigoEquipe() {
-      openPrompt((codigo) => {
-        if (!codigo) return;
-        try {
-          const decoded = codigo.trim();
-          const slots = decoded.split(';');
-          const newTeam = [];
-
-          const traitIdMap = new Map();
-          if (typeof traits !== 'undefined') {
-            const traitArray = Array.isArray(traits) ? traits : Object.values(traits);
-            traitArray.forEach(t => traitIdMap.set(String(t.id), t.name));
-          }
-
-          const moveIdMap = new Map();
-          if (typeof moves !== 'undefined') {
-            const moveArray = Array.isArray(moves) ? moves : Object.values(moves);
-            moveArray.forEach(m => moveIdMap.set(String(m.id), m.name));
-          }
-
-          slots.forEach(slotStr => {
-            const parts = slotStr.split(',');
-            if (parts.length < 7) return;
-            const [id, lvl, traitId, ...moveIds] = parts;
-
-            const base = animons.find(a => String(a.id) === String(id));
-            if (base) {
-              const a = JSON.parse(JSON.stringify(base));
-              a.level = parseInt(lvl) || 100;
-              a.selectedTrait = traitIdMap.get(String(traitId)) || "";
-              a.moves = moveIds.slice(0, 4).map(mid => moveIdMap.get(String(mid)) || "");
-              while(a.moves.length < 4) a.moves.push("");
-              a.activeTriggerIndex = null;
-              newTeam.push(a);
-            }
-          });
-
-          if (newTeam.length > 0) { 
-            team = newTeam.slice(0, 6); 
-            saveData(); 
-            renderTeam(); 
-          }
-        } catch (e) { 
-          showToast(texts[lang].invalidCode); 
-        }
-      });
-    }
-
-    /* =========================================
-       6. ANÁLISE E STATUS
+       5. ANÁLISE E STATUS
        ========================================= */
     function updateAnalysis() {
       const total = { hp: 0, atk: 0, def: 0, spAtk: 0, spDef: 0, spd: 0 };
@@ -1006,7 +864,7 @@
     }
 
     /* =========================================
-       7. EVENT LISTENERS E I18N
+       6. EVENT LISTENERS E I18N
        ========================================= */
     function updateLangUI() {
       const t = texts[lang];
@@ -1016,7 +874,6 @@
       document.getElementById("editModalTitle").textContent = t.editTitle;
       DOM.searchInput.placeholder = t.search;
       document.getElementById("statsTitle").textContent = t.totalStats;
-      document.getElementById("promptCancel").textContent = t.cancel;
     }
 
     DOM.langBtn.onclick = () => {
@@ -1043,9 +900,6 @@
     document.addEventListener("click", e => {
       if (!e.target.closest('.custom-select')) document.querySelectorAll(".select-options").forEach(opt => opt.classList.remove("open"));
     });
-
-    DOM.codeGenBtn.onclick = gerarCodigoEquipe;
-    DOM.codeImportBtn.onclick = importarCodigoEquipe;
 
     DOM.exportBtn.onclick = async () => {
       const exportArea = document.getElementById("teamExportArea");
