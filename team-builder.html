@@ -234,7 +234,7 @@
     .animon-option img { width: 50px; }
     .animon-id { font-weight: bold; opacity: 0.6; min-width: 50px; }
 
-    .edit-body { display: flex; flex-direction: column; gap: 20px; flex: 1; overflow-y: auto; padding-right: 5px; }
+    .edit-body { display: flex; flex-direction: column; gap: 20px; flex: 1; padding-right: 5px; overflow-y: visible; }
     .level-container { background: var(--bg); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
     .level-container input[type="range"] { width: 100%; margin-top: 10px; cursor: pointer; }
     .level-container span { font-weight: bold; font-size: 18px; color: var(--text); }
@@ -245,7 +245,7 @@
     .select-btn { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border); color: var(--text); font-weight: bold; height: 44px; box-sizing: border-box; overflow: hidden;}
     .select-btn::after { content: "▼"; margin-left: auto; font-size: 12px; color: var(--text); flex-shrink: 0; }
 
-    .select-options { position: absolute; bottom: 110%; left: 0; width: 100%; background: var(--card); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-height: 200px; overflow-y: auto; display: none; z-index: 99; border: 1px solid var(--border); }
+    .select-options { position: absolute; top: 100%; left: 0; width: 100%; background: var(--card); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-height: 200px; overflow-y: auto; display: none; z-index: 100; border: 1px solid var(--border); margin-top: 4px; }
     .select-options.open { display: block; }
     .option { display: flex; align-items: center; gap: 10px; padding: 10px; cursor: pointer; font-weight: bold; font-size: 11px; }
     .option:hover { background: var(--hover); }
