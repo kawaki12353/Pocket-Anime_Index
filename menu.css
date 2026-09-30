@@ -100,7 +100,6 @@ body.dark {
 .menu-nav-fixed {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 /* SEÇÃO ROLÁVEL */
