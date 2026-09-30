@@ -56,6 +56,7 @@ function setActivePage() {
   // Mapeamento dos IDs dos links (o logotipo não entra aqui pois não é mais um link)
   const pages = {
     "index.html": "menuHome",
+    "anidex.html": "menuAnidex",
     "moves.html": "menuMoves",
     "calculator.html": "menuCalc",
     "items.html": "menuItems",
@@ -80,16 +81,18 @@ window.updateMenuLang = function() {
   const text = {
     pt: {
       home: "🏠 Início",
+      anidex: "📖 Anidex",
       moves: "⚔️ Lista de Moves",
       calc: "🔥 Calculadora",
       items: "🗂 Itens",
       maps: "🗺 Mapas",
-      trainers: "🤵‍♂️ Treinadores",
+      trainers: "🤵‍♂️️ Treinadores",
       update: "📝 Update Log"
     },
     en: {
       home: "🏠 Home",
-      moves: "⚔️ Moves List",
+      anidex: "📖 Anidex",
+      moves: "⚔️️ Moves List",
       calc: "🔥 Calculator",
       items: "🗂 Items",
       maps: "🗺 Maps",
@@ -100,6 +103,7 @@ window.updateMenuLang = function() {
 
   const mapping = {
     "menuHome": "home",
+    "menuAnidex": "anidex",
     "menuMoves": "moves",
     "menuCalc": "calc",
     "menuItems": "items",
