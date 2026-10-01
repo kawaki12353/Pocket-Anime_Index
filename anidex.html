@@ -79,28 +79,32 @@
         .logo { width: 260px; }
 
         .map-title {
-            width: 100%;
             position: relative;
-            background: #010D34;
+            width: 100%;
+            background-color: #010D34;
             color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
             margin-bottom: 12px;
             font-size: 20px;
             font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 6px;
             box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .map-title::before {
             content: "";
             position: absolute;
-            left: 12px;
-            width: 24px;
-            height: 24px;
-            background: url('assets/icons/star_rodapé.png') no-repeat center / contain;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            background: url("assets/icons/star_rodapé.png") no-repeat center / contain;
+            pointer-events: none;
         }
 
         /* --- Filtros --- */
