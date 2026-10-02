@@ -553,7 +553,7 @@ const animons = [
       { level: 24, name: "Dive Kick" }
     ]
   },
-  { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 },
+  { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 }, areas: ["0019"],
     anime: { name: "Goku" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
