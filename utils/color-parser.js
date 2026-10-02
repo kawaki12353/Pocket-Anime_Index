@@ -13,6 +13,8 @@ const COLOR_MAP = {
   "007": "#1a5276", // Azul Escuro
   "008": "#ffe100", // Amarelo
   "009": "#4db8ff", // Azul Claro
+  "010": "#703d90", // Roxo
+  "009": "#1f56ca", // Azul
   "000": "inherit"  // Restaura cor padrão (Fecha a tag)
 };
 
