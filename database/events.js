@@ -1,4 +1,12 @@
 const events = {
+  "Saiyan": {
+    name: "Saiyan Invasion",
+    chat: "Warriors are invading the plains!",
+    desc_pt: "[006]Vegetable[000], [004]Monkey Warrior[000] e [002]Bald Warrior[000] começam a aparecer na Great Plains.\nEsses Animons só são capturaveis nesse Evento.",
+    desc_en: "[006]Vegetable[000], [004]Monkey Warrior[000] and [002]Bald Warrior[000] begin to appear in the Great Plains.\nThese Animons can only be caught during this Event.",
+    sprite: "assets/events/shinobi.png",
+    animon: ["Ramen"],
+  },
   "Sandstorm": {
     name: "Sandstorm",
     chat: "A Sandstorm has started in the Great Plains!",
