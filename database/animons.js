@@ -533,6 +533,7 @@ const animons = [
   },
   { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 },
     anime: { name: "Vegeta" },
+    event: "Saiyan",
     movesList: [
       { level: 1, name: "Energy Blast" }, 
       { level: 1, name: "Energy Charge" },
