@@ -112,14 +112,28 @@ function openEventModal(eventKey) {
     `;
 
     overlay.classList.add('active');
-    setTimeout(() => modal.classList.add('open'), 10);
+    
+    // Se for PC (largura > 768px), abre instantaneamente
+    if (window.innerWidth > 768) {
+        modal.classList.add('open');
+    } else {
+        setTimeout(() => modal.classList.add('open'), 10);
+    }
 }
 
 function closeEventModal() {
     const modal = document.getElementById('eventModal');
     const overlay = document.getElementById('eventOverlay');
     if (modal) modal.classList.remove('open');
-    if (overlay) setTimeout(() => overlay.classList.remove('active'), 300);
+    
+    if (overlay) {
+        // Se for PC (largura > 768px), fecha instantaneamente
+        if (window.innerWidth > 768) {
+            overlay.classList.remove('active');
+        } else {
+            setTimeout(() => overlay.classList.remove('active'), 300);
+        }
+    }
 }
 
 function getMoveInfo(moveInput) {
@@ -563,7 +577,7 @@ function renderTypeChart() {
     });
 
     const order = [{ key: 'x4', label: ui.weak4, val: '4x' }, { key: 'x2', label: ui.weak2, val: '2x' }, { key: 'x1', label: ui.normal, val: '1x' }, { key: 'x05', label: ui.res05, val: '0.5x' }, { key: 'x025', label: ui.res025, val: '0.25x' }, { key: 'x0', label: ui.imm0, val: '0x' }];
-    
+
     order.forEach(group => {
         if (groups[group.key].length > 0) {
             const section = document.createElement('div');
