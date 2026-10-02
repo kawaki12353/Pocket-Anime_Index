@@ -9,7 +9,7 @@ const COLOR_MAP = {
   "003": "#f39c12", // Laranja
   "004": "#95a5a6", // Cinza
   "005": "#a93226", // Vinho / Vermelho Escuro
-  "006": "#d2b4de", // Roxo / Lavanda
+  "006": "#d2b4de", // Lavanda
   "007": "#1a5276", // Azul Escuro
   "008": "#ffe100", // Amarelo
   "009": "#4db8ff", // Azul Claro
