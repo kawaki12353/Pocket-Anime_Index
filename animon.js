@@ -112,7 +112,7 @@ function openEventModal(eventKey) {
     `;
 
     overlay.classList.add('active');
-    
+
     // Se for PC (largura > 768px), abre instantaneamente
     if (window.innerWidth > 768) {
         modal.classList.add('open');
@@ -125,7 +125,7 @@ function closeEventModal() {
     const modal = document.getElementById('eventModal');
     const overlay = document.getElementById('eventOverlay');
     if (modal) modal.classList.remove('open');
-    
+
     if (overlay) {
         // Se for PC (largura > 768px), fecha instantaneamente
         if (window.innerWidth > 768) {
@@ -687,6 +687,9 @@ function renderLocations() {
 
     const viewport = document.createElement('div');
     viewport.className = 'location-viewport';
+    if (areaDataList.length <= 1) {
+        viewport.style.cursor = 'default';
+    }
 
     const track = document.createElement('div');
     track.className = 'location-track';
@@ -732,6 +735,7 @@ function renderLocations() {
     let animFrame = null;
 
     const dragStart = (e) => { 
+        if (areaDataList.length <= 1) return;
         isDragging = true; 
         startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; 
         track.style.transition = 'none'; 
