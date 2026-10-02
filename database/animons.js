@@ -621,6 +621,8 @@ const animons = [
     ]
   },
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 },
+    anime: { name: "Oozaru" },
+    event: "Full Moon",
       movesList: [
       { level: 1, name: "Fury" },
       { level: 1, name: "Punch" },
