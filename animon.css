@@ -569,7 +569,7 @@ body {
     z-index: 10001;
     display: none;
     opacity: 0;
-    transition: opacity 0.1s ease-out;
+    transition: opacity 0.3s ease;
 }
 .event-modal-overlay.active { display: block; opacity: 1; }
 
@@ -592,6 +592,10 @@ body {
     .event-modal-overlay {
         transition: none !important;
     }
+    .event-modal-overlay:not(.active) {
+        display: none !important;
+        opacity: 0 !important;
+    }
     .event-banner-btn {
         max-width: 450px;
     }
@@ -606,6 +610,11 @@ body {
         transition: none !important;
         border: 1px solid #FE01FA;
     }
+    .event-modal-content:not(.open) {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
     .event-modal-content.open {
         opacity: 1;
         visibility: visible;
@@ -619,7 +628,7 @@ body {
         height: 65%;
         bottom: 0; left: 0;
         transform: translateY(100%);
-        transition: transform 0.12s ease-out;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         border-radius: 20px 20px 0 0;
         border: none;
         border-top: 1px solid #FE01FA;
