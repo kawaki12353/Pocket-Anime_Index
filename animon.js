@@ -5,6 +5,9 @@ let openedMoveBalloon = null;
 let currentLocIndex = 0;
 let balloonAnchor = null;
 
+// Controle de limpeza de listeners para evitar vazamento de memória
+let activeDragCleanup = null;
+
 const uiText = {
     pt: {
         btnInfo: "Informações", btnMoves: "Moves", btnWeak: "Fraquezas", btnLoc: "Localização",
@@ -57,16 +60,18 @@ const uiText = {
 };
 
 function openEventModal(eventKey) {
-    if (!events) return;
+    if (typeof events === 'undefined' || !events) return;
     const ev = Array.isArray(events) ? events.find(e => e.id === eventKey) : events[eventKey];
     if (!ev) return;
 
     const modal = document.getElementById('eventModal');
     const overlay = document.getElementById('eventOverlay');
+    if (!modal || !overlay) return;
+
     const ui = uiText[lang];
 
     let animonsHtml = "";
-    if (ev.animon && ev.animon.length > 0) {
+    if (ev.animon && ev.animon.length > 0 && typeof animons !== 'undefined') {
         animonsHtml = `<div class="event-modal-list"><h4>${ui.animonsInEvent}</h4>`;
 
         ev.animon.forEach(name => {
@@ -97,10 +102,12 @@ function openEventModal(eventKey) {
         animonsHtml += `</div>`;
     }
 
+    const desc = typeof parseColoredText === 'function' ? parseColoredText(ev[`desc_${lang}`] || ev.desc_pt) : (ev[`desc_${lang}`] || ev.desc_pt || '');
+
     modal.innerHTML = `
         <div class="event-modal-title">${ev.name}</div>
         <img src="${ev.sprite}" class="event-modal-sprite" onerror="this.src='assets/sem_icone.png'">
-        <div class="event-modal-desc">${parseColoredText(ev[`desc_${lang}`] || ev.desc_pt)}</div>
+        <div class="event-modal-desc">${desc}</div>
         ${animonsHtml}
     `;
 
@@ -111,15 +118,16 @@ function openEventModal(eventKey) {
 function closeEventModal() {
     const modal = document.getElementById('eventModal');
     const overlay = document.getElementById('eventOverlay');
-    modal.classList.remove('open');
-    setTimeout(() => overlay.classList.remove('active'), 300);
+    if (modal) modal.classList.remove('open');
+    if (overlay) setTimeout(() => overlay.classList.remove('active'), 300);
 }
 
 function getMoveInfo(moveInput) {
     if (!moveInput) return null;
     let finalName = typeof moveInput === 'string' ? moveInput.trim() : (moveInput.name || "Unknown");
     let moveData = null;
-    if (typeof moves !== "undefined") {
+
+    if (typeof moves !== "undefined" && moves) {
         if (Array.isArray(moves)) {
             moveData = moves.find(m => (m.name && m.name.toLowerCase().trim() === finalName.toLowerCase()));
         } else {
@@ -157,9 +165,11 @@ function getMoveInfo(moveInput) {
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get('id');
-    if (idParam && typeof animons !== 'undefined') {
+
+    if (idParam && typeof animons !== 'undefined' && animons) {
         currentAnimon = animons.find(a => a.id == idParam || a.name.toLowerCase() === idParam.toLowerCase());
     }
+
     if (!currentAnimon) {
         document.body.innerHTML = "<h1 style='text-align:center; margin-top:50px;'>Animon não encontrado</h1>";
         return;
@@ -173,11 +183,14 @@ window.onload = () => {
     const cameFromSelf = document.referrer.includes("animon.html");
     const isSameFamily = (lastBaseId === currentBaseId) && cameFromSelf;
 
-    document.getElementById('animonIdDisplay').textContent = '#' + currentAnimon.id;
+    const idDisplay = document.getElementById('animonIdDisplay');
+    if (idDisplay) idDisplay.textContent = '#' + currentAnimon.id;
 
-    const spriteSrc = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
-    document.getElementById('animonSprite').src = spriteSrc;
-    document.getElementById('animonSprite').onerror = function() { this.src = 'assets/sem_icone.png'; };
+    const spriteEl = document.getElementById('animonSprite');
+    if (spriteEl) {
+        spriteEl.src = currentAnimon.sprite || `assets/sprites/${currentAnimon.id}.png`;
+        spriteEl.onerror = function() { this.src = 'assets/sem_icone.png'; };
+    }
 
     if (isSameFamily) {
         const savedTab = sessionStorage.getItem('lastTab');
@@ -198,10 +211,26 @@ window.onload = () => {
 
     sessionStorage.setItem('lastAnimonId', currentIdStr);
 
+    // Binds de botão de idioma com tratamento de nulo
+    const langBtn = document.getElementById("langBtn");
+    if (langBtn) {
+        langBtn.onclick = () => {
+            lang = lang === "pt" ? "en" : "pt";
+            localStorage.setItem("siteLang", lang);
+            updateLang();
+            if (typeof updateMenuLang === "function") updateMenuLang();
+        };
+    }
+
     updateLang();
 
-    document.getElementById('traitsContainer').addEventListener('scroll', updateBalloonPosition);
-    document.getElementById('tab-moves').addEventListener('scroll', updateBalloonPosition);
+    // Eventos seguros de rolagem
+    const traitsContainer = document.getElementById('traitsContainer');
+    if (traitsContainer) traitsContainer.addEventListener('scroll', updateBalloonPosition);
+
+    const tabMoves = document.getElementById('tab-moves');
+    if (tabMoves) tabMoves.addEventListener('scroll', updateBalloonPosition);
+
     window.addEventListener('scroll', updateBalloonPosition);
 };
 
@@ -212,17 +241,33 @@ window.onbeforeunload = () => {
 function updateLang() {
     if (!currentAnimon) return;
     const ui = uiText[lang];
-    document.getElementById('nameInside').textContent = currentAnimon.name;
-    document.getElementById('langBtn').textContent = ui.btn;
-    document.getElementById('btnInfo').textContent = ui.btnInfo;
-    document.getElementById('btnMoves').textContent = ui.btnMoves;
-    document.getElementById('btnWeak').textContent = ui.btnWeak;
-    document.getElementById('btnLoc').textContent = ui.btnLoc;
-    document.getElementById('labelTraits').textContent = ui.traits;
-    document.getElementById('labelEvo').textContent = ui.evoTitle;
 
-    const activeTab = document.querySelector('.tab-content.active').id;
-    updateTabTitle(activeTab);
+    const nameInside = document.getElementById('nameInside');
+    if (nameInside) nameInside.textContent = currentAnimon.name;
+
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) langBtn.textContent = ui.btn;
+
+    const btnInfo = document.getElementById('btnInfo');
+    if (btnInfo) btnInfo.textContent = ui.btnInfo;
+
+    const btnMoves = document.getElementById('btnMoves');
+    if (btnMoves) btnMoves.textContent = ui.btnMoves;
+
+    const btnWeak = document.getElementById('btnWeak');
+    if (btnWeak) btnWeak.textContent = ui.btnWeak;
+
+    const btnLoc = document.getElementById('btnLoc');
+    if (btnLoc) btnLoc.textContent = ui.btnLoc;
+
+    const labelTraits = document.getElementById('labelTraits');
+    if (labelTraits) labelTraits.textContent = ui.traits;
+
+    const labelEvo = document.getElementById('labelEvo');
+    if (labelEvo) labelEvo.textContent = ui.evoTitle;
+
+    const activeTab = document.querySelector('.tab-content.active');
+    if (activeTab) updateTabTitle(activeTab.id);
 
     renderDescription();
     renderDescTypes();
@@ -235,6 +280,9 @@ function updateLang() {
 }
 
 function renderDescription() {
+    const descEl = document.getElementById('animonDesc');
+    if (!descEl) return;
+
     const ui = uiText[lang];
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     descText = descText.replace(/^"|"$/g, ''); 
@@ -244,21 +292,26 @@ function renderDescription() {
 
     if (isMobile && descText.length > limit) {
         const truncated = descText.substring(0, limit) + "...";
-        document.getElementById('animonDesc').innerHTML = `<i>${truncated}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
+        descEl.innerHTML = `<i>${truncated}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
     } else {
-        document.getElementById('animonDesc').innerHTML = `<i>${descText}</i>`;
+        descEl.innerHTML = `<i>${descText}</i>`;
     }
 }
 
 function expandDescription() {
+    const descEl = document.getElementById('animonDesc');
+    if (!descEl) return;
+
     const ui = uiText[lang];
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     descText = descText.replace(/^"|"$/g, ''); 
-    document.getElementById('animonDesc').innerHTML = `<i>${descText}<span class="read-more-link" onclick="renderDescription()">${ui.readLess}</span></i>`;
+    descEl.innerHTML = `<i>${descText}<span class="read-more-link" onclick="renderDescription()">${ui.readLess}</span></i>`;
 }
 
 function renderDescTypes() {
     const container = document.getElementById('descTypes');
+    if (!container) return;
+
     container.innerHTML = "";
     let rawType = currentAnimon.type || currentAnimon.types || ["neutral"];
     let typesArr = Array.isArray(rawType) ? rawType : [rawType];
@@ -284,15 +337,28 @@ function renderDescTypes() {
 }
 
 function renderStats() {
+    const canvas = document.getElementById('statsChart');
+    if (!canvas) return;
+
     const st = currentAnimon.stats || { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
     const total = st.hp + st.atk + st.def + (st.spAtk || 0) + (st.spDef || 0) + st.spd;
-    document.getElementById('statsTotal').textContent = uiText[lang].totalStr + total;
+
+    const totalEl = document.getElementById('statsTotal');
+    if (totalEl) totalEl.textContent = uiText[lang].totalStr + total;
+
     const rootStyle = getComputedStyle(document.documentElement);
     const textColor = rootStyle.getPropertyValue('--text').trim() || '#111';
     const chartFill = rootStyle.getPropertyValue('--chart-fill').trim() || 'rgba(13, 71, 161, 0.4)';
     const chartLine = rootStyle.getPropertyValue('--chart-line').trim() || '#0d47a1';
-    const ctx = document.getElementById('statsChart').getContext('2d');
-    if (radarChart) radarChart.destroy();
+
+    if (radarChart) {
+        radarChart.destroy();
+        radarChart = null;
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
@@ -307,7 +373,8 @@ function renderStats() {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false, // Evita o loop infinito de resize no mobile
+            animation: false, // Desativa animação para economizar GPU/CPU
             scales: {
                 r: {
                     angleLines: { color: textColor, opacity: 0.2 },
@@ -325,9 +392,12 @@ function renderStats() {
 
 function renderTraits() {
     const container = document.getElementById('traitsContainer');
+    if (!container) return;
+
     const ui = uiText[lang];
     container.innerHTML = "";
     let traitsList = currentAnimon.traits || [];
+
     if (traitsList.length === 0) {
         const emptyMsg = document.createElement('div');
         emptyMsg.style.textAlign = 'center';
@@ -338,14 +408,16 @@ function renderTraits() {
         container.appendChild(emptyMsg);
         return;
     }
+
     const sortedTraits = [...traitsList].sort((a, b) => (parseInt(b.chance) || 0) - (parseInt(a.chance) || 0));
     const listWrapper = document.createElement('div');
     listWrapper.className = 'trait-list-wrapper';
+
     sortedTraits.forEach(traitObj => {
         const tName = traitObj.name;
         const tChance = traitObj.chance;
         let tInfo = "";
-        if (typeof traits !== 'undefined') {
+        if (typeof traits !== 'undefined' && traits) {
             const data = (Array.isArray(traits)) ? traits.find(x => x.name === tName) : traits[tName];
             if (data) tInfo = data[`desc_${lang}`] || data.desc_pt || data.desc || "";
         }
@@ -355,23 +427,29 @@ function renderTraits() {
         btn.onclick = (e) => { e.stopPropagation(); showGeneralBalloon(btn, tInfo); };
         listWrapper.appendChild(btn);
     });
+
     container.appendChild(listWrapper);
 }
 
 function renderMoves() {
     const container = document.getElementById('movesContainer');
+    if (!container) return;
+
     const ui = uiText[lang];
     container.innerHTML = "";
     const movesList = currentAnimon.movesList || [];
+
     if (movesList.length === 0) {
         container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`;
         return;
     }
+
     const sortedMoves = [...movesList].sort((a, b) => a.level - b.level);
     const header = document.createElement('div');
     header.className = 'move-item move-header';
     header.innerHTML = `<span>${ui.lvl}</span><span class="move-name">${ui.name}</span><span>${ui.type}</span><span>${ui.cat}</span>`;
     container.appendChild(header);
+
     sortedMoves.forEach(m => {
         const minfo = getMoveInfo(m.name);
         const row = document.createElement('div');
@@ -389,7 +467,10 @@ function showGeneralBalloon(element, text) {
     if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
-    if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${parseColoredText(text)}</div>`;
+
+    const descHtml = typeof parseColoredText === 'function' ? parseColoredText(text) : text;
+
+    if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${descHtml}</div>`;
     else { balloon.style.display = "none"; }
     document.body.appendChild(balloon);
 
@@ -408,8 +489,11 @@ function toggleMoveBalloon(moveDiv) {
     const desc = moveDiv.dataset.desc;
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
+
+    const parsedDesc = typeof parseColoredText === 'function' ? parseColoredText(desc) : desc;
+
     let contentHtml = "";
-    if (desc && desc !== "undefined" && desc !== "") contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parseColoredText(desc)}</div>`;
+    if (desc && desc !== "undefined" && desc !== "") contentHtml += `<div style="white-space: normal; max-width: 250px; margin-bottom: 8px; text-align: justify;">${parsedDesc}</div>`;
     contentHtml += `<div style="text-align: center; border-top: 1px solid var(--border); padding-top: 5px;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
     balloon.innerHTML = contentHtml;
     document.body.appendChild(balloon);
@@ -442,16 +526,22 @@ function closeMoveBalloonOnce() { if (openedMoveBalloon) { openedMoveBalloon.rem
 
 function renderTypeChart() {
     const container = document.getElementById('typeChartContent');
+    if (!container) return;
+
     const ui = uiText[lang];
     container.innerHTML = "";
-    if (typeof chart === 'undefined' || !currentAnimon) return;
+    if (typeof chart === 'undefined' || !chart || !currentAnimon) return;
+
     let defenderTypes = [];
     let rawType = currentAnimon.type || currentAnimon.types;
     if (Array.isArray(rawType)) defenderTypes = rawType.filter(t => t).map(t => t.toLowerCase().trim());
     else if (rawType) defenderTypes = [rawType.toLowerCase().trim()];
+
     if (defenderTypes.length === 0) { container.innerHTML = `<p>${ui.notDef}</p>`; return; }
+
     const allAttackTypes = Object.keys(chart);
     const multipliers = {};
+
     allAttackTypes.forEach(atkType => {
         let totalMult = 1.0;
         const atkData = chart[atkType];
@@ -461,6 +551,7 @@ function renderTypeChart() {
         });
         multipliers[atkType] = totalMult;
     });
+
     const groups = { x4: [], x2: [], x1: [], x05: [], x025: [], x0: [] };
     Object.entries(multipliers).forEach(([type, val]) => {
         if (val >= 3.5) groups.x4.push(type);
@@ -470,7 +561,9 @@ function renderTypeChart() {
         else if (val > 0 && val <= 0.3) groups.x025.push(type);
         else if (val === 0) groups.x0.push(type);
     });
+
     const order = [{ key: 'x4', label: ui.weak4, val: '4x' }, { key: 'x2', label: ui.weak2, val: '2x' }, { key: 'x1', label: ui.normal, val: '1x' }, { key: 'x05', label: ui.res05, val: '0.5x' }, { key: 'x025', label: ui.res025, val: '0.25x' }, { key: 'x0', label: ui.imm0, val: '0x' }];
+    
     order.forEach(group => {
         if (groups[group.key].length > 0) {
             const section = document.createElement('div');
@@ -496,13 +589,18 @@ function renderTypeChart() {
 
 function renderEvolutions() {
     const container = document.getElementById('evoContainer');
+    if (!container) return;
+
     container.innerHTML = "";
-    if (typeof animons === 'undefined') return;
+    if (typeof animons === 'undefined' || !animons) return;
+
     const baseId = currentAnimon.id.toString().split('.')[0];
     const family = animons.filter(a => { const aId = a.id.toString(); return aId === baseId || aId.startsWith(baseId + "."); }).sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
     if (family.length <= 1) { container.innerHTML = `<p style="text-align:center; opacity:0.6;">${lang === 'pt' ? 'Não possui evoluções.' : 'No evolutions available.'}</p>`; return; }
+
     const wrapper = document.createElement('div');
     wrapper.className = 'evo-wrapper';
+
     family.forEach((member, index) => {
         if (index > 0) { const arrow = document.createElement('div'); arrow.className = 'evo-arrow'; arrow.innerHTML = '→'; wrapper.appendChild(arrow); }
         const isCurrent = member.id.toString() === currentAnimon.id.toString();
@@ -517,16 +615,25 @@ function renderEvolutions() {
         card.innerHTML = `<div class="evo-mini-frame"><img src="${sprite}" onerror="this.src='assets/sem_icone.png'"></div><div class="evo-name-tag">${member.name}</div><div class="evo-types-row">${typesHtml}</div>`;
         wrapper.appendChild(card);
     });
+
     container.appendChild(wrapper);
 }
 
 function renderLocations() {
     const container = document.getElementById('locationContent');
+    if (!container) return;
+
+    // Limpa event listeners globais anteriores para não acumular processos em segundo plano
+    if (activeDragCleanup) {
+        activeDragCleanup();
+        activeDragCleanup = null;
+    }
+
     container.innerHTML = "";
     if (!currentAnimon) return;
 
     let eventBtn = null;
-    if (currentAnimon.event && typeof events !== 'undefined') {
+    if (currentAnimon.event && typeof events !== 'undefined' && events) {
         const evKey = currentAnimon.event;
         const eventData = Array.isArray(events) ? events.find(e => e.id === evKey) : events[evKey];
         if (eventData) {
@@ -548,7 +655,7 @@ function renderLocations() {
     }
 
     const areaIds = currentAnimon.areas;
-    const areaDataList = areaIds.map(id => areas[id]).filter(data => data);
+    const areaDataList = areaIds.map(id => (typeof areas !== 'undefined' && areas) ? areas[id] : null).filter(Boolean);
 
     if (areaDataList.length === 0) { 
         const noAvail = document.createElement('p');
@@ -608,12 +715,59 @@ function renderLocations() {
 
     let startX = 0;
     let isDragging = false;
-    const dragStart = (e) => { isDragging = true; startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; track.style.transition = 'none'; };
-    const dragMove = (e) => { if (!isDragging) return; const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; const walk = x - startX; const baseTranslate = -(currentLocIndex * 100); const percentMove = (walk / viewport.offsetWidth) * 100; track.style.transform = `translateX(${baseTranslate + percentMove}%)`; };
-    const dragEnd = (e) => { if (!isDragging) return; isDragging = false; track.style.transition = ''; const x = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX; const diff = startX - x; if (Math.abs(diff) > 50) { if (diff > 0) moveToSlide(currentLocIndex + 1); else moveToSlide(currentLocIndex - 1); } else { moveToSlide(currentLocIndex); } };
+    let animFrame = null;
 
-    viewport.addEventListener('mousedown', dragStart); viewport.addEventListener('mousemove', dragMove); window.addEventListener('mouseup', dragEnd);
-    viewport.addEventListener('touchstart', dragStart, {passive: true}); viewport.addEventListener('touchmove', dragMove, {passive: true}); viewport.addEventListener('touchend', dragEnd, {passive: true});
+    const dragStart = (e) => { 
+        isDragging = true; 
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; 
+        track.style.transition = 'none'; 
+    };
+
+    const dragMove = (e) => { 
+        if (!isDragging) return; 
+        const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; 
+        const walk = x - startX; 
+        const baseTranslate = -(currentLocIndex * 100); 
+        const percentMove = (walk / viewport.offsetWidth) * 100; 
+
+        // Otimização por quadros (RAF) para não travar a GPU do celular
+        if (animFrame) cancelAnimationFrame(animFrame);
+        animFrame = requestAnimationFrame(() => {
+            track.style.transform = `translateX(${baseTranslate + percentMove}%)`; 
+        });
+    };
+
+    const dragEnd = (e) => { 
+        if (!isDragging) return; 
+        isDragging = false; 
+        track.style.transition = ''; 
+        const x = e.type.includes('touch') ? (e.changedTouches ? e.changedTouches[0].clientX : startX) : e.clientX; 
+        const diff = startX - x; 
+        if (Math.abs(diff) > 50) { 
+            if (diff > 0) moveToSlide(currentLocIndex + 1); 
+            else moveToSlide(currentLocIndex - 1); 
+        } else { 
+            moveToSlide(currentLocIndex); 
+        } 
+    };
+
+    viewport.addEventListener('mousedown', dragStart); 
+    viewport.addEventListener('mousemove', dragMove); 
+    window.addEventListener('mouseup', dragEnd); 
+
+    viewport.addEventListener('touchstart', dragStart, {passive: true}); 
+    viewport.addEventListener('touchmove', dragMove, {passive: true}); 
+    window.addEventListener('touchend', dragEnd, {passive: true}); 
+
+    // Função de limpeza registrada
+    activeDragCleanup = () => {
+        viewport.removeEventListener('mousedown', dragStart);
+        viewport.removeEventListener('mousemove', dragMove);
+        window.removeEventListener('mouseup', dragEnd);
+        viewport.removeEventListener('touchstart', dragStart);
+        viewport.removeEventListener('touchmove', dragMove);
+        window.removeEventListener('touchend', dragEnd);
+    };
 
     container.appendChild(locWrapper);
 
@@ -625,6 +779,8 @@ function renderLocations() {
 function updateTabTitle(tabId) {
     const ui = uiText[lang];
     const display = document.getElementById('tabTitleDisplay');
+    if (!display) return;
+
     if (tabId === 'tab-info') display.textContent = ui.status;
     else if (tabId === 'tab-moves') display.textContent = ui.attacks;
     else if (tabId === 'tab-weak') display.textContent = ui.typeChart;
@@ -633,18 +789,17 @@ function updateTabTitle(tabId) {
 
 function switchTab(tabId) {
     closeMoveBalloonOnce(); 
+
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
+
+    const activeTabEl = document.getElementById(tabId);
+    if (activeTabEl) activeTabEl.classList.add('active');
+
     const btnMap = { 'tab-info': 'btnInfo', 'tab-moves': 'btnMoves', 'tab-weak': 'btnWeak', 'tab-loc': 'btnLoc' };
-    document.getElementById(btnMap[tabId]).classList.add('active');
+    const btnEl = document.getElementById(btnMap[tabId]);
+    if (btnEl) btnEl.classList.add('active');
+
     updateTabTitle(tabId);
     sessionStorage.setItem('lastTab', tabId);
 }
-
-document.getElementById("langBtn").onclick = () => {
-    lang = lang === "pt" ? "en" : "pt";
-    localStorage.setItem("siteLang", lang);
-    updateLang();
-    if (typeof updateMenuLang === "function") updateMenuLang();
-};
