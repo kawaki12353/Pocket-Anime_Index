@@ -707,6 +707,7 @@ const animons = [
   }, 
   { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 }, areas: ["0020"],
     anime: { name: "Gaara" },
+    event: "Sandstorm",
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
