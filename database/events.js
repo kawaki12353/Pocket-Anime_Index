@@ -1,4 +1,12 @@
 const events = {
+  "Full Moon": {
+    name: "Full Moon",
+    chat: "The Full Moon is Rising...",
+    desc_pt: "Surge o [011]Monkey Beast[000] na Área da Caveira de Macaco. Esse Animon só é [012]capturavel[000] nesse [012]Evento[000].",
+    desc_en: "Surge o [011]Monkey Beast[000] na Área da Caveira de Macaco. Esse Animon só é [012]capturavel[000] nesse [012]Evento[000].",
+    sprite: "assets/events/full_moon.png",
+    animon: ["Monkey Beast"],
+  },
   "Saiyan": {
     name: "Saiyan Invasion",
     chat: "Warriors are invading the plains!",
@@ -18,7 +26,7 @@ const events = {
   "Shinobi": {
     name: "Shinobi",
     chat: "Shinobi are arriving infront of the Forest of Doom!",
-    desc_pt: "Aumenta a chance de aparecer o [002]Ramen[000] na Área do Bandit King.",
+    desc_pt: "Aumenta a chance de aparecer o [002]Ramen[000] na [012]Área do Bandit King[000].",
     desc_en: "It increases the chance of [002]Ramen[000] appearing in the [012]Bandit King Patch[000].",
     sprite: "assets/events/shinobi.png",
     animon: ["Ramen"],
