@@ -6,7 +6,7 @@ const animons = [
       { name: "Shock Immunity", chance: "50%" }],
     desc_pt: "Eu vou ser o Rei dos Piratas!",
     desc_en: "I'm gonna be King of the Pirates!",
-    anime: { name: "Luffy" },
+    anime: { name: "Luffy", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Punch" },
       { level: 1, name: "Rubber Balloon" },
@@ -27,7 +27,7 @@ const animons = [
       { name: "Rubber Resilience", chance: "5%" }],
     desc_pt: "A pessoa mais livre do mundo é o Rei dos Piratas.",
     desc_en: "The most free person in the world is the King of the Pirates.",
-    anime: { name: "Luffy" },
+    anime: { name: "Luffy", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Punch" },
       { level: 1, name: "Rubber Balloon" },
@@ -50,7 +50,7 @@ const animons = [
       { name: "Mystic Absorption", chance: "5%" }],
     desc_pt: "Hehe! Bojin te faz doces, e se você for malvado, Bojin te esmaga!",
     desc_en: "Hee Hee! Bojin make you candy, and if you bad, Bojin smash you!",
-    anime: { name: "Majin Boo" },
+    anime: { name: "Majin Boo", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
       { level: 1, name: "Energy Charge" },
@@ -72,7 +72,7 @@ const animons = [
       { name: "Mystic Absorption", chance: "5%" }],
     desc_pt: "Bojin vai te matar.",
     desc_en: "Bojin make you dead.",
-    anime: { name: "Super Boo" },
+    anime: { name: "Super Boo", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -95,7 +95,7 @@ const animons = [
       { name: "Vengeful Eyes", chance: "5%" }],
     desc_pt: "Não tenho interesse em fazer amigos. Meu único objetivo é fazer com que certo homem pague pelo que fez ao nosso clã.",
     desc_en: "I have no interest in making friends. My only goal is to make a certain man pay for what he did to our clan.",
-    anime: { name: "Sasuke" },
+    anime: { name: "Sasuke", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" },
@@ -115,7 +115,7 @@ const animons = [
       { name: "Eternal Eyes", chance: "5%" }],
     desc_pt: "Eu sou um vingador. Cortei todos os meus laços, eles só te enfraquecem.",
     desc_en: "I am an avenger. I have cut all my ties, they only make you weak.",
-    anime: { name: "Sasuke" },
+    anime: { name: "Sasuke", anime:"Naruto" },
     movesList: [
       { level: 0, name: "Lightning Spread" },
       { level: 1, name: "Energy Charge" },
@@ -139,7 +139,7 @@ const animons = [
       { name: "Number One", chance: "5%" }],
     desc_pt: "Se eu não empunhar esta espada, não poderei proteger as pessoas de quem gosto!",
     desc_en: "If I don't take up this sword, I can't protect the people I care about!",
-    anime: { name: "Ichigo Kurosaki" },
+    anime: { name: "Ichigo Kurosaki", anime:"Bleach" },
     movesList: [
       { level: 1, name: "Spiritual Pressure" }, 
       { level: 1, name: "Sword Slash" },
@@ -162,7 +162,7 @@ const animons = [
       { name: "Number One", chance: "5%" }],
     desc_pt: "Meu estilo de desembainhar a espada não se baseia em truques vistosos. Trata-se de terminar as lutas rapidamente.",
     desc_en: "My sword release isn't about flashy tricks. It's about ending fights fast.",
-    anime: { name: "Ichigo Kurosaki" },
+    anime: { name: "Ichigo Kurosaki", anime:"Bleach" },
     movesList: [
       { level: 1, name: "Spiritual Pressure" }, 
       { level: 1, name: "Sword Slash" },
@@ -203,7 +203,7 @@ const animons = [
     ]
   },
   { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 }, areas: ["0001", "0002", "0003", "0004", "0005", "0007", "0008", "0009"],
-    anime: { name: "Marine" },
+    anime: { name: "Marine", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
       { level: 1, name: "Sword Slash" },
@@ -217,7 +217,7 @@ const animons = [
     ]
   },
   { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 },
-    anime: { name: "Marine Captain" },
+    anime: { name: "Marine Captain", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
       { level: 1, name: "Sword Slash" },
@@ -231,7 +231,7 @@ const animons = [
     ]
   },
   { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 }, areas: ["0001", "0003", "0005"],
-    anime: { name: "Koby" },
+    anime: { name: "Koby", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor" },
       { level: 1, name: "Mop Attack" },
@@ -245,7 +245,7 @@ const animons = [
     ]
   },
   { id: 7.01, name: "Lt. Hero", type: "Water", sprite: "assets/lt_hero.png", stats: { hp: 56, atk: 51, def: 39, spAtk: 41, spDef: 45, spd: 74 },
-    anime: { name: "Koby" },
+    anime: { name: "Koby", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Mop the floor" },
       { level: 1, name: "Mop Attack"},
@@ -289,7 +289,7 @@ const animons = [
    ]
   }, 
   { id: 10, name: "Teen Wolfman", type: "Fighting", sprite: "assets/animons-icon/teen_wolfman.png", stats: { hp: 35, atk: 53, def: 35, spAtk: 49, spDef: 30, spd: 51 }, areas: ["0002", "0003", "0009"],
-    anime: { name: "Yamcha" },
+    anime: { name: "Yamcha", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Fighting Spirit" },
       { level: 1, name: "Sharp Claw" },
@@ -301,7 +301,7 @@ const animons = [
     ]
   },
   { id: 10.01, name: "Adult Wolfman", type: "Fighting", sprite: "assets/animons-icon/adult_wolfman.png", stats: { hp: 47, atk: 63, def: 44, spAtk: 62, spDef: 39, spd: 73 },
-    anime: { name: "Yamcha" },
+    anime: { name: "Yamcha", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Fighting Spirit" },
       { level: 1, name: "Sharp Claw" },
@@ -313,7 +313,7 @@ const animons = [
     ]
   },
   { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 },
-    anime: { name: "Usopp" }, areas: ["0005"],
+    anime: { name: "Usopp", anime:"One Piece" }, areas: ["0005"],
     movesList: [
       { level: 1, name: "Sling Shot" },
       { level: 1, name: "Taunt" },
@@ -325,7 +325,7 @@ const animons = [
     ]  
   },
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 },
-    anime: { name: "Usopp" },
+    anime: { name: "Usopp", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Sling Shot" },
       { level: 1, name: "Taunt" },
@@ -352,7 +352,7 @@ const animons = [
       { name: "Ninjutsu Mastery", chance: "50%" }],
     desc_pt: "Um dia eu vou me tornar Hokage, e todos vão me reconhecer!",
     desc_en: "Someday I’ll become Hokage, and everyone will acknowledge me!",
-    anime: { name: "Naruto" },
+    anime: { name: "Naruto", anime:"Naruto" },
     event: "Shinobi",
     movesList: [
       { level: 1, name: "Energy Charge" }, 
@@ -370,7 +370,7 @@ const animons = [
       { name: "Wind Affinity", chance: "75%" }],
     desc_pt: "Eu nunca volto atrás na minha palavra. Esse é o meu jeito ninja!",
     desc_en: "I never go back on my word. That's my ninja way!",
-    anime: { name: "Naruto" },
+    anime: { name: "Naruto", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -432,7 +432,7 @@ const animons = [
   },
   { id: 17, name: "Green Head", type: "Neutral", sprite: "assets/animons-icon/green_head.png", stats: { hp: 40, atk: 20, def: 39, spAtk: 30, spDef: 25, spd: 65 } },
   { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 }, areas: ["0007"],
-    anime: { name: "Zoro" },
+    anime: { name: "Zoro", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
@@ -446,7 +446,7 @@ const animons = [
     ]
   },
   { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 },
-    anime: { name: "Zoro" },
+    anime: { name: "Zoro", anime:"One Piece" },
     movesList: [
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
@@ -530,7 +530,7 @@ const animons = [
     ]
   },
   { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 },
-    anime: { name: "Vegeta" },
+    anime: { name: "Vegeta", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
       { level: 1, name: "Energy Charge" },
@@ -542,7 +542,7 @@ const animons = [
     ]
   },
   { id: 26.01, name: "Super Vegetable", type: "Fighting", sprite: "assets/animons-icon/super_vegetable.png", stats: { hp: 67, atk: 72, def: 58, spAtk: 90, spDef: 57, spd: 90 },
-    anime: { name: "Vegeta" },
+    anime: { name: "Vegeta", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
       { level: 1, name: "Energy Charge" },
@@ -554,7 +554,7 @@ const animons = [
     ]
   },
   { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 },
-    anime: { name: "Goku" },
+    anime: { name: "Goku", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Punch" },
@@ -565,7 +565,7 @@ const animons = [
     ]
   },
   { id: 27.01, name: "Adult Gocu", type: "Fighting", sprite: "assets/animons-icon/adult_gocu.png", stats: { hp: 55, atk: 80, def: 50, spAtk: 71, spDef: 45, spd: 80 },
-    anime: { name: "Goku" },
+    anime: { name: "Goku", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Punch" },
@@ -580,7 +580,7 @@ const animons = [
     ]
   },
   { id: 27.02, name: "Super Gocu", type: "Fighting", sprite: "assets/animons-icon/super_gocu.png", stats: { hp: 63, atk: 93, def: 54, spAtk: 82, spDef: 51, spd: 90 },
-    anime: { name: "Goku" },
+    anime: { name: "Goku", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Punch" },
@@ -635,7 +635,7 @@ const animons = [
       { name: "Copycat", chance: "20%" }],
     desc_pt: "Preciso me alimentar para que minha forma amadureça...",
     desc_en: "I need to feed for my form to mature...",
-    anime: { name: "Imperfect Cell" },
+    anime: { name: "Imperfect Cell", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -658,7 +658,7 @@ const animons = [
       { name: "Reincarnation", chance: "10%" }],
     desc_pt: "Eu sou perfeito!",
     desc_en: "I am perfect!",
-    anime: { name: "Perfect Cell" },
+    anime: { name: "Perfect Cell", anime:"Dragon Ball" },
     evolution: ["Imperfect Warrior Bug", "Perfect Warrior Bug"],
     movesList: [
       { level: 1, name: "Blitz" },
@@ -676,7 +676,7 @@ const animons = [
     ]
   },
   { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 },
-    anime: { name: "Rock Lee" },
+    anime: { name: "Rock Lee", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -690,7 +690,7 @@ const animons = [
     ]
   },
   { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 },
-    anime: { name: "Rock Lee" },
+    anime: { name: "Rock Lee", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -704,7 +704,7 @@ const animons = [
     ]
   }, 
   { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 }, 
-    anime: { name: "Gaara" },
+    anime: { name: "Gaara", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -717,7 +717,7 @@ const animons = [
     ] 
   },
   { id: 34.01, name: "Tanuki Ganra", type: ["Earth", "Demon"], sprite: "assets/animons-icon/tanuki_ganra.png", stats: { hp: 65, atk: 46, def: 94, spAtk: 81, spDef: 65, spd: 48 },
-    anime: { name: "Gaara" },
+    anime: { name: "Gaara", anime:"Naruto" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Kunai Barrage" },
@@ -765,7 +765,7 @@ const animons = [
       ]
     },
   { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 },
-    anime: { name: "Jinbe" },
+    anime: { name: "Jinbe", anime:"One Piece" },
     movesList: [
       { level: 1, name: "False Courage" },
       { level: 1, name: "Punch" },
@@ -777,7 +777,7 @@ const animons = [
     ]
   },
   { id: 42.01, name: "Karate Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/karate_whale_shark.png", stats: { hp: 75, atk: 95, def: 62, spAtk: 60, spDef: 51, spd: 62 },
-    anime: { name: "Jinbe" },
+    anime: { name: "Jinbe", anime:"One Piece" },
     movesList: [
       { level: 1, name: "False Courage" },
       { level: 1, name: "Punch" },
@@ -861,7 +861,7 @@ const animons = [
    ]
   },
   { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 },
-    anime: { name: "Gray Fullbuster" },
+    anime: { name: "Gray Fullbuster", anime:"Fairy Tail" },
     movesList: [
       { level: 1, name: "Cold Snap" },
       { level: 1, name: "Punch" },
@@ -872,7 +872,7 @@ const animons = [
     ]
   },
   { id: 52.01, name: "Demon Ice Sculpture", type: ["Ice", "Demon"], sprite: "assets/animons-icon/demon_ice_sculpture.png", stats: { hp: 62, atk: 65, def: 53, spAtk: 83, spDef: 50, spd: 71 },
-    anime: { name: "Gray Fullbuster" },
+    anime: { name: "Gray Fullbuster", anime:"Fairy Tail" },
     movesList: [
       { level: 1, name: "Cold Snap" },
       { level: 1, name: "Punch" },
@@ -977,7 +977,7 @@ const animons = [
       { name: "Legendary Warrior", chance: "5%" }],
     desc_pt: "Meu poder está aumentando... transbordando...!",
     desc_en: "My power it's rising... overflowing...!",
-    anime: { name: "Broly" },
+    anime: { name: "Broly", anime:"Dragon Ball" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -990,10 +990,78 @@ const animons = [
     ]
   },
   { id: 74.01, name: "Full Power Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/full_power_brorok.png", stats: { hp: 66, atk: 90, def: 66, spAtk: 105, spDef: 66, spd: 93 },
-    anime: { name: "Broly" },
+    anime: { name: "Broly", anime:"Dragon Ball" },
     traits: [
       { name: "Sadist", chance: "50%" },
       { name: "Fearsome", chance: "100%" },
-      { name: "Major Threat", chance: "100%" }]
-  }
+      { name: "Major Threat", chance: "5%" },
+      { name: "Legendary Warrior", chance: "100%" }],
+    desc_pt: "Meu poder é máximo!",
+    desc_en: "My power is maximum!",
+    movesList: [
+      { level: 1, name: "Energy Blast" },
+      { level: 1, name: "Energy Charge" },
+      { level: 1, name: "Energy Shell" },
+      { level: 1, name: "Punch" },
+      { level: 6, name: "Crush" },
+      { level: 10, name: "Fury" },
+      { level: 15, name: "Cyclone Throw" },
+      { level: 18, name: "Z Bomb" }
+    ]
+  },
+  { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 } },
+  { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
+  { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 },
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Punch" },
+      { level: 5, name: "Crush" },
+      { level: 6, name: "Vanishing Blow" },
+      { level: 10, name: "Wide Explosion" },
+      { level: 13, name: "Fighting Spirit" },
+      { level: 15, name: "Energy Beam" },
+      { level: 19, name: "Fury" },
+      { level: 19, name: "Suplex" }
+    ]
+  },
+  { id: 79.01, name: "Super Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/super_bald_warrior.png", stats: { hp: 72, atk: 95, def: 62, spAtk: 78, spDef: 47, spd: 81 },
+    movesList: [
+      { level: 1, name: "Energy Charge" }, 
+      { level: 1, name: "Punch" },
+      { level: 5, name: "Crush" },
+      { level: 6, name: "Vanishing Blow" },
+      { level: 10, name: "Wide Explosion" },
+      { level: 13, name: "Fighting Spirit" },
+      { level: 15, name: "Energy Beam" },
+      { level: 19, name: "Fury" },
+      { level: 19, name: "Suplex" }
+    ]
+  },
+  { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 },
+    anime: { name: "Crocodile", anime:"One Piece" },
+    movesList: [
+      { level: 1, name: "Menacing Aura" },
+      { level: 1, name: "Sharp Claw" },
+      { level: 6, name: "Sand Tsunami" },
+      { level: 11, name: "Sand Bomb" },
+      { level: 16, name: "Coated Blade" },
+      { level: 20, name: "Sand Storm" },
+      { level: 23, name: "Desert Espada" }
+    ]
+  },
+  { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 }, areas: ["0008"],
+    anime: { name: "Tashigi", anime:"One Piece" },
+    movesList: [
+      { level: 1, name: "Bounty Hunt" },
+      { level: 1, name: "Sword Slash" },
+      { level: 5, name: "Blade Surge" },
+      { level: 8, name: "Dexterity" },
+      { level: 12, name: "Lunge" },
+      { level: 15, name: "Armament" },
+      { level: 19, name: "Calm Water Slash" },
+      { level: 22, name: "False Courage" }
+    ]
+  },
+  { id: 84, name: "Water Chimera", type: ["Water", "Beast"], sprite: "assets/animons-icon/water_chimera.png", stats: { hp: 75, atk: 75, def: 50, spAtk: 67, spDef: 54, spd: 75 } },
+  { id: 84.01, name: "Mutated Water Chimera", type: ["Water", "Beast"], sprite: "assets/animons-icon/mutated_water_chimera.png", stats: { hp: 100, atk: 90, def: 70, spAtk: 77, spDef: 64, spd: 81 } }
 ];
