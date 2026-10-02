@@ -102,9 +102,7 @@ function openEventModal(eventKey) {
         animonsHtml += `</div>`;
     }
 
-    let rawDesc = ev[`desc_${lang}`] || ev.desc_pt || '';
-    rawDesc = rawDesc.replaceAll('\n', '<br>');
-    const desc = typeof parseColoredText === 'function' ? parseColoredText(rawDesc) : rawDesc;
+    const desc = typeof parseColoredText === 'function' ? parseColoredText(ev[`desc_${lang}`] || ev.desc_pt) : (ev[`desc_${lang}`] || ev.desc_pt || '');
 
     modal.innerHTML = `
         <div class="event-modal-title">${ev.name}</div>
@@ -166,7 +164,7 @@ function getMoveInfo(moveInput) {
                         : "??";
 
     const rawDesc = moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc;
-    const finalDesc = (rawDesc && rawDesc !== "") ? rawDesc.replaceAll('\n', '<br>') : "??";
+    const finalDesc = (rawDesc && rawDesc !== "") ? rawDesc : "??";
 
     return {
         name: moveData.name || finalName,
@@ -301,7 +299,7 @@ function renderDescription() {
 
     const ui = uiText[lang];
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
-    descText = descText.replace(/^"|"$/g, '').replaceAll('\n', '<br>'); 
+    descText = descText.replace(/^"|"$/g, ''); 
 
     const isMobile = window.innerWidth <= 768;
     const limit = 70; 
@@ -320,7 +318,7 @@ function expandDescription() {
 
     const ui = uiText[lang];
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
-    descText = descText.replace(/^"|"$/g, '').replaceAll('\n', '<br>'); 
+    descText = descText.replace(/^"|"$/g, ''); 
     descEl.innerHTML = `<i>${descText}<span class="read-more-link" onclick="renderDescription()">${ui.readLess}</span></i>`;
 }
 
@@ -484,8 +482,7 @@ function showGeneralBalloon(element, text) {
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
 
-    const formattedText = text ? text.replaceAll('\n', '<br>') : text;
-    const descHtml = typeof parseColoredText === 'function' ? parseColoredText(formattedText) : formattedText;
+    const descHtml = typeof parseColoredText === 'function' ? parseColoredText(text) : text;
 
     if (text && text !== "") balloon.innerHTML = `<div style="white-space: normal; max-width: 250px; text-align: justify;">${descHtml}</div>`;
     else { balloon.style.display = "none"; }
@@ -700,8 +697,7 @@ function renderLocations() {
     areaDataList.forEach(area => {
         const slide = document.createElement('div');
         slide.className = 'location-slide';
-        const rawAreaDesc = (lang === 'pt' ? area.desc_pt : area.desc_en) || '';
-        const desc = rawAreaDesc.replaceAll('\n', '<br>');
+        const desc = lang === 'pt' ? area.desc_pt : area.desc_en;
         slide.innerHTML = `
             <div class="location-region">${area.region}</div>
             <div class="location-desc">${desc}</div>
