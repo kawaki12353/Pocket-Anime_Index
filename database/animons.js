@@ -1055,6 +1055,7 @@ const animons = [
   },
   { id: 83, name: "Taesheegi", type: "Water", sprite: "assets/animons-icon/taesheegi.png", stats: { hp: 54, atk: 75, def: 45, spAtk: 28, spDef: 32, spd: 63 }, areas: ["0008"],
     anime: { name: "Tashigi" },
+    event: "Rain",
     movesList: [
       { level: 1, name: "Bounty Hunt" },
       { level: 1, name: "Sword Slash" },
