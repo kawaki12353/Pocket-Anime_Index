@@ -641,6 +641,7 @@ const animons = [
     desc_pt: "Preciso me alimentar para que minha forma amadureça...",
     desc_en: "I need to feed for my form to mature...",
     anime: { name: "Imperfect Cell" },
+    event: "Highstar",  
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -984,6 +985,7 @@ const animons = [
     desc_pt: "Meu poder está aumentando... transbordando...!",
     desc_en: "My power it's rising... overflowing...!",
     anime: { name: "Broly" },
+    event: "Highstar",
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
