@@ -1,4 +1,12 @@
 const events = {
+  "Highstar": {
+    name: "Highstar Base",
+    chat: "The laboratory has powered on.",
+    desc_pt: "Você pode tentar capturar o [008]Imperfect Warrior Bug[000] usando [012]8 Imperfect Essence[000]! Você pode tentar capturar o [008]Brorok[000] usando [012]8 Warrior Essence[000]!",
+    desc_en: "You can try capturing the [008]Imperfect Warrior Bug[000] using [012]8 Imperfect Essence[000]! You can try capturing the [008]Brorok[000] using [012]8 Warrior Essence[000]!",
+    sprite: "assets/events/highstar.png",
+    animon: ["Imperfect Warrior Bug", "Brorok"],
+  },
   "Full Moon": {
     name: "Full Moon",
     chat: "The Full Moon is Rising...",
