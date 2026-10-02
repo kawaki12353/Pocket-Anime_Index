@@ -788,7 +788,7 @@ const animons = [
       { level: 23, name: "Water Spear" }
     ]
   },
-  { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 },
+  { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 }, areas: ["0016"],
     movesList: [
       { level: 1, name: "Splashing Wave" },
       { level: 1, name: "Sword Slash" }, 
@@ -801,7 +801,7 @@ const animons = [
       ]
   },
   { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 } },
-  { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 },
+  { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 }, areas: ["0016"],
     movesList: [
       { level: 1, name: "Splashing Wave" },
       { level: 1, name: "Mystic Shot" },
