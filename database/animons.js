@@ -418,6 +418,8 @@ const animons = [
     ]  
   },
   { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 }, areas: ["0009"],
+    anime: { name: "Inuyasha" },
+    event: "Rain",
     movesList: [
       { level: 1, name: "Growl" },
       { level: 1, name: "Sinister Presence" },
