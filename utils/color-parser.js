@@ -19,11 +19,6 @@ const COLOR_MAP = {
   "000": "inherit"  // Restaura cor padrão
 };
 
-/**
- * Converte códigos [XXX] em tags <span> com cor inline
- * @param {string} text - O texto original com os códigos [001], [002], etc.
- * @returns {string} HTML formatado com <span>
- */
 function parseColoredText(text) {
   if (!text) return "";
 
