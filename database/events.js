@@ -7,4 +7,11 @@ const events = {
     sprite: "assets/events/shinobi.png",
     animon: ["Ramen"],
   },
+  "Rain": {
+    name: "Rain",
+    chat: "Rain has started in the Forest!",
+    desc_pt: "Aumenta a chance de Spawns raros na Sunburst Forest.",
+    desc_en: "Increases the chance of rare spawns in Sunburst Forest.",
+    sprite: "assets/events/shinobi.png",
+  }
 };
