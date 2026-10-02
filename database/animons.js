@@ -531,7 +531,7 @@ const animons = [
       { level: 21, name: "False Courage" }
     ]
   },
-  { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 },
+  { id: 26, name: "Vegetable", type: "Fighting", sprite: "assets/animons-icon/vegetable.png", stats: { hp: 52, atk: 60, def: 51, spAtk: 82, spDef: 51, spd: 80 }, areas: ["0010", "0011", "0012", "0013", "0014", "0019"],
     anime: { name: "Vegeta" },
     event: "Saiyan",
     movesList: [
