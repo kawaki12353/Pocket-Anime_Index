@@ -620,7 +620,7 @@ const animons = [
       { level: 23, name: "Rifle Shot" }
     ]
   },
-  { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 },
+  { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 }, areas: ["0026"],
     anime: { name: "Oozaru" },
     event: "Full Moon",
       movesList: [
@@ -633,7 +633,7 @@ const animons = [
       { level: 24, name: "Beast Bomb" }
     ]
   },
-  { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 },
+  { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 }, areas: ["0027"],
     traits: [
       { name: "Scaredy Cat", chance: "50%" },
       { name: "Consume", chance: "20%" },
@@ -976,7 +976,7 @@ const animons = [
     ]
   },
   { id: 73, name: "Fedora", type: ["Earth", "Dark"], sprite: "assets/animons-icon/fedora.png", stats: { hp: 65, atk: 56, def: 110, spAtk: 70, spDef: 85, spd: 60 } },
-  { id: 74, name: "Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/brorok.png", stats: { hp: 49, atk: 80, def: 50, spAtk: 70, spDef: 45, spd: 85 },
+  { id: 74, name: "Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/brorok.png", stats: { hp: 49, atk: 80, def: 50, spAtk: 70, spDef: 45, spd: 85 }, areas: ["0027"],
     traits: [
       { name: "Sadist", chance: "50%" },
       { name: "Fearsome", chance: "100%" },
