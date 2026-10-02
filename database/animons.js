@@ -703,7 +703,7 @@ const animons = [
       { level: 24, name: "Guzzle" }
     ]
   }, 
-  { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 }, 
+  { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 }, areas: ["0020"],
     anime: { name: "Gaara" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
