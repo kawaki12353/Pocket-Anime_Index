@@ -1,4 +1,12 @@
 const events = {
+  "Sandstorm": {
+    name: "Sandstorm",
+    chat: "A Sandstorm has started in the Great Plains!",
+    desc_pt: "Aumenta a chance de aparecer o Ganra na Área entre as Cordas, Alligator na Área do Arqueólogo Rance e a Earth Queen na Área da Caveira de Macaco",
+    desc_en: "It increases the chance of [002]Ramen[000] appearing in the Bandit King Patch.",
+    sprite: "assets/events/shinobi.png",
+    animon: ["Ganra", "Alligator", "Earth Queen"],
+  },
   "Shinobi": {
     name: "Shinobi",
     chat: "Shinobi are arriving infront of the Forest of Doom!",
