@@ -1,5 +1,5 @@
 /* =========================================
-   SISTEMA GLOBAL DE TEXTOS FORMATADOS (DISCORD + CORES)
+   SISTEMA GLOBAL DE TEXTOS COLORIDOS E NEGRITO
    ========================================= */
 
 // Mapeamento de códigos [XXX] para cores hexadecimais
@@ -15,10 +15,10 @@ const COLOR_MAP = {
   "009": "#4db8ff", // Azul Claro
   "010": "#703d90", // Roxo
   "011": "#1f56ca", // Azul
-  "000": "inherit"  // Restaura cor padrão
+  "000": "inherit"  // Restaura cor padrão (Fecha a tag)
 };
 
-function parseDiscordBold(text) {
+function parseBoldText(text) {
   if (!text) return "";
   return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 }
@@ -26,40 +26,16 @@ function parseDiscordBold(text) {
 function parseColoredText(text) {
   if (!text) return "";
 
-  let colorOpen = false;
+  // 1. Aplica o negrito estilo Discord (**) primeiro
+  let formatted = parseBoldText(text);
 
-  let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
-    if (code === "000") {
-      if (colorOpen) {
-        colorOpen = false;
-        return "</span>";
-      }
-      return "";
-    }
-
+  // 2. Converte os códigos de cores [XXX] em tags <span>
+  formatted = formatted.replace(/\[(\d{3})\]/g, (match, code) => {
+    if (code === "000") return "</span>";
     const color = COLOR_MAP[code];
-    if (color) {
-      let prefix = colorOpen ? "</span>" : "";
-      colorOpen = true;
-      return `${prefix}<span style="color: ${color};">`;
-    }
-
+    if (color) return `</span><span style="color: ${color}; font-weight: bold;">`;
     return match;
   });
 
-  if (colorOpen) {
-    formatted += "</span>";
-  }
-
-  return formatted;
-}
-
-function parseFormattedText(text) {
-  if (!text) return "";
-  
-  // 1. Aplica o negrito do Discord
-  const boldText = parseDiscordBold(text);
-  
-  // 2. Aplica os códigos de cor
-  return parseColoredText(boldText);
+  return `<span>${formatted}</span>`;
 }
