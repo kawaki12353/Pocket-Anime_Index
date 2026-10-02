@@ -592,10 +592,6 @@ body {
     .event-modal-overlay {
         transition: none !important;
     }
-    .event-modal-overlay:not(.active) {
-        display: none !important;
-        opacity: 0 !important;
-    }
     .event-banner-btn {
         max-width: 450px;
     }
@@ -609,11 +605,6 @@ body {
         visibility: hidden;
         transition: none !important;
         border: 1px solid #FE01FA;
-    }
-    .event-modal-content:not(.open) {
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
     }
     .event-modal-content.open {
         opacity: 1;
