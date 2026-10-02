@@ -3,7 +3,7 @@ const events = {
     name: "Sandstorm",
     chat: "A Sandstorm has started in the Great Plains!",
     desc_pt: "Aumenta a chance de aparecer o Ganra na Área entre as Cordas, Alligator na Área do Arqueólogo Rance e a Earth Queen na Área da Caveira de Macaco.",
-    desc_en: "It increases the chance of Ganra appearing in the Patch Between the Ropes, Alligator in the Archaeologist Rance Patch, and the Earth Queen in the Monkey Skull Patch.",
+    desc_en: "It increases the chance of [007]Ganra[000] appearing in the Patch Between the Ropes, [002]Alligator[000] in the Archaeologist Rance Patch, and the [007]Earth Queen[000] in the Monkey Skull Patch.",
     sprite: "assets/events/sandstorm.png",
     animon: ["Ganra", "Alligator", "Earth Queen"],
   },
