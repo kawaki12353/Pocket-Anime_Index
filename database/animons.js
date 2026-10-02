@@ -393,7 +393,8 @@ const animons = [
       { level: 23, name: "Savage Fang" }
     ]  
   },
-  { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 },
+  { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 }, areas: ["0027"],
+    anime: { name: "Piccolo" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Limb Regrowth" },
@@ -406,6 +407,7 @@ const animons = [
     ]  
   },
   { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 },
+    anime: { name: "Piccolo" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Limb Regrowth" },
@@ -471,7 +473,8 @@ const animons = [
       { level: 22, name: "Cleave" }
     ]
   },
-  { id: 20, name: "Wuno", type: "Wind", sprite: "assets/animons-icon/wuno.png", stats: { hp: 50, atk: 37, def: 47, spAtk: 80, spDef: 65, spd: 75 },
+  { id: 20, name: "Wuno", type: "Wind", sprite: "assets/animons-icon/wuno.png", stats: { hp: 50, atk: 37, def: 47, spAtk: 80, spDef: 65, spd: 75 }, areas: ["0023"],
+    anime: { name: "Yuno" },
     movesList: [
       { level: 1, name: "Energy Shell" },
       { level: 1, name: "Mystic Shot" },
@@ -495,7 +498,7 @@ const animons = [
       { level: 21, name: "Wide Explosion" }
     ]
   },
-  { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 },
+  { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 }, areas: ["0019", "0020"],
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -508,8 +511,10 @@ const animons = [
       { level: 22, name: "Impale" }
     ]
   },
-  { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 },
-     movesList: [
+  { id: 24, name: "Monkey Warrior", type: "Fighting", sprite: "assets/animons-icon/monkey_warrior.png", stats: { hp: 70, atk: 75, def: 52, spAtk: 75, spDef: 46, spd: 80 }, areas: ["0010", "0011", "0012", "0013", "0014", "0019"],
+    anime: { name: "Saiyan Warrior" },
+    event: "Saiyan",
+    movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
       { level: 5, name: "Energy Barrage" },
@@ -747,7 +752,7 @@ const animons = [
       { level: 24, name: "Cut Down" }
     ]
   },
-  { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 },
+  { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 }, areas: ["0027"],
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" }, 
@@ -759,7 +764,7 @@ const animons = [
       { level: 24, name: "Wind Scythe" }
       ]
     },
-  { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 },
+  { id: 40, name: "Fishman", type: "Water", sprite: "assets/animons-icon/fishman.png", stats: { hp: 45, atk: 60, def: 39, spAtk: 40, spDef: 35, spd: 50 }, areas: ["0016"],
     movesList: [
       { level: 1, name: "Plunder" },
       { level: 1, name: "Punch" }, 
@@ -771,7 +776,7 @@ const animons = [
       { level: 24, name: "Mega Punch" }
       ]
     },
-  { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 },
+  { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 }, areas: ["0016"],
     anime: { name: "Jinbe" },
     movesList: [
       { level: 1, name: "False Courage" },
@@ -796,6 +801,7 @@ const animons = [
     ]
   },
   { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 }, areas: ["0016"],
+    anime: { name: "Kisame Hoshigaki" },
     movesList: [
       { level: 1, name: "Splashing Wave" },
       { level: 1, name: "Sword Slash" }, 
@@ -807,7 +813,9 @@ const animons = [
       { level: 24, name: "Cleave" }
       ]
   },
-  { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 } },
+  { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 },
+    anime: { name: "Kisame Hoshigaki" },
+  },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 }, areas: ["0016"],
     movesList: [
       { level: 1, name: "Splashing Wave" },
@@ -858,7 +866,7 @@ const animons = [
       { level: 22, name: "Lightning Strike" }
     ]
   },
-  { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 },
+  { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 }, areas: ["0016"],
     movesList: [
       { level: 1, name: "Mystic Shot" },
       { level: 1, name: "Water Veil" },
@@ -867,7 +875,7 @@ const animons = [
       { level: 17, name: "Water Lock" }
    ]
   },
-  { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 },
+  { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 }, areas: ["0027"],
     anime: { name: "Gray Fullbuster" },
     movesList: [
       { level: 1, name: "Cold Snap" },
@@ -938,7 +946,8 @@ const animons = [
       { level: 32, name: "Afterimage" }
     ]
   },
-  { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 },
+  { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 }, areas: ["0026"],
+    anime: { name: "Diane" },
     movesList: [
       { level: 1, name: "Axe Attack" },
       { level: 1, name: "Earth Wall" },
@@ -1019,7 +1028,9 @@ const animons = [
   },
   { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 } },
   { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
-  { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 },
+  { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 }, areas: ["0010", "0011", "0012", "0013", "0014", "0019"],
+    anime: { name: "Nappa" },
+    event: "Saiyan",
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Punch" },
@@ -1033,6 +1044,7 @@ const animons = [
     ]
   },
   { id: 79.01, name: "Super Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/super_bald_warrior.png", stats: { hp: 72, atk: 95, def: 62, spAtk: 78, spDef: 47, spd: 81 },
+    anime: { name: "Nappa" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
       { level: 1, name: "Punch" },
