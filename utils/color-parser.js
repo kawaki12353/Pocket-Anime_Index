@@ -1,5 +1,5 @@
 /* =========================================
-   SISTEMA GLOBAL DE TEXTOS COLORIDOS E NEGRITO
+   SISTEMA GLOBAL DE TEXTOS COLORIDOS
    ========================================= */
 
 // Mapeamento de códigos [XXX] para cores hexadecimais
@@ -18,19 +18,15 @@ const COLOR_MAP = {
   "000": "inherit"  // Restaura cor padrão (Fecha a tag)
 };
 
-function parseBoldText(text) {
-  if (!text) return "";
-  return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-}
-
+/**
+ * Converte códigos [XXX] em tags <span> com cor inline
+ * @param {string} text - O texto original com os códigos [001], [002], etc.
+ * @returns {string} HTML formatado com <span>
+ */
 function parseColoredText(text) {
   if (!text) return "";
 
-  // 1. Aplica o negrito estilo Discord (**) primeiro
-  let formatted = parseBoldText(text);
-
-  // 2. Converte os códigos de cores [XXX] em tags <span>
-  formatted = formatted.replace(/\[(\d{3})\]/g, (match, code) => {
+  let formatted = text.replace(/\[(\d{3})\]/g, (match, code) => {
     if (code === "000") return "</span>";
     const color = COLOR_MAP[code];
     if (color) return `</span><span style="color: ${color}; font-weight: bold;">`;
