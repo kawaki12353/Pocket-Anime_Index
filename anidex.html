@@ -87,7 +87,7 @@
             font-family: 'Isometra', sans-serif;
             position: relative;
             width: 80%;
-            background-color: #1B2A44;
+            background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
             color: #ffffff;
             flex: 1;
             text-align: center;
@@ -102,8 +102,11 @@
             justify-content: center;
             min-height: 36px;
 
-/* --- Borda Fina e Efeito Fluorescente --- */
-            border: 1.5px solid #122F5E;
+            /* --- Borda Fina Superior/Inferior e Efeito Fluorescente --- */
+            border-top: 1.5px solid #122F5E;
+            border-bottom: 1.5px solid #122F5E;
+            border-left: none;
+            border-right: none;
             box-shadow: 0 0 8px #122F5E, inset 0 0 4px #122F5E;
         }
 
@@ -469,14 +472,13 @@ function render() {
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
             const idMatch = ani.id.toString().includes(searchVal);
 
-            // Nova lógica para pesquisar no objeto anime (nome do personagem e nome do anime)
+            // Pesquisar no objeto anime (apenas pelo nome do personagem)
             const animeCharMatch = ani.anime && ani.anime.name.toLowerCase().includes(searchVal);
-            const animeNameMatch = ani.anime && ani.anime.anime.toLowerCase().includes(searchVal);
 
             const types = Array.isArray(ani.type) ? ani.type.map(t => t.toLowerCase()) : [ani.type.toLowerCase()];
             const elementMatch = !selectedElement || types.includes(selectedElement.toLowerCase());
 
-            return (nameMatch || idMatch || animeCharMatch || animeNameMatch) && elementMatch;
+            return (nameMatch || idMatch || animeCharMatch) && elementMatch;
         })
         .sort((a, b) => {
             let valA, valB;
