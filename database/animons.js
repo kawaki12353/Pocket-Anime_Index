@@ -485,7 +485,8 @@ const animons = [
     ]
   },
   { id: 21, name: "Laxon", type: "Lightning", sprite: "assets/animons-icon/laxon.png", stats: { hp: 64, atk: 70, def: 45, spAtk: 74, spDef: 54, spd: 74 } },
-  { id: 22, name: "Rie", type: ["Fire", "Psychic"], sprite: "assets/animons-icon/rie.png", stats: { hp: 54, atk: 25, def: 38, spAtk: 100, spDef: 40, spd: 60 },
+  { id: 22, name: "Rie", type: ["Fire", "Psychic"], sprite: "assets/animons-icon/rie.png", stats: { hp: 54, atk: 25, def: 38, spAtk: 100, spDef: 40, spd: 60 }, areas: ["0025"],
+    anime: { name: "Megumin" },
     movesList: [
       { level: 1, name: "Energy Shell" },
       { level: 1, name: "Mystic Shot" },
@@ -818,6 +819,7 @@ const animons = [
     anime: { name: "Kisame Hoshigaki" },
   },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 }, areas: ["0016"],
+    anime: { name: "Aqua" },
     movesList: [
       { level: 1, name: "Splashing Wave" },
       { level: 1, name: "Mystic Shot" },
@@ -828,7 +830,7 @@ const animons = [
       { level: 21, name: "Torrent Crash" }
     ]
   },
-  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 },
+  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 }, areas: ["0015"],
     movesList: [
       { level: 1, name: "Bount Hunt" },
       { level: 1, name: "Punch" }, 
@@ -843,7 +845,8 @@ const animons = [
   },
   { id: 47, name: "Hired Assassin", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/hired_assassin.png", stats: { hp: 50, atk: 65, def: 50, spAtk: 63, spDef: 43, spd: 80 } },
   { id: 48, name: "Hired Spy", type: "Dark", sprite: "assets/animons-icon/hired_spy.png", stats: { hp: 50, atk: 52, def: 53, spAtk: 60, spDef: 51, spd: 74 } },
-  { id: 49, name: "Little Cow", type: "Lightning", sprite: "assets/animons-icon/little_cow.png", stats: { hp: 40, atk: 35, def: 30, spAtk: 60, spDef: 35, spd: 50 },
+  { id: 49, name: "Little Cow", type: "Lightning", sprite: "assets/animons-icon/little_cow.png", stats: { hp: 40, atk: 35, def: 30, spAtk: 60, spDef: 35, spd: 50 }, areas: ["0010", "0011"],
+    anime: { name: "Lambo" },
     movesList: [
       { level: 1, name: "Junk Toss" }, 
       { level: 1, name: "Taunt" },
@@ -855,7 +858,8 @@ const animons = [
       { level: 22, name: "Lightning Strike" }
     ]
   },
-  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 },
+  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 }, areas: ["0010", "0011"],
+    anime: { name: "Lambo" },
     movesList: [
       { level: 1, name: "Junk Toss" }, 
       { level: 1, name: "Taunt" },
@@ -868,6 +872,7 @@ const animons = [
     ]
   },
   { id: 50, name: "Water Mage", type: "Water", sprite: "assets/animons-icon/water_mage.png", stats: { hp: 52, atk: 49, def: 40, spAtk: 70, spDef: 60, spd: 50 }, areas: ["0016"],
+    anime: { name: "Juvia Lockser" },
     movesList: [
       { level: 1, name: "Mystic Shot" },
       { level: 1, name: "Water Veil" },
@@ -898,7 +903,8 @@ const animons = [
       { level: 20, name: "Glacial Blade" }
     ]
   },
-  { id: 53, name: "Gokidaru", type: "Fire", sprite: "assets/animons-icon/gokidaru.png", stats: { hp: 60, atk: 65, def: 40, spAtk: 53, spDef: 44, spd: 60 },
+  { id: 53, name: "Gokidaru", type: "Fire", sprite: "assets/animons-icon/gokidaru.png", stats: { hp: 60, atk: 65, def: 40, spAtk: 53, spDef: 44, spd: 60 }, areas: ["0014", "0023"],
+    anime: { name: "Hayato Gokudera" },
     movesList: [
       { level: 1, name: "Punch" },
       { level: 5, name: "Smoke Screen" },
@@ -910,6 +916,7 @@ const animons = [
     ]
   },
   { id: 53.01, name: "Storm Gokidaru", type: ["Fire", "Wind"], sprite: "assets/animons-icon/storm_gokidaru.png", stats: { hp: 66, atk: 79, def: 46, spAtk: 77, spDef: 45, spd: 63 },
+    anime: { name: "Hayato Gokudera" },
     movesList: [
       { level: 1, name: "Punch" },
       { level: 1, name: "Taunt" },
