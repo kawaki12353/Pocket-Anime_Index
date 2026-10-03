@@ -46,6 +46,15 @@
             }
         }
 
+        /* --- Estilo dos Emojis de Elemento --- */
+        .element-emoji {
+            height: 1.2em;
+            width: auto;
+            vertical-align: middle;
+            margin: 0 4px;
+            transform: translateY(-10%);
+        }
+
         /* --- Geral --- */
         body {
             font-family: Arial, sans-serif;
@@ -271,15 +280,6 @@
             cursor: pointer; font-weight: bold;
         }
 
-        /* --- Estilo dos Emojis de Elemento --- */
-        .element-emoji {
-            height: 1.2em;
-            width: auto;
-            vertical-align: middle;
-            margin: 0 4px;
-            transform: translateY(-10%);
-        }
-
         /* --- Responsividade --- */
         @media (max-width: 768px) {
             .header-top { justify-content: flex-end; }
@@ -353,6 +353,7 @@
 </div>
 
 <script src="database/items-data.js"></script>
+<script src="utils/element_emojis.js"></script>
 
 <script>
 let lang = localStorage.getItem("siteLang") || "pt";
@@ -569,8 +570,6 @@ document.getElementById("searchInput").addEventListener("input", render);
 
 updateLang();
 </script>
-
-<script src="utils/element_emojis.js"></script>
 
 </body>
 </html>
