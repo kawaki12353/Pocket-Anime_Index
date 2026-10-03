@@ -189,7 +189,7 @@ const animons = [
       { level: 20, name: "Coated Blade" }
     ]
   },
-  { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 },
+  { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 }, areas: ["0011"],
     movesList: [
       { level: 1, name: "Cut Down"}, 
       { level: 1, name: "Plunder" },
