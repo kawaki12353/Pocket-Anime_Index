@@ -26,35 +26,27 @@ body {
 
 /* HEADER */
 .header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 800px;
-  margin: 0 auto 30px;
-  gap: 12px;
-}
-
-.header-top {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 /* LOGO */
 .logo {
-  width: 260px;
+  width: 220px;
+  max-width: 60vw;
 }
 
 /* CALCULATOR TITLE */
-.map-title {
+.calc-title {
   font-family: 'Isometra', sans-serif;
   position: relative;
   width: 80%;
-  background-color: #202123;
+  max-width: 800px;
+  margin: 15px auto 12px;
+  background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
   color: #ffffff;
-  flex: 1;
   text-align: center;
-  margin-bottom: 12px;
   font-size: 20px;
   font-weight: bold;
   padding: 8px 40px;
@@ -64,24 +56,30 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 36px;
-
-  /* --- Borda Fina e Efeito Fluorescente --- */
-  border: 1.5px solid #606268;
-  box-shadow: 0 0 8px #606268, inset 0 0 4px #606268;
 }
 
 /* MOBILE LAYOUT */
 @media (max-width: 768px) {
-  .header-top { 
-    justify-content: flex-end; 
+  .header {
+    display: block;
+  }
+
+  /* Logo no canto direito */
+  .header-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
   }
 
   .logo {
     width: 150px;
   }
 
-  .header { 
-    max-width: 100%; 
+  /* Título centralizado */
+  .calc-title {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
   }
 }
 
@@ -275,10 +273,12 @@ body {
 <body>
 
 <div class="header">
+
   <div class="header-top">
     <img src="assets/Pocket-Anime-logo.png" class="logo">
   </div>
-  <h2 class="map-title" id="title"></h2>
+
+  <h1 id="title" class="calc-title"></h1>
 </div>
 
 <div class="selectors">
