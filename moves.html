@@ -548,7 +548,7 @@ function renderMiniMove(moveName) {
     const moveData = Object.values(moves).find(m => m.name === moveName);
     if (!moveData) return `<div class="mini-move-container">?</div>`;
 
-    const typeImg = `assets/${moveData.type.toLowerCase()}_element.png`;
+    const typeImg = `assets/elements/${moveData.type.toLowerCase()}_element.png`;
     const catImg = `assets/${moveData.attack.toLowerCase()}.png`;
 
     return `
@@ -669,7 +669,7 @@ function buildMenus() {
     tList.innerHTML = `<li onclick="selectType('')">${texts[lang].allTypes}</li>`;
     typeKeys.forEach(t => {
         const li = document.createElement("li");
-        li.innerHTML = `<img src="assets/${t}_element.png" width="20"> ${capitalize(t)}`;
+        li.innerHTML = `<img src="assets/elements/${t}_element.png" width="20"> ${capitalize(t)}`;
         li.onclick = () => selectType(t);
         tList.appendChild(li);
     });
@@ -703,7 +703,7 @@ function updateFilterButtonsDisplay() {
     const cBtn = document.getElementById("catBtn");
 
     if (selectedType) {
-        tBtn.innerHTML = `<span><img src="assets/${selectedType}_element.png" width="18"> ${capitalize(selectedType)}</span> <span>▼</span>`;
+        tBtn.innerHTML = `<span><img src="assets/elements/${selectedType}_element.png" width="18"> ${capitalize(selectedType)}</span> <span>▼</span>`;
     } else {
         tBtn.innerHTML = `<span>${texts[lang].allTypes}</span> <span>▼</span>`;
     }
