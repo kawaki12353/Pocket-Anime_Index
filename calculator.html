@@ -323,7 +323,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
   <div class="select-btn">
     ${
       selectedValue
-        ? `<img src="assets/${icons[selectedValue]}"><span>${selectedValue}</span>`
+        ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
         : `<span>${label}</span>`
     }
   </div>
@@ -336,7 +336,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
   elements.forEach(e=>{
     options.innerHTML+=`
       <div class="option" data-value="${e}">
-        <img src="assets/${icons[e]}"><span>${e}</span>
+        <img src="assets/elements/${icons[e]}"><span>${e}</span>
       </div>`;
   });
   options.querySelectorAll('.option').forEach(opt=>{
@@ -344,7 +344,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
     const val=opt.dataset.value;
 
     btn.innerHTML = val
-      ? `<img src="assets/${icons[val]}"><span>${val}</span>`
+      ? `<img src="assets/elements/${icons[val]}"><span>${val}</span>`
       : `<span>${label}</span>`;
 
     options.classList.remove('open');
@@ -386,7 +386,7 @@ function render(damage){
     map[k].forEach(e=>{
       box.innerHTML+=`
         <div class="badge ${k}">
-          <img src="assets/${icons[e]}"><span>${e}</span>
+          <img src="assets/elements/${icons[e]}"><span>${e}</span>
         </div>`;
     });
     sec.appendChild(box);
