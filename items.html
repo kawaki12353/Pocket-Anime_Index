@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pocket Anime - Items</title>
 
+    <!-- Importação da Fonte Isometra via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Isometra&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="menu.css">
     <script src="menu.js" defer></script>
 
@@ -76,13 +81,28 @@
 
         .logo { width: 260px; }
 
-        .page-title {
+        .map-title {
+            font-family: 'Isometra', sans-serif;
+            position: relative;
+            width: 80%;
+            background-color: #202123;
+            color: #ffffff;
             flex: 1;
             text-align: center;
             margin-bottom: 12px;
             font-size: 20px;
             font-weight: bold;
-            margin-top: 0;
+            padding: 8px 40px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+
+            /* --- Borda Fina e Efeito Fluorescente --- */
+            border: 1.5px solid #606268;
+            box-shadow: 0 0 8px #606268, inset 0 0 4px #606268;
         }
 
         /* --- Filtros --- */
@@ -276,7 +296,7 @@
     <div class="header-top">
         <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
     </div>
-    <h2 id="title" class="page-title"></h2>
+    <h2 class="map-title" id="title"></h2>
 </header>
 
 <main>
