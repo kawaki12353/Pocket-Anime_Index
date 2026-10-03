@@ -38,7 +38,7 @@ const items=[
  icon:"aqua_gem.png"
 },
 {rarity:"raro",
- pt:{name:"Battle Claw",desc:"Uma garra poderosa, afiada e resistente, simbolizando força bruta e proeza em combate.",drop:"Derrotando Animons do tipo [fighting]Fighting.",cat:"evolution"},
+ pt:{name:"Battle Claw",desc:"Uma garra poderosa, afiada e resistente, simbolizando força bruta e proeza em combate.",drop:"Derrotando Animons do tipo [fighting] Fighting.",cat:"evolution"},
  en:{name:"Battle Claw",desc:"A powerful claw, sharp and tough, symbolizing raw strength and combat prowess.",drop:"Defeating Fighting-type Animons.",cat:"evolution"},
  icon:"battle_claw.png"
 },
