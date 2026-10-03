@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="menu.css">
     <script src="menu.js" defer></script>
+    <script src="utils/color-parser.js"></script>
 
     <style>
         /* --- Variáveis e Temas --- */
@@ -240,7 +241,7 @@
 
         .modal h2 { text-align: center; margin-top: 0; }
         .section { margin-bottom: 15px; }
-        .section-title { font-weight: bold; margin-bottom: 4px; color: var(--text-secondary); }
+        .section-title { font-weight: bold; margin-bottom: 4px; color: #555; }
         .section-title::after {
             content: "";
             display: block;
@@ -428,13 +429,13 @@ function openModal(item) {
 
     modal.className = `modal ${item.rarity}`;
     document.getElementById("mName").textContent = data.name;
-    document.getElementById("mDesc").textContent = data.desc;
-    document.getElementById("mDrop").textContent = data.drop;
+    document.getElementById("mDesc").innerHTML = parseColoredText(data.desc);
+    document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
     document.getElementById("mCat").textContent = categoryLabels[lang][item.pt.cat];
 
     const noteSec = document.getElementById("noteSection");
     if (data.note) {
-        document.getElementById("mNote").textContent = data.note;
+        document.getElementById("mNote").innerHTML = parseColoredText(data.note);
         noteSec.style.display = "block";
     } else {
         noteSec.style.display = "none";
