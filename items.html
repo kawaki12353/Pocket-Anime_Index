@@ -1,563 +1,442 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pocket Anime - Items</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Importação da Fonte Isometra via Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Isometra&display=swap" rel="stylesheet">
+<!-- Importação da Fonte Isometra via Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Isometra&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="menu.css">
-    <script src="menu.js" defer></script>
+<link rel="stylesheet" href="menu.css">
+<script src="menu.js" defer></script>
+<script src="database/typechart.js"></script>
 
-    <style>
-        /* --- Variáveis e Temas --- */
-        :root {
-            --bg: #f2f4f7;
-            --card: #ffffff;
-            --text: #111;
-            --border: #ccc;
-            --hover: #f1f1f1;
-            --lang-btn: #ffffff;
-            --lang-btn-bg: #444;
-            --accent-blue: #007bff;
+<title>Pocket Anime - Type Calculator</title>
 
-            /* Cores de Raridade */
-            --color-comum: #9e9e9e;
-            --color-incomum: #2e7d32;
-            --color-raro: #0d47a1;
-            --color-epico: #6a1b9a;
-            --color-lendario: #f9a825;
-            --color-default: #2b2b2b;
-        }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 20px;
+  margin: 0;
+}
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #0f1217;
-                --card: #181c24;
-                --text: #ffffff;
-                --border: #2a2f3a;
-                --hover: #232836;
-                --lang-btn: #111;
-                --lang-btn-bg: #ffffff;
-            }
-        }
+/* HEADER */
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-        /* --- Geral --- */
-        body {
-            font-family: Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            padding: 20px;
-            margin: 0;
-            line-height: 1.5;
-        }
+/* LOGO */
+.logo {
+  width: 220px;
+  max-width: 60vw;
+}
 
-        .category-icon { 
-            width: 18px; 
-            height: 18px; 
-            flex-shrink: 0; 
-            display: block;
-        }
+/* CALCULATOR TITLE */
+.calc-title {
+  font-family: 'Isometra', sans-serif;
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  margin: 15px auto 12px;
+  background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
+  color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 8px 40px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+}
 
-        /* --- HEADER (IGUAL AO ANIDEX) --- */
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            gap: 12px;
-        }
+/* MOBILE LAYOUT */
+@media (max-width: 768px) {
+  .header {
+    display: block;
+  }
 
-        .header-top {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+  /* Logo no canto direito */
+  .header-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
 
-        .logo { width: 260px; }
+  .logo {
+    width: 150px;
+  }
 
-        .page-title {
-            font-family: 'Isometra', sans-serif;
-            position: relative;
-            width: 80%;
-            background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
-            color: #ffffff;
-            flex: 1;
-            text-align: center;
-            margin-bottom: 12px;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 8px 40px;
-            box-sizing: border-box;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 36px;
-            margin-top: 0;
-        }
+  /* Título centralizado */
+  .calc-title {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+}
 
-        /* --- Filtros --- */
-        .filters {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 25px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .filters input, .select-btn {
-            padding: 10px 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            background: var(--card);
-            color: var(--text);
-            border: 1px solid var(--border);
-            outline: none;
-        }
+/* SELECTORS */
+.selectors {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  /* Limita a largura para alinhar com os resultados */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-        /* --- Selects Customizados --- */
-        .custom-select {
-            position: relative;
-            width: 100%;
-            max-width: 200px;
-        }
+/* CUSTOM SELECT */
+.custom-select {
+  position: relative;
+  width: 220px;
+}
 
-        .select-btn {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            cursor: pointer;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
+.select-btn {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
 
-        .select-btn > span:first-child {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 1;
-        }
+.select-btn img {
+  width: 26px;
+  height: 26px;
+}
 
-        .select-list {
-            display: none;
-            position: absolute;
-            top: 105%;
-            left: 0;
-            width: 100%;
-            background: var(--card);
-            border-radius: 12px;
-            list-style: none;
-            padding: 6px;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            box-sizing: border-box;
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-        }
-        .select-list li {
-            padding: 10px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-            margin-bottom: 2px;
-            border-left: 4px solid transparent; 
-        }
-        .select-list li:hover { background: var(--hover); }
+.select-btn span {
+  font-weight: bold;
+}
 
-        /* --- Lista de Itens --- */
-        .item-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 280px); 
-            gap: 15px;
-            justify-content: center; 
-        }
-        .item {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: transform 0.15s, box-shadow 0.15s;
-        }
-        .item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        }
-        .item img { width: 48px; height: 48px; object-fit: contain; }
+.select-btn::after {
+  content: "▼";
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text);
+}
 
-        /* --- Classes de Raridade --- */
-        .comum, .r-comum { border-color: var(--color-comum) !important; }
-        .incomum, .r-incomum { border-color: var(--color-incomum) !important; }
-        .raro, .r-raro { border-color: var(--color-raro) !important; }
-        .epico, .r-epico { border-color: var(--color-epico) !important; }
-        .lendario, .r-lendario { border-color: var(--color-lendario) !important; }
+/* DROPDOWN */
+.select-options {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  max-height: 260px;
+  overflow-y: auto;
+  display: none;
+  z-index: 10;
+}
 
-        .select-list li[class^="r-"], .select-list li[class*=" r-"] {
-            border-left-width: 6px !important;
-        }
+.select-options.open {
+  display: block;
+}
 
-        /* --- MODAL (SISTEMA MOVES.HTML) --- */
-        .modal-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 1000;
-            display: flex; justify-content: center; align-items: flex-end;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease;
-        }
-        .modal {
-            background: var(--card); width: 100%; height: 65%;
-            border-radius: 20px 20px 0 0; padding: 25px;
-            box-sizing: border-box; position: relative;
-            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex; flex-direction: column; gap: 20px;
-            overflow-y: auto;
-            border-top: 4px solid; /* Mantém indicação de raridade no mobile no topo */
-        }
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
 
-        /* Ativação do Modal */
-        .modal-bg.active { opacity: 1; visibility: visible; }
-        .modal-bg.active .modal { transform: translateY(0); }
+.option img {
+  width: 26px;
+  height: 26px;
+}
 
-        .modal h2 { text-align: center; margin-top: 0; }
-        .section { margin-bottom: 15px; }
-        .section-title { font-weight: bold; margin-bottom: 4px; color: var(--text-secondary); }
-        .section-title::after {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 1px;
-            background: var(--border);
-            margin-top: 2px;
-        }
+.option:hover {
+  background: var(--hover);
+}
 
-        @media (min-width: 769px) {
-            .modal-bg { align-items: center; }
-            .modal {
-                width: 90%; max-width: 460px; height: auto; max-height: 80vh; 
-                border-radius: 14px; border: 4px solid;
-                transform: translateY(20px); opacity: 0; transition: all 0.3s;
-            }
-            .modal-bg.active .modal { transform: translateY(0); opacity: 1; }
-        }
+/* SEÇÕES */
+.section {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  color: var(--text);
+  /* Impede que o container de cada categoria estique na tela toda do PC */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-        /* --- Toggle Linguagem --- */
-        .lang-toggle {
-            position: fixed; bottom: 10px; left: 50%;
-            transform: translateX(-50%); z-index: 10;
-        }
-        .lang-toggle button {
-            background: var(--lang-btn-bg); color: var(--lang-btn);
-            padding: 8px 14px; border-radius: 20px; border: none;
-            cursor: pointer; font-weight: bold;
-        }
+.section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
-        /* --- Responsividade --- */
-        @media (max-width: 768px) {
-            .header-top { justify-content: flex-end; }
-            .logo { width: 150px; }
-            .item-list, .filters, .header { max-width: 100%; }
+/* GRID */
+.badges {
+  display: grid;
+  /* Define um tamanho fixo para os itens de tipo (105px) e centraliza */
+  grid-template-columns: repeat(auto-fill, 105px);
+  gap: 10px;
+  justify-content: center;
+}
 
-            #categorySelect { max-width: 52%; }
-            #raritySelect { max-width: 44%; }
+/* BADGE */
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-            #searchInput { width: 100%; }
-            .item-list { grid-template-columns: 1fr; } 
-        }
-    </style>
+.badge img {
+  width: 36px;
+  height: 36px;
+}
+
+/* CORES */
+.x4   { background: #b71c1c; }
+.x2   { background: #d32f2f; }
+.x1   { background: #9e9e9e; }
+.x05  { background: #388e3c; }
+.x025 { background: #1b5e20; }
+.x0   { background: #6a1b9a; }
+
+/* LANG BUTTON */
+.lang-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.lang-toggle button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+
+  background: var(--lang-btn-bg);
+  color: var(--lang-btn);
+}
+
+/* Modo claro */
+:root{
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #111;
+  --border: #ccc;
+  --hover: #f1f1f1;
+
+  --lang-btn: #ffffff;
+  --lang-btn-bg: #444;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f1217;
+    --card: #181c24;
+    --text: #ffffff;
+    --border: #2a2f3a;
+    --hover: #232836;
+
+    --lang-btn: #111;
+    --lang-btn-bg: #ffffff;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<header class="header">
-    <div class="header-top">
-        <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
-    </div>
-    <h2 id="title" class="page-title"></h2>
-</header>
+<div class="header">
 
-<main>
-    <div class="filters">
-        <input id="searchInput" type="text">
+  <div class="header-top">
+    <img src="assets/Pocket-Anime-logo.png" class="logo">
+  </div>
 
-        <div class="custom-select" id="categorySelect">
-            <div class="select-btn" id="categoryBtn"></div>
-            <ul class="select-list" id="categoryList"></ul>
-        </div>
-
-        <div class="custom-select" id="raritySelect">
-            <div class="select-btn" id="rarityBtn"></div>
-            <ul class="select-list" id="rarityList"></ul>
-        </div>
-    </div>
-
-    <div class="item-list" id="itemList"></div>
-</main>
-
-<div class="modal-bg" id="modalBg" onclick="closeModal()">
-    <div class="modal" id="modal" onclick="event.stopPropagation()">
-        <h2 id="mName"></h2>
-
-        <div class="section">
-            <div class="section-title" id="lblDesc"></div>
-            <div id="mDesc"></div>
-        </div>
-
-        <div class="section" id="noteSection">
-            <div class="section-title" id="lblNote"></div>
-            <div id="mNote"></div>
-        </div>
-
-        <div class="section">
-            <div class="section-title" id="lblDrop"></div>
-            <div id="mDrop"></div>
-        </div>
-
-        <div class="section">
-            <div class="section-title" id="lblCat"></div>
-            <div id="mCat"></div>
-        </div>
-    </div>
+  <h1 id="title" class="calc-title"></h1>
 </div>
+
+<div class="selectors">
+  <div class="custom-select" id="primarySelect"></div>
+  <div class="custom-select" id="secondarySelect"></div>
+</div>
+
+<div id="results"></div>
 
 <div class="lang-toggle">
-    <button id="langBtn"></button>
+  <button id="langBtn"></button>
 </div>
 
-<script src="database/items-data.js"></script>
-
 <script>
-let lang = localStorage.getItem("siteLang") || "pt";
-let selectedCategory = "";
-let selectedRarity = "";
+const elements = [
+  'Neutral','Fighting','Fire','Water','Nature','Earth','Wind','Ice',
+  'Lightning','Soul','Psychic','Poison','Light','Dark','Demon','Beast'
+];
 
-const rarityOrder = { comum: 1, incomum: 2, raro: 3, epico: 4, lendario: 5 };
+const icons = {
+  Neutral:'neutral_element.png', Fire:'fire_element.png', Water:'water_element.png',
+  Nature:'nature_element.png', Earth:'earth_element.png', Wind:'wind_element.png',
+  Ice:'ice_element.png', Lightning:'lightning_element.png', Soul:'soul_element.png',
+  Psychic:'psychic_element.png', Demon:'demon_element.png', Poison:'poison_element.png',
+  Fighting:'fighting_element.png', Light:'light_element.png', Dark:'dark_element.png',
+  Beast:'beast_element.png'
+};
 
 const texts = {
-    pt: {
-        title: "Lista de Itens", search: "Pesquisar item...",
-        allCat: "Todas as categorias", allRare: "Todas raridades",
-        desc: "Descrição", note: "Nota", drop: "Onde Obter", cat: "Categoria", langBtn: "🇧🇷 PT"
-    },
-    en: {
-        title: "Item List", search: "Search item...",
-        allCat: "All categories", allRare: "All rarities",
-        desc: "Description", note: "Note", drop: "How to obtain", cat: "Category", langBtn: "🇺🇸 EN"
+  pt:{title:'Fraquezas e Resistências',primary:'Primário',secondary:'Secundário',btn:'🇧🇷 PT',
+  groups:{x4:'Fraqueza Extrema (x4)',x2:'Fraqueza (x2)',x1:'Dano Normal (x1)',x05:'Resistência (x0.5)',x025:'Super Resistência (x0.25)',x0:'Imune (x0)'}},
+  en:{title:'Weakness & Resistance',primary:'Primary',secondary:'Secondary',btn:'🇺🇸 EN',
+  groups:{x4:'Extreme Weakness (x4)',x2:'Weakness (x2)',x1:'Normal Damage (x1)',x05:'Resistance (x0.5)',x025:'Strong Resistance (x0.25)',x0:'Immune (x0)'}}
+};
+
+let lang = localStorage.getItem("siteLang") || "pt";
+let primaryValue='', secondaryValue='';
+
+function createSelect(containerId, label, selectedValue, onSelect){
+  const container=document.getElementById(containerId);
+  container.innerHTML=`
+  <div class="select-btn">
+    ${
+      selectedValue
+        ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
+        : `<span>${label}</span>`
     }
-};
+  </div>
+  <div class="select-options"></div>
+`;
+  const btn=container.querySelector('.select-btn');
+  const options=container.querySelector('.select-options');
+  btn.onclick=()=>options.classList.toggle('open');
+  options.innerHTML=`<div class="option" data-value=""><span>${label}</span></div>`;
+  elements.forEach(e=>{
+    options.innerHTML+=`
+      <div class="option" data-value="${e}">
+        <img src="assets/elements/${icons[e]}"><span>${e}</span>
+      </div>`;
+  });
+  options.querySelectorAll('.option').forEach(opt=>{
+  opt.onclick=()=>{
+    const val=opt.dataset.value;
 
-const categoryKeys = ["evolution", "battle", "key", "status", "medical", "misc", "capture", "scroll"];
+    btn.innerHTML = val
+      ? `<img src="assets/elements/${icons[val]}"><span>${val}</span>`
+      : `<span>${label}</span>`;
 
-const categoryLabels = {
-    pt: { evolution: "Item de Evolução", battle: "Item de Batalha", key: "Item Chave", status: "Item de Status", medical: "Item Médico", misc: "Item Diverso", capture: "Item de Captura", scroll: "Scroll de Habilidade" },
-    en: { evolution: "Evolution Item", battle: "Battle Item", key: "Key Item", status: "Status Item", medical: "Medical Item", misc: "Miscellaneous Item", capture: "Capture Item", scroll: "Skill Scroll" }
-};
-
-const categoryIcons = {
-    all: "assets/icons_categories/all_categories_icon.png",
-    evolution: "assets/icons_categories/evolution_item_icon.png",
-    battle: "assets/icons_categories/battle_item_icon.png",
-    key: "assets/icons_categories/key_item_icon.png",
-    status: "assets/icons_categories/status_item_icon.png",
-    medical: "assets/icons_categories/medical_item_icon.png",
-    misc: "assets/icons_categories/miscellaneous_item_icon.png",
-    capture: "assets/icons_categories/capture_item_icon.png",
-    scroll: "assets/icons_categories/skill_scroll_icon.png"
-};
-
-const rarityLabels = {
-    pt: { comum: "Comum", incomum: "Incomum", raro: "Raro", epico: "Épico", lendario: "Lendário" },
-    en: { comum: "Common", incomum: "Uncommon", raro: "Rare", epico: "Epic", lendario: "Legendary" }
-};
-
-function render() {
-    const searchVal = document.getElementById("searchInput").value.toLowerCase();
-    const listEl = document.getElementById("itemList");
-    listEl.innerHTML = "";
-
-    const filteredItems = items
-        .filter(item => {
-            const matchesSearch = !searchVal || item[lang].name.toLowerCase().includes(searchVal);
-            const matchesCat = !selectedCategory || item.pt.cat === selectedCategory;
-            const matchesRarity = !selectedRarity || item.rarity === selectedRarity;
-            return matchesSearch && matchesCat && matchesRarity;
-        })
-        .sort((a, b) => {
-            const rDiff = rarityOrder[a.rarity] - rarityOrder[b.rarity];
-            return rDiff !== 0 ? rDiff : a[lang].name.localeCompare(b[lang].name);
-        });
-
-    filteredItems.forEach(item => {
-        const data = item[lang];
-        const div = document.createElement("div");
-        div.className = `item ${item.rarity}`;
-        const iconSrc = item.icon ? `assets/${item.icon}` : "assets/sem_icone.png";
-
-        div.innerHTML = `
-            <img src="${iconSrc}" alt="${data.name}">
-            <strong>${data.name}</strong>
-        `;
-        div.onclick = () => openModal(item);
-        listEl.appendChild(div);
-    });
-}
-
-function openModal(item) {
-    const data = item[lang];
-    const modal = document.getElementById("modal");
-    const modalBg = document.getElementById("modalBg");
-
-    modal.className = `modal ${item.rarity}`;
-    document.getElementById("mName").textContent = data.name;
-    document.getElementById("mDesc").textContent = data.desc;
-    document.getElementById("mDrop").textContent = data.drop;
-    document.getElementById("mCat").textContent = categoryLabels[lang][item.pt.cat];
-
-    const noteSec = document.getElementById("noteSection");
-    if (data.note) {
-        document.getElementById("mNote").textContent = data.note;
-        noteSec.style.display = "block";
-    } else {
-        noteSec.style.display = "none";
-    }
-
-    modalBg.classList.add("active");
-}
-
-function closeModal() {
-    document.getElementById("modalBg").classList.remove("active");
-}
-
-function updateLang() {
-    const t = texts[lang];
-    document.getElementById("title").textContent = t.title;
-    document.getElementById("searchInput").placeholder = t.search;
-    document.getElementById("lblDesc").textContent = t.desc;
-    document.getElementById("lblNote").textContent = t.note;
-    document.getElementById("lblDrop").textContent = t.drop;
-    document.getElementById("lblCat").textContent = t.cat;
-    document.getElementById("langBtn").textContent = t.langBtn;
-
-    buildCategoryMenu();
-    buildRarityMenu();
-    updateFilterButtonsDisplay();
-    render();
-}
-
-function buildCategoryMenu() {
-    const list = document.getElementById("categoryList");
-    list.innerHTML = `<li data-value="">${texts[lang].allCat}</li>`;
-
-    categoryKeys.forEach(key => {
-        const li = document.createElement("li");
-        li.dataset.value = key;
-        li.innerHTML = `<img src="${categoryIcons[key]}" class="category-icon"> ${categoryLabels[lang][key]}`;
-        li.onclick = () => selectCategory(key);
-        list.appendChild(li);
-    });
-    list.firstChild.onclick = () => selectCategory("");
-}
-
-function buildRarityMenu() {
-    const list = document.getElementById("rarityList");
-    list.innerHTML = `<li data-value="">${texts[lang].allRare}</li>`;
-
-    Object.keys(rarityOrder).forEach(r => {
-        const li = document.createElement("li");
-        li.className = `r-${r}`;
-        li.textContent = rarityLabels[lang][r];
-        li.onclick = () => selectRarity(r);
-        list.appendChild(li);
-    });
-    list.firstChild.onclick = () => selectRarity("");
-}
-
-function updateFilterButtonsDisplay() {
-    const cBtn = document.getElementById("categoryBtn");
-    const rBtn = document.getElementById("rarityBtn");
-
-    if (selectedCategory) {
-        cBtn.innerHTML = `<span><img src="${categoryIcons[selectedCategory]}" class="category-icon"> ${categoryLabels[lang][selectedCategory]}</span> <span style="font-size:10px;">▼</span>`;
-    } else {
-        cBtn.innerHTML = `<span>${texts[lang].allCat}</span> <span style="font-size:10px;">▼</span>`;
-    }
-
-    if (selectedRarity) {
-        rBtn.innerHTML = `<span>${rarityLabels[lang][selectedRarity]}</span> <span style="font-size:10px;">▼</span>`;
-    } else {
-        rBtn.innerHTML = `<span>${texts[lang].allRare}</span> <span style="font-size:10px;">▼</span>`;
-    }
-
-    rBtn.className = "select-btn" + (selectedRarity ? ` r-${selectedRarity}` : "");
-}
-
-function selectCategory(val) {
-    selectedCategory = val;
-    closeAllSelects();
-    updateFilterButtonsDisplay();
-    render();
-}
-
-function selectRarity(val) {
-    selectedRarity = val;
-    closeAllSelects();
-    updateFilterButtonsDisplay();
-    render();
-}
-
-function closeAllSelects() {
-    document.getElementById("categoryList").style.display = "none";
-    document.getElementById("rarityList").style.display = "none";
-}
-
-document.getElementById("langBtn").onclick = () => {
-    lang = lang === "pt" ? "en" : "pt";
-    localStorage.setItem("siteLang", lang);
-    updateLang();
-    if (typeof updateMenuLang === "function") updateMenuLang();
-};
-
-document.getElementById("categoryBtn").onclick = (e) => {
-    e.stopPropagation();
-    const list = document.getElementById("categoryList");
-    const isVisible = list.style.display === "block";
-    closeAllSelects();
-    list.style.display = isVisible ? "none" : "block";
-};
-
-document.getElementById("rarityBtn").onclick = (e) => {
-    e.stopPropagation();
-    const list = document.getElementById("rarityList");
-    const isVisible = list.style.display === "block";
-    closeAllSelects();
-    list.style.display = isVisible ? "none" : "block";
-};
-
-document.addEventListener("click", (e) => {
-    if (!e.target.closest('.custom-select')) closeAllSelects();
+    options.classList.remove('open');
+    onSelect(val);
+  };
 });
+}
 
-document.getElementById("searchInput").addEventListener("input", render);
+function calculate(){
+  const damage={};
+  elements.forEach(atk=>{
+    let m=1;
+    if(primaryValue && chart[atk]?.[primaryValue]!=null) m*=chart[atk][primaryValue];
+    if(secondaryValue && chart[atk]?.[secondaryValue]!=null && primaryValue!==secondaryValue) m*=chart[atk][secondaryValue];
+    damage[atk]=m;
+  });
+  render(damage);
+}
+
+function render(damage){
+  results.innerHTML='';
+  const map={x4:[],x2:[],x1:[],x05:[],x025:[],x0:[]};
+  for(const e in damage){
+    const v=damage[e];
+    if(v===0) map.x0.push(e);
+    else if(v===0.25) map.x025.push(e);
+    else if(v===0.5) map.x05.push(e);
+    else if(v===2) map.x2.push(e);
+    else if(v===4) map.x4.push(e);
+    else map.x1.push(e);
+  }
+  for(const k in map){
+    if(!map[k].length) continue;
+    const sec=document.createElement('div');
+    sec.className='section';
+    sec.innerHTML=`<h2>${texts[lang].groups[k]}</h2>`;
+    const box=document.createElement('div');
+    box.className='badges';
+    map[k].forEach(e=>{
+      box.innerHTML+=`
+        <div class="badge ${k}">
+          <img src="assets/elements/${icons[e]}"><span>${e}</span>
+        </div>`;
+    });
+    sec.appendChild(box);
+    results.appendChild(sec);
+  }
+}
+
+function updateLang(){
+  title.textContent=texts[lang].title;
+  langBtn.textContent=texts[lang].btn;
+
+  createSelect(
+  'primarySelect',
+  texts[lang].primary,
+  primaryValue,
+  v=>{
+    primaryValue=v;
+    calculate();
+  }
+);
+
+createSelect(
+  'secondarySelect',
+  texts[lang].secondary,
+  secondaryValue,
+  v=>{
+    secondaryValue=v;
+    calculate();
+  }
+);
+  calculate();
+}
+
+langBtn.onclick=()=>{
+  lang = lang==='pt'?'en':'pt';
+  localStorage.setItem("siteLang", lang);
+  updateLang();
+
+if (typeof updateMenuLang === "function") {
+    updateMenuLang();
+  }
+};
+
+  document.addEventListener("click", e => {
+  document.querySelectorAll(".select-options").forEach(opt => {
+    if (!opt.parentElement.contains(e.target)) {
+      opt.classList.remove("open");
+    }
+  });
+});
 
 updateLang();
 </script>
