@@ -498,7 +498,7 @@ function render() {
             return `
                 <div class="element-wrapper element-${lowT}">
                     <div class="element-inner">
-                        <img src="assets/${lowT}_element.png" alt="${t}">
+                        <img src="assets/elements/${lowT}_element.png" alt="${t}">
                     </div>
                 </div>
             `;
@@ -581,7 +581,7 @@ function buildElementMenu() {
         const li = document.createElement("li");
         li.dataset.value = key;
         li.innerHTML = `
-            <img src="assets/${key}_element.png" style="width:24px; height:24px; object-fit:contain;">
+            <img src="assets/elements/${key}_element.png" style="width:24px; height:24px; object-fit:contain;">
             ${key.charAt(0).toUpperCase() + key.slice(1)}
         `;
         li.onclick = () => selectElement(key);
@@ -618,7 +618,7 @@ function updateFilterButtonsDisplay() {
         const capitalized = selectedElement.charAt(0).toUpperCase() + selectedElement.slice(1);
         eBtn.innerHTML = `
             <div style="display:flex; align-items:center; gap:8px;">
-                <img src="assets/${selectedElement}_element.png" style="width:22px; height:22px; object-fit:contain;">
+                <img src="assets/elements/${selectedElement}_element.png" style="width:22px; height:22px; object-fit:contain;">
                 ${capitalized}
             </div>
             <span style="font-size:10px;">▼</span>
