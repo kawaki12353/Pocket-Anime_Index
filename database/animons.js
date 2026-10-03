@@ -838,7 +838,7 @@ const animons = [
   },
   { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 }, areas: ["0015"],
     movesList: [
-      { level: 1, name: "Bount Hunt" },
+      { level: 1, name: "Bounty Hunt" },
       { level: 1, name: "Punch" }, 
       { level: 6, name: "Wide Explosion" },
       { level: 11, name: "Bomb Strike" },
