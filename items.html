@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pocket Anime - Items</title>
 
+    <!-- Importação da Fonte Isometra via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Isometra&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="menu.css">
     <script src="menu.js" defer></script>
 
@@ -77,11 +82,23 @@
         .logo { width: 260px; }
 
         .page-title {
+            font-family: 'Isometra', sans-serif;
+            position: relative;
+            width: 80%;
+            background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
+            color: #ffffff;
             flex: 1;
             text-align: center;
             margin-bottom: 12px;
             font-size: 20px;
             font-weight: bold;
+            padding: 8px 40px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
             margin-top: 0;
         }
 
