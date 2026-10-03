@@ -686,7 +686,7 @@ const animons = [
       { level: 24, name: "Solar Energy Wave" }
     ]
   },
-  { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 },
+  { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 }, areas: ["0012"],
     anime: { name: "Rock Lee" },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
@@ -753,6 +753,7 @@ const animons = [
     ]
   },
   { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 }, areas: ["0027"],
+    anime: { name: "Mitsuki" },
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" }, 
@@ -948,6 +949,7 @@ const animons = [
   },
   { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 }, areas: ["0026"],
     anime: { name: "Diane" },
+    event: "Sandstorm",
     movesList: [
       { level: 1, name: "Axe Attack" },
       { level: 1, name: "Earth Wall" },
@@ -961,7 +963,8 @@ const animons = [
   { id: 56.01, name: "Mutated Chimera", type: "Beast", sprite: "assets/animons-icon/mutated_chimera.png", stats: { hp: 64, atk: 77, def: 58, spAtk: 53, spDef: 48, spd: 79 } },
   { id: 58, name: "Waterfall Samurai", type: ["Water", "Fire"], sprite: "assets/animons-icon/waterfall_samurai.png", stats: { hp: 59, atk: 70, def: 48, spAtk: 44, spDef: 44, spd: 73 } },
   { id: 59, name: "Warrior Bug Jr.", type: "Fighting", sprite: "assets/animons-icon/warrior_bug_jr.png", stats: { hp: 52, atk: 70, def: 41, spAtk: 60, spDef: 39, spd: 90 } },
-  { id: 60, name: "Fire Prince", type: "Fire", sprite: "assets/animons-icon/fire_prince.png", stats: { hp: 49, atk: 54, def: 42, spAtk: 44, spDef: 35, spd: 62 },
+  { id: 60, name: "Fire Prince", type: "Fire", sprite: "assets/animons-icon/fire_prince.png", stats: { hp: 49, atk: 54, def: 42, spAtk: 44, spDef: 35, spd: 62 }, areas: ["0014"],
+    anime: { name: "Alibaba" },
     movesList: [
       { level: 1, name: "Dexterity" },
       { level: 1, name: "Sword Slash" },
@@ -1057,8 +1060,9 @@ const animons = [
       { level: 19, name: "Suplex" }
     ]
   },
-  { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 },
+  { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 }, areas: ["0024"],
     anime: { name: "Crocodile" },
+    event: "Sandstorm",
     movesList: [
       { level: 1, name: "Menacing Aura" },
       { level: 1, name: "Sharp Claw" },
