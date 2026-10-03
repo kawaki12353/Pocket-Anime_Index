@@ -271,6 +271,15 @@
             cursor: pointer; font-weight: bold;
         }
 
+        /* --- Estilo dos Emojis de Elemento --- */
+        .element-emoji {
+            height: 1.2em;
+            width: auto;
+            vertical-align: middle;
+            margin: 0 4px;
+            transform: translateY(-10%);
+        }
+
         /* --- Responsividade --- */
         @media (max-width: 768px) {
             .header-top { justify-content: flex-end; }
@@ -560,6 +569,8 @@ document.getElementById("searchInput").addEventListener("input", render);
 
 updateLang();
 </script>
+
+<script src="element_emojis.js"></script>
 
 </body>
 </html>
