@@ -82,7 +82,7 @@ function openEventModal(eventKey) {
                 let typesArr = Array.isArray(data.type) ? data.type : (data.types || [data.type]);
 
                 typesArr.forEach(t => {
-                    typesHtml += `<img src="assets/${t.toLowerCase().trim()}_element.png" class="event-animon-type-icon" onerror="this.src='assets/neutral_element.png'">`;
+                    typesHtml += `<img src="assets/elements/${t.toLowerCase().trim()}_element.png" class="event-animon-type-icon" onerror="this.src='assets/elements/neutral_element.png'">`;
                 });
 
                 animonsHtml += `
@@ -337,7 +337,7 @@ function renderDescTypes() {
 
         wrapper.innerHTML = `
             <div class="element-inner">
-                <img src="assets/${tStr}_element.png" alt="${t}" onerror="this.src='assets/neutral_element.png'">
+                <img src="assets/elements/${tStr}_element.png" alt="${t}" onerror="this.src='assets/elements/neutral_element.png'">
             </div>
         `;
 
@@ -471,7 +471,7 @@ function renderMoves() {
         row.dataset.power = minfo.power;
         row.dataset.acc = minfo.accuracy;
         row.dataset.desc = minfo.desc;
-        row.innerHTML = `<span style="color: #bbb;">lvl ${m.level}</span><span class="move-name">${minfo.name}</span><img src="assets/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">`;
+        row.innerHTML = `<span style="color: #bbb;">lvl ${m.level}</span><span class="move-name">${minfo.name}</span><img src="assets/elements/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/elements/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">`;
         row.onclick = (e) => { e.stopPropagation(); toggleMoveBalloon(row); };
         container.appendChild(row);
     });
@@ -592,7 +592,7 @@ function renderTypeChart() {
                 const badge = document.createElement('div');
                 badge.className = 'type-badge';
                 const lowName = typeName.toLowerCase();
-                badge.innerHTML = `<img src="assets/${lowName}_element.png" onerror="this.src='assets/neutral_element.png'"><span style="text-transform: capitalize;">${typeName}</span><span class="dmg-multiplier">${group.val}</span>`;
+                badge.innerHTML = `<img src="assets/elements/${lowName}_element.png" onerror="this.src='assets/elements/neutral_element.png'"><span style="text-transform: capitalize;">${typeName}</span><span class="dmg-multiplier">${group.val}</span>`;
                 grid.appendChild(badge);
             });
             section.appendChild(grid);
@@ -625,7 +625,7 @@ function renderEvolutions() {
         let typesHtml = "";
         let rawType = member.type || member.types || ["neutral"];
         let typesArr = Array.isArray(rawType) ? rawType : [rawType];
-        typesArr.forEach(t => { typesHtml += `<img src="assets/${t.toLowerCase().trim()}_element.png" class="evo-type-icon" onerror="this.src='assets/neutral_element.png'">`; });
+        typesArr.forEach(t => { typesHtml += `<img src="assets/elements/${t.toLowerCase().trim()}_element.png" class="evo-type-icon" onerror="this.src='assets/elements/neutral_element.png'">`; });
         card.innerHTML = `<div class="evo-mini-frame"><img src="${sprite}" onerror="this.src='assets/sem_icone.png'"></div><div class="evo-name-tag">${member.name}</div><div class="evo-types-row">${typesHtml}</div>`;
         wrapper.appendChild(card);
     });
