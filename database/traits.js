@@ -106,18 +106,18 @@ const traits = {
     },
     "Fox Spirit": {
         id: 9,
-        desc_pt: "Quando a vida estiver abaixo de 40%, entre em fúria, ganhe [002]ATK [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, [002]recupere 10%[000] da vida por 3 turnos.",
-        desc_en: "When below 40% HP, go berserk, gain [002]ATK [+2][000], [002]SP.ATK [+2][000] and [002]SPD [+2][000], and you are berserk. After transforming, [002]heal 10%[000] HP for 3 turns."
+        desc_pt: "Quando a vida estiver abaixo de [001]40%[000], entre em fúria, ganhe [002]ATK [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, [002]recupere 10%[000] da vida por 3 turnos.",
+        desc_en: "When below [001]40%[000] HP, go berserk, gain [002]ATK [+2][000], [002]SP.ATK [+2][000] and [002]SPD [+2][000], and you are berserk. After transforming, [002]heal 10%[000] HP for 3 turns."
     },
     "Ninjutsu Mastery": {
         id: 8,
-        desc_pt: "Usar habilidades do atributo chakra causa 1.2x à mais de dano.",
-        desc_en: "Using chakra-attribute skills will have an increased 1.2x damage."
+        desc_pt: "Usar habilidades do atributo chakra causa [002]1.2x[000] à mais de dano.",
+        desc_en: "Using chakra-attribute skills will have an increased [002]1.2x[000] damage."
     },
     "Wind Affinity": {
         id: 7,
-        desc_pt: "Ao usar um movimento do tipo Wind, há 25% de chance de aumentar o dano em 1.2x.",
-        desc_en: "When using a Wind-Type move have a 25% chance to increase its damage 1.2x."
+        desc_pt: "Ao usar um movimento do tipo Wind, há 25% de chance de aumentar o dano em [002]1.2x[000].",
+        desc_en: "When using a Wind-Type move have a 25% chance to increase its damage [002]1.2x[000]."
     },
     "Consume": {
         id: 6,
@@ -131,8 +131,8 @@ const traits = {
     },
     "Copycat": {
         id: 4,
-        desc_pt: "Usar o mesmo golpe que um alvo usou em você faz com que cause 25% a mais de dano.",
-        desc_en: "Using the same move a target has used on you makes it deal 25% more damage."
+        desc_pt: "Usar o mesmo golpe que um alvo usou em você faz com que cause [002]25%[000] a mais de dano.",
+        desc_en: "Using the same move a target has used on you makes it deal [002]25%[000] more damage."
     },
     "Confident": {
         id: 3,
