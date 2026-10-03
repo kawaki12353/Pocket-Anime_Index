@@ -216,7 +216,7 @@ const animons = [
       { level: 24, name: "Justice Cannon" }
     ]
   },
-  { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 },
+  { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 }, areas: ["0012", "0016"],
     anime: { name: "Marine Captain" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
@@ -230,7 +230,7 @@ const animons = [
       { level: 24, name: "Justice Cannon" }
     ]
   },
-  { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 }, areas: ["0001", "0003", "0005"],
+  { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 }, areas: ["0001", "0003", "0005", "0016"],
     anime: { name: "Koby" },
     movesList: [
       { level: 1, name: "Mop the floor" },
@@ -257,7 +257,8 @@ const animons = [
       { level: 24, name: "Armament" }
     ]
   },
-  { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 }, areas: ["0002", "0009"],
+  { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 }, areas: ["0002", "0009", "0013"],
+    anime: { name: "Terry" },
     movesList: [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw" },
@@ -267,7 +268,8 @@ const animons = [
       { level: 23, name: "Ripping Claw" }
    ]
   },
-  { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 },
+  { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 }, areas: ["0013", "0023", "0024"],
+    anime: { name: "Terry" },
     movesList: [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw" },
@@ -278,6 +280,7 @@ const animons = [
    ]
   },
   { id: 9, name: "Joyful", type: ["Wind", "Beast"], sprite: "assets/animons-icon/joyful.png", stats: { hp: 35, atk: 25, def: 35, spAtk: 50, spDef: 35, spd: 70 }, areas: ["0001", "0004", "0005"],
+    anime: { name: "Happy" },
     movesList: [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw"}, 
@@ -288,7 +291,7 @@ const animons = [
       { level: 22, name: "Blitz" }
    ]
   }, 
-  { id: 10, name: "Teen Wolfman", type: "Fighting", sprite: "assets/animons-icon/teen_wolfman.png", stats: { hp: 35, atk: 53, def: 35, spAtk: 49, spDef: 30, spd: 51 }, areas: ["0002", "0003", "0009"],
+  { id: 10, name: "Teen Wolfman", type: "Fighting", sprite: "assets/animons-icon/teen_wolfman.png", stats: { hp: 35, atk: 53, def: 35, spAtk: 49, spDef: 30, spd: 51 }, areas: ["0002", "0003", "0009", "0011"],
     anime: { name: "Yamcha" },
     movesList: [
       { level: 1, name: "Fighting Spirit" },
@@ -300,7 +303,7 @@ const animons = [
       { level: 24, name: "Spirit Ball" }
     ]
   },
-  { id: 10.01, name: "Adult Wolfman", type: "Fighting", sprite: "assets/animons-icon/adult_wolfman.png", stats: { hp: 47, atk: 63, def: 44, spAtk: 62, spDef: 39, spd: 73 },
+  { id: 10.01, name: "Adult Wolfman", type: "Fighting", sprite: "assets/animons-icon/adult_wolfman.png", stats: { hp: 47, atk: 63, def: 44, spAtk: 62, spDef: 39, spd: 73 },     anime: { name: "0015", "0019" },
     anime: { name: "Yamcha" },
     movesList: [
       { level: 1, name: "Fighting Spirit" },
@@ -312,8 +315,8 @@ const animons = [
       { level: 24, name: "Spirit Ball" }
     ]
   },
-  { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 },
-    anime: { name: "Usopp" }, areas: ["0005"],
+  { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 }, areas: ["0005"],
+    anime: { name: "Usopp" }, 
     movesList: [
       { level: 1, name: "Sling Shot" },
       { level: 1, name: "Taunt" },
@@ -381,7 +384,7 @@ const animons = [
       { level: 24, name: "Wind Shuriken" }
     ]
   },
-  { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 },
+  { id: 14, name: "Dinosaur", type: "Beast", sprite: "assets/animons-icon/dinosaur.png", stats: { hp: 74, atk: 80, def: 60, spAtk: 25, spDef: 29, spd: 46 }, areas: ["0014", "0015"],
     movesList: [
       { level: 1, name: "Growl" },
       { level: 1, name: "Sharp Claw" },
@@ -464,6 +467,7 @@ const animons = [
     ]
   },
   { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 }, areas: ["0008"],
+    anime: { name: "Morgan" },
     movesList: [
       { level: 1, name: "Axe Attack" },
       { level: 1, name: "Rally" },
@@ -500,6 +504,7 @@ const animons = [
     ]
   },
   { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 }, areas: ["0019", "0020"],
+    anime: { name: "Raditz" },
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -527,7 +532,7 @@ const animons = [
       { level: 24, name: "Mega Punch" }
     ]
   }, 
-  { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 },
+  { id: 25, name: "Alien", type: "Psychic", sprite: "assets/animons-icon/alien.png", stats: { hp: 48, atk: 50, def: 41, spAtk: 80, spDef: 50, spd: 80 }, areas: ["0017", "0018", "0019", "0020"],
     movesList: [
       { level: 1, name: "Energy Blast" },
       { level: 1, name: "Energy Charge" },
@@ -603,7 +608,8 @@ const animons = [
       { level: 24, name: "Divine Bomb" }
     ]
   },
-  { id: 28, name: "Green Alien", type: "Nature", sprite: "assets/animons-icon/green_alien.png", stats: { hp: 52, atk: 63, def: 43, spAtk: 70, spDef: 39, spd: 75 },
+  { id: 28, name: "Green Alien", type: "Nature", sprite: "assets/animons-icon/green_alien.png", stats: { hp: 52, atk: 63, def: 43, spAtk: 70, spDef: 39, spd: 75 }, areas: ["0010", "0011", "0012", "0013", "0015", "0019", "0020", "0021", "0022", "0027"],
+    anime: { name: "Saibamen" },
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Sharp Claw" },
@@ -615,7 +621,8 @@ const animons = [
     ]
   },
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 } },
-  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 },
+  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 }, areas: ["0014", "0017", "0018"],
+    anime: { name: "Bulma" },
     movesList: [
       { level: 1, name: "Charm" },
       { level: 1, name: "Junk Toss" },
@@ -742,7 +749,7 @@ const animons = [
       { level: 24, name: "Sand Arm" }
     ] 
   },
-  { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 },
+  { id: 35, name: "Nerdy Ronin", type: "Neutral", sprite: "assets/animons-icon/nerdy_ronin.png", stats: { hp: 50, atk: 65, def: 41, spAtk: 49, spDef: 50, spd: 45 }, areas: ["0012"],
      movesList: [
       { level: 1, name: "Dexterity" },
       { level: 1, name: "Sword Slash" },
@@ -858,7 +865,7 @@ const animons = [
       { level: 22, name: "Lightning Strike" }
     ]
   },
-  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 }, areas: ["0010", "0011"],
+  { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 }, areas: ["0017"],
     anime: { name: "Lambo" },
     movesList: [
       { level: 1, name: "Junk Toss" }, 
@@ -930,7 +937,7 @@ const animons = [
       { level: 24, name: "Swift Wind" }
     ]
   },
-  { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 },
+  { id: 54, name: "Goblin", type: "Neutral", sprite: "assets/animons-icon/goblin.png", stats: { hp: 47, atk: 64, def: 39, spAtk: 55, spDef: 32, spd: 67 }, areas: ["0022"],
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
       { level: 1, name: "Sword Slash" },
@@ -969,7 +976,7 @@ const animons = [
   { id: 56, name: "Chimera", type: "Beast", sprite: "assets/animons-icon/chimera.png", stats: { hp: 50, atk: 65, def: 52, spAtk: 44, spDef: 43, spd: 67 } },
   { id: 56.01, name: "Mutated Chimera", type: "Beast", sprite: "assets/animons-icon/mutated_chimera.png", stats: { hp: 64, atk: 77, def: 58, spAtk: 53, spDef: 48, spd: 79 } },
   { id: 58, name: "Waterfall Samurai", type: ["Water", "Fire"], sprite: "assets/animons-icon/waterfall_samurai.png", stats: { hp: 59, atk: 70, def: 48, spAtk: 44, spDef: 44, spd: 73 } },
-  { id: 59, name: "Warrior Bug Jr.", type: "Fighting", sprite: "assets/animons-icon/warrior_bug_jr.png", stats: { hp: 52, atk: 70, def: 41, spAtk: 60, spDef: 39, spd: 90 } },
+  { id: 59, name: "Warrior Bug Jr.", type: "Fighting", sprite: "assets/animons-icon/warrior_bug_jr.png", stats: { hp: 52, atk: 70, def: 41, spAtk: 60, spDef: 39, spd: 90 }, areas: ["0017", "0018", "0023", "0025", "0027"], },
   { id: 60, name: "Fire Prince", type: "Fire", sprite: "assets/animons-icon/fire_prince.png", stats: { hp: 49, atk: 54, def: 42, spAtk: 44, spDef: 35, spd: 62 }, areas: ["0014"],
     anime: { name: "Alibaba" },
     movesList: [
