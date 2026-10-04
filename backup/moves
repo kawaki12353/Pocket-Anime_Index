@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Anime - Moves</title>
+
+    <!-- Importação da Fonte Isometra via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Isometra&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js" defer></script>
+
+    <style>
+        /* --- Variáveis e Temas --- */
+        :root {
+            --bg: #f2f4f7;
+            --card: #ffffff;
+            --text: #111;
+            --text-secondary: #707a8a;
+            --border: #ccc;
+            --hover: #f1f1f1;
+            --accent-blue: #007bff;
+
+            /* Cores de Categorias */
+            --cat-physical: #c93e2b;
+            --cat-special: #2d5a9c;
+            --cat-status: #707a8a;
+            --cat-transformation: #30FF79;
+
+            /* Cores dos Tipos (ATUALIZADAS) */
+            --element-neutral: #e6e5e3;   --element-fighting: #e5901b;
+            --element-fire: #e60000;       --element-water: #00b0e6;
+            --element-nature: #24e30c;     --element-earth: #8a5e39;
+            --element-wind: #59e657;       --element-ice: #00ffe1;
+            --element-lightning: #ffe100;  --element-soul: #89a2e6;
+            --element-psychic: #e66ae0;    --element-poison: #ac8fff;
+            --element-light: #decc7c;      --element-dark: #262626;
+            --element-demon: #b00000;      --element-beast: #aa6272;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f1217;
+                --card: #181c24;
+                --text: #ffffff;
+                --text-secondary: #9ca3af;
+                --border: #2a2f3a;
+                --hover: #232836;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* --- HEADER (IGUAL AO ANIMONS DETAILS) --- */
+        .header { 
+            display: flex; 
+            justify-content: center; 
+            max-width: 1200px; 
+            margin: 0 auto 30px; 
+        }
+        .logo { width: 220px; max-width: 60vw; }
+
+        .map-title {
+            font-family: 'Isometra', sans-serif;
+            background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
+            color: #ffffff;
+            position: relative;
+            width: 80%;
+            padding: 8px 40px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- FILTROS --- */
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .filters input, .select-btn {
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            outline: none;
+        }
+
+        /* --- Selects Customizados --- */
+        .custom-select { position: relative; width: 100%; max-width: 200px; }
+        .select-btn {
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; cursor: pointer; box-sizing: border-box;
+        }
+
+        /* Ajuste de Alinhamento solicitado: Ícone à esquerda do nome no botão */
+        .select-btn span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .select-list {
+            display: none; position: absolute; top: 105%; left: 0; width: 100%;
+            background: var(--card); border-radius: 12px; list-style: none;
+            padding: 6px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-sizing: border-box; max-height: 300px; overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+        .select-list li {
+            padding: 10px 12px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; font-weight: bold;
+        }
+        .select-list li:hover { background: var(--hover); }
+
+        /* --- LISTA DE MOVES --- */
+        .moves-list {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* --- CARD DE MOVE --- */
+        .move-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            position: relative;
+        }
+        .move-card:active { transform: scale(0.98); }
+
+        .move-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .move-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #4a628a;
+        }
+        .move-stats {
+            display: flex;
+            gap: 20px;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Estilo das siglas superiores (PWR, ACC, PP) */
+        .stat-label {
+            font-size: 10px;
+            color: #555;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1px;
+            font-weight: bold;
+        }
+
+        .move-tags {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .type-badge {
+            display: flex;
+            align-items: center;
+            background: var(--type-color);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 34px;
+            flex: 1;
+        }
+        .type-label {
+            background: rgba(0,0,0,0.15);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .type-name {
+            flex: 1;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 14px;
+            text-transform: capitalize;
+        }
+
+        .category-badge {
+            padding: 0 15px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 13px;
+            background: var(--cat-color);
+            min-width: 80px;
+        }
+
+        .info-icon { color: var(--border); display: flex; align-items: center; }
+
+        /* --- MODAL (FIXED ANIMATION) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000;
+            display: flex; justify-content: center; align-items: flex-end;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .modal-content {
+            background: var(--card); width: 100%; height: 65%;
+            border-radius: 20px 20px 0 0; padding: 25px;
+            box-sizing: border-box; position: relative;
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex; flex-direction: column; gap: 20px;
+            overflow-y: auto;
+        }
+
+        /* Ativação do Modal */
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+
+        .modal-desc {
+            font-size: 15px; line-height: 1.6;
+            color: var(--text); border-top: 1px solid var(--border);
+            padding-top: 15px;
+            text-align: justify;
+        }
+
+        @media (min-width: 769px) {
+            .modal-overlay { align-items: center; }
+            .modal-content {
+                width: 600px; /* Aumentado conforme solicitado */
+                height: auto; max-height: 80vh; border-radius: 20px;
+                transform: translateY(20px); opacity: 0; transition: all 0.3s;
+            }
+            .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- Estilo Botão Animon Move --- */
+        .find-animon-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: opacity 0.2s;
+        }
+        .find-animon-btn:hover { opacity: 0.9; }
+
+        /* --- Upgrade Skills Styling --- */
+        .upgrade-section {
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+        }
+        .upgrade-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .mini-move-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--hover);
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 10px;
+            min-width: 0;
+            color: var(--text);
+        }
+        .mini-move-name {
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0 5px;
+            color: var(--text);
+        }
+        .mini-icon { width: 18px; height: 18px; object-fit: contain; }
+        .mini-icon-cat { filter: grayscale(0.5); opacity: 0.8; }
+        .arrow-right { color: var(--text); font-weight: bold; }
+
+        /* --- Modal Secundário (Animons que aprendem) --- */
+        .secondary-modal-content {
+            background: var(--card);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Container do Título solicitado */
+        .modal-title-container {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 5px;
+        }
+
+        .close-animon-list {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none; /* Só aparece no Mobile */
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .animon-modal-full {
+                height: 100% !important;
+                border-radius: 0 !important;
+            }
+            .close-animon-list { display: block; }
+        }
+
+        .animon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .animon-item img { width: 40px; height: 40px; object-fit: contain; }
+        .animon-item-info { flex: 1; }
+        .animon-item-name { font-weight: bold; }
+        .animon-item-level { font-size: 12px; color: var(--text-secondary); }
+
+        .lang-toggle {
+            position: fixed; bottom: 10px; left: 50%;
+            transform: translateX(-50%); z-index: 10;
+        }
+        .lang-toggle button {
+            background: var(--text); color: var(--card);
+            padding: 8px 14px; border-radius: 20px; border: none;
+            cursor: pointer; font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            /* AJUSTE HEADER MOBILE */
+            .header { justify-content: flex-end; }
+            .logo { width: 150px; }
+
+            .custom-select { max-width: 48%; }
+            #searchInput { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
+</header>
+
+<h2 class="map-title" id="pageTitle"></h2>
+
+<main>
+    <div class="filters">
+        <input id="searchInput" type="text">
+
+        <div class="custom-select">
+            <div class="select-btn" id="typeBtn"></div>
+            <ul class="select-list" id="typeList"></ul>
+        </div>
+
+        <div class="custom-select">
+            <div class="select-btn" id="catBtn"></div>
+            <ul class="select-list" id="catList"></ul>
+        </div>
+    </div>
+
+    <div class="moves-list" id="movesList"></div>
+</main>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div id="modalData"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+        <div id="upgradeContainer"></div>
+        <button id="findAnimonBtn" class="find-animon-btn"></button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="animonModalOverlay" onclick="closeAnimonModal()" style="z-index: 1100;">
+    <div class="modal-content secondary-modal-content animon-modal-full" onclick="event.stopPropagation()">
+        <span class="close-animon-list" onclick="closeAnimonModal()">✕</span>
+        <div class="modal-title-container">
+            <h3 id="animonModalTitle" style="margin-top: 10px; text-align: center;"></h3>
+        </div>
+        <div id="animonListContainer" style="overflow-y: auto; flex: 1;"></div>
+    </div>
+</div>
+
+<div class="lang-toggle">
+    <button id="langBtn"></button>
+</div>
+
+<script src="utils/color-parser.js"></script>
+<script src="database/moves.js"></script>
+<script src="database/animons.js"></script> 
+<script>
+let lang = localStorage.getItem("siteLang") || "pt";
+let selectedType = "";
+let selectedCat = "";
+
+const texts = {
+    pt: {
+        title: "Moves Database",
+        allTypes: "Todos os Tipos",
+        allCats: "Categorias",
+        search: "Pesquisar Move...",
+        tipoLabel: "Tipo",
+        physical: "Physical", special: "Special", status: "Status", transformation: "Transformation",
+        langBtn: "🇧🇷 PT",
+        pwr: "PWR", acc: "ACC", pp: "PP",
+        descLabel: "Descrição",
+        upgradeLabel: "Ataque Evoluído",
+        btnFind: "Animon que aprende esses Moves",
+        listHeader: "Animons que aprendem "
+    },
+    en: {
+        title: "Moves Database",
+        allTypes: "All Types",
+        allCats: "Categories",
+        search: "Search Move...",
+        tipoLabel: "Type",
+        physical: "Physical", special: "Special", status: "Status", transformation: "Transformation",
+        langBtn: "🇺🇸 EN",
+        pwr: "PWR", acc: "ACC", pp: "PP",
+        descLabel: "Description",
+        upgradeLabel: "Upgrade Skill",
+        btnFind: "Animons that learn these Moves",
+        listHeader: "Animons that learn "
+    }
+};
+
+const typeKeys = ["neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"];
+const catKeys = ["physical", "special", "status", "transformation"];
+
+function capitalize(str) {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function render() {
+    const searchVal = document.getElementById("searchInput").value.toLowerCase();
+    const listEl = document.getElementById("movesList");
+    listEl.innerHTML = "";
+
+    const movesArray = Object.values(moves);
+
+    // ALTERAÇÃO: Ordem alfabética aplicada aqui
+    movesArray.sort((a, b) => a.name.localeCompare(b.name));
+
+    const filtered = movesArray.filter(m => {
+        const nameMatch = m.name.toLowerCase().includes(searchVal);
+        const typeMatch = !selectedType || m.type.toLowerCase() === selectedType;
+        const catMatch = !selectedCat || m.attack.toLowerCase() === selectedCat;
+        return nameMatch && typeMatch && catMatch;
+    });
+
+    filtered.forEach(m => {
+        const cat = m.attack.toLowerCase();
+        const card = document.createElement("div");
+        card.className = "move-card";
+        card.innerHTML = `
+            <div class="move-header">
+                <div class="move-name">${m.name}</div>
+                <div class="move-stats">
+                    <div><span class="stat-label">${texts[lang].pwr}</span><span>${'power' in m ? (m.power || '--') : '??'}</span></div>
+                    <div><span class="stat-label">${texts[lang].acc}</span><span>${'accuracy' in m ? (m.accuracy || '--') : '??'}</span></div>
+                    <div><span class="stat-label">${texts[lang].pp}</span><span>${m.pp || '--'}</span></div>
+                </div>
+            </div>
+            <div class="move-tags">
+                <div class="type-badge" style="--type-color: var(--element-${m.type.toLowerCase()})">
+                    <div class="type-label">${texts[lang].tipoLabel}</div>
+                    <div class="type-name">${m.type}</div>
+                </div>
+                <div class="category-badge" style="--cat-color: var(--cat-${cat})">
+                    ${texts[lang][cat]}
+                </div>
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+            </div>
+        `;
+        card.onclick = () => openModal(m);
+        listEl.appendChild(card);
+    });
+}
+
+// Helper para renderizar os mini containers de move
+function renderMiniMove(moveName) {
+    const moveData = Object.values(moves).find(m => m.name === moveName);
+    if (!moveData) return `<div class="mini-move-container">?</div>`;
+
+    const typeImg = `assets/elements/${moveData.type.toLowerCase()}_element.png`;
+    const catImg = `assets/${moveData.attack.toLowerCase()}.png`;
+
+    return `
+        <div class="mini-move-container">
+            <img src="${typeImg}" class="mini-icon">
+            <span class="mini-move-name">${moveData.name}</span>
+            <img src="${catImg}" class="mini-icon mini-icon-cat">
+        </div>
+    `;
+}
+
+function openModal(move) {
+    const modal = document.getElementById("modalOverlay");
+    const dataContainer = document.getElementById("modalData");
+    const descContainer = document.getElementById("modalDesc");
+    const upgradeContainer = document.getElementById("upgradeContainer");
+    const findBtn = document.getElementById("findAnimonBtn");
+    const cat = move.attack.toLowerCase();
+
+    dataContainer.innerHTML = `
+        <div class="move-header">
+            <div class="move-name" style="font-size:24px">${move.name}</div>
+            <div class="move-stats">
+                <div><span class="stat-label">${texts[lang].pwr}</span><span>${'power' in move ? (move.power || '--') : '??'}</span></div>
+                <div><span class="stat-label">${texts[lang].acc}</span><span>${'accuracy' in move ? (move.accuracy || '--') : '??'}</span></div>
+                <div><span class="stat-label">${texts[lang].pp}</span><span>${move.pp || '--'}</span></div>
+            </div>
+        </div>
+        <div class="move-tags">
+            <div class="type-badge" style="--type-color: var(--element-${move.type.toLowerCase()})">
+                <div class="type-label">${texts[lang].tipoLabel}</div>
+                <div class="type-name">${move.type}</div>
+            </div>
+            <div class="category-badge" style="--cat-color: var(--cat-${cat})">
+                ${texts[lang][cat]}
+            </div>
+        </div>
+    `;
+
+    const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
+    const descRaw = descKey in move ? move[descKey] : '??';
+
+    descContainer.innerHTML = `
+        <div class="stat-label" style="text-align:left; margin-bottom:8px;">${texts[lang].descLabel}</div>
+        ${parseColoredText(descRaw)}
+    `;
+
+    // Lógica de Upgrades (Ataque Evoluído)
+    upgradeContainer.innerHTML = "";
+    if (move.moveTrigger && move.moveTrigger.length > 0) {
+        let html = `<div class="upgrade-section">
+            <div class="stat-label" style="text-align:left; margin-bottom:10px;">${texts[lang].upgradeLabel}</div>`;
+
+        move.moveTrigger.forEach(t => {
+            html += `
+                <div class="upgrade-row">
+                    ${renderMiniMove(t.move)}
+                    <span class="arrow-right">➜</span>
+                    ${renderMiniMove(t.trade)}
+                </div>
+            `;
+        });
+        html += `</div>`;
+        upgradeContainer.innerHTML = html;
+    }
+
+    findBtn.textContent = texts[lang].btnFind;
+    findBtn.onclick = () => openAnimonListModal(move.name);
+
+    modal.classList.add("active");
+}
+
+function closeModal() {
+    document.getElementById("modalOverlay").classList.remove("active");
+}
+
+/* --- Funções para o Segundo Modal (Animons) --- */
+function openAnimonListModal(moveName) {
+    const overlay = document.getElementById("animonModalOverlay");
+    const title = document.getElementById("animonModalTitle");
+    const container = document.getElementById("animonListContainer");
+
+    title.textContent = texts[lang].listHeader + moveName;
+    container.innerHTML = "";
+
+    // Filtra animons da database global 'animons'
+    const results = animons.filter(a => 
+        a.movesList && a.movesList.some(m => m.name === moveName)
+    );
+
+    if (results.length === 0) {
+        container.innerHTML = `<p style="text-align:center; padding: 20px;">None found.</p>`;
+    } else {
+        results.forEach(a => {
+            const moveInfo = a.movesList.find(m => m.name === moveName);
+            const item = document.createElement("div");
+            item.className = "animon-item";
+            item.innerHTML = `
+                <img src="${a.sprite}" onerror="this.src='assets/placeholder.png'">
+                <div class="animon-item-info">
+                    <div class="animon-item-name">${a.name}</div>
+                    <div class="animon-item-level">Level: ${moveInfo.level}</div>
+                </div>
+            `;
+            container.appendChild(item);
+        });
+    }
+
+    overlay.classList.add("active");
+}
+
+function closeAnimonModal() {
+    document.getElementById("animonModalOverlay").classList.remove("active");
+}
+
+function buildMenus() {
+    const tList = document.getElementById("typeList");
+    tList.innerHTML = `<li onclick="selectType('')">${texts[lang].allTypes}</li>`;
+    typeKeys.forEach(t => {
+        const li = document.createElement("li");
+        li.innerHTML = `<img src="assets/elements/${t}_element.png" width="20"> ${capitalize(t)}`;
+        li.onclick = () => selectType(t);
+        tList.appendChild(li);
+    });
+
+    const cList = document.getElementById("catList");
+    cList.innerHTML = `<li onclick="selectCat('')">${texts[lang].allCats}</li>`;
+    catKeys.forEach(c => {
+        const li = document.createElement("li");
+        li.innerHTML = `<img src="assets/${c}.png" width="20" onerror="this.style.display='none'"> ${texts[lang][c]}`;
+        li.onclick = () => selectCat(c);
+        cList.appendChild(li);
+    });
+}
+
+function selectType(t) {
+    selectedType = t;
+    updateFilterButtonsDisplay();
+    closeAllSelects();
+    render();
+}
+
+function selectCat(c) {
+    selectedCat = c;
+    updateFilterButtonsDisplay();
+    closeAllSelects();
+    render();
+}
+
+function updateFilterButtonsDisplay() {
+    const tBtn = document.getElementById("typeBtn");
+    const cBtn = document.getElementById("catBtn");
+
+    if (selectedType) {
+        tBtn.innerHTML = `<span><img src="assets/elements/${selectedType}_element.png" width="18"> ${capitalize(selectedType)}</span> <span>▼</span>`;
+    } else {
+        tBtn.innerHTML = `<span>${texts[lang].allTypes}</span> <span>▼</span>`;
+    }
+
+    if (selectedCat) {
+        cBtn.innerHTML = `<span><img src="assets/${selectedCat}.png" width="18" onerror="this.style.display='none'"> ${texts[lang][selectedCat]}</span> <span>▼</span>`;
+    } else {
+        cBtn.innerHTML = `<span>${texts[lang].allCats}</span> <span>▼</span>`;
+    }
+}
+
+function closeAllSelects() {
+    document.querySelectorAll(".select-list").forEach(l => l.style.display = "none");
+}
+
+document.getElementById("typeBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("typeList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.getElementById("catBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("catList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.addEventListener("click", closeAllSelects);
+
+// --- SISTEMA DE TRADUÇÃO (IGUAL AO INDEX.HTML) ---
+function updateLang() {
+    const t = texts[lang];
+    document.getElementById("pageTitle").textContent = t.title;
+    document.getElementById("searchInput").placeholder = t.search;
+    document.getElementById("langBtn").textContent = t.langBtn;
+
+    buildMenus();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+document.getElementById("langBtn").onclick = () => {
+    lang = lang === "pt" ? "en" : "pt";
+    localStorage.setItem("siteLang", lang);
+    updateLang();
+    if (typeof updateMenuLang === "function") updateMenuLang();
+};
+
+document.getElementById("searchInput").oninput = render;
+
+// Inicialização
+updateLang();
+</script>
+
+</body>
+</html>
