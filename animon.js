@@ -41,7 +41,7 @@ const uiText = {
         noTraits: "No traits yet",
         notDef: "Not defined yet.",
         notAvail: "It is not yet capturable.",
-        lvl: "Lvl", name: "Name", type: "Type", Carney: "Category",
+        lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
         btn: "🇺🇸 EN", totalStr: "Total: ", moveEmpty: "None",
         weak4: "Extreme Weakness (x4)",
         weak2: "Weakness (x2)",
@@ -463,19 +463,30 @@ function renderMoves() {
         selectedMoveFilter = 'level';
     }
 
-    // Remove qualquer container de filtro anteriormente criado do lado de fora para não duplicar
-    const oldFilter = container.parentNode ? container.parentNode.querySelector('.move-filter-container') : null;
-    if (oldFilter) {
-        oldFilter.remove();
+    const tabMoves = document.getElementById('tab-moves');
+    let filterContainer = document.getElementById('moveFilterContainer');
+
+    // Cria o container de botões fora da caixa/modal da aba se não existir
+    if (!filterContainer) {
+        filterContainer = document.createElement('div');
+        filterContainer.id = 'moveFilterContainer';
+        filterContainer.className = 'move-filter-container';
+        filterContainer.style.display = 'flex';
+        filterContainer.style.gap = '8px';
+        filterContainer.style.marginBottom = '12px';
+        filterContainer.style.justifyContent = 'center';
+
+        const target = tabMoves || container;
+        if (target && target.parentNode) {
+            target.parentNode.insertBefore(filterContainer, target);
+        }
     }
 
-    // Criação dos botões de filtro abaixo do título
-    const filterContainer = document.createElement('div');
-    filterContainer.className = 'move-filter-container';
-    filterContainer.style.display = 'flex';
-    filterContainer.style.gap = '8px';
-    filterContainer.style.marginBottom = '12px';
-    filterContainer.style.justifyContent = 'center';
+    // Visibilidade sincronizada com o estado da aba de moves
+    const isTabMovesActive = tabMoves ? tabMoves.classList.contains('active') : true;
+    filterContainer.style.display = isTabMovesActive ? 'flex' : 'none';
+
+    filterContainer.innerHTML = "";
 
     const btnLevel = document.createElement('button');
     btnLevel.className = `move-filter-btn ${selectedMoveFilter === 'level' ? 'active' : ''}`;
@@ -509,13 +520,6 @@ function renderMoves() {
     filterContainer.appendChild(btnLevel);
     filterContainer.appendChild(btnScroll);
     filterContainer.appendChild(btnFuture);
-
-    // Insere o container de filtros antes do modal (#movesContainer), ficando do lado de fora
-    if (container.parentNode) {
-        container.parentNode.insertBefore(filterContainer, container);
-    } else {
-        container.appendChild(filterContainer);
-    }
 
     // Filtragem dos moves com base no botão ativo
     let filteredMoves = [];
@@ -901,5 +905,12 @@ function switchTab(tabId) {
     if (btnEl) btnEl.classList.add('active');
 
     updateTabTitle(tabId);
+
+    // Exibe os botões de filtro apenas quando a aba de moves estiver visível
+    const filterContainer = document.getElementById('moveFilterContainer');
+    if (filterContainer) {
+        filterContainer.style.display = (tabId === 'tab-moves') ? 'flex' : 'none';
+    }
+
     sessionStorage.setItem('lastTab', tabId);
 }
