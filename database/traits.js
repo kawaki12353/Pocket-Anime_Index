@@ -1,13 +1,13 @@
 const traits = {
     "Three Sword Style": {
         id: 33,
-        desc_pt: "A chance de acerto crítico é 6x maior ao usar uma habilidade com o atributo de três espadas.",
-        desc_en: "Critical chance is 6X if using a three-sword attribute skill."
+        desc_pt: "A chance de acerto crítico é 6x maior ao usar uma habilidade com o [012]atributo de três espadas[000].",
+        desc_en: "Critical chance is 6X if using a [012]three-sword attribute[000] skill."
     },
     "Blademaster": {
         id: 32,
-        desc_pt: "Usar um ataque físico com o atributo de espadachim dobra a chance de acerto crítico.",
-        desc_en: "Using a physical attack with a swordsman attribute has increased 2X crit chance."
+        desc_pt: "Usar um ataque físico com o [012]atributo de espadachim[000] dobra a chance de acerto crítico.",
+        desc_en: "Using a physical attack with a [012]swordsman attribute[000] has increased 2X crit chance."
     },
     "Hunter": {
         id: 31,
