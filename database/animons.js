@@ -441,6 +441,7 @@ const animons = [
   { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 }, areas: ["0007"],
     anime: { name: "Zoro" },
     movesList: [
+      { level: "sc", name: "Merciful Blow" },
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
@@ -455,6 +456,7 @@ const animons = [
   { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 },
     anime: { name: "Zoro" },
     movesList: [
+      { level: "sc", name: "Merciful Blow" },
       { level: 1, name: "Dexterity" }, 
       { level: 1, name: "Sword Slash" },
       { level: 5, name: "Blade Surge" },
