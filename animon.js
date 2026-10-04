@@ -41,7 +41,7 @@ const uiText = {
         noTraits: "No traits yet",
         notDef: "Not defined yet.",
         notAvail: "It is not yet capturable.",
-        lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
+        lvl: "Lvl", name: "Name", type: "Type", Carney: "Category",
         btn: "🇺🇸 EN", totalStr: "Total: ", moveEmpty: "None",
         weak4: "Extreme Weakness (x4)",
         weak2: "Weakness (x2)",
@@ -463,7 +463,13 @@ function renderMoves() {
         selectedMoveFilter = 'level';
     }
 
-    // Criação dos botões de filtro
+    // Remove qualquer container de filtro anteriormente criado do lado de fora para não duplicar
+    const oldFilter = container.parentNode ? container.parentNode.querySelector('.move-filter-container') : null;
+    if (oldFilter) {
+        oldFilter.remove();
+    }
+
+    // Criação dos botões de filtro abaixo do título
     const filterContainer = document.createElement('div');
     filterContainer.className = 'move-filter-container';
     filterContainer.style.display = 'flex';
@@ -504,18 +510,11 @@ function renderMoves() {
     filterContainer.appendChild(btnScroll);
     filterContainer.appendChild(btnFuture);
 
-    // Posiciona os botões de filtro DO LADO DE FORA do movesContainer
-    const filterTarget = document.getElementById('moveFilterContainer') || document.getElementById('moveFilters');
-    if (filterTarget) {
-        filterTarget.innerHTML = "";
-        filterTarget.appendChild(filterContainer);
-    } else if (container.parentNode) {
-        const existingFilter = container.parentNode.querySelector('.move-filter-container');
-        if (existingFilter && existingFilter.parentNode === container.parentNode) {
-            existingFilter.replaceWith(filterContainer);
-        } else {
-            container.parentNode.insertBefore(filterContainer, container);
-        }
+    // Insere o container de filtros antes do modal (#movesContainer), ficando do lado de fora
+    if (container.parentNode) {
+        container.parentNode.insertBefore(filterContainer, container);
+    } else {
+        container.appendChild(filterContainer);
     }
 
     // Filtragem dos moves com base no botão ativo
