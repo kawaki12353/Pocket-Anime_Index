@@ -41,7 +41,7 @@ const uiText = {
         noTraits: "No traits yet",
         notDef: "Not defined yet.",
         notAvail: "It is not yet capturable.",
-        lvl: "Lvl", name: "Name", type: "Type", Carney: "Category",
+        lvl: "Lvl", name: "Name", type: "Type", cat: "Category",
         btn: "🇺🇸 EN", totalStr: "Total: ", moveEmpty: "None",
         weak4: "Extreme Weakness (x4)",
         weak2: "Weakness (x2)",
