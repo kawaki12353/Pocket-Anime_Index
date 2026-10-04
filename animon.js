@@ -463,7 +463,7 @@ function renderMoves() {
         selectedMoveFilter = 'level';
     }
 
-    // Criação dos botões de filtro abaixo do título
+    // Criação dos botões de filtro
     const filterContainer = document.createElement('div');
     filterContainer.className = 'move-filter-container';
     filterContainer.style.display = 'flex';
@@ -504,7 +504,19 @@ function renderMoves() {
     filterContainer.appendChild(btnScroll);
     filterContainer.appendChild(btnFuture);
 
-    container.appendChild(filterContainer);
+    // Posiciona os botões de filtro DO LADO DE FORA do movesContainer
+    const filterTarget = document.getElementById('moveFilterContainer') || document.getElementById('moveFilters');
+    if (filterTarget) {
+        filterTarget.innerHTML = "";
+        filterTarget.appendChild(filterContainer);
+    } else if (container.parentNode) {
+        const existingFilter = container.parentNode.querySelector('.move-filter-container');
+        if (existingFilter && existingFilter.parentNode === container.parentNode) {
+            existingFilter.replaceWith(filterContainer);
+        } else {
+            container.parentNode.insertBefore(filterContainer, container);
+        }
+    }
 
     // Filtragem dos moves com base no botão ativo
     let filteredMoves = [];
