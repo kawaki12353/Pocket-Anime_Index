@@ -7,6 +7,7 @@ const moves = {
     type: "dark",
     attack: "physical",
     pp: 15,
+    scroll: 1,
   },
   "Shadow Ambush": {
     id: 168,
