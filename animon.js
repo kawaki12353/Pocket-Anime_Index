@@ -4,6 +4,7 @@ let radarChart = null;
 let openedMoveBalloon = null;
 let currentLocIndex = 0;
 let balloonAnchor = null;
+let selectedMoveFilter = "level";
 
 // Controle de limpeza de listeners para evitar vazamento de memória
 let activeDragCleanup = null;
@@ -150,7 +151,7 @@ function getMoveInfo(moveInput) {
         }
     }
 
-    if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "??", accuracy: "??", desc: "??" };
+    if (!moveData) return { name: finalName, typeStr: "neutral", attackStr: "physical", power: "??", accuracy: "??", desc: "??", scroll: "?" };
 
     const typeValue = Array.isArray(moveData.type) ? moveData.type[0] : (moveData.type || "neutral");
     const attackValue = moveData.attack || "physical";
@@ -165,6 +166,7 @@ function getMoveInfo(moveInput) {
 
     const rawDesc = moveData[`desc_${lang}`] || moveData.desc_pt || moveData.desc;
     const finalDesc = (rawDesc && rawDesc !== "") ? rawDesc : "??";
+    const scrollVal = (moveData.scroll !== undefined && moveData.scroll !== null) ? moveData.scroll : "?";
 
     return {
         name: moveData.name || finalName,
@@ -172,7 +174,8 @@ function getMoveInfo(moveInput) {
         attackStr: String(attackValue).toLowerCase().trim(),
         power: finalPower,
         accuracy: finalAccuracy,
-        desc: finalDesc
+        desc: finalDesc,
+        scroll: scrollVal
     };
 }
 
@@ -453,25 +456,93 @@ function renderMoves() {
     container.innerHTML = "";
     const movesList = currentAnimon.movesList || [];
 
-    if (movesList.length === 0) {
-        container.innerHTML = `<p style="text-align: center;">${ui.noMoves}</p>`;
+    const hasScrollMoves = movesList.some(m => String(m.level).toLowerCase() === 'sc');
+
+    // Se o filtro selecionado for Scroll mas o Animon não tiver moves de Scroll, volta para Level
+    if (selectedMoveFilter === 'scroll' && !hasScrollMoves) {
+        selectedMoveFilter = 'level';
+    }
+
+    // Criação dos botões de filtro abaixo do título
+    const filterContainer = document.createElement('div');
+    filterContainer.className = 'move-filter-container';
+    filterContainer.style.display = 'flex';
+    filterContainer.style.gap = '8px';
+    filterContainer.style.marginBottom = '12px';
+    filterContainer.style.justifyContent = 'center';
+
+    const btnLevel = document.createElement('button');
+    btnLevel.className = `move-filter-btn ${selectedMoveFilter === 'level' ? 'active' : ''}`;
+    btnLevel.textContent = lang === 'pt' ? 'Nível' : 'Level';
+    btnLevel.onclick = () => {
+        selectedMoveFilter = 'level';
+        renderMoves();
+    };
+
+    const btnScroll = document.createElement('button');
+    btnScroll.className = `move-filter-btn ${selectedMoveFilter === 'scroll' ? 'active' : ''}`;
+    btnScroll.textContent = 'Scroll';
+    if (!hasScrollMoves) {
+        btnScroll.disabled = true;
+        btnScroll.style.opacity = '0.5';
+        btnScroll.style.cursor = 'not-allowed';
+    } else {
+        btnScroll.onclick = () => {
+            selectedMoveFilter = 'scroll';
+            renderMoves();
+        };
+    }
+
+    const btnFuture = document.createElement('button');
+    btnFuture.className = 'move-filter-btn';
+    btnFuture.textContent = '???';
+    btnFuture.disabled = true;
+    btnFuture.style.opacity = '0.5';
+    btnFuture.style.cursor = 'not-allowed';
+
+    filterContainer.appendChild(btnLevel);
+    filterContainer.appendChild(btnScroll);
+    filterContainer.appendChild(btnFuture);
+
+    container.appendChild(filterContainer);
+
+    // Filtragem dos moves com base no botão ativo
+    let filteredMoves = [];
+    if (selectedMoveFilter === 'scroll') {
+        filteredMoves = movesList.filter(m => String(m.level).toLowerCase() === 'sc');
+    } else {
+        filteredMoves = movesList.filter(m => String(m.level).toLowerCase() !== 'sc');
+    }
+
+    if (filteredMoves.length === 0) {
+        const emptyMsg = document.createElement('p');
+        emptyMsg.style.textAlign = 'center';
+        emptyMsg.textContent = ui.noMoves;
+        container.appendChild(emptyMsg);
         return;
     }
 
-    const sortedMoves = [...movesList].sort((a, b) => a.level - b.level);
+    if (selectedMoveFilter === 'level') {
+        filteredMoves.sort((a, b) => (parseInt(a.level) || 0) - (parseInt(b.level) || 0));
+    }
+
     const header = document.createElement('div');
     header.className = 'move-item move-header';
-    header.innerHTML = `<span>${ui.lvl}</span><span class="move-name">${ui.name}</span><span>${ui.type}</span><span>${ui.cat}</span>`;
+    const lvlHeaderLabel = selectedMoveFilter === 'scroll' ? '#' : ui.lvl;
+    header.innerHTML = `<span>${lvlHeaderLabel}</span><span class="move-name">${ui.name}</span><span>${ui.type}</span><span>${ui.cat}</span>`;
     container.appendChild(header);
 
-    sortedMoves.forEach(m => {
+    filteredMoves.forEach(m => {
         const minfo = getMoveInfo(m.name);
         const row = document.createElement('div');
         row.className = 'move-item';
         row.dataset.power = minfo.power;
         row.dataset.acc = minfo.accuracy;
         row.dataset.desc = minfo.desc;
-        row.innerHTML = `<span style="color: #bbb;">lvl ${m.level}</span><span class="move-name">${minfo.name}</span><img src="assets/elements/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/elements/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">`;
+
+        const levelColText = selectedMoveFilter === 'scroll' ? `sc${minfo.scroll}` : `lvl ${m.level}`;
+
+        row.innerHTML = `<span style="color: #bbb;">${levelColText}</span><span class="move-name">${minfo.name}</span><img src="assets/elements/${minfo.typeStr}_element.png" class="move-icon" onerror="this.src='assets/elements/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon" onerror="this.src='assets/physical.png'">`;
         row.onclick = (e) => { e.stopPropagation(); toggleMoveBalloon(row); };
         container.appendChild(row);
     });
