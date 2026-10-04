@@ -440,6 +440,13 @@ const animons = [
   },
   { id: 17, name: "Green Head", type: "Neutral", sprite: "assets/animons-icon/green_head.png", stats: { hp: 40, atk: 20, def: 39, spAtk: 30, spDef: 25, spd: 65 } },
   { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 }, areas: ["0007"],
+    traits: [
+      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Blademaster", chance: "50%" },
+      { name: "Three Sword Style", chance: "5%" }],
+    desc_pt: "Uma ferida nas costas é a vergonha de um espadachim.",
+    desc_en: "A wound on the back is a swordsman's shame.",
     anime: { name: "Zoro" },
     movesList: [
       { level: "sc", name: "Merciful Blow" },
@@ -455,6 +462,13 @@ const animons = [
     ]
   },
   { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 },
+    traits: [
+      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Blademaster", chance: "50%" },
+      { name: "Three Sword Style", chance: "5%" }],
+    desc_pt: "Um espadachim não precisa de desculpas. Ou você vence, ou você morre.",
+    desc_en: "A swordsman doesn't need excuses. Either you win, or you die.",
     anime: { name: "Zoro" },
     movesList: [
       { level: "sc", name: "Merciful Blow" },
