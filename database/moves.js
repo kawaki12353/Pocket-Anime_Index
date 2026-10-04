@@ -2,8 +2,8 @@ const moves = {
   "Merciful Blow": {
     id: 169,
     name: "Merciful Blow",
-    desc_pt: "Uma técnica misericordiosa, que só pode ser aprendida por espadachins específicos. Ao atacar, impede o alvo de ser derrotado. O alvo fica com pelo menos 1 de HP.",
-    desc_en: "A merciful technique, can only be learned by specific swordsman. When attacking, it prevents the target from being defeated. The target is left with at least 1 HP.",
+    desc_pt: "Uma técnica misericordiosa, que só pode ser aprendida por espadachins específicos. Ao atacar, impede o alvo de ser derrotado. O alvo fica com pelo menos [001]1 de HP[000].",
+    desc_en: "A merciful technique, can only be learned by specific swordsman. When attacking, it prevents the target from being defeated. The target is left with at least [001]1 HP[000].",
     type: "dark",
     attack: "physical",
     pp: 15,
