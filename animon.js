@@ -912,5 +912,12 @@ function switchTab(tabId) {
         filterContainer.style.display = (tabId === 'tab-moves') ? 'flex' : 'none';
     }
 
+    // Recalcula o tamanho do gráfico assim que a aba de status ficar visível na tela
+    if (tabId === 'tab-info') {
+        setTimeout(() => {
+            renderStats();
+        }, 50);
+    }
+
     sessionStorage.setItem('lastTab', tabId);
 }
