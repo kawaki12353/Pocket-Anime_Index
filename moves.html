@@ -351,6 +351,36 @@
             margin-bottom: 5px;
         }
 
+        /* --- Botões de Tab no Modal de Animons --- */
+        .animon-tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            background: var(--hover);
+            color: var(--text);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+        .tab-btn:disabled, .tab-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
         .close-animon-list {
             position: absolute;
             top: 15px;
@@ -442,6 +472,11 @@
         <span class="close-animon-list" onclick="closeAnimonModal()">✕</span>
         <div class="modal-title-container">
             <h3 id="animonModalTitle" style="margin-top: 10px; text-align: center;"></h3>
+            <div class="animon-tab-buttons">
+                <button id="btnTabLevel" class="tab-btn active" onclick="switchAnimonTab('level')">Level</button>
+                <button id="btnTabScroll" class="tab-btn" onclick="switchAnimonTab('scroll')">Scroll</button>
+                <button id="btnTabFuture" class="tab-btn disabled" disabled>???</button>
+            </div>
         </div>
         <div id="animonListContainer" style="overflow-y: auto; flex: 1;"></div>
     </div>
@@ -458,6 +493,8 @@
 let lang = localStorage.getItem("siteLang") || "pt";
 let selectedType = "";
 let selectedCat = "";
+let currentAnimonMove = "";
+let currentAnimonTab = "level";
 
 const texts = {
     pt: {
@@ -472,7 +509,9 @@ const texts = {
         descLabel: "Descrição",
         upgradeLabel: "Ataque Evoluído",
         btnFind: "Animon que aprende esses Moves",
-        listHeader: "Animons que aprendem "
+        listHeader: "Animons que aprendem ",
+        tabLevel: "Nível",
+        tabScroll: "Scroll"
     },
     en: {
         title: "Moves Database",
@@ -486,7 +525,9 @@ const texts = {
         descLabel: "Description",
         upgradeLabel: "Upgrade Skill",
         btnFind: "Animons that learn these Moves",
-        listHeader: "Animons that learn "
+        listHeader: "Animons that learn ",
+        tabLevel: "Level",
+        tabScroll: "Scroll"
     }
 };
 
@@ -630,37 +671,105 @@ function closeModal() {
 
 /* --- Funções para o Segundo Modal (Animons) --- */
 function openAnimonListModal(moveName) {
+    currentAnimonMove = moveName;
+    currentAnimonTab = "level";
+
     const overlay = document.getElementById("animonModalOverlay");
     const title = document.getElementById("animonModalTitle");
-    const container = document.getElementById("animonListContainer");
 
     title.textContent = texts[lang].listHeader + moveName;
-    container.innerHTML = "";
 
-    // Filtra animons da database global 'animons'
-    const results = animons.filter(a => 
-        a.movesList && a.movesList.some(m => m.name === moveName)
+    // Verifica se existe algum Animon com move de Scroll (level: "sc")
+    const hasScrollAnimons = animons.some(a => 
+        a.movesList && a.movesList.some(m => m.name === moveName && m.level === "sc")
     );
 
-    if (results.length === 0) {
-        container.innerHTML = `<p style="text-align:center; padding: 20px;">None found.</p>`;
+    const btnScroll = document.getElementById("btnTabScroll");
+    if (hasScrollAnimons) {
+        btnScroll.disabled = false;
+        btnScroll.classList.remove("disabled");
     } else {
-        results.forEach(a => {
-            const moveInfo = a.movesList.find(m => m.name === moveName);
-            const item = document.createElement("div");
-            item.className = "animon-item";
-            item.innerHTML = `
-                <img src="${a.sprite}" onerror="this.src='assets/placeholder.png'">
-                <div class="animon-item-info">
-                    <div class="animon-item-name">${a.name}</div>
-                    <div class="animon-item-level">Level: ${moveInfo.level}</div>
-                </div>
-            `;
-            container.appendChild(item);
-        });
+        btnScroll.disabled = true;
+        btnScroll.classList.add("disabled");
     }
 
+    renderAnimonList();
     overlay.classList.add("active");
+}
+
+function switchAnimonTab(tab) {
+    if (tab === "scroll") {
+        const hasScrollAnimons = animons.some(a => 
+            a.movesList && a.movesList.some(m => m.name === currentAnimonMove && m.level === "sc")
+        );
+        if (!hasScrollAnimons) return;
+    }
+    currentAnimonTab = tab;
+    renderAnimonList();
+}
+
+function renderAnimonList() {
+    const container = document.getElementById("animonListContainer");
+    const btnLevel = document.getElementById("btnTabLevel");
+    const btnScroll = document.getElementById("btnTabScroll");
+
+    if (currentAnimonTab === "level") {
+        btnLevel.classList.add("active");
+        btnScroll.classList.remove("active");
+    } else if (currentAnimonTab === "scroll") {
+        btnScroll.classList.add("active");
+        btnLevel.classList.remove("active");
+    }
+
+    container.innerHTML = "";
+
+    if (currentAnimonTab === "level") {
+        const results = animons.filter(a => 
+            a.movesList && a.movesList.some(m => m.name === currentAnimonMove && m.level !== "sc")
+        );
+
+        if (results.length === 0) {
+            container.innerHTML = `<p style="text-align:center; padding: 20px;">None found.</p>`;
+        } else {
+            results.forEach(a => {
+                const moveInfo = a.movesList.find(m => m.name === currentAnimonMove && m.level !== "sc");
+                const item = document.createElement("div");
+                item.className = "animon-item";
+                item.innerHTML = `
+                    <img src="${a.sprite}" onerror="this.src='assets/placeholder.png'">
+                    <div class="animon-item-info">
+                        <div class="animon-item-name">${a.name}</div>
+                        <div class="animon-item-level">Level: ${moveInfo.level}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+    } else if (currentAnimonTab === "scroll") {
+        const results = animons.filter(a => 
+            a.movesList && a.movesList.some(m => m.name === currentAnimonMove && m.level === "sc")
+        );
+
+        const moveData = moves[currentAnimonMove] || Object.values(moves).find(m => m.name === currentAnimonMove);
+        const scrollNum = (moveData && moveData.scroll !== undefined) ? moveData.scroll : "";
+
+        if (results.length === 0) {
+            container.innerHTML = `<p style="text-align:center; padding: 20px;">None found.</p>`;
+        } else {
+            results.forEach(a => {
+                const item = document.createElement("div");
+                item.className = "animon-item";
+                item.innerHTML = `
+                    <img src="${a.sprite}" onerror="this.src='assets/placeholder.png'">
+                    <div class="animon-item-info">
+                        <div class="animon-item-name">${a.name}</div>
+                        <div class="animon-item-level">sc${scrollNum}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+    }
 }
 
 function closeAnimonModal() {
@@ -746,6 +855,11 @@ function updateLang() {
     document.getElementById("pageTitle").textContent = t.title;
     document.getElementById("searchInput").placeholder = t.search;
     document.getElementById("langBtn").textContent = t.langBtn;
+
+    const btnLevel = document.getElementById("btnTabLevel");
+    const btnScroll = document.getElementById("btnTabScroll");
+    if (btnLevel) btnLevel.textContent = t.tabLevel;
+    if (btnScroll) btnScroll.textContent = t.tabScroll;
 
     buildMenus();
     updateFilterButtonsDisplay();
