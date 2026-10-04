@@ -426,6 +426,7 @@ const animons = [
     anime: { name: "Inuyasha" },
     event: "Rain",
     movesList: [
+      { level: "sc", name: "Merciful Blow" },
       { level: 1, name: "Growl" },
       { level: 1, name: "Sinister Presence" },
       { level: 1, name: "Sword Slash" },
