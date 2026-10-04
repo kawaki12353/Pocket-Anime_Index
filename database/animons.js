@@ -423,6 +423,12 @@ const animons = [
     ]  
   },
   { id: 16, name: "Kaiyuki", type: "Demon", sprite: "assets/animons-icon/kaiyuki.png", stats: { hp: 52, atk: 70, def: 42, spAtk: 39, spDef: 39, spd: 70 }, areas: ["0009"],
+    traits: [
+      { name: "Danger Sense", chance: "100%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Magical Protection", chance: "20%" }],
+    desc_pt: "Não pertenço nem aos humanos ou demônios, mas mesmo assim lutarei com tudo o que tenho.",
+    desc_en: "I don't belong with humans or demons, but I'll still fight with everything I've got",
     anime: { name: "Inuyasha" },
     event: "Rain",
     movesList: [
