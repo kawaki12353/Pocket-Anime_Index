@@ -304,43 +304,42 @@ function renderDescription() {
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     descText = descText.replace(/^"|"$/g, ''); 
 
-    // Insere o texto completo para medir a posição real no DOM
+    // Insere o texto completo limpo
     descEl.innerHTML = `<i>${descText}</i>`;
 
     const parentBox = descEl.closest('.desc-box') || descEl.parentElement;
     if (!parentBox) return;
 
+    // Avalia se o conteúdo ultrapassa a altura real do bloco
     const isOverflowing = () => {
-        const parentRect = parentBox.getBoundingClientRect();
-        const descRect = descEl.getBoundingClientRect();
-        const parentStyle = window.getComputedStyle(parentBox);
-        const paddingBottom = parseFloat(parentStyle.paddingBottom) || 0;
-
-        // Verifica se o texto da descrição passa do limite interno inferior do bloco desc-box
-        return descRect.bottom > (parentRect.bottom - paddingBottom - 2);
+        return parentBox.scrollHeight > (parentBox.clientHeight + 2);
     };
 
-    if (isOverflowing()) {
-        let low = 0;
-        let high = descText.length;
-        let best = 0;
-
-        while (low <= high) {
-            const mid = Math.floor((low + high) / 2);
-            const testText = descText.substring(0, mid) + "...";
-            descEl.innerHTML = `<i>${testText}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
-
-            if (isOverflowing()) {
-                high = mid - 1;
-            } else {
-                best = mid;
-                low = mid + 1;
-            }
-        }
-
-        const truncated = descText.substring(0, best) + "...";
-        descEl.innerHTML = `<i>${truncated}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
+    // Se o texto não ultrapassar a altura do bloco, não adiciona botões
+    if (!isOverflowing()) {
+        return;
     }
+
+    // Caso transborde, faz a busca binária para truncar e colocar "Ver mais"
+    let low = 0;
+    let high = descText.length;
+    let best = 0;
+
+    while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        const testText = descText.substring(0, mid) + "...";
+        descEl.innerHTML = `<i>${testText}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
+
+        if (isOverflowing()) {
+            high = mid - 1;
+        } else {
+            best = mid;
+            low = mid + 1;
+        }
+    }
+
+    const truncated = descText.substring(0, best) + "...";
+    descEl.innerHTML = `<i>${truncated}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
 }
 
 function expandDescription() {
