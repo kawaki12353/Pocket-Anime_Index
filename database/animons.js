@@ -717,6 +717,14 @@ const animons = [
     ]
   },
   { id: 33, name: "Boulder Li", type: "Fighting", sprite: "assets/animons-icon/boulder_li.png", stats: { hp: 57, atk: 90, def: 49, spAtk: 25, spDef: 38, spd: 80 }, areas: ["0012"],
+    traits: [
+      { name: "Unwavering Spirit", chance: "75%" },
+      { name: "Dizzy Retaliation", chance: "50%" },
+      { name: "Hard Worker", chance: "50%" },
+      { name: "Fast Step", chance: "20%" },
+      { name: "Inner Gates", chance: "5%" }],
+    desc_pt: "Talento não significa nada se você não se esforçar.",
+    desc_en: "Talent means nothing if you don't put in the effort.",
     anime: { name: "Rock Lee" },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
