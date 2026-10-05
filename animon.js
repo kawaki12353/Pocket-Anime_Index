@@ -304,23 +304,23 @@ function renderDescription() {
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     descText = descText.replace(/^"|"$/g, ''); 
 
-    // Define o texto completo no elemento para testar o tamanho real
+    // Insere o texto completo para medir a posição real no DOM
     descEl.innerHTML = `<i>${descText}</i>`;
 
-    const checkOverflow = () => {
-        const parent = descEl.parentElement;
-        if (descEl.scrollHeight > descEl.clientHeight) return true;
-        if (parent) {
-            const style = window.getComputedStyle(parent);
-            const padding = (parseFloat(style.paddingTop) || 0) + (parseFloat(style.paddingBottom) || 0);
-            const availHeight = parent.clientHeight - padding;
-            if (availHeight > 0 && descEl.offsetHeight > availHeight) return true;
-        }
-        return false;
+    const parentBox = descEl.closest('.desc-box') || descEl.parentElement;
+    if (!parentBox) return;
+
+    const isOverflowing = () => {
+        const parentRect = parentBox.getBoundingClientRect();
+        const descRect = descEl.getBoundingClientRect();
+        const parentStyle = window.getComputedStyle(parentBox);
+        const paddingBottom = parseFloat(parentStyle.paddingBottom) || 0;
+
+        // Verifica se o texto da descrição passa do limite interno inferior do bloco desc-box
+        return descRect.bottom > (parentRect.bottom - paddingBottom - 2);
     };
 
-    // Se o texto ultrapassar a altura limite do container, ajusta dinamicamente
-    if (checkOverflow()) {
+    if (isOverflowing()) {
         let low = 0;
         let high = descText.length;
         let best = 0;
@@ -330,7 +330,7 @@ function renderDescription() {
             const testText = descText.substring(0, mid) + "...";
             descEl.innerHTML = `<i>${testText}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
 
-            if (checkOverflow()) {
+            if (isOverflowing()) {
                 high = mid - 1;
             } else {
                 best = mid;
