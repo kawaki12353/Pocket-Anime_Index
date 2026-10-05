@@ -304,14 +304,42 @@ function renderDescription() {
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     descText = descText.replace(/^"|"$/g, ''); 
 
-    const isMobile = window.innerWidth <= 768;
-    const limit = 70; 
+    // Define o texto completo no elemento para testar o tamanho real
+    descEl.innerHTML = `<i>${descText}</i>`;
 
-    if (isMobile && descText.length > limit) {
-        const truncated = descText.substring(0, limit) + "...";
+    const checkOverflow = () => {
+        const parent = descEl.parentElement;
+        if (descEl.scrollHeight > descEl.clientHeight) return true;
+        if (parent) {
+            const style = window.getComputedStyle(parent);
+            const padding = (parseFloat(style.paddingTop) || 0) + (parseFloat(style.paddingBottom) || 0);
+            const availHeight = parent.clientHeight - padding;
+            if (availHeight > 0 && descEl.offsetHeight > availHeight) return true;
+        }
+        return false;
+    };
+
+    // Se o texto ultrapassar a altura limite do container, ajusta dinamicamente
+    if (checkOverflow()) {
+        let low = 0;
+        let high = descText.length;
+        let best = 0;
+
+        while (low <= high) {
+            const mid = Math.floor((low + high) / 2);
+            const testText = descText.substring(0, mid) + "...";
+            descEl.innerHTML = `<i>${testText}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
+
+            if (checkOverflow()) {
+                high = mid - 1;
+            } else {
+                best = mid;
+                low = mid + 1;
+            }
+        }
+
+        const truncated = descText.substring(0, best) + "...";
         descEl.innerHTML = `<i>${truncated}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
-    } else {
-        descEl.innerHTML = `<i>${descText}</i>`;
     }
 }
 
