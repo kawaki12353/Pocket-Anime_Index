@@ -1,4 +1,14 @@
 const traits = {
+    "Magical Protection": {
+        id: 35,
+        desc_pt: "Resista a 25% do dano causado por ataques de [012]atributo mágico[000].",
+        desc_en: "Resist 25% of damage dealt by [012]magical-attribute[000] attacks."
+    },
+    "Danger Sense": {
+        id: 34,
+        desc_pt: "Na primeira vez que um oponente obtiver um aumento de atributo, ganhe [002]Evasão[+1][000].",
+        desc_en: "The first time an opponent has a stat increase, gain [002]EVA[+1][000]"
+    },
     "Three Sword Style": {
         id: 33,
         desc_pt: "A chance de acerto crítico é 6x maior ao usar uma habilidade com o [012]atributo de três espadas[000].",
