@@ -428,7 +428,7 @@ const animons = [
       { name: "Hunter", chance: "50%" },
       { name: "Magical Protection", chance: "20%" }],
     desc_pt: "Não pertenço nem aos humanos ou demônios, mas mesmo assim lutarei com tudo o que tenho.",
-    desc_en: "I don't belong with humans or demons, but I'll still fight with everything I've got",
+    desc_en: "I don't belong with humans or demons, but I'll still fight with everything I've got.",
     anime: { name: "Inuyasha" },
     event: "Rain",
     movesList: [
@@ -745,6 +745,13 @@ const animons = [
     ]
   }, 
   { id: 34, name: "Ganra", type: "Earth", sprite: "assets/animons-icon/ganra.png", stats: { hp: 51, atk: 40, def: 75, spAtk: 72, spDef: 60, spd: 40 }, areas: ["0020"],
+    traits: [
+      { name: "Bloodlust", chance: "100%" },
+      { name: "Earth Affinity", chance: "100%" },
+      { name: "Sand Shell", chance: "20%" },
+      { name: "Sand Shroud", chance: "5%" }],
+    desc_pt: "Luto apenas por mim mesmo e amo apenas a mim mesmo.",
+    desc_en: "I fight only for myself and love only myself.",
     anime: { name: "Gaara" },
     event: "Sandstorm",
     movesList: [
@@ -759,6 +766,14 @@ const animons = [
     ] 
   },
   { id: 34.01, name: "Tanuki Ganra", type: ["Earth", "Demon"], sprite: "assets/animons-icon/tanuki_ganra.png", stats: { hp: 65, atk: 46, def: 94, spAtk: 81, spDef: 65, spd: 48 },
+    traits: [
+      { name: "Bloodlust", chance: "100%" },
+      { name: "Fearsome", chance: "100%" }, 
+      { name: "Earth Affinity", chance: "50%" },
+      { name: "Sand Shroud", chance: "15%" },
+      { name: "Sand Shell", chance: "5%" }],
+    desc_pt: "Uma possessão perfeita.",
+    desc_en: "A perfect possession.",
     anime: { name: "Gaara" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
