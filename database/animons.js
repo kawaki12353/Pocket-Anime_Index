@@ -739,6 +739,12 @@ const animons = [
     ]
   },
   { id: 33.01, name: "TS Boulder Li", type: "Fighting", sprite: "assets/animons-icon/ts_boulder_li.png", stats: { hp: 64, atk: 100, def: 55, spAtk: 30, spDef: 43, spd: 100 },
+    traits: [
+      { name: "Unwavering Spirit", chance: "75%" },
+      { name: "Hard Worker", chance: "75%" },
+      { name: "Dizzy Retaliation", chance: "50%" },
+      { name: "Fast Step", chance: "20%" },
+      { name: "Inner Gates", chance: "5%" }],
     anime: { name: "Rock Lee" },
     movesList: [
       { level: 1, name: "Fighting Spirit" }, 
