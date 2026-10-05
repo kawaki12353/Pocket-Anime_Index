@@ -1,4 +1,24 @@
 const traits = {
+    "Bloodlust": {
+        id: 39,
+        desc_pt: "Ao sofrer dano, há uma chance de ganhar [002]SP.ATK[+1][000] ou [002]ATK[+1][000], dependendo de qual for maior.",
+        desc_en: "When taking damage, a chance to gain [002]SP.ATK[+1][000] or [002]ATK[+1][000], depending on which is higher."
+    },
+    "Earth Affinity": {
+        id: 38,
+        desc_pt: "Ao usar um movimento do tipo Earth, há 25% de chance de aumentar seu dano em [002]1.2x[000].",
+        desc_en: "When using a Earth-Type move have a 25% to increase its damage [002]1.2X[000]."
+    },
+    "Sand Shroud": {
+        id: 37,
+        desc_pt: "Ativa a [012]Tempestade de Areia[000] ao ser Invocado.",
+        desc_en: "Activates [012]Sandstorm[000] on Summon."
+    },
+    "Sand Shell": {
+        id: 36,
+        desc_pt: "Ao final de cada turno durante uma tempestade de areia, ganhe [002]DEF[+1][000].",
+        desc_en: "At the end of every turn during a sandstorm gain [002]DEF[+1][000]."
+    },
     "Magical Protection": {
         id: 35,
         desc_pt: "Resista a 25% do dano causado por ataques de [012]atributo mágico[000].",
