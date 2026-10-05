@@ -300,27 +300,30 @@ function renderDescription() {
     const descEl = document.getElementById('animonDesc');
     if (!descEl) return;
 
+    const parentBox = descEl.closest('.desc-box') || descEl.parentElement;
+    if (parentBox) {
+        parentBox.style.maxHeight = '';
+        parentBox.style.height = '';
+    }
+
     const ui = uiText[lang];
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
     descText = descText.replace(/^"|"$/g, ''); 
 
-    // Insere o texto completo limpo
+    // Obtém a altura de 1 linha de texto para calcular o limite exato de 3 linhas
+    descEl.innerHTML = '<i>A</i>';
+    const singleLineHeight = descEl.getBoundingClientRect().height || 20;
+    const max3LinesHeight = (singleLineHeight * 3) + 4; // Margem de tolerância para renderização
+
+    // Insere o texto completo para checar estouro de 3 linhas
     descEl.innerHTML = `<i>${descText}</i>`;
 
-    const parentBox = descEl.closest('.desc-box') || descEl.parentElement;
-    if (!parentBox) return;
-
-    // Avalia se o conteúdo ultrapassa a altura real do bloco
-    const isOverflowing = () => {
-        return parentBox.scrollHeight > (parentBox.clientHeight + 2);
-    };
-
-    // Se o texto não ultrapassar a altura do bloco, não adiciona botões
-    if (!isOverflowing()) {
+    // Se couber em até 3 linhas, mantém o texto sem botão de expansão
+    if (descEl.getBoundingClientRect().height <= max3LinesHeight) {
         return;
     }
 
-    // Caso transborde, faz a busca binária para truncar e colocar "Ver mais"
+    // Caso ultrapasse 3 linhas, busca binária para truncar exatamente no limite de 3 linhas
     let low = 0;
     let high = descText.length;
     let best = 0;
@@ -330,7 +333,7 @@ function renderDescription() {
         const testText = descText.substring(0, mid) + "...";
         descEl.innerHTML = `<i>${testText}<span class="read-more-link" onclick="expandDescription()">${ui.readMore}</span></i>`;
 
-        if (isOverflowing()) {
+        if (descEl.getBoundingClientRect().height > max3LinesHeight) {
             high = mid - 1;
         } else {
             best = mid;
@@ -345,6 +348,12 @@ function renderDescription() {
 function expandDescription() {
     const descEl = document.getElementById('animonDesc');
     if (!descEl) return;
+
+    const parentBox = descEl.closest('.desc-box') || descEl.parentElement;
+    if (parentBox) {
+        parentBox.style.maxHeight = 'none';
+        parentBox.style.height = 'auto';
+    }
 
     const ui = uiText[lang];
     let descText = (currentAnimon.desc && currentAnimon.desc[lang]) ? currentAnimon.desc[lang] : (currentAnimon[`desc_${lang}`] || ui.noDesc);
