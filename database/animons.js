@@ -64,7 +64,7 @@ const animons = [
   },
   { id: 2.01, name: "Super Bojin", type: "Psychic", sprite: "assets/animons-icon/super_bojin.png", stats: { hp: 80, atk: 39, def: 67, spAtk: 90, spDef: 49, spd: 63 },
     traits: [
-      { name: "Confident", chance: "100%" },
+      { name: "Bloodlust", chance: "100%" },
       { name: "Primal Power", chance: "20%" },
       { name: "Elastic Body", chance: "20%" },
       { name: "Regenerative Aura", chance: "15%" },
