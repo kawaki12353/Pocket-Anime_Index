@@ -1,8 +1,28 @@
 const traits = {
+    "Unwavering Spirit": {
+        id: 43,
+        desc_pt: "Não pode ser [004]confundido[000] - em vez disso, ganhe [002]SP.DEF [+1][000].",
+        desc_en: "Can not be [004]confused[000] - instead gain [002]SP.DEF [+1][000]."
+    },
+    "Dizzy Retaliation": {
+        id: 42,
+        desc_pt: "Aumenta o [002]ATQ [+1][000] quando [004]confuso[000].",
+        desc_en: "Increases [002]ATK [+1][000] when [004]confused[000]."
+    },
+    "Hard Worker": {
+        id: 41,
+        desc_pt: "Aumentar os níveis de atributos removerá as condições de status.",
+        desc_en: "Gaining stat stages will remove status conditions."
+    },
+    "Inner Gates": {
+        id: 40,
+        desc_pt: "Usar ataques físicos desbloqueia seus portões internos. A cada estágio, reduza [001]SP.DEF [-1][000] e [001]DEF [-1][000] enquanto aumenta [002]ATK [+1][000] e [002]SPD [+1][000]. No nível +5, você perde [001]1/8 HP[000] a cada turno.",
+        desc_en: "Using physical attacks unlocks your inner gates. At every stage, decrease [001]SP.DEF [-1][000] and [001]DEF [-1][000] while increasing [002]ATK [+1][000] and [002]SPD [+1][000]. At +5, you lose [001]1/8 HP[000] every turn."
+    },
     "Bloodlust": {
         id: 39,
-        desc_pt: "Ao sofrer dano, há uma chance de ganhar [002]SP.ATK[+1][000] ou [002]ATK[+1][000], dependendo de qual for maior.",
-        desc_en: "When taking damage, a chance to gain [002]SP.ATK[+1][000] or [002]ATK[+1][000], depending on which is higher."
+        desc_pt: "Ao sofrer dano, há uma chance de ganhar [002]SP.ATK [+1][000] ou [002]ATK [+1][000], dependendo de qual for maior.",
+        desc_en: "When taking damage, a chance to gain [002]SP.ATK [+1][000] or [002]ATK [+1][000], depending on which is higher."
     },
     "Earth Affinity": {
         id: 38,
@@ -17,7 +37,7 @@ const traits = {
     "Sand Shell": {
         id: 36,
         desc_pt: "Ao final de cada turno durante uma tempestade de areia, ganhe [002]DEF[+1][000].",
-        desc_en: "At the end of every turn during a sandstorm gain [002]DEF[+1][000]."
+        desc_en: "At the end of every turn during a sandstorm gain [002]DEF [+1][000]."
     },
     "Magical Protection": {
         id: 35,
@@ -26,8 +46,8 @@ const traits = {
     },
     "Danger Sense": {
         id: 34,
-        desc_pt: "Na primeira vez que um oponente obtiver um aumento de atributo, ganhe [002]Evasão[+1][000].",
-        desc_en: "The first time an opponent has a stat increase, gain [002]EVA[+1][000]"
+        desc_pt: "Na primeira vez que um oponente obtiver um aumento de atributo, ganhe [002]Evasão [+1][000].",
+        desc_en: "The first time an opponent has a stat increase, gain [002]EVA [+1][000]"
     },
     "Three Sword Style": {
         id: 33,
