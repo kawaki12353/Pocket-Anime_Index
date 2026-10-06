@@ -603,7 +603,7 @@ function render() {
 
 /* --- SISTEMA DE BALÃO PARA OS MOVES --- */
 function toggleMoveBalloon(moveDiv) {
-    if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
+    if (openedMoveBalloon) { closeMoveBalloonOnce(); }
     const power = moveDiv.dataset.power, acc = moveDiv.dataset.acc, desc = moveDiv.dataset.desc;
     const balloon = document.createElement("div");
     balloon.className = "move-balloon";
@@ -612,14 +612,21 @@ function toggleMoveBalloon(moveDiv) {
     balloon.innerHTML = contentHtml;
     moveDiv.appendChild(balloon);
     openedMoveBalloon = balloon;
-    setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
+    setTimeout(() => { document.addEventListener("click", handleOutsideBalloonClick); }, 0);
 }
 
 function closeMoveBalloonOnce() { 
     if (openedMoveBalloon) { 
         openedMoveBalloon.remove(); 
         openedMoveBalloon = null; 
+        document.removeEventListener("click", handleOutsideBalloonClick);
     } 
+}
+
+function handleOutsideBalloonClick(e) {
+    if (openedMoveBalloon && !openedMoveBalloon.contains(e.target)) {
+        closeMoveBalloonOnce();
+    }
 }
 
 // Helper para renderizar os mini containers de move
