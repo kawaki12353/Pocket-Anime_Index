@@ -612,21 +612,16 @@ function toggleMoveBalloon(moveDiv) {
     balloon.innerHTML = contentHtml;
     moveDiv.appendChild(balloon);
     openedMoveBalloon = balloon;
-    setTimeout(() => { document.addEventListener("click", handleOutsideBalloonClick); }, 0);
+    setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, true); }, 0);
 }
 
-function closeMoveBalloonOnce() { 
+function closeMoveBalloonOnce(e) { 
     if (openedMoveBalloon) { 
+        if (e && e.target && openedMoveBalloon.contains(e.target)) return;
         openedMoveBalloon.remove(); 
         openedMoveBalloon = null; 
-        document.removeEventListener("click", handleOutsideBalloonClick);
     } 
-}
-
-function handleOutsideBalloonClick(e) {
-    if (openedMoveBalloon && !openedMoveBalloon.contains(e.target)) {
-        closeMoveBalloonOnce();
-    }
+    document.removeEventListener("click", closeMoveBalloonOnce, true);
 }
 
 // Helper para renderizar os mini containers de move
