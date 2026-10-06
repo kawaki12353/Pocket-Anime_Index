@@ -322,6 +322,8 @@
             border-radius: 10px;
             min-width: 0;
             color: var(--text);
+            position: relative;
+            cursor: pointer;
         }
         .mini-move-name {
             font-size: 13px;
@@ -335,6 +337,17 @@
         .mini-icon { width: 18px; height: 18px; object-fit: contain; }
         .mini-icon-cat { filter: grayscale(0.5); opacity: 0.8; }
         .arrow-right { color: var(--text); font-weight: bold; }
+
+        /* Design do Balão (IGUAL AO TEAM BUILDER) */
+        .move-balloon { 
+            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); 
+            margin-bottom: 8px; background: var(--card); border: 1px solid var(--border); 
+            border-radius: 10px; padding: 8px 12px; font-size: 13px; text-align: left; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25); z-index: 60; animation: fadeIn 0.2s ease; 
+            white-space: nowrap; color: var(--text); 
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
         /* --- Modal Secundário (Animons que aprendem) --- */
         .secondary-modal-content {
@@ -495,6 +508,7 @@ let selectedType = "";
 let selectedCat = "";
 let currentAnimonMove = "";
 let currentAnimonTab = "level";
+let openedMoveBalloon = null;
 
 const texts = {
     pt: {
@@ -587,6 +601,27 @@ function render() {
     });
 }
 
+/* --- SISTEMA DE BALÃO PARA OS MOVES --- */
+function toggleMoveBalloon(moveDiv) {
+    if (openedMoveBalloon) { openedMoveBalloon.remove(); openedMoveBalloon = null; }
+    const power = moveDiv.dataset.power, acc = moveDiv.dataset.acc, desc = moveDiv.dataset.desc;
+    const balloon = document.createElement("div");
+    balloon.className = "move-balloon";
+    let contentHtml = (desc && desc !== "undefined") ? `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${parseColoredText(desc)}</div>` : "";
+    contentHtml += `<div style="text-align: center;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
+    balloon.innerHTML = contentHtml;
+    moveDiv.appendChild(balloon);
+    openedMoveBalloon = balloon;
+    setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, { once: true }); }, 0);
+}
+
+function closeMoveBalloonOnce() { 
+    if (openedMoveBalloon) { 
+        openedMoveBalloon.remove(); 
+        openedMoveBalloon = null; 
+    } 
+}
+
 // Helper para renderizar os mini containers de move
 function renderMiniMove(moveName) {
     const moveData = Object.values(moves).find(m => m.name === moveName);
@@ -595,8 +630,19 @@ function renderMiniMove(moveName) {
     const typeImg = `assets/elements/${moveData.type.toLowerCase()}_element.png`;
     const catImg = `assets/${moveData.attack.toLowerCase()}.png`;
 
+    const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
+    const descRaw = (descKey in moveData && moveData[descKey]) ? moveData[descKey] : '??';
+    const pwr = ('power' in moveData && moveData.power !== null && moveData.power !== undefined) ? (moveData.power || '--') : '??';
+    const acc = ('accuracy' in moveData && moveData.accuracy !== null && moveData.accuracy !== undefined) ? (moveData.accuracy || '--') : '??';
+
+    const cleanDesc = String(descRaw).replace(/"/g, '&quot;');
+
     return `
-        <div class="mini-move-container">
+        <div class="mini-move-container" 
+             data-power="${pwr}" 
+             data-acc="${acc}" 
+             data-desc="${cleanDesc}" 
+             onclick="event.stopPropagation(); toggleMoveBalloon(this)">
             <img src="${typeImg}" class="mini-icon">
             <span class="mini-move-name">${moveData.name}</span>
             <img src="${catImg}" class="mini-icon mini-icon-cat">
@@ -605,6 +651,7 @@ function renderMiniMove(moveName) {
 }
 
 function openModal(move) {
+    closeMoveBalloonOnce();
     const modal = document.getElementById("modalOverlay");
     const dataContainer = document.getElementById("modalData");
     const descContainer = document.getElementById("modalDesc");
@@ -666,6 +713,7 @@ function openModal(move) {
 }
 
 function closeModal() {
+    closeMoveBalloonOnce();
     document.getElementById("modalOverlay").classList.remove("active");
 }
 
