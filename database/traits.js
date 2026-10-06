@@ -11,8 +11,8 @@ const traits = {
     },
     "Hard Worker": {
         id: 41,
-        desc_pt: "Aumentar os níveis de atributos removerá as condições de status.",
-        desc_en: "Gaining stat stages will remove status conditions."
+        desc_pt: "Aumentar os níveis de atributos [012]removerá[000] as [012]condições de status[000].",
+        desc_en: "Gaining stat stages will [012]remove status conditions[000]."
     },
     "Inner Gates": {
         id: 40,
