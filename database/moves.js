@@ -1552,8 +1552,8 @@ const moves = {
   "Pheonix Fire Bomb": {
     id: 26,
     name: "Pheonix Fire Bomb",
-    desc_pt: "Bolas de fogo consecutivas com 20% de chance de [003]queimar[000] o alvo.",
-    desc_en: "Consecutive fireballs with a 20% chance to [003]burn[000] a target.",
+    desc_pt: "Bolas de fogo consecutivas com 20% de chance de [003]queimar[000] por 4 Turnos.",
+    desc_en: "Consecutive fireballs with a 20% chance to [003]burn[000] for 4 turns.",
     type: "fire",
     attack: "physical",
     power: 70,
