@@ -1,4 +1,15 @@
 const moves = {
+  "Vanishing Ball": {
+    id: 170,
+    name: "Vanishing Ball",
+    desc_pt: "Libere uma bola de energia devastadora que causa danos severos.",
+    desc_en: "Unleash a devastating ball of energy dealing heavy damage.",
+    type: "psychic",
+    attack: "special",
+    power: 80,
+    accuracy: 95,
+    pp: 12,
+  },
   "Merciful Blow": {
     id: 169,
     name: "Merciful Blow",
