@@ -941,8 +941,8 @@ const moves = {
   "Charm": {
     id: 82,
     name: "Charm",
-    desc_pt: "Atraia um alvo com seu olhar, fazendo com que ele erre seus ataques por 3 turnos.",
-    desc_en: "Attract a target with your looks, making them miss when they try to hit you for 3 turns.",
+    desc_pt: "Atraia um alvo com sua aparência, perdendo [001]SPD [-1][000]. Se obtiver sucesso, ele [012]errará por 2 turnos[000].",
+    desc_en: "Attract a target with your looks, losing [001]SPD [-1][000]. If successful, they will [012]miss for 2 turns[000].",
     type: "neutral",
     attack: "status",
     power: 0,
