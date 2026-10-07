@@ -1290,8 +1290,8 @@ const moves = {
   "Dive Kick": {
     id: 50,
     name: "Dive Kick",
-    desc_pt: "Pule e chute seu oponente com 3x de chance de acerto crítico; se errar, sofra [001]1/8[000] do dano máximo da sua vida.",
-    desc_en: "Jump and kick your opponent with a x3 chance to critically strike, if you miss take [001]1/8th max health[000] damage.",
+    desc_pt: "Salte e chute com 3x de chance de crítico. Se errar, perca [001]SPD [-1][000].",
+    desc_en: "Jump and kick with a 3X critical chance. If you miss, lose [001]SPD [-1][000].",
     type: "fighting",
     attack: "physical",
     power: 50,
