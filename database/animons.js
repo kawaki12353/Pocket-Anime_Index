@@ -336,7 +336,8 @@ const animons = [
       { level: 10, name: "Fire Star" },
       { level: 14, name: "Gas Bomb" },
       { level: 18, name: "Impact Dial" },
-      { level: 23, name: "Golden Pound" }
+      { level: 23, name: "Golden Pound" },
+      { level: 24, name: "5 Ton Hammer" }
     ]  
   },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 }, areas: ["0006"],
