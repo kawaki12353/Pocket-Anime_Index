@@ -649,6 +649,7 @@ const moves = {
     power: 30,
     accuracy: 100,
     pp: 15,
+    scroll: 2,
   },
   "Mop the floor": {
     id: 109,
