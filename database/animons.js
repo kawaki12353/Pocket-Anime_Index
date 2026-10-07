@@ -84,7 +84,8 @@ const animons = [
       { level: 14, name: "Rest" },
       { level: 18, name: "Angry Explosion" },
       { level: 24, name: "Limb Regrowth" },
-      { level: 21, name: "Demon Elbow" }
+      { level: 21, name: "Demon Elbow" },
+      { level: 24, name: "Vanishing Ball" }
     ]
   },
   { id: 3, name: "Sasken", type: "Fire", sprite: "assets/animons-icon/sasken.png", stats: { hp: 40, atk: 52, def: 43, spAtk: 60, spDef: 45, spd: 60 }, areas: ["0000"],
