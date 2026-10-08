@@ -1,4 +1,9 @@
 const items=[
+{rarity:"raro",
+ pt:{name:"Seastone Cuff",desc:"Algemas feitas com uma pedra especial! Podem ferir usuários elementais.",drop:"Marine Crate",cat:"battle"},
+ en:{name:"Seastone Cuff",desc:"Cuffs made with special stone! Can damage elemental users.",drop:"Marine Crate",cat:"battle"},
+ icon:"seastone_cuff.png"
+},
 {rarity:"epico",
  pt:{name:"Celestial Key",desc:"Uma chave dourada que brilha com luz celestial, desbloqueando poderes inimagináveis.",drop:"Derrotando Animons do tipo Light.",cat:"evolution"},
  en:{name:"Celestial Key",desc:"A golden key that shimmers with heavenly light, unlocking untold powers.",drop:"Defeating Light-type Animons.",cat:"evolution"},
