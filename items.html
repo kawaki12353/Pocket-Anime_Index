@@ -411,7 +411,7 @@ function render() {
         const data = item[lang];
         const div = document.createElement("div");
         div.className = `item ${item.rarity}`;
-        const iconSrc = item.icon ? `assets/${item.icon}` : "assets/sem_icone.png";
+        const iconSrc = item.icon ? `assets/items/${item.icon}` : "assets/sem_icone.png";
 
         div.innerHTML = `
             <img src="${iconSrc}" alt="${data.name}">
