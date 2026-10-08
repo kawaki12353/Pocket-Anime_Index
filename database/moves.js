@@ -340,8 +340,11 @@ const moves = {
   "Ice Clone": {
     id: 138,
     name: "Ice Clone",
+    desc_pt: "O próximo ataque que te atingir falhará. Se houver contato Físico, o atacante terá 10% de chance de ficar [009]congelado[000] por 3 turnos.",
+    desc_en: "The next attack to hit you will fail. If it made physical contact the attacker will have a 10% chance of being [009]frozen[000] for 3 turns.",
     type: "ice",
     attack: "status",
+    power: 0,
     accuracy: 100,
     pp: 5,
   },
