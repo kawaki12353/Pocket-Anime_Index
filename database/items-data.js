@@ -27,7 +27,8 @@ const items=[
 },
 {rarity:"comum",
  pt:{name:"Capsule",desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas",cat:"capture"},
- en:{name:"Capsule",desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops",cat:"capture"}
+ en:{name:"Capsule",desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops",cat:"capture"},
+ icon:"capsule.png"
 },
 {rarity:"incomum",
  pt:{name:"Advance Capsule",desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas",cat:"capture"},
@@ -159,7 +160,8 @@ const items=[
 },
 {rarity:"comum",
  pt:{name:"C-Potion",desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",note:"Recupera 25 de HP.",drop:"Loja",cat:"medical"},
- en:{name:"C-Potion",desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",note:"Restores 25 HP.",drop:"Shop",cat:"medical"}
+ en:{name:"C-Potion",desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",note:"Restores 25 HP.",drop:"Shop",cat:"medical"},
+ icon:"c-potion.png"
 },
 {rarity:"epico",
  pt:{name:"Endless Bento",desc:"Recupera automaticamente 1/14 do HP Máx no final de cada rodada.",drop:"Dentro da Torre do Korin",cat:"battle"},
@@ -184,7 +186,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Witherloom",desc:"Carne seca e desbotada que drena o vigor quanto mais é mastigada.",note:"Diminui o HP TV em 10",drop:"Loja de Fase",cat:"status"},
- en:{name:"Witherloom",desc:"Dry, faded flesh that saps vigor the longer it's chewed.",note:"Decreases HP TV by 10",drop:"Phase Shop",cat:"status"}
+ en:{name:"Witherloom",desc:"Dry, faded flesh that saps vigor the longer it's chewed.",note:"Decreases HP TV by 10",drop:"Phase Shop",cat:"status"},
+ icon:"witherloom.png"
 },
 {rarity:"incomum",
  pt:{name:"Blaze Orb",desc:"Um pequeno orbe que queima com uma chama eterna, intensificando golpes do tipo Fire.",drop:"Loja in Capsule City",cat:"battle"},
@@ -193,7 +196,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Crimberry",desc:"Uma fruta ácida que alimenta a agressividade. Seu gosto forte deixa marca.",note:"Aumenta o ATK TV em 10",drop:"Loja de Fase",cat:"status"},
- en:{name:"Crimberry",desc:"A tangy fruit that fuels aggression. Its sharp taste leaves a bite.",note:"Increases ATK TV by 10",drop:"Phase Shop",cat:"status"}
+ en:{name:"Crimberry",desc:"A tangy fruit that fuels aggression. Its sharp taste leaves a bite.",note:"Increases ATK TV by 10",drop:"Phase Shop",cat:"status"},
+ icon:"crimberry.png"
 },
 {rarity:"raro",
  pt:{name:"Crumblefruit",desc:"Polpa quebradiça que se desfaz ao toque, deixando você se sentindo frágil.",note:"Diminui o DEF TV em 10",drop:"Loja de Fase",cat:"status"},
@@ -254,7 +258,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Grimberry",desc:"Uma fruta azeda e cruel que arde ao descer, temperando a agressividade bruta.",note:"Diminui o ATK TV em 10",drop:"Loja de Fase",cat:"status"},
- en:{name:"Grimberry",desc:"A tart, mean little berry that stings on the way down, tempering raw aggression.",note:"Decreases ATK TV by 10",drop:"Phase Shop",cat:"status"}
+ en:{name:"Grimberry",desc:"A tart, mean little berry that stings on the way down, tempering raw aggression.",note:"Decreases ATK TV by 10",drop:"Phase Shop",cat:"status"},
+ icon:"grimberry.png"
 },
 {rarity:"raro",
  pt:{name:"Hushmelon",desc:"Macia e silenciosa, suaviza os sentidos e reduz sua guarda.",note:"Diminui o SP DEF TV em 10",drop:"Loja de Fase",cat:"status"},
@@ -266,7 +271,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Mindapple",desc:"Uma fruta amarga que dizem despertar inspiração em batalha!",note:"Aumenta o SP ATK TV em 10",drop:"Loja de Fase",cat:"status"},
- en:{name:"Mindapple",desc:"A bitter fruit said to spark inspiration in battle!",note:"Increases SP ATK TV by 10",drop:"Phase Shop",cat:"status"}
+ en:{name:"Mindapple",desc:"A bitter fruit said to spark inspiration in battle!",note:"Increases SP ATK TV by 10",drop:"Phase Shop",cat:"status"},
+ icon:"mindapple.png"
 },
 {rarity:"raro",
  pt:{name:"Rocky Helmet",desc:"Reflete de volta ao atacante um dano equivalente a 1/12 do dano causado.",drop:"???",cat:"battle"},
