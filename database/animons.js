@@ -83,7 +83,7 @@ const animons = [
       { level: 12, name: "Drain Life" },
       { level: 14, name: "Rest" },
       { level: 18, name: "Angry Explosion" },
-      { level: 24, name: "Limb Regrowth" },
+      { level: 18, name: "Limb Regrowth" },
       { level: 21, name: "Demon Elbow" },
       { level: 24, name: "Vanishing Ball" }
     ]
@@ -182,9 +182,9 @@ const animons = [
       { level: 1, name: "Cut Down"}, 
       { level: 1, name: "Plunder" },
       { level: 1, name: "Sword Slash" },
-      { level: 1, name: "Taunt" },
       { level: 5, name: "Rifle Shot" },
       { level: 9, name: "Guzzle" },
+      { level: 14, name: "Taunt" },
       { level: 15, name: "Double Shot" },
       { level: 17, name: "Lunge" },
       { level: 20, name: "Coated Blade" }
@@ -599,7 +599,8 @@ const animons = [
       { level: 1, name: "Vanishing Blow" },
       { level: 6, name: "Energy Wave" },
       { level: 9, name: "Solar Flare" },
-      { level: 11, name: "Cyclone Throw" }
+      { level: 11, name: "Cyclone Throw" },
+      { level: 21, name: "Afterimage" }
     ]
   },
   { id: 27.01, name: "Adult Gocu", type: "Fighting", sprite: "assets/animons-icon/adult_gocu.png", stats: { hp: 55, atk: 80, def: 50, spAtk: 71, spDef: 45, spd: 80 },
@@ -1072,7 +1073,8 @@ const animons = [
       { level: 6, name: "Crush" },
       { level: 10, name: "Fury" },
       { level: 15, name: "Cyclone Throw" },
-      { level: 18, name: "Z Bomb" }
+      { level: 18, name: "Z Bomb" },
+      { level: 20, name: "Mega Punch" }
     ]
   },
   { id: 74.01, name: "Full Power Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/full_power_brorok.png", stats: { hp: 66, atk: 90, def: 66, spAtk: 105, spDef: 66, spd: 93 },
@@ -1092,7 +1094,8 @@ const animons = [
       { level: 6, name: "Crush" },
       { level: 10, name: "Fury" },
       { level: 15, name: "Cyclone Throw" },
-      { level: 18, name: "Z Bomb" }
+      { level: 18, name: "Z Bomb" },
+      { level: 20, name: "Mega Punch" }
     ]
   },
   { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 } },
