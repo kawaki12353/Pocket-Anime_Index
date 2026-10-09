@@ -1,4 +1,26 @@
 const moves = {
+  "Mega Punch": {
+    id: 172,
+    name: "Mega Punch",
+    desc_pt: "Pule em direção ao oponente e dê um soco com toda a sua força.",
+    desc_en: "Jump to an opponent and punch them with all your strength.",
+    type: "fighting",
+    attack: "physical",
+    power: 80,
+    accuracy: 85,
+    pp: 12,
+  },
+  "Devastating Blow": {
+    id: 171,
+    name: "Devasrating Blow",
+    desc_pt: "Uma explosão baseada em energia que danifica o alvo.",
+    desc_en: "An energy based explosion that damages the target.",
+    type: "dark",
+    attack: "special",
+    power: 85,
+    accuracy: 90,
+    pp: 5,
+  },
   "Vanishing Ball": {
     id: 170,
     name: "Vanishing Ball",
@@ -1808,8 +1830,12 @@ const moves = {
   "Headbutt": {
     id: 3,
     name: "Headbutt",
+    desc_pt: "Golpeie seu oponente com uma cabeçada, com 20% de chance de fazê-lo recuar.",
+    desc_en: "Slam your opponent with a head-butt having a 20% chance to make them flinch.",
     type: "neutral",
     attack: "physical",
+    power: "60",
+    accuracy: "100",
     pp: 16,
   },
   "Armament": {
