@@ -467,7 +467,7 @@
         ${types.map(type => {
           const tStr = String(type).toLowerCase().trim();
           return `<div class="element-wrapper element-${tStr}">
-            <div class="element-inner"><img src="assets/${tStr}_element.png" alt="${type}"></div>
+            <div class="element-inner"><img src="assets/elements/${tStr}_element.png" alt="${type}"></div>
             <div class="element-tooltip">${type}</div>
           </div>`
         }).join("")}
@@ -570,7 +570,7 @@
                    onclick="event.stopPropagation(); handleMoveClick(${i}, ${mIndex}, this)">
                 <span class="move-name-txt">${minfo.name}</span>
                 <div class="move-icons-wrapper">
-                  <img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/neutral_element.png'">
+                  <img src="assets/elements/${minfo.typeStr}_element.png" class="move-icon-type" alt="${minfo.typeStr}" onerror="this.src='assets/elements/neutral_element.png'">
                   <img src="assets/${minfo.attackStr}.png" class="move-icon-atk" alt="${minfo.attackStr}" onerror="this.src='assets/physical.png'">
                 </div>
               </div>
@@ -718,7 +718,7 @@
         if (!minfo) return `<span class="move-name-txt">${texts[lang].moveEmpty}</span>`;
         let moveObj = providedObj || (Array.isArray(availableMoves) ? availableMoves.find(m => String((typeof m === 'object' ? (m.name || m.id) : m)).toLowerCase().trim() === String((typeof moveInput === 'object' ? (moveInput.name || moveInput.id) : moveInput)).toLowerCase().trim()) : null);
         const levelSpan = (moveObj && moveObj.level !== undefined) ? `<span style="opacity:0.6; margin-right:5px; font-weight:normal;">Lv.${moveObj.level}</span>` : "";
-        return `<div style="display:flex; align-items:center; width:100%;">${levelSpan}<span class="move-name-txt">${(moveObj && (moveObj.name || moveObj.id)) || minfo.name}</span><div class="move-icons-wrapper"><img src="assets/${minfo.typeStr}_element.png" class="move-icon-type" onerror="this.src='assets/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon-atk" onerror="this.src='assets/physical.png'"></div></div>`;
+        return `<div style="display:flex; align-items:center; width:100%;">${levelSpan}<span class="move-name-txt">${(moveObj && (moveObj.name || moveObj.id)) || minfo.name}</span><div class="move-icons-wrapper"><img src="assets/elements/${minfo.typeStr}_element.png" class="move-icon-type" onerror="this.src='assets/elements/neutral_element.png'"><img src="assets/${minfo.attackStr}.png" class="move-icon-atk" onerror="this.src='assets/physical.png'"></div></div>`;
       };
 
       const renderOptions = () => {
