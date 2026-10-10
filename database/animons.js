@@ -885,6 +885,14 @@ const animons = [
     ]
   },
   { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 },
+    traits: [
+      { name: "Bloodlust", chance: "100%" },
+      { name: "Fearsome", chance: "100%" },
+      { name: "Water Affinity", chance: "50%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Sharkskin", chance: "5%" }],
+    desc_pt: "Essa lâmina é exigente quanto a quem permite empunhá-la. Ela só aceita aqueles com grande quantidade de chakra.",
+    desc_en: "This blade is picky about who it lets wield it. It only accepts those with large chakra.",
     anime: { name: "Kisame Hoshigaki" },
     movesList: [
       { level: 1, name: "Splashing Wave" },
