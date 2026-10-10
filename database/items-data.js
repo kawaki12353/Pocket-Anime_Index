@@ -16,6 +16,7 @@ const items=[
 {rarity:"incomum",
  pt:{name:"Plain Cloth",desc:"Um simples rolo de tecido, versátil e sem adornos.",drop:"Derrotando Animons do tipo Neutral.",cat:"evolution"},
  en:{name:"Plain Cloth",desc:"A simple roll of cloth, versatile and unadorned.",drop:"Defeating Neutral-type Animons.",cat:"evolution"},
+ icon:"plain_cloth.png"
 },
 {rarity:"raro",
  pt:{name:"Tide Crystal",desc:"Um cristal azul profundo com camadas que imitam as profundezas tranquilas do oceano.",drop:"Derrotando Animons do tipo Water.",cat:"evolution"},
@@ -63,7 +64,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Enchanted Fabric",desc:"Rolos de tecido mítico, tecidos com fios que pulsam com poder mental.",drop:"Derrotando Animons do tipo Psychic.",cat:"evolution"},
- en:{name:"Enchanted Fabric",desc:"Rolls of mythical fabric, woven with threads that pulsate with mental power.",drop:"Defeating Psychic-type Animons.",cat:"evolution"}
+ en:{name:"Enchanted Fabric",desc:"Rolls of mythical fabric, woven with threads that pulsate with mental power.",drop:"Defeating Psychic-type Animons.",cat:"evolution"},
+ icon:"enchanted_fabric.png"
 },
 {rarity:"incomum",
  pt:{name:"Fiend Claw",desc:"Uma garra afiada e ameaçadora de um demônio menor, infundida com poder sombrio.",drop:"Derrotando Animons do tipo Demon.",cat:"evolution"},
@@ -142,7 +144,8 @@ const items=[
 },
 {rarity:"incomum",
  pt:{name:"Venom Vial",desc:"Um pequeno frasco contendo um líquido verde vibrante que borbulha de forma ameaçadora.",drop:"Derrotando Animons do tipo Poison.",cat:"evolution"},
- en:{name:"Venom Vial",desc:"A small vial containing a vibrant green liquid that bubbles ominiously.",drop:"Defeating Poison-type Animons.",cat:"evolution"}
+ en:{name:"Venom Vial",desc:"A small vial containing a vibrant green liquid that bubbles ominiously.",drop:"Defeating Poison-type Animons.",cat:"evolution"},
+ icon:"venom_vial.png"
 },
 {rarity:"incomum",
  pt:{name:"Verdant Sprigs",desc:"Um conjunto de folhas frescas e brilhantes.",drop:"Derrotando Animons do tipo Nature.",cat:"evolution"},
@@ -178,7 +181,8 @@ const items=[
 },
 {rarity:"incomum",
  pt:{name:"Spark-Leaf",desc:"Uma folha estática com efeito anti-paralisia!",note:"Serve para retirar [008]Paralisia[000] do Animon.",drop:"Lojas",cat:"medical"},
- en:{name:"Spark-Leaf",desc:"A static leaf with an anti-paralysis effect!",note:"Cures [008]Paralysis[000] status.",drop:"Shops",cat:"medical"}
+ en:{name:"Spark-Leaf",desc:"A static leaf with an anti-paralysis effect!",note:"Cures [008]Paralysis[000] status.",drop:"Shops",cat:"medical"},
+ icon:"spark-leaf.png"
 },
 {rarity:"raro",
  pt:{name:"Vitaloom",desc:"Rica em polpa e refrescante. Dizem que floresce quanto mais é mastigada!",note:"Aumenta o HP TV em 10",drop:"Loja de Fase",cat:"status"},
@@ -201,7 +205,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Crumblefruit",desc:"Polpa quebradiça que se desfaz ao toque, deixando você se sentindo frágil.",note:"Diminui o DEF TV em 10",drop:"Loja de Fase",cat:"status"},
- en:{name:"Crumblefruit",desc:"Brittle pulp that flakes at a touch, leaving you feeling fragile.",note:"Decreases DEF TV by 10",drop:"Phase Shop",cat:"status"}
+ en:{name:"Crumblefruit",desc:"Brittle pulp that flakes at a touch, leaving you feeling fragile.",note:"Decreases DEF TV by 10",drop:"Phase Shop",cat:"status"},
+ icon:"crumblefruit.png"
 },
 {rarity:"raro",
  pt:{name:"Dashfruit",desc:"Cítrica e leve — uma mordida e você já está em movimento!",note:"Aumenta o SPD TV em 10",drop:"Loja de Fase",cat:"status"},
@@ -263,7 +268,8 @@ const items=[
 },
 {rarity:"raro",
  pt:{name:"Hushmelon",desc:"Macia e silenciosa, suaviza os sentidos e reduz sua guarda.",note:"Diminui o SP DEF TV em 10",drop:"Loja de Fase",cat:"status"},
- en:{name:"Hushmelon",desc:"Cushioned and quiet, it softens the senses and dulls your guard.",note:"Decreases SP DEF TV by 10",drop:"Phase Shop",cat:"status"}
+ en:{name:"Hushmelon",desc:"Cushioned and quiet, it softens the senses and dulls your guard.",note:"Decreases SP DEF TV by 10",drop:"Phase Shop",cat:"status"},
+ icon:"hushmelon.png"
 },
 {rarity:"raro",
  pt:{name:"Imperfect Materials",desc:"Fornecidos por guerreiros poderosos, usados para criar Animons ainda mais fortes.",drop:"Derrotando Warrior Bug Jr e Green Alien",cat:"misc"},
@@ -303,7 +309,7 @@ const items=[
  icon:"strong_axe.png"
 },
 {rarity:"raro",
- pt:{name:"Warrior Essence",desc:"Fornecida por guerreiros poderosos, usada para criar Animons ainda mais fortes.",drop:"Derrote Warrior Bug Jr ou Derrote Animons do Saiyan Event",cat:"misc"},
+ pt:{name:"Warrior Essence",desc:"Fornecida por guerreiros poderosos, usados para criar Animons ainda mais fortes.",drop:"Derrote Warrior Bug Jr ou Derrote Animons do Saiyan Event",cat:"misc"},
  en:{name:"Warrior Essence",desc:"Provided by strong warriors, used to create even stronger Animons.",drop:"Defeat Warrior Bug Jr or defeat Animons from the Saiyan Event",cat:"misc"}
 },
 {rarity:"raro",
@@ -373,7 +379,8 @@ const items=[
 },
 {rarity:"incomum",
  pt:{name:"Storm Battery",desc:"Uma bateria que absorve eletricidade estática do ar, aumentando o poder dos golpes do tipo Elétrico!",drop:"Loja em Capsule City",cat:"battle"},
- en:{name:"Storm Battery",desc:"A battery that absorbs static electricity from the air, boosting the power of Electric-type moves!",drop:"Shop in Capsule City",cat:"battle"}
+ en:{name:"Storm Battery",desc:"A battery that absorbs static electricity from the air, boosting the power of Electric-type moves!",drop:"Shop in Capsule City",cat:"battle"},
+ icon:"storm_battery.png"
 },
 {rarity:"epico",
  pt:{name:"Abyssal Eye",desc:"Um olho grande e ameaçador, com um olhar penetrante, pulsando com energia malévola.",drop:"Derrotando Animons do tipo Demon.",cat:"evolution"},
@@ -397,5 +404,4 @@ const items=[
 {rarity:"epico",
  pt:{name:"Ancient Stone",desc:"Pedras antigas e robustas que guardam o poder do núcleo da Terra.",drop:"Derrotando Animons do tipo Earth.",cat:"evolution"},
  en:{name:"Ancient Stone",desc:"Sturdy, ancient stones that hold the power of the earth's core.",drop:"Defeating Earth-type Animon.",cat:"evolution"}
-}
 ];
