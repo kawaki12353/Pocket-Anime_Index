@@ -646,7 +646,7 @@ const animons = [
     ]
   },
   { id: 29, name: "Large Ronin", type: "Neutral", sprite: "assets/animons-icon/large_ronin.png", stats: { hp: 90, atk: 55, def: 62, spAtk: 31, spDef: 43, spd: 45 }, areas: ["0019"] },
-  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 }, areas: ["0014", "0017", "0018"],
+  { id: 30, name: "Bulme", type: "Neutral", sprite: "assets/animons-icon/bulme.png", stats: { hp: 46, atk: 25, def: 25, spAtk: 50, spDef: 52, spd: 45 }, areas: ["0014", "0017", "0018", "0027"],
     anime: { name: "Bulma" },
     movesList: [
       { level: 1, name: "Charm" },
