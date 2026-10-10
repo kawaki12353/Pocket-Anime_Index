@@ -177,8 +177,8 @@ const items=[
  en:{name:"Revive",desc:"Revives fainted Animons with 1% Health.",drop:"Shop",cat:"medical"}
 },
 {rarity:"incomum",
- pt:{name:"Static-Leaf",desc:"Uma folha estática com efeito anti-paralisia!",note:"Serve para retirar Paralisia do Animon.",drop:"Lojas",cat:"medical"},
- en:{name:"Static-Leaf",desc:"A static leaf with an anti-paralysis effect! [Can be used to cure paralysis status]",note:"Cures Paralysis status.",drop:"Shops",cat:"medical"}
+ pt:{name:"Spark-Leaf",desc:"Uma folha estática com efeito anti-paralisia!",note:"Serve para retirar [008]Paralisia[000] do Animon.",drop:"Lojas",cat:"medical"},
+ en:{name:"Spark-Leaf",desc:"A static leaf with an anti-paralysis effect!",note:"Cures [008]Paralysis[000] status.",drop:"Shops",cat:"medical"}
 },
 {rarity:"raro",
  pt:{name:"Vitaloom",desc:"Rica em polpa e refrescante. Dizem que floresce quanto mais é mastigada!",note:"Aumenta o HP TV em 10",drop:"Loja de Fase",cat:"status"},
