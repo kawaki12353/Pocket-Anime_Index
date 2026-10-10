@@ -869,14 +869,28 @@ const animons = [
       { level: 1, name: "Sword Slash" }, 
       { level: 5, name: "Sword Slam" },
       { level: 9, name: "Water Lock" },
+      { level: 11, name: "Water Spear" },
       { level: 15, name: "Shark Bomb" },
       { level: 20, name: "Cut Down" },
       { level: 21, name: "Sharkskin Strike" },
+      { level: 24, name: "Water Slice" },
       { level: 24, name: "Cleave" }
-      ]
+    ]
   },
   { id: 43.01, name: "Rouge Sharkada", type: "Water", sprite: "assets/animons-icon/rouge_sharkada.png", stats: { hp: 68, atk: 96, def: 50, spAtk: 72, spDef: 52, spd: 68 },
     anime: { name: "Kisame Hoshigaki" },
+    movesList: [
+      { level: 1, name: "Splashing Wave" },
+      { level: 1, name: "Sword Slash" }, 
+      { level: 5, name: "Sword Slam" },
+      { level: 9, name: "Water Lock" },
+      { level: 11, name: "Water Spear" },
+      { level: 15, name: "Shark Bomb" },
+      { level: 20, name: "Cut Down" },
+      { level: 21, name: "Sharkskin Strike" },
+      { level: 24, name: "Water Slice" },
+      { level: 24, name: "Cleave" }
+    ]
   },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 }, areas: ["0016"],
     anime: { name: "Aqua" },
