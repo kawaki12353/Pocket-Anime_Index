@@ -863,6 +863,13 @@ const animons = [
     ]
   },
   { id: 43, name: "Mist Sharkada", type: "Water", sprite: "assets/animons-icon/mist_sharkada.png", stats: { hp: 64, atk: 80, def: 45, spAtk: 75, spDef: 45, spd: 63 }, areas: ["0016"],
+    traits: [
+      { name: "Bloodlust", chance: "100%" },
+      { name: "Fearsome", chance: "100%" },
+      { name: "Water Affinity", chance: "50%" },
+      { name: "Hunter", chance: "50%" }],
+    desc_pt: "Matar um ninja da Névoa sendo um ninja da Névoa. O que isso faz de mim?",
+    desc_en: "Killing a Mist ninja as a Mist ninja. What does that make me?",
     anime: { name: "Kisame Hoshigaki" },
     movesList: [
       { level: 1, name: "Splashing Wave" },
