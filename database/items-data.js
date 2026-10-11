@@ -1,4 +1,18 @@
 const items=[
+{rarity:"epico",
+ pt:{name:"Lesser Trait Crystal",desc:"Um cristal único que muda a Trait do seu Animon!",drop:"Consiga em [012]Códigos[000] ou [012]Caixas[000].",cat:"status"},
+ en:{name:"Lesser Trait Crystal",desc:"A unique crystal that changes your Animon's Trait!",drop:"Get them via [012]codes[000] or [012]crates[000].",cat:"status"},
+ icon:"lesser_trait_crystal.png"
+},
+{rarity:"epico",
+ pt:{name:"Nature Candy",desc:"Um doce único que muda a natureza do seu Animon!",drop:"Consiga em [012]Códigos[000] ou [012]Caixas[000].",cat:"status"},
+ en:{name:"Nature Candy",desc:"A unique candy that changes your Animon's nature!",drop:"Get them via [012]codes[000] or [012]crates[000].",cat:"status"},
+},
+{rarity:"raro",
+ pt:{name:"Scorching Crystal",desc:"Uma joia luminosa que abriga um inferno vibrante e turbulento em seu interior.",drop:"Derrotando Animons do tipo Fire.",cat:"evolution"},
+ en:{name:"Scorching Crystal",desc:"A luminous gem that houses a vibrant, swirling inferno within.",drop:"Defeating Fire-type Animons.",cat:"evolution"},
+ icon:"scorching_crystal.png"
+},
 {rarity:"raro",
  pt:{name:"Seastone Cuff",desc:"Algemas feitas com uma pedra especial! Podem ferir usuários elementais.",drop:"Marine Crate",cat:"battle"},
  en:{name:"Seastone Cuff",desc:"Cuffs made with special stone! Can damage elemental users.",drop:"Marine Crate",cat:"battle"},
