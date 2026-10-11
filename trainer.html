@@ -415,7 +415,7 @@ body {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
 }
 
@@ -661,7 +661,7 @@ function selectArea(value){
       ${areaLabels[lang][value]}
     `;
   }else{
-    areaBtn.style.justifyContent = "center";
+    areaBtn.style.justifyContent = "flex-start";
     areaBtn.textContent = areaLabels[lang].all;
   }
 
@@ -702,7 +702,7 @@ if (selectedArea) {
     ${areaLabels[lang][selectedArea]}
   `;
 } else {
-  areaBtn.style.justifyContent = "center";
+  areaBtn.style.justifyContent = "flex-start";
   areaBtn.textContent = areaLabels[lang].all;
  }
 }
