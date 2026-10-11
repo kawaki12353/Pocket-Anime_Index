@@ -919,7 +919,7 @@ const animons = [
       { level: 21, name: "Torrent Crash" }
     ]
   },
-  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 }, areas: ["0015"],
+  { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 }, areas: ["0015", "0025"],
     movesList: [
       { level: 1, name: "Bounty Hunt" },
       { level: 1, name: "Punch" }, 
