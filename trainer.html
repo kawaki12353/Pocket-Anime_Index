@@ -89,6 +89,7 @@ body {
   display: flex;
   gap: 12px;
   align-items: center;
+  box-sizing: border-box;
 } 
 
 #searchInput {
@@ -103,6 +104,7 @@ body {
   font-size: 14px;      
   background: var(--card);      
   color: var(--text);      
+  box-sizing: border-box;
 }      
 
 .trainer-list { max-width: 900px; margin: 0 auto; }      
@@ -163,8 +165,8 @@ body {
   border: none;      
   cursor: pointer;      
   font-weight: bold;      
-  background: var(--lang-btn-bg);      
-  color: var(--lang-btn);      
+  background: #007AFF;      
+  color: #ffffff;      
 }      
 
 .trainer-info {      
@@ -228,7 +230,7 @@ body {
 .mode-btn{
   padding: 8px;
   border-radius: 10px;
-  border: 1px solid var(--border);
+  border: 1.5px solid #8b0000;
   font-weight: bold;
   background: var(--bg);
   color: var(--text);
@@ -542,7 +544,7 @@ function render(filter=""){
             <div class="button-row">
               <button class="mode-btn">${t.mode}</button>
               <button class="animon-btn">
-                ${lang === "pt" ? "Ver Animons" : "View Animons"}
+                Animons
               </button>
             </div>
           </div>
