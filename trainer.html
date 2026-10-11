@@ -400,7 +400,7 @@ body {
 /* AREA FILTER */
 .custom-select{
   position: relative;
-  width: 260px;
+  flex: 1;
 }
 
 .select-btn{
@@ -415,7 +415,7 @@ body {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -655,11 +655,13 @@ function selectArea(value){
   selectedArea = value;
 
   if(value){
+    areaBtn.style.justifyContent = "flex-start";
     areaBtn.innerHTML = `
       <img src="${areaIcons[value]}" class="area-icon">
       ${areaLabels[lang][value]}
     `;
   }else{
+    areaBtn.style.justifyContent = "center";
     areaBtn.textContent = areaLabels[lang].all;
   }
 
@@ -694,11 +696,13 @@ function updateLang(){
   buildAreaMenu();
 
 if (selectedArea) {
+  areaBtn.style.justifyContent = "flex-start";
   areaBtn.innerHTML = `
     <img src="${areaIcons[selectedArea]}" class="area-icon">
     ${areaLabels[lang][selectedArea]}
   `;
 } else {
+  areaBtn.style.justifyContent = "center";
   areaBtn.textContent = areaLabels[lang].all;
  }
 }
