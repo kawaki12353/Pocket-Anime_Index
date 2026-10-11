@@ -22,12 +22,12 @@ const items=[
  pt:{desc:"Uma chave dourada que brilha com luz celestial, desbloqueando poderes inimagináveis.",drop:"Derrotando Animons do tipo Light."},
  en:{desc:"A golden key that shimmers with heavenly light, unlocking untold powers.",drop:"Defeating Light-type Animons."}
 },
-{rarity:"Uncommon", name:"Bandit Cutlass", cat:"battle",
+{rarity:"uncommon", name:"Bandit Cutlass", cat:"battle",
  pt:{desc:"A Bandit Cutlass! Aumenta o atributo de ATAQUE do Animon que estiver equipado durante a batalha!",drop:"Derrotando o Animon Bandit."},
  en:{desc:"The Bandit Cutlass! Increases the ATK stat of the Animon equipping it during battle!",drop:"Defeating the Bandit Animon."},
  icon:"bandit_cutlass.png"
 },
-{rarity:"Uncommon", name:"Plain Cloth", cat:"evolution",
+{rarity:"uncommon", name:"Plain Cloth", cat:"evolution",
  pt:{desc:"Um simples rolo de tecido, versátil e sem adornos.",drop:"Derrotando Animons do tipo Neutral."},
  en:{desc:"A simple roll of cloth, versatile and unadorned.",drop:"Defeating Neutral-type Animons."},
  icon:"plain_cloth.png"
@@ -45,7 +45,7 @@ const items=[
  en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops"},
  icon:"capsule.png"
 },
-{rarity:"Uncommon", name:"Advance Capsule", cat:"capture",
+{rarity:"uncommon", name:"Advance Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas"},
  en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops"}
 },
@@ -53,7 +53,7 @@ const items=[
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x2 a Chance de Captura.",drop:"Limitado a fase 2 de Testes."},
  en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to catch wild Animons!",note:"x2 Capture Chance.",drop:"Limited to Phase 2 Testing."}
 },
-{rarity:"Uncommon", name:"Aqua Gem", cat:"evolution",
+{rarity:"uncommon", name:"Aqua Gem", cat:"evolution",
  pt:{desc:"Uma joia azul e transparente que abriga em seu interior um pequeno vórtice giratório de água pura.",drop:"Derrotando Animons do tipo Water."},
  en:{desc:"A clear, blue gem that holds within it a miniature, swirling vortex of pure water.",drop:"Defeating Water-type Animons."},
  icon:"aqua_gem.png"
@@ -63,7 +63,7 @@ const items=[
  en:{desc:"A powerful claw, sharp and tough, symbolizing raw strength and combat prowess.",drop:"Defeating Fighting-type Animons."},
  icon:"battle_claw.png"
 },
-{rarity:"Uncommon", name:"Breeze Feather", cat:"evolution",
+{rarity:"uncommon", name:"Breeze Feather", cat:"evolution",
  pt:{desc:"Uma pena leve e delicada que balança com a mais suave das brisas.",drop:"Derrotando Animons do tipo Wind."},
  en:{desc:"A light and delicate feather that sways with the gentlest breeze.",drop:"Defeating Wind-type Animons."},
  icon:"breeze_feather.png"
@@ -81,15 +81,15 @@ const items=[
  en:{desc:"Rolls of mythical fabric, woven with threads that pulsate with mental power.",drop:"Defeating Psychic-type Animons."},
  icon:"enchanted_fabric.png"
 },
-{rarity:"Uncommon", name:"Fiend Claw", cat:"evolution",
+{rarity:"uncommon", name:"Fiend Claw", cat:"evolution",
  pt:{desc:"Uma garra afiada e ameaçadora de um demônio menor, infundida com poder sombrio.",drop:"Derrotando Animons do tipo Demon."},
  en:{desc:"A sharp, menacing claw from a lesser demon, infused with dark power.",drop:"Defeating Demon-type Animons."}
 },
-{rarity:"Uncommon", name:"Frost Shard", cat:"evolution",
+{rarity:"uncommon", name:"Frost Shard", cat:"evolution",
  pt:{desc:"Um fragmento de gelo elegante e afiado, imbuído com a essência do frio.",drop:"Derrotando Animons do tipo Ice."},
  en:{desc:"A sleek, icy shard with a sharp edge, imbued with the essence of cold.",drop:"Defeating Ice-type Animons."}
 },
-{rarity:"Uncommon", name:"Ignite Gem", cat:"evolution",
+{rarity:"uncommon", name:"Ignite Gem", cat:"evolution",
  pt:{desc:"Uma joia luminosa que abriga em seu interior um inferno vibrante e turbulento.",drop:"Derrotando Animons do tipo Fire."},
  en:{desc:"A luminous gem that houses a vibrant, swirling inferno within.",drop:"Defeating Fire-type Animons."},
  icon:"ignite_gem.png"
@@ -109,12 +109,12 @@ const items=[
  en:{desc:"An enigma shard shaped by volcanic forces, glowing with molten cores and fiery blotches.",drop:"Defeating Fire-type Animons. Defeating the Dinossaur Animon."},
  icon:"magma_crystal.png"
 },
-{rarity:"Uncommon", name:"Mind Thread", cat:"evolution",
+{rarity:"uncommon", name:"Mind Thread", cat:"evolution",
  pt:{desc:"Um carretel de linha roxa cintilante, irradiando energia psíquica.",drop:"Derrotando Animons do tipo Psychic."},
  en:{desc:"A spool of shimmering purple thread, radiating with psychic energy.",drop:"Defeating Psychic-type Animons."},
  icon:"mind_thread.png"
 },
-{rarity:"Uncommon", name:"Mystic Tablet", cat:"evolution",
+{rarity:"uncommon", name:"Mystic Tablet", cat:"evolution",
  pt:{desc:"Uma antiga tábua de bronze gravada com runas misteriosas.",drop:"Derrotando Animons do tipo Soul."},
  en:{desc:"An ancient bronze tablet engraved with mysterious runes.",drop:"Defeating Soul-type Animons."},
  icon:"mystic_tablet.png"
@@ -128,16 +128,16 @@ const items=[
  pt:{desc:"Uma haste majestosa adornada com flores douradas e brilhantes, repletas de poderosa energia natural.",drop:"Derrotando Animons do tipo Nature."},
  en:{desc:"A Majestic stalk adorned with glowing, golden flowers brimming with potent natural energy.",drop:"Defeating Nature-type Animons."}
 },
-{rarity:"Uncommon", name:"Radiant Ring", cat:"evolution",
+{rarity:"uncommon", name:"Radiant Ring", cat:"evolution",
  pt:{desc:"Um anel dourado que brilha com uma luz interna quente.",drop:"Derrotando Animons do tipo Light."},
  en:{desc:"A golden ring that glows with a warm, inner light.",drop:"Defeating Light-type Animons."},
  icon:"radiant_ring.png"
 },
-{rarity:"Uncommon", name:"Shadow Fang", cat:"evolution",
+{rarity:"uncommon", name:"Shadow Fang", cat:"evolution",
  pt:{desc:"Um osso simples e pálido imbuído de energia sombria.",drop:"Derrotando Animons do tipo Dark."},
  en:{desc:"A simple, pale bone imbued with dark energy.",drop:"Defeating Dark-type Animons."}
 },
-{rarity:"Uncommon", name:"Spark Gem", cat:"evolution",
+{rarity:"uncommon", name:"Spark Gem", cat:"evolution",
  pt:{desc:"Uma joia roxa vibrante contendo uma pequena nuvem de tempestade ativa, com relâmpagos visíveis em seu interior.",drop:"Derrotando Animons do tipo Lightning."},
  en:{desc:"A vibrant purple gem containing a small, active storm cloud, with occasional flashes of lightning visible within.",drop:"Defeating Lightning-type Animons."},
  icon:"spark_gem.png"
@@ -147,7 +147,7 @@ const items=[
  en:{desc:"A rugged, unremarkable slab of stone, carrying an unassuming but solid energy.",drop:"Defeating Neutral-type Animons."},
  icon:"stone_slab.png"
 },
-{rarity:"Uncommon", name:"Terra Shards", cat:"evolution",
+{rarity:"uncommon", name:"Terra Shards", cat:"evolution",
  pt:{desc:"Fragmentos resistentes da terra, sólidos e confiáveis.",drop:"Derrotando Animons do tipo Earth."},
  en:{desc:"Rugged shards of the earth, solid and dependable.",drop:"Defeating Earth-type Animons."},
  icon:"terra_shards.png"
@@ -156,22 +156,22 @@ const items=[
  pt:{desc:"Um grande orbe roxo radiante que encapsula uma tempestade elétrica eternamente ativa.",drop:"Derrotando Animons do tipo Lightning."},
  en:{desc:"A large, radiant purple orb, encapsulating a vibrant ever-active electrical storm.",drop:"Defeating Lightning-type Animons."}
 },
-{rarity:"Uncommon", name:"Venom Vial", cat:"evolution",
+{rarity:"uncommon", name:"Venom Vial", cat:"evolution",
  pt:{desc:"Um pequeno frasco contendo um líquido verde vibrante que borbulha de forma ameaçadora.",drop:"Derrotando Animons do tipo Poison."},
  en:{desc:"A small vial containing a vibrant green liquid that bubbles ominiously.",drop:"Defeating Poison-type Animons."},
  icon:"venom_vial.png"
 },
-{rarity:"Uncommon", name:"Verdant Sprigs", cat:"evolution",
+{rarity:"uncommon", name:"Verdant Sprigs", cat:"evolution",
  pt:{desc:"Um conjunto de folhas frescas e brilhantes.",drop:"Derrotando Animons do tipo Nature."},
  en:{desc:"A bundle of fresh, glowing leaves.",drop:"Defeating Nature-type Animons."},
  icon:"verdant_sprigs.png"
 },
-{rarity:"Uncommon", name:"Warrior Horn", cat:"evolution",
+{rarity:"uncommon", name:"Warrior Horn", cat:"evolution",
  pt:{desc:"Um chifre robusto que pertenceu a uma besta feroz, transbordando espírito de luta.",drop:"Derrotando Animons do tipo Fighting."},
  en:{desc:"A sturdy horn that once belonged to a fierce beast, brimming with fighting spirit.",drop:"Defeating Fighting-type Animons."},
  icon:"warrior_horn.png"
 },
-{rarity:"Uncommon", name:"Aloe", cat:"medical",
+{rarity:"uncommon", name:"Aloe", cat:"medical",
  pt:{desc:"Tratamento para queimaduras! Aplique no seu Animon!",note:"Serve para retirar Queimadura/Burn do Animon.",drop:"Lojas"},
  en:{desc:"Treatment for burn! Apply it on your Animon!",note:"Cures Burn status.",drop:"Shops"}
 },
@@ -185,7 +185,7 @@ const items=[
  en:{desc:"Automatically regain 1/14th MAX HP at the end of each round.",drop:"Inside Korin Tower"},
  icon:"endless_bento.png"
 },
-{rarity:"Uncommon", name:"Green Bean", cat:"medical",
+{rarity:"uncommon", name:"Green Bean", cat:"medical",
  pt:{desc:"Um feijão verde estranho! Possui propriedades curativas e também cura se o HP cair para 30%!",note:"Recupera 25 de HP.",drop:"Loja da Torre do Korin"},
  en:{desc:"A weird Green Bean! Has some properties to heal your Animons! Also heals them if their HP drops to 30%!",note:"Restores 25 HP.",drop:"Korin Tower Shop"}
 },
@@ -193,7 +193,7 @@ const items=[
  pt:{desc:"Revive Animons desmaiados com 1% de HP.",drop:"Loja"},
  en:{desc:"Revives fainted Animons with 1% Health.",drop:"Shop"}
 },
-{rarity:"Uncommon", name:"Spark-Leaf", cat:"medical",
+{rarity:"uncommon", name:"Spark-Leaf", cat:"medical",
  pt:{desc:"Uma folha estática com efeito anti-paralisia!",note:"Serve para retirar [008]Paralisia[000] do Animon.",drop:"Lojas"},
  en:{desc:"A static leaf with an anti-paralysis effect!",note:"Cures [008]Paralysis[000] status.",drop:"Shops"},
  icon:"spark-leaf.png"
@@ -207,7 +207,7 @@ const items=[
  en:{desc:"Dry, faded flesh that saps vigor the longer it's chewed.",note:"Decreases HP TV by 10",drop:"Phase Shop"},
  icon:"witherloom.png"
 },
-{rarity:"Uncommon", name:"Blaze Orb", cat:"battle",
+{rarity:"uncommon", name:"Blaze Orb", cat:"battle",
  pt:{desc:"Um pequeno orbe que queima com uma chama eterna, intensificando golpes do tipo Fire.",drop:"Loja in Capsule City"},
  en:{desc:"A small orb that burns with an eternal flame, enhancing the intensity of Fire-Type moves.",drop:"Shop in Capsule City"},
  icon:"blaze_orb.png"
@@ -226,11 +226,11 @@ const items=[
  pt:{desc:"Cítrica e leve — uma mordida e você já está em movimento!",note:"Aumenta o SPD TV em 10",drop:"Loja de Fase"},
  en:{desc:"Zesty and light — one bite and you're already moving!",note:"Increases SPD TV by 10",drop:"Phase Shop"}
 },
-{rarity:"Uncommon", name:"Demon Shuriken", cat:"battle",
+{rarity:"uncommon", name:"Demon Shuriken", cat:"battle",
  pt:{desc:"Uma ferramenta ninja rara, conhecida por sua lâmina afiada e durabilidade. A Shuriken Demoníaca aprimora a eficácia das ferramentas ninja!",drop:"Loja em Capsule City"},
  en:{desc:"A rare ninja tool, known for its sharpness and durability. The Demon Shuriken enhances the effectiveness of Ninja tools!",drop:"Shop in Capsule City"}
 },
-{rarity:"Uncommon", name:"Dinosaur Hide", cat:"misc",
+{rarity:"uncommon", name:"Dinosaur Hide", cat:"misc",
  pt:{desc:"Um couro grosso e resistente deixado por um dinossauro poderoso.",drop:"Derrotando o Animon Dinossaur"},
  en:{desc:"A strong thick hide dropped by a strong dinosaur.",drop:"Defeating the Dinossaur Animon"}
 },
@@ -299,7 +299,7 @@ const items=[
  en:{desc:"Reflects back damage done by the attacker equal to 1/12th of damage dealt.",drop:"???"},
  icon:"rocky_helmet.png"
 },
-{rarity:"Uncommon", name:"S-Potion", cat:"medical",
+{rarity:"uncommon", name:"S-Potion", cat:"medical",
  pt:{desc:"Uma versão aprimorada da C-Potion.",drop:"Lojas"},
  en:{desc:"An upgraded version of the C-Potion.",drop:"Shops"}
 },
@@ -335,7 +335,7 @@ const items=[
  pt:{desc:"Suave e reconfortante, este melão acalma e protege a alma!",note:"Aumenta o SP DEF TV em 10",drop:"Loja de Fase"},
  en:{desc:"Soothing and soft, this melon calms and shields the soul!",note:"Increase the SP DEF TV by 10",drop:"Phase Shop"}
 },
-{rarity:"Uncommon", name:"Wolf Fang", cat:"misc",
+{rarity:"uncommon", name:"Wolf Fang", cat:"misc",
  pt:{desc:"Uma presa elegante e extremamente afiada de um lobo formidável, um claro testemunho da natureza selvagem indomável.",drop:"Derrotando Battle Wolf ou Teen Battle Wolf"},
  en:{desc:"A sleek, razor-sharp fang from a formidable wolf, a stark testament to the untamed wild.",drop:"Defeating Battle Wolf or Teen Battle Wolf"}
 },
@@ -343,7 +343,7 @@ const items=[
  pt:{desc:"Alguns trapos usados por bandidos... parecem bem inúteis para mim.",drop:"Derrotando o Animon Bandit"},
  en:{desc:"Some rags worn by bandits... looks pretty useless to me.",drop:"Defeating the Bandit Animon"}
 },
-{rarity:"Uncommon", name:"Scarf", cat:"misc",
+{rarity:"uncommon", name:"Scarf", cat:"misc",
  pt:{desc:"[Sem Descrição]",drop:"Derrotando o Animon Wolfman"},
  en:{desc:"[No Description]",drop:"Defeating the Wolfman Animon"}
 },
@@ -351,7 +351,7 @@ const items=[
  pt:{desc:"Parece ser algum tipo de munição usada pela Marinha! Também bem inútil.",drop:"Lojas"},
  en:{desc:"Seems to be some sort of ammo used by the Marines! Also pretty useless.",drop:"Shops"}
 },
-{rarity:"Uncommon", name:"Wolf-Fang", cat:"misc",
+{rarity:"uncommon", name:"Wolf-Fang", cat:"misc",
  pt:{desc:"Chance de drop ao derrotar Battle Wolf.",drop:"Derrotando Battle Wolf"},
  en:{desc:"Chance to drop from Battle Wolf.",drop:"Defeating Battle Wolf"}
 },
@@ -379,7 +379,7 @@ const items=[
  en:{desc:"A mysterious and omincus egg...",drop:"Quest in Great Plains"},
  icon:"mysterious_egg.png"
 },
-{rarity:"Uncommon", name:"Antidote", cat:"medical",
+{rarity:"uncommon", name:"Antidote", cat:"medical",
  pt:{desc:"Tratamento para veneno! Aplique no seu Animon!",drop:"Lojas"},
  en:{desc:"Treatment for poison! Apply it on your Animon!",drop:"Shops"}
 },
@@ -387,11 +387,11 @@ const items=[
  pt:{desc:"Restos desaparecidos! Por algum motivo, os alienígenas selvagens são atraídos por isso.",drop:"Derrotando o Animon Alien."},
  en:{desc:"Missing scraps! For some reason the wild aliens are attracted to this.",drop:"Defeating the Animon Alien."}
 },
-{rarity:"Uncommon", name:"Shadow Bone", cat:"evolution",
+{rarity:"uncommon", name:"Shadow Bone", cat:"evolution",
  pt:{desc:"[Sem Descrição ainda]",drop:"???"},
  en:{desc:"[No description yet]",drop:"???"}
 },
-{rarity:"Uncommon", name:"Storm Battery", cat:"battle",
+{rarity:"uncommon", name:"Storm Battery", cat:"battle",
  pt:{desc:"Uma bateria que absorve eletricidade estática do ar, aumentando o poder dos golpes do tipo Elétrico!",drop:"Loja em Capsule City"},
  en:{desc:"A battery that absorbs static electricity from the air, boosting the power of Electric-type moves!",drop:"Shop in Capsule City"},
  icon:"storm_battery.png"
