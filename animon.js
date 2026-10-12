@@ -30,6 +30,8 @@ const uiText = {
         attacks: "Ataques",
         typeChart: "Tabela de Tipo",
         evoTitle: "Grade Evolutiva",
+        moreAbout: "Mais Sobre",
+        noTraining: "Sem informação",
         readMore: "Ver mais",
         readLess: "Ver menos",
         animonsInEvent: "Animons neste evento:"
@@ -54,6 +56,8 @@ const uiText = {
         attacks: "Attacks",
         typeChart: "Type Chart",
         evoTitle: "Evolution Grade",
+        moreAbout: "More About",
+        noTraining: "No information",
         readMore: "See more",
         readLess: "See less",
         animonsInEvent: "Animons in this event:"
@@ -283,6 +287,9 @@ function updateLang() {
     const labelEvo = document.getElementById('labelEvo');
     if (labelEvo) labelEvo.textContent = ui.evoTitle;
 
+    const labelMoreAbout = document.getElementById('labelMoreAbout');
+    if (labelMoreAbout) labelMoreAbout.textContent = ui.moreAbout;
+
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab) updateTabTitle(activeTab.id);
 
@@ -293,6 +300,7 @@ function updateLang() {
     renderMoves();
     renderTypeChart();
     renderEvolutions();
+    renderMoreAbout();
     renderLocations();
 }
 
@@ -753,6 +761,84 @@ function renderEvolutions() {
     });
 
     container.appendChild(wrapper);
+}
+
+function getAnimonTrainingVal(animonName) {
+    if (typeof training === 'undefined' || !training || !animonName) return null;
+    
+    const keys = Object.keys(training);
+    for (const key of keys) {
+        const group = training[key];
+        if (group) {
+            let items = [];
+            if (Array.isArray(group)) {
+                items = group;
+            } else if (typeof group === 'object') {
+                items = Object.values(group);
+            }
+            
+            const found = items.some(item => typeof item === 'string' && item.toLowerCase().trim() === animonName.toLowerCase().trim());
+            if (found) {
+                switch (key.toLowerCase()) {
+                    case 'hp': return 'HP';
+                    case 'atk': return 'Atk';
+                    case 'defense': return 'Defense';
+                    case 'spatk': return 'Sp.Atk';
+                    case 'spdef': return 'Sp.Def';
+                    case 'speed': return 'Speed';
+                    default: return key.charAt(0).toUpperCase() + key.slice(1);
+                }
+            }
+        }
+    }
+    return null;
+}
+
+function renderMoreAbout() {
+    let container = document.getElementById('moreAboutContainer');
+    let labelEl = document.getElementById('labelMoreAbout');
+    const ui = uiText[lang];
+
+    if (!container) {
+        const evoContainer = document.getElementById('evoContainer');
+        if (evoContainer && evoContainer.parentNode) {
+            labelEl = document.createElement('div');
+            labelEl.id = 'labelMoreAbout';
+            labelEl.className = evoContainer.previousElementSibling ? evoContainer.previousElementSibling.className : 'section-title';
+            labelEl.style.marginTop = '20px';
+            labelEl.textContent = ui.moreAbout;
+            evoContainer.parentNode.insertBefore(labelEl, evoContainer.nextSibling);
+
+            container = document.createElement('div');
+            container.id = 'moreAboutContainer';
+            evoContainer.parentNode.insertBefore(container, labelEl.nextSibling);
+        }
+    }
+
+    if (labelEl) {
+        labelEl.textContent = ui.moreAbout;
+    }
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const tvLabel = document.createElement('div');
+    tvLabel.style.color = '#555';
+    tvLabel.style.fontWeight = 'bold';
+    tvLabel.style.marginBottom = '4px';
+    tvLabel.textContent = 'Training Value (TV)';
+    container.appendChild(tvLabel);
+
+    let tvValue = null;
+    if (currentAnimon && currentAnimon.name) {
+        tvValue = getAnimonTrainingVal(currentAnimon.name);
+    }
+
+    const tvValEl = document.createElement('div');
+    tvValEl.style.fontSize = '15px';
+    tvValEl.textContent = tvValue || ui.noTraining;
+    container.appendChild(tvValEl);
 }
 
 function renderLocations() {
