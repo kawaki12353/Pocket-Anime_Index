@@ -1,20 +1,20 @@
 const training=[
- hp:{
+ hp:[
   "Cadet","Dinosaur"
-},
- atk:{
+ ],
+ atk:[
   "Bandit","Strong Bandit","Navy Captain","Battle Wolf","Teen Battle Wolf","Teen Wolfman","Adult Wolfman","Ramen","Kaiyuki","Green Head","Zoko","TS Zoko","Axe Man","Radish","Monkey Warrior","Ganra","Gokidaru"
-},
- defense:{
+ ],
+ defense:[
   "Kid Hero","Teen Wolfman","Adult Wolfman","Axe Man","Ganra"
-},
- spatk:{
+ ],
+ spatk:[
   "Pickle Jr.","Alien","Bulme","Fishman","Water Goddess","Water Mage","Fire Prince"
-},
- spdef:{
+ ],
+ spdef:[
   "Sniper","Green Alien","Little Cow","Cow Man"
-},
- speed:{
+ ],
+ speed:[
   "Joyful","Secret Ninja","Ramen","Wuno","Bomb Man","Warrior Bug Jr."
-}
+ ]
 ];
