@@ -12,10 +12,11 @@ const COLOR_MAP = {
   "006": "#d2b4de", // Lavanda
   "007": "#1a5276", // Azul Escuro
   "008": "#ffe100", // Amarelo
-  "009": "#4db8ff", // Azul Claro
+  "009": "#3deee6", // Ciano Claro
   "010": "#703d90", // Roxo
   "011": "#1f56ca", // Azul
   "012": "#ffffff", // Negrito
+  "013": "#64b5f6", // Azul Claro
   "000": "inherit"  // Restaura cor padrão (Fecha a tag)
 };
 
