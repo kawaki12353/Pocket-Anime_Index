@@ -30,11 +30,10 @@ const uiText = {
         attacks: "Ataques",
         typeChart: "Tabela de Tipo",
         evoTitle: "Grade Evolutiva",
+        moreAboutTitle: "Mais Sobre",
         readMore: "Ver mais",
         readLess: "Ver menos",
-        animonsInEvent: "Animons neste evento:",
-        moreAbout: "Mais Sobre",
-        noInfo: "Sem informação"
+        animonsInEvent: "Animons neste evento:"
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
@@ -56,11 +55,10 @@ const uiText = {
         attacks: "Attacks",
         typeChart: "Type Chart",
         evoTitle: "Evolution Grade",
+        moreAboutTitle: "More About",
         readMore: "See more",
         readLess: "See less",
-        animonsInEvent: "Animons in this event:",
-        moreAbout: "More About",
-        noInfo: "No information"
+        animonsInEvent: "Animons in this event:"
     }
 };
 
@@ -286,6 +284,9 @@ function updateLang() {
 
     const labelEvo = document.getElementById('labelEvo');
     if (labelEvo) labelEvo.textContent = ui.evoTitle;
+
+    const labelMoreAbout = document.getElementById('labelMoreAbout');
+    if (labelMoreAbout) labelMoreAbout.textContent = ui.moreAboutTitle;
 
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab) updateTabTitle(activeTab.id);
@@ -760,53 +761,8 @@ function renderEvolutions() {
     container.appendChild(wrapper);
 }
 
-function renderMoreAbout() {
-    const ui = uiText[lang];
-    let box = document.getElementById('moreAboutBox');
-    
-    if (!box) {
-        const evoContainer = document.getElementById('evoContainer');
-        if (evoContainer) {
-            const parentBox = evoContainer.closest('.info-box') || evoContainer.parentElement;
-            box = document.createElement('div');
-            box.id = 'moreAboutBox';
-            box.className = parentBox.className || 'info-box';
-            parentBox.parentNode.insertBefore(box, parentBox.nextSibling);
-        }
-    }
-
-    if (box) {
-        box.innerHTML = `
-            <div class="section-title" id="labelMoreAbout">${ui.moreAbout}</div>
-            <div id="moreAboutContent" style="padding: 10px;">
-                <div style="color: #555; font-weight: bold; margin-bottom: 5px;">Training Value (TV)</div>
-                <div id="moreAboutTvValue"></div>
-            </div>
-        `;
-    }
-
-    const labelMoreAbout = document.getElementById('labelMoreAbout');
-    if (labelMoreAbout) labelMoreAbout.textContent = ui.moreAbout;
-
-    const tvResultEl = document.getElementById('moreAboutTvValue');
-    if (!tvResultEl) return;
-
-    let foundTVs = [];
-    if (typeof training !== 'undefined' && training && currentAnimon) {
-        const animonName = currentAnimon.name.toLowerCase().trim();
-        const entries = Array.isArray(training) ? training : [training];
-        entries.forEach(entry => {
-            for (const [tvKey, list] of Object.entries(entry)) {
-                if (list) {
-                    const listArr = Array.from(list);
-                    if (listArr.some(name => String(name).toLowerCase().trim() === animonName)) {
-                        foundTVs.push(tvKey);
-                    }
-                }
-            }
-        });
-    }
-
+function getAnimonTVs(animonName) {
+    if (typeof training === 'undefined' || !training || !animonName) return [];
     const tvDisplayNames = {
         hp: "HP",
         atk: "ATK",
@@ -815,13 +771,79 @@ function renderMoreAbout() {
         spdef: "SP.DEF",
         speed: "SPD"
     };
+    let matched = [];
+    const targetName = animonName.toLowerCase().trim();
 
-    if (foundTVs.length > 0) {
-        const formattedTVs = foundTVs.map(tv => tvDisplayNames[tv] || tv.toUpperCase()).join(", ");
-        tvResultEl.textContent = formattedTVs;
-    } else {
-        tvResultEl.textContent = ui.noInfo;
+    let trainingData = training;
+    if (Array.isArray(training)) {
+        trainingData = {};
+        training.forEach(item => {
+            if (item && typeof item === 'object') {
+                Object.assign(trainingData, item);
+            }
+        });
     }
+
+    Object.keys(tvDisplayNames).forEach(key => {
+        const list = trainingData[key];
+        if (Array.isArray(list)) {
+            const exists = list.some(n => typeof n === 'string' && n.toLowerCase().trim() === targetName);
+            if (exists) {
+                matched.push(tvDisplayNames[key]);
+            }
+        }
+    });
+
+    return matched;
+}
+
+function renderMoreAbout() {
+    let titleEl = document.getElementById('labelMoreAbout');
+    let container = document.getElementById('moreAboutContainer');
+    const ui = uiText[lang];
+
+    if (!container) {
+        const evoContainer = document.getElementById('evoContainer');
+        if (evoContainer) {
+            const parent = evoContainer.parentElement || evoContainer.parentNode;
+            
+            titleEl = document.createElement('div');
+            titleEl.id = 'labelMoreAbout';
+            titleEl.className = 'section-title';
+            titleEl.textContent = ui.moreAboutTitle;
+
+            container = document.createElement('div');
+            container.id = 'moreAboutContainer';
+            container.className = 'more-about-container';
+
+            if (evoContainer.nextSibling) {
+                parent.insertBefore(titleEl, evoContainer.nextSibling);
+                parent.insertBefore(container, titleEl.nextSibling);
+            } else {
+                parent.appendChild(titleEl);
+                parent.appendChild(container);
+            }
+        }
+    }
+
+    if (titleEl) {
+        titleEl.textContent = ui.moreAboutTitle;
+    }
+
+    if (!container) return;
+
+    const matchedTVs = getAnimonTVs(currentAnimon.name);
+    let tvContentHtml = "";
+    if (matchedTVs.length > 0) {
+        tvContentHtml = matchedTVs.join(' <span class="tv-bar">|</span> ');
+    } else {
+        tvContentHtml = lang === 'pt' ? "Sem informação" : "No information";
+    }
+
+    container.innerHTML = `
+        <div class="training-value-title" style="color: #555;">Training Value (TV)</div>
+        <div class="training-value-content">${tvContentHtml}</div>
+    `;
 }
 
 function renderLocations() {
