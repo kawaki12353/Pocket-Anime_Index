@@ -15,6 +15,6 @@
   "Sniper","Green Alien","Little Cow","Cow Man"
 },
  speed:{
-  
+  "Joyful","Secret Ninja","Ramen","Wuno","Bomb Man","Warrior Bug Jr."
 }
 ];
