@@ -30,11 +30,11 @@ const uiText = {
         attacks: "Ataques",
         typeChart: "Tabela de Tipo",
         evoTitle: "Grade Evolutiva",
-        moreAbout: "Mais Sobre",
-        noTraining: "Sem informação",
         readMore: "Ver mais",
         readLess: "Ver menos",
-        animonsInEvent: "Animons neste evento:"
+        animonsInEvent: "Animons neste evento:",
+        moreAbout: "Mais Sobre",
+        noInfo: "Sem informação"
     },
     en: {
         btnInfo: "Information", btnMoves: "Moves", btnWeak: "Weaknesses", btnLoc: "Location",
@@ -56,11 +56,11 @@ const uiText = {
         attacks: "Attacks",
         typeChart: "Type Chart",
         evoTitle: "Evolution Grade",
-        moreAbout: "More About",
-        noTraining: "No information",
         readMore: "See more",
         readLess: "See less",
-        animonsInEvent: "Animons in this event:"
+        animonsInEvent: "Animons in this event:",
+        moreAbout: "More About",
+        noInfo: "No information"
     }
 };
 
@@ -286,9 +286,6 @@ function updateLang() {
 
     const labelEvo = document.getElementById('labelEvo');
     if (labelEvo) labelEvo.textContent = ui.evoTitle;
-
-    const labelMoreAbout = document.getElementById('labelMoreAbout');
-    if (labelMoreAbout) labelMoreAbout.textContent = ui.moreAbout;
 
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab) updateTabTitle(activeTab.id);
@@ -763,82 +760,68 @@ function renderEvolutions() {
     container.appendChild(wrapper);
 }
 
-function getAnimonTrainingVal(animonName) {
-    if (typeof training === 'undefined' || !training || !animonName) return null;
+function renderMoreAbout() {
+    const ui = uiText[lang];
+    let box = document.getElementById('moreAboutBox');
     
-    const keys = Object.keys(training);
-    for (const key of keys) {
-        const group = training[key];
-        if (group) {
-            let items = [];
-            if (Array.isArray(group)) {
-                items = group;
-            } else if (typeof group === 'object') {
-                items = Object.values(group);
-            }
-            
-            const found = items.some(item => typeof item === 'string' && item.toLowerCase().trim() === animonName.toLowerCase().trim());
-            if (found) {
-                switch (key.toLowerCase()) {
-                    case 'hp': return 'HP';
-                    case 'atk': return 'Atk';
-                    case 'defense': return 'Defense';
-                    case 'spatk': return 'Sp.Atk';
-                    case 'spdef': return 'Sp.Def';
-                    case 'speed': return 'Speed';
-                    default: return key.charAt(0).toUpperCase() + key.slice(1);
+    if (!box) {
+        const evoContainer = document.getElementById('evoContainer');
+        if (evoContainer) {
+            const parentBox = evoContainer.closest('.info-box') || evoContainer.parentElement;
+            box = document.createElement('div');
+            box.id = 'moreAboutBox';
+            box.className = parentBox.className || 'info-box';
+            parentBox.parentNode.insertBefore(box, parentBox.nextSibling);
+        }
+    }
+
+    if (box) {
+        box.innerHTML = `
+            <div class="section-title" id="labelMoreAbout">${ui.moreAbout}</div>
+            <div id="moreAboutContent" style="padding: 10px;">
+                <div style="color: #555; font-weight: bold; margin-bottom: 5px;">Training Value (TV)</div>
+                <div id="moreAboutTvValue"></div>
+            </div>
+        `;
+    }
+
+    const labelMoreAbout = document.getElementById('labelMoreAbout');
+    if (labelMoreAbout) labelMoreAbout.textContent = ui.moreAbout;
+
+    const tvResultEl = document.getElementById('moreAboutTvValue');
+    if (!tvResultEl) return;
+
+    let foundTVs = [];
+    if (typeof training !== 'undefined' && training && currentAnimon) {
+        const animonName = currentAnimon.name.toLowerCase().trim();
+        const entries = Array.isArray(training) ? training : [training];
+        entries.forEach(entry => {
+            for (const [tvKey, list] of Object.entries(entry)) {
+                if (list) {
+                    const listArr = Array.from(list);
+                    if (listArr.some(name => String(name).toLowerCase().trim() === animonName)) {
+                        foundTVs.push(tvKey);
+                    }
                 }
             }
-        }
-    }
-    return null;
-}
-
-function renderMoreAbout() {
-    let container = document.getElementById('moreAboutContainer');
-    let labelEl = document.getElementById('labelMoreAbout');
-    const ui = uiText[lang];
-
-    if (!container) {
-        const evoContainer = document.getElementById('evoContainer');
-        if (evoContainer && evoContainer.parentNode) {
-            labelEl = document.createElement('div');
-            labelEl.id = 'labelMoreAbout';
-            labelEl.className = evoContainer.previousElementSibling ? evoContainer.previousElementSibling.className : 'section-title';
-            labelEl.style.marginTop = '20px';
-            labelEl.textContent = ui.moreAbout;
-            evoContainer.parentNode.insertBefore(labelEl, evoContainer.nextSibling);
-
-            container = document.createElement('div');
-            container.id = 'moreAboutContainer';
-            evoContainer.parentNode.insertBefore(container, labelEl.nextSibling);
-        }
+        });
     }
 
-    if (labelEl) {
-        labelEl.textContent = ui.moreAbout;
+    const tvDisplayNames = {
+        hp: "HP",
+        atk: "ATK",
+        defense: "DEF",
+        spatk: "SP.ATK",
+        spdef: "SP.DEF",
+        speed: "SPD"
+    };
+
+    if (foundTVs.length > 0) {
+        const formattedTVs = foundTVs.map(tv => tvDisplayNames[tv] || tv.toUpperCase()).join(", ");
+        tvResultEl.textContent = formattedTVs;
+    } else {
+        tvResultEl.textContent = ui.noInfo;
     }
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    const tvLabel = document.createElement('div');
-    tvLabel.style.color = '#555';
-    tvLabel.style.fontWeight = 'bold';
-    tvLabel.style.marginBottom = '4px';
-    tvLabel.textContent = 'Training Value (TV)';
-    container.appendChild(tvLabel);
-
-    let tvValue = null;
-    if (currentAnimon && currentAnimon.name) {
-        tvValue = getAnimonTrainingVal(currentAnimon.name);
-    }
-
-    const tvValEl = document.createElement('div');
-    tvValEl.style.fontSize = '15px';
-    tvValEl.textContent = tvValue || ui.noTraining;
-    container.appendChild(tvValEl);
 }
 
 function renderLocations() {
