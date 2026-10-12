@@ -9,10 +9,10 @@
   "Kid Hero","Teen Wolfman","Adult Wolfman","Axe Man","Ganra"
 },
  spatk:{
-  
+  "Pickle Jr.","Alien","Bulme","Fishman","Water Goddess","Water Mage","Fire Prince"
 },
  spdef:{
-  
+  "Sniper","Green Alien","Little Cow","Cow Man"
 },
  speed:{
   
