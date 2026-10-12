@@ -1,4 +1,9 @@
 const items=[
+{rarity:"epic", name:"Castle Badge", cat:"key",
+ pt:{desc:"Concedido àqueles que derrotaram a primeira cápsula.",drop:"Se consegue Derrotando o primeiro ginásio."},
+ en:{desc:"Awarded to those who have defeated the first capsule.",drop:"You get it by defeating the first gym."},
+ icon:"castle_badge.png"
+},
 {rarity:"epic", name:"Lesser Trait Crystal", cat:"status",
  pt:{desc:"Um cristal único que muda a Trait do seu Animon!",drop:"Consiga em [012]Códigos[000] ou [012]Caixas[000]."},
  en:{desc:"A unique crystal that changes your Animon's Trait!",drop:"Get them via [012]codes[000] or [012]crates[000]."},
