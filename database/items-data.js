@@ -421,4 +421,5 @@ const items=[
 {rarity:"epic", name:"Ancient Stone", cat:"evolution",
  pt:{desc:"Pedras antigas e robustas que guardam o poder do núcleo da Terra.",drop:"Derrotando Animons do tipo Earth."},
  en:{desc:"Sturdy, ancient stones that hold the power of the earth's core.",drop:"Defeating Earth-type Animon."}
+}
 ];
