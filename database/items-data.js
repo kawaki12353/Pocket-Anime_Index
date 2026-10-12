@@ -230,7 +230,8 @@ const items=[
 },
 {rarity:"uncommon", name:"Demon Shuriken", cat:"battle",
  pt:{desc:"Uma ferramenta ninja rara, conhecida por sua lâmina afiada e durabilidade. A Shuriken Demoníaca aprimora a eficácia das ferramentas ninja!",drop:"Loja em Capsule City"},
- en:{desc:"A rare ninja tool, known for its sharpness and durability. The Demon Shuriken enhances the effectiveness of Ninja tools!",drop:"Shop in Capsule City"}
+ en:{desc:"A rare ninja tool, known for its sharpness and durability. The Demon Shuriken enhances the effectiveness of Ninja tools!",drop:"Shop in Capsule City"},
+ icon:"demon_shuriken.png"
 },
 {rarity:"uncommon", name:"Dinosaur Hide", cat:"misc",
  pt:{desc:"Um couro grosso e resistente deixado por um dinossauro poderoso.",drop:"Derrotando o Animon Dinossaur"},
@@ -369,7 +370,8 @@ const items=[
 },
 {rarity:"epic", name:"Tempest Quills", cat:"evolution",
  pt:{desc:"Duas penas escuras e resistentes, amarradas juntas, impregnadas com a força de uma tempestade furiosa.",drop:"Derrotando Animons do tipo [012]Wind[000]."},
- en:{desc:"Two dark, sturdy feathers tied together, infused with the might of a raging storm.",drop:"Defeating [012]Wind-type[000] Animons."}
+ en:{desc:"Two dark, sturdy feathers tied together, infused with the might of a raging storm.",drop:"Defeating [012]Wind-type[000] Animons."},
+ icon:"tempest_quills.png"
 },
 {rarity:"epic", name:"Demonic Blade", cat:"battle",
  pt:{desc:"A Lâmina Demoníaca, envolta em mistério e trevas, é uma arma que prospera no calor da batalha!",note:"Derrote Animons para aumentar o dano das habilidades de espadachim! [1.2x-1.8x]",drop:"Fishing Crate"},
