@@ -388,7 +388,8 @@ const items=[
 },
 {rarity:"common", name:"Missing Shipments", cat:"misc",
  pt:{desc:"Restos desaparecidos! Por algum motivo, os alienígenas selvagens são atraídos por isso.",drop:"Derrotando o Animon Alien."},
- en:{desc:"Missing scraps! For some reason the wild aliens are attracted to this.",drop:"Defeating the Animon Alien."}
+ en:{desc:"Missing scraps! For some reason the wild aliens are attracted to this.",drop:"Defeating the Animon Alien."},
+ icon:"missing_shipments.png"
 },
 {rarity:"uncommon", name:"Shadow Bone", cat:"evolution",
  pt:{desc:"[Sem Descrição ainda]",drop:"???"},
@@ -416,10 +417,12 @@ const items=[
 },
 {rarity:"rare", name:"Earth Blocks", cat:"evolution",
  pt:{desc:"Blocos densos de terra comprimida, impregnados de energia elemental.",drop:"Derrotando Animons do tipo Earth."},
- en:{desc:"Dense blocks of compressed earth, infused with elemental energy.",drop:"Defeating Earth-type Animon."}
+ en:{desc:"Dense blocks of compressed earth, infused with elemental energy.",drop:"Defeating Earth-type Animon."},
+ icon:"earth_blocks.png" 
 },
 {rarity:"epic", name:"Ancient Stone", cat:"evolution",
  pt:{desc:"Pedras antigas e robustas que guardam o poder do núcleo da Terra.",drop:"Derrotando Animons do tipo Earth."},
- en:{desc:"Sturdy, ancient stones that hold the power of the earth's core.",drop:"Defeating Earth-type Animon."}
+ en:{desc:"Sturdy, ancient stones that hold the power of the earth's core.",drop:"Defeating Earth-type Animon."},
+ icon:"ancient_stone.png"
 }
 ];
