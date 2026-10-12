@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Anime - Animon Details</title>
+
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="animon.css">
+
+    <script src="menu.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
+</header>
+
+<main>
+    <div class="top-section">
+        <div class="sprite-frame">
+            <div id="animonIdDisplay" class="sprite-id"></div>
+            <img id="animonSprite" src="" alt="Sprite">
+        </div>
+        <div class="desc-box">
+            <div class="name-row">
+                <div id="nameInside"></div> 
+                <div id="descTypes" class="desc-types-container"></div>
+            </div>
+            <div id="animonDesc"></div>
+        </div>
+    </div>
+
+    <div class="section-label" id="labelTraits">Habilidades</div>
+    <div class="traits-container" id="traitsContainer"></div>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="switchTab('tab-info')" id="btnInfo">Info</button>
+        <button class="tab-btn" onclick="switchTab('tab-moves')" id="btnMoves">Moves</button>
+        <button class="tab-btn" onclick="switchTab('tab-weak')" id="btnWeak">Fraquezas</button>
+        <button class="tab-btn" onclick="switchTab('tab-loc')" id="btnLoc">Localização</button>
+    </div>
+
+    <div class="section-label" id="tabTitleDisplay">Status</div>
+
+    <div id="tab-info" class="tab-content active">
+        <div class="chart-wrapper">
+            <canvas id="statsChart"></canvas>
+        </div>
+        <div class="stats-total" id="statsTotal"></div>
+    </div>
+
+    <div id="tab-moves" class="tab-content">
+        <div class="move-list" id="movesContainer"></div>
+    </div>
+
+    <div id="tab-weak" class="tab-content">
+        <div id="typeChartContent"></div>
+    </div>
+
+    <div id="tab-loc" class="tab-content">
+        <div id="locationContent"></div>
+    </div>
+
+    <div class="section-label" id="labelEvo">Grade Evolutiva</div>
+    <div class="traits-container" id="evoContainer"></div>
+</main>
+
+<div class="lang-toggle">
+    <button id="langBtn"></button>
+</div>
+
+<div id="eventOverlay" class="event-modal-overlay" onclick="closeEventModal()"></div>
+<div id="eventModal" class="event-modal-content"></div>
+
+<!-- Arquivos de Dados e Utilitários -->
+<script src="utils/color-parser.js"></script>
+<script src="database/animons.js"></script>
+<script src="database/events.js"></script>
+<script src="database/moves.js"></script>
+<script src="database/traits.js"></script>
+<script src="database/typechart.js"></script>
+<script src="database/areas.js"></script>
+
+<!-- Script Principal da Página -->
+<script src="animon.js"></script>
+
+</body>
+</html>
