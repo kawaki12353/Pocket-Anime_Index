@@ -48,7 +48,7 @@ const items=[
 {rarity:"uncommon", name:"Advance Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas"},
  en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops"},
- icon:"advance_capsule" 
+ icon:"advance_capsule.png" 
 },
 {rarity:"legendary", name:"Z-Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x2 a Chance de Captura.",drop:"Limitado a fase 2 de Testes."},
