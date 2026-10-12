@@ -47,7 +47,8 @@ const items=[
 },
 {rarity:"uncommon", name:"Advance Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas"},
- en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops"}
+ en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops"},
+ icon:"advance_capsule" 
 },
 {rarity:"legendary", name:"Z-Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x2 a Chance de Captura.",drop:"Limitado a fase 2 de Testes."},
@@ -126,7 +127,8 @@ const items=[
 },
 {rarity:"epic", name:"Radiant Blossom", cat:"evolution",
  pt:{desc:"Uma haste majestosa adornada com flores douradas e brilhantes, repletas de poderosa energia natural.",drop:"Derrotando Animons do tipo Nature."},
- en:{desc:"A Majestic stalk adorned with glowing, golden flowers brimming with potent natural energy.",drop:"Defeating Nature-type Animons."}
+ en:{desc:"A Majestic stalk adorned with glowing, golden flowers brimming with potent natural energy.",drop:"Defeating Nature-type Animons."},
+ icon:"radiant_blossom.png" 
 },
 {rarity:"uncommon", name:"Radiant Ring", cat:"evolution",
  pt:{desc:"Um anel dourado que brilha com uma luz interna quente.",drop:"Derrotando Animons do tipo Light."},
@@ -172,12 +174,12 @@ const items=[
  icon:"warrior_horn.png"
 },
 {rarity:"uncommon", name:"Aloe", cat:"medical",
- pt:{desc:"Tratamento para queimaduras! Aplique no seu Animon!",note:"Serve para retirar Queimadura/Burn do Animon.",drop:"Lojas"},
- en:{desc:"Treatment for burn! Apply it on your Animon!",note:"Cures Burn status.",drop:"Shops"}
+ pt:{desc:"Tratamento para queimaduras! Aplique no seu Animon!",note:"Serve para retirar [003]Queimadura[000] do Animon.",drop:"Lojas"},
+ en:{desc:"Treatment for burn! Apply it on your Animon!",note:"Cures [003]Burn[000] status.",drop:"Shops"}
 },
 {rarity:"common", name:"C-Potion", cat:"medical",
- pt:{desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",note:"Recupera 25 de HP.",drop:"Loja"},
- en:{desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",note:"Restores 25 HP.",drop:"Shop"},
+ pt:{desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",note:"Recupera [012]25 de HP[000].",drop:"Loja"},
+ en:{desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",note:"Restores [012]25 HP[000].",drop:"Shop"},
  icon:"c-potion.png"
 },
 {rarity:"epic", name:"Endless Bento", cat:"battle",
@@ -380,8 +382,9 @@ const items=[
  icon:"mysterious_egg.png"
 },
 {rarity:"uncommon", name:"Antidote", cat:"medical",
- pt:{desc:"Tratamento para veneno! Aplique no seu Animon!",drop:"Lojas"},
- en:{desc:"Treatment for poison! Apply it on your Animon!",drop:"Shops"}
+ pt:{desc:"Tratamento para veneno! Aplique no seu Animon!",note:"Serve para retirar [006]Veneno[000] do Animon.",drop:"Lojas"},
+ en:{desc:"Treatment for poison! Apply it on your Animon!",note:"Cures [006]Poison[000] status.",drop:"Shops"},
+ icon:"antidote.png" 
 },
 {rarity:"common", name:"Missing Shipments", cat:"misc",
  pt:{desc:"Restos desaparecidos! Por algum motivo, os alienígenas selvagens são atraídos por isso.",drop:"Derrotando o Animon Alien."},
