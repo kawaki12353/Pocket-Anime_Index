@@ -47,7 +47,8 @@ const items=[
 },
 {rarity:"uncommon", name:"Advance Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x1 a Chance de Captura.",drop:"Lojas"},
- en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops"}
+ en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",note:"x1 Capture Chance.",drop:"Shops"},
+ icon:"advance_capsule.png"
 },
 {rarity:"legendary", name:"Z-Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",note:"x2 a Chance de Captura.",drop:"Limitado a fase 2 de Testes."},
@@ -126,7 +127,8 @@ const items=[
 },
 {rarity:"epic", name:"Radiant Blossom", cat:"evolution",
  pt:{desc:"Uma haste majestosa adornada com flores douradas e brilhantes, repletas de poderosa energia natural.",drop:"Derrotando Animons do tipo Nature."},
- en:{desc:"A Majestic stalk adorned with glowing, golden flowers brimming with potent natural energy.",drop:"Defeating Nature-type Animons."}
+ en:{desc:"A Majestic stalk adorned with glowing, golden flowers brimming with potent natural energy.",drop:"Defeating Nature-type Animons."},
+ icon:"radiant_blossom.png"
 },
 {rarity:"uncommon", name:"Radiant Ring", cat:"evolution",
  pt:{desc:"Um anel dourado que brilha com uma luz interna quente.",drop:"Derrotando Animons do tipo Light."},
@@ -381,7 +383,8 @@ const items=[
 },
 {rarity:"uncommon", name:"Antidote", cat:"medical",
  pt:{desc:"Tratamento para veneno! Aplique no seu Animon!",drop:"Lojas"},
- en:{desc:"Treatment for poison! Apply it on your Animon!",drop:"Shops"}
+ en:{desc:"Treatment for poison! Apply it on your Animon!",drop:"Shops"},
+ icon:"antidote.png"
 },
 {rarity:"common", name:"Missing Shipments", cat:"misc",
  pt:{desc:"Restos desaparecidos! Por algum motivo, os alienígenas selvagens são atraídos por isso.",drop:"Derrotando o Animon Alien."},
@@ -418,5 +421,4 @@ const items=[
 {rarity:"epic", name:"Ancient Stone", cat:"evolution",
  pt:{desc:"Pedras antigas e robustas que guardam o poder do núcleo da Terra.",drop:"Derrotando Animons do tipo Earth."},
  en:{desc:"Sturdy, ancient stones that hold the power of the earth's core.",drop:"Defeating Earth-type Animon."}
-}
 ];
