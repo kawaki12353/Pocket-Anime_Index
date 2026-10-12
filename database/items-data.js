@@ -34,8 +34,7 @@ const items=[
 },
 {rarity:"rare", name:"Tide Crystal", cat:"evolution",
  pt:{desc:"Um cristal azul profundo com camadas que imitam as profundezas tranquilas do oceano.",drop:"Derrotando Animons do tipo [012]Water[000]."},
- en:{desc:"A deep blue crystal with layers that mimic the tranquil depths of the ocean.",drop:"Defeating [012]Water-type[000] Animons."},
- icon:"tide_crystal.png"
+ en:{desc:"A deep blue crystal with layers that mimic the tranquil depths of the ocean.",drop:"Defeating [012]Water-type[000] Animons."}
 },
 {rarity:"common", name:"GX-Accuracy", cat:"misc",
  pt:{desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a precisão dos Animons.",drop:"Lojas"},
