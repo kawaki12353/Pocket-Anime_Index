@@ -1,0 +1,730 @@
+<!DOCTYPE html>      
+<html lang="pt-BR">      
+<head>      
+<meta charset="UTF-8">      
+<meta name="viewport" content="width=device-width, initial-scale=1.0">      
+
+<!-- Importação da Fonte Isometra via Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Isometra&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="menu.css">      
+<script src="menu.js" defer></script>      
+
+<title>Pocket Anime - Trainers</title>      
+
+<style>      
+body {      
+  font-family: Arial, sans-serif;      
+  background: var(--bg);      
+  color: var(--text);      
+  padding: 20px;      
+  margin: 0;      
+}      
+
+:root{      
+  --bg: #f2f4f7;      
+  --card: #ffffff;      
+  --text: #111;      
+  --border: #ccc;      
+  --hover: #f1f1f1;      
+  --lang-btn: #ffffff;      
+  --lang-btn-bg: #444;      
+}      
+
+@media (prefers-color-scheme: dark){      
+  :root{      
+    --bg: #0f1217;      
+    --card: #181c24;      
+    --text: #ffffff;      
+    --border: #2a2f3a;      
+    --hover: #232836;      
+    --lang-btn: #111;      
+    --lang-btn-bg: #ffffff;      
+  }      
+}      
+
+.header {      
+  display: flex;      
+  flex-direction: column;      
+  align-items: center;      
+  max-width: 1200px;      
+  margin: 0 auto 30px;      
+  gap: 12px;      
+}      
+
+.header-top {      
+  width: 100%;      
+  display: flex;      
+  justify-content: center;      
+}      
+
+.logo {      
+  width: 260px;      
+}      
+
+.trainer-title {      
+  font-family: 'Isometra', sans-serif;
+  position: relative;
+  width: 80%;
+  background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
+  color: #ffffff;
+  text-align: center;
+  margin: 0 auto 12px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 8px 40px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+}      
+
+.search-container {      
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-sizing: border-box;
+} 
+
+#searchInput {
+  flex: 1;
+}
+
+.search-container input {      
+  width: 100%;      
+  padding: 8px 10px;      
+  border-radius: 10px;      
+  border: 1px solid var(--border);      
+  font-size: 14px;      
+  background: var(--card);      
+  color: var(--text);      
+  box-sizing: border-box;
+}      
+
+.trainer-list { max-width: 900px; margin: 0 auto; }      
+
+.trainer-item {      
+  background: var(--card);      
+  border: 1px solid var(--border);      
+  border-radius: 14px;      
+  margin-bottom: 12px;      
+  overflow: hidden;      
+}      
+
+.trainer-header {      
+  padding: 14px;      
+  cursor: pointer;      
+  font-weight: bold;      
+}      
+
+.trainer-header:hover { background: var(--hover); }      
+
+.trainer-content {      
+  max-height: 0;      
+  display: flex;      
+  justify-content: center;      
+  overflow: hidden;      
+  transition: max-height 0.35s ease;      
+}      
+
+.trainer-item.active .trainer-content {      
+  max-height: 1000px;      
+}      
+
+.trainer-layout {      
+  display: flex;      
+  gap: 15px;      
+  flex-wrap: wrap;      
+  padding: 15px;      
+}      
+
+.trainer-photo {      
+  flex: 1;      
+  min-width: 180px;      
+  border: 2px solid var(--border);      
+  border-radius: 12px;      
+  padding: 10px;      
+  text-align: center;      
+}      
+
+.trainer-photo img {      
+  width: 100%;      
+  border-radius: 10px;      
+}      
+
+.animon-btn {      
+  margin-top: 0;      
+  padding: 8px;      
+  border-radius: 10px;      
+  border: none;      
+  cursor: pointer;      
+  font-weight: bold;      
+  background: #007AFF;      
+  color: #ffffff;      
+}      
+
+.trainer-info {      
+  flex: 2;      
+  min-width: 250px;      
+  border: 2px solid var(--border);      
+  border-radius: 12px;      
+  padding: 15px;      
+}      
+
+.modal {      
+  position: fixed;      
+  inset: 0;      
+  background: rgba(0,0,0,0.6);      
+  display: flex;      
+  justify-content: center;      
+  align-items: center;      
+  opacity: 0;      
+  pointer-events: none;      
+  transition: 0.3s;      
+}      
+
+.modal.active {      
+  opacity: 1;      
+  pointer-events: auto;      
+}      
+
+.modal-content {      
+  background: var(--card);      
+  padding: 20px;      
+  border-radius: 14px;      
+  width: 300px;      
+  text-align: center;      
+}      
+
+.lang-toggle {      
+  position: fixed;      
+  bottom: 10px;      
+  left: 50%;      
+  transform: translateX(-50%);      
+}      
+
+.lang-toggle button {      
+  padding: 8px 14px;      
+  border-radius: 20px;      
+  border: none;      
+  font-weight: bold;      
+  cursor: pointer;      
+  background: var(--lang-btn-bg);      
+  color: var(--lang-btn);      
+}  
+
+.button-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mode-btn{
+  padding: 8px;
+  border-radius: 10px;
+  border: 1.5px solid #8b0000;
+  font-weight: bold;
+  background: var(--bg);
+  color: var(--text);
+  cursor: default;
+}    
+
+.reward-list{
+  margin: 5px 0 0 0;
+  padding-left: 18px;
+}
+
+.reward-list li{
+  margin-bottom: 4px;
+}
+
+.animon-item{
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.animon-item:last-child{
+  border-bottom: none;
+}
+
+.animon-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.animon-elements {
+  display: flex;
+  gap: 6px;
+  position: relative;
+}
+
+/* PC */
+@media (min-width: 1024px) {
+  .modal-content {
+    width: 800px;
+    max-width: 90%;
+    padding: 40px;
+    font-size: 18px;
+  }
+
+  .animon-item {
+    padding: 14px 0;
+    font-size: 18px;
+  }
+
+  .element-wrapper:hover .element-tooltip {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {      
+  .header-top {      
+    justify-content: flex-end;      
+  }      
+
+  .logo {      
+    width: 150px;      
+  }      
+
+  .search-container {      
+    max-width: 240px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .custom-select {
+    width: 100%;
+  }
+
+  .trainer-photo img {      
+    width: 75%;      
+  }      
+}   
+
+.element-wrapper {
+  position: relative;
+  cursor: pointer;
+
+  width: 42px;
+  height: 42px;
+
+  background: #191919;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+/* moldura colorida menor */
+.element-inner {
+  position: relative;
+  width: 28px;
+  height: 28px;
+
+  border-radius: 8px;
+  border: 2px solid var(--element-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: visible;
+}
+
+.element-inner img {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.element-neutral   { --element-color: #e6e5e3; }
+.element-fighting   { --element-color: #e5901b; }
+.element-fire   { --element-color: #e60000; }
+.element-water   { --element-color: #00b0e6; }
+.element-nature   { --element-color: #24e30c; }
+.element-earth   { --element-color: #8a5e39; }
+.element-wind   { --element-color: #59e657; }
+.element-ice   { --element-color: #00ffe1; }
+.element-lightning   { --element-color: #ffe100; }
+.element-soul   { --element-color: #89a2e6; }
+.element-psychic   { --element-color: #e66ae0; }
+.element-poison   { --element-color: #ac8fff; }
+.element-light   { --element-color: #decc7c; }
+.element-dark   { --element-color: #262626; }
+.element-demon   { --element-color: #b00000; }
+.element-beast   { --element-color: #aa6272; }
+
+.element-tooltip {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  z-index: 10;
+}
+
+.element-wrapper.active .element-tooltip {
+  opacity: 1;
+}   
+
+/* AREA FILTER */
+.custom-select{
+  position: relative;
+  flex: 1;
+}
+
+.select-btn{
+  background: var(--card);
+  color: var(--text);
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.select-list{
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 6px;
+  box-sizing: border-box;
+  background: var(--card);
+  border-radius: 12px;
+  list-style: none;
+  padding: 6px;
+  z-index: 100;
+}
+
+.select-list li{
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+}
+
+.select-list li:hover{
+  background: var(--hover);
+}
+
+.area-icon{
+  width: 30px;
+  height: 30px;
+}
+</style>      
+</head>      
+
+<body>      
+
+<div class="header">      
+ <div class="header-top">      
+  <img src="assets/Pocket-Anime-logo.png" class="logo">      
+ </div>      
+
+<h2 class="trainer-title" id="trainerTitle"></h2>      
+
+<div class="search-container">      
+  <input type="text" id="searchInput">      
+<div class="custom-select" id="areaSelect">
+  <div class="select-btn" id="areaBtn"></div>
+  <ul class="select-list" id="areaList"></ul>
+</div>
+</div>    
+
+<div class="trainer-list" id="trainerList"></div>      
+
+<div class="lang-toggle">      
+  <button id="langBtn"></button>      
+</div>      
+
+<div class="modal" id="animonModal">      
+  <div class="modal-content">      
+    <h3 id="modalTitle"></h3>      
+    <p id="modalAnimons"></p>      
+  </div>      
+</div>      
+
+<script src="database/trainer-data.js"></script>
+
+<script>      
+
+const trainerList = document.getElementById("trainerList");
+const searchInput = document.getElementById("searchInput");
+const langBtn = document.getElementById("langBtn");
+const areaBtn = document.getElementById("areaBtn");
+const areaList = document.getElementById("areaList");
+
+let selectedArea = "";
+
+const areaIcons = {
+  all: "",
+  sunburst: "assets/sunburst_forest.png",
+  plains: "assets/great_plains.png"
+};
+
+const areaLabels = {
+  pt: {
+    all: "Todas as áreas",
+    sunburst: "Sunburst Forest",
+    plains: "Great Plains"
+  },
+  en: {
+    all: "All areas",
+    sunburst: "Sunburst Forest",
+    plains: "Great Plains"
+  }
+};
+
+let lang = localStorage.getItem("siteLang") || "pt";
+
+function render(filter=""){
+  const activeTrainer = document.querySelector(".trainer-item.active .trainer-header")?.textContent;
+
+  trainerList.innerHTML = "";
+
+  trainers
+  .filter(t => {
+    const nameMatch = t.trainer.toLowerCase().includes(filter);
+    const areaMatch = selectedArea ? t.area === selectedArea : true;
+    return nameMatch && areaMatch;
+  })
+  .sort((a, b) => a.trainer.localeCompare(b.trainer))
+  .forEach((t) => {
+
+    const item = document.createElement("div");
+    item.className = "trainer-item";
+
+    item.innerHTML = `
+      <div class="trainer-header">${t.trainer}</div>
+      <div class="trainer-content">
+        <div class="trainer-layout">
+          <div class="trainer-photo">
+            <img src="${t.photo}">
+            <div class="button-row">
+              <button class="mode-btn">${t.mode}</button>
+              <button class="animon-btn">
+                Animons
+              </button>
+            </div>
+          </div>
+          <div class="trainer-info">
+            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
+            <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
+            <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>
+            <ul class="reward-list">
+             ${(lang === "pt" ? t.drops_pt : t.drops_en)
+              .split(",")
+              .map(r => `<li>${r.trim()}</li>`)
+              .join("")}
+           </ul>
+          </div>
+        </div>
+      </div>
+    `;
+
+    if (t.trainer === activeTrainer) {
+      item.classList.add("active");
+    }
+
+    item.querySelector(".trainer-header").onclick = () => {
+      const isActive = item.classList.contains("active");
+      document.querySelectorAll(".trainer-item").forEach(el => el.classList.remove("active"));
+      if (!isActive) item.classList.add("active");
+    };
+
+    item.querySelector(".animon-btn").onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById("animonModal").classList.add("active");
+      document.getElementById("modalTitle").textContent =
+        lang === "pt" ? "Animons do Treinador" : "Trainer Animons";
+
+      const sortedAnimons = t.animons;
+
+document.getElementById("modalAnimons").innerHTML =
+  sortedAnimons
+    .map((animon, index) => {
+
+      const elements = animonElements[animon] || [];
+
+      const elementIcons = elements.map(el => `
+       <div class="element-wrapper element-${el}">
+        <div class="element-inner">
+         <img src="assets/elements/${el}_element.png" alt="${el}">
+        </div>
+        <div class="element-tooltip">${el.charAt(0).toUpperCase() + el.slice(1)}</div>
+       </div>
+      `).join("");
+
+      return `
+        <div class="animon-item">
+          <span>${index + 1}. ${animon}</span>
+          <div class="animon-elements">
+            ${elementIcons}
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+    setTimeout(() => {
+
+  const isMobile = window.innerWidth <= 1024;
+
+  if (isMobile) {
+    document.querySelectorAll(".element-wrapper").forEach(wrapper => {
+      wrapper.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        // Fecha outros
+        document.querySelectorAll(".element-wrapper")
+          .forEach(w => w.classList.remove("active"));
+
+        wrapper.classList.add("active");
+      });
+    });
+  }
+
+ }, 0);
+};
+
+    trainerList.appendChild(item);
+  });
+}
+
+searchInput.addEventListener("input", () => {
+  render(searchInput.value.toLowerCase());
+});
+
+function buildAreaMenu(){
+  areaList.innerHTML = `
+    <li onclick="selectArea('')">
+      ${areaLabels[lang].all}
+    </li>
+    <li onclick="selectArea('sunburst')">
+      <img src="${areaIcons.sunburst}" class="area-icon">
+      ${areaLabels[lang].sunburst}
+    </li>
+    <li onclick="selectArea('plains')">
+      <img src="${areaIcons.plains}" class="area-icon">
+      ${areaLabels[lang].plains}
+    </li>
+  `;
+}
+
+function selectArea(value){
+  selectedArea = value;
+
+  if(value){
+    areaBtn.style.justifyContent = "flex-start";
+    areaBtn.innerHTML = `
+      <img src="${areaIcons[value]}" class="area-icon">
+      ${areaLabels[lang][value]}
+    `;
+  }else{
+    areaBtn.style.justifyContent = "flex-start";
+    areaBtn.textContent = areaLabels[lang].all;
+  }
+
+  areaList.style.display = "none";
+  render(searchInput.value.toLowerCase());
+}
+
+areaBtn.onclick = (e) => {
+  e.stopPropagation();
+  const open = areaList.style.display === "block";
+  closeAllSelects();
+  areaList.style.display = open ? "none" : "block";
+};
+
+function closeAllSelects(){
+  areaList.style.display = "none";
+}
+
+document.addEventListener("click", closeAllSelects);
+
+const texts = {
+  pt:{ btn:"🇧🇷 PT", search:"Pesquisar treinador...", title:'Treinadores Retornáveis' },
+  en:{ btn:"🇺🇸 EN", search:"Search trainer...", title:'Returnable Trainers' }
+};
+
+function updateLang(){
+  langBtn.textContent = texts[lang].btn;
+  searchInput.placeholder = texts[lang].search;
+  document.getElementById("trainerTitle").textContent = texts[lang].title;
+  render(searchInput.value.toLowerCase());
+
+  buildAreaMenu();
+
+if (selectedArea) {
+  areaBtn.style.justifyContent = "flex-start";
+  areaBtn.innerHTML = `
+    <img src="${areaIcons[selectedArea]}" class="area-icon">
+    ${areaLabels[lang][selectedArea]}
+  `;
+} else {
+  areaBtn.style.justifyContent = "flex-start";
+  areaBtn.textContent = areaLabels[lang].all;
+ }
+}
+
+langBtn.onclick = () => {
+  lang = lang === "pt" ? "en" : "pt";
+  localStorage.setItem("siteLang", lang);
+  updateLang();
+  if(typeof updateMenuLang==="function"){ updateMenuLang(); }
+};
+
+  const modal = document.getElementById("animonModal");
+const modalContent = document.querySelector(".modal-content");
+
+modal.addEventListener("click", (e) => {
+  if (!modalContent.contains(e.target)) {
+    modal.classList.remove("active");
+  }
+});
+
+updateLang();
+</script>
+
+</body>
+</html>
