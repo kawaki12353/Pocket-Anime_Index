@@ -1,4 +1,4 @@
- training=[
+const training=[
  hp:{
   "Cadet","Dinosaur"
 },
