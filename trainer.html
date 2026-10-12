@@ -549,9 +549,9 @@ function render(filter=""){
             </div>
           </div>
           <div class="trainer-info">
-            <h4>${lang === "pt" ? "Descrição" : "Description"}</h4>
+            <h4 style="color: #555;">${lang === "pt" ? "Descrição" : "Description"}</h4>
             <p>${lang === "pt" ? t.description_pt : t.description_en}</p>
-            <h4>${lang === "pt" ? "Recompensas" : "Rewards"}</h4>
+            <h4 style="color: #555;">${lang === "pt" ? "Recompensas" : "Rewards"}</h4>
             <ul class="reward-list">
              ${(lang === "pt" ? t.drops_pt : t.drops_en)
               .split(",")
