@@ -774,14 +774,17 @@ function getAnimonTVs(animonName) {
     let matched = [];
     const targetName = animonName.toLowerCase().trim();
 
-    let trainingData = training;
+    let trainingData = {};
+    
+    // Tratamento robusto para suportar Array de objetos ou Objeto direto
     if (Array.isArray(training)) {
-        trainingData = {};
         training.forEach(item => {
             if (item && typeof item === 'object') {
                 Object.assign(trainingData, item);
             }
         });
+    } else if (training && typeof training === 'object') {
+        trainingData = training;
     }
 
     Object.keys(tvDisplayNames).forEach(key => {
