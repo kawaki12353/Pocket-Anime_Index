@@ -1,4 +1,10 @@
 const moves = {
+  "Bomb Transmutation": {
+    id: 175,
+    name: "Bomb Transmutation",
+    type: "fire",
+    attack: "special",
+  },
   "Water Lock": {
     id: 174,
     name: "Water Lock",
