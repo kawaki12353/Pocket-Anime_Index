@@ -356,8 +356,8 @@ const moves = {
   "Cleave": {
     id: 141,
     name: "Cleave",
-    desc_pt: "Divida um alvo ao meio usando um corte com chance crítica triplicada.",
-    desc_en: "Bisect a target using a slash with an increased 3X critical chance.",
+    desc_pt: "Divida um alvo ao meio usando um corte com [012]chance crítica triplicada[000].",
+    desc_en: "Bisect a target using a slash with an increased [012]3X critical chance[000].",
     type: "neutral",
     attack: "physical",
     power: 60,
