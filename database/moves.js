@@ -17,7 +17,7 @@ const moves = {
     desc_en: "Summon a giant shark made up entirely of water to rain down on a target",
     type: "water",
     attack: "special",
-    power: 65,
+    power: 70,
     accuracy: 100,
     pp: 15,
   },
