@@ -1,8 +1,8 @@
-const training = [
-    { saijan: ["Cadet", "Dinosaur"]
+const attributes = [
+    { saijan: ["Bald Warrior", "Super Bald Warrior", "Brorok", "Full Power Brorok", "Kid Gocu", "Adult Gocu", "Super Gocu", "Imperfect Warrior Bug", "Perfect Warrior Bug", "Warrior Bug Jr", "Monkey Beast", "Monkey Warrior", "Radish", "Vegetable", "Super Vegetable"]
     },
-    { three_sword: ["Pickle Jr.", "Alien", "Bulme", "Fishman", "Water Goddess", "Water Mage", "Fire Prince"]
+    { three_sword: [""]
     },
-    { swordsman: ["Joyful", "Secret Ninja", "Ramen", "Wuno", "Bomb Man", "Warrior Bug Jr."]
+    { swordsman: [""]
   }
 ];
