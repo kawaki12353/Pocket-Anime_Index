@@ -247,8 +247,8 @@ const items=[
  en:{desc:"Heavy and sluggish, its weight seems to pull you back with every bite.",note:"Decreases [013]SPD TV[000] by 10",drop:"Phase Shop"}
 },
 {rarity:"rare", name:"Dullapple", cat:"status",
- pt:{desc:"Sem sabor e amarga; reduz a clareza e embota o foco em batalha.",note:"Diminui o [013]SP ATK TV[000] em 10",drop:"Loja de Fase"},
- en:{desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",note:"Decreases [013]SP ATK TV[000] by 10",drop:"Phase Shop"}
+ pt:{desc:"Sem sabor e amarga; reduz a clareza e embota o foco em batalha.",note:"Diminui o [013]SP.ATK TV[000] em 10",drop:"Loja de Fase"},
+ en:{desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",note:"Decreases [013]SP.ATK TV[000] by 10",drop:"Phase Shop"}
 },
 {rarity:"rare", name:"Fisher's Pass", cat:"key",
  pt:{desc:"Um passe concedido a qualquer um digno de segurar uma vara de pesca! Permite comprar itens em qualquer loja de pesca.",drop:"Quest em Great Plains"},
@@ -289,8 +289,8 @@ const items=[
  icon:"grimberry.png"
 },
 {rarity:"rare", name:"Hushmelon", cat:"status",
- pt:{desc:"Macia e silenciosa, suaviza os sentidos e reduz sua guarda.",note:"Diminui o [013]SP DEF TV[000] em 10",drop:"Loja de Fase"},
- en:{desc:"Cushioned and quiet, it softens the senses and dulls your guard.",note:"Decreases [013]SP DEF TV[000] by 10",drop:"Phase Shop"},
+ pt:{desc:"Macia e silenciosa, suaviza os sentidos e reduz sua guarda.",note:"Diminui o [013]SP.DEF TV[000] em 10",drop:"Loja de Fase"},
+ en:{desc:"Cushioned and quiet, it softens the senses and dulls your guard.",note:"Decreases [013]SP.DEF TV[000] by 10",drop:"Phase Shop"},
  icon:"hushmelon.png"
 },
 {rarity:"rare", name:"Imperfect Materials", cat:"misc",
@@ -298,8 +298,8 @@ const items=[
  en:{desc:"Provided by strong warriors, used to create even stronger Animons.",drop:"Defeating Warrior Bug Jr and Green Alien"}
 },
 {rarity:"rare", name:"Mindapple", cat:"status",
- pt:{desc:"Uma fruta amarga que dizem despertar inspiração em batalha!",note:"Aumenta o [013]SP ATK TV[000] em 10",drop:"Loja de Fase"},
- en:{desc:"A bitter fruit said to spark inspiration in battle!",note:"Increases [013]SP ATK TV[000] by 10",drop:"Phase Shop"},
+ pt:{desc:"Uma fruta amarga que dizem despertar inspiração em batalha!",note:"Aumenta o [013]SP.ATK TV[000] em 10",drop:"Loja de Fase"},
+ en:{desc:"A bitter fruit said to spark inspiration in battle!",note:"Increases [013]SP.ATK TV[000] by 10",drop:"Phase Shop"},
  icon:"mindapple.png"
 },
 {rarity:"rare", name:"Rocky Helmet", cat:"battle",
@@ -340,8 +340,8 @@ const items=[
  icon:"weighted_clothes.png"
 },
 {rarity:"rare", name:"Wispmelon", cat:"status",
- pt:{desc:"Suave e reconfortante, este melão acalma e protege a alma!",note:"Aumenta o [013]SP DEF TV[000] em 10",drop:"Loja de Fase"},
- en:{desc:"Soothing and soft, this melon calms and shields the soul!",note:"Increase the [013]SP DEF TV[000] by 10",drop:"Phase Shop"}
+ pt:{desc:"Suave e reconfortante, este melão acalma e protege a alma!",note:"Aumenta o [013]SP.DEF TV[000] em 10",drop:"Loja de Fase"},
+ en:{desc:"Soothing and soft, this melon calms and shields the soul!",note:"Increase the [013]SP.DEF TV[000] by 10",drop:"Phase Shop"}
 },
 {rarity:"uncommon", name:"Wolf Fang", cat:"misc",
  pt:{desc:"Uma presa elegante e extremamente afiada de um lobo formidável, um claro testemunho da natureza selvagem indomável.",drop:"Derrotando Battle Wolf ou Teen Battle Wolf"},
