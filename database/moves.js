@@ -796,8 +796,11 @@ const moves = {
   "Shark Tile Fist": {
     id: 98,
     name: "Shark Tile Fist",
+    desc_pt: "Uma técnica secreta dos homens-peixe: um soco direto potente que [012]ignora[000] quaisquer aumentos no atributo de DEF do alvo.",
+    desc_en: "A secret fishman-art: a strong straight punch that [012]ignores[000] any increases to a target DEF stat.",
     type: "water",
     attack: "physical",
+    power: 60,
     accuracy: 100,
     pp: 12,
   },
