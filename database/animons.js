@@ -959,6 +959,14 @@ const animons = [
     ]
   },
   { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 }, areas: ["0017"],
+    traits: [
+      { name: "Clumsy", chance: "100%" },
+      { name: "Static", chance: "50%" },
+      { name: "Shock Immunity", chance: "50%" },
+      { name: "Lightning Affinity", chance: "50%" }],
+    desc_pt: "O Raio... é a ira do céu.",
+    desc_en: "Lightning... is the wrath of the sky.",
+    anime: { name: "Lambo" },
     movesList: [
       { level: 1, name: "Junk Toss" }, 
       { level: 1, name: "Taunt" },
