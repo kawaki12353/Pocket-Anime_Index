@@ -1145,7 +1145,17 @@ const animons = [
       { level: 20, name: "Mega Punch" }
     ]
   },
-  { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 } },
+  { id: 75, name: "Yoshi", type: ["Fighting", "Fire"], sprite: "assets/animons-icon/yoshi.png", stats: { hp: 85, atk: 125, def: 75, spAtk: 80, spDef: 75, spd: 103 }, 
+    traits: [
+      { name: "A Peaceful Life", chance: "5%" }],
+    desc_pt: "Sou uma pessoa que deseja viver uma vida muito tranquila.",
+    desc_en: "I'm a person who wishes to live a very quiet life.",
+    anime: { name: "Yoshikage Kira" },
+    movesList: [
+      { level: 1, name: "Punch" },
+      { level: 24, name: "Bomb Transmutation" }
+    ]
+  },
   { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
   { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 }, areas: ["0010", "0011", "0012", "0013", "0014", "0019"],
     anime: { name: "Nappa" },
