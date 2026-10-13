@@ -61,8 +61,8 @@ const traits = {
     },
     "Three Sword Style": {
         id: 33,
-        desc_pt: "A chance de acerto crítico é 6x maior ao usar uma habilidade com o [012]atributo de três espadas[000].",
-        desc_en: "Critical chance is 6X if using a [012]three-sword attribute[000] skill."
+        desc_pt: "A chance de acerto crítico é 6x maior ao usar uma habilidade com o [013]atributo de três espadas[000].",
+        desc_en: "Critical chance is 6X if using a [013]three-sword attribute[000] skill."
     },
     "Blademaster": {
         id: 32,
