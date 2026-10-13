@@ -1,4 +1,14 @@
 const traits = {
+    "Water Affinity": {
+        id: 45,
+        desc_pt: "Ao usar um golpe do tipo [012]Água[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
+        desc_en: "When using a [012]Water-Type[000] move have a 25% to increase its damage [002]1.2X[000]."
+    },
+    "Sharkskin": {
+        id: 44,
+        desc_pt: "Acertar um alvo com ataques físicos tem 20% de chance de [001]reduzir[000] aleatoriamente o [013]PP[000] de uma de suas habilidades em 1.",
+        desc_en: "Hitting a target with physical attacks has a 20% chance to randomly [001]lower[000] the [013]PP[000] of one of their skills by 1.'s moves by 1."
+    },
     "Unwavering Spirit": {
         id: 43,
         desc_pt: "Não pode ser [004]confundido[000] - em vez disso, ganhe [002]SP.DEF [+1][000].",
@@ -26,8 +36,8 @@ const traits = {
     },
     "Earth Affinity": {
         id: 38,
-        desc_pt: "Ao usar um movimento do tipo Earth, há 25% de chance de aumentar seu dano em [002]1.2x[000].",
-        desc_en: "When using a Earth-Type move have a 25% to increase its damage [002]1.2X[000]."
+        desc_pt: "Ao usar um movimento do tipo [012]Earth[000], há 25% de chance de aumentar seu dano em [002]1.2x[000].",
+        desc_en: "When using a [012]Earth-Type[000] move have a 25% to increase its damage [002]1.2X[000]."
     },
     "Sand Shroud": {
         id: 37,
@@ -41,8 +51,8 @@ const traits = {
     },
     "Magical Protection": {
         id: 35,
-        desc_pt: "Resista a 25% do dano causado por ataques de [012]atributo mágico[000].",
-        desc_en: "Resist 25% of damage dealt by [012]magical-attribute[000] attacks."
+        desc_pt: "Resista a 25% do dano causado por ataques de [013]atributo mágico[000].",
+        desc_en: "Resist 25% of damage dealt by [013]magical-attribute[000] attacks."
     },
     "Danger Sense": {
         id: 34,
@@ -56,8 +66,8 @@ const traits = {
     },
     "Blademaster": {
         id: 32,
-        desc_pt: "Usar um ataque físico com o [012]atributo de espadachim[000] dobra a chance de acerto crítico.",
-        desc_en: "Using a physical attack with a [012]swordsman attribute[000] has increased 2X crit chance."
+        desc_pt: "Usar um ataque físico com o [013]atributo de espadachim[000] dobra a chance de acerto crítico.",
+        desc_en: "Using a physical attack with a [013]swordsman attribute[000] has increased 2X crit chance."
     },
     "Hunter": {
         id: 31,
@@ -96,18 +106,18 @@ const traits = {
     },
     "Shock Immunity": {
         id: 24,
-        desc_pt: "Imunidade a todos os golpes do tipo Lightning e à [008]paralisia[000].",
-        desc_en: "Immunity to all Lightning-type moves and being [008]paralyzed[000]."
+        desc_pt: "Imunidade a todos os golpes do tipo [012]Lightning[000] e à [008]paralisia[000].",
+        desc_en: "Immunity to all [012]Lightning-type[000] moves and being [008]paralyzed[000]."
     },
     "Rubber Resilience": {
         id: 23,
-        desc_pt: "Imunidade a golpes do tipo Lightning e recebe 10% à menos de dano de ataques físicos.",
-        desc_en: "Immunity to lightning-type moves and take 10% less damage from physical-attacks."
+        desc_pt: "Imunidade a golpes do tipo [012]Lightning[000] e recebe 10% à menos de dano de ataques físicos.",
+        desc_en: "Immunity to [012]Lightning-type[000] moves and take 10% less damage from physical-attacks."
     },
     "Exorcist": {
         id: 22,
-        desc_pt: "Ataques contra criaturas do tipo Soul e do tipo Demon causam 20% a mais de dano.",
-        desc_en: "Attacks against Soul-types and Demon-types have 20% increased damage."
+        desc_pt: "Ataques contra criaturas do tipo [012]Soul[000] e do tipo [012]Demon[000] causam 20% a mais de dano.",
+        desc_en: "Attacks against [012]Soul-types[000] and [012]Demon-types[000] have 20% increased damage."
     },
     "Inner Focus": {
         id: 21,
@@ -121,7 +131,7 @@ const traits = {
     },
     "Number One": {
         id: 19,
-        desc_pt: "Quando a vida estiver abaixo da metade, receba um bônus de dano de 1,5x para habilidades únicas.",
+        desc_pt: "Quando a vida estiver abaixo da metade, receba um bônus de dano de [002]1,5x[000] para habilidades únicas.",
         desc_en: "When below half HP gain 1.5x damage boost to Unique abilities."
     },
     "Scaredy Cat": {
@@ -131,13 +141,13 @@ const traits = {
     },
     "Lightning Affinity": {
         id: 17,
-        desc_pt: "Ao usar um movimento do tipo Lightning, há 25% de chance de aumentar seu dano em 1.2x.",
-        desc_en: "When using a Lightning-Type move have a 25% to increase its damage 1.2X."
+        desc_pt: "Ao usar um movimento do tipo [012]Lightning[000], há 25% de chance de aumentar seu dano em [002]1.2x[000].",
+        desc_en: "When using a [012]Lightning-Type[000] move have a 25% to increase its damage [002]1.2X[000]."
     },
     "Fire Affinity": {
         id: 16,
-        desc_pt: "Ao usar um movimento do tipo Fire, há 25% de chance de aumentar seu dano em 1.2x.",
-        desc_en: "When using a Fire-Type move have a 25% to increase its damage 1.2X."
+        desc_pt: "Ao usar um movimento do tipo [012]Fire[000], há 25% de chance de aumentar seu dano em [002]1.2x[000].",
+        desc_en: "When using a [012]Fire-Type[000] move have a 25% to increase its damage [002]1.2X[000]."
     },
     "Vengeful Eyes": {
         id: 15,
@@ -151,8 +161,8 @@ const traits = {
     },
     "Sadist": {
         id: 13,
-        desc_pt: "Causa 1.2x de dano ao atacar um alvo com uma condição de status.",
-        desc_en: "Deal 1.2x damage when attacking a target with a status condition."
+        desc_pt: "Causa [002]1.2x[000] de dano ao atacar um alvo com uma [012]condição de status[000].",
+        desc_en: "Deal [002]1.2X[000] damage when attacking a target with a [012]status condition[000]."
     },
     "Fearsome": {
         id: 12,
@@ -161,13 +171,13 @@ const traits = {
     },
     "Major Threat": {
         id: 11,
-        desc_pt: "Inimigos gastam o dobro de PP ao usar movimentos que têm o usuário como alvo.",
-        desc_en: "Enemies spend twice as much PP when using moves that target the user."
+        desc_pt: "Inimigos [012]gastam o dobro[000] de [013]PP[000] ao usar movimentos que têm o usuário como alvo.",
+        desc_en: "Enemies [012]spend twice[000] as much [013]PP[000] when using moves that target the user."
     },
     "Legendary Warrior": {
         id: 10,
-        desc_pt: "Turnos consecutivos acertando ataques aumentam [002]ATK [+1][000] ou [002]SP.ATK [+1][000], até um máximo de +3. Contra animons do atributo Saijan aumenta +2 por turno.",
-        desc_en: "Consecutive turns landing attacks increase [002]ATK [+1][000] or [002]SP.ATK [+1][000], up to a maximum of +3. This increases to +2 per turn against Saijan-attribute animon."
+        desc_pt: "Turnos consecutivos acertando ataques aumentam [002]ATK [+1][000] ou [002]SP.ATK [+1][000], até um máximo de +3. Contra animons do [013]atributo Saijan[000] aumenta +2 por turno.",
+        desc_en: "Consecutive turns landing attacks increase [002]ATK [+1][000] or [002]SP.ATK [+1][000], up to a maximum of +3. This increases to +2 per turn against [013]Saijan-attribute[000] animon."
     },
     "Fox Spirit": {
         id: 9,
@@ -176,13 +186,13 @@ const traits = {
     },
     "Ninjutsu Mastery": {
         id: 8,
-        desc_pt: "Usar habilidades do atributo chakra causa [002]1.2x[000] à mais de dano.",
-        desc_en: "Using chakra-attribute skills will have an increased [002]1.2x[000] damage."
+        desc_pt: "Usar habilidades do [013]atributo Chakra[000] causa [002]1.2x[000] à mais de dano.",
+        desc_en: "Using [013]Chakra-attribute[000] skills will have an increased [002]1.2x[000] damage."
     },
     "Wind Affinity": {
         id: 7,
-        desc_pt: "Ao usar um movimento do tipo Wind, há 25% de chance de aumentar o dano em [002]1.2x[000].",
-        desc_en: "When using a Wind-Type move have a 25% chance to increase its damage [002]1.2x[000]."
+        desc_pt: "Ao usar um movimento do tipo [012]Wind[000], há 25% de chance de aumentar o dano em [002]1.2x[000].",
+        desc_en: "When using a [012]Wind-Type[000] move have a 25% chance to increase its damage [002]1.2X[000]."
     },
     "Consume": {
         id: 6,
