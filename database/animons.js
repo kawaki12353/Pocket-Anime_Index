@@ -935,6 +935,17 @@ const animons = [
   { id: 47, name: "Hired Assassin", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/hired_assassin.png", stats: { hp: 50, atk: 65, def: 50, spAtk: 63, spDef: 43, spd: 80 } },
   { id: 48, name: "Hired Spy", type: "Dark", sprite: "assets/animons-icon/hired_spy.png", stats: { hp: 50, atk: 52, def: 53, spAtk: 60, spDef: 51, spd: 74 } },
   { id: 49, name: "Little Cow", type: "Lightning", sprite: "assets/animons-icon/little_cow.png", stats: { hp: 40, atk: 35, def: 30, spAtk: 60, spDef: 35, spd: 50 }, areas: ["0010", "0011"],
+    traits: [
+      { name: "Clumsy", chance: "100%" },
+      { name: "Indecisive", chance: "100%" },
+      { name: "Scaredy Cat", chance: "50%" },
+      { name: "Static", chance: "50%" },
+      { name: "Shock Immunity", chance: "50%" },
+      { name: "Lightning Affinity", chance: "20%" },
+      { name: "Pint-Sized", chance: "20%" },
+      { name: "Personal Bodyguard", chance: "10%" }],
+    desc_pt: "A Vaquinha é a mais forte! Muuu~!",
+    desc_en: "Little Cow is the strongest! Moooo~!",
     anime: { name: "Lambo" },
     movesList: [
       { level: 1, name: "Junk Toss" }, 
@@ -948,7 +959,6 @@ const animons = [
     ]
   },
   { id: 49.01, name: "Cow Man", type: "Lightning", sprite: "assets/animons-icon/cow_man.png", stats: { hp: 57, atk: 65, def: 40, spAtk: 85, spDef: 60, spd: 62 }, areas: ["0017"],
-    anime: { name: "Lambo" },
     movesList: [
       { level: 1, name: "Junk Toss" }, 
       { level: 1, name: "Taunt" },
