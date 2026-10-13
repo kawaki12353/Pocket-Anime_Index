@@ -1,4 +1,26 @@
 const moves = {
+  "Water Lock": {
+    id: 174,
+    name: "Water Lock",
+    desc_pt: "Uma prisão de água que aprisiona o alvo por 2 turnos. A cada turno, ele sofre sufocamento, recebendo dano equivalente a [001]1/12[000] de sua vida. Ele não pode usar golpes físicos.",
+    desc_en: "A prison of water that traps a target for 2 turns. Each turn, they'll suffocate, taking [001]1/12th[000] health damage. They can’t use physical moves.",
+    type: "water",
+    attack: "status",
+    power: 0,
+    accuracy: 80,
+    pp: 12,
+  },
+  "Shark Bomb": {
+    id: 173,
+    name: "Shark Bomb",
+    desc_pt: "Invoque um tubarão gigante feito inteiramente de água para chover sobre um alvo.",
+    desc_en: "Summon a giant shark made up entirely of water to rain down on a target",
+    type: "water",
+    attack: "special",
+    power: 65,
+    accuracy: 100,
+    pp: 15,
+  },
   "Mega Punch": {
     id: 172,
     name: "Mega Punch",
