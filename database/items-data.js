@@ -89,7 +89,8 @@ const items=[
 },
 {rarity:"uncommon", name:"Fiend Claw", cat:"evolution",
  pt:{desc:"Uma garra afiada e ameaçadora de um demônio menor, infundida com poder sombrio.",drop:"Derrotando Animons do tipo [012]Demon[000]."},
- en:{desc:"A sharp, menacing claw from a lesser demon, infused with dark power.",drop:"Defeating [012]Demon-type[000] Animons."}
+ en:{desc:"A sharp, menacing claw from a lesser demon, infused with dark power.",drop:"Defeating [012]Demon-type[000] Animons."},
+ icon:"fiend_claw.png"
 },
 {rarity:"uncommon", name:"Frost Shard", cat:"evolution",
  pt:{desc:"Um fragmento de gelo elegante e afiado, imbuído com a essência do frio.",drop:"Derrotando Animons do tipo [012]Ice[000]."},
@@ -400,7 +401,8 @@ const items=[
 },
 {rarity:"uncommon", name:"Shadow Bone", cat:"evolution",
  pt:{desc:"[Sem Descrição ainda]",drop:"???"},
- en:{desc:"[No description yet]",drop:"???"}
+ en:{desc:"[No description yet]",drop:"???"},
+ icon:"shadow_bone.png"
 },
 {rarity:"uncommon", name:"Storm Battery", cat:"battle",
  pt:{desc:"Uma bateria que absorve eletricidade estática do ar, aumentando o poder dos golpes do tipo Elétrico!",drop:"Loja em Capsule City"},
