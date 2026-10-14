@@ -1540,7 +1540,7 @@ const moves = {
   "Sand Storm": {
     id: 44,
     name: "Sand Storm",
-    desc_pt: "Invoca uma tempestade de areia que causa dano equivalente a 1/12 do HP desde que não sejam do tipo Terra por 5 turnos.",
+    desc_pt: "Invoca uma tempestade de areia que causa dano equivalente a 1/12 do HP desde que não sejam do tipo [012]Terra[000] por 5 turnos.",
     desc_en: "Summon a sandstorm that deals 1/12th HP damage to non-Earth types for 5 turns.",
     type: "earth",
     attack: "status",
