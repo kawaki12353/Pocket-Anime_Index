@@ -1,7 +1,7 @@
 const animons = [
   { id: 1, name: "Ruffy", type: "Fighting", sprite: "assets/animons-icon/ruffy.png", stats: { hp: 46, atk: 65, def: 55, spAtk: 35, spDef: 44, spd: 55 }, areas: ["0000"],
     traits: [
-      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Pirate's Resolve", chance: "100%" },
       { name: "Adventurous Spirit", chance: "75%" },
       { name: "Shock Immunity", chance: "50%" }],
     desc_pt: "Eu vou ser o Rei dos Piratas!",
@@ -21,7 +21,7 @@ const animons = [
   },
   { id: 1.01, name: "TS Ruffy", type: "Fighting", sprite: "assets/animons-icon/ts_ruffy.png", stats: { hp: 62, atk: 93, def: 70, spAtk: 25, spDef: 52, spd: 75 },
     traits: [
-      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Pirate's Resolve", chance: "100%" },
       { name: "Adventurous Spirit", chance: "75%" },
       { name: "Shock Immunity", chance: "50%" },
       { name: "Rubber Resilience", chance: "5%" }],
@@ -446,7 +446,7 @@ const animons = [
   { id: 17, name: "Green Head", type: "Neutral", sprite: "assets/animons-icon/green_head.png", stats: { hp: 40, atk: 20, def: 39, spAtk: 30, spDef: 25, spd: 65 } },
   { id: 18, name: "Zoko", type: "Wind", sprite: "assets/animons-icon/zoko.png", stats: { hp: 41, atk: 57, def: 41, spAtk: 35, spDef: 37, spd: 51 }, areas: ["0007"],
     traits: [
-      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Pirate's Resolve", chance: "100%" },
       { name: "Hunter", chance: "50%" },
       { name: "Blademaster", chance: "50%" },
       { name: "Three Sword Style", chance: "5%" }],
@@ -468,7 +468,7 @@ const animons = [
   },
   { id: 18.01, name: "TS Zoko", type: "Wind", sprite: "assets/animons-icon/ts_zoko.png", stats: { hp: 53, atk: 66, def: 50, spAtk: 55, spDef: 47, spd: 70 },
     traits: [
-      { name: "Pirates Resolve", chance: "100%" },
+      { name: "Pirate's Resolve", chance: "100%" },
       { name: "Hunter", chance: "50%" },
       { name: "Blademaster", chance: "50%" },
       { name: "Three Sword Style", chance: "5%" }],
