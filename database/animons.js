@@ -866,6 +866,16 @@ const animons = [
     ]
   },
   { id: 42.01, name: "Karate Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/karate_whale_shark.png", stats: { hp: 75, atk: 95, def: 62, spAtk: 60, spDef: 51, spd: 62 },
+    traits: [
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Personal Bodyguard", chance: "100%" },
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Water Affinity", chance: "100%" },
+      { name: "Unwavering Spirit", chance: "100%" },
+      { name: "Pirate's Resolve", chance: "100%" },
+      { name: "Martial Artist", chance: "100%" }],
+    desc_pt: "Este é o poder do Karatê Homem-Peixe!",
+    desc_en: "This is the power of Fish-Man Karate!",
     anime: { name: "Jinbe" },
     movesList: [
       { level: 1, name: "False Courage" },
