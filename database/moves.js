@@ -1,4 +1,22 @@
 const moves = {
+  "Suplex": {
+    id: 193,
+    name: "Suplex",
+    type: "fighting",
+    attack: "status",
+  },
+  "Silhouette": {
+    id: 192,
+    name: "Silhouette",
+    type: "neutral",
+    attack: "status",
+  },
+  "Flare Strike": {
+    id: 191,
+    name: "Flare Strike",
+    type: "light",
+    attack: "status",
+  },
   "Nuclear Beatdown": {
     id: 190,
     name: "Nuclear Beatdown",
