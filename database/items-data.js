@@ -1,7 +1,7 @@
 const items=[
 {rarity:"rare", name:"Highstar Key", cat:"key",
- pt:{desc:"Uma chave misteriosa...",note:"Serve para acessar a Highstar Base.",drop:"Baú na Great Plains."},
- en:{desc:"A mysterious key..",note:"It is used to access a Highstar Base.",drop:"Chest in the Great Plains."},
+ pt:{desc:"Uma chave misteriosa...",note:"Serve para acessar a [012]Highstar Base[000].",drop:"Baú na Great Plains."},
+ en:{desc:"A mysterious key..",note:"It is used to access a [012]Highstar Base[000].",drop:"Chest in the Great Plains."},
  icon:"highstar_key.png"
 },
 {rarity:"epic", name:"Castle Badge", cat:"key",
