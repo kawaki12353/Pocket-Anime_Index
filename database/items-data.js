@@ -1,4 +1,9 @@
 const items=[
+{rarity:"rare", name:"Highstar Key", cat:"key",
+ pt:{desc:"Uma chave misteriosa...",note:"Serve para acessar a Highstar Base.",drop:"Baú na Great Plains."},
+ en:{desc:"A mysterious key..",note:"It is used to access a Highstar Base.",drop:"Chest in the Great Plains."},
+ icon:"highstar_key.png"
+},
 {rarity:"epic", name:"Castle Badge", cat:"key",
  pt:{desc:"Concedido àqueles que derrotaram a primeira cápsula.",drop:"Se consegue Derrotando o primeiro ginásio."},
  en:{desc:"Awarded to those who have defeated the first capsule.",drop:"You get it by defeating the first gym."},
@@ -25,7 +30,7 @@ const items=[
 },
 {rarity:"epic", name:"Celestial Key", cat:"evolution",
  pt:{desc:"Uma chave dourada que brilha com luz celestial, desbloqueando poderes inimagináveis.",drop:"Derrotando Animons do tipo [012]Light[000]."},
- en:{desc:"A golden key that shimmers with heavenly light, unlocking untold powers.",drop:"Defeating [012]Light-type[000] Animons."}
+ en:{desc:"A golden key that shimmers with heavenly light, unlocking untold powers.",drop:"Defeating [012]Light-type[000] Animons."},
  icon:"celestial_key.png"
 },
 {rarity:"uncommon", name:"Bandit Cutlass", cat:"battle",
