@@ -812,6 +812,13 @@ const animons = [
     ]
   },
   { id: 36, name: "Mitsooke", type: ["Wind", "Lightning"], sprite: "assets/animons-icon/mitsooke.png", stats: { hp: 62, atk: 52, def: 45, spAtk: 78, spDef: 54, spd: 70 }, areas: ["0027"],
+    traits: [
+      { name: "Confident", chance: "100%" },
+      { name: "Wind Affinity", chance: "50%" },
+      { name: "Lightning Affinity", chance: "50%" },
+      { name: "Natural Intake", chance: "5%" }],
+    desc_pt: "Vou decidir por conta própria o que quero fazer.",
+    desc_en: "I'll decide what I want to do for myself.",
     anime: { name: "Mitsuki" },
     movesList: [
       { level: 1, name: "Energy Charge" },
