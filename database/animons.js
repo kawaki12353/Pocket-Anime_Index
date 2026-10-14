@@ -844,6 +844,16 @@ const animons = [
       ]
     },
   { id: 42, name: "Whale Shark", type: ["Fighting", "Water"], sprite: "assets/animons-icon/whale_shark.png", stats: { hp: 64, atk: 80, def: 55, spAtk: 54, spDef: 45, spd: 55 }, areas: ["0016"],
+    traits: [
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Personal Bodyguard", chance: "100%" },
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Water Affinity", chance: "100%" },
+      { name: "Unwavering Spirit", chance: "100%" },
+      { name: "Pirate's Resolve", chance: "100%" },
+      { name: "Martial Artist", chance: "100%" }],
+    desc_pt: "Filho do Mar.",
+    desc_en: "Son of the Sea.",
     anime: { name: "Jinbe" },
     movesList: [
       { level: 1, name: "False Courage" },
