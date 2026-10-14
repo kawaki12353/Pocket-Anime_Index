@@ -1,4 +1,9 @@
 const traits = {
+    "Natural Intake": {
+        id: 46,
+        desc_pt: "A cada turno em que você não ataca, aumenta sua [002]SP.DEF [+1][000].",
+        desc_en: "Each turn that you don't attack increase your [002]SP.DEF [+1][000]."
+    },
     "Water Affinity": {
         id: 45,
         desc_pt: "Ao usar um golpe do tipo [012]Água[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
