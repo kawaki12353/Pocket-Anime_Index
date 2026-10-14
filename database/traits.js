@@ -99,7 +99,7 @@ const traits = {
         desc_pt: "Ao derrotar um alvo, você ganha o bônus de atributo mais alto dele.",
         desc_en: "When defeating a target gain their highest stat bonus."
     },
-    "Pirates Resolve": {
+    "Pirate's Resolve": {
         id: 26,
         desc_pt: "Aumenta os atributos de [002]Ataque[000] e [002]Defesa[000] do personagem em [002][+1][000] estágio quando seu HP cai abaixo de [001]50%[000].",
         desc_en: "Increases the character's [002]Attack[000] and [002]Defense[000] Stats by [002][+1][000] stage when their HP falls below [001]50%[000]."
