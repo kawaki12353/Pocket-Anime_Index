@@ -703,6 +703,15 @@ const animons = [
     ]
   },
   { id: 31, name: "Monkey Beast", type: "Beast", sprite: "assets/animons-icon/monkey_beast.png", stats: { hp: 75, atk: 80, def: 65, spAtk: 85, spDef: 55, spd: 63 }, areas: ["0026"],
+    traits: [
+      { name: "Fearsome", chance: "100%" },
+      { name: "Nearsighted", chance: "100%" },
+      { name: "Major Threat", chance: "100%" },
+      { name: "Battle Hardened", chance: "50%" },
+      { name: "Primal Power", chance: "20%" },
+      { name: "Giant Sized", chance: "20%" }],
+    desc_pt: "Meu avô me conta histórias de um macaco enorme que costumava aparecer na lua cheia!",
+    desc_en: "My grandpa tells me stories of a huge ape that used to come out at a full moon!",
     anime: { name: "Oozaru" },
     event: "Full Moon",
       movesList: [
