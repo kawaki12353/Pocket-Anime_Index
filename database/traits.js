@@ -11,8 +11,8 @@ const traits = {
     },
     "Indecisive": {
         id: 53,
-        desc_pt: "Atingir um inimigo diferente daquele que você atingiu anteriormente causará dano reduzido.",
-        desc_en: "Hitting a different enemy from the one you previously hit will deal decreased damage."
+        desc_pt: "Atingir um inimigo diferente daquele que você atingiu anteriormente causará [001]dano reduzido[000].",
+        desc_en: "Hitting a different enemy from the one you previously hit will deal [001]decreased damage[000]."
     },
     "Pint-Sized": {
         id: 52,
