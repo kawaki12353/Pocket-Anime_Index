@@ -590,6 +590,15 @@ const animons = [
     ]
   },
   { id: 27, name: "Kid Gocu", type: ["Fighting", "Beast"], sprite: "assets/animons-icon/kid_gocu.png", stats: { hp: 49, atk: 65, def: 45, spAtk: 52, spDef: 33, spd: 68 }, areas: ["0019"],
+    traits: [
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Battle Adaptabitily", chance: "100%" },
+      { name: "Martial Artist", chance: "50%" },
+      { name: "Pint-Sized", chance: "20%" },
+      { name: "Turtle School Finisher", chance: "5%" }],
+    desc_pt: "Para mim, parece divertido.",
+    desc_en: "Sounds like fun to me.",
     anime: { name: "Goku" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
