@@ -141,8 +141,8 @@ const traits = {
     },
     "Exorcist": {
         id: 22,
-        desc_pt: "Ataques contra criaturas do tipo [012]Soul[000] e do tipo [012]Demon[000] causam 20% a mais de dano.",
-        desc_en: "Attacks against [012]Soul-types[000] and [012]Demon-types[000] have 20% increased damage."
+        desc_pt: "Ataques contra criaturas do tipo [012]Soul[000] e do tipo [012]Demon[000] causam [002]20% a mais de dano[000].",
+        desc_en: "Attacks against [012]Soul-types[000] and [012]Demon-types[000] have [002]20% increased damage[000]."
     },
     "Inner Focus": {
         id: 21,
