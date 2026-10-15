@@ -6,8 +6,8 @@ const traits = {
     },
     "Union Raid: Water and Ice": {
         id: 60,
-        desc_pt: "Ao serem invocados na presença um do outro, a Water Mage e o Ice Sculpturr ganham [002]SP.ATK [+1][000].",
-        desc_en: "On summon in the presence of the other, Water Mage and Ice Sculpture will gain [002]SP.ATK [+1][000]."
+        desc_pt: "Ao serem invocados na presença um do outro, a [012]Water Mage[000] e o [012]Ice Sculpture[000] ganham [002]SP.ATK [+1][000].",
+        desc_en: "On summon in the presence of the other, [012]Water Mage[000] and [012]Ice Sculpture[000] will gain [002]SP.ATK [+1][000]."
     },
     "Slayerborn": {
         id: 59,
