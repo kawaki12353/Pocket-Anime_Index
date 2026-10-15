@@ -1,4 +1,14 @@
 const traits = {
+    "Giant Sized": {
+        id: 65,
+        desc_pt: "Ao entrar em batalha, perde-se [001]EVASIVE [-1][000], mas ganha [002]HP [+2][000].",
+        desc_en: "Entering battle lose [001]EVASIVE [-1][000] but gain [002]HP [+2][000]."
+    },
+    "Nearsighted": {
+        id: 64,
+        desc_pt: "Os ataques não atingirão mais de um alvo.",
+        desc_en: "Attacks will not hit more than one target."
+    },
     "Explosion Immunity": {
         id: 63,
         desc_pt: "Imune a todos os golpes com [013]atributo de explosão[000].",
