@@ -593,7 +593,7 @@ const animons = [
     traits: [
       { name: "Adventurous Spirit", chance: "100%" },
       { name: "Inner Focus", chance: "100%" },
-      { name: "Battle Adaptabitily", chance: "100%" },
+      { name: "Battle Adaptability", chance: "100%" },
       { name: "Martial Artist", chance: "50%" },
       { name: "Pint-Sized", chance: "20%" },
       { name: "Turtle School Finisher", chance: "5%" }],
@@ -614,7 +614,7 @@ const animons = [
     traits: [
       { name: "Adventurous Spirit", chance: "100%" },
       { name: "Inner Focus", chance: "100%" },
-      { name: "Battle Adaptabitily", chance: "100%" },
+      { name: "Battle Adaptability", chance: "100%" },
       { name: "Martial Artist", chance: "50%" },
       { name: "Turtle School Finisher", chance: "5%" }],
     desc_pt: "Olá, eu sou o Gocu!",
@@ -634,6 +634,14 @@ const animons = [
     ]
   },
   { id: 27.02, name: "Super Gocu", type: "Fighting", sprite: "assets/animons-icon/super_gocu.png", stats: { hp: 63, atk: 93, def: 54, spAtk: 82, spDef: 51, spd: 90 },
+    traits: [
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Battle Adaptability", chance: "100%" },
+      { name: "Martial Artist", chance: "50%" },
+      { name: "Turtle School Finisher", chance: "5%" }],
+    desc_pt: "Não vou mentir, adoro uma boa briga! Mas agora estou lutando por algo mais do que apenas diversão.",
+    desc_en: "I'm not gonna lie, I love a good fight! But I'm fighting for more than just fun now.",
     anime: { name: "Goku" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
