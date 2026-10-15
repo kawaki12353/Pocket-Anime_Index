@@ -1,4 +1,29 @@
 const traits = {
+    "Clumsy": {
+        id: 55,
+        desc_pt: "Segurar um item tem [012]25% de chance[000] de diminuir a [001]SPD [-1][000] a cada turno.",
+        desc_en: "Holding an item has a [012]25% chance[000] to decrease [001]SPD [-1][000] every turn."
+    },
+    "Static": {
+        id: 54,
+        desc_pt: "Possui [012]20%[000] de chance de [008]paralisar[000] um oponente ao entrar em contato com você.",
+        desc_en: "Has a [012]20%[000] chance to [008]paralyze[000] an opponent when they make contact with you."
+    },
+    "Indecisive": {
+        id: 53,
+        desc_pt: "Atingir um inimigo diferente daquele que você atingiu anteriormente causará dano reduzido.",
+        desc_en: "Hitting a different enemy from the one you previously hit will deal decreased damage."
+    },
+    "Pint-Sized": {
+        id: 52,
+        desc_pt: "Os ataques físicos sempre terão [012]15%[000] de [012]chance de errar[000].",
+        desc_en: "Physical Attacks will always have a [012]15% chance to miss[000]."
+    },
+    "Personal Bodyguard": {
+        id: 51,
+        desc_pt: "Ao ver, pela primeira vez, um aliado cair abaixo de [012]30% de HP[000], ganha [002]SPD [+2][000].",
+        desc_en: "The first time seeing an all fall below [012]30% HP[000] gain [002]SPD [+2][000]."
+    },
     "Magical Empowerment": {
         id: 50,
         desc_pt: "Usar um ataque especial com atributo mágico tem 20% de chance de causar um [012]acerto crítico[000].",
