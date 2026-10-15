@@ -1063,6 +1063,13 @@ const animons = [
    ]
   },
   { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 }, areas: ["0027"],
+    traits: [
+      { name: "Magical Empowerment", chance: "100%" },
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Ice Affinity", chance: "50%" },
+      { name: "Union Raid: Water and Ice", chance: "5%" }],
+    desc_pt: "Sou um mago de Gelo. Consigo fazer qualquer coisa.",
+    desc_en: "I am an ice sculpture mage. I can make anything",
     anime: { name: "Gray Fullbuster" },
     movesList: [
       { level: 1, name: "Cold Snap" },
@@ -1074,6 +1081,12 @@ const animons = [
     ]
   },
   { id: 52.01, name: "Demon Ice Sculpture", type: ["Ice", "Demon"], sprite: "assets/animons-icon/demon_ice_sculpture.png", stats: { hp: 62, atk: 65, def: 53, spAtk: 83, spDef: 50, spd: 71 },
+    traits: [
+      { name: "Magical Empowerment", chance: "100%" },
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Ice Affinity", chance: "50%" },
+      { name: "Union Raid: Water and Ice", chance: "10%" }
+      { name: "Slayerborn", chance: "5%" }],
     anime: { name: "Gray Fullbuster" },
     movesList: [
       { level: 1, name: "Cold Snap" },
