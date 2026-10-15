@@ -1060,7 +1060,7 @@ const animons = [
       { level: 6, name: "Water Blast" },
       { level: 12, name: "Water Slice" },
       { level: 17, name: "Water Lock" }
-   ]
+    ]
   },
   { id: 52, name: "Ice Sculpture", type: "Ice", sprite: "assets/animons-icon/ice_sculpture.png", stats: { hp: 52, atk: 52, def: 40, spAtk: 65, spDef: 44, spd: 60 }, areas: ["0027"],
     traits: [
@@ -1085,7 +1085,7 @@ const animons = [
       { name: "Magical Empowerment", chance: "100%" },
       { name: "Adventurous Spirit", chance: "100%" },
       { name: "Ice Affinity", chance: "50%" },
-      { name: "Union Raid: Water and Ice", chance: "10%" }
+      { name: "Union Raid: Water and Ice", chance: "10%" },
       { name: "Slayerborn", chance: "5%" }],
     anime: { name: "Gray Fullbuster" },
     movesList: [
