@@ -1,4 +1,9 @@
 const traits = {
+    "Martial Artist": {
+        id: 56,
+        desc_pt: "Quando o Animon usa golpes físicos do tipo [012]Lutador[000], sua [002]Accuracy [+1][000] aumenta.",
+        desc_en: "When the Animon uses [012]Fighting-type[000] physical moves they have increased [002]ACCURACY [+1][000]."
+    },
     "Clumsy": {
         id: 55,
         desc_pt: "Segurar um item tem [012]25% de chance[000] de diminuir a [001]SPD [-1][000] a cada turno.",
