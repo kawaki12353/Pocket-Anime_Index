@@ -231,13 +231,13 @@ const traits = {
     },
     "Copycat": {
         id: 4,
-        desc_pt: "Usar o mesmo golpe que um alvo usou em você faz com que cause [002]25%[000] a mais de dano.",
-        desc_en: "Using the same move a target has used on you makes it deal [002]25%[000] more damage."
+        desc_pt: "Usar o mesmo golpe que um alvo usou em você faz com que cause [002]25%[000] a [002]mais de dano[000].",
+        desc_en: "Using the same move a target has used on you makes it deal [002]25% more damage[000]."
     },
     "Confident": {
         id: 3,
         desc_pt: "Quando um oponente tiver um de seus status reduzido, aumente seu [002]SPD [+1][000].",
-        desc_en: "When an opponent has one of their stats lowered, increase your [002]SPD [+1][002]."
+        desc_en: "When an opponent has one of their stats lowered, increase your [002]SPD [+1][000]."
     },
     "Perfect": {
         id: 2,
