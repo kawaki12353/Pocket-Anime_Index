@@ -1,4 +1,9 @@
 const traits = {
+    "Battle Hardened": {
+        id: 58,
+        desc_pt: "Ser atingido pelo mesmo golpe duas vezes seguidas faz com que ele cause [001]20% menos dano[000].",
+        desc_en: "Getting hit by the same move two turns in a row makes it do [001]20% less damage[000]."
+    },
     "Turtle School Finisher": {
         id: 57,
         desc_pt: "Um inimigo atingido por uma [012]habilidade de energia[000] do [013]Atributo de Onda[000] e que ficar com [012]menos de 5% de vida[000] será [001]executado[000].",
