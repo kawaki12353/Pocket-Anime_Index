@@ -585,6 +585,13 @@ const animons = [
     ]
   },
   { id: 26.01, name: "Super Vegetable", type: "Fighting", sprite: "assets/animons-icon/super_vegetable.png", stats: { hp: 67, atk: 72, def: 58, spAtk: 90, spDef: 57, spd: 90 },
+    traits: [
+      { name: "Hard Worker", chance: "100%" },
+      { name: "Confident", chance: "75%" },
+      { name: "Battle Hardened", chance: "50%" },
+      { name: "Battle Adaptability", chance: "50%" }],
+    desc_pt: "Eu sou o SUPER Vegetable!",
+    desc_en: "I am, SUPER Vegetable!",
     anime: { name: "Vegeta" },
     movesList: [
       { level: 1, name: "Energy Blast" }, 
