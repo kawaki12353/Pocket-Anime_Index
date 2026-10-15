@@ -1,4 +1,14 @@
 const traits = {
+    "Explosion Immunity": {
+        id: 63,
+        desc_pt: "Imune a todos os golpes com [013]atributo de explosão[000].",
+        desc_en: "Immune to all [013]explosion-attribute[000] moves."
+    },
+    "Explosive Arts": {
+        id: 62,
+        desc_pt: "Enquanto o HP estiver acima de 50%, habilidades do [013]atributo Explosão[000] causam [002]+50% de dano[000]. A próxima habilidade utilizada após uma magia do tipo [012]Fire[000] falhará.",
+        desc_en: "While above 50% HP, [013]Explosion-attribute[000] moves deal [002]+50% damage[000]. Your next skill used after a [012]Fire-type[000] spell will fail."
+    },
     "Ice Affinity": {
         id: 61,
         desc_pt: "Ao usar um golpe do tipo [012]Ice[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
