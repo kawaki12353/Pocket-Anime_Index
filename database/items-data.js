@@ -1,9 +1,4 @@
 const items=[
-{rarity:"common", name:"Fishing Reel", cat:"misc",
- pt:{desc:"Um molinete usado para pescar! Um molinete por uso!",drop:"Loja de Pesca"},
- en:{desc:"A reel used for fishing! One reel per use!",drop:"Fishing Shop"},
- icon:"fishing_reel.png"
-},
 {rarity:"rare", name:"Highstar Key", cat:"key",
  pt:{desc:"Uma chave misteriosa...",note:"Serve para acessar a [012]Highstar Base[000].",drop:"Baú na Great Plains."},
  en:{desc:"A mysterious key..",note:"It is used to access a [012]Highstar Base[000].",drop:"Chest in the Great Plains."},
@@ -267,8 +262,9 @@ const items=[
  en:{desc:"A pass given to anyone worthy enough to hold up a fishing rod! Allows you to purchase items from any fishing shop.",drop:"Quest in Great Plains"}
 },
 {rarity:"common", name:"Fishing Reel", cat:"misc",
- pt:{desc:"Um molinete usado para pesca! Um molinete por uso!",drop:"Loja de Pesca"},
- en:{desc:"A reel used for fishing! One reel per use!",drop:"Fishing Shop"}
+ pt:{desc:"Um molinete usado para pescar! Um molinete por uso!",drop:"Loja de Pesca"},
+ en:{desc:"A reel used for fishing! One reel per use!",drop:"Fishing Shop"},
+ icon:"fishing_reel.png"
 },
 {rarity:"common", name:"GX-Attack", cat:"misc",
  pt:{desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente o ataque dos Animons.",drop:"Lojas"},
