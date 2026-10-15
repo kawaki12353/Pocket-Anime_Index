@@ -1,4 +1,24 @@
 const traits = {
+    "Magical Empowerment": {
+        id: 50,
+        desc_pt: "Usar um ataque especial com atributo mágico tem 20% de chance de causar um [012]acerto crítico[000].",
+        desc_en: "Using a special attack with magical attribute has a 20% chance of [012]critically striking[000]."
+    },
+    "Fraud": {
+        id: 49,
+        desc_pt: "Não consegue atingir os outros com golpes Super Efetivos.",
+        desc_en: "Can not hit others super-effectively."
+    },
+    "Traitless": {
+        id: 48,
+        desc_pt: "Absolutamente nada.",
+        desc_en: "Absolutely nothing."
+    },
+    "Bruise Easily": {
+        id: 47,
+        desc_pt: "Diminui a [001]DEF [-1][000] ao ser atingido mais de uma vez em batalha.",
+        desc_en: "Decrease [001]DEF [-1][000] when hit more than once in battle."
+    },
     "Natural Intake": {
         id: 46,
         desc_pt: "A cada turno em que você não ataca, aumenta sua [002]SP.DEF [+1][000].",
