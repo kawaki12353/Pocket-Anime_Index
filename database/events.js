@@ -10,16 +10,16 @@ const events = {
   "Full Moon": {
     name: "Full Moon",
     chat: "The Full Moon is Rising...",
-    desc_pt: "Surge o [011]Monkey Beast[000] na Área da Caveira de Macaco. Esse Animon só é [012]capturavel[000] nesse [012]Evento[000].",
-    desc_en: "Surge o [011]Monkey Beast[000] na Área da Caveira de Macaco. Esse Animon só é [012]capturavel[000] nesse [012]Evento[000].",
+    desc_pt: "Surge o [011]Monkey Beast[000] na Área da Caveira de Macaco. Esse Animon só é [013]capturavel[000] nesse [012]Evento[000].",
+    desc_en: "[011]Monkey Beast[000] appears in the Monkey Skull Area. This Animon is only [013]capturable[000] during this [012]Event[000].",
     sprite: "assets/events/full_moon.png",
     animon: ["Monkey Beast"],
   },
   "Saiyan": {
     name: "Saiyan Invasion",
     chat: "Warriors are invading the plains!",
-    desc_pt: "[010]Vegetable[000], [004]Monkey Warrior[000] e [002]Bald Warrior[000] começam a aparecer na Great Plains. Esses Animons só são [012]capturaveis[000] nesse [012]Evento[000].",
-    desc_en: "[010]Vegetable[000], [004]Monkey Warrior[000] and [002]Bald Warrior[000] begin to appear in the Great Plains. These Animons can only be [012]caught[000] during this [012]Event[000].",
+    desc_pt: "[010]Vegetable[000], [004]Monkey Warrior[000] e [002]Bald Warrior[000] começam a aparecer na Great Plains. Esses Animons só são [013]capturaveis[000] nesse [012]Evento[000].",
+    desc_en: "[010]Vegetable[000], [004]Monkey Warrior[000] and [002]Bald Warrior[000] begin to appear in the Great Plains. These Animons can only be [013]caught[000] during this [012]Event[000].",
     sprite: "assets/events/warrior_invasion.png",
     animon: ["Vegetable", "Monkey Warrior", "Bald Warrior"],
   },
@@ -42,8 +42,8 @@ const events = {
   "Rain": {
     name: "Rain",
     chat: "Rain has started in the Forest!",
-    desc_pt: "Aumenta a chance de Spawns raros na [012]Sunburst Forest[000].",
-    desc_en: "Increases the chance of rare spawns in [012]Sunburst Forest[000].",
+    desc_pt: "Aumenta a chance de Spawns [011]raros[000] na [012]Sunburst Forest[000].",
+    desc_en: "Increases the chance of [011]rare[000] spawns in [012]Sunburst Forest[000].",
     sprite: "assets/events/rain.png",
   }
 };
