@@ -1,7 +1,7 @@
 const traits = {
     "Ice Affinity": {
         id: 61,
-        desc_pt: "Ao usar um golpe do tipo [012]Gelo[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
+        desc_pt: "Ao usar um golpe do tipo [012]Ice[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
         desc_en: "When using a [012]Ice-Type[000] move have a 25% to increase its damage [002]1.2X[000]."
     },
     "Union Raid: Water and Ice": {
@@ -81,7 +81,7 @@ const traits = {
     },
     "Water Affinity": {
         id: 45,
-        desc_pt: "Ao usar um golpe do tipo [012]Água[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
+        desc_pt: "Ao usar um golpe do tipo [012]Water[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
         desc_en: "When using a [012]Water-Type[000] move have a 25% to increase its damage [002]1.2X[000]."
     },
     "Sharkskin": {
