@@ -86,7 +86,8 @@ const items=[
 },
 {rarity:"epic", name:"Divination Cushion", cat:"evolution",
  pt:{desc:"Uma almofada roxa e macia adornada com alfinetes encantados, usada por videntes em seus rituais mais poderosos.",drop:"Derrotando Animons do tipo [012]Psychic[000]."},
- en:{desc:"A plush, purple cushion adorned with enchanted pins, used by seers for their most potent rituals.",drop:"Defeating [012]Psychic-type[000] Animons."}
+ en:{desc:"A plush, purple cushion adorned with enchanted pins, used by seers for their most potent rituals.",drop:"Defeating [012]Psychic-type[000] Animons."},
+ icon:"divination_cushion.png"
 },
 {rarity:"rare", name:"Enchanted Fabric", cat:"evolution",
  pt:{desc:"Rolos de tecido mítico, tecidos com fios que pulsam com poder mental.",drop:"Derrotando Animons do tipo [012]Psychic[000]."},
