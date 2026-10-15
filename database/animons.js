@@ -933,6 +933,16 @@ const animons = [
     ]
   },
   { id: 44, name: "Water Goddess", type: ["Water", "Light"], sprite: "assets/animons-icon/water_goddess.png", stats: { hp: 57, atk: 27, def: 35, spAtk: 85, spDef: 64, spd: 54 }, areas: ["0016"],
+    traits: [
+      { name: "Bruise Easily", chance: "100%" },
+      { name: "Traitless", chance: "100%" },
+      { name: "Fraud", chance: "100%" },
+      { name: "Water Affinity", chance: "50%" },
+      { name: "Magical Empowerment", chance: "50%" },
+      { name: "Magical Protection", chance: "50%" },
+      { name: "Exorcist", chance: "20%" }],
+    desc_pt: "Eu sou a Deusa da Água! E aquela que salvará este mundo.",
+    desc_en: "I am the Goddess of Water! And the one who will save this world.",
     anime: { name: "Aqua" },
     movesList: [
       { level: 1, name: "Splashing Wave" },
