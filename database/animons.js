@@ -512,6 +512,13 @@ const animons = [
   },
   { id: 21, name: "Laxon", type: "Lightning", sprite: "assets/animons-icon/laxon.png", stats: { hp: 64, atk: 70, def: 45, spAtk: 74, spDef: 54, spd: 74 } },
   { id: 22, name: "Rie", type: ["Fire", "Psychic"], sprite: "assets/animons-icon/rie.png", stats: { hp: 54, atk: 25, def: 38, spAtk: 100, spDef: 40, spd: 60 }, areas: ["0025"],
+    traits: [
+      { name: "Clumsy", chance: "100%" },
+      { name: "Magical Protection", chance: "50%" },
+      { name: "Explosion Immunity", chance: "20%" },
+      { name: "Explosive Arts", chance: "5%" }],
+    desc_pt: "Explosão!",
+    desc_en: "Explosion!",
     anime: { name: "Megumin" },
     movesList: [
       { level: 1, name: "Energy Shell" },
@@ -1069,7 +1076,7 @@ const animons = [
       { name: "Ice Affinity", chance: "50%" },
       { name: "Union Raid: Water and Ice", chance: "5%" }],
     desc_pt: "Sou um mago de Gelo. Consigo fazer qualquer coisa.",
-    desc_en: "I am an ice sculpture mage. I can make anything",
+    desc_en: "I am an ice sculpture mage. I can make anything.",
     anime: { name: "Gray Fullbuster" },
     movesList: [
       { level: 1, name: "Cold Snap" },
