@@ -611,6 +611,14 @@ const animons = [
     ]
   },
   { id: 27.01, name: "Adult Gocu", type: "Fighting", sprite: "assets/animons-icon/adult_gocu.png", stats: { hp: 55, atk: 80, def: 50, spAtk: 71, spDef: 45, spd: 80 },
+    traits: [
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Battle Adaptabitily", chance: "100%" },
+      { name: "Martial Artist", chance: "50%" },
+      { name: "Turtle School Finisher", chance: "5%" }],
+    desc_pt: "Olá, eu sou o Gocu!",
+    desc_en: "Hi, I'm Gocu!",
     anime: { name: "Goku" },
     movesList: [
       { level: 1, name: "Energy Charge" }, 
