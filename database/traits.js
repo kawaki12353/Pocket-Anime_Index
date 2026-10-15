@@ -1,4 +1,19 @@
 const traits = {
+    "Ice Affinity": {
+        id: 61,
+        desc_pt: "Ao usar um golpe do tipo [012]Gelo[000], há 25% de chance de aumentar o dano em [002]1,2x[000].",
+        desc_en: "When using a [012]Ice-Type[000] move have a 25% to increase its damage [002]1.2X[000]."
+    },
+    "Union Raid: Water and Ice": {
+        id: 60,
+        desc_pt: "Ao serem invocados na presença um do outro, a Water Mage e o Ice Sculpturr ganham [002]SP.ATK [+1][000].",
+        desc_en: "On summon in the presence of the other, Water Mage and Ice Sculpture will gain [002]SP.ATK [+1][000]."
+    },
+    "Slayerborn": {
+        id: 59,
+        desc_pt: "[013]Absorva [012]ataques especiais[000] do seu tipo correspondente, aumentando o [002]SP.ATK [+1][000] e o [002]ATQ [+1][000] em vez de sofrer dano.",
+        desc_en: "[013]Absorb [012]special attacks[000] of your matching type, raising [002]SP.ATK [+1][000] and [002]ATK [+1][000] instead of taking damage."
+    },
     "Battle Hardened": {
         id: 58,
         desc_pt: "Ser atingido pelo mesmo golpe duas vezes seguidas faz com que ele cause [001]20% menos dano[000].",
