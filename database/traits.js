@@ -96,13 +96,13 @@ const traits = {
     },
     "Hunter": {
         id: 31,
-        desc_pt: "Chance crítica aumentada em 1,5x contra alvos com menos de [001]33% de vida[000].",
-        desc_en: "Increased 1.5X critical chance against those below [001]33% health[000]."
+        desc_pt: "Chance crítica aumentada em 1,5x contra alvos com menos de [012]33% de vida[000].",
+        desc_en: "Increased 1.5X critical chance against those below [012]33% health[000]."
     },
     "Primal Power": {
         id: 30,
-        desc_pt: "Quando a saúde estiver abaixo de 50%, entre em fúria ganhando [002]DEF [+1][000], [002]SP.DEF [+1][000], [002]ATK [+1][000], [002]SP.ATK [+1][000].",
-        desc_en: "When below 50% health, go berserk gaining [002]DEF [+1][000], [002]SP.DEF [+1][000], [002]ATK [+1][000], [002]SP.ATK [+1][000]."
+        desc_pt: "Quando a saúde estiver [012]abaixo de 50%[000], entre em fúria ganhando [002]DEF [+1][000], [002]SP.DEF [+1][000], [002]ATK [+1][000], [002]SP.ATK [+1][000].",
+        desc_en: "When [012]below 50% health[000], go berserk gaining [002]DEF [+1][000], [002]SP.DEF [+1][000], [002]ATK [+1][000], [002]SP.ATK [+1][000]."
     },
     "Elastic Body": {
         id: 29,
@@ -121,8 +121,8 @@ const traits = {
     },
     "Pirate's Resolve": {
         id: 26,
-        desc_pt: "Aumenta os atributos de [002]Ataque[000] e [002]Defesa[000] do personagem em [002][+1][000] estágio quando seu HP cai abaixo de [001]50%[000].",
-        desc_en: "Increases the character's [002]Attack[000] and [002]Defense[000] Stats by [002][+1][000] stage when their HP falls below [001]50%[000]."
+        desc_pt: "Aumenta os atributos de [002]Ataque[000] e [002]Defesa[000] do personagem em [002][+1][000] estágio quando seu HP cai [012]abaixo de 50%[000].",
+        desc_en: "Increases the character's [002]Attack[000] and [002]Defense[000] Stats by [002][+1][000] stage when their HP falls [012]below 50%[000]."
     },
     "Adventurous Spirit": {
         id: 25,
@@ -157,12 +157,12 @@ const traits = {
     "Number One": {
         id: 19,
         desc_pt: "Quando a vida estiver abaixo da metade, receba um bônus de dano de [002]1,5x[000] para habilidades únicas.",
-        desc_en: "When below half HP gain 1.5x damage boost to Unique abilities."
+        desc_en: "When below half HP gain [002]1.5x[000] damage boost to Unique abilities."
     },
     "Scaredy Cat": {
         id: 18,
-        desc_pt: "Recue se sua vida cair abaixo de 40%.",
-        desc_en: "Retreat if you drop below 40% HP."
+        desc_pt: "Recue se sua vida cair [012]abaixo de 40%[000].",
+        desc_en: "Retreat if you drop below [012]40% HP[000]."
     },
     "Lightning Affinity": {
         id: 17,
@@ -206,8 +206,8 @@ const traits = {
     },
     "Fox Spirit": {
         id: 9,
-        desc_pt: "Quando a vida estiver abaixo de [001]40%[000], entre em fúria, ganhe [002]ATK [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, [002]recupere 10%[000] da vida por 3 turnos.",
-        desc_en: "When below [001]40%[000] HP, go berserk, gain [002]ATK [+2][000], [002]SP.ATK [+2][000] and [002]SPD [+2][000], and you are berserk. After transforming, [002]heal 10%[000] HP for 3 turns."
+        desc_pt: "Quando a vida estiver abaixo de [012]40%[000], entre em fúria, ganhe [002]ATK [+2][000], [002]SP.ATK [+2][000] e [002]SPD [+2][000] e você estará em fúria. Após a transformação, [002]recupere 10%[000] da vida por 3 turnos.",
+        desc_en: "When below [012]40%[000] HP, go berserk, gain [002]ATK [+2][000], [002]SP.ATK [+2][000] and [002]SPD [+2][000], and you are berserk. After transforming, [002]heal 10%[000] HP for 3 turns."
     },
     "Ninjutsu Mastery": {
         id: 8,
