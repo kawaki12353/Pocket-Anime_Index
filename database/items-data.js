@@ -1,4 +1,9 @@
 const items=[
+{rarity:"common", name:"Fishing Reel", cat:"misc",
+ pt:{desc:"Um molinete usado para pescar! Um molinete por uso!",drop:"Loja de Pesca"},
+ en:{desc:"A reel used for fishing! One reel per use!",drop:"Fishing Shop"},
+ icon:"fishing_reel.png"
+},
 {rarity:"rare", name:"Highstar Key", cat:"key",
  pt:{desc:"Uma chave misteriosa...",note:"Serve para acessar a [012]Highstar Base[000].",drop:"Baú na Great Plains."},
  en:{desc:"A mysterious key..",note:"It is used to access a [012]Highstar Base[000].",drop:"Chest in the Great Plains."},
