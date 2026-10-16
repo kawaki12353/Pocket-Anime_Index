@@ -1928,8 +1928,10 @@ const moves = {
   "Energy Charge": {
     id: 11,
     name: "Energy Charge",
-    desc_pt: "Aumenta o [002]SP.ATK [+1][000] ou o [002]ATK [+1][000]. [004](Dependendo de qual for maior)[000]",
-    desc_en: "Raises [002]SP.ATK [+1][000] or [002]ATK [+1][000]. [004](Depending on which is higher)[000]",
+    desc_pt: "Aumenta o [002]SP.ATK [+1][000] ou o [002]ATK [+1][000].",
+    desc_en: "Raises [002]SP.ATK [+1][000] or [002]ATK [+1][000].",
+    det_pt: "O Aumento vai para o maior Status entre o ATK e SP.ATK.",
+    det_en: "The increase applies to whichever is higher between ATK and SP.ATK.",
     type: "neutral",
     attack: "status",
     power: 0,
