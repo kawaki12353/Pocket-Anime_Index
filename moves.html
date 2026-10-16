@@ -521,8 +521,9 @@ const texts = {
         langBtn: "🇧🇷 PT",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Descrição",
+        detLabel: "Detalhes",
         upgradeLabel: "Ataque Evoluído",
-        btnFind: "Animon que aprende esses Moves",
+        btnFind: "Animons que aprende esse Move",
         listHeader: "Animons que aprendem ",
         tabLevel: "Nível",
         tabScroll: "Scroll"
@@ -537,6 +538,7 @@ const texts = {
         langBtn: "🇺🇸 EN",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Description",
+        detLabel: "Details",
         upgradeLabel: "Upgrade Skill",
         btnFind: "Animons that learn these Moves",
         listHeader: "Animons that learn ",
@@ -684,9 +686,19 @@ function openModal(move) {
     const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
     const descRaw = descKey in move ? move[descKey] : '??';
 
+    const detKey = lang === 'pt' ? 'det_pt' : 'det_en';
+    let detHtml = "";
+    if (detKey in move && move[detKey]) {
+        detHtml = `
+            <div class="stat-label" style="text-align:left; margin-top:12px; margin-bottom:8px;">${texts[lang].detLabel}</div>
+            ${parseColoredText(move[detKey])}
+        `;
+    }
+
     descContainer.innerHTML = `
         <div class="stat-label" style="text-align:left; margin-bottom:8px;">${texts[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
+        ${detHtml}
     `;
 
     // Lógica de Upgrades (Ataque Evoluído)
