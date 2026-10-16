@@ -253,6 +253,12 @@ const animons = [
     ]
   },
   { id: 7.01, name: "Lt. Hero", type: "Water", sprite: "assets/animons-icon/lt_hero.png", stats: { hp: 56, atk: 51, def: 39, spAtk: 41, spDef: 45, spd: 74 },
+    traits: [
+      { name: "Adventurous Spirit", chance: "100%" },
+      { name: "Unwavering Spirit", chance: "100%" },
+      { name: "Marine's Grit", chance: "100%" },
+      { name: "Hard Worker", chance: "50%" },
+      { name: "Fast Step", chance: "20%" }],
     anime: { name: "Koby" },
     movesList: [
       { level: 1, name: "Mop the floor" },
