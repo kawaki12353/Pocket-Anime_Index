@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Anime - Anidex</title>
+
+    <!-- Importação da Fonte Isometra via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Isometra&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js" defer></script>
+
+    <style>
+        /* --- Variáveis e Temas --- */
+        :root {
+            --bg: #f2f4f7;
+            --card: #ffffff;
+            --text: #111;
+            --border: #ccc;
+            --hover: #f1f1f1;
+            --lang-btn: #ffffff;
+            --lang-btn-bg: #444;
+            --accent-blue: #007bff;
+
+            /* Cores dos Elementos (Baseadas no trainer.html) */
+            --element-neutral: #e6e5e3;
+            --element-fighting: #e5901b;
+            --element-fire: #e60000;
+            --element-water: #00b0e6;
+            --element-nature: #24e30c;
+            --element-earth: #8a5e39;
+            --element-wind: #59e657;
+            --element-ice: #00ffe1;
+            --element-lightning: #ffe100;
+            --element-soul: #89a2e6;
+            --element-psychic: #e66ae0;
+            --element-poison: #ac8fff;
+            --element-light: #decc7c;
+            --element-dark: #262626;
+            --element-demon: #b00000;
+            --element-beast: #aa6272;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f1217;
+                --card: #181c24;
+                --text: #ffffff;
+                --border: #2a2f3a;
+                --hover: #232836;
+                --lang-btn: #111;
+                --lang-btn-bg: #ffffff;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            gap: 12px;
+        }
+
+        .header-top {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo { width: 260px; }
+
+        .map-title {
+            font-family: 'Isometra', sans-serif;
+            position: relative;
+            width: 80%;
+            background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
+            color: #ffffff;
+            flex: 1;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 8px 40px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+        }
+
+        /* --- Filtros --- */
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .filters input, .select-btn {
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            outline: none;
+        }
+
+        /* --- Seletor de Ordem (Bolinhas) --- */
+        .order-toggle {
+            display: flex;
+            gap: 10px;
+            background: var(--card);
+            padding: 5px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            align-items: center;
+        }
+        .order-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .order-option input { display: none; }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: inline-block;
+            position: relative;
+        }
+        .order-option input:checked + .dot {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        /* --- Selects Customizados --- */
+        .custom-select { position: relative; width: 100%; max-width: 200px; }
+        .select-btn {
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; cursor: pointer; box-sizing: border-box; border: 1px solid var(--border);
+        }
+        .select-list {
+            display: none; position: absolute; top: 105%; left: 0; width: 100%;
+            background: var(--card); border-radius: 12px; list-style: none;
+            padding: 6px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-sizing: border-box; max-height: 300px; overflow-y: auto;
+        }
+        .select-list li {
+            padding: 10px 12px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; font-weight: bold;
+        }
+        .select-list li:hover { background: var(--hover); }
+
+        /* --- Lista de Animons --- */
+        .animon-list {
+            max-width: 800px; /* Reduzido de 1200px para 800px para PC */
+            margin: 0 auto;
+            display: flex; 
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* --- ESTILO EXPANDÍVEL --- */
+        .animon-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .card-header {
+            padding: 10px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            gap: 10px;
+        }
+        .card-header:hover { background: var(--hover); }
+
+        /* Lado Esquerdo: ID e Nome */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0; 
+        }
+
+        /* Lado Direito: Elementos e Seta */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .animon-id {
+            font-weight: bold;
+            font-size: 16px;
+            opacity: 0.5;
+            min-width: 35px;
+        }
+
+        .animon-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .animon-info h3 { 
+            margin: 0; 
+            font-size: 16px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+
+        /* Coluna da Seta */
+        .arrow-column {
+            border-left: 1px solid var(--border);
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            opacity: 0.5;
+        }
+        /* Ajuste da Rotação: Gira o SVG e não a coluna inteira */
+        .arrow-column svg {
+            transition: transform 0.3s ease;
+        }
+        .animon-card.active .arrow-column svg { 
+            transform: rotate(180deg); 
+        }
+
+        /* --- Ícones de Elementos --- */
+        .animon-elements { display: flex; gap: 4px; }
+
+        .element-wrapper {
+            position: relative;
+            width: 32px; height: 32px;
+            background: #191919;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .element-inner {
+            position: relative;
+            width: 22px; height: 22px;
+            border-radius: 8px;
+            border: 1.5px solid var(--el-color);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .element-inner img {
+            position: absolute;
+            width: 28px; height: 28px;
+            object-fit: contain;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Classes de cores específicas */
+        .element-neutral   { --el-color: var(--element-neutral); }
+        .element-fighting  { --el-color: var(--element-fighting); }
+        .element-fire      { --el-color: var(--element-fire); }
+        .element-water     { --el-color: var(--element-water); }
+        .element-nature    { --el-color: var(--element-nature); }
+        .element-earth     { --el-color: var(--element-earth); }
+        .element-wind      { --el-color: var(--element-wind); }
+        .element-ice       { --el-color: var(--element-ice); }
+        .element-lightning { --el-color: var(--element-lightning); }
+        .element-soul      { --el-color: var(--element-soul); }
+        .element-psychic   { --el-color: var(--element-psychic); }
+        .element-poison    { --el-color: var(--element-poison); }
+        .element-light     { --el-color: var(--element-light); }
+        .element-dark      { --el-color: var(--element-dark); }
+        .element-demon     { --el-color: var(--element-demon); }
+        .element-beast     { --el-color: var(--element-beast); }
+
+        .details-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: rgba(0,0,0,0.02);
+        }
+
+        .details-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .animon-card.active .details-container { max-height: 1000px; }
+
+        .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+        .stat-mini-card {
+            background: rgba(150, 150, 150, 0.1);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 55px;
+            flex: 1;
+            color: var(--text);
+        }
+        .stat-mini-card .stat-name { font-size: 10px; font-weight: bold; opacity: 0.7; }
+        .stat-mini-card .stat-val { font-size: 13px; font-weight: bold; }
+        .stat-mini-card.total-box { background: rgba(150, 150, 150, 0.15); border: 1px solid var(--border); }
+
+        .link-btn {
+            display: flex; align-items: center; justify-content: center;
+            background: var(--accent-blue); color: white; width: 100%;
+            padding: 10px; border-radius: 8px; text-decoration: none;
+            transition: background 0.2s; font-weight: bold; box-sizing: border-box;
+        }
+        .link-btn:hover { background: #0056b3; }
+
+        /* IDIOMA (IGUAL AO INDEX.HTML) */
+        .lang-toggle {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .lang-toggle button {
+            background: var(--text);
+            color: var(--card);
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header-top { justify-content: flex-end; }
+            .logo { width: 150px; }
+            .animon-list, .filters, .header { max-width: 100%; } /* Garante adaptação total no mobile */
+
+            /* --- Ajuste Mobile igual ao moves.html --- */
+            .custom-select { max-width: 48%; }
+            #searchInput { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="header-top">
+        <img src="assets/Pocket-Anime-logo.png" class="logo">
+    </div>
+    <h2 class="map-title" id="title"></h2>
+</div>
+
+<main>
+    <div class="filters">
+        <input id="searchInput" type="text">
+
+        <div class="custom-select" id="elementSelect">
+            <div class="select-btn" id="elementBtn"></div>
+            <ul class="select-list" id="elementList"></ul>
+        </div>
+
+        <div class="custom-select" id="statusSelect">
+            <div class="select-btn" id="statusBtn"></div>
+            <ul class="select-list" id="statusList"></ul>
+        </div>
+
+        <div class="order-toggle">
+            <label class="order-option">
+                <input type="radio" name="sortDir" value="asc" checked onchange="setSortOrder('asc')">
+                <span class="dot"></span>
+                <span id="labelAsc">Crescente</span>
+            </label>
+            <label class="order-option">
+                <input type="radio" name="sortDir" value="desc" onchange="setSortOrder('desc')">
+                <span class="dot"></span>
+                <span id="labelDesc">Decrescente</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="animon-list" id="animonList"></div>
+</main>
+
+<div class="lang-toggle">
+    <button id="langBtn"></button>
+</div>
+
+<script src="database/animons.js"></script>
+
+<script>
+let lang = localStorage.getItem("siteLang") || "pt";
+let selectedElement = "";
+let selectedSort = "id"; 
+let sortOrder = "asc"; 
+let activeAnimonId = null; // Para manter o modal aberto na troca de língua
+
+const uiText = {
+    pt: {
+        title: "Anidex", search: "Pesquisar nome ou ID...",
+        allElements: "Todos os Tipos", sortLabel: "ID",
+        total: "TOTAL", lv: "Nível", btn: "🇧🇷 PT", details: "Sobre o Animon",
+        asc: "Crescente", desc: "Decrescente"
+    },
+    en: {
+        title: "Anidex", search: "Search name or ID...",
+        allElements: "All Types", sortLabel: "ID",
+        total: "TOTAL", lv: "Level", btn: "🇺🇸 EN", details: "About Animon",
+        asc: "Ascending", desc: "Descending"
+    }
+};
+
+const elementKeys = [
+    "neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", 
+    "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"
+];
+
+const statsKeys = ["hp", "atk", "def", "spAtk", "spDef", "spd"];
+
+const statLabels = {
+    pt: { id: "ID", hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" },
+    en: { id: "ID", hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" }
+};
+
+function render() {
+    const searchVal = searchInput.value.toLowerCase();
+    const listEl = document.getElementById("animonList");
+    listEl.innerHTML = "";
+
+    const filtered = animons
+        .filter(ani => {
+            const nameMatch = ani.name.toLowerCase().includes(searchVal);
+            const idMatch = ani.id.toString().includes(searchVal);
+
+            // Pesquisar no objeto anime (apenas pelo nome do personagem)
+            const animeCharMatch = ani.anime && ani.anime.name.toLowerCase().includes(searchVal);
+
+            const types = Array.isArray(ani.type) ? ani.type.map(t => t.toLowerCase()) : [ani.type.toLowerCase()];
+            const elementMatch = !selectedElement || types.includes(selectedElement.toLowerCase());
+
+            return (nameMatch || idMatch || animeCharMatch) && elementMatch;
+        })
+        .sort((a, b) => {
+            let valA, valB;
+            if (selectedSort === "id") {
+                valA = parseFloat(a.id);
+                valB = parseFloat(b.id);
+            } else if (selectedSort === "total") {
+                valA = Object.values(a.stats).reduce((x, y) => x + y, 0);
+                valB = Object.values(b.stats).reduce((x, y) => x + y, 0);
+            } else {
+                valA = a.stats[selectedSort];
+                valB = b.stats[selectedSort];
+            }
+            return sortOrder === "asc" ? valA - valB : valB - valA;
+        });
+
+    filtered.forEach(ani => {
+        const stats = ani.stats;
+        const total = Object.values(stats).reduce((a, b) => a + b, 0);
+
+        const typesArray = Array.isArray(ani.type) ? ani.type : [ani.type];
+        const elementsHtml = typesArray.map(t => {
+            const lowT = t.toLowerCase();
+            return `
+                <div class="element-wrapper element-${lowT}">
+                    <div class="element-inner">
+                        <img src="assets/elements/${lowT}_element.png" alt="${t}">
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        const card = document.createElement("div");
+        card.className = `animon-card`;
+
+        if (activeAnimonId === ani.id) card.classList.add("active");
+
+        card.innerHTML = `
+            <div class="card-header">
+                <div class="header-left">
+                    <div class="animon-id">#${ani.id}</div>
+                    <div class="animon-info">
+                        <h3>${ani.name}</h3>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="animon-elements">
+                        ${elementsHtml}
+                    </div>
+                    <div class="arrow-column">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="details-container">
+                <div class="details-content">
+                    <div class="stats-grid">
+                        ${statsKeys.map(k => `
+                            <div class="stat-mini-card">
+                                <span class="stat-name">${statLabels[lang][k]}</span>
+                                <span class="stat-val">${stats[k]}</span>
+                            </div>
+                        `).join('')}
+                        <div class="stat-mini-card total-box">
+                            <span class="stat-name">${uiText[lang].total}</span>
+                            <span class="stat-val">${total}</span>
+                        </div>
+                    </div>
+                    <a href="animon.html?id=${ani.id}" class="link-btn">${uiText[lang].details} ➔</a>
+                </div>
+            </div>
+        `;
+
+        card.querySelector(".card-header").onclick = () => {
+            const isActive = card.classList.contains("active");
+            document.querySelectorAll(".animon-card").forEach(c => c.classList.remove("active"));
+            if (!isActive) {
+                card.classList.add("active");
+                activeAnimonId = ani.id;
+            } else {
+                activeAnimonId = null;
+            }
+        };
+
+        listEl.appendChild(card);
+    });
+}
+
+function updateLang() {
+    const ui = uiText[lang];
+    document.getElementById("title").textContent = ui.title;
+    document.getElementById("searchInput").placeholder = ui.search;
+    document.getElementById("langBtn").textContent = ui.btn;
+    document.getElementById("labelAsc").textContent = ui.asc;
+    document.getElementById("labelDesc").textContent = ui.desc;
+
+    buildElementMenu();
+    buildStatusMenu();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+function buildElementMenu() {
+    const list = document.getElementById("elementList");
+    list.innerHTML = `<li data-value="">${uiText[lang].allElements}</li>`;
+    elementKeys.forEach(key => {
+        const li = document.createElement("li");
+        li.dataset.value = key;
+        li.innerHTML = `
+            <img src="assets/elements/${key}_element.png" style="width:24px; height:24px; object-fit:contain;">
+            ${key.charAt(0).toUpperCase() + key.slice(1)}
+        `;
+        li.onclick = () => selectElement(key);
+        list.appendChild(li);
+    });
+    list.firstChild.onclick = () => selectElement("");
+}
+
+function buildStatusMenu() {
+    const list = document.getElementById("statusList");
+    const liId = document.createElement("li");
+    liId.textContent = statLabels[lang].id;
+    liId.onclick = () => selectSort("id");
+    list.innerHTML = "";
+    list.appendChild(liId);
+
+    statsKeys.forEach(k => {
+        const li = document.createElement("li");
+        li.textContent = statLabels[lang][k];
+        li.onclick = () => selectSort(k);
+        list.appendChild(li);
+    });
+    const liTotal = document.createElement("li");
+    liTotal.textContent = statLabels[lang].total;
+    liTotal.onclick = () => selectSort("total");
+    list.appendChild(liTotal);
+}
+
+function updateFilterButtonsDisplay() {
+    const eBtn = document.getElementById("elementBtn");
+    const sBtn = document.getElementById("statusBtn");
+
+    if (selectedElement) {
+        const capitalized = selectedElement.charAt(0).toUpperCase() + selectedElement.slice(1);
+        eBtn.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px;">
+                <img src="assets/elements/${selectedElement}_element.png" style="width:22px; height:22px; object-fit:contain;">
+                ${capitalized}
+            </div>
+            <span style="font-size:10px;">▼</span>
+        `;
+    } else {
+        eBtn.innerHTML = `<span>${uiText[lang].allElements}</span> <span style="font-size:10px;">▼</span>`;
+    }
+
+    const sortDisplayText = selectedSort === "id" ? statLabels[lang].id : (statLabels[lang][selectedSort] || "TOTAL");
+    sBtn.innerHTML = `<span>${selectedSort === "id" ? uiText[lang].sortLabel : sortDisplayText}</span> <span style="font-size:10px;">▼</span>`;
+}
+
+function setSortOrder(order) {
+    sortOrder = order;
+    render();
+}
+
+function selectElement(val) {
+    selectedElement = val;
+    closeAllSelects();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+function selectSort(val) {
+    selectedSort = val;
+    closeAllSelects();
+    updateFilterButtonsDisplay();
+    render();
+}
+
+function closeAllSelects() {
+    document.getElementById("elementList").style.display = "none";
+    document.getElementById("statusList").style.display = "none";
+}
+
+// LOGICA DE TRADUÇÃO IGUAL AO INDEX.HTML
+document.getElementById("langBtn").onclick = () => {
+    lang = lang === "pt" ? "en" : "pt";
+    localStorage.setItem("siteLang", lang);
+    updateLang();
+    if (typeof updateMenuLang === "function") updateMenuLang();
+};
+
+document.getElementById("elementBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("elementList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.getElementById("statusBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("statusList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.addEventListener("click", (e) => {
+    if (!e.target.closest('.custom-select')) closeAllSelects();
+});
+
+document.getElementById("searchInput").addEventListener("input", render);
+
+updateLang();
+</script>
+
+</body>
+</html>
