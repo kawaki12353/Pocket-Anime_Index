@@ -1298,7 +1298,7 @@ const animons = [
       { name: "Major Threat", chance: "0%" }],
     desc_pt: "Gurararara!",
     desc_en: "Gurararara!",
-    anime: { name: "Barba Branca" },
+    anime: { name: ["Barba Branca",  "Whitebeard"] },
     movesList: [
       { level: 1, name: "Punch" },
       { level: 14, name: "Helmet Splitter" }
