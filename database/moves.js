@@ -185,7 +185,7 @@ const moves = {
   },
   "Devastating Blow": {
     id: 171,
-    name: "Devasrating Blow",
+    name: "Devastating Blow",
     desc_pt: "Uma explosão baseada em energia que danifica o alvo.",
     desc_en: "An energy based explosion that damages the target.",
     type: "dark",
