@@ -686,7 +686,7 @@ const moves = {
   "Fire Star": {
     id: 124,
     name: "Fire Star",
-    desc_pt: "Atordoe seu oponente e olhe para ele com seu estilingue para disparar um projétil incandescente. Alta chance [50%] de causar [003]queimadura[000].",
+    desc_pt: "Atordoe seu oponente e olhe para ele com seu estilingue para disparar um projétil incandescente. Alta chance de causar [003]queimadura[000].",
     desc_en: "Daze your opponent and look into them with your slingshot to shoot a molten shot. High chance to [003]Burn[000].",
     det_pt: "Há 50% de Chance de causar [003]Queimadura[000].",
     det_en: "There is a 50% chance of causing a [003]burn[000].",
