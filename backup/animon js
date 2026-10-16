@@ -30,6 +30,7 @@ const uiText = {
         attacks: "Ataques",
         typeChart: "Tabela de Tipo",
         evoTitle: "Grade Evolutiva",
+        moreAboutTitle: "Mais Sobre",
         readMore: "Ver mais",
         readLess: "Ver menos",
         animonsInEvent: "Animons neste evento:"
@@ -54,6 +55,7 @@ const uiText = {
         attacks: "Attacks",
         typeChart: "Type Chart",
         evoTitle: "Evolution Grade",
+        moreAboutTitle: "More About",
         readMore: "See more",
         readLess: "See less",
         animonsInEvent: "Animons in this event:"
@@ -283,6 +285,9 @@ function updateLang() {
     const labelEvo = document.getElementById('labelEvo');
     if (labelEvo) labelEvo.textContent = ui.evoTitle;
 
+    const labelMoreAbout = document.getElementById('labelMoreAbout');
+    if (labelMoreAbout) labelMoreAbout.textContent = ui.moreAboutTitle;
+
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab) updateTabTitle(activeTab.id);
 
@@ -293,6 +298,7 @@ function updateLang() {
     renderMoves();
     renderTypeChart();
     renderEvolutions();
+    renderMoreAbout();
     renderLocations();
 }
 
@@ -753,6 +759,94 @@ function renderEvolutions() {
     });
 
     container.appendChild(wrapper);
+}
+
+function getAnimonTVs(animonName) {
+    if (typeof training === 'undefined' || !training || !animonName) return [];
+    const tvDisplayNames = {
+        hp: "HP",
+        atk: "ATK",
+        defense: "DEF",
+        spatk: "SP.ATK",
+        spdef: "SP.DEF",
+        speed: "SPD"
+    };
+    let matched = [];
+    const targetName = animonName.toLowerCase().trim();
+
+    let trainingData = {};
+
+    // Tratamento robusto para suportar Array de objetos ou Objeto direto
+    if (Array.isArray(training)) {
+        training.forEach(item => {
+            if (item && typeof item === 'object') {
+                Object.assign(trainingData, item);
+            }
+        });
+    } else if (training && typeof training === 'object') {
+        trainingData = training;
+    }
+
+    Object.keys(tvDisplayNames).forEach(key => {
+        const list = trainingData[key];
+        if (Array.isArray(list)) {
+            const exists = list.some(n => typeof n === 'string' && n.toLowerCase().trim() === targetName);
+            if (exists) {
+                matched.push(tvDisplayNames[key]);
+            }
+        }
+    });
+
+    return matched;
+}
+
+function renderMoreAbout() {
+    let titleEl = document.getElementById('labelMoreAbout');
+    let container = document.getElementById('moreAboutContainer');
+    const ui = uiText[lang];
+
+    if (!container) {
+        const evoContainer = document.getElementById('evoContainer');
+        if (evoContainer) {
+            const parent = evoContainer.parentElement || evoContainer.parentNode;
+
+            titleEl = document.createElement('div');
+            titleEl.id = 'labelMoreAbout';
+            titleEl.className = 'section-title';
+            titleEl.textContent = ui.moreAboutTitle;
+
+            container = document.createElement('div');
+            container.id = 'moreAboutContainer';
+            container.className = 'more-about-container';
+
+            if (evoContainer.nextSibling) {
+                parent.insertBefore(titleEl, evoContainer.nextSibling);
+                parent.insertBefore(container, titleEl.nextSibling);
+            } else {
+                parent.appendChild(titleEl);
+                parent.appendChild(container);
+            }
+        }
+    }
+
+    if (titleEl) {
+        titleEl.textContent = ui.moreAboutTitle;
+    }
+
+    if (!container) return;
+
+    const matchedTVs = getAnimonTVs(currentAnimon.name);
+    let tvContentHtml = "";
+    if (matchedTVs.length > 0) {
+        tvContentHtml = matchedTVs.join(' <span class="tv-bar">|</span> ');
+    } else {
+        tvContentHtml = lang === 'pt' ? "Sem informação" : "No information";
+    }
+
+    container.innerHTML = `
+        <div class="training-value-title" style="color: #555;">Training Value (TV)</div>
+        <div class="training-value-content">${tvContentHtml}</div>
+    `;
 }
 
 function renderLocations() {
