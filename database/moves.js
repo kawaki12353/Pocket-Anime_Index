@@ -1857,8 +1857,8 @@ const moves = {
   "Solar Flare": {
     id: 18,
     name: "Solar Flare",
-    desc_pt: "Uma luz branca ofuscante que reduz a [001]Accuracy [-1][000] e tem 30% de chance de causar hesitação.",
-    desc_en: "A blinding white light that lower [001]Accuracy [-1][000] and has a 30% chance to flinch. ",
+    desc_pt: "Uma luz branca ofuscante que reduz a [001]Accuracy [-1][000] e tem 30% de chance de recuar.",
+    desc_en: "A blinding white light that lower [001]Accuracy [-1][000] and has a 30% chance to flinch.",
     type: "light",
     attack: "status",
     power: 0,
