@@ -1159,6 +1159,11 @@ const animons = [
     ]
   },
   { id: 53.01, name: "Storm Gokidaru", type: ["Fire", "Wind"], sprite: "assets/animons-icon/storm_gokidaru.png", stats: { hp: 66, atk: 79, def: 46, spAtk: 77, spDef: 45, spd: 63 },
+    traits: [
+      { name: "Battle Adaptability", chance: "100%" },
+      { name: "Gadgetry", chance: "100%" },
+      { name: "Explosion Immunity", chance: "20%" },
+      { name: "Field Guardian", chance: "5%" }],
     anime: { name: "Hayato Gokudera" },
     movesList: [
       { level: 1, name: "Punch" },
