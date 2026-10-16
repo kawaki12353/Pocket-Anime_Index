@@ -192,6 +192,7 @@ const moves = {
     power: 85,
     accuracy: 90,
     pp: 5,
+    priority: 2,
   },
   "Vanishing Ball": {
     id: 170,
@@ -714,6 +715,7 @@ const moves = {
     power: 0,
     accuracy: 100,
     pp: 5,
+    priority: 3,
   },
   "Golden Pound": {
     id: 121,
@@ -780,6 +782,7 @@ const moves = {
     power: 40,
     accuracy: 100,
     pp: 25,
+    priority: 1,
   },
   "Bite": {
     id: 115,
@@ -902,6 +905,7 @@ const moves = {
     power: 0,
     accuracy: 100,
     pp: 20,
+    priority: 3,
   },
   "Justice Cannon": {
     id: 104,
@@ -1074,6 +1078,7 @@ const moves = {
     power: 140,
     accuracy: 100,
     pp: 6,
+    priority: 1,
   },
   "Jet Pistol": {
     id: 88,
