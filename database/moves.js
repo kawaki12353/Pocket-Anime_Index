@@ -2,8 +2,8 @@ const moves = {
   "Helmet Splitter": {
     id: 195,
     name: "Helmet Splitter",
-    desc_pt: "Estilhace a própria estrutura do mundo ao seu redor com os punhos e deixe os inimigos Confusos ao atingi-los.",
-    desc_en: "Shatter the very fabric of the world around you with your fists, and CONFUSE enemies on impact.",
+    desc_pt: "Estilhace a própria estrutura do mundo ao seu redor com os punhos e deixe os inimigos [004]Confusos[000] ao atingi-los.",
+    desc_en: "Shatter the very fabric of the world around you with your fists, and [004]CONFUSE[000] enemies on impact.",
     type: "earth",
     attack: "physical",
     power: 120,
