@@ -465,8 +465,12 @@ function render() {
             const nameMatch = ani.name.toLowerCase().includes(searchVal);
             const idMatch = ani.id.toString().includes(searchVal);
 
-            // Pesquisar no objeto anime (apenas pelo nome do personagem)
-            const animeCharMatch = ani.anime && ani.anime.name.toLowerCase().includes(searchVal);
+            // Pesquisar no objeto anime (suportando string ou array de nomes)
+            let animeCharMatch = false;
+            if (ani.anime && ani.anime.name) {
+                const animeNames = Array.isArray(ani.anime.name) ? ani.anime.name : [ani.anime.name];
+                animeCharMatch = animeNames.some(n => n.toLowerCase().includes(searchVal));
+            }
 
             const types = Array.isArray(ani.type) ? ani.type.map(t => t.toLowerCase()) : [ani.type.toLowerCase()];
             const elementMatch = !selectedElement || types.includes(selectedElement.toLowerCase());
