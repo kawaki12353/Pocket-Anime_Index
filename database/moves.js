@@ -1551,6 +1551,7 @@ const moves = {
     power: 65,
     accuracy: 100,
     pp: 15,
+    priority: -1,
   },
   "Sand Burial": {
     id: 45,
