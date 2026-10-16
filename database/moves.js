@@ -1848,6 +1848,7 @@ const moves = {
     power: 35,
     accuracy: 100,
     pp: 15,
+    priority: 1,
   },
   "Solar Flare": {
     id: 18,
