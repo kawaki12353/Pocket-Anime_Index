@@ -85,6 +85,7 @@ const moves = {
     type: "poison",
     attack: "special",
     pp: 20,
+    priority: 1,
   },
   "Primal Fist": {
     id: 182,
