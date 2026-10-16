@@ -1335,6 +1335,15 @@ const animons = [
     ]
   },
   { id: 81, name: "Alligator", type: "Earth", sprite: "assets/animons-icon/alligator.png", stats: { hp: 66, atk: 60, def: 59, spAtk: 87, spDef: 57, spd: 67 }, areas: ["0024"],
+    traits: [
+      { name: "Fearsome", chance: "100%" },
+      { name: "Pirate's Resolve", chance: "100%" },
+      { name: "Traitless", chance: "100%" },
+      { name: "Confident", chance: "50%" },
+      { name: "Sand Shroud", chance: "20%" },
+      { name: "Sand Logia", chance: "1%" }],
+    desc_pt: "Árvores, rochas, solo, seres humanos... Tudo o que passa por minha mão é reduzido a areia.",
+    desc_en: "Trees, rocks, soil, humans... Whatever crosses this palm is returned to sand.",
     anime: { name: "Crocodile" },
     event: "Sandstorm",
     movesList: [
