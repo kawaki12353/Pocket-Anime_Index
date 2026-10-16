@@ -1,6 +1,21 @@
 const traits = {
+    "Field Guardian": {
+        id: 72,
+        desc_pt: "Não afetado por riscos do campo.",
+        desc_en: "Unaffected by field hazards."
+    },
+    "Gadgetry": {
+        id: 71,
+        desc_pt: "Os obstáculos que você coloca no campo são aplicados em todas as zonas inimigas.",
+        desc_en: "Stage hazards you place on the field are put on all enemy zones."
+    },
+    "Marine's Grit": {
+        id: 70,
+        desc_pt: "Ataques contra o tipo [012]Dark[000] causam [002]20% mais dano[000].",
+        desc_en: "Attacks against [012]Dark-types[000] have [002]20% increased damage[000]."
+    },
     "Sand Logia": {
-        id: 46,
+        id: 69,
         desc_pt: "Não pode ser atingido por golpes, a menos que sejam eficazes contra o tipo [012]Earth[000].",
         desc_en: "Can not be hit by moves unless they are effective against [012]Earth-type[000]"
     },
