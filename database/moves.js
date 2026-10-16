@@ -1804,8 +1804,10 @@ const moves = {
   "Fireball": {
     id: 22,
     name: "Fireball",
-    desc_pt: "Projeta uma bola de fogo no oponente, causando dano e com uma baixa chance[004](20%)[000] de [003]queimá-lo[000].",
-    desc_en: "Projects a ball of fire at the opponent dealing damage and having a low change[004](20%)[000] to [003]burn[000] them.",
+    desc_pt: "Projeta uma bola de fogo no oponente, causando dano e com uma baixa chance de [003]queimá-lo[000].",
+    desc_en: "Projects a ball of fire at the opponent dealing damage and having a low change to [003]burn[000] them.",
+    det_pt: "Há 20% de Chance de causar [003]Queimadura[000].",
+    det_en: "There is a 20% chance of causing a [003]burn[000].",
     type: "fire",
     attack: "special",
     power: 50,
