@@ -1,4 +1,9 @@
 const traits = {
+    "Sand Logia": {
+        id: 46,
+        desc_pt: "Não pode ser atingido por golpes, a menos que sejam eficazes contra o tipo [012]Earth[000].",
+        desc_en: "Can not be hit by moves unless they are effective against [012]Earth-type[000]"
+    },
     "Prepared": {
         id: 68,
         desc_pt: "Movimentos de status aumentarão a [002]Accuracy [+1][000].",
