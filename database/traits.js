@@ -1,4 +1,19 @@
 const traits = {
+    "Prepared": {
+        id: 68,
+        desc_pt: "Movimentos de status aumentarão a [002]Accuracy [+1][000].",
+        desc_en: "Status moves have increased [002]ACCURACY [+1][000]."
+    },
+    "King of Snipers": {
+        id: 67,
+        desc_pt: "Aumento de [002]ACC [+2][000] em movimentos especiais.",
+        desc_en: "Increased [002]ACC [+2][000] on special moves."
+    },
+    "Sharpshooter": {
+        id: 66,
+        desc_pt: "Usar um ataque especial com [013]atributo de atirador de elite[000] aumenta em 2x a chance de acerto crítico.",
+        desc_en: "Using a special attack with a [013]marksman attribute[000] has increased 2X crit chance."
+    },
     "Giant Sized": {
         id: 65,
         desc_pt: "Ao entrar em batalha, perde-se [001]EVASIVE [-1][000], mas ganha [002]HP [+2][000].",
