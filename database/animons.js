@@ -333,6 +333,13 @@ const animons = [
     ]  
   },
   { id: 11.01, name: "Big-Nose", type: ["Neutral", "Fire"], sprite: "assets/animons-icon/big_nose.png", stats: { hp: 64, atk: 39, def: 39, spAtk: 90, spDef: 44, spd: 60 },
+    traits: [
+      { name: "Scaredy Cat", chance: "100%" },
+      { name: "Prepared", chance: "100%" },
+      { name: "Fraud", chance: "75%" },
+      { name: "Confident", chance: "50%" },
+      { name: "Unwavering Spirit", chance: "50%" },
+      { name: "King of Snipers", chance: "5%" }],
     anime: { name: "Usopp" },
     movesList: [
       { level: 1, name: "Sling Shot" },
