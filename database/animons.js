@@ -230,6 +230,15 @@ const animons = [
     ]
   },
   { id: 7, name: "Kid Hero", type: "Water", sprite: "assets/animons-icon/kid_hero.png", stats: { hp: 42, atk: 27, def: 32, spAtk: 25, spDef: 34, spd: 50 }, areas: ["0001", "0003", "0005", "0016"],
+    traits: [
+      { name: "Fraud", chance: "100%" },
+      { name: "Nearsighted", chance: "100%" },
+      { name: "Indecisive", chance: "100%" },
+      { name: "Marine's Grit", chance: "100%" },
+      { name: "Hard Worker", chance: "50%" },
+      { name: "Scaredy Cat", chance: "20%" }],
+    desc_pt: "Quero ser um cadete, um grande soldado da marinha que caça piratas.",
+    desc_en: "I want to be a cadet, a great navy soldier that catches pirates.",
     anime: { name: "Koby" },
     movesList: [
       { level: 1, name: "Mop the floor" },
