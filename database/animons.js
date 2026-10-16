@@ -1287,6 +1287,23 @@ const animons = [
       { level: 24, name: "Bomb Transmutation" }
     ]
   },
+  { id: 76, name: "Whitestache", type: ["Fighting", "Earth"], sprite: "assets/animons-icon/whitestache.png", stats: { hp: 0, atk: 0, def: 0, spAtk: 0, spDef: 0, spd: 0 },
+    traits: [
+      { name: "Earth Affinity", chance: "0%" },
+      { name: "Fearsome", chance: "0%" },
+      { name: "Pirate's Resolve", chance: "0%" },
+      { name: "Unwavering Spirit", chance: "0%" },
+      { name: "Dizzy Retaliation", chance: "0%" },
+      { name: "Battle Hardened", chance: "0%" },
+      { name: "Major Threat", chance: "0%" }],
+    desc_pt: "Gurararara!",
+    desc_en: "Gurararara!",
+    anime: { name: "Barba Branca", "Whitebeard" },
+    movesList: [
+      { level: 1, name: "Punch" },
+      { level: 14, name: "Helmet Splitter" }
+    ]
+  },
   { id: 78, name: "Master Swordsman", type: "Dark", sprite: "assets/animons-icon/master_swordsman.png", stats: { hp: 62, atk: 110, def: 60, spAtk: 75, spDef: 49, spd: 80 } },
   { id: 79, name: "Bald Warrior", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/bald_warrior.png", stats: { hp: 63, atk: 75, def: 50, spAtk: 62, spDef: 41, spd: 75 }, areas: ["0010", "0011", "0012", "0013", "0014", "0019"],
     anime: { name: "Nappa" },
