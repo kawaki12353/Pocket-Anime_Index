@@ -1600,8 +1600,10 @@ const moves = {
   "Wind Palm": {
     id: 41,
     name: "Wind Palm",
-    desc_pt: "O usuário carrega uma bola espiral de energia eólica e a empurra contra o oponente, fazendo-o girar no ar.[004](Tem chance de dar Confusão no oponente)[000]",
-    desc_en: "The user charges a spiral ball of wind energy and shoves it into the opponent sending them spinning in the air.[004](There's a chance it will confuse the opponent)[000]",
+    desc_pt: "O usuário carrega uma bola espiral de energia eólica e a empurra contra o oponente, fazendo-o girar no ar.",
+    desc_en: "The user charges a spiral ball of wind energy and shoves it into the opponent sending them spinning in the air.",
+    det_pt: "Tem chance de causar [004]Confusão[000] no oponente.",
+    det_en: "There is a chance it will cause [004]confusion[000] for the opponent.",
     type: "wind",
     attack: "physical",
     power: 60,
