@@ -1993,8 +1993,10 @@ const moves = {
   "Phase Two": {
     id: 4,
     name: "Phase Two",
-    desc_pt: "Prepare-se e aqueça-se para a transformação. Aprimora as técnicas de atributos de borracha.[004](Após selecionar o Phase Two, pode usar outro movimento novamente)[000]",
-    desc_en: "Pump up and become hot-blooded to transform. Upgrades rubber-attribute techniques.[004](After selecting Phase Two, you can use another move again)[000]",
+    desc_pt: "Prepare-se e aqueça-se para a transformação. Aprimora as técnicas de atributos de borracha.",
+    desc_en: "Pump up and become hot-blooded to transform. Upgrades rubber-attribute techniques.",
+    det_pt: "Após selecionar o Phase Two, pode usar outro movimento novamente",
+    det_en: "After selecting Phase Two, you can use another move again",
     type: "fighting",
     attack: "transformation",
     power: 0,
