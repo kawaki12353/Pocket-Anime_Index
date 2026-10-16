@@ -1158,7 +1158,7 @@ const moves = {
   "Fire Zone": {
     id: 81,
     name: "Fire Zone",
-    desc_pt: "Crie uma zona de fogo que fortaleça os movimentos do tipo fogo em [002]1,3x[000] por 3 turnos.",
+    desc_pt: "Crie uma zona de fogo que fortaleça os movimentos do tipo Fire em [002]1.3x[000] por 3 turnos.",
     desc_en: "Create a zone of fire that empowers fire type moves [002]1.3x[000] for 3 turns.",
     type: "fire",
     attack: "status",
