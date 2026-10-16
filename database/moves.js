@@ -1,4 +1,21 @@
 const moves = {
+  "Helmet Splitter": {
+    id: 195,
+    name: "Helmet Splitter",
+    desc_pt: "Estilhace a própria estrutura do mundo ao seu redor com os punhos e deixe os inimigos Confusos ao atingi-los.",
+    desc_en: "Shatter the very fabric of the world around you with your fists, and CONFUSE enemies on impact.",
+    type: "earth",
+    attack: "physical",
+    power: 120,
+    accuracy: 100,
+    pp: 5,
+  },
+  "Psychic Thread": {
+    id: 194,
+    name: "Psychic Thread",
+    type: "psychic",
+    attack: "special",
+  },
   "Suplex": {
     id: 193,
     name: "Suplex",
