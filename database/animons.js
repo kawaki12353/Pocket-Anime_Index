@@ -315,6 +315,12 @@ const animons = [
     ]
   },
   { id: 11, name: "Sniper", type: "Neutral", sprite: "assets/animons-icon/sniper.png", stats: { hp: 35, atk: 27, def: 29, spAtk: 60, spDef: 33, spd: 45 }, areas: ["0005"],
+    traits: [
+      { name: "Fraud", chance: "100%" },
+      { name: "Prepared", chance: "100%" },
+      { name: "Scaredy Cat", chance: "50%" },
+      { name: "Sharpshooter", chance: "20%" },
+      { name: "King of Snipers", chance: "5%" }],
     anime: { name: "Usopp" }, 
     movesList: [
       { level: 1, name: "Sling Shot" },
