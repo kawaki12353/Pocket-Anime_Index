@@ -14,7 +14,7 @@ const tagsMoves = [
   },
     { "Energy Wave": ["Energy Wave", "Super Energy Wave"]
   },
-    { "Ki": ["Energy Wave", "Super Energy Wave", "Galaxy Wave"]
+    { "Ki": ["Z Bomb", "Energy Wave", "Super Energy Wave", "Galaxy Wave"]
   },
     { "Three-sword": ["5000 Worlds", "Slashgiri"]
   },
