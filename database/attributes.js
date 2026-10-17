@@ -8,7 +8,7 @@ const tagsAnimon = [
 ];
 
 const tagsMoves = [
-    { "Chakra": ["", "", ""]
+    { "Chakra": ["Wind Palm", "Electric Strike", "Lightning Spread", "Fireball", "Pheonix Fire Bomb"]
     },
     { "Energy Wave": ["", "", ""]
     },
