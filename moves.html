@@ -731,7 +731,7 @@ function openModal(move) {
     if (moveAttrs.length > 0) {
         attrsHtml = `<div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;">`;
         moveAttrs.forEach(attr => {
-            attrsHtml += `<span style="color: #64b5f6; background: rgba(100, 181, 246, 0.25); padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 13px;">${attr}</span>`;
+            attrsHtml += `<span style="color: #64b5f6; background: rgba(100, 181, 246, 0.25); padding: 4px 12px; border-radius: 9999px; font-weight: bold; font-size: 13px;">${attr}</span>`;
         });
         attrsHtml += `</div>`;
     } else {
@@ -745,11 +745,15 @@ function openModal(move) {
         ${parseColoredText(descRaw)}
         ${detHtml}
         <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;"></div>
-        <div class="stat-label" style="text-align:center; font-size: 15px; font-weight: bold; margin-bottom: 12px; color: var(--text);">${texts[lang].battleInfo}</div>
-        <div class="stat-label" style="text-align:left; margin-bottom:6px;">${texts[lang].attributesLabel}</div>
-        ${attrsHtml}
-        <div class="stat-label" style="text-align:left; margin-top:14px; margin-bottom:6px;">${texts[lang].propertiesLabel}</div>
-        <div style="display: inline-block; color: var(--text); background: var(--hover); padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 13px;">${texts[lang].priorityLabel}: ${priorityVal}</div>
+        <div class="stat-label" style="text-align: center; margin-bottom: 12px;">${texts[lang].battleInfo}</div>
+        <div style="background: var(--hover); border: 1px solid var(--border); border-radius: 16px; padding: 16px;">
+            <div class="stat-label" style="text-align:left; margin-bottom:6px; color: var(--text);">${texts[lang].attributesLabel}</div>
+            ${attrsHtml}
+            <div class="stat-label" style="text-align:left; margin-top:14px; margin-bottom:6px; color: var(--text);">${texts[lang].propertiesLabel}</div>
+            <div style="display: inline-block; background: var(--card); border: 1px solid var(--border); padding: 6px 14px; border-radius: 9999px; font-weight: bold; font-size: 13px;">
+                <span style="color: var(--text-secondary);">${texts[lang].priorityLabel}:</span> <span style="color: #64b5f6;">${priorityVal}</span>
+            </div>
+        </div>
     `;
 
     // Lógica de Upgrades (Ataque Evoluído)
