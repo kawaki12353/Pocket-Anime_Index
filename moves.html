@@ -521,9 +521,11 @@ const tagsMoves = [
 
 function getMoveAttributes(moveName) {
     let attrs = [];
+    if (!moveName) return attrs;
+    const target = moveName.trim().toLowerCase();
     tagsMoves.forEach(obj => {
         for (let attr in obj) {
-            if (obj[attr].includes(moveName)) {
+            if (obj[attr].some(m => m.trim().toLowerCase() === target)) {
                 attrs.push(attr);
             }
         }
