@@ -367,6 +367,13 @@ const animons = [
     ]  
   },
   { id: 12, name: "Secret Ninja", type: "Fire", sprite: "assets/animons-icon/secret_ninja.png", stats: { hp: 42, atk: 50, def: 34, spAtk: 46, spDef: 34, spd: 66 }, areas: ["0006"],
+    traits: [
+      { name: "Ninjutsu Mastery", chance: "100%" },
+      { name: "Fire Affinity", chance: "50%" },
+      { name: "Personal Bodyguard", chance: "20%" }],
+    desc_pt: "Nosso trabalho é realizado na escuridão, e nossos nomes nunca são conhecidos.",
+    desc_en: "Our work is done in darkness, and our names are never known.",
+    anime: { name: "Anbu" },
     movesList: [
       { level: 1, name: "Energy Charge" },
       { level: 1, name: "Kunai Barrage" },
