@@ -1,4 +1,9 @@
 const traits = {
+    "Royal Swordplay": {
+        id: 74,
+        desc_pt: "Um [012]acerto crítico[000] no seu alvo reduz a [001]DEF [-1][000] dele.",
+        desc_en: "[012]Critical[000] striking your target decreases their [001]DEF [-1][000]."
+    },
     "Bomber Man": {
         id: 73,
         desc_pt: "15% de chance de explodir ao ser atingido por um [012]ataque físico[000]; isso causa dano equivalente a [012]1/8 [12,5%][000] do HP e aplica [003]queimadura[000].",
