@@ -500,6 +500,7 @@
 </div>
 
 <script src="utils/color-parser.js"></script>
+<script src="database/attributes.js"></script>
 <script src="database/moves.js"></script>
 <script src="database/animons.js"></script> 
 <script>
@@ -510,24 +511,9 @@ let currentAnimonMove = "";
 let currentAnimonTab = "level";
 let openedMoveBalloon = null;
 
-const tagsMoves = [
-    { "Explosion": ["Explosion"]
-  },
-    { "Chakra": ["Wind Palm", "Electric Strike", "Lightning Spread", "Fireball", "Pheonix Fire Bomb"]
-  },
-    { "Energy Wave": ["Energy Wave", "Super Energy Wave"]
-  },
-    { "Ki": ["Energy Wave", "Super Energy Wave", "Galaxy Wave", "Z Bomb", "Dirty Fireworks"]
-  },
-    { "Three-sword": ["5000 Worlds", "Slashgiri"]
-  },
-    { "Swordsman": ["Blade Surge", "Slashgiri", "108 Hawk", "5000 Worlds"]
-  }
-];
-
 function getMoveAttributes(moveName) {
     let attrs = [];
-    if (!moveName) return attrs;
+    if (!moveName || typeof tagsMoves === 'undefined') return attrs;
     const cleanName = moveName.trim().toLowerCase();
     tagsMoves.forEach(obj => {
         for (let attr in obj) {
