@@ -202,6 +202,13 @@ const animons = [
     ]
   },
   { id: 6, name: "Cadet", type: "Neutral", sprite: "assets/animons-icon/cadet.png", stats: { hp: 35, atk: 50, def: 35, spAtk: 50, spDef: 35, spd: 45 }, areas: ["0001", "0002", "0003", "0004", "0005", "0007", "0008", "0009"],
+    traits: [
+      { name: "Inner Focus", chance: "75%" },
+      { name: "Battle Adaptability", chance: "75%" },
+      { name: "Marine's Grit", chance: "50%" },
+      { name: "Sharpshooter", chance: "50%" }],
+    desc_pt: "O orgulho e a alegria da Marinha, apenas aqueles que acreditam na verdadeira justiça se juntam às suas fileiras.",
+    desc_en: "The pride and joy of the Navy, only those who believe in true justice join their ranks.",
     anime: { name: "Marine" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
@@ -216,6 +223,13 @@ const animons = [
     ]
   },
   { id: 6.01, name: "Navy Captain", type: "Water", sprite: "assets/animons-icon/navy_captain.png", stats: { hp: 45, atk: 65, def: 45, spAtk: 65, spDef: 45, spd: 75 }, areas: ["0012", "0016"],
+    traits: [
+      { name: "Inner Focus", chance: "75%" },
+      { name: "Battle Adaptability", chance: "75%" },
+      { name: "Marine's Grit", chance: "50%" },
+      { name: "Sharpshooter", chance: "50%" }],
+    desc_pt: "Veteranos endurecidos que não perdoarão nenhum criminoso que menospreze os fuzileiros navais.",
+    desc_en: "Hardened veterans who won't forgive any criminal who makes light of the Marines.",
     anime: { name: "Marine Captain" },
     movesList: [
       { level: 1, name: "Mop the floor"}, 
