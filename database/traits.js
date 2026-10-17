@@ -76,8 +76,8 @@ const traits = {
     },
     "Turtle School Finisher": {
         id: 57,
-        desc_pt: "Um inimigo atingido por uma [012]habilidade de energia[000] do [013]Atributo de Onda[000] e que ficar com [012]menos de 5% de vida[000] será [001]executado[000].",
-        desc_en: "An enemy hit by an [012]energy [013]wave-attribute [012]skill[000] and [012]left within 5% HP[000] will be [001]executed[000]."
+        desc_pt: "Um inimigo atingido por uma [012]habilidade[000] do [013]Atributo Onda de Energia[000] e que ficar com [012]menos de 5% de vida[000] será [001]executado[000].",
+        desc_en: "An enemy hit by an [013]energy wave-attribute [012]skill[000] and [012]left within 5% HP[000] will be [001]executed[000]."
     },
     "Martial Artist": {
         id: 56,
