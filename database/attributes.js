@@ -8,14 +8,16 @@ const tagsAnimon = [
 ];
 
 const tagsMoves = [
+    { "Explosion": ["Explosion"]
+  },
     { "Chakra": ["Wind Palm", "Electric Strike", "Lightning Spread", "Fireball", "Pheonix Fire Bomb"]
-    },
-    { "Energy Wave": ["", "", ""]
-    },
-    { "Ki": ["", "", ""]
-    },
+  },
+    { "Energy Wave": ["Energy Wave", "Super Energy Wave"]
+  },
+    { "Ki": ["Energy Wave", "Super Energy Wave", ""]
+  },
     { "Three-sword": ["5000 Worlds", "Slashgiri"]
-    },
+  },
     { "Swordsman": [""]
   }
 ];
