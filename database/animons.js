@@ -1059,6 +1059,13 @@ const animons = [
     ]
   },
   { id: 45, name: "Bomb Man", type: "Fire", sprite: "assets/animons-icon/bomb_man.png", stats: { hp: 59, atk: 67, def: 49, spAtk: 54, spDef: 40, spd: 64 }, areas: ["0015", "0025"],
+    traits: [
+      { name: "Pirate's Resolve", chance: "100%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Explosion Immunity", chance: "50%" },
+      { name: "Fire Affinity", chance: "50%" },
+      { name: "Bomber Man", chance: "5%" }],
+    anime: { name: ["Gem", "Mister 5"] },
     movesList: [
       { level: 1, name: "Bounty Hunt" },
       { level: 1, name: "Punch" }, 
