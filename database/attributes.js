@@ -14,7 +14,7 @@ const tagsMoves = [
     },
     { "Ki": ["", "", ""]
     },
-    { "Three-sword": [""]
+    { "Three-sword": ["5000 Worlds", "Slashgiri"]
     },
     { "Swordsman": [""]
   }
