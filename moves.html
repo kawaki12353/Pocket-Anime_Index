@@ -510,6 +510,27 @@ let currentAnimonMove = "";
 let currentAnimonTab = "level";
 let openedMoveBalloon = null;
 
+const tagsMoves = [
+    { "Explosion": ["Explosion"] },
+    { "Chakra": ["Wind Palm", "Electric Strike", "Lightning Spread", "Fireball", "Pheonix Fire Bomb"] },
+    { "Energy Wave": ["Energy Wave", "Super Energy Wave"] },
+    { "Ki": ["Energy Wave", "Super Energy Wave", "Galaxy Wave"] },
+    { "Three-sword": ["5000 Worlds", "Slashgiri"] },
+    { "Swordsman": ["Blade Surge", "Slashgiri", "108 Hawk", "5000 Worlds"] }
+];
+
+function getMoveAttributes(moveName) {
+    let attrs = [];
+    tagsMoves.forEach(obj => {
+        for (let attr in obj) {
+            if (obj[attr].includes(moveName)) {
+                attrs.push(attr);
+            }
+        }
+    });
+    return attrs;
+}
+
 const texts = {
     pt: {
         title: "Moves Database",
@@ -526,7 +547,12 @@ const texts = {
         btnFind: "Animons que aprende esse Move",
         listHeader: "Animons que aprendem ",
         tabLevel: "Nível",
-        tabScroll: "Scroll"
+        tabScroll: "Scroll",
+        battleInfo: "Informações de Batalha",
+        attributesLabel: "Atributos:",
+        propertiesLabel: "Propriedades:",
+        noAttributes: "Não há atributos",
+        priorityLabel: "Prioridade"
     },
     en: {
         title: "Moves Database",
@@ -543,7 +569,12 @@ const texts = {
         btnFind: "Animons that learn these Moves",
         listHeader: "Animons that learn ",
         tabLevel: "Level",
-        tabScroll: "Scroll"
+        tabScroll: "Scroll",
+        battleInfo: "Battle Information",
+        attributesLabel: "Attributes:",
+        propertiesLabel: "Properties:",
+        noAttributes: "No attributes",
+        priorityLabel: "Priority"
     }
 };
 
@@ -695,10 +726,30 @@ function openModal(move) {
         `;
     }
 
+    const moveAttrs = getMoveAttributes(move.name);
+    let attrsHtml = "";
+    if (moveAttrs.length > 0) {
+        attrsHtml = `<div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;">`;
+        moveAttrs.forEach(attr => {
+            attrsHtml += `<span style="color: #64b5f6; background: rgba(100, 181, 246, 0.25); padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 13px;">${attr}</span>`;
+        });
+        attrsHtml += `</div>`;
+    } else {
+        attrsHtml = `<div style="color: var(--text-secondary); font-size: 13px; margin-top: 6px; font-style: italic;">${texts[lang].noAttributes}</div>`;
+    }
+
+    const priorityVal = ('priority' in move && move.priority !== undefined && move.priority !== null) ? move.priority : 0;
+
     descContainer.innerHTML = `
         <div class="stat-label" style="text-align:left; margin-bottom:8px;">${texts[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
         ${detHtml}
+        <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;"></div>
+        <div class="stat-label" style="text-align:center; font-size: 15px; font-weight: bold; margin-bottom: 12px; color: var(--text);">${texts[lang].battleInfo}</div>
+        <div class="stat-label" style="text-align:left; margin-bottom:6px;">${texts[lang].attributesLabel}</div>
+        ${attrsHtml}
+        <div class="stat-label" style="text-align:left; margin-top:14px; margin-bottom:6px;">${texts[lang].propertiesLabel}</div>
+        <div style="display: inline-block; color: var(--text); background: var(--hover); padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 13px;">${texts[lang].priorityLabel}: ${priorityVal}</div>
     `;
 
     // Lógica de Upgrades (Ataque Evoluído)
