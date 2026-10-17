@@ -1,4 +1,9 @@
 const traits = {
+    "Bomber Man": {
+        id: 73,
+        desc_pt: "15% de chance de explodir ao ser atingido por um [012]ataque físico[000]; isso causa dano equivalente a [012]1/8 [12,5%][000] do HP e aplica [003]queimadura[000].",
+        desc_en: "15% chance to explode when hit by a [012]physical attack[000], this deal [012]1/8 [12.5%][000] HP damage and applies [003]burn[000]."
+    },
     "Field Guardian": {
         id: 72,
         desc_pt: "Não afetado por riscos do campo.",
