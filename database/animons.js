@@ -1247,6 +1247,11 @@ const animons = [
   { id: 58, name: "Waterfall Samurai", type: ["Water", "Fire"], sprite: "assets/animons-icon/waterfall_samurai.png", stats: { hp: 59, atk: 70, def: 48, spAtk: 44, spDef: 44, spd: 73 } },
   { id: 59, name: "Warrior Bug Jr.", type: "Fighting", sprite: "assets/animons-icon/warrior_bug_jr.png", stats: { hp: 52, atk: 70, def: 41, spAtk: 60, spDef: 39, spd: 90 }, areas: ["0017", "0018", "0023", "0025", "0027"] },
   { id: 60, name: "Fire Prince", type: "Fire", sprite: "assets/animons-icon/fire_prince.png", stats: { hp: 49, atk: 54, def: 42, spAtk: 44, spDef: 35, spd: 62 }, areas: ["0014"],
+    traits: [
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Fire Affinity", chance: "50%" },
+      { name: "Fast Step", chance: "20%" },
+      { name: "Royal Swordplay", chance: "5%" }],
     anime: { name: "Alibaba" },
     movesList: [
       { level: 1, name: "Dexterity" },
@@ -1259,6 +1264,11 @@ const animons = [
     ]
   },
   { id: 60.01, name: "Fire King", type: "Fire", sprite: "assets/animons-icon/fire_king.png", stats: { hp: 63, atk: 70, def: 54, spAtk: 60, spDef: 44, spd: 76 },
+    traits: [
+      { name: "Inner Focus", chance: "100%" },
+      { name: "Fire Affinity", chance: "50%" },
+      { name: "Fast Step", chance: "20%" },
+      { name: "Royal Swordplay", chance: "5%" }],
     movesList: [
       { level: 1, name: "Dexterity" },
       { level: 1, name: "Sword Slash" },
