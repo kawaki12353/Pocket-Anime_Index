@@ -511,21 +511,27 @@ let currentAnimonTab = "level";
 let openedMoveBalloon = null;
 
 const tagsMoves = [
-    { "Explosion": ["Explosion"] },
-    { "Chakra": ["Wind Palm", "Electric Strike", "Lightning Spread", "Fireball", "Pheonix Fire Bomb"] },
-    { "Energy Wave": ["Energy Wave", "Super Energy Wave"] },
-    { "Ki": ["Energy Wave", "Super Energy Wave", "Galaxy Wave"] },
-    { "Three-sword": ["5000 Worlds", "Slashgiri"] },
-    { "Swordsman": ["Blade Surge", "Slashgiri", "108 Hawk", "5000 Worlds"] }
+    { "Explosion": ["Explosion"]
+  },
+    { "Chakra": ["Wind Palm", "Electric Strike", "Lightning Spread", "Fireball", "Pheonix Fire Bomb"]
+  },
+    { "Energy Wave": ["Energy Wave", "Super Energy Wave"]
+  },
+    { "Ki": ["Energy Wave", "Super Energy Wave", "Galaxy Wave", "Z Bomb", "Dirty Fireworks"]
+  },
+    { "Three-sword": ["5000 Worlds", "Slashgiri"]
+  },
+    { "Swordsman": ["Blade Surge", "Slashgiri", "108 Hawk", "5000 Worlds"]
+  }
 ];
 
 function getMoveAttributes(moveName) {
     let attrs = [];
     if (!moveName) return attrs;
-    const target = moveName.trim().toLowerCase();
+    const cleanName = moveName.trim().toLowerCase();
     tagsMoves.forEach(obj => {
         for (let attr in obj) {
-            if (obj[attr].some(m => m.trim().toLowerCase() === target)) {
+            if (obj[attr].some(m => m.trim().toLowerCase() === cleanName)) {
                 attrs.push(attr);
             }
         }
