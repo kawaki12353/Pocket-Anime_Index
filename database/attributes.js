@@ -8,14 +8,14 @@ const tagsAnimon = [
 ];
 
 const tagsMoves = [
-    { chakra: ["", "", ""]
+    { "Chakra": ["", "", ""]
     },
-    { energy-wave: ["", "", ""]
+    { "Energy Wave": ["", "", ""]
     },
-    { ki: ["", "", ""]
+    { "Ki": ["", "", ""]
     },
-    { three_sword: [""]
+    { "Three-sword": [""]
     },
-    { swordsman: [""]
+    { "Swordsman": [""]
   }
 ];
