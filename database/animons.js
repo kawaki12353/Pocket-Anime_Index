@@ -1250,6 +1250,11 @@ const animons = [
     ]
   },
   { id: 55, name: "Earth Queen", type: "Earth", sprite: "assets/animons-icon/earth_queen.png", stats: { hp: 59, atk: 70, def: 65, spAtk: 50, spDef: 49, spd: 45 }, areas: ["0026"],
+    traits: [
+      { name: "Major Threat", chance: "100%" },
+      { name: "Earth Affinity", chance: "50%" },
+      { name: "Giant Sized", chance: "20%" },
+      { name: "Queen of the Giants", chance: "5%" }],
     anime: { name: "Diane" },
     event: "Sandstorm",
     movesList: [
