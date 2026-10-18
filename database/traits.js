@@ -1,4 +1,9 @@
 const traits = {
+    "Queen of the Giants": {
+        id: 76,
+        desc_pt: "Ganhe [002]HP [+1][000] ao entrar em batalha.",
+        desc_en: "Gain [002]HP [+1][000] when entering battle."
+    },
     "Four Leaf Fortune": {
         id: 75,
         desc_pt: "Chance de acerto crítico 4x ao usar habilidades com [013]atributo mágico[000].",
