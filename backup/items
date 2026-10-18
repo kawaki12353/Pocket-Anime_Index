@@ -208,11 +208,11 @@
         .item img { width: 48px; height: 48px; object-fit: contain; }
 
         /* --- Classes de Raridade --- */
-        .comum, .r-comum { border-color: var(--color-comum) !important; }
-        .incomum, .r-incomum { border-color: var(--color-incomum) !important; }
-        .raro, .r-raro { border-color: var(--color-raro) !important; }
-        .epico, .r-epico { border-color: var(--color-epico) !important; }
-        .lendario, .r-lendario { border-color: var(--color-lendario) !important; }
+        .common, .r-common { border-color: var(--color-comum) !important; }
+        .uncommon, .r-uncommon { border-color: var(--color-incomum) !important; }
+        .rare, .r-rare { border-color: var(--color-raro) !important; }
+        .epic, .r-epic { border-color: var(--color-epico) !important; }
+        .legendary, .r-legendary { border-color: var(--color-lendario) !important; }
 
         .select-list li[class^="r-"], .select-list li[class*=" r-"] {
             border-left-width: 6px !important;
@@ -351,7 +351,7 @@ let lang = localStorage.getItem("siteLang") || "pt";
 let selectedCategory = "";
 let selectedRarity = "";
 
-const rarityOrder = { comum: 1, incomum: 2, raro: 3, epico: 4, lendario: 5 };
+const rarityOrder = { common: 1, uncommon: 2, rare: 3, epic: 4, legendary: 5 };
 
 const texts = {
     pt: {
@@ -386,8 +386,8 @@ const categoryIcons = {
 };
 
 const rarityLabels = {
-    pt: { comum: "Comum", incomum: "Incomum", raro: "Raro", epico: "Épico", lendario: "Lendário" },
-    en: { comum: "Common", incomum: "Uncommon", raro: "Rare", epico: "Epic", lendario: "Legendary" }
+    pt: { common: "Comum", uncommon: "Incomum", rare: "Raro", epic: "Épico", legendary: "Lendário" },
+    en: { common: "Common", uncommon: "Uncommon", rare: "Rare", epic: "Epic", legendary: "Legendary" }
 };
 
 function render() {
@@ -397,14 +397,14 @@ function render() {
 
     const filteredItems = items
         .filter(item => {
-            const matchesSearch = !searchVal || item[lang].name.toLowerCase().includes(searchVal);
-            const matchesCat = !selectedCategory || item.pt.cat === selectedCategory;
+            const matchesSearch = !searchVal || item.name.toLowerCase().includes(searchVal);
+            const matchesCat = !selectedCategory || item.cat === selectedCategory;
             const matchesRarity = !selectedRarity || item.rarity === selectedRarity;
             return matchesSearch && matchesCat && matchesRarity;
         })
         .sort((a, b) => {
             const rDiff = rarityOrder[a.rarity] - rarityOrder[b.rarity];
-            return rDiff !== 0 ? rDiff : a[lang].name.localeCompare(b[lang].name);
+            return rDiff !== 0 ? rDiff : a.name.localeCompare(b.name);
         });
 
     filteredItems.forEach(item => {
@@ -414,8 +414,8 @@ function render() {
         const iconSrc = item.icon ? `assets/items/${item.icon}` : "assets/sem_icone.png";
 
         div.innerHTML = `
-            <img src="${iconSrc}" alt="${data.name}">
-            <strong>${data.name}</strong>
+            <img src="${iconSrc}" alt="${item.name}">
+            <strong>${item.name}</strong>
         `;
         div.onclick = () => openModal(item);
         listEl.appendChild(div);
@@ -428,10 +428,10 @@ function openModal(item) {
     const modalBg = document.getElementById("modalBg");
 
     modal.className = `modal ${item.rarity}`;
-    document.getElementById("mName").textContent = data.name;
+    document.getElementById("mName").textContent = item.name;
     document.getElementById("mDesc").innerHTML = parseColoredText(data.desc);
     document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
-    document.getElementById("mCat").textContent = categoryLabels[lang][item.pt.cat];
+    document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
 
     const noteSec = document.getElementById("noteSection");
     if (data.note) {
