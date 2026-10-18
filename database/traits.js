@@ -1,4 +1,9 @@
 const traits = {
+    "Four Leaf Fortune": {
+        id: 75,
+        desc_pt: "Chance de acerto crítico 4x ao usar habilidades com [013]atributo mágico[000].",
+        desc_en: "4X Critical chance when using [013]Magical attribute[000] skills."
+    },
     "Royal Swordplay": {
         id: 74,
         desc_pt: "Um [012]acerto crítico[000] no seu alvo reduz a [001]DEF [-1][000] dele.",
