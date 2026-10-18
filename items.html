@@ -228,7 +228,7 @@
             opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .modal {
-            background: var(--card); width: 100%; height: 85%;
+            background: var(--card); width: 100%; height: 60%;
             border-radius: 20px 20px 0 0; padding: 25px;
             box-sizing: border-box; position: relative;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -260,8 +260,8 @@
             border: 1px solid var(--border);
         }
         .modal-icon-box img {
-            width: 50px;
-            height: 50px;
+            width: 58px;
+            height: 58px;
             object-fit: contain;
         }
         .modal-header-info {
@@ -292,16 +292,18 @@
         .modal-cat-section {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             gap: 6px;
         }
         .modal-cat-title {
             color: #888888;
             font-weight: bold;
             font-size: 14px;
+            text-align: center;
+            width: 100%;
         }
         .modal-cat-box {
-            background: var(--box-bg);
+            background: var(--hover);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 8px 16px;
@@ -319,6 +321,7 @@
             height: 1px;
             background: var(--border);
             margin: 5px 0;
+            display: block;
         }
 
         /* Estilo genérico das Seções */
@@ -329,15 +332,16 @@
         }
         .section-title {
             font-weight: bold;
-            text-align: center;
+            text-align: left;
             color: #888888;
             font-size: 15px;
         }
         .modal-drop-title {
             color: #ffffff !important;
+            text-align: center;
         }
         .section-box {
-            background: var(--box-bg);
+            background: var(--hover);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 16px;
@@ -435,13 +439,13 @@
         <!-- Seção Descrição -->
         <div class="section">
             <div class="section-title" id="lblDesc"></div>
-            <div class="section-box" id="mDesc"></div>
+            <div id="mDesc"></div>
         </div>
 
         <!-- Seção Detalhes -->
         <div class="section" id="detailsSection">
             <div class="section-title" id="lblDetails"></div>
-            <div class="section-box" id="mDetails"></div>
+            <div id="mDetails"></div>
         </div>
 
         <!-- Linha Divisora abaixo de Detalhes -->
