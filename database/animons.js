@@ -291,8 +291,11 @@ const animons = [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw" },
       { level: 5, name: "Quick Attack" },
+      { level: 8, name: "Blitz" },
       { level: 11, name: "Bite" },
+      { level: 11, name: "Afterimage" },
       { level: 17, name: "Savage Fang" },
+      { level: 23, name: "Killer Instinct" },
       { level: 23, name: "Ripping Claw" }
    ]
   },
@@ -302,8 +305,11 @@ const animons = [
       { level: 1, name: "Growl"}, 
       { level: 1, name: "Sharp Claw" },
       { level: 5, name: "Quick Attack" },
+      { level: 8, name: "Blitz" },
       { level: 11, name: "Bite" },
+      { level: 11, name: "Afterimage" },
       { level: 17, name: "Savage Fang" },
+      { level: 23, name: "Killer Instinct" },
       { level: 23, name: "Ripping Claw" }
    ]
   },
@@ -764,11 +770,13 @@ const animons = [
     anime: { name: "Oozaru" },
     event: "Full Moon",
       movesList: [
+      { level: 1, name: "Growl" },
       { level: 1, name: "Fury" },
       { level: 1, name: "Punch" },
       { level: 5, name: "Sudden Impact" },
       { level: 9, name: "Primal Roar" },
       { level: 14, name: "Crush" },
+      { level: 14, name: "Bite" },
       { level: 20, name: "Primal Fist" },
       { level: 24, name: "Beast Bomb" }
     ]
@@ -1220,12 +1228,15 @@ const animons = [
   },
   { id: 54.01, name: "Hobgoblin", type: "Dark", sprite: "assets/animons-icon/hobgoblin.png", stats: { hp: 57, atk: 82, def: 45, spAtk: 65, spDef: 44, spd: 78 },
     movesList: [
-      { level: 1, name: "Fighting Spirit" }, 
+      { level: 1, name: "False Courage" },
+      { level: 1, name: "Fighting Spirit" },
       { level: 1, name: "Sword Slash" },
       { level: 6, name: "Blade Surge" },
+      { level: 8, name: "Lunge" },
       { level: 12, name: "Flare Strike" },
       { level: 18, name: "Shadow Ambush" },
       { level: 22, name: "Silhouette" },
+      { level: 23, name: "Killer Instinct" },
       { level: 28, name: "Cut Down" },
       { level: 32, name: "Afterimage" }
     ]
