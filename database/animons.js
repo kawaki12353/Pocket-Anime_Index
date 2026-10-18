@@ -1271,6 +1271,8 @@ const animons = [
       { name: "Fire Affinity", chance: "50%" },
       { name: "Fast Step", chance: "20%" },
       { name: "Royal Swordplay", chance: "5%" }],
+    desc_pt: "Um país não é construído apenas por um governante. É preciso a participação de todos.",
+    desc_en: "A country isn't built by a ruler alone. It takes everyone.",
     anime: { name: "Alibaba" },
     movesList: [
       { level: 1, name: "Dexterity" },
