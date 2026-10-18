@@ -121,8 +121,8 @@ const traits = {
     },
     "Magical Empowerment": {
         id: 50,
-        desc_pt: "Usar um ataque especial com atributo mágico tem 20% de chance de causar um [012]acerto crítico[000].",
-        desc_en: "Using a special attack with magical attribute has a 20% chance of [012]critically striking[000]."
+        desc_pt: "Usar um ataque especial com [013]atributo mágico[000] tem 20% de chance de causar um [012]acerto crítico[000].",
+        desc_en: "Using a special attack with [013]magical attribute[000] has a 20% chance of [012]critically striking[000]."
     },
     "Fraud": {
         id: 49,
