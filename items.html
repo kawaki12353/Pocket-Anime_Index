@@ -26,6 +26,8 @@
             --lang-btn-bg: #444;
             --accent-blue: #007bff;
             --box-bg: rgba(0, 0, 0, 0.04);
+            --modal-box-bg: var(--hover);
+            --modal-divider-color: var(--border);
 
             /* Cores de Raridade */
             --color-comum: #9e9e9e;
@@ -46,6 +48,8 @@
                 --lang-btn: #111;
                 --lang-btn-bg: #ffffff;
                 --box-bg: #0f1217;
+                --modal-box-bg: var(--hover);
+                --modal-divider-color: var(--border);
             }
         }
 
@@ -228,7 +232,7 @@
             opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .modal {
-            background: var(--card); width: 100%; height: 60%;
+            background: var(--card); width: 100%; height: 65%;
             border-radius: 20px 20px 0 0; padding: 25px;
             box-sizing: border-box; position: relative;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -241,7 +245,7 @@
         .modal-bg.active { opacity: 1; visibility: visible; }
         .modal-bg.active .modal { transform: translateY(0); }
 
-        /* Componentes internos do Modal no design da imagem */
+        /* Componentes internos do Modal */
         .modal-header-container {
             display: flex;
             align-items: center;
@@ -260,8 +264,8 @@
             border: 1px solid var(--border);
         }
         .modal-icon-box img {
-            width: 58px;
-            height: 58px;
+            width: 65px;
+            height: 65px;
             object-fit: contain;
         }
         .modal-header-info {
@@ -290,9 +294,10 @@
 
         /* Seção Categoria */
         .modal-cat-section {
-            display: flex;
+            display: inline-flex;
             flex-direction: column;
             align-items: center;
+            align-self: flex-start;
             gap: 6px;
         }
         .modal-cat-title {
@@ -303,7 +308,7 @@
             width: 100%;
         }
         .modal-cat-box {
-            background: var(--hover);
+            background: var(--modal-box-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 8px 16px;
@@ -319,9 +324,9 @@
         .modal-divider {
             width: 100%;
             height: 1px;
-            background: var(--border);
+            background-color: var(--modal-divider-color) !important;
+            border: none;
             margin: 5px 0;
-            display: block;
         }
 
         /* Estilo genérico das Seções */
@@ -338,16 +343,23 @@
         }
         .modal-drop-title {
             color: #ffffff !important;
-            text-align: center;
         }
-        .section-box {
-            background: var(--hover);
+
+        /* Apenas a seção Onde Obter mantém a Box */
+        .drop-box {
+            background: var(--modal-box-bg);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 16px;
             color: var(--text);
             min-height: 50px;
             box-sizing: border-box;
+        }
+
+        /* Conteúdo sem box para Descrição e Detalhes */
+        .text-content {
+            color: var(--text);
+            line-height: 1.5;
         }
 
         @media (min-width: 769px) {
@@ -436,25 +448,25 @@
         <!-- Linha Divisora -->
         <div class="modal-divider"></div>
 
-        <!-- Seção Descrição -->
+        <!-- Seção Descrição (sem Box) -->
         <div class="section">
             <div class="section-title" id="lblDesc"></div>
-            <div id="mDesc"></div>
+            <div class="text-content" id="mDesc"></div>
         </div>
 
-        <!-- Seção Detalhes -->
+        <!-- Seção Detalhes (sem Box) -->
         <div class="section" id="detailsSection">
             <div class="section-title" id="lblDetails"></div>
-            <div id="mDetails"></div>
+            <div class="text-content" id="mDetails"></div>
         </div>
 
         <!-- Linha Divisora abaixo de Detalhes -->
         <div class="modal-divider"></div>
 
-        <!-- Seção Onde Obter -->
+        <!-- Seção Onde Obter (com Box) -->
         <div class="section">
             <div class="section-title modal-drop-title" id="lblDrop"></div>
-            <div class="section-box" id="mDrop"></div>
+            <div class="drop-box" id="mDrop"></div>
         </div>
 
     </div>
