@@ -8,6 +8,8 @@ const tagsAnimon = [
 ];
 
 const tagsMoves = [
+    { "Magical": ["Explosion", "Wide Explosion", "Mystic Shot", "Swift Wind", "Wind Dagger", "Twin Tornado"]
+  },
     { "Explosion": ["Explosion"]
   },
     { "Chakra": ["Wind Palm", "Electric Strike", "Lightning Spread", "Fireball", "Pheonix Fire Bomb"]
