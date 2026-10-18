@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pocket Anime - Items</title>
+    <title>Pocket Anime - Moves</title>
 
     <!-- Importação da Fonte Isometra via Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="menu.css">
     <script src="menu.js" defer></script>
-    <script src="utils/color-parser.js"></script>
 
     <style>
         /* --- Variáveis e Temas --- */
@@ -20,22 +19,26 @@
             --bg: #f2f4f7;
             --card: #ffffff;
             --text: #111;
+            --text-secondary: #707a8a;
             --border: #ccc;
             --hover: #f1f1f1;
-            --lang-btn: #ffffff;
-            --lang-btn-bg: #444;
             --accent-blue: #007bff;
-            --box-bg: rgba(0, 0, 0, 0.04);
-            --modal-box-bg: var(--hover);
-            --modal-divider-color: var(--border);
 
-            /* Cores de Raridade */
-            --color-comum: #9e9e9e;
-            --color-incomum: #2e7d32;
-            --color-raro: #0d47a1;
-            --color-epico: #6a1b9a;
-            --color-lendario: #f9a825;
-            --color-default: #2b2b2b;
+            /* Cores de Categorias */
+            --cat-physical: #c93e2b;
+            --cat-special: #2d5a9c;
+            --cat-status: #707a8a;
+            --cat-transformation: #30FF79;
+
+            /* Cores dos Tipos (ATUALIZADAS) */
+            --element-neutral: #e6e5e3;   --element-fighting: #e5901b;
+            --element-fire: #e60000;       --element-water: #00b0e6;
+            --element-nature: #24e30c;     --element-earth: #8a5e39;
+            --element-wind: #59e657;       --element-ice: #00ffe1;
+            --element-lightning: #ffe100;  --element-soul: #89a2e6;
+            --element-psychic: #e66ae0;    --element-poison: #ac8fff;
+            --element-light: #decc7c;      --element-dark: #262626;
+            --element-demon: #b00000;      --element-beast: #aa6272;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -43,17 +46,12 @@
                 --bg: #0f1217;
                 --card: #181c24;
                 --text: #ffffff;
+                --text-secondary: #9ca3af;
                 --border: #2a2f3a;
                 --hover: #232836;
-                --lang-btn: #111;
-                --lang-btn-bg: #ffffff;
-                --box-bg: #0f1217;
-                --modal-box-bg: var(--hover);
-                --modal-divider-color: var(--border);
             }
         }
 
-        /* --- Geral --- */
         body {
             font-family: Arial, sans-serif;
             background: var(--bg);
@@ -63,42 +61,21 @@
             line-height: 1.5;
         }
 
-        .category-icon { 
-            width: 18px; 
-            height: 18px; 
-            flex-shrink: 0; 
-            display: block;
+        /* --- HEADER (IGUAL AO ANIMONS DETAILS) --- */
+        .header { 
+            display: flex; 
+            justify-content: center; 
+            max-width: 1200px; 
+            margin: 0 auto 30px; 
         }
-
-        /* --- HEADER (IGUAL AO ANIDEX) --- */
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            gap: 12px;
-        }
-
-        .header-top {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .logo { width: 260px; }
+        .logo { width: 220px; max-width: 60vw; }
 
         .map-title {
             font-family: 'Isometra', sans-serif;
-            position: relative;
-            width: 80%;
             background: linear-gradient(to right, transparent, #1B2A44 25%, #1B2A44 75%, transparent);
             color: #ffffff;
-            flex: 1;
-            text-align: center;
-            margin-bottom: 12px;
-            font-size: 20px;
-            font-weight: bold;
+            position: relative;
+            width: 80%;
             padding: 8px 40px;
             box-sizing: border-box;
             border-radius: 6px;
@@ -106,9 +83,16 @@
             align-items: center;
             justify-content: center;
             min-height: 36px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* --- Filtros --- */
+        /* --- FILTROS --- */
         .filters {
             display: flex;
             gap: 12px;
@@ -132,348 +116,382 @@
         }
 
         /* --- Selects Customizados --- */
-        .custom-select {
-            position: relative;
-            width: 100%;
-            max-width: 200px;
-        }
-
+        .custom-select { position: relative; width: 100%; max-width: 200px; }
         .select-btn {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            cursor: pointer;
-            box-sizing: border-box;
-            overflow: hidden;
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; cursor: pointer; box-sizing: border-box;
         }
 
-        .select-btn > span:first-child {
+        /* Ajuste de Alinhamento solicitado: Ícone à esquerda do nome no botão */
+        .select-btn span {
             display: flex;
             align-items: center;
             gap: 8px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 1;
         }
 
         .select-list {
-            display: none;
-            position: absolute;
-            top: 105%;
-            left: 0;
-            width: 100%;
-            background: var(--card);
-            border-radius: 12px;
-            list-style: none;
-            padding: 6px;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            box-sizing: border-box;
-            max-height: 300px;
-            overflow-y: auto;
+            display: none; position: absolute; top: 105%; left: 0; width: 100%;
+            background: var(--card); border-radius: 12px; list-style: none;
+            padding: 6px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-sizing: border-box; max-height: 300px; overflow-y: auto;
             border: 1px solid var(--border);
         }
         .select-list li {
-            padding: 10px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-            margin-bottom: 2px;
-            border-left: 4px solid transparent; 
+            padding: 10px 12px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; font-weight: bold;
         }
         .select-list li:hover { background: var(--hover); }
 
-        /* --- Lista de Itens --- */
-        .item-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 280px); 
-            gap: 15px;
-            justify-content: center; 
+        /* --- LISTA DE MOVES --- */
+        .moves-list {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-        .item {
+
+        /* --- CARD DE MOVE --- */
+        .move-card {
             background: var(--card);
-            border-radius: 12px;
-            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            position: relative;
+        }
+        .move-card:active { transform: scale(0.98); }
+
+        .move-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .move-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #4a628a;
+        }
+        .move-stats {
+            display: flex;
+            gap: 20px;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Estilo das siglas superiores (PWR, ACC, PP) */
+        .stat-label {
+            font-size: 10px;
+            color: #555;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1px;
+            font-weight: bold;
+        }
+
+        .move-tags {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .type-badge {
             display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: transform 0.15s, box-shadow 0.15s;
+            background: var(--type-color);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 34px;
+            flex: 1;
         }
-        .item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        .type-label {
+            background: rgba(0,0,0,0.15);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
         }
-        .item img { width: 48px; height: 48px; object-fit: contain; }
-
-        /* --- Classes de Raridade --- */
-        .common, .r-common { border-color: var(--color-comum) !important; }
-        .uncommon, .r-uncommon { border-color: var(--color-incomum) !important; }
-        .rare, .r-rare { border-color: var(--color-raro) !important; }
-        .epic, .r-epic { border-color: var(--color-epico) !important; }
-        .legendary, .r-legendary { border-color: var(--color-lendario) !important; }
-
-        .select-list li[class^="r-"], .select-list li[class*=" r-"] {
-            border-left-width: 6px !important;
+        .type-name {
+            flex: 1;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 14px;
+            text-transform: capitalize;
         }
 
-        /* --- MODAL (NOVO DESIGN) --- */
-        .modal-bg {
+        .category-badge {
+            padding: 0 15px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 13px;
+            background: var(--cat-color);
+            min-width: 80px;
+        }
+
+        .info-icon { color: var(--border); display: flex; align-items: center; }
+
+        /* --- MODAL (FIXED ANIMATION) --- */
+        .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); z-index: 1000;
             display: flex; justify-content: center; align-items: flex-end;
             opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
-        .modal {
+        .modal-content {
             background: var(--card); width: 100%; height: 65%;
             border-radius: 20px 20px 0 0; padding: 25px;
             box-sizing: border-box; position: relative;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex; flex-direction: column; gap: 15px;
+            display: flex; flex-direction: column; gap: 20px;
             overflow-y: auto;
-            border-top: 4px solid;
         }
 
         /* Ativação do Modal */
-        .modal-bg.active { opacity: 1; visibility: visible; }
-        .modal-bg.active .modal { transform: translateY(0); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
 
-        /* Componentes internos do Modal */
-        .modal-header-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 5px;
-        }
-        .modal-icon-box {
-            width: 75px;
-            height: 75px;
-            background: var(--box-bg);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            border: 1px solid var(--border);
-        }
-        .modal-icon-box img {
-            width: 65px;
-            height: 65px;
-            object-fit: contain;
-        }
-        .modal-header-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .modal-header-info h2 {
-            margin: 0;
-            font-size: 24px;
-            text-align: left;
-            color: var(--text);
-            font-weight: bold;
-        }
-        .modal-rarity-text {
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        /* Cores de texto dinâmicas para raridade */
-        .modal.common .modal-rarity-text { color: var(--color-comum); }
-        .modal.uncommon .modal-rarity-text { color: var(--color-incomum); }
-        .modal.rare .modal-rarity-text { color: var(--color-raro); }
-        .modal.epic .modal-rarity-text { color: var(--color-epico); }
-        .modal.legendary .modal-rarity-text { color: var(--color-lendario); }
-
-        /* Seção Categoria */
-        .modal-cat-section {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            align-self: flex-start;
-            gap: 6px;
-        }
-        .modal-cat-title {
-            color: #555;
-            font-weight: bold;
-            font-size: 10px;
-            text-transform: uppercase;
-            text-align: center;
-            width: 100%;
-        }
-        .modal-cat-box {
-            background: var(--modal-box-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 16px;
-            font-weight: bold;
-            color: var(--text);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-        }
-
-        /* Divisores */
-        hr.modal-divider {
-            width: 100%;
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 5px 0;
-            opacity: 1;
-        }
-
-        /* Estilo genérico das Seções */
-        .section {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .section-title {
-            font-weight: bold;
-            text-align: left;
-            color: #555;
-            font-size: 10px;
-            text-transform: uppercase;
-        }
-        .modal-drop-title {
-            color: #555 !important;
-            font-size: 10px !important;
-            text-align: center !important;
-            text-transform: uppercase !important;
-        }
-
-        /* Apenas a seção Onde Obter mantém a Box */
-        .drop-box {
-            background: var(--modal-box-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px;
-            color: var(--text);
-            min-height: 50px;
-            box-sizing: border-box;
-        }
-
-        /* Conteúdo sem box para Descrição e Detalhes */
-        .text-content {
-            color: var(--text);
-            line-height: 1.5;
+        .modal-desc {
+            font-size: 15px; line-height: 1.6;
+            color: var(--text); border-top: 1px solid var(--border);
+            padding-top: 15px;
+            text-align: justify;
         }
 
         @media (min-width: 769px) {
-            .modal-bg { align-items: center; }
-            .modal {
-                width: 90%; max-width: 460px; height: auto; max-height: 85vh; 
-                border-radius: 14px; border: 4px solid;
+            .modal-overlay { align-items: center; }
+            .modal-content {
+                width: 600px; /* Aumentado conforme solicitado */
+                height: auto; max-height: 80vh; border-radius: 20px;
                 transform: translateY(20px); opacity: 0; transition: all 0.3s;
             }
-            .modal-bg.active .modal { transform: translateY(0); opacity: 1; }
+            .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
         }
 
-        /* --- Toggle Linguagem --- */
+        /* --- Estilo Botão Animon Move --- */
+        .find-animon-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: opacity 0.2s;
+        }
+        .find-animon-btn:hover { opacity: 0.9; }
+
+        /* --- Upgrade Skills Styling --- */
+        .upgrade-section {
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+        }
+        .upgrade-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .mini-move-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--hover);
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 10px;
+            min-width: 0;
+            color: var(--text);
+            position: relative;
+            cursor: pointer;
+        }
+        .mini-move-name {
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0 5px;
+            color: var(--text);
+        }
+        .mini-icon { width: 18px; height: 18px; object-fit: contain; }
+        .mini-icon-cat { filter: grayscale(0.5); opacity: 0.8; }
+        .arrow-right { color: var(--text); font-weight: bold; }
+
+        /* Design do Balão (IGUAL AO TEAM BUILDER) */
+        .move-balloon { 
+            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); 
+            margin-bottom: 8px; background: var(--card); border: 1px solid var(--border); 
+            border-radius: 10px; padding: 8px 12px; font-size: 13px; text-align: left; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25); z-index: 60; animation: fadeIn 0.2s ease; 
+            white-space: nowrap; color: var(--text); 
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+        /* --- Modal Secundário (Animons que aprendem) --- */
+        .secondary-modal-content {
+            background: var(--card);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Container do Título solicitado */
+        .modal-title-container {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 5px;
+        }
+
+        /* --- Botões de Tab no Modal de Animons --- */
+        .animon-tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            background: var(--hover);
+            color: var(--text);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+        .tab-btn:disabled, .tab-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .close-animon-list {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none; /* Só aparece no Mobile */
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .animon-modal-full {
+                height: 100% !important;
+                border-radius: 0 !important;
+            }
+            .close-animon-list { display: block; }
+        }
+
+        .animon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .animon-item img { width: 40px; height: 40px; object-fit: contain; }
+        .animon-item-info { flex: 1; }
+        .animon-item-name { font-weight: bold; }
+        .animon-item-level { font-size: 12px; color: var(--text-secondary); }
+
         .lang-toggle {
             position: fixed; bottom: 10px; left: 50%;
             transform: translateX(-50%); z-index: 10;
         }
         .lang-toggle button {
-            background: var(--lang-btn-bg); color: var(--lang-btn);
+            background: var(--text); color: var(--card);
             padding: 8px 14px; border-radius: 20px; border: none;
             cursor: pointer; font-weight: bold;
         }
 
-        /* --- Responsividade --- */
         @media (max-width: 768px) {
-            .header-top { justify-content: flex-end; }
+            /* AJUSTE HEADER MOBILE */
+            .header { justify-content: flex-end; }
             .logo { width: 150px; }
-            .item-list, .filters, .header { max-width: 100%; }
 
-            #categorySelect { max-width: 52%; }
-            #raritySelect { max-width: 44%; }
-
+            .custom-select { max-width: 48%; }
             #searchInput { width: 100%; }
-            .item-list { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
-
 <body>
 
 <header class="header">
-    <div class="header-top">
-        <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
-    </div>
-    <h2 class="map-title" id="title"></h2>
+    <img src="assets/Pocket-Anime-logo.png" class="logo" alt="Logo">
 </header>
+
+<h2 class="map-title" id="pageTitle"></h2>
 
 <main>
     <div class="filters">
         <input id="searchInput" type="text">
 
-        <div class="custom-select" id="categorySelect">
-            <div class="select-btn" id="categoryBtn"></div>
-            <ul class="select-list" id="categoryList"></ul>
+        <div class="custom-select">
+            <div class="select-btn" id="typeBtn"></div>
+            <ul class="select-list" id="typeList"></ul>
         </div>
 
-        <div class="custom-select" id="raritySelect">
-            <div class="select-btn" id="rarityBtn"></div>
-            <ul class="select-list" id="rarityList"></ul>
+        <div class="custom-select">
+            <div class="select-btn" id="catBtn"></div>
+            <ul class="select-list" id="catList"></ul>
         </div>
     </div>
 
-    <div class="item-list" id="itemList"></div>
+    <div class="moves-list" id="movesList"></div>
 </main>
 
-<div class="modal-bg" id="modalBg" onclick="closeModal()">
-    <div class="modal" id="modal" onclick="event.stopPropagation()">
-        
-        <!-- Topo do Modal (Ícone + Nome + Raridade) -->
-        <div class="modal-header-container">
-            <div class="modal-icon-box">
-                <img id="mIcon" src="" alt="Item Icon">
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div id="modalData"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+        <div id="upgradeContainer"></div>
+        <button id="findAnimonBtn" class="find-animon-btn"></button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="animonModalOverlay" onclick="closeAnimonModal()" style="z-index: 1100;">
+    <div class="modal-content secondary-modal-content animon-modal-full" onclick="event.stopPropagation()">
+        <span class="close-animon-list" onclick="closeAnimonModal()">✕</span>
+        <div class="modal-title-container">
+            <h3 id="animonModalTitle" style="margin-top: 10px; text-align: center;"></h3>
+            <div class="animon-tab-buttons">
+                <button id="btnTabLevel" class="tab-btn active" onclick="switchAnimonTab('level')">Level</button>
+                <button id="btnTabScroll" class="tab-btn" onclick="switchAnimonTab('scroll')">Scroll</button>
+                <button id="btnTabFuture" class="tab-btn disabled" disabled>???</button>
             </div>
-            <div class="modal-header-info">
-                <h2 id="mName"></h2>
-                <div class="modal-rarity-text" id="mRarity"></div>
-            </div>
         </div>
-
-        <!-- Seção Categoria -->
-        <div class="modal-cat-section">
-            <div class="modal-cat-title" id="lblCat"></div>
-            <div class="modal-cat-box" id="mCat"></div>
-        </div>
-
-        <!-- Linha Divisora -->
-        <hr class="modal-divider">
-
-        <!-- Seção Descrição (sem Box) -->
-        <div class="section">
-            <div class="section-title" id="lblDesc"></div>
-            <div class="text-content" id="mDesc"></div>
-        </div>
-
-        <!-- Seção Detalhes (sem Box) -->
-        <div class="section" id="detailsSection">
-            <div class="section-title" id="lblDetails"></div>
-            <div class="text-content" id="mDetails"></div>
-        </div>
-
-        <!-- Linha Divisora abaixo de Detalhes -->
-        <hr class="modal-divider">
-
-        <!-- Seção Onde Obter (com Box) -->
-        <div class="section">
-            <div class="section-title modal-drop-title" id="lblDrop"></div>
-            <div class="drop-box" id="mDrop"></div>
-        </div>
-
+        <div id="animonListContainer" style="overflow-y: auto; flex: 1;"></div>
     </div>
 </div>
 
@@ -481,196 +499,485 @@
     <button id="langBtn"></button>
 </div>
 
-<script src="database/items-data.js"></script>
-
+<script src="utils/color-parser.js"></script>
+<script src="database/attributes.js"></script>
+<script src="database/moves.js"></script>
+<script src="database/animons.js"></script> 
 <script>
 let lang = localStorage.getItem("siteLang") || "pt";
-let selectedCategory = "";
-let selectedRarity = "";
+let selectedType = "";
+let selectedCat = "";
+let currentAnimonMove = "";
+let currentAnimonTab = "level";
+let openedMoveBalloon = null;
 
-const rarityOrder = { common: 1, uncommon: 2, rare: 3, epic: 4, legendary: 5 };
+function getMoveAttributes(moveName) {
+    let attrs = [];
+    if (!moveName || typeof tagsMoves === 'undefined') return attrs;
+    const cleanName = moveName.trim().toLowerCase();
+    tagsMoves.forEach(obj => {
+        for (let attr in obj) {
+            if (obj[attr].some(m => m.trim().toLowerCase() === cleanName)) {
+                attrs.push(attr);
+            }
+        }
+    });
+    return attrs;
+}
 
 const texts = {
     pt: {
-        title: "Lista de Itens", search: "Pesquisar item...",
-        allCat: "Todas as categorias", allRare: "Todas raridades",
-        desc: "Descrição", details: "Detalhes", drop: "Onde Obter", cat: "Categoria", langBtn: "🇧🇷 PT"
+        title: "Moves Database",
+        allTypes: "Todos os Tipos",
+        allCats: "Categorias",
+        search: "Pesquisar Move...",
+        tipoLabel: "Tipo",
+        physical: "Physical", special: "Special", status: "Status", transformation: "Transformation",
+        langBtn: "🇧🇷 PT",
+        pwr: "PWR", acc: "ACC", pp: "PP",
+        descLabel: "Descrição",
+        detLabel: "Detalhes",
+        upgradeLabel: "Ataque Evoluído",
+        btnFind: "Animons que aprende esse Move",
+        listHeader: "Animons que aprendem ",
+        tabLevel: "Nível",
+        tabScroll: "Scroll",
+        battleInfo: "Informações de Batalha",
+        attributesLabel: "Atributos:",
+        propertiesLabel: "Propriedades:",
+        noAttributes: "Não há atributos",
+        priorityLabel: "Prioridade"
     },
     en: {
-        title: "Item List", search: "Search item...",
-        allCat: "All categories", allRare: "All rarities",
-        desc: "Description", details: "Details", drop: "How to obtain", cat: "Category", langBtn: "🇺🇸 EN"
+        title: "Moves Database",
+        allTypes: "All Types",
+        allCats: "Categories",
+        search: "Search Move...",
+        tipoLabel: "Type",
+        physical: "Physical", special: "Special", status: "Status", transformation: "Transformation",
+        langBtn: "🇺🇸 EN",
+        pwr: "PWR", acc: "ACC", pp: "PP",
+        descLabel: "Description",
+        detLabel: "Details",
+        upgradeLabel: "Upgrade Skill",
+        btnFind: "Animons that learn these Moves",
+        listHeader: "Animons that learn ",
+        tabLevel: "Level",
+        tabScroll: "Scroll",
+        battleInfo: "Battle Information",
+        attributesLabel: "Attributes:",
+        propertiesLabel: "Properties:",
+        noAttributes: "No attributes",
+        priorityLabel: "Priority"
     }
 };
 
-const categoryKeys = ["evolution", "battle", "key", "status", "medical", "misc", "capture", "scroll"];
+const typeKeys = ["neutral", "fighting", "fire", "water", "nature", "earth", "wind", "ice", "lightning", "soul", "psychic", "poison", "light", "dark", "demon", "beast"];
+const catKeys = ["physical", "special", "status", "transformation"];
 
-const categoryLabels = {
-    pt: { evolution: "Item de Evolução", battle: "Item de Batalha", key: "Item Chave", status: "Item de Status", medical: "Item Médico", misc: "Item Diverso", capture: "Item de Captura", scroll: "Scroll de Habilidade" },
-    en: { evolution: "Evolution Item", battle: "Battle Item", key: "Key Item", status: "Status Item", medical: "Medical Item", misc: "Miscellaneous Item", capture: "Capture Item", scroll: "Skill Scroll" }
-};
-
-const categoryIcons = {
-    all: "assets/icons_categories/all_categories_icon.png",
-    evolution: "assets/icons_categories/evolution_item_icon.png",
-    battle: "assets/icons_categories/battle_item_icon.png",
-    key: "assets/icons_categories/key_item_icon.png",
-    status: "assets/icons_categories/status_item_icon.png",
-    medical: "assets/icons_categories/medical_item_icon.png",
-    misc: "assets/icons_categories/miscellaneous_item_icon.png",
-    capture: "assets/icons_categories/capture_item_icon.png",
-    scroll: "assets/icons_categories/skill_scroll_icon.png"
-};
-
-const rarityLabels = {
-    pt: { common: "Comum", uncommon: "Incomum", rare: "Raro", epic: "Épico", legendary: "Lendário" },
-    en: { common: "Common", uncommon: "Uncommon", rare: "Rare", epic: "Epic", legendary: "Legendary" }
-};
+function capitalize(str) {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
 function render() {
     const searchVal = document.getElementById("searchInput").value.toLowerCase();
-    const listEl = document.getElementById("itemList");
+    const listEl = document.getElementById("movesList");
     listEl.innerHTML = "";
 
-    const filteredItems = items
-        .filter(item => {
-            const matchesSearch = !searchVal || item.name.toLowerCase().includes(searchVal);
-            const matchesCat = !selectedCategory || item.cat === selectedCategory;
-            const matchesRarity = !selectedRarity || item.rarity === selectedRarity;
-            return matchesSearch && matchesCat && matchesRarity;
-        })
-        .sort((a, b) => {
-            const rDiff = rarityOrder[a.rarity] - rarityOrder[b.rarity];
-            return rDiff !== 0 ? rDiff : a.name.localeCompare(b.name);
-        });
+    const movesArray = Object.values(moves);
 
-    filteredItems.forEach(item => {
-        const data = item[lang];
-        const div = document.createElement("div");
-        div.className = `item ${item.rarity}`;
-        const iconSrc = item.icon ? `assets/items/${item.icon}` : "assets/sem_icone.png";
+    // ALTERAÇÃO: Ordem alfabética aplicada aqui
+    movesArray.sort((a, b) => a.name.localeCompare(b.name));
 
-        div.innerHTML = `
-            <img src="${iconSrc}" alt="${item.name}">
-            <strong>${item.name}</strong>
+    const filtered = movesArray.filter(m => {
+        const nameMatch = m.name.toLowerCase().includes(searchVal);
+        const typeMatch = !selectedType || m.type.toLowerCase() === selectedType;
+        const catMatch = !selectedCat || m.attack.toLowerCase() === selectedCat;
+        return nameMatch && typeMatch && catMatch;
+    });
+
+    filtered.forEach(m => {
+        const cat = m.attack.toLowerCase();
+        const card = document.createElement("div");
+        card.className = "move-card";
+        card.innerHTML = `
+            <div class="move-header">
+                <div class="move-name">${m.name}</div>
+                <div class="move-stats">
+                    <div><span class="stat-label">${texts[lang].pwr}</span><span>${'power' in m ? (m.power || '--') : '??'}</span></div>
+                    <div><span class="stat-label">${texts[lang].acc}</span><span>${'accuracy' in m ? (m.accuracy || '--') : '??'}</span></div>
+                    <div><span class="stat-label">${texts[lang].pp}</span><span>${m.pp || '--'}</span></div>
+                </div>
+            </div>
+            <div class="move-tags">
+                <div class="type-badge" style="--type-color: var(--element-${m.type.toLowerCase()})">
+                    <div class="type-label">${texts[lang].tipoLabel}</div>
+                    <div class="type-name">${m.type}</div>
+                </div>
+                <div class="category-badge" style="--cat-color: var(--cat-${cat})">
+                    ${texts[lang][cat]}
+                </div>
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+            </div>
         `;
-        div.onclick = () => openModal(item);
-        listEl.appendChild(div);
+        card.onclick = () => openModal(m);
+        listEl.appendChild(card);
     });
 }
 
-function openModal(item) {
-    const data = item[lang];
-    const modal = document.getElementById("modal");
-    const modalBg = document.getElementById("modalBg");
+/* --- SISTEMA DE BALÃO PARA OS MOVES --- */
+function toggleMoveBalloon(moveDiv) {
+    if (openedMoveBalloon) { closeMoveBalloonOnce(); }
+    const power = moveDiv.dataset.power, acc = moveDiv.dataset.acc, desc = moveDiv.dataset.desc;
+    const balloon = document.createElement("div");
+    balloon.className = "move-balloon";
+    let contentHtml = (desc && desc !== "undefined") ? `<div style="white-space: normal; max-width: 200px; margin-bottom: 6px; text-align: justify;">${parseColoredText(desc)}</div>` : "";
+    contentHtml += `<div style="text-align: center;"><span style="color: #ee5047;"><b>Power:</b> ${power}</span> &nbsp;|&nbsp; <span style="color: #fde4a1;"><b>Accuracy:</b> ${acc}</span></div>`;
+    balloon.innerHTML = contentHtml;
+    moveDiv.appendChild(balloon);
+    openedMoveBalloon = balloon;
+    setTimeout(() => { document.addEventListener("click", closeMoveBalloonOnce, true); }, 0);
+}
 
-    modal.className = `modal ${item.rarity}`;
-    
-    // Ícone e Detalhes
-    const iconSrc = item.icon ? `assets/items/${item.icon}` : "assets/sem_icone.png";
-    document.getElementById("mIcon").src = iconSrc;
-    document.getElementById("mName").textContent = item.name;
-    document.getElementById("mRarity").textContent = rarityLabels[lang][item.rarity] || item.rarity;
+function closeMoveBalloonOnce(e) { 
+    if (openedMoveBalloon) { 
+        if (e && e.target && openedMoveBalloon.contains(e.target)) return;
+        openedMoveBalloon.remove(); 
+        openedMoveBalloon = null; 
+    } 
+    document.removeEventListener("click", closeMoveBalloonOnce, true);
+}
 
-    document.getElementById("mDesc").innerHTML = parseColoredText(data.desc);
-    document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
-    document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
+// Helper para renderizar os mini containers de move
+function renderMiniMove(moveName) {
+    const moveData = Object.values(moves).find(m => m.name === moveName);
+    if (!moveData) return `<div class="mini-move-container">?</div>`;
 
-    const detailsSec = document.getElementById("detailsSection");
-    if (data.details) {
-        document.getElementById("mDetails").innerHTML = parseColoredText(data.details);
-        detailsSec.style.display = "flex";
-    } else {
-        detailsSec.style.display = "none";
+    const typeImg = `assets/elements/${moveData.type.toLowerCase()}_element.png`;
+    const catImg = `assets/${moveData.attack.toLowerCase()}.png`;
+
+    const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
+    const descRaw = (descKey in moveData && moveData[descKey]) ? moveData[descKey] : '??';
+    const pwr = ('power' in moveData && moveData.power !== null && moveData.power !== undefined) ? (moveData.power || '--') : '??';
+    const acc = ('accuracy' in moveData && moveData.accuracy !== null && moveData.accuracy !== undefined) ? (moveData.accuracy || '--') : '??';
+
+    const cleanDesc = String(descRaw).replace(/"/g, '&quot;');
+
+    return `
+        <div class="mini-move-container" 
+             data-power="${pwr}" 
+             data-acc="${acc}" 
+             data-desc="${cleanDesc}" 
+             onclick="event.stopPropagation(); toggleMoveBalloon(this)">
+            <img src="${typeImg}" class="mini-icon">
+            <span class="mini-move-name">${moveData.name}</span>
+            <img src="${catImg}" class="mini-icon mini-icon-cat">
+        </div>
+    `;
+}
+
+function openModal(move) {
+    closeMoveBalloonOnce();
+    const modal = document.getElementById("modalOverlay");
+    const dataContainer = document.getElementById("modalData");
+    const descContainer = document.getElementById("modalDesc");
+    const upgradeContainer = document.getElementById("upgradeContainer");
+    const findBtn = document.getElementById("findAnimonBtn");
+    const cat = move.attack.toLowerCase();
+
+    dataContainer.innerHTML = `
+        <div class="move-header">
+            <div class="move-name" style="font-size:24px">${move.name}</div>
+            <div class="move-stats">
+                <div><span class="stat-label">${texts[lang].pwr}</span><span>${'power' in move ? (move.power || '--') : '??'}</span></div>
+                <div><span class="stat-label">${texts[lang].acc}</span><span>${'accuracy' in move ? (move.accuracy || '--') : '??'}</span></div>
+                <div><span class="stat-label">${texts[lang].pp}</span><span>${move.pp || '--'}</span></div>
+            </div>
+        </div>
+        <div class="move-tags">
+            <div class="type-badge" style="--type-color: var(--element-${move.type.toLowerCase()})">
+                <div class="type-label">${texts[lang].tipoLabel}</div>
+                <div class="type-name">${move.type}</div>
+            </div>
+            <div class="category-badge" style="--cat-color: var(--cat-${cat})">
+                ${texts[lang][cat]}
+            </div>
+        </div>
+    `;
+
+    const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
+    const descRaw = descKey in move ? move[descKey] : '??';
+
+    const detKey = lang === 'pt' ? 'det_pt' : 'det_en';
+    let detHtml = "";
+    if (detKey in move && move[detKey]) {
+        detHtml = `
+            <div class="stat-label" style="text-align:left; margin-top:12px; margin-bottom:8px;">${texts[lang].detLabel}</div>
+            ${parseColoredText(move[detKey])}
+        `;
     }
 
-    modalBg.classList.add("active");
+    const moveAttrs = getMoveAttributes(move.name);
+    let attrsHtml = "";
+    if (moveAttrs.length > 0) {
+        attrsHtml = `<div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 6px;">`;
+        moveAttrs.forEach(attr => {
+            attrsHtml += `<span style="color: #64b5f6; background: rgba(100, 181, 246, 0.25); padding: 4px 12px; border-radius: 9999px; font-weight: bold; font-size: 13px;">${attr}</span>`;
+        });
+        attrsHtml += `</div>`;
+    } else {
+        attrsHtml = `<div style="color: var(--text-secondary); font-size: 13px; margin-top: 6px; font-style: italic;">${texts[lang].noAttributes}</div>`;
+    }
+
+    const priorityVal = ('priority' in move && move.priority !== undefined && move.priority !== null) ? move.priority : 0;
+    const formattedPriority = priorityVal > 0 ? `+${priorityVal}` : priorityVal;
+
+    descContainer.innerHTML = `
+        <div class="stat-label" style="text-align:left; margin-bottom:8px;">${texts[lang].descLabel}</div>
+        ${parseColoredText(descRaw)}
+        ${detHtml}
+        <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;"></div>
+        <div class="stat-label" style="text-align: center; margin-bottom: 12px;">${texts[lang].battleInfo}</div>
+        <div style="background: var(--hover); border: 1px solid var(--border); border-radius: 16px; padding: 16px; text-align: center;">
+            <div class="stat-label" style="text-align:center; margin-bottom:6px; color: var(--text);">${texts[lang].attributesLabel}</div>
+            ${attrsHtml}
+            <div class="stat-label" style="text-align:center; margin-top:14px; margin-bottom:6px; color: var(--text);">${texts[lang].propertiesLabel}</div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); padding: 10px 16px; border-radius: 9999px; font-weight: bold; font-size: 13px; width: 100%; box-sizing: border-box; margin-top: 6px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-secondary);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span style="color: var(--text-secondary);">${texts[lang].priorityLabel}:</span>
+                <span style="color: #64b5f6;">${formattedPriority}</span>
+            </div>
+        </div>
+    `;
+
+    // Lógica de Upgrades (Ataque Evoluído)
+    upgradeContainer.innerHTML = "";
+    if (move.moveTrigger && move.moveTrigger.length > 0) {
+        let html = `<div class="upgrade-section">
+            <div class="stat-label" style="text-align:left; margin-bottom:10px;">${texts[lang].upgradeLabel}</div>`;
+
+        move.moveTrigger.forEach(t => {
+            html += `
+                <div class="upgrade-row">
+                    ${renderMiniMove(t.move)}
+                    <span class="arrow-right">➜</span>
+                    ${renderMiniMove(t.trade)}
+                </div>
+            `;
+        });
+        html += `</div>`;
+        upgradeContainer.innerHTML = html;
+    }
+
+    findBtn.textContent = texts[lang].btnFind;
+    findBtn.onclick = () => openAnimonListModal(move.name);
+
+    modal.classList.add("active");
 }
 
 function closeModal() {
-    document.getElementById("modalBg").classList.remove("active");
+    closeMoveBalloonOnce();
+    document.getElementById("modalOverlay").classList.remove("active");
 }
 
-function updateLang() {
-    const t = texts[lang];
-    document.getElementById("title").textContent = t.title;
-    document.getElementById("searchInput").placeholder = t.search;
-    document.getElementById("lblDesc").textContent = t.desc;
-    document.getElementById("lblDetails").textContent = t.details;
-    document.getElementById("lblDrop").textContent = t.drop;
-    document.getElementById("lblCat").textContent = t.cat;
-    document.getElementById("langBtn").textContent = t.langBtn;
+/* --- Funções para o Segundo Modal (Animons) --- */
+function openAnimonListModal(moveName) {
+    currentAnimonMove = moveName;
+    currentAnimonTab = "level";
 
-    buildCategoryMenu();
-    buildRarityMenu();
+    const overlay = document.getElementById("animonModalOverlay");
+    const title = document.getElementById("animonModalTitle");
+
+    title.textContent = texts[lang].listHeader + moveName;
+
+    // Verifica se existe algum Animon com move de Scroll (level: "sc")
+    const hasScrollAnimons = animons.some(a => 
+        a.movesList && a.movesList.some(m => m.name === moveName && m.level === "sc")
+    );
+
+    const btnScroll = document.getElementById("btnTabScroll");
+    if (hasScrollAnimons) {
+        btnScroll.disabled = false;
+        btnScroll.classList.remove("disabled");
+    } else {
+        btnScroll.disabled = true;
+        btnScroll.classList.add("disabled");
+    }
+
+    renderAnimonList();
+    overlay.classList.add("active");
+}
+
+function switchAnimonTab(tab) {
+    if (tab === "scroll") {
+        const hasScrollAnimons = animons.some(a => 
+            a.movesList && a.movesList.some(m => m.name === currentAnimonMove && m.level === "sc")
+        );
+        if (!hasScrollAnimons) return;
+    }
+    currentAnimonTab = tab;
+    renderAnimonList();
+}
+
+function renderAnimonList() {
+    const container = document.getElementById("animonListContainer");
+    const btnLevel = document.getElementById("btnTabLevel");
+    const btnScroll = document.getElementById("btnTabScroll");
+
+    if (currentAnimonTab === "level") {
+        btnLevel.classList.add("active");
+        btnScroll.classList.remove("active");
+    } else if (currentAnimonTab === "scroll") {
+        btnScroll.classList.add("active");
+        btnLevel.classList.remove("active");
+    }
+
+    container.innerHTML = "";
+
+    if (currentAnimonTab === "level") {
+        const results = animons.filter(a => 
+            a.movesList && a.movesList.some(m => m.name === currentAnimonMove && m.level !== "sc")
+        );
+
+        if (results.length === 0) {
+            container.innerHTML = `<p style="text-align:center; padding: 20px;">None found.</p>`;
+        } else {
+            results.forEach(a => {
+                const moveInfo = a.movesList.find(m => m.name === currentAnimonMove && m.level !== "sc");
+                const item = document.createElement("div");
+                item.className = "animon-item";
+                item.innerHTML = `
+                    <img src="${a.sprite}" onerror="this.src='assets/placeholder.png'">
+                    <div class="animon-item-info">
+                        <div class="animon-item-name">${a.name}</div>
+                        <div class="animon-item-level">Level: ${moveInfo.level}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+    } else if (currentAnimonTab === "scroll") {
+        const results = animons.filter(a => 
+            a.movesList && a.movesList.some(m => m.name === currentAnimonMove && m.level === "sc")
+        );
+
+        const moveData = moves[currentAnimonMove] || Object.values(moves).find(m => m.name === currentAnimonMove);
+        const scrollNum = (moveData && moveData.scroll !== undefined) ? moveData.scroll : "";
+
+        if (results.length === 0) {
+            container.innerHTML = `<p style="text-align:center; padding: 20px;">None found.</p>`;
+        } else {
+            results.forEach(a => {
+                const item = document.createElement("div");
+                item.className = "animon-item";
+                item.innerHTML = `
+                    <img src="${a.sprite}" onerror="this.src='assets/placeholder.png'">
+                    <div class="animon-item-info">
+                        <div class="animon-item-name">${a.name}</div>
+                        <div class="animon-item-level">sc${scrollNum}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+    }
+}
+
+function closeAnimonModal() {
+    document.getElementById("animonModalOverlay").classList.remove("active");
+}
+
+function buildMenus() {
+    const tList = document.getElementById("typeList");
+    tList.innerHTML = `<li onclick="selectType('')">${texts[lang].allTypes}</li>`;
+    typeKeys.forEach(t => {
+        const li = document.createElement("li");
+        li.innerHTML = `<img src="assets/elements/${t}_element.png" width="20"> ${capitalize(t)}`;
+        li.onclick = () => selectType(t);
+        tList.appendChild(li);
+    });
+
+    const cList = document.getElementById("catList");
+    cList.innerHTML = `<li onclick="selectCat('')">${texts[lang].allCats}</li>`;
+    catKeys.forEach(c => {
+        const li = document.createElement("li");
+        li.innerHTML = `<img src="assets/${c}.png" width="20" onerror="this.style.display='none'"> ${texts[lang][c]}`;
+        li.onclick = () => selectCat(c);
+        cList.appendChild(li);
+    });
+}
+
+function selectType(t) {
+    selectedType = t;
     updateFilterButtonsDisplay();
+    closeAllSelects();
     render();
 }
 
-function buildCategoryMenu() {
-    const list = document.getElementById("categoryList");
-    list.innerHTML = `<li data-value="">${texts[lang].allCat}</li>`;
-
-    categoryKeys.forEach(key => {
-        const li = document.createElement("li");
-        li.dataset.value = key;
-        li.innerHTML = `<img src="${categoryIcons[key]}" class="category-icon"> ${categoryLabels[lang][key]}`;
-        li.onclick = () => selectCategory(key);
-        list.appendChild(li);
-    });
-    list.firstChild.onclick = () => selectCategory("");
-}
-
-function buildRarityMenu() {
-    const list = document.getElementById("rarityList");
-    list.innerHTML = `<li data-value="">${texts[lang].allRare}</li>`;
-
-    Object.keys(rarityOrder).forEach(r => {
-        const li = document.createElement("li");
-        li.className = `r-${r}`;
-        li.textContent = rarityLabels[lang][r];
-        li.onclick = () => selectRarity(r);
-        list.appendChild(li);
-    });
-    list.firstChild.onclick = () => selectRarity("");
+function selectCat(c) {
+    selectedCat = c;
+    updateFilterButtonsDisplay();
+    closeAllSelects();
+    render();
 }
 
 function updateFilterButtonsDisplay() {
-    const cBtn = document.getElementById("categoryBtn");
-    const rBtn = document.getElementById("rarityBtn");
+    const tBtn = document.getElementById("typeBtn");
+    const cBtn = document.getElementById("catBtn");
 
-    if (selectedCategory) {
-        cBtn.innerHTML = `<span><img src="${categoryIcons[selectedCategory]}" class="category-icon"> ${categoryLabels[lang][selectedCategory]}</span> <span style="font-size:10px;">▼</span>`;
+    if (selectedType) {
+        tBtn.innerHTML = `<span><img src="assets/elements/${selectedType}_element.png" width="18"> ${capitalize(selectedType)}</span> <span>▼</span>`;
     } else {
-        cBtn.innerHTML = `<span>${texts[lang].allCat}</span> <span style="font-size:10px;">▼</span>`;
+        tBtn.innerHTML = `<span>${texts[lang].allTypes}</span> <span>▼</span>`;
     }
 
-    if (selectedRarity) {
-        rBtn.innerHTML = `<span>${rarityLabels[lang][selectedRarity]}</span> <span style="font-size:10px;">▼</span>`;
+    if (selectedCat) {
+        cBtn.innerHTML = `<span><img src="assets/${selectedCat}.png" width="18" onerror="this.style.display='none'"> ${texts[lang][selectedCat]}</span> <span>▼</span>`;
     } else {
-        rBtn.innerHTML = `<span>${texts[lang].allRare}</span> <span style="font-size:10px;">▼</span>`;
+        cBtn.innerHTML = `<span>${texts[lang].allCats}</span> <span>▼</span>`;
     }
-
-    rBtn.className = "select-btn" + (selectedRarity ? ` r-${selectedRarity}` : "");
-}
-
-function selectCategory(val) {
-    selectedCategory = val;
-    closeAllSelects();
-    updateFilterButtonsDisplay();
-    render();
-}
-
-function selectRarity(val) {
-    selectedRarity = val;
-    closeAllSelects();
-    updateFilterButtonsDisplay();
-    render();
 }
 
 function closeAllSelects() {
-    document.getElementById("categoryList").style.display = "none";
-    document.getElementById("rarityList").style.display = "none";
+    document.querySelectorAll(".select-list").forEach(l => l.style.display = "none");
+}
+
+document.getElementById("typeBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("typeList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.getElementById("catBtn").onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById("catList");
+    const isVisible = list.style.display === "block";
+    closeAllSelects();
+    list.style.display = isVisible ? "none" : "block";
+};
+
+document.addEventListener("click", closeAllSelects);
+
+// --- SISTEMA DE TRADUÇÃO (IGUAL AO INDEX.HTML) ---
+function updateLang() {
+    const t = texts[lang];
+    document.getElementById("pageTitle").textContent = t.title;
+    document.getElementById("searchInput").placeholder = t.search;
+    document.getElementById("langBtn").textContent = t.langBtn;
+
+    const btnLevel = document.getElementById("btnTabLevel");
+    const btnScroll = document.getElementById("btnTabScroll");
+    if (btnLevel) btnLevel.textContent = t.tabLevel;
+    if (btnScroll) btnScroll.textContent = t.tabScroll;
+
+    buildMenus();
+    updateFilterButtonsDisplay();
+    render();
 }
 
 document.getElementById("langBtn").onclick = () => {
@@ -680,28 +987,9 @@ document.getElementById("langBtn").onclick = () => {
     if (typeof updateMenuLang === "function") updateMenuLang();
 };
 
-document.getElementById("categoryBtn").onclick = (e) => {
-    e.stopPropagation();
-    const list = document.getElementById("categoryList");
-    const isVisible = list.style.display === "block";
-    closeAllSelects();
-    list.style.display = isVisible ? "none" : "block";
-};
+document.getElementById("searchInput").oninput = render;
 
-document.getElementById("rarityBtn").onclick = (e) => {
-    e.stopPropagation();
-    const list = document.getElementById("rarityList");
-    const isVisible = list.style.display === "block";
-    closeAllSelects();
-    list.style.display = isVisible ? "none" : "block";
-};
-
-document.addEventListener("click", (e) => {
-    if (!e.target.closest('.custom-select')) closeAllSelects();
-});
-
-document.getElementById("searchInput").addEventListener("input", render);
-
+// Inicialização
 updateLang();
 </script>
 
