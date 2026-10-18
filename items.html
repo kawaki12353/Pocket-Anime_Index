@@ -323,9 +323,9 @@
             <div id="mDesc"></div>
         </div>
 
-        <div class="section" id="noteSection">
-            <div class="section-title" id="lblNote"></div>
-            <div id="mNote"></div>
+        <div class="section" id="detailsSection">
+            <div class="section-title" id="lblDetails"></div>
+            <div id="mDetails"></div>
         </div>
 
         <div class="section">
@@ -357,12 +357,12 @@ const texts = {
     pt: {
         title: "Lista de Itens", search: "Pesquisar item...",
         allCat: "Todas as categorias", allRare: "Todas raridades",
-        desc: "Descrição", note: "Nota", drop: "Onde Obter", cat: "Categoria", langBtn: "🇧🇷 PT"
+        desc: "Descrição", details: "Detalhes", drop: "Onde Obter", cat: "Categoria", langBtn: "🇧🇷 PT"
     },
     en: {
         title: "Item List", search: "Search item...",
         allCat: "All categories", allRare: "All rarities",
-        desc: "Description", note: "Note", drop: "How to obtain", cat: "Category", langBtn: "🇺🇸 EN"
+        desc: "Description", details: "Details", drop: "How to obtain", cat: "Category", langBtn: "🇺🇸 EN"
     }
 };
 
@@ -433,12 +433,12 @@ function openModal(item) {
     document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
     document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
 
-    const noteSec = document.getElementById("noteSection");
-    if (data.note) {
-        document.getElementById("mNote").innerHTML = parseColoredText(data.note);
-        noteSec.style.display = "block";
+    const detailsSec = document.getElementById("detailsSection");
+    if (data.details) {
+        document.getElementById("mDetails").innerHTML = parseColoredText(data.details);
+        detailsSec.style.display = "block";
     } else {
-        noteSec.style.display = "none";
+        detailsSec.style.display = "none";
     }
 
     modalBg.classList.add("active");
@@ -453,7 +453,7 @@ function updateLang() {
     document.getElementById("title").textContent = t.title;
     document.getElementById("searchInput").placeholder = t.search;
     document.getElementById("lblDesc").textContent = t.desc;
-    document.getElementById("lblNote").textContent = t.note;
+    document.getElementById("lblDetails").textContent = t.details;
     document.getElementById("lblDrop").textContent = t.drop;
     document.getElementById("lblCat").textContent = t.cat;
     document.getElementById("langBtn").textContent = t.langBtn;
