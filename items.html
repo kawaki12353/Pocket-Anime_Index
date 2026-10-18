@@ -25,6 +25,7 @@
             --lang-btn: #ffffff;
             --lang-btn-bg: #444;
             --accent-blue: #007bff;
+            --box-bg: rgba(0, 0, 0, 0.04);
 
             /* Cores de Raridade */
             --color-comum: #9e9e9e;
@@ -44,6 +45,7 @@
                 --hover: #232836;
                 --lang-btn: #111;
                 --lang-btn-bg: #ffffff;
+                --box-bg: #0f1217;
             }
         }
 
@@ -218,7 +220,7 @@
             border-left-width: 6px !important;
         }
 
-        /* --- MODAL (SISTEMA MOVES.HTML) --- */
+        /* --- MODAL (NOVO DESIGN) --- */
         .modal-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); z-index: 1000;
@@ -226,35 +228,128 @@
             opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .modal {
-            background: var(--card); width: 100%; height: 65%;
+            background: var(--card); width: 100%; height: 85%;
             border-radius: 20px 20px 0 0; padding: 25px;
             box-sizing: border-box; position: relative;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex; flex-direction: column; gap: 20px;
+            display: flex; flex-direction: column; gap: 15px;
             overflow-y: auto;
-            border-top: 4px solid; /* Mantém indicação de raridade no mobile no topo */
+            border-top: 4px solid;
         }
 
         /* Ativação do Modal */
         .modal-bg.active { opacity: 1; visibility: visible; }
         .modal-bg.active .modal { transform: translateY(0); }
 
-        .modal h2 { text-align: center; margin-top: 0; }
-        .section { margin-bottom: 15px; }
-        .section-title { font-weight: bold; margin-bottom: 4px; color: #555; }
-        .section-title::after {
-            content: "";
-            display: block;
+        /* Componentes internos do Modal no design da imagem */
+        .modal-header-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 5px;
+        }
+        .modal-icon-box {
+            width: 75px;
+            height: 75px;
+            background: var(--box-bg);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+        .modal-icon-box img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        .modal-header-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .modal-header-info h2 {
+            margin: 0;
+            font-size: 24px;
+            text-align: left;
+            color: var(--text);
+            font-weight: bold;
+        }
+        .modal-rarity-text {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Cores de texto dinâmicas para raridade */
+        .modal.common .modal-rarity-text { color: var(--color-comum); }
+        .modal.uncommon .modal-rarity-text { color: var(--color-incomum); }
+        .modal.rare .modal-rarity-text { color: var(--color-raro); }
+        .modal.epic .modal-rarity-text { color: var(--color-epico); }
+        .modal.legendary .modal-rarity-text { color: var(--color-lendario); }
+
+        /* Seção Categoria */
+        .modal-cat-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        .modal-cat-title {
+            color: #888888;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .modal-cat-box {
+            background: var(--box-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-weight: bold;
+            color: var(--text);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        /* Divisores */
+        .modal-divider {
             width: 100%;
             height: 1px;
             background: var(--border);
-            margin-top: 2px;
+            margin: 5px 0;
+        }
+
+        /* Estilo genérico das Seções */
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .section-title {
+            font-weight: bold;
+            text-align: center;
+            color: #888888;
+            font-size: 15px;
+        }
+        .modal-drop-title {
+            color: #ffffff !important;
+        }
+        .section-box {
+            background: var(--box-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            color: var(--text);
+            min-height: 50px;
+            box-sizing: border-box;
         }
 
         @media (min-width: 769px) {
             .modal-bg { align-items: center; }
             .modal {
-                width: 90%; max-width: 460px; height: auto; max-height: 80vh; 
+                width: 90%; max-width: 460px; height: auto; max-height: 85vh; 
                 border-radius: 14px; border: 4px solid;
                 transform: translateY(20px); opacity: 0; transition: all 0.3s;
             }
@@ -316,27 +411,48 @@
 
 <div class="modal-bg" id="modalBg" onclick="closeModal()">
     <div class="modal" id="modal" onclick="event.stopPropagation()">
-        <h2 id="mName"></h2>
+        
+        <!-- Topo do Modal (Ícone + Nome + Raridade) -->
+        <div class="modal-header-container">
+            <div class="modal-icon-box">
+                <img id="mIcon" src="" alt="Item Icon">
+            </div>
+            <div class="modal-header-info">
+                <h2 id="mName"></h2>
+                <div class="modal-rarity-text" id="mRarity"></div>
+            </div>
+        </div>
 
+        <!-- Seção Categoria -->
+        <div class="modal-cat-section">
+            <div class="modal-cat-title" id="lblCat"></div>
+            <div class="modal-cat-box" id="mCat"></div>
+        </div>
+
+        <!-- Linha Divisora -->
+        <div class="modal-divider"></div>
+
+        <!-- Seção Descrição -->
         <div class="section">
             <div class="section-title" id="lblDesc"></div>
-            <div id="mDesc"></div>
+            <div class="section-box" id="mDesc"></div>
         </div>
 
+        <!-- Seção Detalhes -->
         <div class="section" id="detailsSection">
             <div class="section-title" id="lblDetails"></div>
-            <div id="mDetails"></div>
+            <div class="section-box" id="mDetails"></div>
         </div>
 
+        <!-- Linha Divisora abaixo de Detalhes -->
+        <div class="modal-divider"></div>
+
+        <!-- Seção Onde Obter -->
         <div class="section">
-            <div class="section-title" id="lblDrop"></div>
-            <div id="mDrop"></div>
+            <div class="section-title modal-drop-title" id="lblDrop"></div>
+            <div class="section-box" id="mDrop"></div>
         </div>
 
-        <div class="section">
-            <div class="section-title" id="lblCat"></div>
-            <div id="mCat"></div>
-        </div>
     </div>
 </div>
 
@@ -428,7 +544,13 @@ function openModal(item) {
     const modalBg = document.getElementById("modalBg");
 
     modal.className = `modal ${item.rarity}`;
+    
+    // Ícone e Detalhes
+    const iconSrc = item.icon ? `assets/items/${item.icon}` : "assets/sem_icone.png";
+    document.getElementById("mIcon").src = iconSrc;
     document.getElementById("mName").textContent = item.name;
+    document.getElementById("mRarity").textContent = rarityLabels[lang][item.rarity] || item.rarity;
+
     document.getElementById("mDesc").innerHTML = parseColoredText(data.desc);
     document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
     document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
@@ -436,7 +558,7 @@ function openModal(item) {
     const detailsSec = document.getElementById("detailsSection");
     if (data.details) {
         document.getElementById("mDetails").innerHTML = parseColoredText(data.details);
-        detailsSec.style.display = "block";
+        detailsSec.style.display = "flex";
     } else {
         detailsSec.style.display = "none";
     }
