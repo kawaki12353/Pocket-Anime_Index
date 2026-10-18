@@ -555,6 +555,14 @@ const animons = [
     ]
   },
   { id: 20, name: "Wuno", type: "Wind", sprite: "assets/animons-icon/wuno.png", stats: { hp: 50, atk: 37, def: 47, spAtk: 80, spDef: 65, spd: 75 }, areas: ["0023"],
+    traits: [
+      { name: "Confident", chance: "100%" },
+      { name: "Magical Protection", chance: "75%" },
+      { name: "Wind Affinity", chance: "50%" },
+      { name: "Magical Empowerment", chance: "20%" },
+      { name: "Four Leaf Fortune", chance: "5%" }],
+    desc_pt: "Eu vou me tornar o Rei Mago!",
+    desc_en: "I'm going to become the Wizard King!",
     anime: { name: "Yuno" },
     movesList: [
       { level: 1, name: "Energy Shell" },
