@@ -361,7 +361,7 @@
             box-sizing: border-box;
         }
 
-        /* Sub-box para cada item do Drop quando for array */
+        /* Sub-box para cada item do Drop (usada para múltiplos ou único drop) */
         .drop-sub-box {
             background: var(--card);
             border: 1px solid var(--border);
@@ -588,11 +588,11 @@ function openModal(item) {
 
     document.getElementById("mDesc").innerHTML = parseColoredText(data.desc);
     
-    // Tratamento para drop único ou array de múltiplos drops
+    // Tratamento unificado para drop (tanto array quanto string única ficam com a estrutura de sub-box)
     if (Array.isArray(data.drop)) {
         document.getElementById("mDrop").innerHTML = data.drop.map(d => `<div class="drop-sub-box">${parseColoredText(d)}</div>`).join('');
     } else {
-        document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
+        document.getElementById("mDrop").innerHTML = `<div class="drop-sub-box">${parseColoredText(data.drop)}</div>`;
     }
 
     document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
