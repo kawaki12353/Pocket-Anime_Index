@@ -47,7 +47,7 @@ const crate_data = {
       ]
     },
   crate3: {
-    id: "Fighter Crate",
+    id: "Fishing Crate",
     items: [
       {id: "", rarity: "common", item:"", dropChance: 50.0 },
       {id: "", rarity: "uncommon", item:"", dropChance: 35.0},
