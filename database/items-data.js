@@ -62,8 +62,8 @@ const items=[
  icon:"advance_capsule.png" 
 },
 {rarity:"legendary", name:"Z-Capsule", cat:"capture",
- pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",details:"x2 a Chance de Captura.",drop:"Limitado a fase 2 de Testes"},
- en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to catch wild Animons!",details:"x2 Capture Chance.",drop:"Limited to Phase 2 Testing"}
+ pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",details:"x2 a Chance de Captura.",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to catch wild Animons!",details:"x2 Capture Chance.",drop:"Test Phase 2 Shop"}
 },
 {rarity:"uncommon", name:"Aqua Gem", cat:"evolution",
  pt:{desc:"Uma joia azul e transparente que abriga em seu interior um pequeno vórtice giratório de água pura.",drop:"Derrotando Animons do tipo [012]Water[000]"},
@@ -214,12 +214,12 @@ const items=[
  icon:"spark-leaf.png"
 },
 {rarity:"rare", name:"Vitaloom", cat:"status",
- pt:{desc:"Rica em polpa e refrescante. Dizem que floresce quanto mais é mastigada!",details:"Aumenta o [013]HP TV[000] em [002]10[000].",drop:"Loja de Fase"},
- en:{desc:"Pulp-rich and refreshing. Said to bloom the longer it's chewed!",details:"Increases [013]HP TV[000] by [002]10[000].",drop:"Phase Shop"}
+ pt:{desc:"Rica em polpa e refrescante. Dizem que floresce quanto mais é mastigada!",details:"Aumenta o [013]HP TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Pulp-rich and refreshing. Said to bloom the longer it's chewed!",details:"Increases [013]HP TV[000] by [002]10[000].",drop:"Test Phase 2 Shop"}
 },
 {rarity:"rare", name:"Witherloom", cat:"status",
- pt:{desc:"Carne seca e desbotada que drena o vigor quanto mais é mastigada.",details:"Diminui o [013]HP TV[000] em [001]10[000].",drop:"Loja de Fase"},
- en:{desc:"Dry, faded flesh that saps vigor the longer it's chewed.",details:"Decreases [013]HP TV[000] by [001]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Carne seca e desbotada que drena o vigor quanto mais é mastigada.",details:"Diminui o [013]HP TV[000] em [001]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Dry, faded flesh that saps vigor the longer it's chewed.",details:"Decreases [013]HP TV[000] by [001]10[000].",drop:"Test Phase 2 Shop"},
  icon:"witherloom.png"
 },
 {rarity:"uncommon", name:"Blaze Orb", cat:"battle",
@@ -228,18 +228,18 @@ const items=[
  icon:"blaze_orb.png"
 },
 {rarity:"rare", name:"Crimberry", cat:"status",
- pt:{desc:"Uma fruta ácida que alimenta a agressividade. Seu gosto forte deixa marca.",details:"Aumenta o [013]ATK TV[000] em [002]10[000].",drop:"Loja de Fase"},
- en:{desc:"A tangy fruit that fuels aggression. Its sharp taste leaves a bite.",details:"Increases [013]ATK TV[000] by [002]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Uma fruta ácida que alimenta a agressividade. Seu gosto forte deixa marca.",details:"Aumenta o [013]ATK TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"A tangy fruit that fuels aggression. Its sharp taste leaves a bite.",details:"Increases [013]ATK TV[000] by [002]10[000].",drop:"Test Phase 2 Shop"},
  icon:"crimberry.png"
 },
 {rarity:"rare", name:"Crumblefruit", cat:"status",
- pt:{desc:"Polpa quebradiça que se desfaz ao toque, deixando você se sentindo frágil.",details:"Diminui o [013]DEF TV[000] em [001]10[000].",drop:"Loja de Fase"},
- en:{desc:"Brittle pulp that flakes at a touch, leaving you feeling fragile.",details:"Decreases [013]DEF TV[000] by [001]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Polpa quebradiça que se desfaz ao toque, deixando você se sentindo frágil.",details:"Diminui o [013]DEF TV[000] em [001]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Brittle pulp that flakes at a touch, leaving you feeling fragile.",details:"Decreases [013]DEF TV[000] by [001]10[000].",drop:"Test Phase 2 Shop"},
  icon:"crumblefruit.png"
 },
 {rarity:"rare", name:"Dashfruit", cat:"status",
- pt:{desc:"Cítrica e leve — uma mordida e você já está em movimento!",details:"Aumenta o [013]SPD TV[000] em [002]10[000].",drop:"Loja de Fase"},
- en:{desc:"Zesty and light — one bite and you're already moving!",details:"Increases [013]SPD TV[000] by [002]10[000].",drop:"Phase Shop"}
+ pt:{desc:"Cítrica e leve — uma mordida e você já está em movimento!",details:"Aumenta o [013]SPD TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Zesty and light — one bite and you're already moving!",details:"Increases [013]SPD TV[000] by [002]10[000].",drop:"Test Phase 2 Shop"}
 },
 {rarity:"uncommon", name:"Demon Shuriken", cat:"battle",
  pt:{desc:"Uma ferramenta ninja rara, conhecida por sua lâmina afiada e durabilidade. A Shuriken Demoníaca aprimora a eficácia das ferramentas ninja!",drop:"Loja em Capsule City"},
@@ -251,12 +251,12 @@ const items=[
  en:{desc:"A strong thick hide dropped by a strong dinosaur.",drop:"Defeating the Dinossaur Animon"}
 },
 {rarity:"rare", name:"Dragfruit", cat:"status",
- pt:{desc:"Pesada e lenta, seu peso parece te puxar para trás a cada mordida.",details:"Diminui o [013]SPD TV[000] em [001]10[000].",drop:"Loja de Fase"},
- en:{desc:"Heavy and sluggish, its weight seems to pull you back with every bite.",details:"Decreases [013]SPD TV[000] by [001]10[000].",drop:"Phase Shop"}
+ pt:{desc:"Pesada e lenta, seu peso parece te puxar para trás a cada mordida.",details:"Diminui o [013]SPD TV[000] em [001]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Heavy and sluggish, its weight seems to pull you back with every bite.",details:"Decreases [013]SPD TV[000] by [001]10[000].",drop:"Test Phase 2 Shop"}
 },
 {rarity:"rare", name:"Dullapple", cat:"status",
- pt:{desc:"Sem sabor e amarga; reduz a clareza e embota o foco em batalha.",details:"Diminui o [013]SP.ATK TV[000] em [001]10[000].",drop:"Loja de Fase"},
- en:{desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",details:"Decreases [013]SP.ATK TV[000] by [001]10[000].",drop:"Phase Shop"}
+ pt:{desc:"Sem sabor e amarga; reduz a clareza e embota o foco em batalha.",details:"Diminui o [013]SP.ATK TV[000] em [001]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",details:"Decreases [013]SP.ATK TV[000] by [001]10[000].",drop:"Test Phase 2 Shop"}
 },
 {rarity:"rare", name:"Fisher's Pass", cat:"key",
  pt:{desc:"Um passe concedido a qualquer um digno de segurar uma vara de pesca! Permite comprar itens em qualquer loja de pesca.",drop:"Quest em Great Plains"},
@@ -293,13 +293,13 @@ const items=[
  icon:"gilded_sidearm.png"
 },
 {rarity:"rare", name:"Grimberry", cat:"status",
- pt:{desc:"Uma fruta azeda e cruel que arde ao descer, temperando a agressividade bruta.",details:"Diminui o [013]ATK TV[000] em [001]10[000].",drop:"Loja de Fase"},
- en:{desc:"A tart, mean little berry that stings on the way down, tempering raw aggression.",details:"Decreases [013]ATK TV[000] by [001]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Uma fruta azeda e cruel que arde ao descer, temperando a agressividade bruta.",details:"Diminui o [013]ATK TV[000] em [001]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"A tart, mean little berry that stings on the way down, tempering raw aggression.",details:"Decreases [013]ATK TV[000] by [001]10[000].",drop:"Test Phase 2 Shop"},
  icon:"grimberry.png"
 },
 {rarity:"rare", name:"Hushmelon", cat:"status",
- pt:{desc:"Macia e silenciosa, suaviza os sentidos e reduz sua guarda.",details:"Diminui o [013]SP.DEF TV[000] em [001]10[000].",drop:"Loja de Fase"},
- en:{desc:"Cushioned and quiet, it softens the senses and dulls your guard.",details:"Decreases [013]SP.DEF TV[000] by [001]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Macia e silenciosa, suaviza os sentidos e reduz sua guarda.",details:"Diminui o [013]SP.DEF TV[000] em [001]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Cushioned and quiet, it softens the senses and dulls your guard.",details:"Decreases [013]SP.DEF TV[000] by [001]10[000].",drop:"Test Phase 2 Shop"},
  icon:"hushmelon.png"
 },
 {rarity:"rare", name:"Imperfect Materials", cat:"misc",
@@ -307,8 +307,8 @@ const items=[
  en:{desc:"Provided by strong warriors, used to create even stronger Animons.",drop:["Defeating Warrior Bug Jr animon", "Defeating Green Alien animon"]}
 },
 {rarity:"rare", name:"Mindapple", cat:"status",
- pt:{desc:"Uma fruta amarga que dizem despertar inspiração em batalha!",details:"Aumenta o [013]SP.ATK TV[000] em [002]10[000].",drop:"Loja de Fase"},
- en:{desc:"A bitter fruit said to spark inspiration in battle!",details:"Increases [013]SP.ATK TV[000] by [002]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Uma fruta amarga que dizem despertar inspiração em batalha!",details:"Aumenta o [013]SP.ATK TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"A bitter fruit said to spark inspiration in battle!",details:"Increases [013]SP.ATK TV[000] by [002]10[000].",drop:"Test Phase 2 Shop"},
  icon:"mindapple.png"
 },
 {rarity:"rare", name:"Rocky Helmet", cat:"battle",
@@ -331,8 +331,8 @@ const items=[
  icon:"smoke_bomb.png"
 },
 {rarity:"rare", name:"Stonefruit", cat:"status",
- pt:{desc:"Pesada e densa. Comê-la faz você se sentir como uma parede.",details:"Aumenta o [013]DEF TV[000] em [002]10[000].",drop:"Loja de Fase"},
- en:{desc:"Heavy and dense. Eating it makes you feel like a wall.",details:"Increases [013]DEF TV[000] by [002]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Pesada e densa. Comê-la faz você se sentir como uma parede.",details:"Aumenta o [013]DEF TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Heavy and dense. Eating it makes you feel like a wall.",details:"Increases [013]DEF TV[000] by [002]10[000].",drop:"Test Phase 2 Shop"},
  icon:"stonefruit.png"
 },
 {rarity:"rare", name:"Strong Axe", cat:"battle",
@@ -350,8 +350,8 @@ const items=[
  icon:"weighted_clothes.png"
 },
 {rarity:"rare", name:"Wispmelon", cat:"status",
- pt:{desc:"Suave e reconfortante, este melão acalma e protege a alma!",details:"Aumenta o [013]SP.DEF TV[000] em [002]10[000].",drop:"Loja de Fase"},
- en:{desc:"Soothing and soft, this melon calms and shields the soul!",details:"Increase the [013]SP.DEF TV[000] by [002]10[000].",drop:"Phase Shop"},
+ pt:{desc:"Suave e reconfortante, este melão acalma e protege a alma!",details:"Aumenta o [013]SP.DEF TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
+ en:{desc:"Soothing and soft, this melon calms and shields the soul!",details:"Increase the [013]SP.DEF TV[000] by [002]10[000].",drop:"Test Phase 2 Shop"},
  icon:"wispmelon.png"
 },
 {rarity:"uncommon", name:"Wolf Fang", cat:"misc",
