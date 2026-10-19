@@ -205,8 +205,8 @@ const items=[
  en:{desc:"A weird Green Bean! Has some properties to heal your Animons! Also heals them if their HP drops to 30%!",details:"Restores 25 HP.",drop:"Korin Tower Shop"}
 },
 {rarity:"common", name:"Revive", cat:"medical",
- pt:{desc:"Revive Animons desmaiados com 1% de HP.",drop:"Loja"},
- en:{desc:"Revives fainted Animons with 1% Health.",drop:"Shop"}
+ pt:{desc:"Revive Animons desmaiados com 1% de HP.",drop:"Compre nas Estação de Animon"},
+ en:{desc:"Revives fainted Animons with 1% Health.",drop:"Buy at Anistation"}
 },
 {rarity:"uncommon", name:"Spark-Leaf", cat:"medical",
  pt:{desc:"Uma folha estática com efeito anti-paralisia!",details:"Serve para retirar [008]Paralisia[000] do Animon.",drop:"Compre nas Estação de Animon"},
@@ -303,8 +303,8 @@ const items=[
  icon:"hushmelon.png"
 },
 {rarity:"rare", name:"Imperfect Materials", cat:"misc",
- pt:{desc:"Fornecidos por guerreiros poderosos, usados para criar Animons ainda mais fortes.",drop:"Derrotando Warrior Bug Jr e Green Alien"},
- en:{desc:"Provided by strong warriors, used to create even stronger Animons.",drop:"Defeating Warrior Bug Jr and Green Alien"}
+ pt:{desc:"Fornecidos por guerreiros poderosos, usados para criar Animons ainda mais fortes.",drop:["Derrotando o Animon Warrior Bug Jr", "Derrotando o Animon Green Alien"]},
+ en:{desc:"Provided by strong warriors, used to create even stronger Animons.",drop:["Defeating Warrior Bug Jr animon", "Defeating Green Alien animon"]}
 },
 {rarity:"rare", name:"Mindapple", cat:"status",
  pt:{desc:"Uma fruta amarga que dizem despertar inspiração em batalha!",details:"Aumenta o [013]SP.ATK TV[000] em [002]10[000].",drop:"Loja de Fase"},
@@ -405,8 +405,8 @@ const items=[
  icon:"antidote.png" 
 },
 {rarity:"common", name:"Missing Shipments", cat:"misc",
- pt:{desc:"Restos desaparecidos! Por algum motivo, os alienígenas selvagens são atraídos por isso.",drop:"Derrotando o Animon Alien."},
- en:{desc:"Missing scraps! For some reason the wild aliens are attracted to this.",drop:"Defeating the Animon Alien."},
+ pt:{desc:"Restos desaparecidos! Por algum motivo, os alienígenas selvagens são atraídos por isso.",drop:"Derrotando o Animon [012]Alien[000]"},
+ en:{desc:"Missing scraps! For some reason the wild aliens are attracted to this.",drop:"Defeating the [012]Alien[000] animon"},
  icon:"missing_shipments.png"
 },
 {rarity:"uncommon", name:"Shadow Bone", cat:"evolution",
