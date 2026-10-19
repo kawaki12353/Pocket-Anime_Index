@@ -1,26 +1,26 @@
 const items=[
 {rarity:"rare", name:"Highstar Key", cat:"key",
- pt:{desc:"Uma chave misteriosa...",details:"Serve para acessar a [012]Highstar Base[000].",drop:"Baú na Great Plains."},
- en:{desc:"A mysterious key..",details:"It is used to access a [012]Highstar Base[000].",drop:"Chest in the Great Plains."},
+ pt:{desc:"Uma chave misteriosa...",details:"Serve para acessar a [012]Highstar Base[000].",drop:"Baú na Great Plains"},
+ en:{desc:"A mysterious key..",details:"It is used to access a [012]Highstar Base[000].",drop:"Chest in the Great Plains"},
  icon:"highstar_key.png"
 },
 {rarity:"epic", name:"Castle Badge", cat:"key",
- pt:{desc:"Concedido àqueles que derrotaram a primeira cápsula.",drop:"Se consegue Derrotando o primeiro ginásio."},
- en:{desc:"Awarded to those who have defeated the first capsule.",drop:"You get it by defeating the first gym."},
+ pt:{desc:"Concedido àqueles que derrotaram a primeira cápsula.",drop:"Se consegue Derrotando o primeiro ginásio"},
+ en:{desc:"Awarded to those who have defeated the first capsule.",drop:"You get it by defeating the first gym"},
  icon:"castle_badge.png"
 },
 {rarity:"epic", name:"Lesser Trait Crystal", cat:"status",
- pt:{desc:"Um cristal único que muda a Trait do seu Animon!",drop:"Consiga em [012]Códigos[000] ou [012]Caixas[000]."},
- en:{desc:"A unique crystal that changes your Animon's Trait!",drop:"Get them via [012]codes[000] or [012]crates[000]."},
+ pt:{desc:"Um cristal único que muda a Trait do seu Animon!",drop:["Códigos", "Crates"]},
+ en:{desc:"A unique crystal that changes your Animon's Trait!",drop:["Codes", "Crates"]},
  icon:"lesser_trait_crystal.png"
 },
 {rarity:"epic", name:"Nature Candy", cat:"status",
- pt:{desc:"Um doce único que muda a natureza do seu Animon!",drop:"Consiga em [012]Códigos[000] ou [012]Caixas[000]."},
- en:{desc:"A unique candy that changes your Animon's nature!",drop:"Get them via [012]codes[000] or [012]crates[000]."}
+ pt:{desc:"Um doce único que muda a natureza do seu Animon!",drop:["Códigos", "Crates"]},
+ en:{desc:"A unique candy that changes your Animon's nature!",drop:["Codes", "Crates"]}
 },
 {rarity:"rare", name:"Scorching Crystal", cat:"evolution",
- pt:{desc:"Uma joia luminosa que abriga um inferno vibrante e turbulento em seu interior.",drop:"Derrotando Animons do tipo [012]Fire[000]."},
- en:{desc:"A luminous gem that houses a vibrant, swirling inferno within.",drop:"Defeating [012]Fire-type[000] Animons."},
+ pt:{desc:"Uma joia luminosa que abriga um inferno vibrante e turbulento em seu interior.",drop:"Derrotando Animons do tipo [012]Fire[000]"},
+ en:{desc:"A luminous gem that houses a vibrant, swirling inferno within.",drop:"Defeating [012]Fire-type[000] Animons"},
  icon:"scorching_crystal.png"
 },
 {rarity:"rare", name:"Seastone Cuff", cat:"battle",
@@ -29,23 +29,23 @@ const items=[
  icon:"seastone_cuff.png"
 },
 {rarity:"epic", name:"Celestial Key", cat:"evolution",
- pt:{desc:"Uma chave dourada que brilha com luz celestial, desbloqueando poderes inimagináveis.",drop:"Derrotando Animons do tipo [012]Light[000]."},
- en:{desc:"A golden key that shimmers with heavenly light, unlocking untold powers.",drop:"Defeating [012]Light-type[000] Animons."},
+ pt:{desc:"Uma chave dourada que brilha com luz celestial, desbloqueando poderes inimagináveis.",drop:"Derrotando Animons do tipo [012]Light[000]"},
+ en:{desc:"A golden key that shimmers with heavenly light, unlocking untold powers.",drop:"Defeating [012]Light-type[000] Animons"},
  icon:"celestial_key.png"
 },
 {rarity:"uncommon", name:"Bandit Cutlass", cat:"battle",
- pt:{desc:"A Bandit Cutlass! Aumenta o atributo de ATAQUE do Animon que estiver equipado durante a batalha!",drop:"Derrotando o Animon Bandit."},
- en:{desc:"The Bandit Cutlass! Increases the ATK stat of the Animon equipping it during battle!",drop:"Defeating the Bandit Animon."},
+ pt:{desc:"A Bandit Cutlass! Aumenta o atributo de ATAQUE do Animon que estiver equipado durante a batalha!",drop:"Derrotando o Animon Bandit"},
+ en:{desc:"The Bandit Cutlass! Increases the ATK stat of the Animon equipping it during battle!",drop:"Defeating the Bandit Animon"},
  icon:"bandit_cutlass.png"
 },
 {rarity:"uncommon", name:"Plain Cloth", cat:"evolution",
- pt:{desc:"Um simples rolo de tecido, versátil e sem adornos.",drop:"Derrotando Animons do tipo [012]Neutral[000]."},
- en:{desc:"A simple roll of cloth, versatile and unadorned.",drop:"Defeating [012]Neutral-type[000] Animons."},
+ pt:{desc:"Um simples rolo de tecido, versátil e sem adornos.",drop:"Derrotando Animons do tipo [012]Neutral[000]"},
+ en:{desc:"A simple roll of cloth, versatile and unadorned.",drop:"Defeating [012]Neutral-type[000] Animons"},
  icon:"plain_cloth.png"
 },
 {rarity:"rare", name:"Tide Crystal", cat:"evolution",
- pt:{desc:"Um cristal azul profundo com camadas que imitam as profundezas tranquilas do oceano.",drop:"Derrotando Animons do tipo [012]Water[000]."},
- en:{desc:"A deep blue crystal with layers that mimic the tranquil depths of the ocean.",drop:"Defeating [012]Water-type[000] Animons."}
+ pt:{desc:"Um cristal azul profundo com camadas que imitam as profundezas tranquilas do oceano.",drop:"Derrotando Animons do tipo [012]Water[000]"},
+ en:{desc:"A deep blue crystal with layers that mimic the tranquil depths of the ocean.",drop:"Defeating [012]Water-type[000] Animons"}
 },
 {rarity:"common", name:"GX-Accuracy", cat:"misc",
  pt:{desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente a precisão dos Animons.",drop:"Lojas"},
