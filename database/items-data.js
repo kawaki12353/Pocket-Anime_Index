@@ -352,7 +352,7 @@ const items=[
 {rarity:"rare", name:"Wispmelon", cat:"status",
  pt:{desc:"Suave e reconfortante, este melão acalma e protege a alma!",details:"Aumenta o [013]SP.DEF TV[000] em [002]10[000].",drop:"Loja de Fase"},
  en:{desc:"Soothing and soft, this melon calms and shields the soul!",details:"Increase the [013]SP.DEF TV[000] by [002]10[000].",drop:"Phase Shop"},
- icon:"wispmelon"
+ icon:"wispmelon.png"
 },
 {rarity:"uncommon", name:"Wolf Fang", cat:"misc",
  pt:{desc:"Uma presa elegante e extremamente afiada de um lobo formidável, um claro testemunho da natureza selvagem indomável.",drop:"Derrotando Battle Wolf ou Teen Battle Wolf"},
