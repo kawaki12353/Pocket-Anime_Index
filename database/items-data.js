@@ -434,8 +434,8 @@ const items=[
  icon:"abyssal_eye.png"
 },
 {rarity:"rare", name:"Merciful Blow Scroll", cat:"scroll",
- pt:{desc:"Uma técnica misericordiosa, que só pode ser aprendida por espadachins específicos.",details:"Aprende o ataque Merciful Blow, que ao atacar, impede o alvo de ser derrotado. O alvo fica com pelo menos 1 de HP.",drop:"Highstar Base Crate"},
- en:{desc:"A merciful technique, can only be learned by specific swordsman.",details:"Learn the Merciful Blow attack, which, when used, prevents the target from being defeated. The target is left with at least 1 HP.",drop:"Highstar Base Crate"},
+ pt:{desc:"Uma técnica misericordiosa, que só pode ser aprendida por espadachins específicos.",details:"Aprende o ataque Merciful Blow, que ao atacar, impede o alvo de ser derrotado. O alvo fica com pelo menos 1 de HP.",drop:"Highstar Crate"},
+ en:{desc:"A merciful technique, can only be learned by specific swordsman.",details:"Learn the Merciful Blow attack, which, when used, prevents the target from being defeated. The target is left with at least 1 HP.",drop:"Highstar Crate"},
  icon:"merciful_blow_scroll.png"
 },
 {rarity:"rare", name:"Storm Crystal", cat:"evolution",
