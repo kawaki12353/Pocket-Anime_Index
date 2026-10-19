@@ -336,8 +336,8 @@ const items=[
  icon:"stonefruit.png"
 },
 {rarity:"rare", name:"Strong Axe", cat:"battle",
- pt:{desc:"Ataques aumentam o dano em 1.2x",drop:"Derrotando o Animon Axe Man."},
- en:{desc:"Attacks increase damage by 1.2x",drop:"Defeating the Axe Man Animon."},
+ pt:{desc:"Ataques aumentam o dano em 1.2x",drop:["Derrotando o Animon [012]Axe Man[000]", "Marine Crate"]},
+ en:{desc:"Attacks increase damage by 1.2x",drop:["Defeating the [012]Axe Man[000] Animon", "Marine Crate"]},
  icon:"strong_axe.png"
 },
 {rarity:"rare", name:"Warrior Essence", cat:"misc",
