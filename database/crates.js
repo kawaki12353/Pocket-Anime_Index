@@ -49,10 +49,15 @@ const crate_data = {
   crate2: {
     id: "Marine Crate",
     items: [
-      {id: "", rarity: "common", item:"", dropChance: 50.0 },
-      {id: "", rarity: "uncommon", item:"", dropChance: 35.0},
-      {id: "", rarity: "rare", item:"", dropChance: 12.0},
-      {id: "", rarity: "epic", item:"", dropChance: 3.0}
+      { id: "C-Potion", rarity: "rare", item: "Item", dropChance: 1.25 },
+      { id: "GX-Attack", rarity: "rare", item: "Item", dropChance: 1.25 },
+      { id: "Marine Jacket", rarity: "legendary", item: "Cosmetic", dropChance: 0.20 },
+      { id: "Marine Coat", rarity: "legendary", item: "Cosmetic", dropChance: 0.20 },
+      { id: "Wave Kick Scroll", rarity: "legendary", item: "Item", dropChance: 0.20 },
+      { id: "Seastone Cuff", rarity: "legendary", item: "Item", dropChance: 0.20 },
+      { id: "Strong Axe", rarity: "legendary", item: "Item", dropChance: 0.20 },
+      { id: "Lesser Trait Crystal", rarity: "legendary", item: "Item", dropChance: 0.20 },
+      { id: "Nature Candy", rarity: "legendary", item: "Item", dropChance: 0.20 }
       ]
     },
   crate1: {
