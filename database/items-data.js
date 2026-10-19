@@ -1,4 +1,8 @@
 const items=[
+{rarity:"rare", name:"Supreme Bean", cat:"medical",
+ pt:{desc:"Uma Supreme Bean!",details:"Recupera [002]65 de HP[000].",drop:"Loja da Torre do Korin"},
+ en:{desc:"The Supreme Bean!",details:"Restores [002]65 HP[000].",drop:"Korin Tower Shop"}
+},
 {rarity:"rare", name:"Highstar Key", cat:"key",
  pt:{desc:"Uma chave misteriosa...",details:"Serve para acessar a [012]Highstar Base[000].",drop:"Baú na Great Plains"},
  en:{desc:"A mysterious key..",details:"It is used to access a [012]Highstar Base[000].",drop:"Chest in the Great Plains"},
