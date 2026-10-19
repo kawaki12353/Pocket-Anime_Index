@@ -200,8 +200,8 @@ const items=[
  en:{desc:"Treatment for burn! Apply it on your Animon!",details:"Cures [003]Burn[000] status.",drop:"Buy at Anistation"}
 },
 {rarity:"common", name:"C-Potion", cat:"medical",
- pt:{desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",details:"Recupera [012]25 de HP[000].",drop:"Loja"},
- en:{desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",details:"Restores [012]25 HP[000].",drop:"Shop"},
+ pt:{desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",details:"Recupera [002]25 de HP[000].",drop:"Loja"},
+ en:{desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",details:"Restores [002]25 HP[000].",drop:"Shop"},
  icon:"c-potion.png"
 },
 {rarity:"epic", name:"Endless Bento", cat:"battle",
