@@ -61,11 +61,15 @@ const crate_data = {
       ]
     },
   crate1: {
-    id: "Bandit Crate",
-      {id: "", rarity: "common", item:"", dropChance: 50.0 },
-      {id: "", rarity: "uncommon", item:"", dropChance: 35.0},
-      {id: "", rarity: "rare", item:"", dropChance: 12.0},
-      {id: "", rarity: "epic", item:"", dropChance: 3.0}
+      { id: "GX-Attack", rarity: "rare", item: "Item", dropChance: 2.25 },
+      { id: "Eyepatch", rarity: "epic", item: "Item", dropChance: 1.67 },
+      { id: "Bandit Top", rarity: "epic", item: "Cosmetic", dropChance: 1.67 },
+      { id: "Bandit Pants", rarity: "epic", item: "Cosmetic", dropChance: 1.67 },
+      { id: "Bandit Cloak", rarity: "legendary", item: "Cosmetic", dropChance: 0.33 },
+      { id: "Bandit Sword", rarity: "legendary", item: "Cosmetic", dropChance: 0.33 },
+      { id: "Beast Talisman", rarity: "legendary", item: "Cosmetic", dropChance: 0.33 },
+      { id: "Lesser Trait Crystal", rarity: "legendary", item: "Cosmetic", dropChance: 0.33 },
+      { id: "Nature Candy", rarity: "legendary", item: "Item", dropChance: 0.33 }
       ]
    }
 };
