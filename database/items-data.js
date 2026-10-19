@@ -1,4 +1,14 @@
 const items=[
+{rarity:"rare", name:"Luminous Mirror", cat:"evolution",
+ pt:{desc:"Um belo espelho emoldurado em ouro, que reflete a luz de forma brilhante.",drop:"Derrotando Animons do tipo [012]Light[000]"},
+ en:{desc:"A beautiful mirror framed in gold, reflecting light brilliantly.",drop:"Defeating [012]Light-type[000] Animons"},
+ icon:"luminous_mirror.png"
+},
+{rarity:"rare", name:"Fishing Rod", cat:"key",
+ pt:{desc:"Um dispositivo usado para pescar! É possível fazer melhorias!",drop:"Side-Quest em [013]Great Plains[000]"},
+ en:{desc:"A device used to fish! Upgrades can be made!",drop:"Side-Quest in [013]Great Plains[000]"},
+ icon:"fishing_rod.png"
+},
 {rarity:"common", name:"Identification Card", cat:"key",
  pt:{desc:"Um Treinador de Animons profissional, verificado e certificado! Utilize isto para conferir suas informações.",drop:"Recebe no começo do jogo"},
  en:{desc:"A verified, certified, profesional Animon Trainer! Use this to check your information.",drop:"Received at the start of the game"},
