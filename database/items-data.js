@@ -1,4 +1,9 @@
 const items=[
+{rarity:"common", name:"Identification Card", cat:"key",
+ pt:{desc:"Um Treinador de Animons profissional, verificado e certificado! Utilize isto para conferir suas informações.",drop:"Recebe no começo do jogo"},
+ en:{desc:"A verified, certified, profesional Animon Trainer! Use this to check your information.",drop:"Received at the start of the game"},
+ icon:"identification_card.png"
+},
 {rarity:"rare", name:"Supreme Bean", cat:"medical",
  pt:{desc:"Uma Supreme Bean!",details:"Recupera [002]65 de HP[000].",drop:"Loja da Torre do Korin"},
  en:{desc:"The Supreme Bean!",details:"Restores [002]65 HP[000].",drop:"Korin Tower Shop"}
