@@ -1,5 +1,5 @@
 const crate_data = {
-  crate4: {
+  crate5: {
     id: "Highstar Crate",
     items: [
       { id: "Warrior Essence", rarity: "common", item: "Item", dropChance: 40.00 },
@@ -35,6 +35,15 @@ const crate_data = {
       { id: "King's Pincer", rarity: "legendary", item: "Item", dropChance: 0.11 },
       { id: "Lesser Trait Crystal", rarity: "legendary", item: "Item", dropChance: 0.11 },
       { id: "Nature Candy", rarity: "legendary", item: "Item", dropChance: 0.11 }
+      ]
+    },
+  crate4: {
+    id: "Fighter Crate",
+    items: [
+      {id: "", rarity: "common", item:"", dropChance: 50.0 },
+      {id: "", rarity: "uncommon", item:"", dropChance: 35.0},
+      {id: "", rarity: "rare", item:"", dropChance: 12.0},
+      {id: "", rarity: "epic", item:"", dropChance: 3.0}
       ]
     },
   crate3: {
