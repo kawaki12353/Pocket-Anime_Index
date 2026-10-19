@@ -361,6 +361,20 @@
             box-sizing: border-box;
         }
 
+        /* Sub-box para cada item do Drop quando for array */
+        .drop-sub-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--text);
+            box-sizing: border-box;
+            margin-bottom: 8px;
+        }
+        .drop-sub-box:last-child {
+            margin-bottom: 0;
+        }
+
         /* Conteúdo sem box para Descrição e Detalhes */
         .text-content {
             color: var(--text);
@@ -432,7 +446,7 @@
 
 <div class="modal-bg" id="modalBg" onclick="closeModal()">
     <div class="modal" id="modal" onclick="event.stopPropagation()">
-        
+
         <!-- Topo do Modal (Ícone + Nome + Raridade) -->
         <div class="modal-header-container">
             <div class="modal-icon-box">
@@ -565,7 +579,7 @@ function openModal(item) {
     const modalBg = document.getElementById("modalBg");
 
     modal.className = `modal ${item.rarity}`;
-    
+
     // Ícone e Detalhes
     const iconSrc = item.icon ? `assets/items/${item.icon}` : "assets/sem_icone.png";
     document.getElementById("mIcon").src = iconSrc;
@@ -573,7 +587,14 @@ function openModal(item) {
     document.getElementById("mRarity").textContent = rarityLabels[lang][item.rarity] || item.rarity;
 
     document.getElementById("mDesc").innerHTML = parseColoredText(data.desc);
-    document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
+    
+    // Tratamento para drop único ou array de múltiplos drops
+    if (Array.isArray(data.drop)) {
+        document.getElementById("mDrop").innerHTML = data.drop.map(d => `<div class="drop-sub-box">${parseColoredText(d)}</div>`).join('');
+    } else {
+        document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
+    }
+
     document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
 
     const detailsSec = document.getElementById("detailsSection");
