@@ -223,7 +223,7 @@ const items=[
  icon:"witherloom.png"
 },
 {rarity:"uncommon", name:"Blaze Orb", cat:"battle",
- pt:{desc:"Um pequeno orbe que queima com uma chama eterna, intensificando golpes do tipo Fire.",drop:"Loja in Capsule City"},
+ pt:{desc:"Um pequeno orbe que queima com uma chama eterna, intensificando golpes do tipo Fire.",drop:"Loja em Capsule City"},
  en:{desc:"A small orb that burns with an eternal flame, enhancing the intensity of Fire-Type moves.",drop:"Shop in Capsule City"},
  icon:"blaze_orb.png"
 },
@@ -255,8 +255,8 @@ const items=[
  en:{desc:"Heavy and sluggish, its weight seems to pull you back with every bite.",details:"Decreases [013]SPD TV[000] by [001]10[000].",drop:"Phase Shop"}
 },
 {rarity:"rare", name:"Dullapple", cat:"status",
- pt:{desc:"Sem sabor e amarga; reduz a clareza e embota o foco em batalha.",details:"Diminui o [013]SP.ATK TV[000] em 10",drop:"Loja de Fase"},
- en:{desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",details:"Decreases [013]SP.ATK TV[000] by 10",drop:"Phase Shop"}
+ pt:{desc:"Sem sabor e amarga; reduz a clareza e embota o foco em batalha.",details:"Diminui o [013]SP.ATK TV[000] em [001]10[000].",drop:"Loja de Fase"},
+ en:{desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",details:"Decreases [013]SP.ATK TV[000] by [001]10[000].",drop:"Phase Shop"}
 },
 {rarity:"rare", name:"Fisher's Pass", cat:"key",
  pt:{desc:"Um passe concedido a qualquer um digno de segurar uma vara de pesca! Permite comprar itens em qualquer loja de pesca.",drop:"Quest em Great Plains"},
