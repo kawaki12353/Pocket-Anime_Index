@@ -332,7 +332,8 @@ const items=[
 },
 {rarity:"rare", name:"Stonefruit", cat:"status",
  pt:{desc:"Pesada e densa. Comê-la faz você se sentir como uma parede.",details:"Aumenta o [013]DEF TV[000] em 10",drop:"Loja de Fase"},
- en:{desc:"Heavy and dense. Eating it makes you feel like a wall.",details:"Decreases [013]DEF TV[000] by 10",drop:"Phase Shop"}
+ en:{desc:"Heavy and dense. Eating it makes you feel like a wall.",details:"Decreases [013]DEF TV[000] by 10",drop:"Phase Shop"},
+ icon:"stonefruit.png"
 },
 {rarity:"rare", name:"Strong Axe", cat:"battle",
  pt:{desc:"Ataques aumentam o dano em 1.2x",drop:"Derrotando o Animon Axe Man."},
@@ -350,7 +351,8 @@ const items=[
 },
 {rarity:"rare", name:"Wispmelon", cat:"status",
  pt:{desc:"Suave e reconfortante, este melão acalma e protege a alma!",details:"Aumenta o [013]SP.DEF TV[000] em 10",drop:"Loja de Fase"},
- en:{desc:"Soothing and soft, this melon calms and shields the soul!",details:"Increase the [013]SP.DEF TV[000] by 10",drop:"Phase Shop"}
+ en:{desc:"Soothing and soft, this melon calms and shields the soul!",details:"Increase the [013]SP.DEF TV[000] by 10",drop:"Phase Shop"},
+ icon:"wispmelon"
 },
 {rarity:"uncommon", name:"Wolf Fang", cat:"misc",
  pt:{desc:"Uma presa elegante e extremamente afiada de um lobo formidável, um claro testemunho da natureza selvagem indomável.",drop:"Derrotando Battle Wolf ou Teen Battle Wolf"},
