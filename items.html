@@ -364,12 +364,16 @@
             color: #555;
             font-size: 10px;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
         .modal-drop-title {
             color: #555 !important;
             font-size: 10px !important;
             text-align: center !important;
             text-transform: uppercase !important;
+            justify-content: center !important;
         }
 
         /* Apenas a seção Onde Obter mantém a Box */
@@ -683,9 +687,9 @@ function updateLang() {
     const t = texts[lang];
     document.getElementById("title").textContent = t.title;
     document.getElementById("searchInput").placeholder = t.search;
-    document.getElementById("lblDesc").textContent = t.desc;
-    document.getElementById("lblDetails").textContent = t.details;
-    document.getElementById("lblDrop").textContent = t.drop;
+    document.getElementById("lblDesc").innerHTML = `<img src="assets/desc_icon.png" class="title-icon"> ${t.desc}`;
+    document.getElementById("lblDetails").innerHTML = `<img src="assets/details_icon.png" class="title-icon"> ${t.details}`;
+    document.getElementById("lblDrop").innerHTML = `<img src="assets/how_to_obtain_icon.png" class="title-icon"> ${t.drop}`;
     document.getElementById("lblCat").innerHTML = `<img src="assets/category_icon.png" class="title-icon"> ${t.cat}`;
     document.getElementById("lblBag").innerHTML = `<img src="assets/bag_icon.png" class="title-icon"> ${t.bag}`;
     document.getElementById("lblCost").innerHTML = `<img src="assets/cost_icon.png" class="title-icon"> ${t.cost}`;
