@@ -314,17 +314,17 @@
             font-weight: bold;
             font-size: 10px;
             text-transform: uppercase;
-            text-align: center;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 4px;
         }
-        .modal-meta-icon {
-            width: 11px;
-            height: 11px;
+        .title-icon {
+            width: 12px;
+            height: 12px;
             object-fit: contain;
+            flex-shrink: 0;
         }
         .modal-cat-box {
             background: var(--modal-box-bg);
@@ -484,19 +484,19 @@
         <div class="modal-meta-container">
             <!-- Seção Categoria -->
             <div class="modal-cat-section">
-                <div class="modal-cat-title"><img src="assets/category_icon.png" class="modal-meta-icon" alt="Categoria"><span id="lblCat"></span></div>
+                <div class="modal-cat-title" id="lblCat"></div>
                 <div class="modal-cat-box" id="mCat"></div>
             </div>
 
             <!-- Seção Mochila -->
             <div class="modal-cat-section">
-                <div class="modal-cat-title"><img src="assets/bag_icon.png" class="modal-meta-icon" alt="Mochila"><span id="lblBag"></span></div>
+                <div class="modal-cat-title" id="lblBag"></div>
                 <div class="modal-cat-box" id="mBag"></div>
             </div>
 
             <!-- Seção Custo -->
             <div class="modal-cat-section" id="costSection">
-                <div class="modal-cat-title"><img src="assets/cost_icon.png" class="modal-meta-icon" alt="Custo"><span id="lblCost"></span></div>
+                <div class="modal-cat-title" id="lblCost"></div>
                 <div class="modal-cat-box" id="mCost"></div>
             </div>
         </div>
@@ -686,9 +686,9 @@ function updateLang() {
     document.getElementById("lblDesc").textContent = t.desc;
     document.getElementById("lblDetails").textContent = t.details;
     document.getElementById("lblDrop").textContent = t.drop;
-    document.getElementById("lblCat").textContent = t.cat;
-    document.getElementById("lblBag").textContent = t.bag;
-    document.getElementById("lblCost").textContent = t.cost;
+    document.getElementById("lblCat").innerHTML = `<img src="assets/category_icon.png" class="title-icon"> ${t.cat}`;
+    document.getElementById("lblBag").innerHTML = `<img src="assets/bag_icon.png" class="title-icon"> ${t.bag}`;
+    document.getElementById("lblCost").innerHTML = `<img src="assets/cost_icon.png" class="title-icon"> ${t.cost}`;
     document.getElementById("langBtn").textContent = t.langBtn;
 
     buildCategoryMenu();
