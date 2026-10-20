@@ -292,7 +292,15 @@
         .modal.epic .modal-rarity-text { color: var(--color-epico); }
         .modal.legendary .modal-rarity-text { color: var(--color-lendario); }
 
-        /* Seção Categoria */
+        /* Container de Metadados (Categoria, Mochila, Custo) */
+        .modal-meta-container {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-self: flex-start;
+        }
+
+        /* Seção Categoria e demais caixas do topo */
         .modal-cat-section {
             display: inline-flex;
             flex-direction: column;
@@ -458,10 +466,25 @@
             </div>
         </div>
 
-        <!-- Seção Categoria -->
-        <div class="modal-cat-section">
-            <div class="modal-cat-title" id="lblCat"></div>
-            <div class="modal-cat-box" id="mCat"></div>
+        <!-- Seção de Metadados (Categoria, Mochila, Custo) -->
+        <div class="modal-meta-container">
+            <!-- Seção Categoria -->
+            <div class="modal-cat-section">
+                <div class="modal-cat-title" id="lblCat"></div>
+                <div class="modal-cat-box" id="mCat"></div>
+            </div>
+
+            <!-- Seção Mochila -->
+            <div class="modal-cat-section">
+                <div class="modal-cat-title" id="lblBag"></div>
+                <div class="modal-cat-box" id="mBag"></div>
+            </div>
+
+            <!-- Seção Custo -->
+            <div class="modal-cat-section" id="costSection">
+                <div class="modal-cat-title" id="lblCost"></div>
+                <div class="modal-cat-box" id="mCost"></div>
+            </div>
         </div>
 
         <!-- Linha Divisora -->
@@ -508,12 +531,12 @@ const texts = {
     pt: {
         title: "Lista de Itens", search: "Pesquisar item...",
         allCat: "Todas as categorias", allRare: "Todas raridades",
-        desc: "Descrição", details: "Detalhes", drop: "Onde Obter", cat: "Categoria", langBtn: "🇧🇷 PT"
+        desc: "Descrição", details: "Detalhes", drop: "Onde Obter", cat: "Categoria", bag: "Mochila", cost: "Custo", langBtn: "🇧🇷 PT"
     },
     en: {
         title: "Item List", search: "Search item...",
         allCat: "All categories", allRare: "All rarities",
-        desc: "Description", details: "Details", drop: "How to obtain", cat: "Category", langBtn: "🇺🇸 EN"
+        desc: "Description", details: "Details", drop: "How to obtain", cat: "Category", bag: "Bag", cost: "Cost", langBtn: "🇺🇸 EN"
     }
 };
 
@@ -596,6 +619,15 @@ function openModal(item) {
     }
 
     document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
+    document.getElementById("mBag").textContent = item.bag || "";
+
+    const costSection = document.getElementById("costSection");
+    if (item.cost) {
+        document.getElementById("mCost").textContent = item.cost;
+        costSection.style.display = "inline-flex";
+    } else {
+        costSection.style.display = "none";
+    }
 
     const detailsSec = document.getElementById("detailsSection");
     if (data.details) {
@@ -620,6 +652,8 @@ function updateLang() {
     document.getElementById("lblDetails").textContent = t.details;
     document.getElementById("lblDrop").textContent = t.drop;
     document.getElementById("lblCat").textContent = t.cat;
+    document.getElementById("lblBag").textContent = t.bag;
+    document.getElementById("lblCost").textContent = t.cost;
     document.getElementById("langBtn").textContent = t.langBtn;
 
     buildCategoryMenu();
