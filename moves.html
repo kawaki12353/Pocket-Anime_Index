@@ -61,6 +61,13 @@
             line-height: 1.5;
         }
 
+        .title-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
         /* --- HEADER (IGUAL AO ANIMONS DETAILS) --- */
         .header { 
             display: flex; 
@@ -715,7 +722,7 @@ function openModal(move) {
     let detHtml = "";
     if (detKey in move && move[detKey]) {
         detHtml = `
-            <div class="stat-label" style="text-align:left; margin-top:12px; margin-bottom:8px;">${texts[lang].detLabel}</div>
+            <div class="stat-label" style="text-align:left; margin-top:12px; margin-bottom:8px; display: flex; align-items: center; gap: 4px;"><img src="assets/datails_icon.png" class="title-icon"> ${texts[lang].detLabel}</div>
             ${parseColoredText(move[detKey])}
         `;
     }
@@ -736,11 +743,11 @@ function openModal(move) {
     const formattedPriority = priorityVal > 0 ? `+${priorityVal}` : priorityVal;
 
     descContainer.innerHTML = `
-        <div class="stat-label" style="text-align:left; margin-bottom:8px;">${texts[lang].descLabel}</div>
+        <div class="stat-label" style="text-align:left; margin-bottom:8px; display: flex; align-items: center; gap: 4px;"><img src="assets/desc_icon.png" class="title-icon"> ${texts[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
         ${detHtml}
         <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;"></div>
-        <div class="stat-label" style="text-align: center; margin-bottom: 12px;">${texts[lang].battleInfo}</div>
+        <div class="stat-label" style="text-align: center; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 4px;"><img src="assets/battle_info_icon.png" class="title-icon"> ${texts[lang].battleInfo}</div>
         <div style="background: var(--hover); border: 1px solid var(--border); border-radius: 16px; padding: 16px; text-align: center;">
             <div class="stat-label" style="text-align:center; margin-bottom:6px; color: var(--text);">${texts[lang].attributesLabel}</div>
             ${attrsHtml}
