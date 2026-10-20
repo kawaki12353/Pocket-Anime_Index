@@ -244,7 +244,7 @@ const items=[
 {rarity:"uncommon", name:"Blaze Orb", cat:"battle",
  pt:{desc:"Um pequeno orbe que queima com uma chama eterna, intensificando golpes do tipo Fire.",drop:"Loja em Capsule City"},
  en:{desc:"A small orb that burns with an eternal flame, enhancing the intensity of Fire-Type moves.",drop:"Shop in Capsule City"},
- icon:"blaze_orb.png"
+ icon:"blaze_orb.png", cost:"2000$"
 },
 {rarity:"rare", name:"Crimberry", cat:"status",
  pt:{desc:"Uma fruta ácida que alimenta a agressividade. Seu gosto forte deixa marca.",details:"Aumenta o [013]ATK TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
