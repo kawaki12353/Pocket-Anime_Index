@@ -5,8 +5,8 @@ const items=[
  icon:"luminous_mirror.png"
 },
 {rarity:"rare", name:"Fishing Rod", cat:"key", bag:"Key",
- pt:{desc:"Um dispositivo usado para pescar! É possível fazer melhorias!",drop:"Side-Quest em [013]Great Plains[000]"},
- en:{desc:"A device used to fish! Upgrades can be made!",drop:"Side-Quest in [013]Great Plains[000]"},
+ pt:{desc:"Um dispositivo usado para pescar! É possível fazer melhorias!",drop:""},
+ en:{desc:"A device used to fish! Upgrades can be made!",drop:""},
  icon:"fishing_rod.png", cost:"3000$"
 },
 {rarity:"common", name:"Identification Card", cat:"key", bag:"Key",
@@ -278,8 +278,8 @@ const items=[
  en:{desc:"Flat and bitter; it mutes clarity and blunts focus in battle.",details:"Decreases [013]SP.ATK TV[000] by [001]10[000].",drop:"Test Phase 2 Shop"}
 },
 {rarity:"rare", name:"Fisher's Pass", cat:"key", bag:"Key",
- pt:{desc:"Um passe concedido a qualquer um digno de segurar uma vara de pesca! Permite comprar itens em qualquer loja de pesca.",drop:"Quest em Great Plains"},
- en:{desc:"A pass given to anyone worthy enough to hold up a fishing rod! Allows you to purchase items from any fishing shop.",drop:"Quest in Great Plains"}
+ pt:{desc:"Um passe concedido a qualquer um digno de segurar uma vara de pesca! Permite comprar itens em qualquer loja de pesca.",drop:"Side-Quest em [013]Great Plains[000]"},
+ en:{desc:"A pass given to anyone worthy enough to hold up a fishing rod! Allows you to purchase items from any fishing shop.",drop:"Side-Quest in [013]Great Plains[000]"}
 },
 {rarity:"common", name:"Fishing Reel", cat:"misc", bag:"Item",
  pt:{desc:"Um molinete usado para pescar! Um molinete por uso!",drop:"Loja de Pesca"},
@@ -414,8 +414,8 @@ const items=[
  icon:"demonic_blade.png"
 },
 {rarity:"epic", name:"Mysterious Egg", cat:"key", bag:"Key",
- pt:{desc:"Um ovo misterioso e enigmático...",drop:"Quest em Great Plains"},
- en:{desc:"A mysterious and omincus egg...",drop:"Quest in Great Plains"},
+ pt:{desc:"Um ovo misterioso e enigmático...",drop:"Side-Quest em [013]Great Plains[000]"},
+ en:{desc:"A mysterious and omincus egg...",drop:"Side-Quest in [013]Great Plains[000]"},
  icon:"mysterious_egg.png"
 },
 {rarity:"uncommon", name:"Antidote", cat:"medical", bag:"Medicine",
