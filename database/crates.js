@@ -70,6 +70,8 @@ const crate_data = {
       ]
     },
   crate1: {
+    id: "Marine Crate",
+    items: [
       { id: "GX-Attack", rarity: "rare", item: "Item", dropChance: 2.25 },
       { id: "Eyepatch", rarity: "epic", item: "Item", dropChance: 1.67 },
       { id: "Bandit Top", rarity: "epic", item: "Cosmetic", dropChance: 1.67 },
