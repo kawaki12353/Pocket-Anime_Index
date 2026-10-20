@@ -347,7 +347,7 @@ const items=[
 {rarity:"common", name:"Smoke Bomb", cat:"misc", bag:"Item",
  pt:{desc:"Este item possui a habilidade de te teleportar para a sua última visita a uma anistation!",drop:"Compre nas Estação de Animon"},
  en:{desc:"This item has the ability to teleport you to your last anistation visit!",drop:"Buy at Anistation"},
- icon:"smoke_bomb.png"
+ icon:"smoke_bomb.png", cost:"200$"
 },
 {rarity:"rare", name:"Stonefruit", cat:"status", bag:"Item",
  pt:{desc:"Pesada e densa. Comê-la faz você se sentir como uma parede.",details:"Aumenta o [013]DEF TV[000] em [002]10[000].",drop:"Loja da Fase de Testes 2"},
