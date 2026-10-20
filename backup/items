@@ -361,6 +361,20 @@
             box-sizing: border-box;
         }
 
+        /* Sub-box para cada item do Drop (totalmente arredondada) */
+        .drop-sub-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 12px 18px;
+            color: var(--text);
+            box-sizing: border-box;
+            margin-bottom: 8px;
+        }
+        .drop-sub-box:last-child {
+            margin-bottom: 0;
+        }
+
         /* Conteúdo sem box para Descrição e Detalhes */
         .text-content {
             color: var(--text);
@@ -573,7 +587,14 @@ function openModal(item) {
     document.getElementById("mRarity").textContent = rarityLabels[lang][item.rarity] || item.rarity;
 
     document.getElementById("mDesc").innerHTML = parseColoredText(data.desc);
-    document.getElementById("mDrop").innerHTML = parseColoredText(data.drop);
+
+    // Tratamento unificado para drop (tanto array quanto string única ficam com a estrutura de sub-box)
+    if (Array.isArray(data.drop)) {
+        document.getElementById("mDrop").innerHTML = data.drop.map(d => `<div class="drop-sub-box">${parseColoredText(d)}</div>`).join('');
+    } else {
+        document.getElementById("mDrop").innerHTML = `<div class="drop-sub-box">${parseColoredText(data.drop)}</div>`;
+    }
+
     document.getElementById("mCat").textContent = categoryLabels[lang][item.cat];
 
     const detailsSec = document.getElementById("detailsSection");
