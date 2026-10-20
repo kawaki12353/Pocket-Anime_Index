@@ -292,20 +292,21 @@
         .modal.epic .modal-rarity-text { color: var(--color-epico); }
         .modal.legendary .modal-rarity-text { color: var(--color-lendario); }
 
-        /* Container de Metadados (Categoria, Mochila, Custo) */
+        /* Container de Metadados (Categoria, Mochila, Custo) ocupando toda a largura */
         .modal-meta-container {
             display: flex;
             gap: 12px;
-            flex-wrap: wrap;
-            align-self: flex-start;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Seção Categoria e demais caixas do topo */
+        /* Seção Categoria e demais caixas do topo distribuídas igualmente */
         .modal-cat-section {
-            display: inline-flex;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            align-self: flex-start;
+            flex: 1;
+            min-width: 0;
             gap: 6px;
         }
         .modal-cat-title {
@@ -320,13 +321,17 @@
             background: var(--modal-box-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 8px 16px;
+            padding: 8px 12px;
             font-weight: bold;
             color: var(--text);
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
         }
 
         /* Divisores */
@@ -624,7 +629,7 @@ function openModal(item) {
     const costSection = document.getElementById("costSection");
     if (item.cost) {
         document.getElementById("mCost").textContent = item.cost;
-        costSection.style.display = "inline-flex";
+        costSection.style.display = "flex";
     } else {
         costSection.style.display = "none";
     }
