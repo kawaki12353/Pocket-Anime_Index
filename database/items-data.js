@@ -5,8 +5,8 @@ const items=[
  icon:"luminous_mirror.png"
 },
 {rarity:"rare", name:"Fishing Rod", cat:"key", bag:"Key",
- pt:{desc:"Um dispositivo usado para pescar! É possível fazer melhorias!",drop:""},
- en:{desc:"A device used to fish! Upgrades can be made!",drop:""},
+ pt:{desc:"Um dispositivo usado para pescar! É possível fazer melhorias!",drop:"Loja de Pesca"},
+ en:{desc:"A device used to fish! Upgrades can be made!",drop:"Fishing Store"},
  icon:"fishing_rod.png", cost:"3000$"
 },
 {rarity:"common", name:"Identification Card", cat:"key", bag:"Key",
