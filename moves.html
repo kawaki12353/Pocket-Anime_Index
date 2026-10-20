@@ -722,7 +722,7 @@ function openModal(move) {
     let detHtml = "";
     if (detKey in move && move[detKey]) {
         detHtml = `
-            <div class="stat-label" style="text-align:left; margin-top:12px; margin-bottom:8px; display: flex; align-items: center; gap: 4px;"><img src="assets/datails_icon.png" class="title-icon"> ${texts[lang].detLabel}</div>
+            <div class="stat-label" style="text-align:left; margin-top:12px; margin-bottom:8px; display: flex; align-items: center; gap: 4px;"><img src="assets/details_icon.png" class="title-icon"> ${texts[lang].detLabel}</div>
             ${parseColoredText(move[detKey])}
         `;
     }
