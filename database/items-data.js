@@ -7,7 +7,7 @@ const items=[
 {rarity:"rare", name:"Fishing Rod", cat:"key",
  pt:{desc:"Um dispositivo usado para pescar! É possível fazer melhorias!",drop:"Side-Quest em [013]Great Plains[000]"},
  en:{desc:"A device used to fish! Upgrades can be made!",drop:"Side-Quest in [013]Great Plains[000]"},
- icon:"fishing_rod.png"
+ icon:"fishing_rod.png", cost:"3000$"
 },
 {rarity:"common", name:"Identification Card", cat:"key",
  pt:{desc:"Um Treinador de Animons profissional, verificado e certificado! Utilize isto para conferir suas informações.",drop:"Recebe no começo do jogo"},
@@ -284,7 +284,7 @@ const items=[
 {rarity:"common", name:"Fishing Reel", cat:"misc",
  pt:{desc:"Um molinete usado para pescar! Um molinete por uso!",drop:"Loja de Pesca"},
  en:{desc:"A reel used for fishing! One reel per use!",drop:"Fishing Shop"},
- icon:"fishing_reel.png"
+ icon:"fishing_reel.png", cost:"35$"
 },
 {rarity:"common", name:"GX-Attack", cat:"misc",
  pt:{desc:"Um acelerador metabólico de assimilação rápida da Gamyng Corp, criado para aumentar drasticamente o ataque dos Animons.",drop:"Compre nas Estação de Animon"},
