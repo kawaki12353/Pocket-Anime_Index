@@ -73,12 +73,12 @@ const items=[
 {rarity:"common", name:"Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",details:"x1 a Chance de Captura.",drop:"Compre nas Estação de Animon"},
  en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",details:"x1 Capture Chance.",drop:"Buy at Anistation"},
- icon:"capsule.png"
+ icon:"capsule.png", cost:"250$"
 },
 {rarity:"uncommon", name:"Advance Capsule", cat:"capture",
- pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",details:"x1 a Chance de Captura.",drop:"Compre nas Estação de Animon"},
- en:{desc:"One of the most popular Capsule Tech, this capsule grants the ability to capture wild Animons!",details:"x1 Capture Chance.",drop:"Buy at Anistation"},
- icon:"advance_capsule.png" 
+ pt:{desc:"Uma cápsula avançada, com uma taxa de sucesso superior à da sua antecessora.",details:"x1.25 a Chance de Captura.",drop:"Compre nas Estação de Animon"},
+ en:{desc:"An advance capsule, with a higher success rate then it's predecessor.",details:"x1.25 Capture Chance.",drop:"Buy at Anistation"},
+ icon:"advance_capsule.png", cost:"650$"
 },
 {rarity:"legendary", name:"Z-Capsule", cat:"capture",
  pt:{desc:"Uma das tecnologias de cápsula mais populares, esta cápsula concede a habilidade de capturar Animons selvagens!",details:"x2 a Chance de Captura.",drop:"Loja da Fase de Testes 2"},
@@ -212,7 +212,7 @@ const items=[
 {rarity:"common", name:"C-Potion", cat:"medical",
  pt:{desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",details:"Recupera [002]25 de HP[000].",drop:"Loja"},
  en:{desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",details:"Restores [002]25 HP[000].",drop:"Shop"},
- icon:"c-potion.png"
+ icon:"c-potion.png", cost:"300$"
 },
 {rarity:"epic", name:"Endless Bento", cat:"battle",
  pt:{desc:"Recupera automaticamente 1/14 do HP Máx no final de cada rodada.",drop:"Dentro da Torre do Korin"},
@@ -263,7 +263,7 @@ const items=[
 {rarity:"uncommon", name:"Demon Shuriken", cat:"battle",
  pt:{desc:"Uma ferramenta ninja rara, conhecida por sua lâmina afiada e durabilidade. A Shuriken Demoníaca aprimora a eficácia das ferramentas ninja!",drop:"Loja em Capsule City"},
  en:{desc:"A rare ninja tool, known for its sharpness and durability. The Demon Shuriken enhances the effectiveness of Ninja tools!",drop:"Shop in Capsule City"},
- icon:"demon_shuriken.png"
+ icon:"demon_shuriken.png", cost:"2000$"
 },
 {rarity:"uncommon", name:"Dinosaur Hide", cat:"misc",
  pt:{desc:"Um couro grosso e resistente deixado por um dinossauro poderoso.",drop:"Derrotando o Animon Dinossaur"},
@@ -436,7 +436,7 @@ const items=[
 {rarity:"uncommon", name:"Storm Battery", cat:"battle",
  pt:{desc:"Uma bateria que absorve eletricidade estática do ar, aumentando o poder dos golpes do tipo Elétrico!",drop:"Loja em Capsule City"},
  en:{desc:"A battery that absorbs static electricity from the air, boosting the power of Electric-type moves!",drop:"Shop in Capsule City"},
- icon:"storm_battery.png"
+ icon:"storm_battery.png", cost:"2000$"
 },
 {rarity:"epic", name:"Abyssal Eye", cat:"evolution",
  pt:{desc:"Um olho grande e ameaçador, com um olhar penetrante, pulsando com energia malévola.",drop:"Derrotando Animons do tipo [012]Demon[000]"},
