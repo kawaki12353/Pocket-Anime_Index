@@ -58,112 +58,87 @@ body {
   min-height: 36px;
 }
 
-/* MOBILE LAYOUT */
-@media (max-width: 768px) {
-  .header {
-    display: block;
-  }
-
-  /* Logo no canto direito */
-  .header-top {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-  }
-
-  .logo {
-    width: 150px;
-  }
-
-  /* Título centralizado */
-  .calc-title {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 10px;
-  }
-}
-
-/* ABAS DEFESA / OFENSIVA */
+/* TABS / SELETORES DE MODO (DEFESA / OFENSIVA) */
 .tabs-container {
   position: relative;
   display: flex;
   justify-content: center;
-  gap: 60px;
-  max-width: 900px;
-  margin: 0 auto 25px auto;
+  align-items: center;
+  gap: 40px;
+  max-width: 300px;
+  margin: 0 auto 25px;
 }
 
 .tab-btn {
-  background: transparent;
+  background: none;
   border: none;
-  color: var(--text);
-  font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 5px 15px 10px;
-  transition: color 0.3s ease;
-  width: 100px;
-}
-
-.tab-btn svg {
-  width: 28px;
-  height: 28px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: stroke 0.3s ease;
+  gap: 6px;
+  color: var(--text);
+  opacity: 0.6;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 16px;
+  transition: color 0.3s ease, opacity 0.3s ease;
+  flex: 1;
 }
 
 .tab-btn.active {
   color: #64b5f6;
+  opacity: 1;
 }
 
-.tab-btn.active svg {
-  stroke: #64b5f6;
+.tab-btn .tab-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.tab-btn svg path {
+  fill: currentColor;
 }
 
 .tab-indicator {
   position: absolute;
   bottom: 0;
+  left: 0;
   height: 3px;
+  width: 50%;
   background-color: #64b5f6;
   border-radius: 3px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* SELECTORS */
+/* SELECTORS CONTAINER */
 .selectors {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 30px;
-  /* Limita a largura para alinhar com os resultados */
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.select-wrapper {
+.selector-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
-.select-label {
+.selector-label {
   font-size: 14px;
   color: var(--text);
   opacity: 0.8;
 }
 
-/* CUSTOM SELECT - Estilo arredondado igual o da imagem */
+/* CUSTOM SELECT */
 .custom-select {
   position: relative;
   width: 220px;
@@ -171,14 +146,16 @@ body {
 
 .select-btn {
   background: var(--card);
-  border-radius: 20px;
-  padding: 12px 16px;
+  border-radius: 12px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
   border: 1px solid var(--border);
   color: var(--text);
+  box-sizing: border-box;
+  min-height: 46px;
 }
 
 .select-btn img {
@@ -205,8 +182,8 @@ body {
   left: 0;
   width: 100%;
   background: var(--card);
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
   max-height: 260px;
   overflow-y: auto;
   display: none;
@@ -235,6 +212,61 @@ body {
   background: var(--hover);
 }
 
+/* MOBILE LAYOUT */
+@media (max-width: 768px) {
+  .header {
+    display: block;
+  }
+
+  /* Logo no canto direito */
+  .header-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    width: 150px;
+  }
+
+  /* Título centralizado */
+  .calc-title {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  /* LADO A LADO PARA MOBILE NA ABA DEFESA */
+  .selectors {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .selector-group {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .custom-select {
+    width: 100%;
+  }
+
+  .select-btn {
+    padding: 8px 10px;
+  }
+
+  .select-btn span {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 /* SEÇÕES */
 .section {
   background: var(--card);
@@ -242,7 +274,6 @@ body {
   padding: 15px;
   margin-bottom: 20px;
   color: var(--text);
-  /* Impede que o container de cada categoria estique na tela toda do PC */
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -257,7 +288,6 @@ body {
 /* GRID */
 .badges {
   display: grid;
-  /* Define um tamanho fixo para os itens de tipo (105px) e centraliza */
   grid-template-columns: repeat(auto-fill, 105px);
   gap: 10px;
   justify-content: center;
@@ -350,28 +380,22 @@ body {
   <h1 id="title" class="calc-title"></h1>
 </div>
 
+<!-- ABAS DEFESA / OFENSIVA -->
 <div class="tabs-container">
   <button class="tab-btn active" id="tabDefense" onclick="switchMode('defense')">
-    <svg viewBox="0 0 24 24">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    <svg class="tab-icon" viewBox="0 0 24 24">
+      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
     </svg>
     <span id="labelDefense">Defesa</span>
   </button>
   <button class="tab-btn" id="tabOffense" onclick="switchMode('offense')">
-    <svg viewBox="0 0 24 24">
-      <!-- Espada apontada para a direita (subindo para direita) -->
-      <path d="M6 18L18 6M18 6h-5M18 6v5M5 19l2-2" />
-      <!-- Espada apontada para a esquerda (subindo para esquerda) -->
-      <path d="M18 18L6 6M6 6h5M6 6v5M19 19l-2-2" />
-    </svg>
+    <img id="offenseIcon" class="tab-icon" src="assets/white_swords.png" alt="Ofensiva">
     <span id="labelOffense">Ofensiva</span>
   </button>
   <div class="tab-indicator" id="tabIndicator"></div>
 </div>
 
-<div class="selectors" id="selectorsContainer">
-  <!-- Renderizado dinamicamente via JS -->
-</div>
+<div class="selectors" id="selectorsContainer"></div>
 
 <div id="results"></div>
 
@@ -396,16 +420,58 @@ const icons = {
 
 const texts = {
   pt:{
-    title:'Fraquezas e Resistências',primary:'Tipo primário',secondary:'Tipo secundário',single:'Selecione um Tipo',selectPlaceholder:'Selecione',btn:'🇧🇷 PT',
-    tabDefense:'Defesa',tabOffense:'Ofensiva',
-    groups:{x4:'Fraqueza Extrema (x4)',x2:'Fraqueza (x2)',x1:'Dano Normal (x1)',x05:'Resistência (x0.5)',x025:'Super Resistência (x0.25)',x0:'Imune (x0)'},
-    offenseGroups:{x4:'Dano Super Efetivo (x4)',x2:'Super Efetivo (x2)',x1:'Dano Normal (x1)',x05:'Pouco Efetivo (x0.5)',x025:'Muito Pouco Efetivo (x0.25)',x0:'Sem Efeito (x0)'}
+    titleDefense:'Fraquezas e Resistências',
+    titleOffense:'Cálculo de Dano Ofensivo',
+    primary:'Tipo primário',
+    secondary:'Tipo secundário',
+    offenseType:'Tipo selecionado',
+    selectPlaceholder:'Selecione',
+    defenseTab:'Defesa',
+    offenseTab:'Ofensiva',
+    btn:'🇧🇷 PT',
+    groupsDefense:{
+      x4:'Fraqueza Extrema (x4)',
+      x2:'Fraqueza (x2)',
+      x1:'Dano Normal (x1)',
+      x05:'Resistência (x0.5)',
+      x025:'Super Resistência (x0.25)',
+      x0:'Imune (x0)'
+    },
+    groupsOffense:{
+      x4:'Dano Super Efetivo Extremo (x4)',
+      x2:'Dano Super Efetivo (x2)',
+      x1:'Dano Normal (x1)',
+      x05:'Pouco Efetivo (x0.5)',
+      x025:'Muito Pouco Efetivo (x0.25)',
+      x0:'Sem Efeito (x0)'
+    }
   },
   en:{
-    title:'Weakness & Resistance',primary:'Primary type',secondary:'Secondary type',single:'Select a Type',selectPlaceholder:'Select',btn:'🇺🇸 EN',
-    tabDefense:'Defense',tabOffense:'Offense',
-    groups:{x4:'Extreme Weakness (x4)',x2:'Weakness (x2)',x1:'Normal Damage (x1)',x05:'Resistance (x0.5)',x025:'Strong Resistance (x0.25)',x0:'Immune (x0)'},
-    offenseGroups:{x4:'Super Effective (x4)',x2:'Super Effective (x2)',x1:'Normal Damage (x1)',x05:'Not Very Effective (x0.5)',x025:'Very Weak (x0.25)',x0:'No Effect (x0)'}
+    titleDefense:'Weakness & Resistance',
+    titleOffense:'Offensive Damage Calculator',
+    primary:'Primary type',
+    secondary:'Secondary type',
+    offenseType:'Selected type',
+    selectPlaceholder:'Select',
+    defenseTab:'Defense',
+    offenseTab:'Offense',
+    btn:'🇺🇸 EN',
+    groupsDefense:{
+      x4:'Extreme Weakness (x4)',
+      x2:'Weakness (x2)',
+      x1:'Normal Damage (x1)',
+      x05:'Resistance (x0.5)',
+      x025:'Strong Resistance (x0.25)',
+      x0:'Immune (x0)'
+    },
+    groupsOffense:{
+      x4:'Extreme Super Effective (x4)',
+      x2:'Super Effective (x2)',
+      x1:'Normal Damage (x1)',
+      x05:'Not Very Effective (x0.5)',
+      x025:'Super Ineffective (x0.25)',
+      x0:'No Effect (x0)'
+    }
   }
 };
 
@@ -413,56 +479,64 @@ let lang = localStorage.getItem("siteLang") || "pt";
 let currentMode = 'defense';
 let primaryValue='', secondaryValue='', offenseValue='';
 
-function updateTabIndicator() {
-  const activeTab = currentMode === 'defense' ? document.getElementById('tabDefense') : document.getElementById('tabOffense');
-  const indicator = document.getElementById('tabIndicator');
-  if (activeTab && indicator) {
-    indicator.style.width = `${activeTab.offsetWidth}px`;
-    indicator.style.left = `${activeTab.offsetLeft}px`;
-  }
-}
-
 function switchMode(mode) {
   currentMode = mode;
-  document.getElementById('tabDefense').classList.toggle('active', mode === 'defense');
-  document.getElementById('tabOffense').classList.toggle('active', mode === 'offense');
-  updateTabIndicator();
-  renderSelectors();
-  calculate();
+  const tabDefense = document.getElementById('tabDefense');
+  const tabOffense = document.getElementById('tabOffense');
+  const indicator = document.getElementById('tabIndicator');
+  const offenseIcon = document.getElementById('offenseIcon');
+
+  if (mode === 'defense') {
+    tabDefense.classList.add('active');
+    tabOffense.classList.remove('active');
+    indicator.style.transform = 'translateX(0%)';
+    offenseIcon.src = 'assets/white_swords.png';
+  } else {
+    tabDefense.classList.remove('active');
+    tabOffense.classList.add('active');
+    indicator.style.transform = 'translateX(100%)';
+    offenseIcon.src = 'assets/blue_swords.png';
+  }
+
+  updateLang();
 }
 
-function createSelect(containerId, label, selectedValue, onSelect){
-  const container=document.getElementById(containerId);
-  if (!container) return;
-  const placeholder = texts[lang].selectPlaceholder;
-  container.innerHTML=`
-  <div class="select-btn">
-    ${
-      selectedValue
-        ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
-        : `<span>${placeholder}</span>`
-    }
-  </div>
-  <div class="select-options"></div>
-`;
-  const btn=container.querySelector('.select-btn');
-  const options=container.querySelector('.select-options');
-  btn.onclick=()=>options.classList.toggle('open');
-  options.innerHTML=`<div class="option" data-value=""><span>${placeholder}</span></div>`;
-  elements.forEach(e=>{
-    options.innerHTML+=`
+function createSelect(container, labelText, selectedValue, onSelect){
+  container.innerHTML = `
+    <div class="select-btn">
+      ${
+        selectedValue
+          ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
+          : `<span>${texts[lang].selectPlaceholder}</span>`
+      }
+    </div>
+    <div class="select-options"></div>
+  `;
+  const btn = container.querySelector('.select-btn');
+  const options = container.querySelector('.select-options');
+
+  btn.onclick = (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.select-options').forEach(opt => {
+      if (opt !== options) opt.classList.remove('open');
+    });
+    options.classList.toggle('open');
+  };
+
+  options.innerHTML = `<div class="option" data-value=""><span>${texts[lang].selectPlaceholder}</span></div>`;
+  elements.forEach(e => {
+    options.innerHTML += `
       <div class="option" data-value="${e}">
         <img src="assets/elements/${icons[e]}"><span>${e}</span>
       </div>`;
   });
-  options.querySelectorAll('.option').forEach(opt=>{
-    opt.onclick=()=>{
-      const val=opt.dataset.value;
 
+  options.querySelectorAll('.option').forEach(opt => {
+    opt.onclick = () => {
+      const val = opt.dataset.value;
       btn.innerHTML = val
         ? `<img src="assets/elements/${icons[val]}"><span>${val}</span>`
-        : `<span>${placeholder}</span>`;
-
+        : `<span>${texts[lang].selectPlaceholder}</span>`;
       options.classList.remove('open');
       onSelect(val);
     };
@@ -471,33 +545,37 @@ function createSelect(containerId, label, selectedValue, onSelect){
 
 function renderSelectors() {
   const container = document.getElementById('selectorsContainer');
+  container.innerHTML = '';
+
   if (currentMode === 'defense') {
-    container.innerHTML = `
-      <div class="select-wrapper">
-        <span class="select-label">${texts[lang].primary}</span>
-        <div class="custom-select" id="primarySelect"></div>
-      </div>
-      <div class="select-wrapper">
-        <span class="select-label">${texts[lang].secondary}</span>
-        <div class="custom-select" id="secondarySelect"></div>
-      </div>
-    `;
-    createSelect('primarySelect', texts[lang].primary, primaryValue, v => {
+    const group1 = document.createElement('div');
+    group1.className = 'selector-group';
+    group1.innerHTML = `<span class="selector-label">${texts[lang].primary}</span><div class="custom-select" id="primarySelect"></div>`;
+    
+    const group2 = document.createElement('div');
+    group2.className = 'selector-group';
+    group2.innerHTML = `<span class="selector-label">${texts[lang].secondary}</span><div class="custom-select" id="secondarySelect"></div>`;
+
+    container.appendChild(group1);
+    container.appendChild(group2);
+
+    createSelect(document.getElementById('primarySelect'), texts[lang].primary, primaryValue, v => {
       primaryValue = v;
       calculate();
     });
-    createSelect('secondarySelect', texts[lang].secondary, secondaryValue, v => {
+
+    createSelect(document.getElementById('secondarySelect'), texts[lang].secondary, secondaryValue, v => {
       secondaryValue = v;
       calculate();
     });
   } else {
-    container.innerHTML = `
-      <div class="select-wrapper">
-        <span class="select-label">${texts[lang].single}</span>
-        <div class="custom-select" id="offenseSelect"></div>
-      </div>
-    `;
-    createSelect('offenseSelect', texts[lang].single, offenseValue, v => {
+    const group = document.createElement('div');
+    group.className = 'selector-group';
+    group.innerHTML = `<span class="selector-label">${texts[lang].offenseType}</span><div class="custom-select" id="offenseSelect"></div>`;
+
+    container.appendChild(group);
+
+    createSelect(document.getElementById('offenseSelect'), texts[lang].offenseType, offenseValue, v => {
       offenseValue = v;
       calculate();
     });
@@ -505,13 +583,14 @@ function renderSelectors() {
 }
 
 function calculate(){
-  const damage={};
+  const damage = {};
+
   if (currentMode === 'defense') {
-    elements.forEach(atk=>{
-      let m=1;
-      if(primaryValue && chart[atk]?.[primaryValue]!=null) m*=chart[atk][primaryValue];
-      if(secondaryValue && chart[atk]?.[secondaryValue]!=null && primaryValue!==secondaryValue) m*=chart[atk][secondaryValue];
-      damage[atk]=m;
+    elements.forEach(atk => {
+      let m = 1;
+      if (primaryValue && chart[atk]?.[primaryValue] != null) m *= chart[atk][primaryValue];
+      if (secondaryValue && chart[atk]?.[secondaryValue] != null && primaryValue !== secondaryValue) m *= chart[atk][secondaryValue];
+      damage[atk] = m;
     });
   } else {
     elements.forEach(def => {
@@ -522,31 +601,36 @@ function calculate(){
       damage[def] = m;
     });
   }
+
   render(damage);
 }
 
 function render(damage){
-  results.innerHTML='';
-  const map={x4:[],x2:[],x1:[],x05:[],x025:[],x0:[]};
-  for(const e in damage){
-    const v=damage[e];
-    if(v===0) map.x0.push(e);
-    else if(v===0.25) map.x025.push(e);
-    else if(v===0.5) map.x05.push(e);
-    else if(v===2) map.x2.push(e);
-    else if(v===4) map.x4.push(e);
+  const results = document.getElementById('results');
+  results.innerHTML = '';
+  const map = { x4:[], x2:[], x1:[], x05:[], x025:[], x0:[] };
+
+  for (const e in damage) {
+    const v = damage[e];
+    if (v === 0) map.x0.push(e);
+    else if (v === 0.25) map.x025.push(e);
+    else if (v === 0.5) map.x05.push(e);
+    else if (v === 2) map.x2.push(e);
+    else if (v === 4) map.x4.push(e);
     else map.x1.push(e);
   }
-  const groupTexts = currentMode === 'defense' ? texts[lang].groups : texts[lang].offenseGroups;
-  for(const k in map){
-    if(!map[k].length) continue;
-    const sec=document.createElement('div');
-    sec.className='section';
-    sec.innerHTML=`<h2>${groupTexts[k]}</h2>`;
-    const box=document.createElement('div');
-    box.className='badges';
-    map[k].forEach(e=>{
-      box.innerHTML+=`
+
+  const currentGroups = currentMode === 'defense' ? texts[lang].groupsDefense : texts[lang].groupsOffense;
+
+  for (const k in map) {
+    if (!map[k].length) continue;
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.innerHTML = `<h2>${currentGroups[k]}</h2>`;
+    const box = document.createElement('div');
+    box.className = 'badges';
+    map[k].forEach(e => {
+      box.innerHTML += `
         <div class="badge ${k}">
           <img src="assets/elements/${icons[e]}"><span>${e}</span>
         </div>`;
@@ -557,22 +641,21 @@ function render(damage){
 }
 
 function updateLang(){
-  title.textContent=texts[lang].title;
-  langBtn.textContent=texts[lang].btn;
-  labelDefense.textContent=texts[lang].tabDefense;
-  labelOffense.textContent=texts[lang].tabOffense;
+  document.getElementById('title').textContent = currentMode === 'defense' ? texts[lang].titleDefense : texts[lang].titleOffense;
+  document.getElementById('langBtn').textContent = texts[lang].btn;
+  document.getElementById('labelDefense').textContent = texts[lang].defenseTab;
+  document.getElementById('labelOffense').textContent = texts[lang].offenseTab;
 
   renderSelectors();
   calculate();
-  setTimeout(updateTabIndicator, 50);
 }
 
-langBtn.onclick=()=>{
-  lang = lang==='pt'?'en':'pt';
+document.getElementById('langBtn').onclick = () => {
+  lang = lang === 'pt' ? 'en' : 'pt';
   localStorage.setItem("siteLang", lang);
   updateLang();
 
-if (typeof updateMenuLang === "function") {
+  if (typeof updateMenuLang === "function") {
     updateMenuLang();
   }
 };
@@ -584,8 +667,6 @@ document.addEventListener("click", e => {
     }
   });
 });
-
-window.addEventListener('resize', updateTabIndicator);
 
 updateLang();
 </script>
