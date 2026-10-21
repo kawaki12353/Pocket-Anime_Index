@@ -424,7 +424,13 @@
         .property-icon {
             width: 20px;
             height: 20px;
-            object-fit: contain;
+            background-color: var(--text);
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
             flex-shrink: 0;
         }
         .property-name {
@@ -751,7 +757,7 @@ function openModal(item) {
             return `
                 <div class="property-card">
                     <div class="property-header">
-                        <img src="${propData.icon}" class="property-icon" alt="">
+                        <div class="property-icon" style="-webkit-mask-image: url('${propData.icon}'); mask-image: url('${propData.icon}');"></div>
                         <span class="property-name">${propData[lang].name}</span>
                     </div>
                     <div class="property-desc">${propData[lang].desc}</div>
