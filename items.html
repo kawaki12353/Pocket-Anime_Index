@@ -401,6 +401,44 @@
             margin-bottom: 0;
         }
 
+        /* Estilos dos Blocos de Propriedades (baseado no design da imagem) */
+        .property-card {
+            background: var(--modal-box-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+        .property-card:last-child {
+            margin-bottom: 0;
+        }
+        .property-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .property-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .property-name {
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--text);
+        }
+        .property-desc {
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0.85;
+            padding-left: 28px;
+        }
+
         /* Conteúdo sem box para Descrição e Detalhes */
         .text-content {
             color: var(--text);
@@ -529,6 +567,15 @@
             <div class="drop-box" id="mDrop"></div>
         </div>
 
+        <!-- Divisora abaixo de Onde Obter -->
+        <hr class="modal-divider" id="propertiesDivider" style="display: none;">
+
+        <!-- Seção Propriedades -->
+        <div class="section" id="propertiesSection" style="display: none;">
+            <div class="section-title" id="lblProperties"></div>
+            <div id="mProperties"></div>
+        </div>
+
     </div>
 </div>
 
@@ -545,16 +592,54 @@ let selectedRarity = "";
 
 const rarityOrder = { common: 1, uncommon: 2, rare: 3, epic: 4, legendary: 5 };
 
+const itemsProperties = {
+  equipable: {
+    icon: "assets/properties_icon/equipable.png",
+    pt: { name: "Equipável:", desc: "Pode ser equipado em Animons" },
+    en: { name: "Equipable:", desc: "Can be equipped on Animons" }
+  },
+  consumable: {
+    icon: "assets/properties_icon/consumable.png",
+    pt: { name: "Consumível:", desc: "Consumido ao ser usado" },
+    en: { name: "Consumable:", desc: "Consumed when used" }
+  },
+  usable_battle: {
+    icon: "assets/properties_icon/usable_battle.png",
+    pt: { name: "Usável (batalha):", desc: "Usável em batalha" },
+    en: { name: "Usable (battle):", desc: "Usable in battle" }
+  },
+  tradable: {
+    icon: "assets/properties_icon/tradable.png",
+    pt: { name: "Negociável:", desc: "Pode ser trocado com outros jogadores" },
+    en: { name: "Tradable:", desc: "Can be traded with other players" }
+  },
+  transformation: {
+    icon: "assets/properties_icon/transformation.png",
+    pt: { name: "Transformação:", desc: "Desperta uma forma especial no Animon" },
+    en: { name: "Transformation:", desc: "Awakens a special form in the Animon" }
+  },
+  usable_map: {
+    icon: "assets/properties_icon/usable_map.png",
+    pt: { name: "Usável (mapa):", desc: "Usável no mapa / mundo" },
+    en: { name: "Usable (map):", desc: "Usable in the map / world" }
+  },
+  Premium: {
+    icon: "assets/properties_icon/premium.png",
+    pt: { name: "Premium:", desc: "Item premium ou especial" },
+    en: { name: "Premium:", desc: "Premium or special item" }
+  }
+};
+
 const texts = {
     pt: {
         title: "Lista de Itens", search: "Pesquisar item...",
         allCat: "Todas as categorias", allRare: "Todas raridades",
-        desc: "Descrição", details: "Detalhes", drop: "Onde Obter", cat: "Categoria", bag: "Mochila", cost: "Custo", langBtn: "🇧🇷 PT"
+        desc: "Descrição", details: "Detalhes", drop: "Onde Obter", cat: "Categoria", bag: "Mochila", cost: "Custo", properties: "Propriedades", langBtn: "🇧🇷 PT"
     },
     en: {
         title: "Item List", search: "Search item...",
         allCat: "All categories", allRare: "All rarities",
-        desc: "Description", details: "Details", drop: "How to obtain", cat: "Category", bag: "Bag", cost: "Cost", langBtn: "🇺🇸 EN"
+        desc: "Description", details: "Details", drop: "How to obtain", cat: "Category", bag: "Bag", cost: "Cost", properties: "Properties", langBtn: "🇺🇸 EN"
     }
 };
 
@@ -602,6 +687,17 @@ const rarityLabels = {
     pt: { common: "Comum", uncommon: "Incomum", rare: "Raro", epic: "Épico", legendary: "Lendário" },
     en: { common: "Common", uncommon: "Uncommon", rare: "Rare", epic: "Epic", legendary: "Legendary" }
 };
+
+function getItemProperties(item) {
+    if (!item.properties) return [];
+    if (Array.isArray(item.properties)) {
+        return item.properties.filter(p => p && itemsProperties[p]);
+    }
+    if (typeof item.properties === "string" && item.properties.trim() !== "") {
+        return itemsProperties[item.properties] ? [item.properties] : [];
+    }
+    return [];
+}
 
 function render() {
     const searchVal = document.getElementById("searchInput").value.toLowerCase();
@@ -676,6 +772,34 @@ function openModal(item) {
         detailsSec.style.display = "none";
     }
 
+    // Tratamento para propriedades do item
+    const props = getItemProperties(item);
+    const propertiesSection = document.getElementById("propertiesSection");
+    const propertiesDivider = document.getElementById("propertiesDivider");
+
+    if (props.length > 0) {
+        propertiesDivider.style.display = "block";
+        propertiesSection.style.display = "flex";
+
+        const mPropsEl = document.getElementById("mProperties");
+        mPropsEl.innerHTML = props.map(propKey => {
+            const propData = itemsProperties[propKey];
+            if (!propData) return "";
+            return `
+                <div class="property-card">
+                    <div class="property-header">
+                        <img src="${propData.icon}" class="property-icon" alt="">
+                        <span class="property-name">${propData[lang].name}</span>
+                    </div>
+                    <div class="property-desc">${propData[lang].desc}</div>
+                </div>
+            `;
+        }).join('');
+    } else {
+        propertiesDivider.style.display = "none";
+        propertiesSection.style.display = "none";
+    }
+
     modalBg.classList.add("active");
 }
 
@@ -693,6 +817,7 @@ function updateLang() {
     document.getElementById("lblCat").innerHTML = `<img src="assets/category_icon.png" class="title-icon"> ${t.cat}`;
     document.getElementById("lblBag").innerHTML = `<img src="assets/bag_icon.png" class="title-icon"> ${t.bag}`;
     document.getElementById("lblCost").innerHTML = `<img src="assets/cost_icon.png" class="title-icon"> ${t.cost}`;
+    document.getElementById("lblProperties").innerHTML = `<img src="assets/properties_icon.png" class="title-icon"> ${t.properties}`;
     document.getElementById("langBtn").textContent = t.langBtn;
 
     buildCategoryMenu();
