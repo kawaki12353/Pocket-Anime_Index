@@ -116,38 +116,34 @@ body {
   color: #64b5f6;
 }
 
-/* Shield SVG & Swords Image styling */
+/* Tab Icon Base */
 .mode-tab .tab-icon {
   width: 24px;
   height: 24px;
-  object-fit: contain;
-  transition: opacity 0.3s ease, filter 0.3s ease;
+  display: inline-block;
+  transition: background-color 0.3s ease, stroke 0.3s ease;
 }
 
 /* Shield SVG color control */
-.mode-tab svg path {
+.mode-tab svg.tab-icon path {
   fill: none;
   stroke: var(--text-muted, #8a8d93);
   stroke-width: 2;
   transition: stroke 0.3s ease;
 }
 
-.mode-tab.active svg path {
+.mode-tab.active svg.tab-icon path {
   stroke: #64b5f6;
 }
 
-/* Image Icon (Swords) tinting via CSS Mask */
-.mode-tab img.tab-icon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
+/* Swords Image Mask control */
+.mode-tab .tab-icon.swords-img {
   background-color: var(--text-muted, #8a8d93);
   -webkit-mask: url('assets/white_swords.png') no-repeat center / contain;
   mask: url('assets/white_swords.png') no-repeat center / contain;
-  transition: background-color 0.3s ease;
 }
 
-.mode-tab.active img.tab-icon {
+.mode-tab.active .tab-icon.swords-img {
   background-color: #64b5f6;
 }
 
@@ -424,7 +420,7 @@ body {
     <span id="labelDef">Defesa</span>
   </button>
   <button class="mode-tab" id="tabOff">
-    <img src="assets/white_swords.png" class="tab-icon" alt="Ofensiva">
+    <span class="tab-icon swords-img"></span>
     <span id="labelOff">Ofensiva</span>
   </button>
   <div class="tab-indicator" id="tabIndicator"></div>
@@ -565,7 +561,6 @@ function calculate(){
       damage[atk]=m;
     });
   } else {
-    // Modo Ofensivo: dano provocado pelo tipo selecionado nos outros tipos
     elements.forEach(defTarget => {
       let m = 1;
       if (offensiveValue && chart[offensiveValue]?.[defTarget] != null) {
