@@ -28,7 +28,7 @@ body {
 .header {
   position: relative;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 /* LOGO */
@@ -58,160 +58,6 @@ body {
   min-height: 36px;
 }
 
-/* TABS / SELETORES DE MODO (DEFESA / OFENSIVA) */
-.tabs-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  max-width: 300px;
-  margin: 0 auto 25px;
-}
-
-.tab-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  color: var(--text);
-  opacity: 0.6;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 8px 16px;
-  transition: color 0.3s ease, opacity 0.3s ease;
-  flex: 1;
-}
-
-.tab-btn.active {
-  color: #64b5f6;
-  opacity: 1;
-}
-
-.tab-btn .tab-icon {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  transition: transform 0.2s ease;
-}
-
-.tab-btn svg path {
-  fill: currentColor;
-}
-
-.tab-indicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 50%;
-  background-color: #64b5f6;
-  border-radius: 3px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* SELECTORS CONTAINER */
-.selectors {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.selector-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.selector-label {
-  font-size: 14px;
-  color: var(--text);
-  opacity: 0.8;
-}
-
-/* CUSTOM SELECT */
-.custom-select {
-  position: relative;
-  width: 220px;
-}
-
-.select-btn {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  color: var(--text);
-  box-sizing: border-box;
-  min-height: 46px;
-}
-
-.select-btn img {
-  width: 26px;
-  height: 26px;
-}
-
-.select-btn span {
-  font-weight: bold;
-}
-
-.select-btn::after {
-  content: "▼";
-  margin-left: auto;
-  font-size: 10px;
-  color: var(--text);
-  opacity: 0.7;
-}
-
-/* DROPDOWN */
-.select-options {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  width: 100%;
-  background: var(--card);
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-  max-height: 260px;
-  overflow-y: auto;
-  display: none;
-  z-index: 10;
-  border: 1px solid var(--border);
-}
-
-.select-options.open {
-  display: block;
-}
-
-.option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.option img {
-  width: 26px;
-  height: 26px;
-}
-
-.option:hover {
-  background: var(--hover);
-}
-
 /* MOBILE LAYOUT */
 @media (max-width: 768px) {
   .header {
@@ -235,28 +81,172 @@ body {
     font-size: 18px;
     margin-top: 10px;
   }
+}
 
-  /* LADO A LADO PARA MOBILE NA ABA DEFESA */
+/* MODE TABS (DEFESA / OFENSIVA) */
+.mode-tabs-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  max-width: 320px;
+  margin: 0 auto 25px auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.mode-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #8a8d93);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 4px 10px;
+  outline: none;
+  flex: 1;
+}
+
+.mode-tab.active {
+  color: #64b5f6;
+}
+
+/* Shield SVG & Swords Image styling */
+.mode-tab .tab-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Shield SVG color control */
+.mode-tab svg path {
+  fill: none;
+  stroke: var(--text-muted, #8a8d93);
+  stroke-width: 2;
+  transition: stroke 0.3s ease;
+}
+
+.mode-tab.active svg path {
+  stroke: #64b5f6;
+}
+
+/* Image Icon (Swords) tinting */
+.mode-tab img.tab-icon {
+  filter: grayscale(100%) opacity(0.6);
+}
+
+.mode-tab.active img.tab-icon {
+  filter: drop-shadow(0 0 0 #64b5f6) opacity(1);
+  /* Fallback se a imagem for totalmente branca */
+  background-color: transparent;
+}
+
+/* Sliding active bar */
+.tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 3px;
+  width: 50px;
+  background-color: #64b5f6;
+  border-radius: 3px 3px 0 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(100, 181, 246, 0.5);
+}
+
+/* SELECTORS CONTAINER */
+.selectors {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CUSTOM SELECT */
+.custom-select {
+  position: relative;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.select-label {
+  font-size: 13px;
+  color: var(--text-muted, #9e9e9e);
+  text-align: center;
+  font-weight: 400;
+}
+
+.select-btn {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-sizing: border-box;
+  height: 46px;
+  transition: border-color 0.2s;
+}
+
+.select-btn:hover {
+  border-color: #64b5f6;
+}
+
+.select-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.select-btn span {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.select-btn::after {
+  content: "";
+  margin-left: auto;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--text);
+  opacity: 0.7;
+}
+
+/* MOBILE RESPONSIVE FOR SELECTORS */
+@media (max-width: 600px) {
   .selectors {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 10px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .selector-group {
-    flex: 1;
-    min-width: 0;
+    padding: 0 5px;
   }
 
   .custom-select {
-    width: 100%;
+    flex: 1;
+    min-width: 0; /* Permite encolher proporcionalmente */
+    width: auto;
   }
 
   .select-btn {
-    padding: 8px 10px;
+    padding: 10px 10px;
+    border-radius: 14px;
   }
 
   .select-btn span {
@@ -265,6 +255,45 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+/* DROPDOWN */
+.select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  max-height: 260px;
+  overflow-y: auto;
+  display: none;
+  z-index: 100;
+  margin-top: 6px;
+}
+
+.select-options.open {
+  display: block;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.option img {
+  width: 24px;
+  height: 24px;
+}
+
+.option:hover {
+  background: var(--hover);
 }
 
 /* SEÇÕES */
@@ -349,6 +378,7 @@ body {
   --text: #111;
   --border: #ccc;
   --hover: #f1f1f1;
+  --text-muted: #666666;
 
   --lang-btn: #ffffff;
   --lang-btn-bg: #444;
@@ -361,6 +391,7 @@ body {
     --text: #ffffff;
     --border: #2a2f3a;
     --hover: #232836;
+    --text-muted: #8a8d93;
 
     --lang-btn: #111;
     --lang-btn-bg: #ffffff;
@@ -381,21 +412,24 @@ body {
 </div>
 
 <!-- ABAS DEFESA / OFENSIVA -->
-<div class="tabs-container">
-  <button class="tab-btn active" id="tabDefense" onclick="switchMode('defense')">
+<div class="mode-tabs-container">
+  <button class="mode-tab active" id="tabDef">
     <svg class="tab-icon" viewBox="0 0 24 24">
-      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+      <path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z"/>
     </svg>
-    <span id="labelDefense">Defesa</span>
+    <span id="labelDef">Defesa</span>
   </button>
-  <button class="tab-btn" id="tabOffense" onclick="switchMode('offense')">
-    <img id="offenseIcon" class="tab-icon" src="assets/white_swords.png" alt="Ofensiva">
-    <span id="labelOffense">Ofensiva</span>
+  <button class="mode-tab" id="tabOff">
+    <img src="assets/white_swords.png" class="tab-icon" alt="Ofensiva">
+    <span id="labelOff">Ofensiva</span>
   </button>
   <div class="tab-indicator" id="tabIndicator"></div>
 </div>
 
-<div class="selectors" id="selectorsContainer"></div>
+<div class="selectors" id="selectorsContainer">
+  <div class="custom-select" id="primarySelect"></div>
+  <div class="custom-select" id="secondarySelect"></div>
+</div>
 
 <div id="results"></div>
 
@@ -420,217 +454,146 @@ const icons = {
 
 const texts = {
   pt:{
-    titleDefense:'Fraquezas e Resistências',
-    titleOffense:'Cálculo de Dano Ofensivo',
-    primary:'Tipo primário',
-    secondary:'Tipo secundário',
-    offenseType:'Tipo selecionado',
-    selectPlaceholder:'Selecione',
-    defenseTab:'Defesa',
-    offenseTab:'Ofensiva',
-    btn:'🇧🇷 PT',
-    groupsDefense:{
-      x4:'Fraqueza Extrema (x4)',
-      x2:'Fraqueza (x2)',
-      x1:'Dano Normal (x1)',
-      x05:'Resistência (x0.5)',
-      x025:'Super Resistência (x0.25)',
-      x0:'Imune (x0)'
-    },
-    groupsOffense:{
-      x4:'Dano Super Efetivo Extremo (x4)',
-      x2:'Dano Super Efetivo (x2)',
-      x1:'Dano Normal (x1)',
-      x05:'Pouco Efetivo (x0.5)',
-      x025:'Muito Pouco Efetivo (x0.25)',
-      x0:'Sem Efeito (x0)'
-    }
+    title:'Fraquezas e Resistências',primary:'Tipo primário',secondary:'Tipo secundário',single:'Selecione o tipo',
+    btn:'🇧🇷 PT', def:'Defesa', off:'Ofensiva',
+    groups:{x4:'Super Efetivo (x4)',x2:'Super Efetivo (x2)',x1:'Dano Normal (x1)',x05:'Pouco Efetivo (x0.5)',x025:'Muito Pouco Efetivo (x0.25)',x0:'Sem Efeito (x0)'}
   },
   en:{
-    titleDefense:'Weakness & Resistance',
-    titleOffense:'Offensive Damage Calculator',
-    primary:'Primary type',
-    secondary:'Secondary type',
-    offenseType:'Selected type',
-    selectPlaceholder:'Select',
-    defenseTab:'Defense',
-    offenseTab:'Offense',
-    btn:'🇺🇸 EN',
-    groupsDefense:{
-      x4:'Extreme Weakness (x4)',
-      x2:'Weakness (x2)',
-      x1:'Normal Damage (x1)',
-      x05:'Resistance (x0.5)',
-      x025:'Strong Resistance (x0.25)',
-      x0:'Immune (x0)'
-    },
-    groupsOffense:{
-      x4:'Extreme Super Effective (x4)',
-      x2:'Super Effective (x2)',
-      x1:'Normal Damage (x1)',
-      x05:'Not Very Effective (x0.5)',
-      x025:'Super Ineffective (x0.25)',
-      x0:'No Effect (x0)'
-    }
+    title:'Weakness & Resistance',primary:'Primary type',secondary:'Secondary type',single:'Select type',
+    btn:'🇺🇸 EN', def:'Defense', off:'Offense',
+    groups:{x4:'Super Effective (x4)',x2:'Super Effective (x2)',x1:'Normal Damage (x1)',x05:'Not Very Effective (x0.5)',x025:'Very Ineffective (x0.25)',x0:'No Effect (x0)'}
   }
 };
 
 let lang = localStorage.getItem("siteLang") || "pt";
-let currentMode = 'defense';
-let primaryValue='', secondaryValue='', offenseValue='';
+let currentMode = 'def'; // 'def' ou 'off'
+let primaryValue='', secondaryValue='', offensiveValue='';
 
-function switchMode(mode) {
-  currentMode = mode;
-  const tabDefense = document.getElementById('tabDefense');
-  const tabOffense = document.getElementById('tabOffense');
-  const indicator = document.getElementById('tabIndicator');
-  const offenseIcon = document.getElementById('offenseIcon');
-
-  if (mode === 'defense') {
-    tabDefense.classList.add('active');
-    tabOffense.classList.remove('active');
-    indicator.style.transform = 'translateX(0%)';
-    offenseIcon.src = 'assets/white_swords.png';
-  } else {
-    tabDefense.classList.remove('active');
-    tabOffense.classList.add('active');
-    indicator.style.transform = 'translateX(100%)';
-    offenseIcon.src = 'assets/blue_swords.png';
-  }
-
-  updateLang();
-}
-
-function createSelect(container, labelText, selectedValue, onSelect){
-  container.innerHTML = `
-    <div class="select-btn">
-      ${
-        selectedValue
-          ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
-          : `<span>${texts[lang].selectPlaceholder}</span>`
-      }
-    </div>
-    <div class="select-options"></div>
-  `;
-  const btn = container.querySelector('.select-btn');
-  const options = container.querySelector('.select-options');
-
-  btn.onclick = (e) => {
-    e.stopPropagation();
-    document.querySelectorAll('.select-options').forEach(opt => {
-      if (opt !== options) opt.classList.remove('open');
-    });
-    options.classList.toggle('open');
-  };
-
-  options.innerHTML = `<div class="option" data-value=""><span>${texts[lang].selectPlaceholder}</span></div>`;
-  elements.forEach(e => {
-    options.innerHTML += `
+function createSelect(containerId, label, selectedValue, onSelect){
+  const container=document.getElementById(containerId);
+  if(!container) return;
+  container.innerHTML=`
+  <span class="select-label">${label}</span>
+  <div class="select-btn">
+    ${
+      selectedValue
+        ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
+        : `<span>Selecione</span>`
+    }
+  </div>
+  <div class="select-options"></div>
+`;
+  const btn=container.querySelector('.select-btn');
+  const options=container.querySelector('.select-options');
+  btn.onclick=()=>options.classList.toggle('open');
+  options.innerHTML=`<div class="option" data-value=""><span>Selecione</span></div>`;
+  elements.forEach(e=>{
+    options.innerHTML+=`
       <div class="option" data-value="${e}">
         <img src="assets/elements/${icons[e]}"><span>${e}</span>
       </div>`;
   });
+  options.querySelectorAll('.option').forEach(opt=>{
+  opt.onclick=()=>{
+    const val=opt.dataset.value;
 
-  options.querySelectorAll('.option').forEach(opt => {
-    opt.onclick = () => {
-      const val = opt.dataset.value;
-      btn.innerHTML = val
-        ? `<img src="assets/elements/${icons[val]}"><span>${val}</span>`
-        : `<span>${texts[lang].selectPlaceholder}</span>`;
-      options.classList.remove('open');
-      onSelect(val);
-    };
-  });
+    btn.innerHTML = val
+      ? `<img src="assets/elements/${icons[val]}"><span>${val}</span>`
+      : `<span>Selecione</span>`;
+
+    options.classList.remove('open');
+    onSelect(val);
+  };
+});
+}
+
+function updateTabsUI() {
+  const tabDef = document.getElementById('tabDef');
+  const tabOff = document.getElementById('tabOff');
+  const indicator = document.getElementById('tabIndicator');
+  
+  if (currentMode === 'def') {
+    tabDef.classList.add('active');
+    tabOff.classList.remove('active');
+    indicator.style.transform = `translateX(${tabDef.offsetLeft}px)`;
+    indicator.style.width = `${tabDef.offsetWidth}px`;
+  } else {
+    tabOff.classList.add('active');
+    tabDef.classList.remove('active');
+    indicator.style.transform = `translateX(${tabOff.offsetLeft}px)`;
+    indicator.style.width = `${tabOff.offsetWidth}px`;
+  }
 }
 
 function renderSelectors() {
   const container = document.getElementById('selectorsContainer');
-  container.innerHTML = '';
-
-  if (currentMode === 'defense') {
-    const group1 = document.createElement('div');
-    group1.className = 'selector-group';
-    group1.innerHTML = `<span class="selector-label">${texts[lang].primary}</span><div class="custom-select" id="primarySelect"></div>`;
-    
-    const group2 = document.createElement('div');
-    group2.className = 'selector-group';
-    group2.innerHTML = `<span class="selector-label">${texts[lang].secondary}</span><div class="custom-select" id="secondarySelect"></div>`;
-
-    container.appendChild(group1);
-    container.appendChild(group2);
-
-    createSelect(document.getElementById('primarySelect'), texts[lang].primary, primaryValue, v => {
+  if (currentMode === 'def') {
+    container.innerHTML = `
+      <div class="custom-select" id="primarySelect"></div>
+      <div class="custom-select" id="secondarySelect"></div>
+    `;
+    createSelect('primarySelect', texts[lang].primary, primaryValue, v => {
       primaryValue = v;
       calculate();
     });
-
-    createSelect(document.getElementById('secondarySelect'), texts[lang].secondary, secondaryValue, v => {
+    createSelect('secondarySelect', texts[lang].secondary, secondaryValue, v => {
       secondaryValue = v;
       calculate();
     });
   } else {
-    const group = document.createElement('div');
-    group.className = 'selector-group';
-    group.innerHTML = `<span class="selector-label">${texts[lang].offenseType}</span><div class="custom-select" id="offenseSelect"></div>`;
-
-    container.appendChild(group);
-
-    createSelect(document.getElementById('offenseSelect'), texts[lang].offenseType, offenseValue, v => {
-      offenseValue = v;
+    container.innerHTML = `
+      <div class="custom-select" id="offensiveSelect"></div>
+    `;
+    createSelect('offensiveSelect', texts[lang].single, offensiveValue, v => {
+      offensiveValue = v;
       calculate();
     });
   }
 }
 
 function calculate(){
-  const damage = {};
-
-  if (currentMode === 'defense') {
-    elements.forEach(atk => {
-      let m = 1;
-      if (primaryValue && chart[atk]?.[primaryValue] != null) m *= chart[atk][primaryValue];
-      if (secondaryValue && chart[atk]?.[secondaryValue] != null && primaryValue !== secondaryValue) m *= chart[atk][secondaryValue];
-      damage[atk] = m;
+  const damage={};
+  if (currentMode === 'def') {
+    elements.forEach(atk=>{
+      let m=1;
+      if(primaryValue && chart[atk]?.[primaryValue]!=null) m*=chart[atk][primaryValue];
+      if(secondaryValue && chart[atk]?.[secondaryValue]!=null && primaryValue!==secondaryValue) m*=chart[atk][secondaryValue];
+      damage[atk]=m;
     });
   } else {
-    elements.forEach(def => {
+    // Modo Ofensivo: dano provocado pelo tipo selecionado nos outros tipos
+    elements.forEach(defTarget => {
       let m = 1;
-      if (offenseValue && chart[offenseValue]?.[def] != null) {
-        m = chart[offenseValue][def];
+      if (offensiveValue && chart[offensiveValue]?.[defTarget] != null) {
+        m = chart[offensiveValue][defTarget];
       }
-      damage[def] = m;
+      damage[defTarget] = m;
     });
   }
-
   render(damage);
 }
 
 function render(damage){
-  const results = document.getElementById('results');
-  results.innerHTML = '';
-  const map = { x4:[], x2:[], x1:[], x05:[], x025:[], x0:[] };
-
-  for (const e in damage) {
-    const v = damage[e];
-    if (v === 0) map.x0.push(e);
-    else if (v === 0.25) map.x025.push(e);
-    else if (v === 0.5) map.x05.push(e);
-    else if (v === 2) map.x2.push(e);
-    else if (v === 4) map.x4.push(e);
+  results.innerHTML='';
+  const map={x4:[],x2:[],x1:[],x05:[],x025:[],x0:[]};
+  for(const e in damage){
+    const v=damage[e];
+    if(v===0) map.x0.push(e);
+    else if(v===0.25) map.x025.push(e);
+    else if(v===0.5) map.x05.push(e);
+    else if(v===2) map.x2.push(e);
+    else if(v===4) map.x4.push(e);
     else map.x1.push(e);
   }
-
-  const currentGroups = currentMode === 'defense' ? texts[lang].groupsDefense : texts[lang].groupsOffense;
-
-  for (const k in map) {
-    if (!map[k].length) continue;
-    const sec = document.createElement('div');
-    sec.className = 'section';
-    sec.innerHTML = `<h2>${currentGroups[k]}</h2>`;
-    const box = document.createElement('div');
-    box.className = 'badges';
-    map[k].forEach(e => {
-      box.innerHTML += `
+  for(const k in map){
+    if(!map[k].length) continue;
+    const sec=document.createElement('div');
+    sec.className='section';
+    sec.innerHTML=`<h2>${texts[lang].groups[k]}</h2>`;
+    const box=document.createElement('div');
+    box.className='badges';
+    map[k].forEach(e=>{
+      box.innerHTML+=`
         <div class="badge ${k}">
           <img src="assets/elements/${icons[e]}"><span>${e}</span>
         </div>`;
@@ -641,17 +604,36 @@ function render(damage){
 }
 
 function updateLang(){
-  document.getElementById('title').textContent = currentMode === 'defense' ? texts[lang].titleDefense : texts[lang].titleOffense;
-  document.getElementById('langBtn').textContent = texts[lang].btn;
-  document.getElementById('labelDefense').textContent = texts[lang].defenseTab;
-  document.getElementById('labelOffense').textContent = texts[lang].offenseTab;
+  title.textContent=texts[lang].title;
+  langBtn.textContent=texts[lang].btn;
+  document.getElementById('labelDef').textContent = texts[lang].def;
+  document.getElementById('labelOff').textContent = texts[lang].off;
 
   renderSelectors();
   calculate();
+  setTimeout(updateTabsUI, 50);
 }
 
-document.getElementById('langBtn').onclick = () => {
-  lang = lang === 'pt' ? 'en' : 'pt';
+document.getElementById('tabDef').onclick = () => {
+  if (currentMode !== 'def') {
+    currentMode = 'def';
+    updateTabsUI();
+    renderSelectors();
+    calculate();
+  }
+};
+
+document.getElementById('tabOff').onclick = () => {
+  if (currentMode !== 'off') {
+    currentMode = 'off';
+    updateTabsUI();
+    renderSelectors();
+    calculate();
+  }
+};
+
+langBtn.onclick=()=>{
+  lang = lang==='pt'?'en':'pt';
   localStorage.setItem("siteLang", lang);
   updateLang();
 
@@ -667,6 +649,8 @@ document.addEventListener("click", e => {
     }
   });
 });
+
+window.addEventListener('resize', updateTabsUI);
 
 updateLang();
 </script>
