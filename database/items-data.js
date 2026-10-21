@@ -24,8 +24,8 @@ const items=[
  icon:"highstar_key.png"
 },
 {rarity:"epic", name:"Castle Badge", cat:"key", bag:"Key",
- pt:{desc:"Concedido àqueles que derrotaram a primeira cápsula.",drop:"Se consegue Derrotando o primeiro ginásio"},
- en:{desc:"Awarded to those who have defeated the first capsule.",drop:"You get it by defeating the first gym"},
+ pt:{desc:"Concedido àqueles que derrotaram a primeira cápsula.",drop:"Derrotando o primeiro ginásio"},
+ en:{desc:"Awarded to those who have defeated the first capsule.",drop:"Defeating the first gym"},
  icon:"castle_badge.png"
 },
 {rarity:"epic", name:"Lesser Trait Crystal", cat:"status", bag:"Item",
@@ -210,8 +210,8 @@ const items=[
  en:{desc:"Treatment for burn! Apply it on your Animon!",details:"Cures [003]Burn[000] status.",drop:"Buy at Anistation"}
 },
 {rarity:"common", name:"C-Potion", cat:"medical", bag:"Medicine",
- pt:{desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",details:"Recupera [002]25 de HP[000].",drop:"Loja"},
- en:{desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",details:"Restores [002]25 HP[000].",drop:"Shop"},
+ pt:{desc:"Um item que rejuvenesce seus Animons e os deixa prontos para a batalha!",details:"Recupera [002]25 de HP[000].",drop:"Compre nas Estação de Animon"},
+ en:{desc:"An item that rejuvenates your Animons and gets them up and ready for battle!",details:"Restores [002]25 HP[000].",drop:"Buy at Anistation"},
  icon:"c-potion.png", cost:"300$"
 },
 {rarity:"epic", name:"Endless Bento", cat:"battle", bag:"Gear",
