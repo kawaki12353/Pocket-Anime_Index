@@ -470,14 +470,14 @@ const icons = {
 
 const texts = {
   pt:{
-    title:'Fraquezas e Resistências',primary:'Tipo primário',secondary:'Tipo secundário',single:'Selecione o tipo',
+    title:'Fraquezas e Resistências',primary:'Tipo primário',secondary:'Tipo secundário',single:'Selecione o tipo',select:'Selecione',
     btn:'🇧🇷 PT', def:'Defesa', off:'Ofensiva',
     actionDef: 'Recebe',
     actionOff: 'Causa',
     groups:{x4:'Super Efetivo (x4)',x2:'Super Efetivo (x2)',x1:'Dano Normal (x1)',x05:'Pouco Efetivo (x0.5)',x025:'Muito Pouco Efetivo (x0.25)',x0:'Sem Efeito (x0)'}
   },
   en:{
-    title:'Weakness & Resistance',primary:'Primary type',secondary:'Secondary type',single:'Select type',
+    title:'Weakness & Resistance',primary:'Primary type',secondary:'Secondary type',single:'Select type',select:'Select',
     btn:'🇺🇸 EN', def:'Defense', off:'Offense',
     actionDef: 'Receives',
     actionOff: 'Deals',
@@ -498,7 +498,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
     ${
       selectedValue
         ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
-        : `<span>Selecione</span>`
+        : `<span>${texts[lang].select}</span>`
     }
   </div>
   <div class="select-options"></div>
@@ -506,7 +506,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
   const btn=container.querySelector('.select-btn');
   const options=container.querySelector('.select-options');
   btn.onclick=()=>options.classList.toggle('open');
-  options.innerHTML=`<div class="option" data-value=""><span>Selecione</span></div>`;
+  options.innerHTML=`<div class="option" data-value=""><span>${texts[lang].select}</span></div>`;
   elements.forEach(e=>{
     options.innerHTML+=`
       <div class="option" data-value="${e}">
@@ -519,7 +519,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
 
     btn.innerHTML = val
       ? `<img src="assets/elements/${icons[val]}"><span>${val}</span>`
-      : `<span>Selecione</span>`;
+      : `<span>${texts[lang].select}</span>`;
 
     options.classList.remove('open');
     onSelect(val);
@@ -531,7 +531,7 @@ function updateTabsUI() {
   const tabDef = document.getElementById('tabDef');
   const tabOff = document.getElementById('tabOff');
   const indicator = document.getElementById('tabIndicator');
-  
+
   if (currentMode === 'def') {
     tabDef.classList.add('active');
     tabOff.classList.remove('active');
