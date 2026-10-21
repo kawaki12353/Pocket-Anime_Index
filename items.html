@@ -368,7 +368,7 @@
             align-items: center;
             gap: 4px;
         }
-        .modal-drop-title {
+        .modal-drop-title, .modal-properties-title {
             color: #555 !important;
             font-size: 10px !important;
             text-align: center !important;
@@ -436,7 +436,7 @@
             font-size: 13px;
             color: var(--text);
             opacity: 0.85;
-            padding-left: 28px;
+            padding-left: 0;
         }
 
         /* Conteúdo sem box para Descrição e Detalhes */
@@ -572,7 +572,7 @@
 
         <!-- Seção Propriedades -->
         <div class="section" id="propertiesSection" style="display: none;">
-            <div class="section-title" id="lblProperties"></div>
+            <div class="section-title modal-properties-title" id="lblProperties"></div>
             <div id="mProperties"></div>
         </div>
 
@@ -583,6 +583,7 @@
     <button id="langBtn"></button>
 </div>
 
+<script src="database/properties.js"></script>
 <script src="database/items-data.js"></script>
 
 <script>
@@ -591,44 +592,6 @@ let selectedCategory = "";
 let selectedRarity = "";
 
 const rarityOrder = { common: 1, uncommon: 2, rare: 3, epic: 4, legendary: 5 };
-
-const itemsProperties = {
-  equipable: {
-    icon: "assets/properties_icon/equipable.png",
-    pt: { name: "Equipável:", desc: "Pode ser equipado em Animons" },
-    en: { name: "Equipable:", desc: "Can be equipped on Animons" }
-  },
-  consumable: {
-    icon: "assets/properties_icon/consumable.png",
-    pt: { name: "Consumível:", desc: "Consumido ao ser usado" },
-    en: { name: "Consumable:", desc: "Consumed when used" }
-  },
-  usable_battle: {
-    icon: "assets/properties_icon/usable_battle.png",
-    pt: { name: "Usável (batalha):", desc: "Usável em batalha" },
-    en: { name: "Usable (battle):", desc: "Usable in battle" }
-  },
-  tradable: {
-    icon: "assets/properties_icon/tradable.png",
-    pt: { name: "Negociável:", desc: "Pode ser trocado com outros jogadores" },
-    en: { name: "Tradable:", desc: "Can be traded with other players" }
-  },
-  transformation: {
-    icon: "assets/properties_icon/transformation.png",
-    pt: { name: "Transformação:", desc: "Desperta uma forma especial no Animon" },
-    en: { name: "Transformation:", desc: "Awakens a special form in the Animon" }
-  },
-  usable_map: {
-    icon: "assets/properties_icon/usable_map.png",
-    pt: { name: "Usável (mapa):", desc: "Usável no mapa / mundo" },
-    en: { name: "Usable (map):", desc: "Usable in the map / world" }
-  },
-  Premium: {
-    icon: "assets/properties_icon/premium.png",
-    pt: { name: "Premium:", desc: "Item premium ou especial" },
-    en: { name: "Premium:", desc: "Premium or special item" }
-  }
-};
 
 const texts = {
     pt: {
@@ -691,10 +654,10 @@ const rarityLabels = {
 function getItemProperties(item) {
     if (!item.properties) return [];
     if (Array.isArray(item.properties)) {
-        return item.properties.filter(p => p && itemsProperties[p]);
+        return item.properties.filter(p => p && typeof itemsProperties !== 'undefined' && itemsProperties[p]);
     }
     if (typeof item.properties === "string" && item.properties.trim() !== "") {
-        return itemsProperties[item.properties] ? [item.properties] : [];
+        return (typeof itemsProperties !== 'undefined' && itemsProperties[item.properties]) ? [item.properties] : [];
     }
     return [];
 }
@@ -777,7 +740,7 @@ function openModal(item) {
     const propertiesSection = document.getElementById("propertiesSection");
     const propertiesDivider = document.getElementById("propertiesDivider");
 
-    if (props.length > 0) {
+    if (props.length > 0 && typeof itemsProperties !== 'undefined') {
         propertiesDivider.style.display = "block";
         propertiesSection.style.display = "flex";
 
