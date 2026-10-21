@@ -83,33 +83,30 @@ body {
   }
 }
 
-/* TAB NAVIGATION (DEFESA / OFENSIVA) */
-.mode-tabs-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 25px;
-}
-
-.mode-tabs {
+/* ABAS DEFESA / OFENSIVA */
+.tabs-container {
   position: relative;
   display: flex;
-  gap: 40px;
+  justify-content: center;
+  gap: 60px;
+  max-width: 900px;
+  margin: 0 auto 25px auto;
 }
 
 .tab-btn {
   background: transparent;
   border: none;
   color: var(--text);
-  opacity: 0.7;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: bold;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 5px 10px 10px 10px;
-  transition: color 0.3s ease, opacity 0.3s ease;
+  gap: 8px;
+  padding: 5px 15px 10px;
+  transition: color 0.3s ease;
+  width: 100px;
 }
 
 .tab-btn svg {
@@ -125,18 +122,15 @@ body {
 
 .tab-btn.active {
   color: #64b5f6;
-  opacity: 1;
 }
 
 .tab-btn.active svg {
   stroke: #64b5f6;
 }
 
-/* BARRINHA INDICADORA */
 .tab-indicator {
   position: absolute;
   bottom: 0;
-  left: 0;
   height: 3px;
   background-color: #64b5f6;
   border-radius: 3px;
@@ -156,8 +150,7 @@ body {
   margin-right: auto;
 }
 
-/* CUSTOM SELECT CONTAINER */
-.custom-select-group {
+.select-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,6 +163,7 @@ body {
   opacity: 0.8;
 }
 
+/* CUSTOM SELECT - Estilo arredondado igual o da imagem */
 .custom-select {
   position: relative;
   width: 220px;
@@ -177,26 +171,23 @@ body {
 
 .select-btn {
   background: var(--card);
-  border-radius: 25px;
-  padding: 10px 18px;
+  border-radius: 20px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
   border: 1px solid var(--border);
   color: var(--text);
-  height: 42px;
-  box-sizing: border-box;
 }
 
 .select-btn img {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 .select-btn span {
   font-weight: bold;
-  font-size: 14px;
 }
 
 .select-btn::after {
@@ -231,13 +222,13 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 10px;
   cursor: pointer;
 }
 
 .option img {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 .option:hover {
@@ -359,34 +350,27 @@ body {
   <h1 id="title" class="calc-title"></h1>
 </div>
 
-<!-- ABAS DE NAVEGAÇÃO (DEFESA / OFENSIVA) -->
-<div class="mode-tabs-container">
-  <div class="mode-tabs">
-    <button class="tab-btn active" id="btnDefense" onclick="switchMode('defense')">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-      <span id="labelDefense">Defesa</span>
-    </button>
-    <button class="tab-btn" id="btnOffense" onclick="switchMode('offense')">
-      <svg viewBox="0 0 24 24">
-        <path d="M14.5 17.5L3 6V3h3l11.5 11.5"/>
-        <path d="M13 19l6-6"/>
-        <path d="M16 16l4 4"/>
-        <path d="M19 13l2 2"/>
-        <path d="M9.5 6.5L21 18v3h-3L6.5 9.5"/>
-        <path d="M11 5L5 11"/>
-        <path d="M8 8L4 4"/>
-        <path d="M5 11L3 9"/>
-      </svg>
-      <span id="labelOffense">Ofensiva</span>
-    </button>
-    <div class="tab-indicator" id="tabIndicator"></div>
-  </div>
+<div class="tabs-container">
+  <button class="tab-btn active" id="tabDefense" onclick="switchMode('defense')">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    <span id="labelDefense">Defesa</span>
+  </button>
+  <button class="tab-btn" id="tabOffense" onclick="switchMode('offense')">
+    <svg viewBox="0 0 24 24">
+      <!-- Espada apontada para a direita (subindo para direita) -->
+      <path d="M6 18L18 6M18 6h-5M18 6v5M5 19l2-2" />
+      <!-- Espada apontada para a esquerda (subindo para esquerda) -->
+      <path d="M18 18L6 6M6 6h5M6 6v5M19 19l-2-2" />
+    </svg>
+    <span id="labelOffense">Ofensiva</span>
+  </button>
+  <div class="tab-indicator" id="tabIndicator"></div>
 </div>
 
 <div class="selectors" id="selectorsContainer">
-  <!-- Renderizado via JavaScript -->
+  <!-- Renderizado dinamicamente via JS -->
 </div>
 
 <div id="results"></div>
@@ -412,72 +396,36 @@ const icons = {
 
 const texts = {
   pt:{
-    title:'Calculadora de Tipos',
-    defense:'Defesa',
-    offense:'Ofensiva',
-    primary:'Tipo primário',
-    secondary:'Tipo secundário',
-    offenseSelect:'Tipo de Ataque',
-    selectDefault:'Selecione O Tipo',
-    btn:'🇧🇷 PT',
-    groupsDefense:{
-      x4:'Fraqueza Extrema (x4)',
-      x2:'Fraqueza (x2)',
-      x1:'Dano Normal (x1)',
-      x05:'Resistência (x0.5)',
-      x025:'Super Resistência (x0.25)',
-      x0:'Imune (x0)'
-    },
-    groupsOffense:{
-      x2:'Super Efetivo (x2)',
-      x1:'Dano Normal (x1)',
-      x05:'Pouco Efetivo (x0.5)',
-      x0:'Sem Efeito (x0)'
-    }
+    title:'Fraquezas e Resistências',primary:'Tipo primário',secondary:'Tipo secundário',single:'Selecione um Tipo',selectPlaceholder:'Selecione',btn:'🇧🇷 PT',
+    tabDefense:'Defesa',tabOffense:'Ofensiva',
+    groups:{x4:'Fraqueza Extrema (x4)',x2:'Fraqueza (x2)',x1:'Dano Normal (x1)',x05:'Resistência (x0.5)',x025:'Super Resistência (x0.25)',x0:'Imune (x0)'},
+    offenseGroups:{x4:'Dano Super Efetivo (x4)',x2:'Super Efetivo (x2)',x1:'Dano Normal (x1)',x05:'Pouco Efetivo (x0.5)',x025:'Muito Pouco Efetivo (x0.25)',x0:'Sem Efeito (x0)'}
   },
   en:{
-    title:'Type Calculator',
-    defense:'Defense',
-    offense:'Offense',
-    primary:'Primary type',
-    secondary:'Secondary type',
-    offenseSelect:'Attack Type',
-    selectDefault:'Select Type',
-    btn:'🇺🇸 EN',
-    groupsDefense:{
-      x4:'Extreme Weakness (x4)',
-      x2:'Weakness (x2)',
-      x1:'Normal Damage (x1)',
-      x05:'Resistance (x0.5)',
-      x025:'Strong Resistance (x0.25)',
-      x0:'Immune (x0)'
-    },
-    groupsOffense:{
-      x2:'Super Effective (x2)',
-      x1:'Normal Damage (x1)',
-      x05:'Not Very Effective (x0.5)',
-      x0:'No Effect (x0)'
-    }
+    title:'Weakness & Resistance',primary:'Primary type',secondary:'Secondary type',single:'Select a Type',selectPlaceholder:'Select',btn:'🇺🇸 EN',
+    tabDefense:'Defense',tabOffense:'Offense',
+    groups:{x4:'Extreme Weakness (x4)',x2:'Weakness (x2)',x1:'Normal Damage (x1)',x05:'Resistance (x0.5)',x025:'Strong Resistance (x0.25)',x0:'Immune (x0)'},
+    offenseGroups:{x4:'Super Effective (x4)',x2:'Super Effective (x2)',x1:'Normal Damage (x1)',x05:'Not Very Effective (x0.5)',x025:'Very Weak (x0.25)',x0:'No Effect (x0)'}
   }
 };
 
 let lang = localStorage.getItem("siteLang") || "pt";
-let currentMode = "defense"; // 'defense' ou 'offense'
+let currentMode = 'defense';
 let primaryValue='', secondaryValue='', offenseValue='';
 
 function updateTabIndicator() {
-  const activeBtn = currentMode === 'defense' ? document.getElementById('btnDefense') : document.getElementById('btnOffense');
+  const activeTab = currentMode === 'defense' ? document.getElementById('tabDefense') : document.getElementById('tabOffense');
   const indicator = document.getElementById('tabIndicator');
-  if (activeBtn && indicator) {
-    indicator.style.width = `${activeBtn.offsetWidth}px`;
-    indicator.style.left = `${activeBtn.offsetLeft}px`;
+  if (activeTab && indicator) {
+    indicator.style.width = `${activeTab.offsetWidth}px`;
+    indicator.style.left = `${activeTab.offsetLeft}px`;
   }
 }
 
 function switchMode(mode) {
   currentMode = mode;
-  document.getElementById('btnDefense').classList.toggle('active', mode === 'defense');
-  document.getElementById('btnOffense').classList.toggle('active', mode === 'offense');
+  document.getElementById('tabDefense').classList.toggle('active', mode === 'defense');
+  document.getElementById('tabOffense').classList.toggle('active', mode === 'offense');
   updateTabIndicator();
   renderSelectors();
   calculate();
@@ -485,16 +433,14 @@ function switchMode(mode) {
 
 function createSelect(containerId, label, selectedValue, onSelect){
   const container=document.getElementById(containerId);
-  if(!container) return;
-  
-  const defaultLabel = texts[lang].selectDefault;
-  
+  if (!container) return;
+  const placeholder = texts[lang].selectPlaceholder;
   container.innerHTML=`
   <div class="select-btn">
     ${
       selectedValue
         ? `<img src="assets/elements/${icons[selectedValue]}"><span>${selectedValue}</span>`
-        : `<span>${defaultLabel}</span>`
+        : `<span>${placeholder}</span>`
     }
   </div>
   <div class="select-options"></div>
@@ -502,7 +448,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
   const btn=container.querySelector('.select-btn');
   const options=container.querySelector('.select-options');
   btn.onclick=()=>options.classList.toggle('open');
-  options.innerHTML=`<div class="option" data-value=""><span>${defaultLabel}</span></div>`;
+  options.innerHTML=`<div class="option" data-value=""><span>${placeholder}</span></div>`;
   elements.forEach(e=>{
     options.innerHTML+=`
       <div class="option" data-value="${e}">
@@ -515,7 +461,7 @@ function createSelect(containerId, label, selectedValue, onSelect){
 
       btn.innerHTML = val
         ? `<img src="assets/elements/${icons[val]}"><span>${val}</span>`
-        : `<span>${defaultLabel}</span>`;
+        : `<span>${placeholder}</span>`;
 
       options.classList.remove('open');
       onSelect(val);
@@ -525,53 +471,41 @@ function createSelect(containerId, label, selectedValue, onSelect){
 
 function renderSelectors() {
   const container = document.getElementById('selectorsContainer');
-  container.innerHTML = '';
-
   if (currentMode === 'defense') {
     container.innerHTML = `
-      <div class="custom-select-group">
+      <div class="select-wrapper">
         <span class="select-label">${texts[lang].primary}</span>
         <div class="custom-select" id="primarySelect"></div>
       </div>
-      <div class="custom-select-group">
+      <div class="select-wrapper">
         <span class="select-label">${texts[lang].secondary}</span>
         <div class="custom-select" id="secondarySelect"></div>
       </div>
     `;
-
-    createSelect(
-      'primarySelect',
-      texts[lang].primary,
-      primaryValue,
-      v => { primaryValue = v; calculate(); }
-    );
-
-    createSelect(
-      'secondarySelect',
-      texts[lang].secondary,
-      secondaryValue,
-      v => { secondaryValue = v; calculate(); }
-    );
+    createSelect('primarySelect', texts[lang].primary, primaryValue, v => {
+      primaryValue = v;
+      calculate();
+    });
+    createSelect('secondarySelect', texts[lang].secondary, secondaryValue, v => {
+      secondaryValue = v;
+      calculate();
+    });
   } else {
     container.innerHTML = `
-      <div class="custom-select-group">
-        <span class="select-label">${texts[lang].offenseSelect}</span>
+      <div class="select-wrapper">
+        <span class="select-label">${texts[lang].single}</span>
         <div class="custom-select" id="offenseSelect"></div>
       </div>
     `;
-
-    createSelect(
-      'offenseSelect',
-      texts[lang].offenseSelect,
-      offenseValue,
-      v => { offenseValue = v; calculate(); }
-    );
+    createSelect('offenseSelect', texts[lang].single, offenseValue, v => {
+      offenseValue = v;
+      calculate();
+    });
   }
 }
 
 function calculate(){
   const damage={};
-  
   if (currentMode === 'defense') {
     elements.forEach(atk=>{
       let m=1;
@@ -579,18 +513,19 @@ function calculate(){
       if(secondaryValue && chart[atk]?.[secondaryValue]!=null && primaryValue!==secondaryValue) m*=chart[atk][secondaryValue];
       damage[atk]=m;
     });
-    renderDefense(damage);
   } else {
-    elements.forEach(def=>{
-      let m=1;
-      if(offenseValue && chart[offenseValue]?.[def]!=null) m=chart[offenseValue][def];
-      damage[def]=m;
+    elements.forEach(def => {
+      let m = 1;
+      if (offenseValue && chart[offenseValue]?.[def] != null) {
+        m = chart[offenseValue][def];
+      }
+      damage[def] = m;
     });
-    renderOffense(damage);
   }
+  render(damage);
 }
 
-function renderDefense(damage){
+function render(damage){
   results.innerHTML='';
   const map={x4:[],x2:[],x1:[],x05:[],x025:[],x0:[]};
   for(const e in damage){
@@ -602,39 +537,12 @@ function renderDefense(damage){
     else if(v===4) map.x4.push(e);
     else map.x1.push(e);
   }
+  const groupTexts = currentMode === 'defense' ? texts[lang].groups : texts[lang].offenseGroups;
   for(const k in map){
     if(!map[k].length) continue;
     const sec=document.createElement('div');
     sec.className='section';
-    sec.innerHTML=`<h2>${texts[lang].groupsDefense[k]}</h2>`;
-    const box=document.createElement('div');
-    box.className='badges';
-    map[k].forEach(e=>{
-      box.innerHTML+=`
-        <div class="badge ${k}">
-          <img src="assets/elements/${icons[e]}"><span>${e}</span>
-        </div>`;
-    });
-    sec.appendChild(box);
-    results.appendChild(sec);
-  }
-}
-
-function renderOffense(damage){
-  results.innerHTML='';
-  const map={x2:[],x1:[],x05:[],x0:[]};
-  for(const e in damage){
-    const v=damage[e];
-    if(v===0) map.x0.push(e);
-    else if(v===0.5) map.x05.push(e);
-    else if(v===2) map.x2.push(e);
-    else map.x1.push(e);
-  }
-  for(const k in map){
-    if(!map[k].length) continue;
-    const sec=document.createElement('div');
-    sec.className='section';
-    sec.innerHTML=`<h2>${texts[lang].groupsOffense[k]}</h2>`;
+    sec.innerHTML=`<h2>${groupTexts[k]}</h2>`;
     const box=document.createElement('div');
     box.className='badges';
     map[k].forEach(e=>{
@@ -651,8 +559,8 @@ function renderOffense(damage){
 function updateLang(){
   title.textContent=texts[lang].title;
   langBtn.textContent=texts[lang].btn;
-  document.getElementById('labelDefense').textContent = texts[lang].defense;
-  document.getElementById('labelOffense').textContent = texts[lang].offense;
+  labelDefense.textContent=texts[lang].tabDefense;
+  labelOffense.textContent=texts[lang].tabOffense;
 
   renderSelectors();
   calculate();
@@ -664,7 +572,7 @@ langBtn.onclick=()=>{
   localStorage.setItem("siteLang", lang);
   updateLang();
 
-  if (typeof updateMenuLang === "function") {
+if (typeof updateMenuLang === "function") {
     updateMenuLang();
   }
 };
