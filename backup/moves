@@ -61,6 +61,13 @@
             line-height: 1.5;
         }
 
+        .title-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
         /* --- HEADER (IGUAL AO ANIMONS DETAILS) --- */
         .header { 
             display: flex; 
@@ -500,6 +507,7 @@
 </div>
 
 <script src="utils/color-parser.js"></script>
+<script src="database/attributes.js"></script>
 <script src="database/moves.js"></script>
 <script src="database/animons.js"></script> 
 <script>
@@ -509,6 +517,20 @@ let selectedCat = "";
 let currentAnimonMove = "";
 let currentAnimonTab = "level";
 let openedMoveBalloon = null;
+
+function getMoveAttributes(moveName) {
+    let attrs = [];
+    if (!moveName || typeof tagsMoves === 'undefined') return attrs;
+    const cleanName = moveName.trim().toLowerCase();
+    tagsMoves.forEach(obj => {
+        for (let attr in obj) {
+            if (obj[attr].some(m => m.trim().toLowerCase() === cleanName)) {
+                attrs.push(attr);
+            }
+        }
+    });
+    return attrs;
+}
 
 const texts = {
     pt: {
@@ -521,11 +543,17 @@ const texts = {
         langBtn: "🇧🇷 PT",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Descrição",
+        detLabel: "Detalhes",
         upgradeLabel: "Ataque Evoluído",
-        btnFind: "Animon que aprende esses Moves",
+        btnFind: "Animons que aprende esse Move",
         listHeader: "Animons que aprendem ",
         tabLevel: "Nível",
-        tabScroll: "Scroll"
+        tabScroll: "Scroll",
+        battleInfo: "Informações de Batalha",
+        attributesLabel: "Atributos:",
+        propertiesLabel: "Propriedades:",
+        noAttributes: "Não há atributos",
+        priorityLabel: "Prioridade"
     },
     en: {
         title: "Moves Database",
@@ -537,11 +565,17 @@ const texts = {
         langBtn: "🇺🇸 EN",
         pwr: "PWR", acc: "ACC", pp: "PP",
         descLabel: "Description",
+        detLabel: "Details",
         upgradeLabel: "Upgrade Skill",
         btnFind: "Animons that learn these Moves",
         listHeader: "Animons that learn ",
         tabLevel: "Level",
-        tabScroll: "Scroll"
+        tabScroll: "Scroll",
+        battleInfo: "Battle Information",
+        attributesLabel: "Attributes:",
+        propertiesLabel: "Properties:",
+        noAttributes: "No attributes",
+        priorityLabel: "Priority"
     }
 };
 
@@ -684,9 +718,46 @@ function openModal(move) {
     const descKey = lang === 'pt' ? 'desc_pt' : 'desc_en';
     const descRaw = descKey in move ? move[descKey] : '??';
 
+    const detKey = lang === 'pt' ? 'det_pt' : 'det_en';
+    let detHtml = "";
+    if (detKey in move && move[detKey]) {
+        detHtml = `
+            <div class="stat-label" style="text-align:left; margin-top:12px; margin-bottom:8px; display: flex; align-items: center; gap: 4px;"><img src="assets/details_icon.png" class="title-icon"> ${texts[lang].detLabel}</div>
+            ${parseColoredText(move[detKey])}
+        `;
+    }
+
+    const moveAttrs = getMoveAttributes(move.name);
+    let attrsHtml = "";
+    if (moveAttrs.length > 0) {
+        attrsHtml = `<div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 6px;">`;
+        moveAttrs.forEach(attr => {
+            attrsHtml += `<span style="color: #64b5f6; background: rgba(100, 181, 246, 0.25); padding: 4px 12px; border-radius: 9999px; font-weight: bold; font-size: 13px;">${attr}</span>`;
+        });
+        attrsHtml += `</div>`;
+    } else {
+        attrsHtml = `<div style="color: var(--text-secondary); font-size: 13px; margin-top: 6px; font-style: italic;">${texts[lang].noAttributes}</div>`;
+    }
+
+    const priorityVal = ('priority' in move && move.priority !== undefined && move.priority !== null) ? move.priority : 0;
+    const formattedPriority = priorityVal > 0 ? `+${priorityVal}` : priorityVal;
+
     descContainer.innerHTML = `
-        <div class="stat-label" style="text-align:left; margin-bottom:8px;">${texts[lang].descLabel}</div>
+        <div class="stat-label" style="text-align:left; margin-bottom:8px; display: flex; align-items: center; gap: 4px;"><img src="assets/desc_icon.png" class="title-icon"> ${texts[lang].descLabel}</div>
         ${parseColoredText(descRaw)}
+        ${detHtml}
+        <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;"></div>
+        <div class="stat-label" style="text-align: center; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 4px;"><img src="assets/battle_info_icon.png" class="title-icon"> ${texts[lang].battleInfo}</div>
+        <div style="background: var(--hover); border: 1px solid var(--border); border-radius: 16px; padding: 16px; text-align: center;">
+            <div class="stat-label" style="text-align:center; margin-bottom:6px; color: var(--text);">${texts[lang].attributesLabel}</div>
+            ${attrsHtml}
+            <div class="stat-label" style="text-align:center; margin-top:14px; margin-bottom:6px; color: var(--text);">${texts[lang].propertiesLabel}</div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); padding: 10px 16px; border-radius: 9999px; font-weight: bold; font-size: 13px; width: 100%; box-sizing: border-box; margin-top: 6px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-secondary);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span style="color: var(--text-secondary);">${texts[lang].priorityLabel}:</span>
+                <span style="color: #64b5f6;">${formattedPriority}</span>
+            </div>
+        </div>
     `;
 
     // Lógica de Upgrades (Ataque Evoluído)
