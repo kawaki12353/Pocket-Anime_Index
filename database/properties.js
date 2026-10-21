@@ -15,7 +15,7 @@ const itemsProperties = {
     en: { name: "Tradable:", desc: "Can be traded with other players" }
   },
   transformation: {
-    icon: "assets/properties_icon/transformation.png",
+    icon: "assets/properties_icon/transformation_item.png",
     pt: { name: "Transformação:", desc: "Permite que um Animon se transforme em outra forma" },
     en: { name: "Transformation:", desc: "Allows an Animon to transform into another form" }
   },
