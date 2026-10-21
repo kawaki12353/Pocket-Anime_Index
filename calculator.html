@@ -316,6 +316,14 @@ body {
   margin-right: auto;
 }
 
+.section-action {
+  font-size: 13px;
+  color: var(--text-muted, #8a8d93);
+  text-align: center;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
 .section h2 {
   font-size: 18px;
   margin-bottom: 10px;
@@ -464,11 +472,15 @@ const texts = {
   pt:{
     title:'Fraquezas e Resistências',primary:'Tipo primário',secondary:'Tipo secundário',single:'Selecione o tipo',
     btn:'🇧🇷 PT', def:'Defesa', off:'Ofensiva',
+    actionDef: 'Recebe',
+    actionOff: 'Causa',
     groups:{x4:'Super Efetivo (x4)',x2:'Super Efetivo (x2)',x1:'Dano Normal (x1)',x05:'Pouco Efetivo (x0.5)',x025:'Muito Pouco Efetivo (x0.25)',x0:'Sem Efeito (x0)'}
   },
   en:{
     title:'Weakness & Resistance',primary:'Primary type',secondary:'Secondary type',single:'Select type',
     btn:'🇺🇸 EN', def:'Defense', off:'Offense',
+    actionDef: 'Receives',
+    actionOff: 'Deals',
     groups:{x4:'Super Effective (x4)',x2:'Super Effective (x2)',x1:'Normal Damage (x1)',x05:'Not Very Effective (x0.5)',x025:'Very Ineffective (x0.25)',x0:'No Effect (x0)'}
   }
 };
@@ -592,11 +604,15 @@ function render(damage){
     else if(v===4) map.x4.push(e);
     else map.x1.push(e);
   }
+  const actionText = currentMode === 'def' ? texts[lang].actionDef : texts[lang].actionOff;
   for(const k in map){
     if(!map[k].length) continue;
     const sec=document.createElement('div');
     sec.className='section';
-    sec.innerHTML=`<h2>${texts[lang].groups[k]}</h2>`;
+    sec.innerHTML=`
+      <div class="section-action">${actionText}</div>
+      <h2>${texts[lang].groups[k]}</h2>
+    `;
     const box=document.createElement('div');
     box.className='badges';
     map[k].forEach(e=>{
