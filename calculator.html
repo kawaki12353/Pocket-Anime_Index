@@ -136,15 +136,19 @@ body {
   stroke: #64b5f6;
 }
 
-/* Image Icon (Swords) tinting */
+/* Image Icon (Swords) tinting via CSS Mask */
 .mode-tab img.tab-icon {
-  filter: grayscale(100%) opacity(0.6);
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background-color: var(--text-muted, #8a8d93);
+  -webkit-mask: url('assets/white_swords.png') no-repeat center / contain;
+  mask: url('assets/white_swords.png') no-repeat center / contain;
+  transition: background-color 0.3s ease;
 }
 
 .mode-tab.active img.tab-icon {
-  filter: drop-shadow(0 0 0 #64b5f6) opacity(1);
-  /* Fallback se a imagem for totalmente branca */
-  background-color: transparent;
+  background-color: #64b5f6;
 }
 
 /* Sliding active bar */
