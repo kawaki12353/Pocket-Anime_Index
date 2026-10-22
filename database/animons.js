@@ -176,6 +176,13 @@ const animons = [
     ] 
   },  
   { id: 5, name: "Bandit", type: "Neutral", sprite: "assets/animons-icon/bandit.png", stats: { hp: 40, atk: 58, def: 35, spAtk: 42, spDef: 30, spd: 45 }, areas: ["0001", "0002", "0003", "0004", "0005", "0007", "0009"],
+    traits: [
+      { name: "Sharpshooter", chance: "50%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Dizzy Retaliation", chance: "20%" },
+      { name: "Looter", chance: "5%" }],
+    desc_pt: "Sua bolsa, seu dinheiro, não importa - entregue-me, não sou exigente.",
+    desc_en: "Your bag, your 'money, doesn't matter-hand it over, I'm not picky.",
     movesList: [
       { level: 1, name: "Cut Down"}, 
       { level: 1, name: "Plunder" },
