@@ -196,6 +196,13 @@ const animons = [
     ]
   },
   { id: 5.01, name: "Strong Bandit", type: "Dark", sprite: "assets/animons-icon/strong_bandit.png", stats: { hp: 59, atk: 70, def: 44, spAtk: 59, spDef: 39, spd: 61 }, areas: ["0011"],
+    traits: [
+      { name: "Looter", chance: "100%" },
+      { name: "Dizzy Retaliation", chance: "75%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Sharpshooter", chance: "20%" }],
+    desc_pt: "Quem acha fica com o que achou? Que nada. É nosso, agora vaza antes que eu te machuque!",
+    desc_en: "Finders keepers? Nah. Ours keepers, now scram before I hurt you!",
     movesList: [
       { level: 1, name: "Cut Down"}, 
       { level: 1, name: "Plunder" },
