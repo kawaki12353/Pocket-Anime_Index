@@ -1175,6 +1175,8 @@ const animons = [
       { name: "Ice Affinity", chance: "50%" },
       { name: "Union Raid: Water and Ice", chance: "10%" },
       { name: "Slayerborn", chance: "5%" }],
+    desc_pt: "Eu não quero trilhar o caminho das trevas... Quero viver com meus amigos em Fairy Vearth!",
+    desc_en: "I don't want to walk the path of darkness... I want to live with my friends in Fairy Vearth!",
     anime: { name: "Gray Fullbuster" },
     movesList: [
       { level: 1, name: "Cold Snap" },
