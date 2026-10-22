@@ -1,4 +1,9 @@
 const traits = {
+    "Looter": {
+        id: 77,
+        desc_pt: "Se não estiver segurando um item, há chance de roubar um de um alvo disponível.",
+        desc_en: "If not holding an item, chance to steal one from an available target."
+    },
     "Queen of the Giants": {
         id: 76,
         desc_pt: "Ganhe [002]HP [+1][000] ao entrar em batalha.",
