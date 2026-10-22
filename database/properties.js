@@ -11,7 +11,7 @@ const itemsProperties = {
   },
   tradable: {
     icon: "assets/properties_icon/tradable.png",
-    pt: { name: "Trocável:", desc: "Pode ser trocado com outros players" },
+    pt: { name: "Trocável:", desc: "Pode ser trocado com outros jogadores" },
     en: { name: "Tradable:", desc: "Can be traded with other players" }
   },
   transformation: {
