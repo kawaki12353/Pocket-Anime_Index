@@ -1,4 +1,15 @@
 const moves = {
+  "Beast Cannon": {
+    id: 196,
+    name: "Beast Cannon",
+    desc_pt: "Um raio de energia é disparado da boca, causando uma explosão massiva.",
+    desc_en: "An energy beam shout from the mouth, causing a massive explosion.",
+    type: "beast",
+    attack: "special",
+    power: 75,
+    accuracy: 100,
+    pp: 12,
+  },
   "Helmet Splitter": {
     id: 195,
     name: "Helmet Splitter",
