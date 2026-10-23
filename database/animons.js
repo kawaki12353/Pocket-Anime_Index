@@ -800,7 +800,7 @@ const animons = [
       { level: 14, name: "Crush" },
       { level: 14, name: "Bite" },
       { level: 20, name: "Primal Fist" },
-      { level: 24, name: "Beast Bomb" }
+      { level: 24, name: "Beast Cannon" }
     ]
   },
   { id: 32, name: "Imperfect Warrior Bug", type: ["Fighting", "Psychic"], sprite: "assets/animons-icon/imperfect_warrior_bug.png", stats: { hp: 52, atk: 57, def: 51, spAtk: 64, spDef: 45, spd: 93 }, areas: ["0027"],
