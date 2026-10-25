@@ -1,4 +1,9 @@
 const traits = {
+    "Fist of the Wolf": {
+        id: 78,
+        desc_pt: "Aumenta a [002]SPD [+1][000] após acertar um Ataque de Lobo com sucesso.",
+        desc_en: "Increase [002]SPD [+1][000] after landing a successful Wolf Attack."
+    },
     "Looter": {
         id: 77,
         desc_pt: "Se não estiver segurando um item, há chance de roubar um de um alvo disponível.",
