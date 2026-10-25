@@ -340,6 +340,14 @@ const animons = [
    ]
   }, 
   { id: 10, name: "Teen Wolfman", type: "Fighting", sprite: "assets/animons-icon/teen_wolfman.png", stats: { hp: 35, atk: 53, def: 35, spAtk: 49, spDef: 30, spd: 51 }, areas: ["0002", "0003", "0009", "0011"],
+    traits: [
+      { name: "Looter", chance: "100%" },
+      { name: "Martial Artist", chance: "100%" },
+      { name: "Fraud", chance: "75%" },
+      { name: "Turtle School Finisher", chance: "20%" },
+      { name: "Fist of the Wolf", chance: "5%" }],
+    desc_pt: "Heh, parece que vai ser fácil! Passa as suas cápsulas para cá.",
+    desc_en: "Heh, looks like easy pickings! Hand over your capsules.",
     anime: { name: "Yamcha" },
     movesList: [
       { level: 1, name: "Fighting Spirit" },
