@@ -360,6 +360,13 @@ const animons = [
     ]
   },
   { id: 10.01, name: "Adult Wolfman", type: "Fighting", sprite: "assets/animons-icon/adult_wolfman.png", stats: { hp: 47, atk: 63, def: 44, spAtk: 62, spDef: 39, spd: 73 }, areas: ["0015", "0019"],
+    traits: [
+      { name: "Martial Artist", chance: "100%" },
+      { name: "Fraud", chance: "75%" },
+      { name: "Turtle School Finisher", chance: "20%" },
+      { name: "Fist of the Wolf", chance: "5%" }],
+    desc_pt: "Aprimorei meu Ataque de Lobo desde os velhos tempos — não me subestime!",
+    desc_en: "I've sharpened my Wolf Attack since the old days-don't underestimate me!",
     anime: { name: "Yamcha" },
     movesList: [
       { level: 1, name: "Fighting Spirit" },
