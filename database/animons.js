@@ -1299,7 +1299,16 @@ const animons = [
   },
   { id: 56, name: "Chimera", type: "Beast", sprite: "assets/animons-icon/chimera.png", stats: { hp: 50, atk: 65, def: 52, spAtk: 44, spDef: 43, spd: 67 } },
   { id: 56.01, name: "Mutated Chimera", type: "Beast", sprite: "assets/animons-icon/mutated_chimera.png", stats: { hp: 64, atk: 77, def: 58, spAtk: 53, spDef: 48, spd: 79 } },
-  { id: 58, name: "Waterfall Samurai", type: ["Water", "Fire"], sprite: "assets/animons-icon/waterfall_samurai.png", stats: { hp: 59, atk: 70, def: 48, spAtk: 44, spDef: 44, spd: 73 } },
+  { id: 58, name: "Waterfall Samurai", type: ["Water", "Fire"], sprite: "assets/animons-icon/waterfall_samurai.png", stats: { hp: 59, atk: 70, def: 48, spAtk: 44, spDef: 44, spd: 73 },
+    traits: [
+      { name: "Bruise Easily", chance: "75%" },
+      { name: "Hard Worker", chance: "75%" },
+      { name: "Inner Focus", chance: "75%" },
+      { name: "Water Affinity", chance: "50%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Exorcist", chance: "20%" }],
+    anime: { name: "Tanjiro Kamado" },
+  },
   { id: 59, name: "Warrior Bug Jr.", type: "Fighting", sprite: "assets/animons-icon/warrior_bug_jr.png", stats: { hp: 52, atk: 70, def: 41, spAtk: 60, spDef: 39, spd: 90 }, areas: ["0017", "0018", "0023", "0025", "0027"] },
   { id: 60, name: "Fire Prince", type: "Fire", sprite: "assets/animons-icon/fire_prince.png", stats: { hp: 49, atk: 54, def: 42, spAtk: 44, spDef: 35, spd: 62 }, areas: ["0014"],
     traits: [
