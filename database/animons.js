@@ -1353,7 +1353,16 @@ const animons = [
       { level: 24, name: "Extreme Flame Burst" },
     ]
   },
-  { id: 73, name: "Fedora", type: ["Earth", "Dark"], sprite: "assets/animons-icon/fedora.png", stats: { hp: 65, atk: 56, def: 110, spAtk: 70, spDef: 85, spd: 60 } },
+  { id: 73, name: "Fedora", type: ["Earth", "Dark"], sprite: "assets/animons-icon/fedora.png", stats: { hp: 65, atk: 56, def: 110, spAtk: 70, spDef: 85, spd: 60 },
+    traits: [
+      { name: "Pirate's Resolve", chance: "100%" },
+      { name: "Confident", chance: "75%" },
+      { name: "Prepared", chance: "75%" },
+      { name: "Sadist", chance: "50%" },
+      { name: "Sharpshooter", chance: "50%" },
+      { name: "Hunter", chance: "50%" }],
+    anime: { name: "Capone Bege" },
+  },
   { id: 74, name: "Brorok", type: ["Fighting", "Dark"], sprite: "assets/animons-icon/brorok.png", stats: { hp: 49, atk: 80, def: 50, spAtk: 70, spDef: 45, spd: 85 }, areas: ["0027"],
     traits: [
       { name: "Sadist", chance: "50%" },
