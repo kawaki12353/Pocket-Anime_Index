@@ -124,16 +124,15 @@ body {
   transition: background-color 0.3s ease, stroke 0.3s ease;
 }
 
-/* Shield SVG color control */
-.mode-tab svg.tab-icon path {
-  fill: none;
-  stroke: var(--text-muted, #8a8d93);
-  stroke-width: 2;
-  transition: stroke 0.3s ease;
+/* Shield Image Mask control */
+.mode-tab .tab-icon.shield-img {
+  background-color: var(--text-muted, #8a8d93);
+  -webkit-mask: url('assets/white_shield.png') no-repeat center / contain;
+  mask: url('assets/white_shield.png') no-repeat center / contain;
 }
 
-.mode-tab.active svg.tab-icon path {
-  stroke: #64b5f6;
+.mode-tab.active .tab-icon.shield-img {
+  background-color: #64b5f6;
 }
 
 /* Swords Image Mask control */
@@ -430,9 +429,7 @@ body {
 <!-- ABAS DEFESA / OFENSIVA -->
 <div class="mode-tabs-container">
   <button class="mode-tab active" id="tabDef">
-    <svg class="tab-icon" viewBox="0 0 24 24">
-      <path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z"/>
-    </svg>
+    <span class="tab-icon shield-img"></span>
     <span id="labelDef">Defesa</span>
   </button>
   <button class="mode-tab" id="tabOff">
