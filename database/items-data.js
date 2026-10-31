@@ -1,4 +1,9 @@
 const items=[
+{rarity:"rare", name:"Anidex", cat:"key", bag:"Key",
+ pt:{desc:"Um dispositivo usado para armazenar informações sobre Animons!", drop:"Consiga em Capsule City"},
+ en:{desc:"A device used for storing information on Animons!",drop:"Get it in Capsule City"},
+ icon:"anidex.png"
+},
 {rarity:"rare", name:"Luminous Mirror", cat:"evolution", bag:"Item",
  pt:{desc:"Um belo espelho emoldurado em ouro, que reflete a luz de forma brilhante.",drop:"Derrotando Animons do tipo [012]Light[000]"},
  en:{desc:"A beautiful mirror framed in gold, reflecting light brilliantly.",drop:"Defeating [012]Light-type[000] Animons"},
