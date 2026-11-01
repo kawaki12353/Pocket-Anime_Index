@@ -601,6 +601,13 @@ const animons = [
     ]
   },
   { id: 19, name: "Axe Man", type: "Earth", sprite: "assets/animons-icon/axe_man.png", stats: { hp: 42, atk: 70, def: 43, spAtk: 35, spDef: 35, spd: 45 }, areas: ["0008"],
+    traits: [
+      { name: "Confident", chance: "100%" },
+      { name: "Fraud", chance: "100%" },
+      { name: "Bloodlust", chance: "75%" },
+      { name: "Fearsome", chance: "50%" },
+      { name: "Marine's Grit", chance: "50%" },
+      { name: "Steel Jaw", chance: "20%" }],
     anime: { name: "Morgan" },
     movesList: [
       { level: 1, name: "Axe Attack" },
