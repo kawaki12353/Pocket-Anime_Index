@@ -300,6 +300,12 @@ const animons = [
     ]
   },
   { id: 8, name: "Battle Wolf", type: "Neutral", sprite: "assets/animons-icon/battle_wolf.png", stats: { hp: 35, atk: 62, def: 33, spAtk: 25, spDef: 28, spd: 70 }, areas: ["0002", "0009", "0013"],
+    traits: [
+      { name: "Fearsome", chance: "100%" },
+      { name: "Battle Adaptability", chance: "75%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Strong Jaw", chance: "20%" },
+      { name: "Battle Wolf", chance: "5%" }],
     anime: { name: "Terry" },
     movesList: [
       { level: 1, name: "Growl"}, 
@@ -314,6 +320,13 @@ const animons = [
    ]
   },
   { id: 8.01, name: "Teen Battle Wolf", type: "Beast", sprite: "assets/animons-icon/teen_battle_wolf.png", stats: { hp: 54, atk: 85, def: 44, spAtk: 36, spDef: 40, spd: 90 }, areas: ["0013", "0023", "0024"],
+    traits: [
+      { name: "Fearsome", chance: "100%" },
+      { name: "Battle Adaptability", chance: "75%" },
+      { name: "Hunter", chance: "50%" },
+      { name: "Battle Wolf", chance: "5%" }],
+    desc_pt: "Tendo atingido a maturidade plena, torna-se o predador supremo.",
+    desc_en: "Now having reached full maturity, it becomes the ultimate predator.",
     anime: { name: "Terry" },
     movesList: [
       { level: 1, name: "Growl"}, 
