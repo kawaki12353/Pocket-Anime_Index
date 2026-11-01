@@ -341,6 +341,11 @@ const animons = [
    ]
   },
   { id: 9, name: "Joyful", type: ["Wind", "Beast"], sprite: "assets/animons-icon/joyful.png", stats: { hp: 35, atk: 25, def: 35, spAtk: 50, spDef: 35, spd: 70 }, areas: ["0001", "0004", "0005"],
+    traits: [
+      { name: "Clumsy", chance: "100%" },
+      { name: "Bruise Easily", chance: "100%" },
+      { name: "Scaredy Cat", chance: "50%" },
+      { name: "Pint-Sized", chance: "20%" }],
     anime: { name: "Happy" },
     movesList: [
       { level: 1, name: "Growl"}, 
