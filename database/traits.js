@@ -1,4 +1,19 @@
 const traits = {
+    "Steel Jaw": {
+        id: 81,
+        desc_pt: "Não pode recuar.",
+        desc_en: "Can not flinch."
+    },
+    "Battle Wolf": {
+        id: 80,
+        desc_pt: "Chance de acerto crítico aumentada ao lutar contra outros do tipo [012]Beast[000].",
+        desc_en: "Increased critical chance when fighting other [012]beast-types[000]."
+    },
+    "Strong Jaw": {
+        id: 79,
+        desc_pt: "Habilidades com o atributo Mordida causam [002]20%[000] a [002]mais de dano[000].",
+        desc_en: "Bite-attribute skills do an [002]increased 20% damage[000]."
+    },
     "Fist of the Wolf": {
         id: 78,
         desc_pt: "Aumenta a [002]SPD [+1][000] após acertar um Ataque de Lobo com sucesso.",
