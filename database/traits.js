@@ -11,8 +11,8 @@ const traits = {
     },
     "Strong Jaw": {
         id: 79,
-        desc_pt: "Habilidades com o atributo Mordida causam [002]20%[000] a [002]mais de dano[000].",
-        desc_en: "Bite-attribute skills do an [002]increased 20% damage[000]."
+        desc_pt: "Habilidades com o [013]atributo Mordida[000] causam [002]20%[000] a [002]mais de dano[000].",
+        desc_en: "[013]Bite-attribute[000] skills do an [002]increased 20% damage[000]."
     },
     "Fist of the Wolf": {
         id: 78,
