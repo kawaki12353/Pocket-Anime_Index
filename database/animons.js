@@ -667,6 +667,12 @@ const animons = [
     ]
   },
   { id: 23, name: "Radish", type: ["Dark", "Fighting"], sprite: "assets/animons-icon/radish.png", stats: { hp: 60, atk: 65, def: 45, spAtk: 75, spDef: 54, spd: 75 }, areas: ["0019", "0020"],
+    traits: [
+      { name: "Battle Hardened", chance: "75%" },
+      { name: "Unwavering Spirit", chance: "75%" },
+      { name: "Sadist", chance: "50%" }],
+    desc_pt: "Você se atreve a me desafiar? Com ​​um nível de poder desses? Patético.",
+    desc_en: "You dare challenge me? With a power level like that? Pathetic.",
     anime: { name: "Raditz" },
     movesList: [
       { level: 1, name: "Energy Blast" },
