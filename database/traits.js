@@ -1,4 +1,9 @@
 const traits = {
+    "GYAH": {
+        id: 82,
+        desc_pt: "Usar Self Destruct causará o dobro do dano.",
+        desc_en: "Using Self Destruct will deal double the damage."
+    },
     "Steel Jaw": {
         id: 81,
         desc_pt: "Não pode recuar.",
