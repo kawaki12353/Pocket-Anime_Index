@@ -498,6 +498,12 @@ const animons = [
     ]  
   },
   { id: 15, name: "Pickle Jr.", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/pickle_jr.png", stats: { hp: 57, atk: 53, def: 45, spAtk: 85, spDef: 41, spd: 70 }, areas: ["0027"],
+    traits: [
+      { name: "Prepared", chance: "100%" },
+      { name: "Personal Bodyguard", chance: "20%" },
+      { name: "Regenerative Aura", chance: "20%" }],
+    desc_pt: "Eu sou Pickle, nascido do Rei Demônio Pickle que me precedeu.",
+    desc_en: "I am Pickle, born of the Demon King Pickle before me.",
     anime: { name: "Piccolo" },
     movesList: [
       { level: 1, name: "Energy Blast" },
@@ -511,6 +517,10 @@ const animons = [
     ]  
   },
   { id: 15.01, name: "Fused Pickle", type: ["Demon", "Psychic"], sprite: "assets/animons-icon/fused_pickle.png", stats: { hp: 67, atk: 59, def: 51, spAtk: 93, spDef: 41, spd: 79 },
+    traits: [
+      { name: "Prepared", chance: "100%" },
+      { name: "Personal Bodyguard", chance: "20%" },
+      { name: "Regenerative Aura", chance: "20%" }],
     anime: { name: "Piccolo" },
     movesList: [
       { level: 1, name: "Energy Blast" },
