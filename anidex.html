@@ -211,7 +211,7 @@
             gap: 8px;
             flex: 1;
             min-width: 0;
-            padding: 11px 0; /* Altura 2px menor no total */
+            padding: 11px 0; /* Altura reduzida em 2px no total (11px em cima/baixo) */
         }
 
         .header-top-row {
@@ -242,18 +242,19 @@
             align-items: center;
             justify-content: center;
             background: rgba(150, 150, 150, 0.15);
-            padding: 8px 14px;
-            border-radius: 50px 14px 0 14px; /* Superior esquerdo redondo, inferior esquerdo redondo, inferior direito reto */
+            padding: 10px 14px 10px 10px;
+            border-radius: 50px 0 0 14px; /* Ponta superior esquerda redonda, direita reta, inferior direita reta, inferior esquerda redonda */
             flex-shrink: 0;
         }
 
         .animon-icon-img {
-            width: 66px;
-            height: 66px;
+            width: 60px; /* Imagem maior */
+            height: 60px; /* Imagem maior */
             border-radius: 50%;
             object-fit: cover;
             background: transparent;
-            margin-left: -8px; /* Um pouquinho mais pra esquerda */
+            position: relative;
+            left: -4px; /* Levemente mais pra esquerda */
         }
 
         /* --- Ícones de Elementos --- */
