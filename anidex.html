@@ -201,6 +201,7 @@
             align-items: stretch;
             justify-content: space-between; 
             gap: 15px;
+            box-sizing: border-box;
         }
         .card-header:hover { background: var(--hover); }
 
@@ -208,10 +209,11 @@
         .header-main {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             flex: 1;
             min-width: 0;
-            padding: 11px 0;
+            padding: 10px 0;
+            box-sizing: border-box;
         }
 
         .header-top-row {
@@ -243,18 +245,20 @@
             justify-content: center;
             background: rgba(150, 150, 150, 0.15);
             padding: 10px 14px;
-            border-radius: 50px 0 0 50px;
+            border-radius: 50px 0 0 14px;
             flex-shrink: 0;
             align-self: stretch;
+            box-sizing: border-box;
         }
 
         .animon-icon-img {
-            width: 55px;
-            height: 55px;
+            width: 59px;
+            height: 59px;
             border-radius: 50%;
             object-fit: cover;
             background: transparent;
             margin-left: -3px;
+            flex-shrink: 0;
         }
 
         /* --- Ícones de Elementos --- */
