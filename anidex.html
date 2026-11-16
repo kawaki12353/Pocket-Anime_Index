@@ -178,7 +178,7 @@
 
         /* --- Lista de Animons --- */
         .animon-list {
-            max-width: 800px; /* Reduzido de 1200px para 800px para PC */
+            max-width: 800px;
             margin: 0 auto;
             display: flex; 
             flex-direction: column;
@@ -195,50 +195,60 @@
         }
 
         .card-header {
-            padding: 10px 14px;
+            padding: 12px 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between; 
-            gap: 10px;
+            gap: 15px;
         }
         .card-header:hover { background: var(--hover); }
 
-        /* Lado Esquerdo: ID e Nome */
-        .header-left {
+        /* Lado Esquerdo: ID, Nome e Elementos */
+        .header-main {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-top-row {
             display: flex;
             align-items: center;
             gap: 12px;
-            flex: 1;
-            min-width: 0; 
+            min-width: 0;
         }
 
-        /* Lado Direito: Elementos e Seta */
-        .header-right {
+        .animon-id {
+            font-weight: bold;
+            font-size: 16px;
+            opacity: 0.6;
+            min-width: 45px;
+        }
+
+        .header-top-row h3 { 
+            margin: 0; 
+            font-size: 18px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+
+        /* Lado Direito: Foto do Animon e Seta */
+        .header-right-side {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-shrink: 0;
         }
 
-        .animon-id {
-            font-weight: bold;
-            font-size: 16px;
-            opacity: 0.5;
-            min-width: 35px;
-        }
-
-        .animon-info {
-            min-width: 0;
-            flex: 1;
-        }
-
-        .animon-info h3 { 
-            margin: 0; 
-            font-size: 16px; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
+        .animon-icon-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: rgba(0, 0, 0, 0.05);
         }
 
         /* Coluna da Seta */
@@ -366,7 +376,7 @@
         @media (max-width: 768px) {
             .header-top { justify-content: flex-end; }
             .logo { width: 150px; }
-            .animon-list, .filters, .header { max-width: 100%; } /* Garante adaptação total no mobile */
+            .animon-list, .filters, .header { max-width: 100%; }
 
             /* --- Ajuste Mobile igual ao moves.html --- */
             .custom-select { max-width: 48%; }
@@ -515,16 +525,17 @@ function render() {
 
         card.innerHTML = `
             <div class="card-header">
-                <div class="header-left">
-                    <div class="animon-id">#${ani.id}</div>
-                    <div class="animon-info">
+                <div class="header-main">
+                    <div class="header-top-row">
+                        <div class="animon-id">#${ani.id}</div>
                         <h3>${ani.name}</h3>
                     </div>
-                </div>
-                <div class="header-right">
                     <div class="animon-elements">
                         ${elementsHtml}
                     </div>
+                </div>
+                <div class="header-right-side">
+                    <img src="assets/animons-icon/anidex/${ani.name.toLowerCase()}_icon.png" alt="${ani.name}" class="animon-icon-img" onerror="this.src='assets/sem_icone.png'">
                     <div class="arrow-column">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                     </div>
