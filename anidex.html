@@ -235,38 +235,29 @@
             text-overflow: ellipsis; 
         }
 
-        /* Lado Direito: Foto do Animon e Seta */
-        .header-right-side {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .animon-icon-img {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            object-fit: cover;
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        /* Coluna da Seta */
-        .arrow-column {
-            border-left: 1px solid var(--border);
-            padding-left: 10px;
+        /* Lado Direito: Fundo personalizado e Foto do Animon em Círculo */
+        .animon-image-container {
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 40px 12px 12px 12px;
+            padding: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text);
-            opacity: 0.5;
+            flex-shrink: 0;
         }
-        /* Ajuste da Rotação: Gira o SVG e não a coluna inteira */
-        .arrow-column svg {
-            transition: transform 0.3s ease;
+
+        @media (prefers-color-scheme: dark) {
+            .animon-image-container {
+                background: rgba(255, 255, 255, 0.08);
+            }
         }
-        .animon-card.active .arrow-column svg { 
-            transform: rotate(180deg); 
+
+        .animon-icon-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: transparent;
         }
 
         /* --- Ícones de Elementos --- */
@@ -534,11 +525,8 @@ function render() {
                         ${elementsHtml}
                     </div>
                 </div>
-                <div class="header-right-side">
+                <div class="animon-image-container">
                     <img src="assets/animons-icon/anidex/${ani.name.toLowerCase()}_icon.png" alt="${ani.name}" class="animon-icon-img" onerror="this.src='assets/sem_icone.png'">
-                    <div class="arrow-column">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                    </div>
                 </div>
             </div>
             <div class="details-container">
