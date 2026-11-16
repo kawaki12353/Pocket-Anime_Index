@@ -195,7 +195,7 @@
         }
 
         .card-header {
-            padding: 12px 16px;
+            padding: 0 0 0 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -211,6 +211,7 @@
             gap: 8px;
             flex: 1;
             min-width: 0;
+            padding: 12px 0;
         }
 
         .header-top-row {
@@ -235,26 +236,20 @@
             text-overflow: ellipsis; 
         }
 
-        /* Lado Direito: Fundo personalizado e Foto do Animon em Círculo */
-        .animon-image-container {
-            background: rgba(0, 0, 0, 0.08);
-            border-radius: 40px 12px 12px 12px;
-            padding: 6px;
+        /* Lado Direito: Fundo com a foto do Animon */
+        .header-right-side {
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(150, 150, 150, 0.15);
+            padding: 10px 14px;
+            border-radius: 50px 14px 14px 14px;
             flex-shrink: 0;
         }
 
-        @media (prefers-color-scheme: dark) {
-            .animon-image-container {
-                background: rgba(255, 255, 255, 0.08);
-            }
-        }
-
         .animon-icon-img {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             object-fit: cover;
             background: transparent;
@@ -525,7 +520,7 @@ function render() {
                         ${elementsHtml}
                     </div>
                 </div>
-                <div class="animon-image-container">
+                <div class="header-right-side">
                     <img src="assets/animons-icon/anidex/${ani.name.toLowerCase()}_icon.png" alt="${ani.name}" class="animon-icon-img" onerror="this.src='assets/sem_icone.png'">
                 </div>
             </div>
