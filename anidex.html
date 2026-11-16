@@ -195,12 +195,12 @@
         }
 
         .card-header {
-            padding: 0 0 0 16px;
+            padding: 0;
             cursor: pointer;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: space-between; 
-            gap: 15px;
+            gap: 0;
         }
         .card-header:hover { background: var(--hover); }
 
@@ -211,7 +211,7 @@
             gap: 8px;
             flex: 1;
             min-width: 0;
-            padding: 12px 0;
+            padding: 12px 16px;
         }
 
         .header-top-row {
@@ -242,9 +242,10 @@
             align-items: center;
             justify-content: center;
             background: rgba(150, 150, 150, 0.15);
-            padding: 10px 14px;
-            border-radius: 50px 14px 14px 14px;
+            padding: 0 16px;
+            border-radius: 50px 14px 0 0;
             flex-shrink: 0;
+            align-self: stretch;
         }
 
         .animon-icon-img {
@@ -448,7 +449,7 @@ const statsKeys = ["hp", "atk", "def", "spAtk", "spDef", "spd"];
 
 const statLabels = {
     pt: { id: "ID", hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" },
-    en: { id: "ID", hp: "HP", atk: "ATK", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" }
+    en: { id: "ID", hp: "HP", atk: "HP", def: "DEF", spAtk: "SP.ATK", spDef: "SP.DEF", spd: "SPD", total: "TOTAL" }
 };
 
 function render() {
