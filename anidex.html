@@ -212,7 +212,7 @@
             gap: 6px;
             flex: 1;
             min-width: 0;
-            padding: 11px 0;
+            padding: 10px 0;
             box-sizing: border-box;
         }
 
@@ -244,21 +244,20 @@
             align-items: center;
             justify-content: center;
             background: rgba(150, 150, 150, 0.15);
-            padding: 6px 16px;
-            border-radius: 45px 0 0 14px;
+            padding: 10px 14px;
+            border-radius: 50px 0 0 14px;
             flex-shrink: 0;
             align-self: stretch;
             box-sizing: border-box;
         }
 
         .animon-icon-img {
-            width: 62px;
-            height: 62px;
+            width: 71px;
+            height: 71px;
             border-radius: 50%;
             object-fit: cover;
             background: transparent;
-            position: relative;
-            left: -4px;
+            margin-left: -14px;
             flex-shrink: 0;
         }
 
@@ -528,7 +527,7 @@ function render() {
                     </div>
                 </div>
                 <div class="header-right-side">
-                    <img src="assets/animons-icon/anidex/${ani.name.toLowerCase().replace(/\s+/g, '_')}_icon.png" alt="${ani.name}" class="animon-icon-img" onerror="this.src='assets/sem_icone.png'">
+                    <img src="assets/animons-icon/anidex/${ani.name.toLowerCase()}_icon.png" alt="${ani.name}" class="animon-icon-img" onerror="this.src='assets/sem_icone.png'">
                 </div>
             </div>
             <div class="details-container">
