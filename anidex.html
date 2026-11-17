@@ -527,7 +527,7 @@ function render() {
                     </div>
                 </div>
                 <div class="header-right-side">
-                    <img src="assets/animons-icon/anidex/${ani.name.toLowerCase()}_icon.png" alt="${ani.name}" class="animon-icon-img" onerror="this.src='assets/sem_icone.png'">
+                    <img src="assets/animons-icon/anidex/${ani.name.toLowerCase().replace(/\s+/g, '_')}_icon.png" alt="${ani.name}" class="animon-icon-img" onerror="this.src='assets/sem_icone.png'">
                 </div>
             </div>
             <div class="details-container">
